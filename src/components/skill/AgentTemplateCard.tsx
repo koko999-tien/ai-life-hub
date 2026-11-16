@@ -85,6 +85,18 @@ export function AgentTemplateCard({ agent, skillName, className }: AgentTemplate
     toast.success('Đã tải xuống file .cursorrules!')
   }, [agent])
 
+  const handleDownloadClaudeMd = useCallback(() => {
+    const content = `# CLAUDE.md - ${agent.name}\n\n## Role & Mission\n${agent.description}\n\n## System Instructions\n${agent.systemPrompt}\n\n## Model Configuration\n- Preferred Model: ${agent.model || 'claude-3-5-sonnet-20241022'}\n- Temperature: ${agent.temperature ?? 0.2}\n- Tools: ${(agent.tools || []).join(', ') || 'N/A'}\n`
+    const blob = new Blob([content], { type: 'text/markdown' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `CLAUDE.md`
+    a.click()
+    URL.revokeObjectURL(url)
+    toast.success('Đã tải xuống file CLAUDE.md!')
+  }, [agent])
+
   const handleUseAgent = useCallback(async () => {
     await navigator.clipboard.writeText(agent.systemPrompt)
     toast.success('Đã copy System Prompt! Đang mở ChatGPT...')
@@ -226,6 +238,14 @@ export function AgentTemplateCard({ agent, skillName, className }: AgentTemplate
           >
             <Download className="w-4 h-4" aria-hidden="true" />
             <span>.cursorrules</span>
+          </button>
+          <button
+            onClick={handleDownloadClaudeMd}
+            className="px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5 text-xs"
+            title="Tải cấu hình Claude Code (CLAUDE.md)"
+          >
+            <Download className="w-4 h-4" aria-hidden="true" />
+            <span>CLAUDE.md</span>
           </button>
         </div>
       </div>

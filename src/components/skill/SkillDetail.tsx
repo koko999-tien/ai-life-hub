@@ -27,6 +27,7 @@ import { useState } from 'react'
 import { PromptCard } from './PromptCard'
 import { AgentTemplateCard } from './AgentTemplateCard'
 import { RelatedSkills } from './RelatedSkills'
+import { SkillReviews } from './SkillReviews'
 
 interface SkillDetailProps {
   skill: Skill
@@ -266,6 +267,9 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
           <RelatedSkills skills={relatedSkills} />
         </CollapsibleSection>
       )}
+
+      {/* Skill Reviews & Community Experience */}
+      <SkillReviews skillSlug={skill.slug} skillName={skill.name} />
 
       {/* Meta */}
       <footer className="pt-6 border-t border-slate-200 dark:border-slate-700">

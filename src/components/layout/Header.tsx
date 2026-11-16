@@ -10,7 +10,9 @@ import { clsx } from 'clsx'
 
 const navigation = [
   { name: 'Danh mục', href: '/categories' },
-  { name: 'Prompt Templates', href: '/prompts' },
+  { name: 'Prompts', href: '/prompts' },
+  { name: 'Playground', href: '/playground' },
+  { name: 'Workflows', href: '/workflows' },
   { name: 'Tài nguyên', href: '/resources' },
   { name: 'Yêu thích', href: '/favorites' },
   { name: 'Đóng góp', href: '/submit' },

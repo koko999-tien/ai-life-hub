@@ -4,10 +4,13 @@ import { clsx } from 'clsx'
 
 const footerLinks = {
   product: [
-    { name: 'Categories', href: '/categories' },
-    { name: 'Resources', href: '/resources' },
-    { name: 'Favorites', href: '/favorites' },
-    { name: 'Submit Tool', href: '/submit' },
+    { name: 'Tất cả danh mục', href: '/categories' },
+    { name: 'Prompt Templates', href: '/prompts' },
+    { name: 'AI Playground', href: '/playground' },
+    { name: 'Workflows & Pipelines', href: '/workflows' },
+    { name: 'Tài nguyên đã tuyển chọn', href: '/resources' },
+    { name: 'Mục yêu thích', href: '/favorites' },
+    { name: 'Đóng góp Prompt', href: '/submit' },
   ],
   company: [
     { name: 'About', href: '/about' },

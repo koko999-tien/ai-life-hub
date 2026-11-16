@@ -24,7 +24,7 @@ export function Hero() {
             vào công việc và cuộc sống hàng ngày. Từ người mới bắt đầu đến chuyên gia.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up stagger-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 animate-slide-up stagger-3">
             <Button size="lg" asChild>
               <a href="/category/prompt-engineering">
                 Bắt đầu ngay
@@ -32,7 +32,10 @@ export function Hero() {
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="/category">Xem danh mục</a>
+              <a href="/playground">Thử AI Playground</a>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <a href="/workflows">Khám phá Workflows</a>
             </Button>
           </div>
 
