@@ -1,0 +1,88 @@
+---
+id: system-prompt-mastery
+categoryId: prompt-engineering
+name: "System Prompt Mastery & Role Architecture"
+description: "Thiết kế System Prompt chuẩn mực cho AI Agent, định hình Persona, Guardrails, Output Rules và Memory Triggers"
+whenToUse:
+  - "Xây dựng AI chatbot hoặc Custom GPT cho doanh nghiệp / cá nhân"
+  - "Cần AI tuân thủ nghiêm ngặt định dạng JSON/Markdown hoặc không được hallucinate"
+  - "Tạo persona chuyên gia (Senior Engineer, Marketing Lead, Financial Advisor)"
+  - "Tối ưu hóa context window và giảm chi phí token"
+difficulty: "intermediate"
+estimatedTime: "15 phút thực hành"
+tags: ["prompt-engineering", "system-prompt", "persona", "ai-agent", "guardrails"]
+prompts:
+  - id: prompt-system-prompt-builder
+    name: "System Prompt Builder Siêu cấp"
+    description: "Tạo cấu trúc System Prompt 5 lớp chuyên nghiệp theo chuẩn OpenAI & Anthropic"
+    template: |
+      Bạn là Meta-Prompt Architect hàng đầu. Hãy thiết kế một System Prompt hoàn chỉnh, có cấu trúc chuẩn production cho vai trò: {{agentRole}}.
+
+      **Yêu cầu đầu vào:**
+      - Mục đích chính: {{agentObjective}}
+      - Đối tượng người dùng phục vụ: {{targetAudience}}
+      - Giọng văn (Tone): {{toneStyle}}
+      - Giới hạn / Điều cấm kỵ (Negative Constraints): {{constraints}}
+      - Định dạng đầu ra mong muốn: {{outputFormat}}
+
+      **Hãy xuất ra System Prompt theo cấu trúc 5 phần:**
+      1. **ROLE & IDENTITY**: Tuyên bố danh tính, thẩm quyền chuyên môn, triết lý hành động.
+      2. **CORE OBJECTIVES & WORKFLOW**: Các bước tư duy trước khi trả lời (Reasoning first).
+      3. **GUARDRAILS & NEGATIVE CONSTRAINTS**: Danh sách việc TUYỆT ĐỐI KHÔNG LÀM (Never hallucinate, never break format, refuse illegal tasks).
+      4. **FEW-SHOT EXAMPLES**: 2 ví dụ mẫu (User Query -> Expected Assistant Response).
+      5. **DYNAMIC RESPONSE FORMAT**: Mẫu format phản hồi chuẩn.
+    variables:
+      - name: agentRole
+        type: text
+        label: "Vai trò của AI (ví dụ: Senior Tech Lead, Chuyên gia phong cách viết content)"
+        required: true
+      - name: agentObjective
+        type: text
+        label: "Mục tiêu trọng tâm của AI"
+        required: true
+      - name: targetAudience
+        type: text
+        label: "Đối tượng phục vụ"
+        default: "Người đi làm và sinh viên"
+      - name: toneStyle
+        type: select
+        label: "Phong cách giao tiếp"
+        options:
+          - "Chuyên nghiệp, súc tích, thực tế"
+          - "Truyền cảm hứng, khuyến khích, thân thiện"
+          - "Nghiêm ngặt, kỹ thuật cao, không vòng vo"
+        default: "Chuyên nghiệp, súc tích, thực tế"
+      - name: constraints
+        type: text
+        label: "Ràng buộc / Những điều AI không được làm"
+        default: "Không bịa số liệu, không dài dòng, từ chối câu hỏi vi phạm pháp luật"
+      - name: outputFormat
+        type: select
+        label: "Định dạng đầu ra chính"
+        options:
+          - "Markdown với checklist và bullet points"
+          - "JSON Schema chặt chẽ"
+          - "Báo cáo phân tích chuyên sâu có bảng so sánh"
+        default: "Markdown với checklist và bullet points"
+agentTemplate:
+  name: "Production System Prompt Architect"
+  description: "Agent chuyên thiết kế và audit các System Prompt cho GPT-4o, Claude 3.5 Sonnet và Gemini 1.5 Pro"
+  tools: ["Markdown Validator", "Token Counter", "Few-shot Synthesizer"]
+  model: "claude-3-5-sonnet-20241022"
+  temperature: 0.2
+  systemPrompt: |
+    You are an elite Prompt Engineer and AI Alignment Architect.
+    Your mission is to construct robust, injection-resistant, high-precision system instructions.
+    Always prioritize clarity, boundary enforcement, and clear reasoning step sequences.
+---
+
+# System Prompt Mastery: Kiến trúc Persona & Guardrails cho AI
+
+Trong kỷ nguyên LLM (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro), **System Prompt** chính là "bộ gen" quyết định 80% chất lượng phản hồi của mô hình.
+
+## 1. Công thức 5 lớp của một System Prompt chuẩn Production
+1. **Role & Identity**: AI là ai, kinh nghiệm bao nhiêu năm, góc nhìn thế nào.
+2. **Context & Environment**: Bối cảnh làm việc, dữ liệu đi kèm.
+3. **Execution Steps**: Quy trình từng bước AI phải suy nghĩ (Chain of Thought ngầm).
+4. **Guardrails**: Ranh giới an toàn, những gì **cấm làm**.
+5. **Output Schema**: Định dạng trả về bắt buộc (JSON / Markdown / Code).

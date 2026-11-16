@@ -31,18 +31,18 @@ const socialLinks = [
 ]
 
 const categories = [
-  { name: 'Chat & Assistants', count: 42, icon: Brain, href: '/categories/chat-assistants' },
-  { name: 'Image Generation', count: 28, icon: Zap, href: '/categories/image-generation' },
-  { name: 'Video Generation', count: 15, icon: Code, href: '/categories/video-generation' },
-  { name: 'Audio & Voice', count: 19, icon: Globe, href: '/categories/audio-voice' },
-  { name: 'Code & Development', count: 35, icon: Code, href: '/categories/code-development' },
-  { name: 'Productivity', count: 31, icon: Zap, href: '/categories/productivity' },
-  { name: 'Writing & Content', count: 24, icon: BookOpen, href: '/categories/writing-content' },
-  { name: 'Design & Creative', count: 22, icon: Heart, href: '/categories/design-creative' },
-  { name: 'Data & Analytics', count: 18, icon: Brain, href: '/categories/data-analytics' },
-  { name: 'Marketing & SEO', count: 20, icon: Zap, href: '/categories/marketing-seo' },
-  { name: 'Learning & Education', count: 16, icon: BookOpen, href: '/categories/learning-education' },
-  { name: 'Research & Analysis', count: 14, icon: Shield, href: '/categories/research-analysis' },
+  { name: 'Prompt Engineering', count: 42, icon: Brain, href: '/category/prompt-engineering' },
+  { name: 'Học tập & Tự học', count: 28, icon: BookOpen, href: '/category/learning' },
+  { name: 'Lập trình & Kỹ thuật', count: 35, icon: Code, href: '/category/coding' },
+  { name: 'Viết lách & Content', count: 24, icon: Zap, href: '/category/writing' },
+  { name: 'Thiết kế & Sáng tạo', count: 22, icon: Heart, href: '/category/design' },
+  { name: 'Công việc & Career', count: 31, icon: Zap, href: '/category/work' },
+  { name: 'Tài chính & Đầu tư', count: 18, icon: Brain, href: '/category/finance' },
+  { name: 'Sức khỏe & Thể chất', count: 20, icon: Heart, href: '/category/health' },
+  { name: 'Nghiên cứu & Phân tích', count: 16, icon: Shield, href: '/category/research' },
+  { name: 'Side Project & Startup', count: 14, icon: Globe, href: '/category/sideproject' },
+  { name: 'Gia đình & Đời sống', count: 15, icon: Heart, href: '/category/family' },
+  { name: 'Tất cả danh mục', count: 16, icon: BookOpen, href: '/categories' },
 ]
 
 export function Footer() {

@@ -11,6 +11,7 @@ export const skills: Skill[] = [];
 const CONTENT_DIR = path.join(process.cwd(), 'src', 'content');
 
 const categoryAliasMap: Record<string, string> = {
+  'prompt-engineering': 'prompt-engineering',
   learning: 'hoc-tap',
   work: 'cong-viec',
   writing: 'viet-lach',
@@ -160,7 +161,13 @@ export async function getSkillsByCategory(categoryId: string): Promise<Skill[]> 
   const targetVi = categoryAliasMap[categoryId] || categoryId;
   const targetEn = reverseAliasMap[categoryId] || categoryId;
   return allSkills.filter(
-    (s) => s.categoryId === categoryId || s.categoryId === targetVi || s.categoryId === targetEn
+    (s) =>
+      s.categoryId === categoryId ||
+      s.categoryId === targetVi ||
+      s.categoryId === targetEn ||
+      (categoryId === 'prompt-engineering' &&
+        (s.tags?.some((t) => t.includes('prompt') || t.includes('cot') || t.includes('agent')) ||
+          (s.prompts && s.prompts.length > 0)))
   );
 }
 
@@ -205,7 +212,12 @@ export async function getResourcesByCategory(categoryId: string): Promise<Resour
   const targetVi = categoryAliasMap[categoryId] || categoryId;
   const targetEn = reverseAliasMap[categoryId] || categoryId;
   return allResources.filter(
-    (r) => r.categoryId === categoryId || r.categoryId === targetVi || r.categoryId === targetEn
+    (r) =>
+      r.categoryId === categoryId ||
+      r.categoryId === targetVi ||
+      r.categoryId === targetEn ||
+      (categoryId === 'prompt-engineering' &&
+        r.tags?.some((t) => t.includes('prompt') || t.includes('llm') || t.includes('ai')))
   );
 }
 

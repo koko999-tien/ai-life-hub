@@ -1,0 +1,62 @@
+---
+id: chain-of-thought-reasoning
+categoryId: prompt-engineering
+name: "Chain-of-Thought & Reasoning Architectures"
+description: "Kỹ thuật kích hoạt suy luận đa bước (CoT, Tree-of-Thoughts, Self-Consistency) giải quyết bài toán phức tạp"
+whenToUse:
+  - "Giải bài toán logic, toán học, lập trình thuật toán phức tạp"
+  - "Debug bug ẩn trong kiến trúc microservice hoặc smart contract"
+  - "Phân tích tài chính, đưa ra quyết định kinh doanh có nhiều biến số"
+  - "Hạn chế tối đa hallucination khi phân tích tài liệu dài"
+difficulty: "intermediate"
+estimatedTime: "20 phút học & thực hành"
+tags: ["prompt-engineering", "cot", "reasoning", "tree-of-thought", "logic"]
+prompts:
+  - id: prompt-cot-reasoning
+    name: "CoT Problem Solver 5 Bước"
+    description: "Bắt buộc LLM suy nghĩ từng bước trước khi kết luận"
+    template: |
+      Hãy giải quyết bài toán phức tạp sau bằng phương pháp suy luận từng bước (Chain-of-Thought).
+
+      **Bài toán cần xử lý:**
+      {{problemDescription}}
+
+      **Dữ liệu / Ràng buộc đã biết:**
+      {{knownConstraints}}
+
+      **Mục tiêu kết quả:**
+      {{desiredOutcome}}
+
+      **Quy trình giải quyết bắt buộc:**
+      - **Bước 1 (Decomposition)**: Bóc tách bài toán thành 3-4 câu hỏi nhỏ cốt lõi.
+      - **Bước 2 (Hypothesis & Testing)**: Đưa ra 2 giả thuyết giải quyết và phản biện từng giả thuyết.
+      - **Bước 3 (Step-by-step Execution)**: Thực thi tính toán / lập luận chi tiết.
+      - **Bước 4 (Sanity Check)**: Kiểm tra lại các trường hợp biên (edge cases) và lỗi tiềm ẩn.
+      - **Bước 5 (Final Answer)**: Kết luận súc tích, kèm lời khuyên hành động cụ thể.
+    variables:
+      - name: problemDescription
+        type: text
+        label: "Mô tả bài toán hoặc vấn đề hóc búa"
+        required: true
+      - name: knownConstraints
+        type: text
+        label: "Các điều kiện biên, dữ liệu đầu vào hoặc ràng buộc"
+        default: "Thời gian có hạn, cần tối ưu độ phức tạp thuật toán O(n)"
+      - name: desiredOutcome
+        type: text
+        label: "Kết quả mong đợi đạt được"
+        default: "Phương án tối ưu kèm code minh họa"
+agentTemplate:
+  name: "Deep Reasoning Engine"
+  description: "Agent chuyên phân tích đa chiều bằng Tree-of-Thoughts và Self-Consistency Verification"
+  tools: ["Python Sandbox", "Step Verifier", "Hypothesis Tester"]
+  model: "gpt-4o"
+  temperature: 0.1
+  systemPrompt: |
+    You are an analytical powerhouse specializing in rigorous Chain-of-Thought deduction.
+    Never jump to conclusions. Always expose intermediate thinking steps and stress-test assumptions.
+---
+
+# Chain-of-Thought (CoT) & Kỹ thuật Suy luận Đa bước
+
+CoT biến đổi một câu trả lời nông cạn thành một chuỗi lập luận logic sâu sắc, giảm đến 70% tỉ lệ ảo giác của LLM.

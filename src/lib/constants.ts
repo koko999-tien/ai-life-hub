@@ -2,6 +2,13 @@ import type { Category, DifficultyLevel, PromptDifficulty, ResourceType, Variabl
 
 export const CATEGORIES: Omit<Category, 'skillCount' | 'promptCount' | 'agentCount' | 'resourceCount' | 'slug'>[] = [
   {
+    id: 'prompt-engineering',
+    name: 'Prompt Engineering & AI',
+    description: 'Nghệ thuật & kỹ thuật viết prompt: System Prompts, Chain-of-Thought, RAG, Few-Shot và Agent Templates',
+    icon: 'Sparkles',
+    color: '#8B5CF6',
+  },
+  {
     id: 'learning',
     name: 'Học tập & Phát triển bản thân',
     description: 'Học nhanh hơn, nhớ lâu hơn, áp dụng vào đời thực',

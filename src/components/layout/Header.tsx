@@ -9,8 +9,9 @@ import { CommandPaletteTrigger } from './CommandPaletteTrigger'
 import { clsx } from 'clsx'
 
 const navigation = [
-  { name: 'Categories', href: '/categories' },
-  { name: 'Resources', href: '/resources' },
+  { name: 'Danh mục', href: '/categories' },
+  { name: 'Prompt Templates', href: '/prompts' },
+  { name: 'Tài nguyên', href: '/resources' },
 ]
 
 export function Header() {
