@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, TextareaHTMLAttributes, useState, useEffect } from 'react';
+import { forwardRef, TextareaHTMLAttributes, useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -15,12 +15,22 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, error, hint, showCount = false, maxLength, className, id, ...props }, ref) => {
     const textareaId = id || label?.toLowerCase().replace(/\s+/g, '-');
     const [count, setCount] = useState(0);
+    const innerRef = useRef<HTMLTextAreaElement | null>(null);
+
+    const setRefs = (node: HTMLTextAreaElement | null) => {
+      innerRef.current = node;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    };
 
     useEffect(() => {
-      if (ref.current) {
-        setCount(ref.current.value.length);
+      if (innerRef.current) {
+        setCount(innerRef.current.value.length);
       }
-    }, [ref]);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setCount(e.target.value.length);
@@ -36,7 +46,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         <div className="relative">
           <textarea
-            ref={ref}
+            ref={setRefs}
             id={textareaId}
             onChange={handleChange}
             className={cn(

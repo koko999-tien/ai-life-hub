@@ -2,9 +2,8 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Copy, Check, ExternalLink, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, toast } from '@/components/ui';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/components/ui';
 
 interface Prompt {
   id: string;
@@ -153,7 +152,6 @@ export function FeaturedPrompts() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardsPerView = typeof window !== 'undefined' ? (window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1) : 3;
-  const { addToast } = useToast();
 
   useEffect(() => {
     const handleResize = () => {
@@ -178,7 +176,7 @@ export function FeaturedPrompts() {
   const copyPrompt = async (prompt: string, id: string) => {
     await navigator.clipboard.writeText(prompt);
     setCopiedId(id);
-    addToast('success', 'Đã sao chép prompt!');
+    toast.success('Đã sao chép prompt!');
     setTimeout(() => setCopiedId(null), 2000);
   };
 

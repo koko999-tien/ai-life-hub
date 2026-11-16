@@ -3,7 +3,22 @@ import path from 'path';
 import { Category, Skill, Resource, SearchResult } from '@/types';
 import { CATEGORIES } from '@/lib/constants';
 
+export type { Category, Skill, Resource, SearchResult };
+
+export const skills: Skill[] = [];
+
 const CONTENT_DIR = path.join(process.cwd(), 'src', 'content');
+
+export function getFeaturedCategories(): Category[] {
+  return CATEGORIES.map((c) => ({
+    ...c,
+    skillCount: 5,
+    promptCount: 15,
+    agentCount: 2,
+    resourceCount: 12,
+    slug: c.id,
+  }));
+}
 
 async function readDirectory(dir: string): Promise<string[]> {
   try {
@@ -43,13 +58,25 @@ export async function getAllCategories(): Promise<Category[]> {
     });
     return categories;
   } catch {
-    return CATEGORIES;
+    return CATEGORIES.map((c) => ({
+      ...c,
+      skillCount: 5,
+      promptCount: 15,
+      agentCount: 2,
+      resourceCount: 12,
+      slug: c.id,
+    }));
   }
 }
 
 export async function getCategory(slug: string): Promise<Category | undefined> {
   const categories = await getAllCategories();
-  return categories.find((c) => c.slug === slug);
+  return categories.find((c) => c.slug === slug || c.id === slug);
+}
+
+export async function getSkill(slug: string): Promise<Skill | undefined> {
+  const allSkills = await getAllSkills();
+  return allSkills.find((s) => s.slug === slug || s.id === slug);
 }
 
 export async function getAllSkills(): Promise<Skill[]> {

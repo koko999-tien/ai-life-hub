@@ -1,13 +1,37 @@
 'use client';
 
-import { useState } from 'react';
-import { getAllResources, Resource } from '@/lib/data';
-import { ExternalLink, Filter } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import type { Resource } from '@/types';
+import { ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui';
 
 export default function ResourcesPage() {
   const [selectedType, setSelectedType] = useState<string>('all');
-  const allResources = getAllResources();
+  const [allResources, setAllResources] = useState<Resource[]>([]);
+
+  useEffect(() => {
+    fetch('/search-index.json')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.documents) {
+          const resDocs = data.documents
+            .filter((d: any) => d.type === 'resource')
+            .map((d: any) => ({
+              id: d.id.replace('resource:', ''),
+              type: d.resourceType || 'tool',
+              title: d.title,
+              description: d.content || d.description || '',
+              url: d.url || '#',
+              source: '',
+              free: true,
+              language: 'vi' as const,
+              tags: d.tags || [],
+            }));
+          setAllResources(resDocs);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const filtered = selectedType === 'all' 
     ? allResources 
@@ -24,7 +48,7 @@ export default function ResourcesPage() {
         {['all', 'article', 'video', 'course', 'tool', 'paper', 'template'].map(type => (
           <Button
             key={type}
-            variant={selectedType === type ? 'default' : 'outline'}
+            variant={selectedType === type ? 'primary' : 'outline'}
             onClick={() => setSelectedType(type)}
             size="sm"
             className="capitalize whitespace-nowrap"

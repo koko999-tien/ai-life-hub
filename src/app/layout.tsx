@@ -76,7 +76,6 @@ export const metadata: Metadata = {
     creator: '@ailifehub',
   },
   category: 'technology',
-  colorScheme: 'light dark',
 };
 
 export const viewport: Viewport = {
@@ -84,6 +83,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
   ],
+  colorScheme: 'light dark',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -95,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" class={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="vi" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

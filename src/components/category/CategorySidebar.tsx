@@ -94,7 +94,7 @@ export function CategorySidebar({
                   'focus:border-transparent',
                   'transition-colors duration-150'
                 )}
-                style={{ '--focus-ring-color': currentCategory.color }}
+                style={{ '--focus-ring-color': currentCategory.color } as React.CSSProperties}
                 aria-label="Filter by difficulty level"
               >
                 <option value="">All Levels</option>

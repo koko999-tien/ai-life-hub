@@ -47,11 +47,11 @@ function TagItem({ tag }: { tag: string }) {
   )
 }
 
-function IconWrapper({ iconName }: { iconName: string }) {
-  const Icon = ICON_COMPONENTS[iconName as keyof typeof ICON_COMPONENTS] as
+function IconWrapper({ iconName, className = 'w-5 h-5' }: { iconName: string; className?: string }) {
+  const Icon = (ICON_COMPONENTS as any)[iconName] as
     | LucideIcon
     | undefined
-  return Icon ? <Icon className="w-5 h-5" aria-hidden="true" /> : null
+  return Icon ? <Icon className={className} aria-hidden="true" /> : null
 }
 
 export function SkillCard({
@@ -156,7 +156,7 @@ export function SkillCard({
             )}
             <span className="flex items-center gap-1">
               <Copy className="w-4 h-4" aria-hidden="true" />
-              {skill.copiedCount ?? 0} copies
+              {(skill as any).copiedCount ?? 0} copies
             </span>
           </div>
         </div>

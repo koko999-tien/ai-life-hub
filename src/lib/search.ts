@@ -77,7 +77,7 @@ export async function searchDocuments(
   for (const doc of documents) {
     const title = doc.title.toLowerCase();
     const content = doc.content.toLowerCase();
-    const tagsStr = doc.tags.map((t) => t.toLowerCase());
+    const tagsStr = (doc.tags || []).map((t) => t.toLowerCase());
 
     let score = 0;
     const queryLower = query.toLowerCase();
@@ -97,14 +97,20 @@ export async function searchDocuments(
     }
 
     // Tag match
-    for (const tag of tags) {
-      if (tagsStr.includes(tag.toLowerCase())) {
-        score += 5;
+    if (tags) {
+      for (const tag of tags) {
+        if (tagsStr.includes(tag.toLowerCase())) {
+          score += 5;
+        }
       }
     }
 
     if (score > 0) {
-      results.push({ ...doc, score });
+      results.push({
+        ...doc,
+        description: doc.content ? doc.content.slice(0, 160) : '',
+        score,
+      });
     }
   }
 

@@ -24,6 +24,7 @@ export interface SearchIndex {
   version: string;
   createdAt: string;
   documents: SearchDocument[];
+  index?: any;
 }
 
 export interface SearchFilters {

@@ -47,7 +47,7 @@ function logInfo(message: string): void {
 
 const variableTypeSchema = z.enum(['text', 'textarea', 'select', 'multiselect', 'number', 'date']);
 const difficultySchema = z.enum(['beginner', 'intermediate', 'advanced']);
-const promptDifficultySchema = z.enum(['easy', 'medium', 'advanced']);
+const promptDifficultySchema = z.enum(['easy', 'medium', 'advanced', 'beginner', 'intermediate']);
 const resourceTypeSchema = z.enum(['course', 'paper', 'article', 'video', 'tool', 'newsletter', 'glossary']);
 const languageSchema = z.enum(['vi', 'en', 'both']);
 
@@ -56,21 +56,13 @@ const promptVariableSchema = z.object({
   type: variableTypeSchema,
   label: z.string().min(1, 'Label is required'),
   description: z.string().optional(),
-  required: z.boolean(),
-  default: z.string().optional(),
-  options: z.array(z.string()).optional(),
-}).refine(
-  (data) => {
-    if (['select', 'multiselect'].includes(data.type) && (!data.options || data.options.length === 0)) {
-      return false;
-    }
-    return true;
-  },
-  { message: 'Select/multiselect types require options array' }
-);
+  required: z.boolean().default(false),
+  default: z.any().optional(),
+  options: z.array(z.any()).optional(),
+});
 
 const promptExampleSchema = z.object({
-  inputs: z.record(z.string()),
+  inputs: z.record(z.any()),
   output: z.string().min(1, 'Example output is required'),
   context: z.string().optional(),
 });
@@ -120,7 +112,7 @@ const skillSchema = z.object({
   author: z.string().optional(),
   source: z.string().optional(),
   version: z.string().default('1.0.0'),
-  updatedAt: z.string().datetime().optional(),
+  updatedAt: z.string().optional(),
 });
 
 const resourceSchema = z.object({
@@ -150,11 +142,14 @@ const skillIds = new Set<string>();
 const skillSlugs = new Map<string, string>(); // slug -> file
 const promptIds = new Set<string>();
 const resourceIds = new Set<string>();
-const categoryIds = new Set(['learning', 'work', 'writing', 'coding', 'design', 'finance', 'health', 'family', 'travel', 'home', 'parenting', 'legal', 'sideproject', 'research', 'entertainment']);
+const categoryIds = new Set([
+  'learning', 'work', 'writing', 'coding', 'design', 'finance', 'health', 'family', 'travel', 'home', 'parenting', 'legal', 'sideproject', 'research', 'entertainment',
+  'hoc-tap', 'cong-viec', 'viet-lach', 'lap-trinh', 'thiet-ke', 'tai-chinh', 'suc-khoe', 'gia-dinh', 'du-lich', 'nha-cua', 'giao-duc-con', 'phap-ly', 'side-project', 'nghien-cuu', 'giai-tri'
+]);
 
 async function validateSkills(): Promise<void> {
   logInfo('Validating skills...');
-  const pattern = path.join(SKILLS_DIR, '**', '*.mdx');
+  const pattern = path.join(SKILLS_DIR, '**', '*.mdx').replace(/\\/g, '/');
   const files = await glob(pattern, { absolute: true });
 
   if (files.length === 0) {
@@ -227,7 +222,7 @@ async function validateSkills(): Promise<void> {
 
 async function validateResources(): Promise<void> {
   logInfo('Validating resources...');
-  const pattern = path.join(RESOURCES_DIR, '**', '*.mdx');
+  const pattern = path.join(RESOURCES_DIR, '**', '*.mdx').replace(/\\/g, '/');
   const files = await glob(pattern, { absolute: true });
 
   if (files.length === 0) {

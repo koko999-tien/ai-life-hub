@@ -13,6 +13,13 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   shape?: 'circle' | 'square';
 }
 
+const sizeStyles = {
+  sm: 'h-8 w-8 text-xs',
+  md: 'h-10 w-10 text-sm',
+  lg: 'h-12 w-12 text-base',
+  xl: 'h-16 w-16 text-lg',
+};
+
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
   (
     {
@@ -120,9 +127,9 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
       <div ref={ref} className={cn('flex', className)} {...props}>
         {visibleChildren.map((child, index) =>
           React.isValidElement(child) ? (
-            React.cloneElement(child, {
+            React.cloneElement(child as React.ReactElement<any>, {
               key: child.key || index,
-              className={cn(child.props.className, index > 0 && overlapStyles[size])},
+              className: cn((child.props as any)?.className, index > 0 && overlapStyles[size]),
               size,
             })
           ) : null
@@ -132,7 +139,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
             className={cn(
               'flex items-center justify-center font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 border-2 border-white dark:border-gray-900',
               sizeStyles[size],
-              shapeStyles,
+              'rounded-full',
               overlapStyles[size]
             )}
             aria-label={`${remainingCount} người khác`}

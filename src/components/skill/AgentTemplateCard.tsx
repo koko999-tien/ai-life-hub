@@ -4,7 +4,7 @@ import { AgentTemplate } from '@/types'
 import { cn } from '@/lib/utils'
 import {
   Bot,
-  CPU,
+  Cpu,
   Thermometer,
   FileText,
   Copy,
@@ -35,7 +35,7 @@ function ModelBadge({ model, temperature }: { model?: string; temperature?: numb
     <div className="flex items-center gap-3 flex-wrap text-sm">
       {model && (
         <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
-          <CPU className="w-3.5 h-3.5" aria-hidden="true" />
+          <Cpu className="w-3.5 h-3.5" aria-hidden="true" />
           <span className="font-mono font-medium">{model}</span>
         </span>
       )}

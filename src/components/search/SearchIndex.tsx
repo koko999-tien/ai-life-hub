@@ -5,7 +5,7 @@ import type { SearchIndex as SearchIndexType, SearchDocument, SearchResult } fro
 
 interface SearchIndexProps {
   onIndexLoaded?: (index: SearchIndexType) => void;
-  children?: React.ReactNode;
+  children?: React.ReactNode | ((props: { index: SearchIndexType | null; isLoading: boolean; error: string | null }) => React.ReactNode);
 }
 
 interface UseSearchIndexReturn {
@@ -38,7 +38,8 @@ async function loadSearchIndex(): Promise<SearchIndexType> {
 async function initializeLunr(indexData: SearchIndexType) {
   if (lunrIndex) return lunrIndex;
 
-  const lunr = await import('lunr');
+  const lunrModule = await import('lunr');
+  const lunr = (lunrModule as any).default || lunrModule;
   
   lunrIndex = lunr(function (this: any) {
     this.ref('id');
@@ -100,7 +101,7 @@ export function useSearchIndex(): UseSearchIndexReturn {
       const docMap = new Map(searchIndexData.documents.map(d => [d.id, d]));
 
       return results
-        .map(r => {
+        .map((r: any) => {
           const doc = docMap.get(r.ref);
           if (!doc) return null;
           const boost = doc.boost || 1;
@@ -110,8 +111,8 @@ export function useSearchIndex(): UseSearchIndexReturn {
             matchedFields: r.matchData.metadata ? Object.keys(r.matchData.metadata) : [],
           } as SearchResult;
         })
-        .filter((r): r is SearchResult => r !== null)
-        .sort((a, b) => b.score - a.score);
+        .filter((r: SearchResult | null): r is SearchResult => r !== null)
+        .sort((a: SearchResult, b: SearchResult) => b.score - a.score);
     } catch {
       return [];
     }
@@ -130,7 +131,7 @@ export function SearchIndex({ onIndexLoaded, children }: SearchIndexProps) {
   }, [index, onIndexLoaded]);
 
   if (children) {
-    return children({ index, isLoading, error });
+    return typeof children === 'function' ? <>{children({ index, isLoading, error })}</> : <>{children}</>;
   }
 
   return null;
@@ -154,7 +155,7 @@ export async function searchDocuments(query: string): Promise<SearchResult[]> {
   const docMap = new Map(data.documents.map(d => [d.id, d]));
 
   return results
-    .map(r => {
+    .map((r: any) => {
       const doc = docMap.get(r.ref);
       if (!doc) return null;
       const boost = doc.boost || 1;
@@ -164,6 +165,6 @@ export async function searchDocuments(query: string): Promise<SearchResult[]> {
         matchedFields: r.matchData.metadata ? Object.keys(r.matchData.metadata) : [],
       } as SearchResult;
     })
-    .filter((r): r is SearchResult => r !== null)
-    .sort((a, b) => b.score - a.score);
+    .filter((r: SearchResult | null): r is SearchResult => r !== null)
+    .sort((a: SearchResult, b: SearchResult) => b.score - a.score);
 }

@@ -109,7 +109,7 @@ function stripMarkdown(markdown: string): string {
 }
 
 async function loadSkills(): Promise<Array<{ skill: SkillFrontMatter; slug: string; content: string }>> {
-  const pattern = path.join(SKILLS_DIR, '**', '*.mdx');
+  const pattern = path.join(SKILLS_DIR, '**', '*.mdx').replace(/\\/g, '/');
   const files = await glob(pattern, { absolute: true });
 
   const results = [];
@@ -137,7 +137,7 @@ async function loadSkills(): Promise<Array<{ skill: SkillFrontMatter; slug: stri
 }
 
 async function loadResources(): Promise<Array<{ resource: ResourceFrontMatter; slug: string }>> {
-  const pattern = path.join(RESOURCES_DIR, '**', '*.mdx');
+  const pattern = path.join(RESOURCES_DIR, '**', '*.mdx').replace(/\\/g, '/');
   const files = await glob(pattern, { absolute: true });
 
   const results = [];
@@ -178,7 +178,7 @@ function buildSearchDocuments(
       title: cat.name,
       content: cat.description,
       tags: [cat.id],
-      url: `/categories/${cat.slug}`,
+      url: `/categories/${cat.id}`,
       boost: 10,
     });
   });
@@ -211,7 +211,7 @@ function buildSearchDocuments(
         content: `${prompt.description || ''} ${prompt.template || ''} ${variableLabels} ${useCases} ${exampleOutputs}`,
         categoryId: skill.categoryId,
         skillId: skill.id,
-        tags: [...(skill.tags || []), ...(prompt.tags || [])],
+        tags: [...(skill.tags || []), ...(((prompt as any).tags as string[]) || [])],
         url: `/skills/${slug}#prompt-${prompt.id}`,
         boost: 6,
       });

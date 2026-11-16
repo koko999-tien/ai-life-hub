@@ -23,9 +23,9 @@ const iconMap: Record<string, keyof typeof LucideIcons> = {
   Gamepad2: 'Gamepad2',
 };
 
-function getIconComponent(iconName: string) {
+function getIconComponent(iconName: string): React.ComponentType<{ className?: string }> {
   const key = iconMap[iconName] || 'BookOpen';
-  return LucideIcons[key];
+  return ((LucideIcons as any)[key] || LucideIcons.BookOpen) as React.ComponentType<{ className?: string }>;
 }
 
 function getColorClass(color: string) {

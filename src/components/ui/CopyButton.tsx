@@ -30,7 +30,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(
   ) => {
     const [copied, setCopied] = useState(false);
 
-    const handleCopy = useCallback(async () => {
+    const handleCopy = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
       if (disabled) return;
       try {
         await navigator.clipboard.writeText(text);
@@ -40,7 +40,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(
       } catch {
         toast.error('Không thể sao chép');
       }
-      onClick?.();
+      onClick?.(e);
     }, [text, disabled, successMessage, onClick]);
 
     const baseStyles = 'inline-flex items-center justify-center gap-1.5 transition-colors';

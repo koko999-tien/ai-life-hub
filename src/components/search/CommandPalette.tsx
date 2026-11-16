@@ -317,32 +317,35 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                     acc[result.type].push(result);
                     return acc;
                   }, {} as Record<string, SearchResult[]>)
-                ).map(([type, items]) => (
-                  <div key={type} className="mb-4">
-                    <h3 className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                      <TYPE_ICONS[type as keyof typeof TYPE_ICONS] className={cn('h-4 w-4', TYPE_COLORS[type as keyof typeof TYPE_COLORS])} aria-hidden="true" />
-                      {TYPE_LABELS[type as keyof typeof TYPE_LABELS]} ({items.length})
-                    </h3>
-                    <div className="space-y-1 px-2 pb-2" role="listbox">
-                      {items.map((result, i) => {
-                        const globalIndex = results.indexOf(result);
-                        const isSelected = globalIndex === selectedIndex;
-                        return (
-                          <button
-                            key={result.id}
-                            onClick={() => handleResultClick(result)}
-                            onMouseEnter={() => setSelectedIndex(globalIndex)}
-                            className={cn(
-                              'w-full flex items-start gap-3 px-3 py-2.5 rounded-lg text-left transition-colors',
-                              isSelected
-                                ? 'bg-brand-50 dark:bg-brand-900/30 text-gray-900 dark:text-white'
-                                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                            )}
-                            role="option"
-                            aria-selected={isSelected}
-                            id={`result-${result.id}`}
-                          >
-                            <TYPE_ICONS[result.type] className={cn('h-5 w-5 flex-shrink-0 mt-0.5', TYPE_COLORS[result.type])} aria-hidden="true" />
+                ).map(([type, items]) => {
+                  const TypeIcon = TYPE_ICONS[type as keyof typeof TYPE_ICONS];
+                  return (
+                    <div key={type} className="mb-4">
+                      <h3 className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                        {TypeIcon && <TypeIcon className={cn('h-4 w-4', TYPE_COLORS[type as keyof typeof TYPE_COLORS])} aria-hidden="true" />}
+                        {TYPE_LABELS[type as keyof typeof TYPE_LABELS]} ({items.length})
+                      </h3>
+                      <div className="space-y-1 px-2 pb-2" role="listbox">
+                        {items.map((result, i) => {
+                          const globalIndex = results.indexOf(result);
+                          const isSelected = globalIndex === selectedIndex;
+                          const ResultIcon = TYPE_ICONS[result.type as keyof typeof TYPE_ICONS];
+                          return (
+                            <button
+                              key={result.id}
+                              onClick={() => handleResultClick(result)}
+                              onMouseEnter={() => setSelectedIndex(globalIndex)}
+                              className={cn(
+                                'w-full flex items-start gap-3 px-3 py-2.5 rounded-lg text-left transition-colors',
+                                isSelected
+                                  ? 'bg-brand-50 dark:bg-brand-900/30 text-gray-900 dark:text-white'
+                                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                              )}
+                              role="option"
+                              aria-selected={isSelected}
+                              id={`result-${result.id}`}
+                            >
+                              {ResultIcon && <ResultIcon className={cn('h-5 w-5 flex-shrink-0 mt-0.5', TYPE_COLORS[result.type as keyof typeof TYPE_COLORS])} aria-hidden="true" />}
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
                                 <Highlight text={result.title} query={query} className="font-medium" />
@@ -373,7 +376,8 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                       })}
                     </div>
                   </div>
-                ))}
+                );
+              })}
               </div>
             )}
           </div>

@@ -7,7 +7,7 @@ export { Modal, ConfirmModal } from './Modal';
 export { Dropdown } from './Dropdown';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 export { Tooltip } from './Tooltip';
-export { ToastProvider, useToast } from './Toast';
+export { ToastProvider, useToast, toast } from './Toast';
 export { CopyButton } from './CopyButton';
 export { ThemeToggle } from './ThemeToggle';
 export { Badge } from './Badge';

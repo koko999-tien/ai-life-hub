@@ -1,37 +1,42 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Search, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui';
-import { getAllSkills, getAllResources, Skill, Resource } from '@/lib/data';
+import { searchDocuments, type SearchResult } from '@/lib/search';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') || '');
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [resources, setResources] = useState<Resource[]>([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    // Simulate API search
-    const timer = setTimeout(() => {
-      const allSkills = getAllSkills();
-      const allResources = getAllResources();
-      
-      if (!query.trim()) {
-        setSkills([]);
-        setResources([]);
-      } else {
-        const q = query.toLowerCase();
-        setSkills(allSkills.filter(s => s.name.toLowerCase().includes(q) || s.description.toLowerCase().includes(q)));
-        setResources(allResources.filter(r => r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q)));
-      }
+    if (!query.trim()) {
+      setResults([]);
       setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    const timer = setTimeout(async () => {
+      try {
+        const searchRes = await searchDocuments(query);
+        setResults(searchRes);
+      } catch {
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
     }, 300);
+
     return () => clearTimeout(timer);
   }, [query]);
+
+  const skills = results.filter((r) => r.type === 'skill');
+  const resources = results.filter((r) => r.type === 'resource');
+  const otherResults = results.filter((r) => r.type !== 'skill' && r.type !== 'resource');
 
   return (
     <div className="container py-12">
@@ -56,27 +61,41 @@ export default function SearchPage() {
           <section>
             <h2 className="heading-4 mb-4">Kỹ năng ({skills.length})</h2>
             <div className="space-y-4">
-              {skills.map(skill => (
-                <a key={skill.slug} href={`/skill/${skill.slug}`} className="card p-4 block hover:border-primary/20">
-                  <h3 className="font-medium">{skill.name}</h3>
+              {skills.map((skill) => (
+                <a key={skill.id} href={skill.url} className="card p-4 block hover:border-primary/20">
+                  <h3 className="font-medium">{skill.title}</h3>
                   <p className="text-sm text-muted-foreground">{skill.description}</p>
                 </a>
               ))}
+              {skills.length === 0 && query && (
+                <p className="text-sm text-muted-foreground">Không tìm thấy kỹ năng nào.</p>
+              )}
             </div>
           </section>
           <section>
             <h2 className="heading-4 mb-4">Tài nguyên ({resources.length})</h2>
             <div className="space-y-4">
-              {resources.map(res => (
+              {resources.map((res) => (
                 <a key={res.id} href={res.url} target="_blank" rel="noopener noreferrer" className="card p-4 block hover:border-primary/20">
                   <h3 className="font-medium">{res.title}</h3>
                   <p className="text-sm text-muted-foreground">{res.description}</p>
                 </a>
               ))}
+              {resources.length === 0 && query && (
+                <p className="text-sm text-muted-foreground">Không tìm thấy tài nguyên nào.</p>
+              )}
             </div>
           </section>
         </div>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="container py-12">Đang tải...</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }

@@ -1,15 +1,16 @@
 'use client';
 
-import { forwardRef, ButtonHTMLAttributes } from 'react';
+import React, { forwardRef, ButtonHTMLAttributes, cloneElement, isValidElement } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'icon';
   loading?: boolean;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
   fullWidth?: boolean;
+  asChild?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -22,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       iconLeft,
       iconRight,
       fullWidth = false,
+      asChild = false,
       className,
       disabled,
       ...props
@@ -42,14 +44,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       sm: 'px-3 py-1.5 text-sm gap-1.5',
       md: 'px-4 py-2.5 text-sm gap-2',
       lg: 'px-6 py-3 text-base gap-2.5',
+      icon: 'p-2 text-sm gap-0',
     };
 
     const widthStyles = fullWidth ? 'w-full' : '';
+    const combinedClassName = cn(baseStyles, variantStyles[variant], sizeStyles[size], widthStyles, className);
+
+    if (asChild && isValidElement(children)) {
+      return cloneElement(children as React.ReactElement<any>, {
+        className: cn(combinedClassName, (children.props as any)?.className),
+        ...props,
+      });
+    }
 
     return (
       <button
         ref={ref}
-        className={cn(baseStyles, variantStyles[variant], sizeStyles[size], widthStyles, className)}
+        className={combinedClassName}
         disabled={disabled || loading}
         aria-busy={loading}
         {...props}

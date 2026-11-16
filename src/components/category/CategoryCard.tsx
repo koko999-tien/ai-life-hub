@@ -7,9 +7,9 @@ import { clsx } from 'clsx';
 
 type IconName = keyof typeof ICON_COMPONENTS;
 
-function getIconComponent(iconName: string) {
+function getIconComponent(iconName: string): React.ComponentType<{ className?: string; strokeWidth?: number }> {
   const componentName = ICON_COMPONENTS[iconName as IconName] as keyof typeof LucideIcons;
-  return LucideIcons[componentName] || LucideIcons.HelpCircle;
+  return ((LucideIcons as any)[componentName] || LucideIcons.HelpCircle) as React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }
 
 export interface CategoryCardProps {

@@ -1,3 +1,5 @@
+import type { Category, DifficultyLevel, PromptDifficulty, ResourceType, VariableType } from '@/types';
+
 export const CATEGORIES: Omit<Category, 'skillCount' | 'promptCount' | 'agentCount' | 'resourceCount' | 'slug'>[] = [
   {
     id: 'learning',
@@ -372,4 +374,8 @@ export function isValidCategoryId(id: string): boolean {
   return categoryIds.has(id);
 }
 
-const categoryIds = new Set(CATEGORIES.map((c) => c.id));
+const categoryIds = new Set([
+  ...CATEGORIES.map((c) => c.id),
+  'hoc-tap', 'cong-viec', 'viet-lach', 'lap-trinh', 'thiet-ke', 'tai-chinh', 'suc-khoe',
+  'gia-dinh', 'du-lich', 'nha-cua', 'giao-duc-con', 'phap-ly', 'side-project', 'nghien-cuu', 'giai-tri'
+]);

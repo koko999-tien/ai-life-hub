@@ -2,15 +2,13 @@
 
 import { useState } from 'react';
 import { Mail, ArrowRight, Loader2, CheckCircle } from 'lucide-react';
-import { Button, Input } from '@/components/ui';
-import { useToast } from '@/components/ui';
+import { Button, Input, toast } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 export function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const { addToast } = useToast();
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,11 +37,11 @@ export function NewsletterSignup() {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setStatus('success');
       setEmail('');
-      addToast('success', 'Đăng ký thành công! Cảm ơn bạn đã tham gia AI Life Hub.');
+      toast.success('Đăng ký thành công! Cảm ơn bạn đã tham gia AI Life Hub.');
     } catch {
       setStatus('error');
       setErrorMessage('Có lỗi xảy ra, vui lòng thử lại');
-      addToast('error', 'Đăng ký thất bại. Vui lòng thử lại sau.');
+      toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
     }
   };
 
@@ -93,7 +91,7 @@ export function NewsletterSignup() {
                     if (status === 'error') setStatus('idle');
                   }}
                   className="pl-10 pr-10"
-                  disabled={status === 'loading' || status === 'success'}
+                  disabled={status === 'loading'}
                   aria-describedby={status === 'error' ? 'email-error' : undefined}
                   aria-invalid={status === 'error'}
                 />

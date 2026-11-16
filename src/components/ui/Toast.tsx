@@ -116,7 +116,5 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
   );
 }
 
-export function toast() {
-  // This is a placeholder - actual usage requires ToastProvider
-  // Import useToast() in components instead
-}
+import { toast as sonnerToast } from 'sonner';
+export const toast = sonnerToast;

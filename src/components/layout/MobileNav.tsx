@@ -41,7 +41,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       document.body.style.overflow = 'hidden'
       // Focus the close button for accessibility
       setTimeout(() => {
-        navRef.current?.querySelector('button[aria-label="Close menu"]')?.focus()
+        navRef.current?.querySelector<HTMLButtonElement>('button[aria-label="Close menu"]')?.focus()
       }, 0)
     } else {
       document.body.style.overflow = ''

@@ -35,17 +35,17 @@ interface SkillDetailProps {
 }
 
 function DifficultyBadge({ level, variant = 'skill' }: { level: DifficultyLevel; variant?: 'skill' | 'prompt' }) {
-  const labels = variant === 'skill' ? DIFFICULTY_LABELS : PROMPT_DIFFICULTY_LABELS
-  const colors = variant === 'skill' ? DIFFICULTY_COLORS : PROMPT_DIFFICULTY_COLORS
+  const labels = variant === 'skill' ? DIFFICULTY_LABELS : (PROMPT_DIFFICULTY_LABELS as any)
+  const colors = variant === 'skill' ? DIFFICULTY_COLORS : (PROMPT_DIFFICULTY_COLORS as any)
 
   return (
     <span
       className={cn(
         'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
-        colors[level]
+        (colors as any)[level]
       )}
     >
-      {labels[level]}
+      {(labels as any)[level]}
     </span>
   )
 }
@@ -60,7 +60,7 @@ function TagItem({ tag }: { tag: string }) {
 }
 
 function IconWrapper({ iconName, size = 5 }: { iconName: string; size?: number }) {
-  const Icon = ICON_COMPONENTS[iconName as keyof typeof ICON_COMPONENTS] as
+  const Icon = (ICON_COMPONENTS as any)[iconName] as
     | LucideIcon
     | undefined
   return Icon ? <Icon className={`w-${size} h-${size}`} aria-hidden="true" /> : null

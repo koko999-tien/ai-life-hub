@@ -35,7 +35,7 @@ const difficultyColors: Record<NonNullable<SearchResult['difficulty']>, string> 
   advanced: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 };
 
-export const SearchResultItem = forwardRef<HTMLDivElement, SearchResultItemProps>(
+export const SearchResultItem = forwardRef<HTMLAnchorElement, SearchResultItemProps>(
   ({ result, query, isSelected = false, onClick, className = '' }, ref) => {
     const handleClick = () => {
       onClick?.();

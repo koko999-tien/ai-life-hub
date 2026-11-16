@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import type { SearchDocument, SearchResult, SearchFilters, SearchIndex, UseSearchReturn } from '@/types/search';
 
 const STORAGE_KEY = 'ai-life-hub-recent-searches';

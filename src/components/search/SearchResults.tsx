@@ -16,11 +16,11 @@ const typeOptions: { value: SearchResultType; label: string }[] = [
   { value: 'category', label: 'Categories' },
 ];
 
-const difficultyOptions = [
+const difficultyOptions: { value: string; label: string }[] = [
   { value: 'beginner', label: 'Beginner' },
   { value: 'intermediate', label: 'Intermediate' },
   { value: 'advanced', label: 'Advanced' },
-] as const;
+];
 
 export function SearchResultsClient() {
   const searchParams = useSearchParams();
@@ -289,7 +289,7 @@ export function SearchResultsClient() {
 
 interface FilterSectionProps<T> {
   title: string;
-  options: T[];
+  options: T[] | readonly T[];
   selected: string | undefined;
   onChange: (value: string | undefined) => void;
   renderOption: (option: T) => string;

@@ -108,6 +108,7 @@ export interface SearchIndex {
   version: string;
   generatedAt: string;
   documents: SearchDocument[];
+  index?: any;
 }
 
 export interface SearchDocument {

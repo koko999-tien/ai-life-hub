@@ -53,7 +53,7 @@ export function Dropdown({
     if (closeOnSelect) setIsOpen(false);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!isOpen) return;
     const enabledItems = items.filter((i) => !i.disabled && !i.divider);
     const focusedIndex = enabledItems.findIndex((i) => i.value === (e.target as HTMLElement).dataset.value);
@@ -64,11 +64,11 @@ export function Dropdown({
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
       const nextIndex = Math.min(focusedIndex + 1, enabledItems.length - 1);
-      document.querySelector(`[data-value="${enabledItems[nextIndex].value}"]`)?.focus();
+      (document.querySelector(`[data-value="${enabledItems[nextIndex].value}"]`) as HTMLElement)?.focus();
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       const prevIndex = Math.max(focusedIndex - 1, 0);
-      document.querySelector(`[data-value="${enabledItems[prevIndex].value}"]`)?.focus();
+      (document.querySelector(`[data-value="${enabledItems[prevIndex].value}"]`) as HTMLElement)?.focus();
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (focusedIndex >= 0) handleItemClick(enabledItems[focusedIndex]);
