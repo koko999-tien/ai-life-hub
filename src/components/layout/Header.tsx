@@ -11,11 +11,13 @@ import { clsx } from 'clsx'
 const navigation = [
   { name: 'Danh mục', href: '/categories' },
   { name: 'Prompts', href: '/prompts' },
+  { name: 'Agents', href: '/agents' },
   { name: 'Playground', href: '/playground' },
   { name: 'Workflows', href: '/workflows' },
-  { name: 'Tài nguyên', href: '/resources' },
+  { name: 'Tính Token', href: '/tools/token-calculator' },
+  { name: 'Tối ưu Prompt', href: '/tools/prompt-optimizer' },
+  { name: 'Quiz', href: '/learn/quiz' },
   { name: 'Yêu thích', href: '/favorites' },
-  { name: 'Đóng góp', href: '/submit' },
 ]
 
 export function Header() {
