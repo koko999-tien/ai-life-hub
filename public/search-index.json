@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-11-16T13:40:34.625Z",
+  "generatedAt": "2026-11-16T16:51:23.971Z",
   "documents": [
     {
       "id": "category:prompt-engineering",
@@ -3519,23 +3519,6 @@
       "description": "Tổng hợp các công thức viết tiêu đề AIDA, PAS, BAB, FAB áp dụng vào prompt AI để tạo nội dung viral trên Facebook, LinkedIn và TikTok."
     },
     {
-      "id": "resource:personal-finance-framework",
-      "type": "resource",
-      "title": "Hệ thống Quản lý Tài chính Cá nhân 6 Chiếc Lọ tích hợp AI",
-      "content": "Phương pháp phân bổ dòng tiền, tự động hóa theo dõi thu chi và phân tích danh mục đầu tư kết hợp ChatGPT Data Analysis. Financial Literacy Lab tai-chinh ngan-sach dau-tu quan-ly-tien",
-      "categoryId": "tai-chinh",
-      "tags": [
-        "tai-chinh",
-        "ngan-sach",
-        "dau-tu",
-        "quan-ly-tien"
-      ],
-      "url": "https://ai-life-hub.vercel.app/category/tai-chinh",
-      "boost": 4,
-      "resourceType": "article",
-      "description": "Phương pháp phân bổ dòng tiền, tự động hóa theo dõi thu chi và phân tích danh mục đầu tư kết hợp ChatGPT Data Analysis."
-    },
-    {
       "id": "resource:midjourney-v6-prompt-bible",
       "type": "resource",
       "title": "Midjourney v6 Master Guide & Parameter Cheat Sheet",
@@ -3553,21 +3536,21 @@
       "description": "Cẩm nang tra cứu thông số Midjourney v6 (--ar, --stylize, --chaos, --sref, --cref), bảng màu ánh sáng cinematic và styling camera."
     },
     {
-      "id": "resource:huberman-sleep-protocol",
+      "id": "resource:personal-finance-framework",
       "type": "resource",
-      "title": "Nghị định thư Giấc ngủ Khoa học & Tối ưu hóa Năng lượng",
-      "content": "Các nguyên tắc sinh học thần kinh về ánh sáng mặt trời, nhịp sinh học và nhiệt độ cơ thể để ngủ sâu hơn và phục hồi tối đa. Huberman Lab giac-ngu suc-khoe nhịp-sinh-hoc recovery",
-      "categoryId": "suc-khoe",
+      "title": "Hệ thống Quản lý Tài chính Cá nhân 6 Chiếc Lọ tích hợp AI",
+      "content": "Phương pháp phân bổ dòng tiền, tự động hóa theo dõi thu chi và phân tích danh mục đầu tư kết hợp ChatGPT Data Analysis. Financial Literacy Lab tai-chinh ngan-sach dau-tu quan-ly-tien",
+      "categoryId": "tai-chinh",
       "tags": [
-        "giac-ngu",
-        "suc-khoe",
-        "nhịp-sinh-hoc",
-        "recovery"
+        "tai-chinh",
+        "ngan-sach",
+        "dau-tu",
+        "quan-ly-tien"
       ],
-      "url": "https://www.hubermanlab.com/newsletter/toolkit-for-sleep",
+      "url": "https://ai-life-hub.vercel.app/category/tai-chinh",
       "boost": 4,
-      "resourceType": "paper",
-      "description": "Các nguyên tắc sinh học thần kinh về ánh sáng mặt trời, nhịp sinh học và nhiệt độ cơ thể để ngủ sâu hơn và phục hồi tối đa."
+      "resourceType": "article",
+      "description": "Phương pháp phân bổ dòng tiền, tự động hóa theo dõi thu chi và phân tích danh mục đầu tư kết hợp ChatGPT Data Analysis."
     },
     {
       "id": "resource:anthropic-prompt-engineering-interactive",
@@ -3622,21 +3605,21 @@
       "description": "Khóa học tương tác chính thức từ Anthropic về kỹ thuật viết prompt: XML tags, Few-shot examples, Chain-of-thought và System Prompts."
     },
     {
-      "id": "resource:prompt-chaining-automation",
+      "id": "resource:huberman-sleep-protocol",
       "type": "resource",
-      "title": "Tự động hóa tác vụ văn phòng với n8n và AI Agent",
-      "content": "Hướng dẫn kết nối Gmail, Notion, Google Sheets và AI LLM để tự động phân loại email, tóm tắt báo cáo và trích xuất dữ liệu không cần code. n8n Workflow Hub automation n8n workflow productivity",
-      "categoryId": "cong-viec",
+      "title": "Nghị định thư Giấc ngủ Khoa học & Tối ưu hóa Năng lượng",
+      "content": "Các nguyên tắc sinh học thần kinh về ánh sáng mặt trời, nhịp sinh học và nhiệt độ cơ thể để ngủ sâu hơn và phục hồi tối đa. Huberman Lab giac-ngu suc-khoe nhịp-sinh-hoc recovery",
+      "categoryId": "suc-khoe",
       "tags": [
-        "automation",
-        "n8n",
-        "workflow",
-        "productivity"
+        "giac-ngu",
+        "suc-khoe",
+        "nhịp-sinh-hoc",
+        "recovery"
       ],
-      "url": "https://n8n.io",
+      "url": "https://www.hubermanlab.com/newsletter/toolkit-for-sleep",
       "boost": 4,
-      "resourceType": "tool",
-      "description": "Hướng dẫn kết nối Gmail, Notion, Google Sheets và AI LLM để tự động phân loại email, tóm tắt báo cáo và trích xuất dữ liệu không cần code."
+      "resourceType": "paper",
+      "description": "Các nguyên tắc sinh học thần kinh về ánh sáng mặt trời, nhịp sinh học và nhiệt độ cơ thể để ngủ sâu hơn và phục hồi tối đa."
     },
     {
       "id": "resource:second-brain-obsidian-ai",
@@ -3654,6 +3637,23 @@
       "boost": 4,
       "resourceType": "tool",
       "description": "Kiến trúc ghi chú Zettelkasten kết hợp AI plugin để tự động tóm tắt, liên kết ý tưởng và truy vấn cơ sở tri thức cá nhân."
+    },
+    {
+      "id": "resource:prompt-chaining-automation",
+      "type": "resource",
+      "title": "Tự động hóa tác vụ văn phòng với n8n và AI Agent",
+      "content": "Hướng dẫn kết nối Gmail, Notion, Google Sheets và AI LLM để tự động phân loại email, tóm tắt báo cáo và trích xuất dữ liệu không cần code. n8n Workflow Hub automation n8n workflow productivity",
+      "categoryId": "cong-viec",
+      "tags": [
+        "automation",
+        "n8n",
+        "workflow",
+        "productivity"
+      ],
+      "url": "https://n8n.io",
+      "boost": 4,
+      "resourceType": "tool",
+      "description": "Hướng dẫn kết nối Gmail, Notion, Google Sheets và AI LLM để tự động phân loại email, tóm tắt báo cáo và trích xuất dữ liệu không cần code."
     }
   ],
   "index": {
@@ -74265,6 +74265,118 @@
         []
       ],
       [
+        "title/resource:midjourney-v6-prompt-bible",
+        [
+          2,
+          0.395,
+          71,
+          32.228,
+          983,
+          21.115,
+          985,
+          30.762,
+          986,
+          25.02,
+          5207,
+          33.99,
+          5456,
+          36.197,
+          7041,
+          39.151
+        ]
+      ],
+      [
+        "content/resource:midjourney-v6-prompt-bible",
+        [
+          2,
+          0.358,
+          3,
+          12.758,
+          14,
+          5.123,
+          25,
+          5.193,
+          47,
+          13.94,
+          71,
+          35.819,
+          72,
+          4.984,
+          117,
+          12.944,
+          154,
+          26.754,
+          265,
+          8.475,
+          361,
+          18.369,
+          594,
+          22.074,
+          791,
+          30.821,
+          1049,
+          20.974,
+          1664,
+          23.35,
+          1811,
+          20.974,
+          2071,
+          25.757,
+          2098,
+          22.687,
+          4727,
+          35.5,
+          6139,
+          30.821,
+          7041,
+          35.5,
+          7042,
+          39.567,
+          7043,
+          39.567,
+          7044,
+          39.567,
+          7045,
+          39.567,
+          7046,
+          39.567,
+          7047,
+          39.567,
+          7048,
+          39.567
+        ]
+      ],
+      [
+        "tags/resource:midjourney-v6-prompt-bible",
+        [
+          3,
+          5.269,
+          71,
+          12.068,
+          72,
+          2.058,
+          1049,
+          8.661,
+          1664,
+          9.643,
+          6139,
+          12.727
+        ]
+      ],
+      [
+        "categoryId/resource:midjourney-v6-prompt-bible",
+        [
+          2040,
+          4.618,
+          2041,
+          3.188
+        ]
+      ],
+      [
+        "skillId/resource:midjourney-v6-prompt-bible",
+        []
+      ],
+      [
         "title/resource:personal-finance-framework",
         [
           3,
@@ -74366,7 +74478,7 @@
           26.39,
           6383,
           32.375,
-          7041,
+          7049,
           35.017
         ]
       ],
@@ -74389,7 +74501,7 @@
           9.043,
           2695,
           10.26,
-          7041,
+          7049,
           12.463
         ]
       ],
@@ -74404,250 +74516,6 @@
       ],
       [
         "skillId/resource:personal-finance-framework",
-        []
-      ],
-      [
-        "title/resource:midjourney-v6-prompt-bible",
-        [
-          2,
-          0.395,
-          71,
-          32.228,
-          983,
-          21.115,
-          985,
-          30.762,
-          986,
-          25.02,
-          5207,
-          33.99,
-          5456,
-          36.197,
-          7042,
-          39.151
-        ]
-      ],
-      [
-        "content/resource:midjourney-v6-prompt-bible",
-        [
-          2,
-          0.358,
-          3,
-          12.758,
-          14,
-          5.123,
-          25,
-          5.193,
-          47,
-          13.94,
-          71,
-          35.819,
-          72,
-          4.984,
-          117,
-          12.944,
-          154,
-          26.754,
-          265,
-          8.475,
-          361,
-          18.369,
-          594,
-          22.074,
-          791,
-          30.821,
-          1049,
-          20.974,
-          1664,
-          23.35,
-          1811,
-          20.974,
-          2071,
-          25.757,
-          2098,
-          22.687,
-          4727,
-          35.5,
-          6139,
-          30.821,
-          7042,
-          35.5,
-          7043,
-          39.567,
-          7044,
-          39.567,
-          7045,
-          39.567,
-          7046,
-          39.567,
-          7047,
-          39.567,
-          7048,
-          39.567,
-          7049,
-          39.567
-        ]
-      ],
-      [
-        "tags/resource:midjourney-v6-prompt-bible",
-        [
-          3,
-          5.269,
-          71,
-          12.068,
-          72,
-          2.058,
-          1049,
-          8.661,
-          1664,
-          9.643,
-          6139,
-          12.727
-        ]
-      ],
-      [
-        "categoryId/resource:midjourney-v6-prompt-bible",
-        [
-          2040,
-          4.618,
-          2041,
-          3.188
-        ]
-      ],
-      [
-        "skillId/resource:midjourney-v6-prompt-bible",
-        []
-      ],
-      [
-        "title/resource:huberman-sleep-protocol",
-        [
-          2,
-          0.304,
-          4,
-          12.581,
-          17,
-          9.173,
-          25,
-          4.403,
-          75,
-          5.439,
-          85,
-          5.872,
-          125,
-          12.002,
-          126,
-          12.581,
-          132,
-          5.165,
-          205,
-          17.361,
-          499,
-          8.818,
-          890,
-          12.581,
-          3044,
-          23.65
-        ]
-      ],
-      [
-        "content/resource:huberman-sleep-protocol",
-        [
-          2,
-          0.412,
-          14,
-          6.239,
-          17,
-          12.439,
-          24,
-          14.845,
-          25,
-          5.113,
-          47,
-          13.724,
-          85,
-          6.818,
-          132,
-          5.997,
-          163,
-          4.194,
-          206,
-          12.382,
-          268,
-          13.724,
-          312,
-          17.728,
-          368,
-          22.335,
-          443,
-          28.769,
-          467,
-          20.717,
-          499,
-          10.238,
-          523,
-          20.649,
-          1186,
-          30.342,
-          1270,
-          22.335,
-          1346,
-          23.701,
-          2044,
-          19.697,
-          2086,
-          22.335,
-          2801,
-          20.649,
-          2802,
-          18.084,
-          2962,
-          20.649,
-          3047,
-          25.357,
-          3776,
-          35.435,
-          4537,
-          32.312,
-          6383,
-          32.312,
-          7050,
-          38.953,
-          7051,
-          34.949
-        ]
-      ],
-      [
-        "tags/resource:huberman-sleep-protocol",
-        [
-          206,
-          4.648,
-          467,
-          6.286,
-          2086,
-          8.384,
-          2801,
-          7.751,
-          2802,
-          6.788,
-          3047,
-          9.518,
-          3776,
-          11.389,
-          7051,
-          13.119
-        ]
-      ],
-      [
-        "categoryId/resource:huberman-sleep-protocol",
-        [
-          2801,
-          5.166,
-          2802,
-          4.524
-        ]
-      ],
-      [
-        "skillId/resource:huberman-sleep-protocol",
         []
       ],
       [
@@ -74765,9 +74633,9 @@
           30.341,
           5456,
           32.31,
-          7052,
+          7050,
           32.31,
-          7053,
+          7051,
           38.951
         ]
       ],
@@ -74822,11 +74690,11 @@
           37.747,
           5470,
           35.43,
-          7052,
+          7050,
           32.757,
-          7054,
+          7052,
           39.489,
-          7055,
+          7053,
           39.489
         ]
       ],
@@ -74845,7 +74713,7 @@
           8.61,
           5334,
           12.021,
-          7052,
+          7050,
           12.802
         ]
       ],
@@ -74928,7 +74796,7 @@
           32.792,
           4378,
           29.223,
-          7056,
+          7054,
           39.567
         ]
       ],
@@ -74960,6 +74828,254 @@
       ],
       [
         "skillId/resource:anthropic-interactive-prompting",
+        []
+      ],
+      [
+        "title/resource:huberman-sleep-protocol",
+        [
+          2,
+          0.304,
+          4,
+          12.581,
+          17,
+          9.173,
+          25,
+          4.403,
+          75,
+          5.439,
+          85,
+          5.872,
+          125,
+          12.002,
+          126,
+          12.581,
+          132,
+          5.165,
+          205,
+          17.361,
+          499,
+          8.818,
+          890,
+          12.581,
+          3044,
+          23.65
+        ]
+      ],
+      [
+        "content/resource:huberman-sleep-protocol",
+        [
+          2,
+          0.412,
+          14,
+          6.239,
+          17,
+          12.439,
+          24,
+          14.845,
+          25,
+          5.113,
+          47,
+          13.724,
+          85,
+          6.818,
+          132,
+          5.997,
+          163,
+          4.194,
+          206,
+          12.382,
+          268,
+          13.724,
+          312,
+          17.728,
+          368,
+          22.335,
+          443,
+          28.769,
+          467,
+          20.717,
+          499,
+          10.238,
+          523,
+          20.649,
+          1186,
+          30.342,
+          1270,
+          22.335,
+          1346,
+          23.701,
+          2044,
+          19.697,
+          2086,
+          22.335,
+          2801,
+          20.649,
+          2802,
+          18.084,
+          2962,
+          20.649,
+          3047,
+          25.357,
+          3776,
+          35.435,
+          4537,
+          32.312,
+          6383,
+          32.312,
+          7055,
+          38.953,
+          7056,
+          34.949
+        ]
+      ],
+      [
+        "tags/resource:huberman-sleep-protocol",
+        [
+          206,
+          4.648,
+          467,
+          6.286,
+          2086,
+          8.384,
+          2801,
+          7.751,
+          2802,
+          6.788,
+          3047,
+          9.518,
+          3776,
+          11.389,
+          7056,
+          13.119
+        ]
+      ],
+      [
+        "categoryId/resource:huberman-sleep-protocol",
+        [
+          2801,
+          5.166,
+          2802,
+          4.524
+        ]
+      ],
+      [
+        "skillId/resource:huberman-sleep-protocol",
+        []
+      ],
+      [
+        "title/resource:second-brain-obsidian-ai",
+        [
+          2,
+          0.353,
+          3,
+          12.56,
+          192,
+          13.935,
+          193,
+          15.09,
+          263,
+          11.086,
+          772,
+          21.73,
+          773,
+          24.484,
+          837,
+          20.157,
+          2412,
+          27.459,
+          2738,
+          20.647
+        ]
+      ],
+      [
+        "content/resource:second-brain-obsidian-ai",
+        [
+          2,
+          0.414,
+          3,
+          12.659,
+          14,
+          5.083,
+          37,
+          13.03,
+          76,
+          3.341,
+          132,
+          6.044,
+          133,
+          11.964,
+          148,
+          18.602,
+          163,
+          4.92,
+          177,
+          14.961,
+          184,
+          13.623,
+          225,
+          18.602,
+          265,
+          8.409,
+          275,
+          18.997,
+          276,
+          14.527,
+          298,
+          17.523,
+          320,
+          7.995,
+          772,
+          21.901,
+          773,
+          24.677,
+          837,
+          23.649,
+          1676,
+          11.325,
+          2412,
+          27.675,
+          3017,
+          16.878,
+          3558,
+          19.851,
+          4243,
+          20.316,
+          5749,
+          29.749,
+          5854,
+          30.58,
+          5944,
+          28.994,
+          6064,
+          35.223
+        ]
+      ],
+      [
+        "tags/resource:second-brain-obsidian-ai",
+        [
+          772,
+          9.684,
+          773,
+          10.912,
+          837,
+          8.983,
+          5749,
+          11.3,
+          5854,
+          13.521
+        ]
+      ],
+      [
+        "categoryId/resource:second-brain-obsidian-ai",
+        [
+          206,
+          3.098,
+          1016,
+          3.433
+        ]
+      ],
+      [
+        "skillId/resource:second-brain-obsidian-ai",
         []
       ],
       [
@@ -75084,122 +75200,6 @@
       ],
       [
         "skillId/resource:prompt-chaining-automation",
-        []
-      ],
-      [
-        "title/resource:second-brain-obsidian-ai",
-        [
-          2,
-          0.353,
-          3,
-          12.56,
-          192,
-          13.935,
-          193,
-          15.09,
-          263,
-          11.086,
-          772,
-          21.73,
-          773,
-          24.484,
-          837,
-          20.157,
-          2412,
-          27.459,
-          2738,
-          20.647
-        ]
-      ],
-      [
-        "content/resource:second-brain-obsidian-ai",
-        [
-          2,
-          0.414,
-          3,
-          12.659,
-          14,
-          5.083,
-          37,
-          13.03,
-          76,
-          3.341,
-          132,
-          6.044,
-          133,
-          11.964,
-          148,
-          18.602,
-          163,
-          4.92,
-          177,
-          14.961,
-          184,
-          13.623,
-          225,
-          18.602,
-          265,
-          8.409,
-          275,
-          18.997,
-          276,
-          14.527,
-          298,
-          17.523,
-          320,
-          7.995,
-          772,
-          21.901,
-          773,
-          24.677,
-          837,
-          23.649,
-          1676,
-          11.325,
-          2412,
-          27.675,
-          3017,
-          16.878,
-          3558,
-          19.851,
-          4243,
-          20.316,
-          5749,
-          29.749,
-          5854,
-          30.58,
-          5944,
-          28.994,
-          6064,
-          35.223
-        ]
-      ],
-      [
-        "tags/resource:second-brain-obsidian-ai",
-        [
-          772,
-          9.684,
-          773,
-          10.912,
-          837,
-          8.983,
-          5749,
-          11.3,
-          5854,
-          13.521
-        ]
-      ],
-      [
-        "categoryId/resource:second-brain-obsidian-ai",
-        [
-          206,
-          3.098,
-          1016,
-          3.433
-        ]
-      ],
-      [
-        "skillId/resource:second-brain-obsidian-ai",
         []
       ]
     ],
@@ -75415,8 +75415,8 @@
             "resource:copywriting-prompts-masterclass": {},
             "resource:midjourney-v6-prompt-bible": {},
             "resource:huberman-sleep-protocol": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -89566,8 +89566,8 @@
             "category:prompt-engineering": {},
             "resource:personal-finance-framework": {},
             "resource:cursor-ai-workflow-guide": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "content": {
             "prompt:prompt-short-video-script": {},
@@ -89600,8 +89600,8 @@
             "resource:midjourney-v6-prompt-bible": {},
             "resource:cursor-ai-workflow-guide": {},
             "resource:anthropic-interactive-prompting": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {
             "skill:system-prompt-mastery": {},
@@ -91184,7 +91184,7 @@
       [
         "ar",
         {
-          "_index": 7045,
+          "_index": 7044,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -102965,7 +102965,7 @@
       [
         "cinemat",
         {
-          "_index": 7049,
+          "_index": 7048,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -105139,7 +105139,7 @@
       [
         "compos",
         {
-          "_index": 7055,
+          "_index": 7053,
           "title": {},
           "content": {
             "resource:cursor-ai-workflow-guide": {}
@@ -107401,7 +107401,7 @@
       [
         "cref",
         {
-          "_index": 7048,
+          "_index": 7047,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -108170,7 +108170,7 @@
       [
         "cursorrul",
         {
-          "_index": 7054,
+          "_index": 7052,
           "title": {},
           "content": {
             "resource:cursor-ai-workflow-guide": {}
@@ -109444,7 +109444,7 @@
       [
         "cẩm",
         {
-          "_index": 7043,
+          "_index": 7042,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -122589,7 +122589,7 @@
       [
         "giac",
         {
-          "_index": 7051,
+          "_index": 7056,
           "title": {},
           "content": {
             "resource:huberman-sleep-protocol": {}
@@ -128307,7 +128307,7 @@
       [
         "huberman",
         {
-          "_index": 7050,
+          "_index": 7055,
           "title": {},
           "content": {
             "resource:huberman-sleep-protocol": {}
@@ -129726,9 +129726,9 @@
             "prompt:prompt-emotion-coaching": {},
             "prompt:prompt-sustainable-travel-plan": {},
             "agent:quan-ly-thoi-gian-pomodoro": {},
-            "resource:huberman-sleep-protocol": {},
             "resource:anthropic-prompt-engineering-interactive": {},
-            "resource:anthropic-interactive-prompting": {}
+            "resource:anthropic-interactive-prompting": {},
+            "resource:huberman-sleep-protocol": {}
           },
           "tags": {},
           "categoryId": {},
@@ -136024,8 +136024,8 @@
             "prompt:prompt-ideo-ideate": {},
             "agent:luu-ke-hoan-thanh-cong-viec": {},
             "resource:personal-finance-framework": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -147071,7 +147071,7 @@
       [
         "nang",
         {
-          "_index": 7044,
+          "_index": 7043,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -147640,8 +147640,8 @@
             "agent:luu-ke-hoan-thanh-cong-viec": {},
             "resource:personal-finance-framework": {},
             "resource:huberman-sleep-protocol": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -154354,7 +154354,7 @@
       [
         "pair",
         {
-          "_index": 7052,
+          "_index": 7050,
           "title": {
             "resource:cursor-ai-workflow-guide": {}
           },
@@ -159434,7 +159434,7 @@
       [
         "programm",
         {
-          "_index": 7053,
+          "_index": 7051,
           "title": {
             "resource:cursor-ai-workflow-guide": {}
           },
@@ -171743,7 +171743,7 @@
       [
         "sref",
         {
-          "_index": 7047,
+          "_index": 7046,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -173116,7 +173116,7 @@
       [
         "styliz",
         {
-          "_index": 7046,
+          "_index": 7045,
           "title": {},
           "content": {
             "resource:midjourney-v6-prompt-bible": {}
@@ -175176,8 +175176,8 @@
             "resource:personal-finance-framework": {},
             "resource:anthropic-prompt-engineering-interactive": {},
             "resource:anthropic-interactive-prompting": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -179694,7 +179694,7 @@
       [
         "tien",
         {
-          "_index": 7041,
+          "_index": 7049,
           "title": {},
           "content": {
             "resource:personal-finance-framework": {}
@@ -184563,8 +184563,8 @@
             "skill:luu-ke-hoan-thanh-cong-viec": {},
             "prompt:prompt-meeting-summary": {},
             "agent:luu-ke-hoan-thanh-cong-viec": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -185378,8 +185378,8 @@
             "skill:luu-ke-hoan-thanh-cong-viec": {},
             "prompt:prompt-meeting-summary": {},
             "agent:luu-ke-hoan-thanh-cong-viec": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -187725,14 +187725,14 @@
             "prompt:prompt-meeting-summary": {},
             "agent:luu-ke-hoan-thanh-cong-viec": {},
             "resource:copywriting-prompts-masterclass": {},
-            "resource:personal-finance-framework": {},
             "resource:midjourney-v6-prompt-bible": {},
-            "resource:huberman-sleep-protocol": {},
+            "resource:personal-finance-framework": {},
             "resource:anthropic-prompt-engineering-interactive": {},
             "resource:cursor-ai-workflow-guide": {},
             "resource:anthropic-interactive-prompting": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:huberman-sleep-protocol": {},
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "tags": {},
           "categoryId": {},
@@ -187934,7 +187934,7 @@
       [
         "v6",
         {
-          "_index": 7042,
+          "_index": 7041,
           "title": {
             "resource:midjourney-v6-prompt-bible": {}
           },
@@ -190814,8 +190814,8 @@
           "title": {
             "skill:mvp-va-noi-code": {},
             "skill:spaced-repetition-anki": {},
-            "resource:prompt-chaining-automation": {},
-            "resource:second-brain-obsidian-ai": {}
+            "resource:second-brain-obsidian-ai": {},
+            "resource:prompt-chaining-automation": {}
           },
           "content": {
             "prompt:prompt-seo-blog-outline": {},
@@ -192918,7 +192918,7 @@
       [
         "xml",
         {
-          "_index": 7056,
+          "_index": 7054,
           "title": {},
           "content": {
             "resource:anthropic-interactive-prompting": {}

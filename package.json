@@ -13,6 +13,7 @@
     "postbuild": "npm run search:index"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
     "front-matter": "^4.0.2",

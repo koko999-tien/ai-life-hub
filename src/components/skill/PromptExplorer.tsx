@@ -2,8 +2,9 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search, Copy, Check, ExternalLink, ArrowRight, Bot, Cpu } from 'lucide-react';
+import { Search, Copy, Check, ExternalLink, ArrowRight, Bot, Cpu, Bookmark, PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui';
+import { useBookmarks } from '@/hooks/useBookmarks';
 
 interface PromptItem {
   id: string;
@@ -24,6 +25,7 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const { isBookmarked, toggle } = useBookmarks();
 
   const categories = useMemo(() => {
     const set = new Set(initialPrompts.map((p) => p.categoryId));
@@ -94,9 +96,18 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
         </div>
       </div>
 
-      {/* Prompts Count */}
-      <div className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-        Hiển thị <span className="font-semibold text-gray-900 dark:text-white">{filteredPrompts.length}</span> prompt templates
+      {/* Prompts Count & Submit CTA */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="text-sm text-gray-500 dark:text-gray-400">
+          Hiển thị <span className="font-semibold text-gray-900 dark:text-white">{filteredPrompts.length}</span> prompt templates
+        </div>
+        <Link
+          href="/submit"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:hover:bg-brand-900/50 dark:text-brand-300 text-xs font-semibold transition-colors"
+        >
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span>Đóng góp Prompt mới</span>
+        </Link>
       </div>
 
       {/* Prompts Grid */}
@@ -132,24 +143,46 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
 
             {/* Actions Bar */}
             <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-wrap items-center justify-between gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleCopy(prompt.template, prompt.id)}
-                className="gap-1.5 text-xs"
-              >
-                {copiedId === prompt.id ? (
-                  <>
-                    <Check className="h-3.5 w-3.5 text-green-500" />
-                    <span>Đã sao chép</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" />
-                    <span>Copy Prompt</span>
-                  </>
-                )}
-              </Button>
+              <div className="flex items-center gap-1.5">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleCopy(prompt.template, prompt.id)}
+                  className="gap-1.5 text-xs"
+                >
+                  {copiedId === prompt.id ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 text-green-500" />
+                      <span>Đã sao chép</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </Button>
+
+                <button
+                  onClick={() =>
+                    toggle({
+                      itemType: 'prompt',
+                      itemId: prompt.id,
+                      itemTitle: prompt.name,
+                      itemSlug: prompt.skillSlug,
+                      categoryId: prompt.categoryId,
+                    })
+                  }
+                  className={`p-2 rounded-lg border transition-colors ${
+                    isBookmarked(prompt.id)
+                      ? 'border-amber-500 bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'
+                      : 'border-gray-200 dark:border-gray-800 text-gray-400 hover:text-amber-500 hover:border-amber-300'
+                  }`}
+                  title={isBookmarked(prompt.id) ? 'Bỏ lưu' : 'Lưu vào Yêu thích'}
+                >
+                  <Bookmark className={`h-3.5 w-3.5 ${isBookmarked(prompt.id) ? 'fill-current' : ''}`} />
+                </button>
+              </div>
 
               <div className="flex items-center gap-1.5">
                 <button

@@ -13,9 +13,11 @@ import {
   Copy,
   MousePointer2,
   ExternalLink,
+  Bookmark,
   type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
+import { useBookmarks } from '@/hooks/useBookmarks'
 
 interface SkillCardProps {
   skill: Skill
@@ -61,11 +63,25 @@ export function SkillCard({
 }: SkillCardProps) {
   const hasAgent = !!skill.agentTemplate
   const promptCount = skill.prompts?.length ?? 0
+  const { isBookmarked, toggle } = useBookmarks()
+  const bookmarked = isBookmarked(skill.id)
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    toggle({
+      itemType: 'skill',
+      itemId: skill.id,
+      itemTitle: skill.name,
+      itemSlug: skill.slug,
+      categoryId: skill.categoryId,
+    })
+  }
 
   if (variant === 'compact') {
     return (
       <Link
-        href={`/skills/${skill.slug}`}
+        href={`/skill/${skill.slug}`}
         className={cn(
           'group block p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 transition-all duration-200 hover:border-brand-500/50 hover:shadow-card-hover',
           className
@@ -74,8 +90,7 @@ export function SkillCard({
         <div className="flex items-start gap-3">
           <div
             className={cn(
-              'flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center',
-              `bg-[${skill.categoryId === 'learning' ? '#3B82F6' : skill.categoryId === 'work' ? '#8B5CF6' : skill.categoryId === 'writing' ? '#F59E0B' : skill.categoryId === 'coding' ? '#10B981' : skill.categoryId === 'design' ? '#EC4899' : skill.categoryId === 'finance' ? '#059669' : skill.categoryId === 'health' ? '#EF4444' : skill.categoryId === 'family' ? '#F97316' : skill.categoryId === 'travel' ? '#06B6D4' : skill.categoryId === 'home' ? '#84CC16' : skill.categoryId === 'parenting' ? '#D946EF' : skill.categoryId === 'legal' ? '#64748B' : skill.categoryId === 'sideproject' ? '#14B8A6' : skill.categoryId === 'research' ? '#6366F1' : '#F43F5E'}]/10`
+              'flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-brand-50 dark:bg-brand-900/20 text-brand-600'
             )}
           >
             <IconWrapper iconName={skill.categoryId} />
@@ -97,6 +112,17 @@ export function SkillCard({
               )}
             </div>
           </div>
+          <button
+            onClick={handleBookmarkClick}
+            className={`p-1.5 rounded-lg border transition-colors ${
+              bookmarked
+                ? 'border-amber-500 bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'
+                : 'border-transparent text-slate-400 hover:text-amber-500'
+            }`}
+            title={bookmarked ? 'Bỏ lưu' : 'Lưu kỹ năng'}
+          >
+            <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} />
+          </button>
         </div>
       </Link>
     )
@@ -104,7 +130,7 @@ export function SkillCard({
 
   return (
     <Link
-      href={`/skills/${skill.slug}`}
+      href={`/skill/${skill.slug}`}
       className={cn(
         'group block p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 transition-all duration-200 hover:border-brand-500/50 hover:shadow-card-hover hover:-translate-y-0.5',
         className
@@ -115,8 +141,7 @@ export function SkillCard({
           <div className="flex items-center gap-2 mb-3">
             <div
               className={cn(
-                'w-9 h-9 rounded-lg flex items-center justify-center',
-                `bg-[${skill.categoryId === 'learning' ? '#3B82F6' : skill.categoryId === 'work' ? '#8B5CF6' : skill.categoryId === 'writing' ? '#F59E0B' : skill.categoryId === 'coding' ? '#10B981' : skill.categoryId === 'design' ? '#EC4899' : skill.categoryId === 'finance' ? '#059669' : skill.categoryId === 'health' ? '#EF4444' : skill.categoryId === 'family' ? '#F97316' : skill.categoryId === 'travel' ? '#06B6D4' : skill.categoryId === 'home' ? '#84CC16' : skill.categoryId === 'parenting' ? '#D946EF' : skill.categoryId === 'legal' ? '#64748B' : skill.categoryId === 'sideproject' ? '#14B8A6' : skill.categoryId === 'research' ? '#6366F1' : '#F43F5E'}]/10`
+                'w-9 h-9 rounded-lg flex items-center justify-center bg-brand-50 dark:bg-brand-900/20 text-brand-600'
               )}
             >
               <IconWrapper iconName={skill.categoryId} className="w-5 h-5" />
@@ -161,11 +186,24 @@ export function SkillCard({
           </div>
         </div>
 
-        <div className="flex-shrink-0">
-          <ExternalLink
+        <div className="flex-shrink-0 flex items-center gap-1">
+          <button
+            onClick={handleBookmarkClick}
+            className={`p-2 rounded-lg border transition-colors ${
+              bookmarked
+                ? 'border-amber-500 bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'
+                : 'border-slate-200 dark:border-slate-700 text-slate-400 hover:text-amber-500 hover:border-amber-300'
+            }`}
+            title={bookmarked ? 'Bỏ lưu' : 'Lưu kỹ năng'}
+          >
+            <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} />
+          </button>
+          <div
             className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors opacity-0 group-hover:opacity-100"
             aria-label={`View ${skill.name} details`}
-          />
+          >
+            <ExternalLink className="w-4 h-4" />
+          </div>
         </div>
       </div>
     </Link>

@@ -12,6 +12,8 @@ const navigation = [
   { name: 'Danh mục', href: '/categories' },
   { name: 'Prompt Templates', href: '/prompts' },
   { name: 'Tài nguyên', href: '/resources' },
+  { name: 'Yêu thích', href: '/favorites' },
+  { name: 'Đóng góp', href: '/submit' },
 ]
 
 export function Header() {
