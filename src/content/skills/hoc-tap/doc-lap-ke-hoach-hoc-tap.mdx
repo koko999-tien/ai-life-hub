@@ -1,0 +1,386 @@
+---
+id: doc-lap-ke-hoach-hoc-tap
+categoryId: hoc-tap
+name: "Lập kế hoạch học tập hiệu quả"
+description: "Tạo lộ trình học tập có cấu trúc, đo lường được, bám được suốt năm"
+whenToUse:
+  - "Bắt đầu học kỹ năng mới (ngoại ngữ, lập trình, thiết kế)"
+  - "Ôn thi đại học, chứng chỉ chuyên nghiệp (IELTS, AWS, PMP)"
+  - "Chuyển nghề, học side skill sau giờ làm việc"
+  - "Cảm thấy học lan man, thiếu động lực, dễ bỏ dở giữa chừng"
+difficulty: "beginner"
+estimatedTime: "15-20 phút setup ban đầu, review hàng tuần 10 phút"
+tags: ["planning", "productivity", "self-management", "goal-setting"]
+prompts:
+  - id: prompt-yearly-roadmap
+    name: "Tạo lộ trình học tập năm"
+    description: "Xây dựng roadmap chi tiết 12 tháng cho mục tiêu học tập lớn"
+    template: |
+      Bạn là một Learning Strategist. Hãy giúp tôi tạo lộ trình học tập 12 tháng cho mục tiêu: {{goal}}.
+
+      **Thông tin bối cảnh:**
+      - Mức độ hiện tại: {{currentLevel}}
+      - Thời gian có sẵn mỗi tuần: {{weeklyHours}} giờ
+      - Phong cách học thích hợp: {{learningStyle}}
+      - Ngân sách: {{budget}}
+      - Rào cản dự kiến: {{obstacles}}
+
+      **Yêu cầu đầu ra:**
+      1. Chia nhỏ mục tiêu lớn thành 4 quý (Q1-Q4), mỗi quý có 1-2 milestone cụ thể, đo lường được (SMART)
+      2. Mỗi quý liệt kê: chủ đề chính, tài nguyên gợi ý (sách/khóa học/kênh), deliverable đầu ra
+      3. Tạo template kế hoạch tuần mẫu (có thể copy lặp lại)
+      4. Gợi ý 3 thước đo tiến độ (leading indicators) và 1 thước đo kết quả (lagging indicator)
+      5. Kế hoạch dự phòng khi bị rơi vào "valley of disappointment"
+      6. Hệ thống phần thưởng/tự động hóa accountability
+
+      Đ trình bày dưới dạng markdown có cấu trúc, dễ copy vào Notion/Obsidian.
+    variables:
+      - name: goal
+        type: textarea
+        label: "Mục tiêu học tập lớn (ví dụ: Thành thạo React + Node.js để làm fullstack developer)"
+        description: "Mô tả cụ thể, định lượng được nếu có thể"
+        required: true
+      - name: currentLevel
+        type: select
+        label: "Mức độ hiện tại"
+        options:
+          - "Không biết gì (Zero knowledge)"
+          - "Cơ bản (Đã tự học qua YouTube/blog)"
+          - "Trung cấp (Đã làm được project nhỏ)"
+          - "Nâng cao (Có kinh nghiệm thực tế, muốn chuyên sâu)"
+        required: true
+        default: "Không biết gì (Zero knowledge)"
+      - name: weeklyHours
+        type: number
+        label: "Giờ học có sẵn mỗi tuần"
+        description: "Thực tế, bao gồm cả đọc/nghe/làm bài tập"
+        required: true
+        default: 10
+      - name: learningStyle
+        type: select
+        label: "Phong cách học hiệu quả nhất với bạn"
+        options:
+          - "Học bằng video/khóa học có giảng viên"
+          - "Đọc sách/tài liệu kỹ thuật"
+          - "Học bằng thực hành (project-based)"
+          - "Học theo nhóm/có mentor"
+          - "Camp kết hợp (video + thực hành)"
+        required: true
+        default: "Camp kết hợp (video + thực hành)"
+      - name: budget
+        type: select
+        label: "Ngân sách đầu tư học tập"
+        options:
+          - "0đ (Chỉ miễn phí)"
+          - "Dưới 500k/tháng"
+          - "500k - 2 triệu/tháng"
+          - "Trên 2 triệu/tháng"
+        required: true
+        default: "Dưới 500k/tháng"
+      - name: obstacles
+        type: multiselect
+        label: "Rào cản thường gặp"
+        options:
+          - "Thiếu thời gian do công việc chính"
+          - "Dễ mất tập trung, lướt điện thoại"
+          - "Không biết học gì tiếp theo (path unclear)"
+          - "Thiếu động lực khi khó khăn"
+          - "Hoàn hảo chủ nghĩa, sợ sai"
+          - "Quên nhanh sau khi học"
+        required: false
+        default: ["Thiếu thời gian do công việc chính", "Dễ mất tập trung, lướt điện thoại"]
+    examples:
+      - inputs:
+          goal: "Thành thạo Python cho Data Analysis trong 6 tháng để chuyển sang Data Analyst"
+          currentLevel: "Cơ bản (Đã tự học qua YouTube/blog)"
+          weeklyHours: 12
+          learningStyle: "Học bằng thực hành (project-based)"
+          budget: "Dưới 500k/tháng"
+          obstacles: '["Thiếu thời gian do công việc chính", "Không biết học gì tiếp theo (path unclear)"]'
+        output: |
+          # 🎯 Lộ Trình 6 Tháng: Python cho Data Analysis
+
+          ## Q1 (Tháng 1-2): Nền tảng vững chắc
+          **Milestone:** Hoàn thành 3 project phân tích dữ liệu end-to-end đơn giản
+          - Tuần 1-2: Python cơ bản (variables, loops, functions, OOP) → *Deliverable: CLI todo app*
+          - Tuần 3-4: NumPy, Pandas core → *Deliverable: Phân tích dataset Titanic*
+          - Tuần 5-6: Visualization (Matplotlib, Seaborn, Plotly) → *Deliverable: Dashboard COVID-19*
+          - Tuần 7-8: SQL cơ bản + Project tổng hợp → *Deliverable: Phân tích doanh thu Shop*
+
+          **Tài nguyên miễn phí:** freeCodeCamp Python (4h), Kaggle Pandas Course, SQLZoo
+
+          ## Q2 (Tháng 3-4): Chuyên sâu & Portfolio
+          **Milestone:** 2 project portfolio sẵn sàng apply job
+          - Project 1: EDA + Modeling dự báo giá nhà (Kaggle House Prices)
+          - Project 2: Dashboard real-time theo dõi giá crypto/stock (Streamlit + API)
+
+          ## Thước đo tiến độ (Leading)
+          1. Số giờ deep work học/tuần (target ≥ 10h)
+          2. Số dòng code/commit GitHub/tuần
+          3. Số concept mới ghi nhớ trong Anki/tuần
+
+          ## Thước đo kết quả (Lagging)
+          - Số project hoàn thiện deploy lên GitHub/Streamlit Cloud
+
+          ## Kế hoạch tuần mẫu
+          | Thứ | Buổi sáng (1h) | Buổi tối (2h) | Weekend (4h) |
+          |-----|----------------|---------------|--------------|
+          | T2  | Review Anki    | Video mới     | Project      |
+          | T3  | Review Anki    | Code along    | Project      |
+          | T4  | Review Anki    | Video mới     | Project      |
+          | T5  | Review Anki    | Code along    | Review week  |
+          | T6  | -              | -             | Deep dive    |
+          | T7  | -              | -             | Rest/Anki    |
+
+          ## Valley of Disappointment Plan
+          - Tuần 3-4 thường khó nhất (Pandas syntax) → Dành 30% thời gian chỉ ôn tập, không học mới
+          - Tìm study buddy trên Discord "Data Analytics Vietnam"
+          - Commit public: "Sẽ đăng bài LinkedIn tiến độ mỗi Chủ Nhật"
+
+        context: "Ví dụ cho người chuyển nghề từ Marketing sang Data Analyst, 12h/tuần, budget thấp"
+      - inputs:
+          goal: "Học tiếng Anh từ trình độ A2 lên B2 trong 1 năm cho du lịch và làm việc"
+          currentLevel: "Cơ bản (Đã tự học qua YouTube/blog)"
+          weeklyHours: 8
+          learningStyle: "Học bằng video/khóa học có giảng viên"
+          budget: "500k - 2 triệu/tháng"
+          obstacles: '["Dễ mất tập trung, lướt điện thoại", "Thiếu động lực khi khó khăn"]'
+        output: |
+          # 🎯 Lộ Trình 12 Tháng: Anh Văn A2 → B2
+
+          ## Q1: Foundation & Habit Building
+          **Milestone:** Hoàn thành khóa English Grammar in Use (Elementary), 500 từ vựng core
+          - Tháng 1: Grammar essential (tenses, passive, conditional) + 300 từ Oxford 3000
+          - Tháng 2: Listening daily 15p (Podcast: 6 Minute English) + Shadowing
+          - Tháng 3: Speaking practice với tutor (iTalki/Cambly 2 buổi/tuần)
+
+          ## Q2: Input Intensive
+          **Milestone:** Nghe hiểu 70% nội dung daily conversation, đọc được news cấp độ B1
+          - Extensive reading: Graded readers (Oxford Bookworms Level 3-4) 1 cuốn/tuần
+          - Immersion: YouTube channels (English with Lucy, Matt vs Japan) 30p/ngày
+
+          ## Q3: Output Activation
+          **Milestone:** Tự tin nói 15 phút liên tục về chủ đề quen thuộc
+          - Writing: Journal tiếng Anh hàng ngày 200 từ
+          - Speaking: Join English club/Toastmasters online
+
+          ## Q4: Polish & Certify
+          **Milestone:** Đạt IELTS 6.5 hoặc tương đương
+          - Mock test hàng tuần, focus weak skills
+          - Academic writing structure cho Task 1/2
+
+          ## Hệ thống accountability
+          - Habit tracker: Notion template "English Daily" (Listening/Reading/Speaking/Writing/Vocab)
+          - Buddy system: Tìm partner trên r/EnglishLearning Discord
+          - Reward: Mỗi milestone mua 1 sách tiếng Anh thích / 1 chuyến đi nhỏ
+
+        context: "Ví dụ cho người đi làm, mục tiêu du lịch + làm việc, budget trung bình"
+    difficulty: "medium"
+    useCases:
+      - "Sinh viên lập kế hoạch học kỳ/học năm"
+      - "Người đi làm muốn upskill/reskill có lộ trình rõ ràng"
+      - "Học sinh ôn thi đại học, chứng chỉ quốc tế"
+  - id: prompt-weekly-plan
+    name: "Tạo kế hoạch học tuần"
+    description: "Tạo kế hoạch chi tiết cho tuần tới dựa trên mục tiêu quý và năng lực hiện tại"
+    template: |
+      Bạn là Learning Coach. Hãy tạo kế hoạch học tập cho tuần {{weekNumber}} dựa trên:
+
+      **Bối cảnh:**
+      - Mục tiêu quý này: {{quarterGoal}}
+      - Kế hoạch tuần trước: {{lastWeekPlan}}
+      - Thực tế tuần trước: {{lastWeekActual}}
+      - Năng lượng dự kiến tuần này: {{energyLevel}}/10
+      - Sự kiện đặc biệt: {{specialEvents}}
+
+      **Yêu cầu:**
+      1. 3-5 mục tiêu ưu tiên hàng tuần (Priority 1-3)
+      2. Lịch trình cụ thể theo ngày (có thể điều chỉnh)
+      3. Buffer time cho việc bất ngờ (20% tổng thời gian)
+      4. 1 hành động "tiny habit" duy trì mỗi ngày (< 5 phút)
+      5. Cách đo lường: Done/Not Done + 1 dòng note tổng kết
+
+      Output: Bảng markdown + checklist Notion-ready.
+    variables:
+      - name: weekNumber
+        type: number
+        label: "Tuần thứ mấy trong quý (1-13)"
+        required: true
+        default: 1
+      - name: quarterGoal
+        type: textarea
+        label: "Mục tiêu quý này"
+        required: true
+      - name: lastWeekPlan
+        type: textarea
+        label: "Kế hoạch tuần trước (copy từ output trước)"
+        required: false
+      - name: lastWeekActual
+        type: textarea
+        label: "Thực tế tuần trước (gì xong, gì chưa, tại sao)"
+        required: false
+      - name: energyLevel
+        type: number
+        label: "Năng lượng dự kiến tuần này (1-10)"
+        required: true
+        default: 7
+      - name: specialEvents
+        type: textarea
+        label: "Sự kiện đặc biệt (đi vắng, deadline, ốm, v.v.)"
+        required: false
+    examples:
+      - inputs:
+          weekNumber: 3
+          quarterGoal: "Hoàn thành khóa Python cơ bản (freeCodeCamp) + làm xong 2 project nhỏ: CLI todo + Web scraper"
+          lastWeekPlan: "T2-T4: Xem video freeCodeCamp 2h/ngày; T5-T7: Code along project CLI todo"
+          lastWeekActual: "T2-T3: Xem xong 3h video. T4: Bận overtime không học. T5-T6: Làm xong CLI todo. T7: Nghỉ ngơi."
+          energyLevel: 8
+          specialEvents: "T6 có sinh nhật bạn, tối không học được"
+        output: |
+          # 📅 Kế Hoạch Tuần 3 (Q1)
+
+          ## Mục tiêu ưu tiên
+          1. **[P1] Hoàn thành module Functions & OOP freeCodeCamp** (còn 2h video)
+          2. **[P1] Bắt đầu project Web Scraper** (requests + BeautifulSoup)
+          3. **[P2] Ôn lại Anki deck Python basics** (15p/ngày)
+          4. **[P3] Viết blog post tóm tắt CLI todo project** (cho portfolio)
+
+          ## Lịch trình
+          | Ngày | Buổi chính (2-3h) | Tiny Habit (5p) | Buffer/Note |
+          |------|-------------------|-----------------|-------------|
+          | T2   | FreeCodeCamp: Functions (1.5h) + Code along (1h) | Anki review sáng | ✅ |
+          | T3   | FreeCodeCamp: OOP (1.5h) + Practice exercises (1h) | Anki review sáng | ✅ |
+          | T4   | Project: Web Scraper setup + requests basics (2h) | Anki review sáng | ✅ |
+          | T5   | Project: BeautifulSoup parsing + CSV export (2h) | Anki review sáng | ✅ |
+          | T6   | **Sinh nhật bạn** - Chỉ tiny habit | Anki review sáng | 🎂 Không deep work |
+          | T7   | Review week: Refactor code + Write blog (2h) | Anki review sáng | ✅ Weekly review 30p |
+
+          ## Tiny Habit: Mở Anki review 5 thẻ ngay sau khi uống cà phê sáng
+
+          ## Checklist Notion
+          - [ ] Functions module done
+          - [ ] OOP module done
+          - [ ] Web scraper v1 chạy được
+          - [ ] Blog post drafted
+          - [ ] Anki streak 7/7
+        context: "Tuần 3/13, năng lượng cao, có 1 sự kiện đặc biệt cuối tuần"
+    difficulty: "easy"
+    useCases:
+      - "Review tuần cuối tuần (Chủ Nhật soir)"
+      - "Người muốn hệ thống hóa việc học thay vì học theo cảm xúc"
+  - id: prompt-feynman-technique
+    name: "Áp dụng kỹ thuật Feynman"
+    description: "Hiểu sâu, nhớ lâu bằng cách giải thích khái niệm phức tạp bằng ngôn ngữ đơn giản"
+    template: |
+      Bạn là một giảng viên tài ba. Hãy hướng dẫn tôi áp dụng kỹ thuật Feynman cho khái niệm: {{concept}}.
+
+      **Bối cảnh:**
+      - Lĩnh vực: {{domain}}
+      - Mức độ hiểu hiện tại: {{currentUnderstanding}}/10
+      - Mục đích: {{purpose}} (ví dụ: ôn thi, dạy người khác, áp dụng vào project)
+
+      **Các bước thực hiện:**
+      1. **Giải thích như cho trẻ 5 tuổi hiểu** - Dùng ngôn ngữ đời thường, analogy gần gũi
+      2. **Xác định điểm mù (gap)** - Chỗ nào mình lúng túng, nói vòng vo, dùng thuật ngữ mà không hiểu bản chất
+      3. **Quay lại tài liệu nguồn** - Đọc lại phần đó với focus vào gap
+      4. **Đơn giản hóa & Tạo analogy riêng** - Tự tạo metaphor, diagram, ví dụ cá nhân
+      5. **Dạy lại (thực tế hoặc giả định)** - Viết blog, quay video 1p, giải thích cho đồng nghiệp/người thân
+
+      **Đầu ra:** Document Feynman Note theo template:
+      - Khái niệm gốc
+      - Giải thích "cho 5 tuổi"
+      - Gap đã tìm thấy
+      - Analogy/Ví dụ cá nhân
+      - Câu hỏi còn mở
+    variables:
+      - name: concept
+        type: text
+        label: "Khái niệm cần hiểu sâu (ví dụ: 'Closure trong JavaScript', 'Backpropagation', 'Compound Interest')"
+        required: true
+      - name: domain
+        type: text
+        label: "Lĩnh vực/Ngữ cảnh"
+        required: true
+        default: "Lập trình / Kỹ thuật / Tài chính / Khoa học tự nhiên"
+      - name: currentUnderstanding
+        type: number
+        label: "Mức độ hiểu hiện tại (1-10)"
+        required: true
+        default: 4
+      - name: purpose
+        type: select
+        label: "Mục đích áp dụng"
+        options:
+          - "Ôn thi / Chứng chỉ"
+          - "Áp dụng vào project thực tế"
+          - "Dạy người khác / Viết blog / Làm video"
+          - "Face interview / Trình bày cho stakeholder"
+          - "Tự hiểu sâu để không quên"
+        required: true
+        default: "Tự hiểu sâu để không quên"
+    examples:
+      - inputs:
+          concept: "Closure trong JavaScript"
+          domain: "Lập trình web"
+          currentUnderstanding: 5
+          purpose: "Face interview / Trình bày cho stakeholder"
+        output: |
+          # 📝 Feynman Note: Closure in JavaScript
+
+          ## Khái niệm gốc
+          "Closure là hàm nhớ được biến môi trường (lexical scope) nơi nó được tạo ra, ngay cả khi hàm đó được thực thi ở scope khác."
+
+          ## Giải thích cho 5 tuổi 🧒
+          > Hãy tưởng tượng bạn (hàm) đi picnic mang theo một chiếc balo (scope/closure). Balo 안에 có bánh mì (biến). Dù bạn đi đến đâu (gọi hàm ở đâu), bạn vẫn ăn được bánh mì trong balo vì nó **luôn đi cùng bạn**. Người khác không thấy balo của bạn, chỉ bạn mới biết có gì bên trong.
+
+          ## Gap đã tìm thấy 🕳️
+          - Tại sao `var` trong loop tạo closure sai mà `let` thì đúng? (Hoisting + block scope)
+          - "Lexical scope" khác "Dynamic scope" như thế nào?
+          - Garbage collection: Closure giữ reference → khi nào bị dọn dẹp?
+
+          ## Analogy cá nhân 🎒
+          **Closure = Cây bút kí tên của bạn.**
+          - Bạn cho mượn bút (return function) → Người khác dùng được bút (call function)
+          - Nhưng mực trong bút (biến private) chỉ bạn biết còn bao nhiêu, người khác không thấy
+          - Mỗi lần viết (call), mực giảm dần (state thay đổi) → **Stateful function**
+
+          ## Câu hỏi còn mở ❓
+          1. Memory leak do closure như thế nào? (Event listener không remove)
+          2. Module pattern vs Class private fields (#) - dùng cái nào khi nào?
+          3. React useEffect cleanup function có phải closure không?
+
+        context: "Ví dụ cho developer chuẩn bị interview, cần hiểu bản chất để trả lời follow-up questions"
+    difficulty: "medium"
+    useCases:
+      - "Học sinh/sinh viên ôn thi môn khó"
+      - "Developer hiểu sâu concept để debug/architecture"
+      - "Content creator giải thích kỹ thuật cho audience"
+agentTemplate:
+  name: "Learning Coach Agent"
+  description: "AI coach học tập cá nhân hóa: lập kế hoạch, accountability, giải thích khái niệm, recommend resources"
+  systemPrompt: |
+    Bạn là Learning Coach - một AI hướng dẫn viên học tập cá nhân hóa. Nhiệm vụ của bạn:
+
+    1. **Hiểu người học**: Hỏi về mục tiêu, level hiện tại, thời gian, phong cách học, rào cản
+    2. **Tạo lộ trình**: Chia nhỏ mục tiêu lớn → quý → tuần → ngày (SMART, có buffer)
+    3. **Accountability**: Check-in hàng tuần, adjust plan dựa trên thực tế, celebrate wins
+    4. **Giải thích khái niệm**: Dùng Feynman technique, analogy đời thường, multiple representations
+    5. **Recommend resources**: Curate tài nguyên phù hợp level, budget, learning style (free/paid)
+    5. **Tâm lý học tập**: Xử lý procrastination, impostor syndrome, plateau, burnout
+
+    Phong cách: Khích lệ, thực tế, không nói suông. Luôn hỏi follow-up để cá nhân hóa.
+    Không đưa ra lời khuyên y tế/tài chính/pháp lý chuyên môn.
+  model: "gpt-4"
+  temperature: 0.7
+  tools:
+    - "web_search"
+relatedSkillIds:
+  - "kythuat-feynman"
+  - "spaced-repetition-anki"
+  - "active-recall"
+author: "AI Life Hub Team"
+source: ""
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: doc-lap-ke-hoach-hoc-tap
+---

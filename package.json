@@ -1,0 +1,50 @@
+{
+  "name": "ai-life-hub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "content:validate": "tsx scripts/validate-content.ts",
+    "search:index": "tsx scripts/build-search-index.ts",
+    "postbuild": "npm run search:index"
+  },
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "date-fns": "^3.6.0",
+    "front-matter": "^4.0.2",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.4.0",
+    "lucide-react": "^0.400.0",
+    "lunr": "^2.3.9",
+    "next": "14.2.0",
+    "next-mdx-remote": "^5.0.0",
+    "next-themes": "^0.4.6",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "sonner": "^2.0.8",
+    "tailwind-merge": "^2.2.0",
+    "zod": "^3.22.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/lunr": "^2.3.7",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.0",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.0",
+    "prettier-plugin-tailwindcss": "^0.5.0",
+    "tailwindcss": "^3.4.0",
+    "tsx": "^4.15.0",
+    "typescript": "^5.4.0"
+  }
+}

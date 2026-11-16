@@ -1,0 +1,235 @@
+---
+id: clean-code-refactor
+categoryId: lap-trinh
+name: "Clean Code & Refactor"
+description: "Viết code sạch, dễ đọc, dễ bảo trì: đặt tên, hàm nhỏ, loại bỏ code hôi, tách biệt quyền hạn"
+whenToUse:
+  - "Code review của đồng nghiệp"
+  - "Dự án legacy cần tái cấu trúc"
+  - "Cần thêm tính năng mới mà không làm hỏng code cũ"
+difficulty: "intermediate"
+estimatedTime: "1-2 giờ/refactor session"
+tags: ["clean-code", "refactoring", "software-craftsmanship", "maintainability"]
+prompts:
+  - id: prompt-clean-code-review
+    name: "Review code theo nguyên tắc Clean Code"
+    description: "Phân tích đoạn code, đưa ra đề xuất cải thiện theo Clean Code principles"
+    template: |
+      Bạn là Senior Software Engineer & Code Reviewer. Hãy review đoạn code sau:
+
+      ```{{language}}
+      {{codeSnippet}}
+      ```
+
+      **Yêu cầu phân tích:**
+      1. **Code Smells**: Liệt kê các dấu hiệu code hôi (long method, magic number, duplicate code, God class...)
+      2. **Clean Code Violations**: Vi phạm nguyên tắc (đặt tên, hàm quá dài, nesting quá sâu, side effect...)
+      3. **Refactor đề xuất**: Đưa ra đoạn code đã refactor (ví dụ code rõ ràng hơn)
+      4. **Lý do**: Giải thích tại sao thay đổi này tốt hơn (readability, maintainability, testability)
+      5. **Unit Test gợi ý**: Test case nào nên viết để đảm bảo refactor không hỏng tính năng
+
+      Output: Có bảng so sánh "Trước/Sau" và lý do thay đổi.
+    variables:
+      - name: codeSnippet
+        type: textarea
+        label: "Đoạn code cần review"
+        required: true
+      - name: language
+        type: text
+        label: "Ngôn ngữ lập trình"
+        required: true
+        default: "JavaScript/TypeScript"
+    examples:
+      - inputs:
+          codeSnippet: |
+            function calc(a, b, c) {
+              let d = 0;
+              for (let i = 0; i < a.length; i++) {
+                if (a[i] > b) {
+                  d = d + c;
+                } else {
+                  d = d - c;
+                }
+              }
+              return d;
+            }
+          language: "JavaScript"
+        output: |
+          # 🔍 Code Review: `calc` Function
+
+          ## Code Smells
+          | Vấn đề | Mô tả | Nguy cơ |
+          |--------|-------|---------|
+          | Tên biến không rõ nghĩa | `a`, `b`, `c`, `d`, `i` không biết ý nghĩa | Khó hiểu, dễ sai khi sửa |
+          | Magic number / Logic ngầm | `> b`, `+ c`, `- c` không biết ý nghĩa business | Khó bảo trì |
+          | Hàm làm quá nhiều việc | Lặp mảng + điều kiện + cộng/trừ trong 1 hàm | Vi phạm Single Responsibility |
+
+          ## Đề xuất Refactor
+
+          **Trước:**
+          ```javascript
+          function calc(a, b, c) {
+            let d = 0;
+            for (let i = 0; i < a.length; i++) {
+              if (a[i] > b) {
+                d = d + c;
+              } else {
+                d = d - c;
+              }
+            }
+            return d;
+          }
+          ```
+
+          **Sau:**
+          ```javascript
+          /**
+           * Tính toán tổng điều chỉnh dựa trên ngưỡng giá trị
+           * @param {number[]} values - Danh sách giá trị đầu vào
+           * @param {number} threshold - Ngưỡng so sánh
+           * @param {number} adjustment - Số tiền điều chỉnh
+           * @returns {number} Tổng điều chỉnh sau khi áp dụng
+           */
+          function calculateTotalAdjustment(values, threshold, adjustment) {
+            return values.reduce((total, value) => {
+              return value > threshold
+                ? total + adjustment
+                : total - adjustment;
+            }, 0);
+          }
+          ```
+
+          ## Lý do thay đổi
+          1. **Đặt tên rõ ràng**: `calc` → `calculateTotalAdjustment`, `a/b/c/d` → `values/threshold/adjustment/total`
+          2. **Hàm đơn responsabilité**: Chỉ tính toán, không side effect
+          3. **Sử dụng reduce**: Thay vì vòng lặp `for` thủ công, ngắn gọn và hàm thuần túy (pure function)
+          4. **Không còn magic number**: Tham số rõ ràng ý nghĩa business
+
+          ## Unit Test gợi ý
+          - `calculateTotalAdjustment([], 10, 5)` → `0` (mảng rỗng)
+          - `calculateTotalAdjustment([5, 15, 25], 10, 5)` → `5` (2 giá trị > 10: +5+5, 1 giá trị < 10: -5)
+          - `calculateTotalAdjustment([1, 2, 3], 10, 5)` → `-15` (tất cả < 10: -5-5-5)
+        context: "Review function JavaScript đơn giản, áp dụng reduce và tên biến rõ nghĩa"
+    difficulty: "medium"
+    useCases:
+      - "Review PR trên GitHub"
+      - "Refactor code legacy trước khi thêm tính năng mới"
+  - id: prompt-unit-test-tdd
+    name: "Viết Unit Test & TDD"
+    description: "Kỹ thuật viết test trước code (Red-Green-Refactor), mock, assert, coverage"
+    template: |
+      Bạn là QA Engineer & TDD Coach. Hãy viết Unit Test cho hàm sau:
+
+      ```{{language}}
+      {{functionCode}}
+      ```
+
+      **Yêu cầu:**
+      1. Test cases bao gồm: Happy path, Edge cases, Error cases
+      2. Sử dụng framework: {{testFramework}} (Jest / PyTest / JUnit...)
+      3. Mock các dependency ngoài (API, database, file system)
+      4. Theo luồng TDD: Red (test fail) → Green (code pass) → Refactor
+      5. Độ bao phủ (coverage) mục tiêu: ≥ 80%
+
+      Output: Code test có thể copy chạy ngay, cùng giải thích từng case.
+    variables:
+      - name: functionCode
+        type: textarea
+        label: "Hàm/Class cần viết test"
+        required: true
+      - name: language
+        type: text
+        label: "Ngôn ngữ lập trình"
+        required: true
+        default: "JavaScript/TypeScript"
+      - name: testFramework
+        type: select
+        label: "Framework test"
+        options:
+          - "Jest (JavaScript/TypeScript)"
+          - "PyTest (Python)"
+          - "JUnit (Java)"
+          - "Go test (Go)"
+        required: true
+        default: "Jest (JavaScript/TypeScript)"
+    examples:
+      - inputs:
+          functionCode: |
+            function calculateDiscount(price, discountPercent) {
+              if (price < 0) throw new Error('Price cannot be negative');
+              if (discountPercent < 0 || discountPercent > 100) throw new Error('Invalid discount');
+              return price * (1 - discountPercent / 100);
+            }
+          language: "JavaScript"
+          testFramework: "Jest (JavaScript/TypeScript)"
+        output: |
+          # 🧪 Unit Test: `calculateDiscount`
+
+          ```javascript
+          // calculateDiscount.test.js
+          const { calculateDiscount } = require('./calculateDiscount');
+
+          describe('calculateDiscount', () => {
+            // Happy path
+            test('should return discounted price for valid inputs', () => {
+              expect(calculateDiscount(100, 20)).toBe(80);
+              expect(calculateDiscount(50, 0)).toBe(50);
+              expect(calculateDiscount(200, 100)).toBe(0);
+            });
+
+            // Edge cases
+            test('should handle price = 0', () => {
+              expect(calculateDiscount(0, 50)).toBe(0);
+            });
+            test('should handle discountPercent = 100 (free)', () => {
+              expect(calculateDiscount(999, 100)).toBe(0);
+            });
+
+            // Error cases
+            test('should throw error for negative price', () => {
+              expect(() => calculateDiscount(-10, 10)).toThrow('Price cannot be negative');
+            });
+            test('should throw error for discount > 100%', () => {
+              expect(() => calculateDiscount(100, 101)).toThrow('Invalid discount');
+            });
+            test('should throw error for negative discount', () => {
+              expect(() => calculateDiscount(100, -5)).toThrow('Invalid discount');
+            });
+          });
+          ```
+
+          ## Giải thích từng case
+          | Case | Mục đích | Kết quả mong đợi |
+          |------|----------|------------------|
+          | Valid discount 20% | Happy path chính | 100 → 80 |
+          | Discount 0% | Boundary (không giảm) | 50 → 50 |
+          | Discount 100% | Boundary (miễn phí) | 200 → 0 |
+          | Price = 0 | Edge case giá trị 0 | 0 → 0 |
+          | Negative price | Error handling | Throw Error |
+          | Discount > 100% | Error handling business rule | Throw Error |
+          | Negative discount | Error handling business rule | Throw Error |
+
+          ## TDD Flow
+          1. **Red**: Chạy test → tất cả fail (hàm chưa có)
+          2. **Green**: Viết hàm tối thiểu để pass
+          3. **Refactor**: Tối ưu hàm, chạy test lại để xác nhận không hỏng
+        context: "Viết test cho hàm tính giảm giá, bao gồm edge cases và error handling"
+    difficulty: "intermediate"
+    useCases:
+      - "Viết test cho hàm mới trước khi code (TDD)"
+      - "Đảm bảo refactor không gây regression"
+agentTemplate:
+  name: "Software Craftsmanship Agent"
+  description: "Tư vấn Clean Code, Refactoring, Unit Test, TDD, Code Review"
+  systemPrompt: |
+    Bạn là Software Craftsmanship Coach. Tập trung vào code sạch, dễ đọc, dễ bảo trì, và test-driven development.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "systematic-debugging"
+  - "git-workflow-collaboration"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: clean-code-refactor
+---

@@ -1,0 +1,144 @@
+---
+id: to-chuc-nha-cua-khoan-khoai
+categoryId: nha-cua
+name: "Tổ chức & Sắp xếp nhà cửa (KonMari/Minimalism)"
+description: "Declutter theo phương pháp KonMari, Hệ thống lưu trữ, Maintenance routine, Digital organization"
+whenToUse:
+  - "Nhà cửa lộn xộn, tìm đồ mất thời gian"
+  - "Muốn sống tối giản, không gian thoáng đãng"
+  - "Chuyển nhà, sửa nhà, accueillir thành viên mới"
+difficulty: "beginner"
+estimatedTime: "Declutter 1-2 tuần, maintain 10p/ngày"
+tags: ["decluttering", "konmari", "minimalism", "organization", "storage", "home-management"]
+prompts:
+  - id: prompt-konmari-declutter
+    name: "Declutter theo phương pháp KonMari (Marie Kondo)"
+    description: "Tỉa giảm đồ đạc theo category, giữ lại gì 'spark joy', cảm ơn và buông bỏ"
+    template: |
+      Bạn là KonMari Consultant. Hãy hướng dẫn declutter cho:
+
+      **Hồ sơ:**
+      - Loại nhà: {{homeType}} (Căn hộ / Nhà riêng / Phòng trọ)
+      - Diện tích: {{area}} m2
+      - Thành viên: {{occupants}}
+      - Pain point: {{painPoints}} (Ví dụ: Quần áo tràn ngập, Sách tạp誌 đầy kệ, Đồ bếp không dùng...)
+      - Mục tiêu: {{goals}} (Không gian thoáng / Dễ tìm đồ / Tâm trí nhẹ nhõm / Chuẩn bị chuyển nhà)
+
+      **Thứ tự Category (KonMari Order):**
+      1. **Clothes (Quần áo)** - Dễ nhất để bắt đầu
+      2. **Books (Sách)** - Kệ sách, Kindle, Tạp chí
+      3. **Papers (Giấy tờ)** - Hóa đơn, Bảo hành, Văn bản, Thư
+      4. **Komono (Đồ lẻ)** - Bếp, Tắm, Văn phòng, Garage, Điện tử, Đồ handmade, Đồ seasonal
+      5. **Sentimental (Đồ có giá trị tình cảm)** - Ảnh, Quà, Di sản, Œuvres d'art của con
+
+      **Output cho MỖI Category:**
+      - Checklist đồ cần lấy ra (Tất cả, không bỏ sót)
+      - Câu hỏi "Spark joy?" (Cảm giác cầm trên tay)
+      - Cách gấp/giữ (KonMari folding - đứng dọc)
+      - Lưu trữ: Hộp/Ngăn, Nhãn, Vertical storage
+      - Xử lý đồ buông bỏ: Tặng/Bán/Quyên góp/Rác (Recycle/Upcycle)
+
+      **Maintenance Routine:**
+      - Daily: 10p reset (Trả đồ về chỗ, Rửa chén, Lau bếp)
+      - Weekly: 30p deep clean 1 zone
+      - Seasonal: Review category (Quần áo theo mùa)
+    variables:
+      - name: homeType
+        type: select
+        label: "Loại nhà"
+        options:
+          - "Căn hộ (Apartment/Condo)"
+          - "Nhà riêng (Landed house)"
+          - "Phòng trọ / Shared house"
+        required: true
+      - name: area
+        type: number
+        label: "Diện tích (m2)"
+        required: true
+      - name: occupants
+        type: text
+        label: "Thành viên sống cùng"
+        required: true
+      - name: painPoints
+        type: textarea
+        label: "Điểm đau hiện tại (Category nào lộn xộn nhất)"
+        required: true
+      - name: goals
+        type: multiselect
+        label: "Mục tiêu"
+        options:
+          - "Không gian thoáng đãng"
+          - "Dễ tìm đồ, tiết kiệm thời gian"
+          - "Tâm trí nhẹ nhõm, giảm stress"
+          - "Chuẩn bị chuyển nhà / Sửa nhà"
+        required: true
+    examples:
+      - inputs:
+          homeType: "Căn hộ (Apartment/Condo)"
+          area: 70
+          occupants: "Vợ chồng 30t, 1 con 3t"
+          painPoints: "Quần áo tràn tủ (chồng giữ áo 10 năm), Sách con/người lớn lộn xộn, Đồ bếp mua sắm sale không dùng, Giấy tờ nhồi nhét hũ"
+          goals: '["Không gian thoáng đãng", "Dễ tìm đồ, tiết kiệm thời gian", "Tâm trí nhẹ nhõm, giảm stress"]'
+        output: |
+          # ✨ KonMari Declutter: Căn hộ 70m2, Gia đình 3 người
+
+          ## Category 1: Clothes (Quần áo) - Tuần 1
+          **Lấy TẤT CẢ ra giường**: Áo, Quần, Váy, Đồ lót, Váy, Áo khoác, Phụ kiện, Giày, Túi
+          **Spark Joy Test**: Cầm từng món, hỏi "Món này có khiến tôi vui không?"
+          **Kết quả mẫu**:
+            - Giữ: 30% (Áo thường mặc, Quần jean yêu thích, Váy dự tiệc, Áo khoác mùa đông)
+            - Tặng/Bán: 50% (Áo size nhỏ/lớn, Mua sale không mặc, Quà tặng không hợp gu)
+            - Quyên góp: 15% (Tốt, size phổ biến)
+            - Rác: 5% (Rách, ố, không sửa được)
+          **KonMari Folding**: Gấp đứng dọc, xếp dọc trong ngăn kéo → Nhìn thấy tất cả cùng lúc
+
+          ## Category 2: Books (Sách) - Tuần 1-2
+          **Lấy ra**: Sách người lớn, Sách con, Tạp chí, Kindle library
+          **Filter**: "Sách này đã đọc xong?", "Sẽ đọc lại?", "Giúp tôi hiện tại?"
+          **Kết quả**: Giữ ~20% (Sách tham khảo, Sách con yêu thích, Sách signed), Tặng thư viện/Quà tặng
+
+          ## Category 3: Papers (Giấy tờ) - Tuần 2
+          **Quy tắc**: Giữ tối thiểu, Scan số hóa phần lớn
+          | Giữ vật lý (Original) | Scan & Lưu cloud | Rác |
+          |---------------------|------------------|-----|
+          | Sổ đỏ, Hợp đồng, Giấy khai sinh, CMND/CCCD | Hóa đơn điện/nước/넷 (giữ 1 năm) | Rác quảng cáo |
+          | Bảo hành còn hiệu lực (Scan backup) | Bảo hành hết hạn | Tem thư rác |
+          | Giấy tờ y tế quan trọng | Thư cảm ơn, Note nhỏ | Catalog mua sắm |
+
+          ## Category 4: Komono (Đồ lẻ) - Tuần 2-3
+          **Sub-categories**: Bếp, Nhà tắm, Văn phòng, Balcony, Đồ con, Đồ điện tử, Dụng cụ
+          **Bếp**: Giữ 1 bộ nồi chảo tốt, 1 dao tốt, Đồ ăn uống đủ dùng → Tặng đồ trùng lặp
+          **Văn phòng**: Bút mực (giữ 2-3), Kẹp giấy, Ghim, Note (số hóa), Cáp sạc (giữ 1/type)
+
+          ## Category 5: Sentimental (Đồ tình cảm) - Tuần 3
+          **Ảnh**: Scan tất cả → Album Google Photos shared → Giữ 1 album vật lý đẹp nhất
+          **Quà tặng**: Giữ nếu "spark joy", Tặng lại/Quỹ từ thiện nếu không (Người tặng muốn người nhận vui)
+          **Đồ con vẽ/làm**: Chụp ảnh → Album digital → Giữ 1-2 món대표 nhất mỗi năm
+
+          ## Maintenance Routine (10p/ngày)
+          | Thời gian | Hoạt động |
+          |-----------|-----------|
+          | Sáng (5p) | Mở cửa sổ, Gấp chăn, Đưa đồ về chỗ (Quần áo, Balo, Giày) |
+          | Tối (5p) | Rửa chén/sau ăn, Lau bếp, Xếp giày, Chuẩn bị đồ ngày mai |
+          | Tuần (30p CN) | Zone cleaning: Tuần 1 Bếp, Tuần 2 Phòng tắm, Tuần 3 Phòng ngủ, Tuần 4 Phòng khách |
+          | Tháng | Review 1 category (Quần áo theo mùa, Sách, Giấy tờ) |
+        context: "Gia đình 3 người, căn hộ 70m2, quá tải đồ đạc"
+    difficulty: "medium"
+    useCases:
+      - "Nhà cửa lộn xộn lâu năm"
+      - "Muốn sống tối giản, mindful"
+agentTemplate:
+  name: "Home Organization Coach"
+  description: "KonMari, Minimalism, Storage systems, Maintenance routines, Digital organization"
+  systemPrompt: |
+    Bạn là Home Organization Coach. KonMari: Category order, Spark joy, Gratitude. Systems over willpower. Vertical storage. One in, one out.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "nghi-le-gia-dinh-tinh-khoe"
+  - "ke-hoach-tai-chinh-gia-dinh"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: to-chuc-nha-cua-khoan-khoai
+---

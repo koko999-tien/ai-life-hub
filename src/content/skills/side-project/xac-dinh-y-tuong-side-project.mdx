@@ -1,0 +1,181 @@
+---
+id: xac-dinh-y-tuong-side-project
+categoryId: side-project
+name: "Xác định & Validate ý tưởng Side Project"
+description: "Problem-solution fit, Market research, MVP scope, Landing page test, Pre-sell, Kill criteria"
+whenToUse:
+  - "Có ý tưởng nhưng không biết có nên làm không"
+  - "Muốn test thị trường trước khi invest thời gian/tiền"
+  - "Chọn 1 ý tưởng từ nhiều ý tưởng"
+difficulty: "beginner"
+estimatedTime: "1-2 tuần validate, Kill fast nếu không fit"
+tags: ["ideation", "validation", "mvp", "lean-startup", "problem-solution-fit", "pre-sell"]
+prompts:
+  - id: prompt-idea-validation-framework
+    name: "Framework Validate ý tưởng (Lean Startup)"
+    description: "Problem interview, Solution interview, Landing page, Pre-sell, Kill criteria"
+    template: |
+      Bạn là Startup Coach. Hãy validate ý tưởng side project:
+
+      **Ý tưởng:**
+      {{ideaDescription}}
+
+      **Thông tin nền tảng:**
+      - Target audience: {{targetAudience}}
+      - Problem giải quyết: {{problem}}
+      - Solution đề xuất: {{solution}}
+      - Business model: {{businessModel}} (B2C Sub / B2B SaaS / Marketplace / Affiliate / Ads / Course)
+      - Resources: {{resources}} (Thời gian/tuần, Ngân sách, Kỹ năng, Network)
+
+      **Output: 5 Bước Validate (Lean & Fast)**
+
+      ### Bước 1: Problem Interview (5-10 cuộc nói chuyện)
+      - **Script**: "Khi nào bạn gặp [problem]?", "Bạn đang giải quyết như thế nào?", "Đau khổ nhất là gì?", "Bạn sẵn sàng trả bao nhiêu?"
+      - **Kết quả**: ≥ 3/5 người nói "Đau khổ, đang tìm giải pháp" -> Problem validated
+
+      ### Bước 2: Solution Interview / Fake Door Test
+      - **Landing Page** (Carrd, Framer, Notion + Super, Webflow): Headline, Value prop, CTA (Email/Pre-sell)
+      - **Traffic**: Post cộng đồng, Cold DM, $50-100 Ads, SEO long-tail
+      - **Metric**: Conversion rate ≥ 10% (Email) / ≥ 3% (Pre-sell) -> Interest validated
+
+      ### Bước 3: MVP Scope (Minimum Viable Product)
+      - **Core feature**: 1 feature giải quyết core problem
+      - **No-code first**: Bubble, Glide, FlutterFlow, Airtable + Softr, Notion + Super
+      - **Timeline**: 2-4 tuần build, 1 tuần test với 5-10 early users
+
+      ### Bước 4: Pre-sell / Waitlist
+      - **Offer**: Founder pricing (50-70% lifetime), Bonus (Onboarding 1:1, Community, Template)
+      - **Goal**: 5-10 paying customers / 50-100 waitlist trước khi build full
+      - **Payment**: Stripe, Lemon Squeezy, Gumroad, Bank transfer VN
+
+      ### Bước 5: Kill Criteria (Khi nào DỪNG)
+      - Problem interview: < 3/10 người confirm pain
+      - Landing page: < 1% conversion sau 200 visitors
+      - MVP: < 20% retention tuần 2, NPS < 30
+      - Pre-sell: 0 sales sau 2 tuần nỗ lực marketing
+      - Opportunity cost: Side project cản trở main job/health/relationships
+
+      **Output: Validation Report Card (Score 0-100)**
+    variables:
+      - name: ideaDescription
+        type: textarea
+        label: "Mô tả ý tưởng (1-2 câu: Giải quyết gì, Cho ai, Cách nào)"
+        required: true
+      - name: targetAudience
+        type: text
+        label: "Khách hàng mục tiêu (Cụ thể: VD: Freelancer designer 25-35t, Thu nhập 20-50tr)"
+        required: true
+      - name: problem
+        type: textarea
+        label: "Vấn đề cốt lõi (Pain point cụ thể)"
+        required: true
+      - name: solution
+        type: textarea
+        label: "Giải pháp đề xuất (Feature chính)"
+        required: true
+      - name: businessModel
+        type: select
+        label: "Mô hình kinh doanh"
+        options:
+          - "B2C Subscription (App, Tool, Content)"
+          - "B2B SaaS (Tool cho team/doanh nghiệp)"
+          - "Marketplace (2-sided)"
+          - "Digital Product (Course, Template, Ebook)"
+          - "Affiliate / Ads (Content site, Newsletter)"
+          - "Service-productized (Done-for-you -> Product)"
+        required: true
+      - name: resources
+        type: textarea
+        label: "Nguồn lực (Thời gian/tuần, Ngân sách, Kỹ năng Code/No-code/Design, Network)"
+        required: true
+    examples:
+      - inputs:
+          ideaDescription: "App quản lý Side Project: Theo dõi tiến độ, Tự động hóa báo cáo, Kết nối người cùng side hustle"
+          targetAudience: "Side hustler (Freelancer, Dev, Designer, Marketer) 25-40t, Có 1-2 side project, Muốn productive hơn"
+          problem: "Quên deadline side project, Không thấy progress, Cô đơn, Không biết ưu tiên gì"
+          solution: "Dashboard side project: Task + Deadline + Progress bar + Weekly report + Community accountability"
+          businessModel: "B2C Subscription (App, Tool, Content)"
+          resources: "10h/tuần, 2tr VND budget, React/Node.js (Dev), Có network 50+ side hustler"
+        output: |
+          # ✅ Validation Report: Side Project Manager App
+
+          ## Bước 1: Problem Interview (Target: 5-10 Side Hustler)
+          **Script Used**:
+          - "Khi nào bạn cảm thấy overwhelmed bởi side project?"
+          - "Bạn đang dùng tool gì để manage? Đau khổ gì?"
+          - "Nếu có app tự động báo cáo tiến độ tuần, bạn có dùng không?"
+
+          **Kết quả (Mô phỏng - Cần làm thực tế)**:
+          | Người phỏng vấn | Pain confirm? | Current tool | Pain point lớn nhất | Sẵn sàng trả? |
+          |-----------------|---------------|--------------|---------------------|---------------|
+          | Dev freelancer | ✅ | Notion + Todoist | Quên review tuần, Không thấy big picture | $5-10/tháng |
+          | Designer side hustle | ✅ | Trello | Cô đơn, Không ai accountability | $3-5/tháng |
+          | Marketer side project | ❌ | Google Sheet | Chưa thấy pain đủ lớn | Không |
+          | Dev full-time + side | ✅ | Linear (Company) + Nothing (Side) | Context switch, Quên deadline side | $10/tháng |
+          | PM side project | ✅ | Notion | Khó track multiple projects | $5-15/tháng |
+
+          **Kết luận**: 4/5 confirm pain -> **Problem VALIDATED** ✅
+
+          ## Bước 2: Landing Page Test (Carrd, 2h build)
+          **Headline**: "Quản lý Side Project như một Pro - Tự động báo cáo tuần, Community accountability"
+          **CTA**: "Đăng ký Early Access - Founder Price $5/tháng trọn đời"
+          **Traffic**: Post 3 nhóm FB Side Hustle VN (5k members), 20 Cold DM LinkedIn, $50 Facebook Ads
+          **Metric Target**: 10% email conversion / 3% pre-sell
+
+          ## Bước 3: MVP Scope (No-code First - Glide/FlutterFlow, 2 tuần)
+          **Core Features (Chỉ 3):**
+          1. **Project Dashboard**: Tạo project, Task + Deadline, Progress bar (Visual)
+          2. **Weekly Auto-report**: Email thứ 7 sáng: "Tuần này bạn hoàn thành 8/10 task. Next week focus: X, Y, Z"
+          3. **Accountability Buddy**: Match ngẫu nhiên 2 người cùng goal, Check-in tuần
+
+          **Out of Scope (V2+):** AI suggestion, Gantt chart, Invoice, Time tracking, Mobile app native
+
+          ## Bước 4: Pre-sell Strategy
+          **Offer**: "Founding Member - $5/tháng trọn đời (Sau này $15/tháng) + 1:1 Onboarding 30p + Private Discord"
+          **Channel**: 
+          - Email list từ Landing page
+          - 20 Cold DM cá nhân cho người phỏng vấn
+          - Post communities (Side Hustle VN, Indie Hackers VN)
+          **Goal**: 10 paying / 50 waitlist trong 2 tuần
+
+          ## Bước 5: Kill Criteria
+          | Metric | Threshold | Action |
+          |--------|-----------|--------|
+          | Problem interview confirm | < 3/10 | **KILL** - Pivot problem |
+          | Landing page conversion (200 visitors) | < 1% | **KILL** - Pivot messaging/offer |
+          | MVP Week 2 retention | < 20% | **KILL** - Pivot features |
+          | Pre-sell sales (2 weeks effort) | 0 | **KILL** - No market willingness |
+          | Health/Relationship/Main job impact | Negative | **PAUSE** - Reassess priority |
+
+          ## Validation Score Card
+          | Criteria | Score (0-20) | Weight | Weighted |
+          |----------|--------------|--------|----------|
+          | Problem Validation | 18 | 30% | 5.4 |
+          | Solution Interest (Landing) | 15 | 25% | 3.75 |
+          | MVP Feasibility (No-code, 2 weeks) | 18 | 20% | 3.6 |
+          | Willingness to Pay (Pre-sell) | 16 | 15% | 2.4 |
+          | Founder Fit (Skills, Passion, Time) | 17 | 10% | 1.7 |
+          | **TOTAL** | | **100%** | **16.85/20** |
+
+          **→ DECISION: PROCEED TO MVP** (Score > 15/20)
+        context: "Side Project Manager App, Dev founder, 10h/tuần, No-code MVP"
+    difficulty: "intermediate"
+    useCases:
+      - "Validate ý tưởng trước khi invest thời gian"
+      - "Chọn 1 ý tưởng từ nhiều ý tưởng"
+      - "Tránh build sản phẩm không ai dùng"
+agentTemplate:
+  name: "Side Project Validator"
+  description: "Problem-solution fit, MVP scope, Landing page test, Pre-sell, Kill criteria, Lean startup"
+  systemPrompt: |
+    Bạn là Side Project Validator. Lean startup: Problem first, Solution second. Validate fast, Kill fast. No-code first. Pre-sell > Survey. Opportunity cost is real.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "mvp-va-noi-code"
+  - "marketing-side-project"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: xac-dinh-y-tuong-side-project
+---

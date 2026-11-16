@@ -1,0 +1,469 @@
+---
+id: spaced-repetition-anki
+categoryId: hoc-tap
+name: "Spaced Repetition với Anki - Nhớ vĩnh viễn"
+description: "Thiết lập hệ thống Anki hiệu quả: tạo thẻ chất lượng, algorithm FSRS, workflow hàng ngày, tích hợp Obsidian"
+whenToUse:
+  - "Học từ vựng ngoại ngữ, thuật ngữ y/khoa/học/luật/lập trình"
+  - "Ôn thi chứng chỉ lớn (IELTS, USMLE, Bar exam, AWS, CPA)"
+  - "Ghi nhớ kiến thức ngắt quãng: shortcut, formula, API, law case"
+  - "Muốn chuyển kiến thức từ short-term → long-term memory"
+difficulty: "beginner"
+estimatedTime: "30 phút setup, 10-20 phút/ngày review"
+tags: ["spaced-repetition", "anki", "memory", "language-learning", "certification"]
+prompts:
+  - id: prompt-anki-card-design
+    name: "Thiết kế thẻ Anki chất lượng cao (20 Rules)"
+    description: "Áp dụng 20 rules của Piotr Wozniak để tạo thẻ dễ nhớ, không gây chán, hiệu quả tối đa"
+    template: |
+      Bạn là Anki Expert. Hãy giúp tôi chuyển đổi nội dung sau thành bộ thẻ Anki tuân thủ 20 Rules of Formulating Knowledge:
+
+      **Nội dung nguồn:**
+      {{sourceContent}}
+
+      **Lĩnh vực:** {{domain}}
+      **Mục tiêu:** {{goal}} (ví dụ: ôn thi, làm việc thực tế, giao tiếp)
+
+      **Yêu cầu:**
+      1. Phân tích nội dung → tách thành các *atomic facts* (khoảng kiến thức nguyên tử)
+      2. Mỗi fact → tạo 1-3 thẻ theo các loại:
+         - **Basic** (Front/Back) - cho fact đơn giản
+         - **Cloze Deletion** ({{c1::...}}) - cho liệt kê, quy trình, công thức
+         - **Image Occlusion** - cho diagram, bảng, mindmap
+         - **Type-in** - cho từ vựng, spelling, công thức chính xác
+      3. Áp dụng tối thiểu 10/20 rules quan trọng nhất:
+         - Minimum information principle (1 fact/thẻ)
+         - Avoid sets, enumerations → cloze hoặc chia nhỏ
+         - Use imagery, personal examples, emotion
+         - Context cues (where/when/how dùng)
+         - No "orphan" cards (luôn có context)
+      4. Output: Format CSV import (Front, Back, Tags, Deck) + giải thích design decision
+
+      **Lưu ý:** Không tạo thẻ "What is X?" chung chung. Hãy hỏi "X hoạt động như thế nào trong context Y?"
+    variables:
+      - name: sourceContent
+        type: textarea
+        label: "Nội dung nguồn (đoạn text, bullet points, hoặc paste từ sách/bài giảng)"
+        required: true
+      - name: domain
+        type: text
+        label: "Lĩnh vực"
+        required: true
+        default: "Y học / Luật / Lập trình / Ngoại ngữ / Kinh tế"
+      - name: goal
+        type: select
+        label: "Mục tiêu học"
+        options:
+          - "Ôn thi chứng chỉ (IELTS, USMLE, Bar, AWS...)"
+          - "Làm việc thực tế (nhớ API, shortcut, quy trình)"
+          - "Giao tiếp hàng ngày (từ vựng, câu mẫu)"
+          - "Nghiên cứu học thuật (khái niệm, công thức, tác giả)"
+        required: true
+        default: "Ôn thi chứng chỉ"
+    examples:
+      - inputs:
+          sourceContent: |
+            React Hooks Rules:
+            1. Only call hooks at the top level (not inside loops, conditions, nested functions)
+            2. Only call hooks from React function components or custom hooks
+            3. Hook names must start with "use" (e.g., useState, useEffect, useCustomHook)
+            4. Custom hooks allow extracting component logic into reusable functions
+          domain: "Lập trình React"
+          goal: "Làm việc thực tế (nhớ API, shortcut, quy trình)"
+        output: |
+          # 🎴 Bộ thẻ Anki: React Hooks Rules
+
+          ## Phân tích Atomic Facts
+          F1: Hooks chỉ được gọi ở top level của component
+          F2: Không gọi hooks trong loop/condition/nested function
+          F3: Hooks chỉ gọi từ React function component hoặc custom hook
+          F4: Tên hook bắt buộc bắt đầu bằng "use"
+          F5: Custom hook = function bắt đầu bằng "use" gọi hooks khác
+
+          ## Thẻ thiết kế (CSV Format)
+          Front,Back,Tags,Deck,Note Type
+          "React: Hooks gọi ở đâu trong component?","Top level (không trong loop/if/nested fn)","react hooks rules","React::Hooks",Basic
+          "React: Vi phạm rule 1 ví dụ?","```js\nif (cond) { useState() } // ❌ Sai\nuseState() // ✅ Đúng\n```","react hooks rules","React::Hooks",Cloze
+          "React: Hooks gọi từ đâu được?","React function component HOẶC custom hook","react hooks rules","React::Hooks",Basic
+          "React: Custom hook convention?","Tên hàm bắt đầu bằng 'use' (useAuth, useFetch)","react hooks naming","React::Hooks",Basic
+          "React: Custom hook bản chất là gì?","Function JS gọi hooks khác → tái sử dụng logic stateful","react hooks advanced","React::Hooks",Cloze
+          "{{c1::useState}}, {{c1::useEffect}}, {{c1::useContext}} là hooks built-in. Custom hook: {{c1::useAuth}}","react hooks examples","React::Hooks",Cloze
+
+          ## Design Decisions
+          - ❌ Không tạo thẻ "Rules của hooks là gì?" (vi phạm Minimum Information - 4 facts trong 1 thẻ)
+          - ✅ Mỗi rule = 1 thẻ Basic + 1 thẻ Cloze ví dụ counter-example
+          - ✅ Cloze cho naming convention (pattern recognition)
+          - ✅ Tag phân cấp: react::hooks::rules vs react::hooks::naming
+          - ✅ Context cue: "React:" prefix trên Front → biết ngay domain khi review random
+        context: "Ví dụ cho developer React, focus practical application"
+    difficulty: "medium"
+    useCases:
+      - "Chuyển sách/bài giảng thành thẻ Anki hệ thống"
+      - "Tạo deck cho team (shared knowledge base)"
+      - "Content creator bán deck Anki chất lượng"
+  - id: prompt-anki-daily-workflow
+    name: "Workflow Anki hàng ngày hiệu quả"
+    description: "Thiết lập quy trình review 10-20p/ngày: new cards, review, buried, leeches, stats tracking"
+    template: |
+      Hãy thiết lập workflow Anki hàng ngày cho tôi với thông số:
+
+      **Thông tin:**
+      - Thời gian review có sẵn: {{dailyMinutes}} phút/ngày
+      - Số thẻ mới muốn học/ngày: {{newCardsPerDay}}
+      - Deck chính: {{mainDeck}}
+      - Mức độ ưu tiên: {{priority}} (exam-date / long-term / maintenance)
+      - Thiết bị: {{devices}} (Desktop / Mobile / Both)
+
+      **Yêu cầu output:**
+      1. **Daily Routine** (bước 1-5, bao giờ làm, bao lâu mỗi bước)
+      2. **Cài đặt Deck Options** tối ưu (New cards, Reviews, Lapses, FSRS parameters)
+      3. **Leeches Management** - nhận diện & xử lý thẻ "chết" (lặp lại > 8 lần)
+      4. **Weekly/Monthly Review** - stats nào cần theo dõi, khi nào adjust settings
+      5. **Sync & Backup** strategy
+      6. **Troubleshooting** common issues (overwhelm, motivation drop, card quality)
+
+      Format: Checklist Notion-ready + bảng cài đặt FSRS recommended.
+    variables:
+      - name: dailyMinutes
+        type: number
+        label: "Phút review có sẵn mỗi ngày"
+        required: true
+        default: 15
+      - name: newCardsPerDay
+        type: number
+        label: "Số thẻ mới/ngày"
+        required: true
+        default: 10
+      - name: mainDeck
+        type: text
+        label: "Tên deck chính (ví dụ: English::Vocab, Medicine::Anatomy)"
+        required: true
+      - name: priority
+        type: select
+        label: "Mức độ ưu tiên"
+        options:
+          - "exam-date" # Có deadline thi cụ thể
+          - "long-term" # Học lâu dài, không deadline
+          - "maintenance" # Chỉ maintain kiến thức cũ
+        required: true
+        default: "long-term"
+      - name: devices
+        type: multiselect
+        label: "Thiết bị dùng"
+        options:
+          - "Desktop (Anki Desktop)"
+          - "Mobile (AnkiDroid / AnkiMobile)"
+          - "Web (AnkiWeb)"
+        required: true
+        default: ["Desktop (Anki Desktop)", "Mobile (AnkiDroid / AnkiMobile)"]
+    examples:
+      - inputs:
+          dailyMinutes: 20
+          newCardsPerDay: 15
+          mainDeck: "English::IELTS_Vocab"
+          priority: "exam-date"
+          devices: '["Desktop (Anki Desktop)", "Mobile (AnkiDroid / AnkiMobile)"]'
+        output: |
+          # ⏰ Daily Anki Workflow - IELTS Vocab (Exam in 90 days)
+
+          ## 📅 Daily Routine (20 phút)
+          | Bước | Hoạt động | Thời gian | Khi nào | Tool |
+          |------|-----------|-----------|---------|------|
+          | 1 | **Quick Review** (Due cards) | 12p | Sáng sớm / Xe buýt / Ăn trưa | Mobile |
+          | 2 | **New Cards** (Learn) | 5p | Sau review xong | Mobile |
+          | 3 | **Leeches Check** (Filter: tag:leech) | 2p | Cuối tuần (T7) | Desktop |
+          | 4 | **Add New** (Từ reading/listening hôm nay) | 1p | Không cố định | Mobile (Quick add) |
+          | 5 | **Sync** | Tự động | Mở app | AnkiWeb |
+
+          ## ⚙️ Deck Options (FSRS - Recommended)
+          **New Cards:**
+          - Steps: `10m 1h 6h 1d 3d` (learning steps)
+          - New/day: `15` (tăng lên 20 nếu review time < 15p)
+          - Graduating interval: `4d`
+          - Easy interval: `6d`
+
+          **Reviews:**
+          - Maximum reviews/day: `200` (tự động adjust bởi FSRS)
+          - Easy bonus: `1.3`
+          - Interval modifier: `1.0` (FSRS tự optimize)
+          - **FSRS Enabled: ON** (Anki 23.10+)
+
+          **Lapses (Quên thẻ đã毕业):**
+          - Steps: `10m 1h 6h` (relearning steps)
+          - New interval: `0.3` (reset to 30% interval cũ)
+          - Min interval: `1d`
+          - Leech threshold: `8` (lapses > 8 → tag leech + suspend)
+
+          ## 🧟 Leeches Management (Weekly - T7 30p)
+          1. Search: `tag:leech` OR `prop:lapses>8`
+          2. Với mỗi leech: **Chọn 1 hành động**
+             - 🔧 **Fix**: Rewrite card (chia nhỏ, thêm context, đổi cloze→basic)
+             - 🖼️ **Image**: Thêm hình ảnh/emoji/personal example
+             - 🗑️ **Delete**: Knowledge không cần thiết / đã mastered elsewhere
+             - 😴 **Suspend**: Tạm dừng, review sau khi có context hơn
+          3. Goal: Giảm leeches < 5% total cards
+
+          ## 📊 Weekly Stats Review (Chủ Nhật 10p)
+          - **Retention rate** (mục tiêu > 85% cho exam, > 90% long-term)
+          - **Reviews/day trend** (tăng dần = overload, giảm = quên review)
+          - **New cards added vs learned** (cân bằng input/output)
+          - **Leeches count** (xu hướng tăng/giảm)
+          - **Time/card** (nếu > 10s/card → card quá phức tạp)
+
+          ## 🔄 Sync & Backup
+          - Auto-sync: On (AnkiWeb)
+          - Manual backup: Tuần 1 lần (File → Export → Collection package .apkg)
+          - Cloud backup: Sync .apkg lên Google Drive/OneDrive
+
+          ## 🚨 Troubleshooting
+          | Vấn đề | Nguyên nhân | Giải pháp |
+          |--------|-------------|-----------|
+          | Review > 30p/ngày | New cards quá nhiều / Leeches nhiều | Giảm new/day 50%, focus leeches |
+          | Retention < 80% | Card quality kém / Interval quá dài | Fix cards, enable FSRS, giảm interval modifier |
+          | Burnout / Bỏ dở | Quá nhiều deck / Không thấy progress | Gộp deck, thêm "Easy wins", gamify streak |
+          | Mobile không sync | Network / AnkiWeb limit | Check internet, manual sync, dùng AnkiDroid (free) |
+    difficulty: "easy"
+    useCases:
+      - "Người mới bắt đầu Anki muốn setup đúng từ đầu"
+      - "Người đã dùng Anki nhưng cảm thấy overwhelm, không hiệu quả"
+      - "Chuẩn bị thi lớn cần optimize retention"
+  - id: prompt-anki-obsidian-integration
+    name: "Tích hợp Anki ↔ Obsidian (Obsidian_to_Anki)"
+    description: "Workflow seamless: Note trong Obsidian → tự động thành thẻ Anki qua plugin Obsidian_to_Anki"
+    template: |
+      Hãy hướng dẫn tôi setup pipeline **Obsidian → Anki** tự động hóa việc tạo thẻ từ note học tập.
+
+      **Yêu cầu setup:**
+      1. Cài đặt plugin `obsidian_to_anki` (hoặc `anki-editor` cho edit 2 chiều)
+      2. Cấu trúc vault/folder cho flashcards
+      3. Syntax markdown → Anki card types (Basic, Cloze, Reversed, Typing)
+      4. Tag/Deck mapping từ YAML frontmatter
+      5. Workflow: Fleeting note → Literature note → Flashcard note → Anki
+      6. Automation: GitHub Actions sync Anki collection (optional)
+
+      **Context của tôi:**
+      - Vault structure hiện tại: {{vaultStructure}}
+      - Loại note chính: {{noteTypes}}
+      - Anki version: {{ankiVersion}}
+      - Có dùng AnkiConnect không: {{useAnkiConnect}}
+
+      Output: Step-by-step guide có screenshot positions + config.json mẫu + troubleshooting.
+    variables:
+      - name: vaultStructure
+        type: textarea
+        label: "Cấu trúc vault Obsidian hiện tại (folder chính)"
+        required: true
+        default: "00 Inbox\n01 Projects\n02 Areas\n03 Resources\n04 Archives\nFlashcards (folder dành cho Anki)"
+      - name: noteTypes
+        type: multiselect
+        label: "Loại note bạn thường tạo"
+        options:
+          - "Literature notes (sách, paper, video)"
+          - "Meeting/Class notes"
+          - "Language vocab (từ vựng)"
+          - "Technical specs (API, config, shortcut)"
+          - "Interview prep (Q&A)"
+        required: true
+        default: ["Literature notes (sách, paper, video)", "Technical specs (API, config, shortcut)"]
+      - name: ankiVersion
+        type: text
+        label: "Phiên bản Anki"
+        required: true
+        default: "23.10+ (có FSRS) / 2.1.x"
+      - name: useAnkiConnect
+        type: select
+        label: "Dùng AnkiConnect (localhost:8765) để push real-time?"
+        options:
+          - "Có (khuyên dùng - real-time, 2 chiều)"
+          - "Không (chỉ export .apkg thủ công)"
+        required: true
+        default: "Có (khuyên dùng - real-time, 2 chiều)"
+    examples:
+      - inputs:
+          vaultStructure: |
+            Vault/
+            ├── 00 Inbox/
+            ├── 01 Projects/
+            ├── 02 Areas/
+            │   └── Learning/
+            │       ├── English/
+            │       ├── React/
+            │       └── System Design/
+            ├── 03 Resources/
+            └── Flashcards/          # ← Folder dedicated for Anki sync
+          noteTypes: '["Literature notes (sách, paper, video)", "Technical specs (API, config, shortcut)"]'
+          ankiVersion: "23.10+ (có FSRS)"
+          useAnkiConnect: "Có (khuyên dùng - real-time, 2 chiều)"
+        output: |
+          # 🔗 Obsidian ↔ Anki Integration Setup
+
+          ## 1. Prerequisites
+          - Anki Desktop 23.10+ + **AnkiConnect addon** (Code: 2055492159)
+          - Obsidian + **Obsidian_to_Anki** plugin (Community plugins → BRAT hoặc manual install)
+          - Python 3.8+ (cho plugin chạy local server)
+
+          ## 2. Folder Structure
+          ```
+          Vault/
+          └── Flashcards/              # Root cho plugin
+              ├── English/
+              │   ├── vocab.md         # Basic + Reversed cards
+              │   └── idioms.md        # Cloze cards
+              ├── React/
+              │   ├── hooks.md         # Cloze + Code blocks
+              │   └── patterns.md      # Image occlusion (sau này)
+              └── SystemDesign/
+                  └── concepts.md      # Basic + Definition cards
+          ```
+
+          ## 3. Plugin Config (obsidian_to_anki/settings.json)
+          ```json
+          {
+            "anki_connect_url": "http://localhost:8765",
+            "note_types": {
+              "Basic": {
+                "front": "{{Front}}",
+                "back": "{{Back}}",
+                "tags": "{{Tags}}",
+                "deck": "{{Deck}}"
+              },
+              "Cloze": {
+                "text": "{{Text}}",
+                "tags": "{{Tags}}",
+                "deck": "{{Deck}}"
+              },
+              "Basic (and reversed card)": {
+                "front": "{{Front}}",
+                "back": "{{Back}}",
+                "tags": "{{Tags}}",
+                "deck": "{{Deck}}"
+              }
+            },
+            "default_deck": "Obsidian::Import",
+            "default_tags": ["obsidian"],
+            "media_folder": "Flashcards/media"
+          }
+          ```
+
+          ## 4. Markdown Syntax → Anki Cards
+
+          ### Basic Card (Front/Back)
+          ```markdown
+          ---
+          deck: English::Vocab
+          tags: vocab, ielts
+          note_type: Basic
+          ---
+
+          # Front: Serendipity
+          **Back:** /ˌser.ənˈdɪp.ə.ti/ - *n.* Sự may mắn gặp điều tốt đẹp không mong đợi
+          ```
+
+          ### Basic (and Reversed) - cho Vocab 2 chiều
+          ```markdown
+          ---
+          deck: English::Vocab
+          tags: vocab, toeic
+          note_type: Basic (and reversed card)
+          ---
+
+          # Front: Ubiquitous
+          **Back:** /juːˈbɪk.wɪ.təs/ - *adj.* Có mặt khắp nơi, universal
+          ```
+
+          ### Cloze Deletion - cho Lists, Process, Code
+          ```markdown
+          ---
+          deck: React::Hooks
+          tags: hooks, rules
+          note_type: Cloze
+          ---
+
+          # React Hooks Rules
+          1. {{c1::Only call hooks at the top level}}
+          2. {{c1::Only call hooks from React function components}}
+          3. {{c1::Hook names must start with "use"}}
+          4. Custom hooks: {{c2::functions starting with "use" that call other hooks}}
+          ```
+
+          ### Typing Card (Cloze + type:in)
+          ```markdown
+          ---
+          deck: English::Spelling
+          tags: spelling
+          note_type: Cloze
+          ---
+
+          Type the word: {{c1::accommodation::type}}  # type:in answer field
+          ```
+
+          ## 5. Workflow Đời Thường
+          1. **Capture** (Inbox): Ghi chép nhanh trong literature note
+          2. **Process** (Cuối ngày/Chủ Nhật): Di chuyển knowledge đáng nhớ → `Flashcards/` folder, thêm frontmatter
+          3. **Sync**: Click "Sync with Anki" trong Obsidian ribbon (hoặc auto-sync on save)
+          4. **Review**: Mở Anki mobile/desktop học như bình thường
+          5. **Refine**: Nếu card kém → sửa trong Obsidian → Re-sync (AnkiConnect update note)
+
+          ## 6. Advanced: GitHub Actions Auto-Sync (Optional)
+          ```yaml
+          # .github/workflows/anki-sync.yml
+          name: Anki Sync
+          on:
+            schedule: [{cron: '0 2 * * *'}]  # 2 AM daily
+            workflow_dispatch:
+          jobs:
+            sync:
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                - name: Setup Python
+                  uses: actions/setup-python@v5
+                  with: {python-version: '3.11'}
+                - name: Install obsidian_to_anki
+                  run: pip install obsidian_to_anki
+                - name: Sync
+                  run: obsidian_to_anki --vault ./Vault --anki-connect http://your-server:8765
+          ```
+
+          ## 🛠️ Troubleshooting
+          | Lỗi | Nguyên nhân | Fix |
+      |-----|-------------|-----|
+      | "Cannot connect to AnkiConnect" | Anki chưa mở / Addon chưa cài | Mở Anki → Tools → Add-ons → Get Add-ons → 2055492159 |
+      | "Note type not found" | Note type name sai (case-sensitive) | Kiểm tra Anki: Tools → Manage Note Types → Copy exact name |
+      | "Media not syncing" | Media folder path sai | Config `media_folder` relative to vault root |
+      | "Duplicate cards" | Re-sync note đã có | Plugin tự detect bằng note ID (first line hash). Đảm bảo không đổi frontmatter `id` |
+
+    difficulty: "intermediate"
+    useCases:
+      - "Knowledge worker dùng Obsidian as second brain"
+      - "Sinh viên/Researcher note-taking → flashcard pipeline"
+      - "Team chia sẻ deck qua shared vault (Git)"
+agentTemplate:
+  name: "Anki Architect Agent"
+  description: "Thiết kế deck Anki, tối ưu FSRS parameters, debug leeches, tích hợp Obsidian/Notion"
+  systemPrompt: |
+    Bạn là Anki Architect - chuyên gia về spaced repetition systems và Anki.
+    Chuyên môn:
+    - Thiết kế card theo 20 Rules of Formulating Knowledge (Piotr Wozniak)
+    - FSRS (Free Spaced Repetition Scheduler) parameter optimization
+    - Leeches diagnosis & remediation
+    - Obsidian/Notion/Logseq integration workflows
+    - Deck architecture: subdeck hierarchy, tag system, note types
+    - AnkiConnect API cho automation
+
+    Phong cách: Data-driven, practical, opinionated về best practices.
+    Luôn hỏi: "Mục tiêu là gì? (Exam date / Long-term / Maintenance)" trước khi tư vấn settings.
+  model: "gpt-4"
+  temperature: 0.5
+  tools:
+    - "web_search"
+relatedSkillIds:
+  - "doc-lap-ke-hoach-hoc-tap"
+  - "kythuat-feynman"
+  - "active-recall"
+author: "AI Life Hub Team"
+source: "Piotr Wozniak - 'Effective Learning: Twenty Rules of Formulating Knowledge'; Anki Manual; FSRS Research (Open Spaced Repetition)"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: spaced-repetition-anki
+---

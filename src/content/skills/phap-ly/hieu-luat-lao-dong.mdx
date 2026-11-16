@@ -1,0 +1,161 @@
+---
+id: hieu-luat-lao-dong
+categoryId: phap-ly
+name: "Hiểu luật Lao động & Quyền lợi người lao động"
+description: "Hợp đồng lao động, Giờ làm/OT, Nghỉ phép, Bhxh, Sa thải, Đàm phán, Tố cáo"
+whenToUse:
+  - "Ký/Tham gia hợp đồng lao động"
+  - "Xử lý tranh chấp lao động (OT không trả, Sai thải, Bhxh)"
+  - "Đàm phán lương, 福利, Điều kiện làm việc"
+difficulty: "intermediate"
+estimatedTime: "Research 1-2h, Apply khi cần"
+tags: ["labor-law", "employment-contract", "overtime", "social-insurance", "termination", "negotiation", "dispute-resolution"]
+prompts:
+  - id: prompt-labor-contract-review
+    name: "Review Hợp đồng Lao động (LĐ) theo Luật 2019"
+    description: "Kiểm tra các điều khoản bắt buộc, Cạm bẫy thường gặp, Quyền lợi người lao động"
+    template: |
+      Bạn là Labor Law Attorney. Hãy review hợp đồng lao động:
+
+      **Hợp đồng cung cấp:**
+      {{contractText}}
+
+      **Thông tin người lao động:**
+      - Vị trí: {{position}}
+      - Lương đề xuất: {{salary}}
+      - Kinh nghiệm: {{experience}}
+
+      **Checklist Review (Luật LĐ 2019, Nghị định 145/2020):**
+      1. **Điều khoản BẮT BUỘC (Điều 21 Luật LĐ)**:
+         - Tên, địa chỉ NLD & NLD
+         - Việc làm, Địa điểm
+         - Thời hạn HĐ (Xác định / Không xác định / Theo vụ việc)
+         - Lương, Phụ cấp, Cách thanh toán, Kỳ trả
+         - Giờ làm, Nghỉ ngơi, Phép năm
+         - BHXH, BHYT, BHTN (Đóng từ ngày vào làm)
+         - Điều kiện làm việc, An toàn vệ sinh
+         - Đào tạo, Bồi dưỡng
+      2. **Cạm bẫy THƯỜNG GẶP**:
+         - Thử việc > 60 ngày (Chỉ 60 ngày cho việc đòi hỏi trình độ cao)
+         - Lương cơ bản < Lương tối đa vùng (Check vùng 1-4)
+         - OT không trả / Tính OT sai (150%/200%/300%)
+         - Phép năm < 12 ngày (Thực tế 12 ngày + 1 ngày/năm thâm niên)
+         - Sa thải đơn phương không đúng quy trình
+         - Cam kết không thai sản / Không kết hôn (Vô hiệu)
+         - Phạt tiền không theo luật (Chỉ phạt kỷ luật theo pháp luật)
+         - Bảo mật/Đạo thương bị lạm dụng (Phạm vi, Thời hạn, Tiền bồi thường hợp lý)
+      3. **Đề xuất SỬA ĐỔI / THÊM**:
+         - Điều khoản review lương hàng năm
+         - Điều khoản thăng tiến, Đánh giá
+         - Điều khoản từ chối làm việc không an toàn
+         - Điều khoản giải quyết tranh chấp (Đàm phán -> Trọng tài -> Tòa)
+
+      **Output:** Bảng so sánh "Hiện tại" vs "Theo luật" vs "Đề xuất", Risk rating (High/Medium/Low)
+    variables:
+      - name: contractText
+        type: textarea
+        label: "Nội dung hợp đồng lao động (Paste text hoặc mô tả các điều khoản chính)"
+        required: true
+      - name: position
+        type: text
+        label: "Vị trí công việc"
+        required: true
+      - name: salary
+        type: text
+        label: "Lương đề xuất (Gross/Net, Có thưởng không)"
+        required: true
+      - name: experience
+        type: text
+        label: "Kinh nghiệm / Trình độ"
+        required: true
+    examples:
+      - inputs:
+          contractText: "HĐLĐ xác định 2 năm. Lương: 15 triệu (Đã bao gồm OT 30h/tháng). Thử việc 2 tháng lương 80%. Phép năm 10 ngày. Không đề cập BHXH thời gian thử việc. Cam kết không thai sản 2 năm. Phạt 500k/vi phạm nội quy. Bảo mật 3 năm sau khi nghỉ việc, phạt 500 triệu."
+          position: "Marketing Specialist"
+          salary: "15 triệu Gross (Đã bao OT 30h)"
+          experience: "3 năm kinh nghiệm, Cử nhân Marketing"
+        output: |
+          # ⚖️ Review Hợp Đồng Lao Động: Marketing Specialist, 15tr Gross
+
+          ## Risk Assessment Summary
+          | Điều khoản | Mức độ rủi ro | Vi phạm pháp luật |
+          |------------|---------------|-------------------|
+          | Lương bao gồm OT 30h | **HIGH** | Sai luật (OT phải trả riêng, không bao trong lương) |
+          | Thử việc 2 tháng (80% lương) | **HIGH** | Vượt 60 ngày cho vị trí trình độ cao |
+          | Phép năm 10 ngày | **HIGH** | Thiếu 2 ngày (Tối thiểu 12 ngày) |
+          | Không đóng BHXH thời gian thử việc | **CRITICAL** | Bắt buộc đóng từ ngày vào làm |
+          | Cam kết không thai sản | **CRITICAL (VÔ HIỆU)** | Vi phạm quyền con người, Luật bình đẳng giới |
+          | Phạt tiền 500k/vi phạm | **HIGH** | Không có cơ sở pháp lý (Chỉ kỷ luật theo luật) |
+          | Bảo mật 3 năm, phạt 500tr | **MEDIUM** | Thời hạn quá dài, Tiền phạt quá cao so với thiệt hại thực tế |
+
+          ## Chi Tiết Các Vấn Đề & Đề Xuất
+
+          ### 1. Lương "Bao Gồm OT 30h/tháng" ❌
+          - **Luật**: Lương cơ bản & OT phải tách biệt. OT 30h = 30h x 1.5h lương/giờ (ngày thường) = 45h lương thường. Nếu lương 15tr bao OT → Lương cơ bản thực tế chỉ ~10-11tr.
+          - **Rủi ro**: NLD tính lương hưu, Thương tích, Thai sản trên lương cơ bản thấp → Bồi thường thấp.
+          - **Đề xuất**: Tách lương cơ bản (VD: 12tr) + OT thực tế tính riêng theo giờ.
+
+          ### 2. Thử Việc 2 Tháng (80% Lương) ❌
+          - **Luật**: Thử việc tối đa **60 ngày** (Điều 25 Luật LĐ) cho việc đòi hỏi trình độ cao (Cử nhân lên).
+          - **Lương thử việc**: Tối thiểu **85% lương chính thức** (Điều 27).
+          - **Đề xuất**: Rút ngắn 1.5 tháng, Lương thử việc ≥ 85%.
+
+          ### 3. Phép Năm 10 Ngày ❌
+          - **Luật**: Tối thiểu **12 ngày/năm** (Điều 113). +1 ngày/5 năm thâm niên.
+          - **Đề xuất**: Sửa thành 12 ngày + quy định thâm niên.
+
+          ### 4. Không Đóng BHXH Thời Gian Thử Việc 🚨 CRITICAL
+          - **Luật**: **Bắt buộc đóng từ ngày vào làm** (Điều 3 Luật BHXH). Không có ngoại lệ thử việc.
+          - **Rủi ro**: NLD bị tai nạn/ốm thử việc → Không hưởng BHXH. NLD vi phạm hành chính (Phạt 10-20% tiền lương chậm đóng).
+          - **Đề xuất**: Bổ sung điều khoản "Đóng BHXH, BHYT, BHTN từ ngày đầu tiên vào làm".
+
+          ### 5. Cam Kết Không Thai Sản 2 Năm 🚨 CRITICAL (VÔ HIỆU)
+          - **Luật**: **Vi phạm Luật Bình đẳng giới (Điều 10), Luật LĐ (Điều 154)**. Quy định này **VÔ HIỆU** hoàn toàn.
+          - **Rủi ro**: NLD có thể kiện NLD bồi thường thiệt hại tinh thần, tiền lương.
+          - **Đề xuất**: **XÓA HOÀN TOÀN** điều khoản này.
+
+          ### 6. Phạt Tiền 500k/Vi Phạm Nội Quy ❌
+          - **Luật**: NLD **KHÔNG ĐƯỢC QUY ĐỊNH PHẠT TIỀN**. Chỉ áp dụng 3 hình thức kỷ luật: Khiển trách, Kéo dài thời hạn nâng lương, Sa thải (Điều 124-125).
+          - **Đề xuất**: Xóa điều khoản phạt tiền. Thay bằng quy trình kỷ luật theo pháp luật.
+
+          ### 6. Bảo Mật 3 Năm, Phạt 500 Triệu ⚠️
+          - **Luật**: Bảo mật hợp lý (Thường 6-12 tháng, tối đa 2-3 năm tùy ngành). Tiền phạt phải tương xứng thiệt hại thực tế (Chứng minh được).
+          - **Đề xuất**: Giảm 1-2 năm. Tiền phạt: "Bồi thường thiệt hại thực tế" hoặc mức cụ thể hợp lý (VD: 3-6 tháng lương).
+
+          ## Bảng So Sánh Tóm Tắt
+          | Điều khoản | Hiện tại | Theo Luật | Đề xuất | Mức độ ưu tiên |
+          |------------|----------|-----------|---------|---------------|
+          | Lương/OT | 15tr bao OT | Tách biệt | Lương cơ bản 12tr + OT riêng | **URGENT** |
+          | Thử việc | 2 tháng, 80% | Max 60 ngày, ≥85% | 1.5 tháng, 85% | **URGENT** |
+          | Phép năm | 10 ngày | 12 ngày + thâm niên | 12 ngày + 1 ngày/5 năm | **URGENT** |
+          | BHXH thử việc | Không đóng | Bắt buộc từ ngày 1 | Đóng từ ngày 1 | **CRITICAL** |
+          | Không thai sản | Có | **VÔ HIỆU** | **XÓA HOÀN TOÀN** | **CRITICAL** |
+          | Phạt tiền | 500k/lỗi | Không được phạt tiền | Xóa, dùng kỷ luật pháp luật | **URGENT** |
+          | Bảo mật | 3 năm, 500tr | Hợp lý, Bồi thường thực | 1-2 năm, Thiệt hại thực tế | **REVIEW** |
+
+          ## Kết Luận & Hành Động
+          1. **KHÔNG KÝ** bản hiện tại.
+          2. Gửi email NLD/HR: "Em muốn thảo luận một số điều khoản để tuân thủ pháp luật, bảo vệ quyền lợi 2 bên."
+          3. Đề xuất bản sửa đổi (Track changes).
+          4. Nếu NLD từ chối sửa các điều **CRITICAL/URGENT** → Cân nhắc không nhận việc.
+        context: "HĐLĐ 2 năm, Marketing 3 năm kinh nghiệm, 15tr Gross, Nhiều điều khoản vi phạm"
+    difficulty: "advanced"
+    useCases:
+      - "Review HĐLĐ trước khi ký"
+      - "Xử lý vi phạm quyền lợi (OT, Phép, BHXH, Sai thải)"
+      - "Đàm phán HĐLĐ mới"
+agentTemplate:
+  name: "Labor Law Advisor"
+  description: "HĐLĐ, OT, Phép, BHXH, Sa thải, Đàm phán, Tố cáo, Lao động nữ, An toàn vệ sinh"
+  systemPrompt: |
+    Bạn là Labor Law Advisor (Việt Nam). Luật LĐ 2019, Nghị định 145/2020, Luật BHXH 2014. Bảo vệ quyền NLD. Compliance first. Non-legal advice disclaimer.
+  model: "gpt-4"
+  temperature: 0.3
+relatedSkillIds:
+  - "thu-tuc-hanh-chinh-cong"
+  - "biet-cach-doc-hop-dong"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: hieu-luat-lao-dong
+---

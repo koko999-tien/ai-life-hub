@@ -1,0 +1,135 @@
+---
+id: nghi-le-gia-dinh-tinh-khoe
+categoryId: gia-dinh
+name: "Nghi lễ & Truyền thống gia đình"
+description: "Xây dựng family rituals: Family meeting, Meal traditions, Holiday rituals, One-on-one dates, Gratitude practice"
+whenToUse:
+  - "Muốn gắn kết gia đình chặt chẽ hơn"
+  - "Tạo kỷ niệm đẹp, giá trị chung cho con cái"
+  - "Giảm xung đột, tăng cảm giác thuộc về"
+difficulty: "beginner"
+estimatedTime: "Thiết lập 1-2 tuần, maintain hàng tuần/tháng"
+tags: ["family-rituals", "traditions", "family-meeting", "gratitude", "connection", "bonding"]
+prompts:
+  - id: prompt-family-rituals-design
+    name: "Thiết kế Nghi lễ gia đình (Family Rituals)"
+    description: "Tạo bộ nghi lễ hàng ngày/tuần/năm: Family meeting, Gratitude, One-on-one, Holiday traditions"
+    template: |
+      Bạn là Family Culture Designer. Hãy thiết kế bộ nghi lễ cho gia đình:
+
+      **Thành viên:**
+      {{familyMembers}}
+
+      **Lịch trình hiện tại:**
+      {{currentSchedule}}
+
+      **Giá trị gia đình muốn nuôi dưỡng:**
+      {{familyValues}}
+
+      **Output: 4 cấp độ nghi lễ**
+
+      ### 1. Daily Micro-rituals (5-10 phút)
+      - **Morning Launch**: Chào nhau, 1 từ khẳng định, nắm tay/hug
+      - **Family Meal**: Ăn cùng ít nhất 1 bữa/ngày, không điện thoại, "Rose/Thorn/Bud" (Tốt/Nhở/Hạt mầm)
+      - **Bedtime Connection**: Đọc sách/Chuyện trước ngủ, 3 điều biết ơn, Hôn/Ôm
+
+      ### 2. Weekly Rituals (30-60 phút)
+      - **Family Meeting (Chủ Nhật tối)**: Review tuần, Lịch tuần sau, Vấn đề cần giải quyết, Khen ngợi, Kế hoạch vui
+      - **One-on-One Date**: Cha/Con, Mẹ/Con, Vợ/Chồng (luân phiên, 30-60p, không điện thoại)
+      - **Family Fun Night**: Board game / Nấu ăn cùng / Xem phim / Đi dạo
+
+      ### 3. Monthly/Quarterly Rituals
+      - **Monthly Adventure**: Đi nơi mới, trải nghiệm mới (Picnic, Museum, Hiking, Workshop)
+      - **Quarterly Review**: Rà soát giá trị, mục tiêu gia đình, Điều chỉnh nghi lễ
+
+      ### 4. Yearly/Seasonal Traditions
+      - **Sinh nhật**: "Birthday interview" (Câu hỏi cùng nhau mỗi năm), Bánh tự làm, Quà trải nghiệm
+      - **Tết/Năm mới**: Viết thư cho nhau, Đốt giấy许愿, Dọn nhà cùng, Ảnh gia đình
+      - **Mùa hè/Thu/Đông/ Xuân**: Hoạt động đặc trưng mùa (Bơi, Thu hoạch, Nướng, Múa lantern)
+
+      **Implementation Guide:**
+      - Bắt đầu nhỏ: Chọn 1-2 nghi lễ → Thực hiện 21 ngày → Thêm mới
+      - Linh hoạt: Không cưỡng lại, thích ứng theo giai đoạn đời
+      - Ghi lại: Family journal / Album ảnh / Video ngắn
+    variables:
+      - name: familyMembers
+        type: textarea
+        label: "Thành viên (Ví dụ: Vợ 32t, Chồng 34t, Con trai 3t, Con gái 6t)"
+        required: true
+      - name: currentSchedule
+        type: textarea
+        label: "Lịch trình thường ngày (Giờ đi làm/về, ngủ, ăn, con đi học...)"
+        required: true
+      - name: familyValues
+        type: textarea
+        label: "Giá trị muốn nuôi dưỡng (Ví dụ: Tôn trọng, Tò mò, Chia sẻ, Kiên trì, Yêu thương)"
+        required: true
+    examples:
+      - inputs:
+          familyMembers: "Vợ 32t (Marketing), Chồng 34t (Engineer), Con trai 3t, Con gái 6t"
+          currentSchedule: "6h30 dậy, 7h30 ăn sáng, 8h đưa con đi học, 8h30 đi làm, 18h30 về, 19h ăn tối, 20h30 con ngủ, 22h30 ngủ"
+          familyValues: "Tôn trọng lẫn nhau, Tò mò học hỏi, Chia sẻ cảm xúc, Kiên trì không bỏ cuộc, Yêu thương vô điều kiện"
+        output: |
+          # 🏠 Nghi Lễ Gia Đình: 4 Thành Viên, Giá Trị Cốt Lõi
+
+          ## 1. Daily Micro-rituals
+          | Nghi lễ | Thời gian | Hoạt động | Giá trị |
+          |---------|-----------|-----------|---------|
+          | **Morning Hug** | 6:30-6:35 | Ôm nhau 20s, nói "Yêu em/con", High-five | Yêu thương, Kết nối |
+          | **Family Breakfast** | 7:30-8:00 | Ăn cùng, không điện thoại. "Rose/Thorn/Bud" (Con 6t nói, Con 3t nghe) | Chia sẻ, Tôn trọng |
+          | **Bedtime Story** | 20:00-20:20 | Mẹ/Cha đọc 1 chuyện, 3 điều biết ơn, Hôn goodnight | Yêu thương, Biết ơn |
+
+          ## 2. Weekly Rituals
+          | Nghi lễ | Thời gian | Cấu trúc | Người dẫn |
+          |---------|-----------|----------|-----------|
+          | **Family Meeting** | CN 20:30-21:00 | 1. Check-in cảm xúc (1-10) 2. Review tuần (Vui/Buồn) 3. Lịch tuần sau 4. Vấn đề giải quyết 5. Khen ngợi nhau 6. Kế hoạch vui | Luân phiên Cha/Mẹ |
+          | **Date Cha-Con** | Thứ 7 sáng (luân phiên) | 30-60p: Đi café, công viên, nấu ăn, sửa xe. Không điện thoại. | Cha |
+          | **Date Mẹ-Con** | CN sáng (luân phiên) | Tương tự | Mẹ |
+          | **Date Vợ-Chồng** | Thứ 6 tối (2 tuần/lần) | Ăn tối ngoài / Xem phim / Đi dạo. Không nói chuyện con/việc. | Cùng nhau |
+
+          ## 3. Monthly/Quarterly
+          - **Monthly Adventure (Thứ 7 cuối tháng)**: Picnic công viên / Bảo tàng / Làm gốm / Leo núi nhẹ / Workshop nghệ thuật
+          - **Quarterly Family Review (Cuối quý)**: Ăn tối đặc biệt, Review giá trị, Mục tiêu gia đình, Điều chỉnh nghi lễ
+
+          ## 4. Yearly Traditions
+          | Dịp | Hoạt động đặc biệt |
+          |-----|-------------------|
+          | **Sinh nhật** | "Birthday Interview" (Câu hỏi: Năm nay vui nhất? Khó nhất? Muốn gì? Sợ gì?) → Ghi lại/Quay video. Bánh tự làm. Quà trải nghiệm. |
+          | **Tết Nguyên Đán** | 1. Viết thư "Năm nay con cảm thấy..." cho nhau. 2. Dọn nhà cùng (Con 3t quét, Con 6t lau). 3. Ảnh gia đình đồng phục. 4. Nướng bánh chưng/Chả giò cùng. |
+          | **Trung Thu** | Múa lampion, Ăn bánh nướng tự làm, Kể chuyện Hằng Nga |
+          | **Mùa hè** | Đi biển/Cắm trại 2-3 ngày, Tắt điện thoại 1 ngày (Digital detox day) |
+
+          ## Implementation Roadmap (8 tuần)
+          | Tuần | Focus | Action |
+          |------|-------|--------|
+          | 1-2 | **Daily**: Morning Hug + Bedtime Story | Bắt đầu nhỏ, nhất quán |
+          | 3-4 | **Weekly**: Family Meeting (CN) | 30p, structure nhẹ |
+          | 5-6 | **Weekly**: One-on-One Dates (Cha/Con, Mẹ/Con) | 30p, con chọn hoạt động |
+          | 7-8 | **Monthly**: Adventure đầu tiên | Picnic công viên gần nhà |
+          | 9+ | **Maintain & Evolve** | Review hàng quý, thêm/bớt |
+
+          ## Tips Giữ Lâu Dài
+          1. **Không hoàn hảo**: Bỏ lỡ 1-2 lần OK, quay lại ngay
+          2. **Con tham gia thiết kế**: Hỏi con "Con muốn làm gì thứ 7 này?"
+          3. **Ghi lại**: Family journal (1 trang/tuần) + Album ảnh Google Photos shared
+          4. **Linh hoạt**: Bác sĩ/Ốm/Deadline → Rút gọn không bỏ
+        context: "Gia đình 2 con nhỏ, cha mẹ đi làm full-time, muốn gắn kết sâu"
+    difficulty: "easy"
+    useCases:
+      - "Gia đình muốn tạo truyền thống, kỷ niệm đẹp"
+      - "Giảm xung đột, tăng 소속 cảm (sense of belonging)"
+agentTemplate:
+  name: "Family Culture Designer"
+  description: "Thiết kế family rituals, traditions, family meeting, gratitude practice, connection rituals"
+  systemPrompt: |
+    Bạn là Family Culture Designer. Nghi lễ tạo predictability, belonging, identity. Small consistent > Big occasional. Involve kids in design.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "giao-tiep-hieu-qua-gia-dinh"
+  - "giao-duc-con-tinh-khoe"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: nghi-le-gia-dinh-tinh-khoe
+---

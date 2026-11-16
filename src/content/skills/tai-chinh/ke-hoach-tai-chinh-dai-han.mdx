@@ -1,0 +1,124 @@
+---
+id: ke-hoach-tai-chinh-dai-han
+categoryId: tai-chinh
+name: "Kế hoạch tài chính dài hạn"
+description: "Lộ trình tài chính trọn đời: Hưu trí, bảo hiểm, kế hoạch thừa kế, giáo dục con, mua nhà"
+whenToUse:
+  - "Xây dựng kế hoạch tài chính toàn diện 10-30 năm"
+  - "Tính số tiền cần cho hưu trí (FIRE number)"
+  - "Đánh giá bảo hiểm nhân thọ, y tế"
+difficulty: "advanced"
+estimatedTime: "3-5 giờ setup, review 1 năm/lần"
+tags: ["financial-planning", "retirement", "fire", "insurance", "estate-planning"]
+prompts:
+  - id: prompt-fire-calculator
+    name: "Tính FIRE Number & Lộ trình hưu trí sớm"
+    description: "Tính số tiền cần để hưu trí (FIRE), withdrawal rate, timeline dựa trên chi tiêu & lãi suất thực"
+    template: |
+      Bạn là FIRE Coach. Hãy tính FIRE number cho tôi:
+
+      **Thông tin hiện tại:**
+      - Tuổi: {{age}}
+      - Chi tiêu hàng năm (mong muốn khi hưu trí): {{annualExpense}}
+      - Tiền đang có (invested): {{currentInvestments}}
+      - Đóng góp hàng năm: {{annualContribution}}
+      - Lãi suất kỳ vọng (real, sau lạm phát): {{expectedRealReturn}}%
+      - Safe Withdrawal Rate: {{swr}}% (mặc định 3.5-4%)
+
+      **Output:**
+      1. FIRE Number = Annual Expense / SWR
+      2. Years to FIRE (compound interest formula)
+      3. Coast FIRE number (đóng góp 0 từ nay đến hưu trí truyền thống)
+      4. Barista FIRE (làm part-time cover một phần chi phí)
+      5. Sensitivity analysis: Bảng Years to FIRE theo các SWR/Return khác nhau
+      6. Lộ trình năm theo năm (số dư đầu năm, đóng góp, lãi, số dư cuối năm)
+    variables:
+      - name: age
+        type: number
+        label: "Tuổi hiện tại"
+        required: true
+      - name: annualExpense
+        type: number
+        label: "Chi tiêu năm mong muốn khi hưu trí (VND)"
+        required: true
+      - name: currentInvestments
+        type: number
+        label: "Tiền đầu tư hiện có (VND)"
+        required: true
+        default: 0
+      - name: annualContribution
+        type: number
+        label: "Đóng góp đầu tư hàng năm (VND)"
+        required: true
+      - name: expectedRealReturn
+        type: number
+        label: "Lãi suất thực kỳ vọng (%/năm, sau lạm phát)"
+        required: true
+        default: 6
+      - name: swr
+        type: number
+        label: "Safe Withdrawal Rate (%)"
+        required: true
+        default: 3.5
+    examples:
+      - inputs:
+          age: 30
+          annualExpense: 300000000
+          currentInvestments: 500000000
+          annualContribution: 120000000
+          expectedRealReturn: 6
+          swr: 3.5
+        output: |
+          # 🔥 FIRE Calculation: 30 tuổi, chi tiêu 300M/năm
+
+          ## Kết quả chính
+          | Metric | Giá trị |
+          |--------|---------|
+          | **FIRE Number (3.5% SWR)** | 8.57 tỷ VND |
+          | **FIRE Number (4% SWR)** | 7.5 tỷ VND |
+          | **Years to FIRE (3.5%, 6% real)** | **15.2 năm** (45 tuổi) |
+          | **Years to FIRE (4%, 6% real)** | **13.8 năm** (44 tuổi) |
+          | **Coast FIRE (65 tuổi, 6% real)** | 1.1 tỷ VND (đã vượt!) |
+          | **Barista FIRE (cover 50% expense)** | 4.3 tỷ VND → ~9 năm |
+
+          ## Sensitivity Analysis (Years to FIRE)
+          | SWR \ Return | 4% | 5% | 6% | 7% |
+          |-------------|----|----|----|----|
+          | 3.0% | 18.5 | 16.8 | 15.5 | 14.4 |
+          | 3.5% | 17.1 | 15.5 | 14.2 | 13.2 |
+          | 4.0% | 15.8 | 14.4 | 13.2 | 12.3 |
+
+          ## Lộ trình 5 năm đầu
+          | Năm | Tuổi | Đầu năm | Đóng góp | Lãi (6%) | Cuối năm | % FIRE (3.5%) |
+          |-----|------|---------|----------|----------|----------|---------------|
+          | 1 | 30 | 500M | 120M | 37.2M | 657M | 7.7% |
+          | 2 | 31 | 657M | 120M | 46.6M | 824M | 9.6% |
+          | 3 | 32 | 824M | 120M | 56.6M | 1.00B | 11.7% |
+          | 4 | 33 | 1.00B | 120M | 67.2M | 1.19B | 13.9% |
+          | 5 | 34 | 1.19B | 120M | 78.6M | 1.39B | 16.2% |
+
+          ## Khuyến nghị
+          1. **Tăng SWR an toàn**: 3.5% conservative, 4% standard. Cân nhắc 3.75% nếu flexible spending.
+          2. **Geo-arbitrage**: Hưu trí ở chi phí thấp hơn (Đà Lạt, Nha Trang,海外) → giảm FIRE number 30-50%.
+          3. **Side income**: Barista FIRE chỉ cần 4.3 tỷ → 9 năm. Rất khả thi.
+          4. **Sequence of Returns Risk**: 5 năm đầu hưu trí quan trọng nhất. Giữ 2-3 năm chi phí cash/bond.
+        context: "FIRE calculation cho người 30 tuổi, income tốt, mục tiêu hưu trí sớm"
+    difficulty: "advanced"
+    useCases:
+      - "Người theo đuổi FIRE (Financial Independence Retire Early)"
+      - "Kế hoạch hưu trí truyền thống"
+agentTemplate:
+  name: "Financial Life Planner"
+  description: "Kế hoạch tài chính trọn đời: FIRE, Retirement, Insurance, Estate planning"
+  systemPrompt: |
+    Bạn là Financial Life Planner. Holistic approach: Cash flow, Risk management, Wealth accumulation, Distribution, Legacy.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "quan-ly-ngan-sach-ca-nhan"
+  - "dau-tu-chung-khoan-co-ban"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: ke-hoach-tai-chinh-dai-han
+---

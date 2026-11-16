@@ -1,0 +1,121 @@
+---
+id: "learning.hoc-nhanh"
+categoryId: "learning"
+name: "Học nhanh & Nhớ lâu (Feynman + Spaced Repetition)"
+description: "Kỹ thuật học tập hiệu quả kết hợp phương pháp Feynman và Spaced Repetition để nắm vững kiến thức mới trong thời gian ngắn."
+whenToUse:
+  - "Cần học môn mới trong thời gian ngắn"
+  - "Ôn thi, lấy chứng chỉ"
+  - "Học ngôn ngữ lập trình mới"
+  - "Nắm vững kiến thức chuyên môn"
+difficulty: "beginner"
+estimatedTime: "2-4 tuần"
+tags: ["học tập", "feynman", "spaced-repetition", "anki", "nhớ lâu"]
+prompts:
+  - id: "learning.hoc-nhanh.feynman"
+    name: "Áp dụng phương pháp Feynman"
+    description: "Dùng Feynman technique để hiểu sâu và giải thích đơn giản một khái niệm phức tạp."
+    template: "Giải thích khái niệm '{{concept}}' như thể bạn đang dạy cho một học sinh 12 tuổi. Sử dụng ngôn ngữ đơn giản, ví dụ đời thực, tránh từ chuyên ngành. Nếu bị kẹt, hãy chỉ ra chỗ chưa hiểu rõ."
+    variables:
+      - name: "concept"
+        type: "text"
+        label: "Khái niệm cần học"
+        description: "Tên khái niệm, thuật ngữ hoặc chủ đề bạn muốn hiểu sâu"
+        required: true
+    examples:
+      - inputs:
+          concept: "Recursion trong lập trình"
+        output: "Recursion giống như bạn mở một hộp quà, trong hộp đó có một hộp quà khác, tiếp tục như vậy cho đến khi gặp hộp cuối cùng không có hộp nào bên trong nữa. Mỗi lần mở hộp là một lần gọi hàm, hộp cuối cùng là base case."
+        context: "Giải thích recursion cho người mới bắt đầu lập trình"
+    tips:
+      - "Viết giấy tay thay vì gõ máy để tăng cường nhớ"
+      - "Vẽ sơ đồ tư duy (mindmap) cho khái niệm phức tạp"
+    difficulty: "easy"
+    useCases:
+      - "Học thuật toán, cấu trúc dữ liệu"
+      - "Hiểu khái niệm toán học, vật lý"
+      - "Nắm vững thuật ngữ chuyên ngành"
+  - id: "learning.hoc-nhanh.anki"
+    name: "Tạo thẻ Anki hiệu quả"
+    description: "Tạo flashcard Anki theo nguyên tắc minimum information principle để tối ưu Spaced Repetition."
+    template: "Tạo {{count}} thẻ Anki cho chủ đề '{{topic}}'. Mỗi thẻ chỉ chứa 1 kiến thức nguyên tử (atomic). Dạng: Front (câu hỏi ngắn) / Back (câu trả lời ngắn). Tránh thẻ liệt kê, thẻ quá dài. Có tag: {{tag}}."
+    variables:
+      - name: "topic"
+        type: "text"
+        label: "Chủ đề"
+        required: true
+      - name: "count"
+        type: "number"
+        label: "Số lượng thẻ"
+        default: "20"
+        required: true
+      - name: "tag"
+        type: "text"
+        label: "Tag Anki"
+        default: "learning"
+        required: false
+    examples:
+      - inputs:
+          topic: "JavaScript Array Methods"
+          count: "15"
+          tag: "javascript"
+        output: "Front: map() làm gì? / Back: Tạo mảng mới bằng cách áp dụng hàm cho từng phần tử. Front: filter() vs find() khác nhau như thế nào? / Back: filter trả về mảng, find trả về phần tử đầu tiên."
+        context: "Tạo bộ thẻ ôn tập JavaScript array methods"
+    difficulty: "medium"
+    useCases:
+      - "Ôn thi chứng chỉ"
+      - "Học từ vựng ngôn ngữ mới"
+      - "Nhớ cú pháp, API, thuật toán"
+agentTemplate:
+  name: "Tutor Học Tập Cá Nhân"
+  description: "AI tutor giúp bạn học bất kỳ chủ đề nào với phương pháp Feynman + Spaced Repetition, tạo kế hoạch học tập cá nhân hóa và thẻ Anki."
+  systemPrompt: "Bạn là một tutor học tập chuyên gia. Nhiệm vụ: 1) Giải thích khái niệm bằng phương pháp Feynman (đơn giản, ví dụ đời thực). 2) Tạo kế hoạch ôn tập Spaced Repetition. 3) Tạo nội dung thẻ Anki atomic. 4) Đặt câu hỏi kiểm tra hiểu biết. Luôn hỏi người học đã biết gì về chủ đề trước khi bắt đầu."
+  tools: ["web-search", "anki-connect"]
+  model: "gpt-4"
+  temperature: 0.3
+  maxTokens: 2000
+  exampleConversations:
+    - role: "user"
+      content: "Tôi muốn học React hooks trong 2 tuần"
+    - role: "assistant"
+      content: "Tuyệt vời! Trước khi bắt đầu, bạn đã biết gì về React? (components, props, state, lifecycle). Điều này giúp tôi điều chỉnh độ sâu giải thích."
+relatedSkillIds: ["learning.doc-nhanh", "coding.debug-hieu-qua"]
+author: "AI Life Hub Team"
+source: "Dựa trên nghiên cứu của Richard Feynman & Piotr Wozniak"
+version: "1.1.0"
+updatedAt: "2024-01-15T10:00:00Z"
+---
+
+# Học Nhanh & Nhớ Lâu: Feynman + Spaced Repetition
+
+Kết hợp hai phương pháp học tập mạnh mẽ nhất để nắm vững kiến thức mới trong thời gian ngắn.
+
+## Phương pháp Feynman (4 bước)
+
+1. **Chọn khái niệm** - Xác định rõ điều bạn muốn học
+2. **Giải thích đơn giản** - Viết ra như đang dạy cho học sinh 12 tuổi
+3. **Xác định khoảng trống** - Chỗ bạn giải thích không được -> đó là chỗ chưa hiểu
+4. **Đơn giản hóa & ẩn dụ** - Tạo ví dụ, hình ảnh, so sánh quen thuộc
+
+## Spaced Repetition (Lặp lại theo khoảng cách)
+
+- **Ngày 1**: Học mới
+- **Ngày 3**: Ôn lần 1
+- **Ngày 7**: Ôn lần 2
+- **Ngày 21**: Ôn lần 3
+- **Tháng 2**: Ôn lần 4
+- **Tháng 4**: Ôn lần 5
+- **Tháng 8**: Ôn lần 6
+
+## Công cụ hỗ trợ
+
+- **Anki**: Phần mềm flashcard miễn phí, thuật toán SM-2
+- **Notion/Obsidian**: Ghi note, liên kết kiến thức
+- **ChatGPT/Claude**: Giải thích, tạo ví dụ, kiểm tra hiểu
+
+## Mẹo thực hành
+
+- Học theo chu kỳ 25 phút (Pomodoro) + 5 phút nghỉ
+- Viết tay trên giấy trước khi chuyển sang số
+- Dạy lại cho người khác (hoặc giảng cho tường)
+- Kết nối kiến thức mới với kiến thức cũ

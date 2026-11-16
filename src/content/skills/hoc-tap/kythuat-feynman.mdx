@@ -1,0 +1,227 @@
+---
+id: kythuat-feynman
+categoryId: hoc-tap
+name: "Kỹ thuật Feynman - Hiểu sâu, nhớ lâu"
+description: "Phương pháp 4 bước của Nobel Richard Feynman: Giải thích đơn giản → Tìm gap → Lấp đầy → Đơn giản hóa thêm"
+whenToUse:
+  - "Học khái niệm mới khó hiểu (closure, recursion, backprop, quantum...)"
+  - "Chuẩn bị giảng dạy, phỏng vấn, viết blog technical"
+  - "Cảm thấy 'hiểu lướt' nhưng không áp dụng được"
+  - "Ôn thi các môn tư duy trừu tượng (Toán, Vật lý, CS theory)"
+difficulty: "beginner"
+estimatedTime: "10-30 phút / khái niệm"
+tags: ["learning-technique", "deep-understanding", "teaching", "mental-models"]
+prompts:
+  - id: prompt-feynman-step1
+    name: "Bước 1: Giải thích cho trẻ 5 tuổi"
+    description: "Bước đầu tiên của Feynman - dịch thuật ngữ chuyên ngành thành ngôn ngữ đời thường"
+    template: |
+      Hãy giúp tôi giải thích khái niệm "{{concept}}" trong lĩnh vực "{{domain}}" như thể tôi đang giải thích cho một đứa trẻ 5 tuổi (hoặc người hoàn toàn không chuyên).
+
+      Yêu cầu:
+      1. Không dùng từ chuyên ngành (jargon) - hoặc nếu dùng phải giải thích ngay bằng từ đời thường
+      2. Dùng analogy (so sánh) với thứ quen thuộc trong đời sống hàng ngày
+      3. Tập trung vào "tại sao" và "như thế nào" chứ không phải định nghĩa khô khan
+      4. Dưới 100 từ tiếng Việt
+      5. Có thể dùng emoji để sinh động
+
+      Khái niệm: {{concept}}
+      Lĩnh vực: {{domain}}
+    variables:
+      - name: concept
+        type: text
+        label: "Khái niệm cần giải thích"
+        required: true
+      - name: domain
+        type: text
+        label: "Lĩnh vực/Ngành học"
+        required: true
+        default: "Khoa học máy tính / Toán / Vật lý / Kinh tế"
+    examples:
+      - inputs:
+          concept: "Recursion (Đệ quy)"
+          domain: "Lập trình"
+        output: |
+          🔁 **Đệ quy giống như... mở hộp quà dentro hộp quà.**
+
+          Em có một hộp quà lớn. Mở ra thấy bên trong có một hộp quà nhỏ hơn. Mở hộp nhỏ đó ra... lại thấy một hộp quà nữa. Cứ thế cho đến khi mở được hộp nhỏ nhất - bên trong là món quà thật sự (kết quả).
+
+          Mỗi lần mở hộp = một lần "gọi hàm". Hộp nhỏ nhất = "base case" (điều kiện dừng). Nếu không có hộp nhỏ nhất → mở mãi không xong = stack overflow! 💥
+      - inputs:
+          concept: "Compound Interest (Lãi suất kép)"
+          domain: "Tài chính"
+        output: |
+          💰 **Lãi suất kép giống như... cây phấn hoa tự gieo hạt.**
+
+          Em trồng 1 cây phấn hoa (gốc = $100). Mùa sau nó nở hoa, rụng hạt → mọc thêm 10 cây con (lãi 10% = $10). Mùa sau nữa: 11 cây đều nở hoa, rụng hạt → mọc thêm 110 cây con. Càng về sau, cây con mọc nhanh hơn vì *cây con cũng sinh ra cháu*!
+
+          Lãi đơn = chỉ cây gốc ra hoa. Lãi kép = cây con, cháu, chắt... đều ra hoa. ⏰ Thời gian là siêu năng lực!
+    difficulty: "easy"
+    useCases:
+      - "Học sinh hiểu khái niệm Toán/Vật lý trừu tượng"
+      - "Developer giải thích technical concept cho non-tech stakeholder"
+      - "Content creator làm video edukasi"
+  - id: prompt-feynman-gap-analysis
+    name: "Bước 2: Tìm điểm mù (Knowledge Gap)"
+    description: "Xác định chính xác chỗ nào mình chưa hiểu thật sự - nơi lúng túng, nói vòng, dùng từ khó"
+    template: |
+      Tôi vừa cố gắng giải thích "{{concept}}" theo cách đơn giản. Dưới đây là bản giải thích của tôi:
+
+      {{myExplanation}}
+
+      Hãy giúp tôi phân tích:
+      1. Chỗ nào tôi dùng từ chuyên ngành mà không giải thích?
+      2. Chỗ nào tôi nói vòng vo, không chắc chắn?
+      3. Chỗ nào tôi giả định người nghe đã biết (nhưng thực ra không)?
+      4. 3 câu hỏi "Tại sao?" mà bản giải thích của tôi chưa trả lời được
+      5. Gợi ý tài nguyên/cụ thể nào để lấp đầy từng gap
+
+      Trả lời trực tiếp, không chê bai, tập trung actionable.
+    variables:
+      - name: concept
+        type: text
+        label: "Khái niệm"
+        required: true
+      - name: myExplanation
+        type: textarea
+        label: "Bản giải thích của bạn (copy từ bước 1 hoặc viết mới)"
+        required: true
+    examples:
+      - inputs:
+          concept: "Closure trong JavaScript"
+          myExplanation: "Closure là khi một function nhớ được variables từ outer scope của nó ngay cả khi outer function đã return xong. Lexical scope quyết định biến nào được capture."
+        output: |
+          ## 🔍 Gap Analysis: Closure
+
+          **1. Từ chuyên ngành chưa giải thích:**
+          - "Lexical scope" → Người không chuyên không biết khác dynamic scope như thế nào
+          - "Capture" → Hidden mechanism, cần analogy
+          - "Outer/Inner function" → Cần ví dụ code cụ thể
+
+          **2. Nói vòng vo:**
+          - "Nhớ được variables" → Nhớ như thế nào? Lưu ở đâu? Lâu bao lâu?
+          - "Ngay cả khi outer function đã return" → Tại sao bình thường biến cục bộ bị hủy mà closure không?
+
+          **3. Giả định người nghe đã biết:**
+          - Scope là gì? Function là first-class citizen?
+          - Garbage collection cơ bản?
+
+          **4. 3 câu hỏi "Tại sao?" chưa trả lời:**
+          1. Tại sao `var` trong loop tạo closure sai (cùng reference) mà `let` thì đúng?
+          2. Tại sao closure có thể gây memory leak? (Event listener, circular reference)
+          3. Tại sao React hooks (useState, useEffect) lại dựa trên closure?
+
+          **5. Gợi ý lấp đầy gap:**
+          - Xem: "JavaScript Closure 101" - JS Conf (YouTube 15p)
+          - Đọc: "You Don't Know JS: Scope & Closures" - Chương 4-5 (free online)
+          - Thực hành: Viết 5 pattern closure thực tế (module, memoize, currying, event handler, React hook)
+    difficulty: "medium"
+    useCases:
+      - "Tự kiểm tra mức độ hiểu sau khi học xong khái niệm mới"
+      - "Chuẩn bị phỏng vấn technical - dự đoán follow-up questions"
+  - id: prompt-feynman-analogy-builder
+    name: "Bước 3-4: Tạo Analogy & Note cá nhân"
+    description: "Xây dựng analogy riêng, vẽ diagram, tạo Feynman Note để ôn tập sau này"
+    template: |
+      Dựa trên gap analysis cho khái niệm "{{concept}}", hãy giúp tôi:
+
+      1. **Tạo 3 analogy khác nhau** (chọn 1 phù hợp nhất với background của tôi: {{background}})
+         - Analogy 1: Đời sống hàng ngày (nấu ăn, đi lại, chơi game...)
+         - Analogy 2: Nghề nghiệp/Chuyên môn của tôi ({{background}})
+         - Analogy 3: Visual/Đồ họa (miêu tả hình ảnh mental model)
+
+      2. **Tạo Feynman Note template** để lưu vào Obsidian/Notion:
+         - Title: {{concept}}
+         - One-liner (dưới 20 từ)
+         - Analogy được chọn
+         - Core mechanism (3 bullet points)
+         - Common pitfalls / Misconceptions
+         - Related concepts (links)
+         - Practice exercises (3 bài tập từ dễ đến khó)
+         - Câu hỏi còn mở
+
+      3. **Gợi ý cách ôn tập spaced repetition** cho note này
+    variables:
+      - name: concept
+        type: text
+        label: "Khái niệm"
+        required: true
+      - name: background
+        type: text
+        label: "Background/Nghề nghiệp của bạn (để tùy chỉnh analogy)"
+        required: true
+        default: "Software Engineer / Sinh viên CS / Data Analyst / Marketing / Teacher"
+    examples:
+      - inputs:
+          concept: "Backpropagation"
+          background: "Software Engineer, biết calculus cơ bản"
+        output: |
+          ## 🎯 Feynman Note: Backpropagation
+
+          ### One-liner
+          "Lan truyền lỗi ngược từ output về input để điều chỉnh từng weight - giống như trace ngược lỗi bug từ crash log về dòng code gốc."
+
+          ### 3 Analogy
+          1. **Đời thường**: Nấu ăn sai muối → Thử lại lần sau giảm muối. Backprop = "Điều chỉnh nguyên liệu dựa trên kết quả món ăn".
+          2. **SWE**: Debug production bug → Xem stack trace → Tìm root cause line code → Fix. Backprop = "Stack trace cho neural network".
+          3. **Visual**: 🏔️ Gradient Descent đi xuống núi. Backprop = "Bản đồ địa hình (gradient) cho từng bước chân (weight)".
+
+          ### Core Mechanism (3 điểm)
+          1. **Forward pass**: Input → ... → Output → Loss (đo sai số)
+          2. **Backward pass**: ∂Loss/∂Weight = ∂Loss/∂Output × ∂Output/∂Hidden × ... × ∂Hidden/∂Weight (Chain rule)
+          3. **Update**: Weight ← Weight - LearningRate × Gradient
+
+          ### Common Pitfalls
+          - ❌ Vanishing gradient (sigmoid/tanh deep network) → Dùng ReLU, Residual, BatchNorm
+          - ❌ Exploding gradient → Gradient clipping
+          - ❌ Dead ReLU (gradient = 0 forever) → Leaky ReLU, He init
+
+          ### Related Concepts
+          - [[Chain Rule]], [[Gradient Descent]], [[Autograd]], [[Computational Graph]]
+
+          ### Practice Exercises
+          1. **Dễ**: Tính gradient thủ công cho y = (2x + 3)² tại x=1
+          2. **Trung bình**: Implement backprop cho MLP 1 hidden layer (numpy only, no PyTorch)
+          3. **Khó**: Debug vanishing gradient trong RNN → Implement LSTM cell
+
+          ### Spaced Repetition Schedule
+          - Ngày 1: Review note + làm bài 1
+          - Ngày 3: Làm bài 2
+          - Tuần 1: Làm bài 3
+          - Tuần 2: Viết blog giải thích cho junior
+          - Tháng 1: Relate sang Transformer attention gradient flow
+    difficulty: "medium"
+    useCases:
+      - "Tạo knowledge base cá nhân (Second Brain)"
+      - "Chuẩn bị giảng dạy/mentoring"
+      - "Học sâu ML/CS theory concepts"
+agentTemplate:
+  name: "Feynman Tutor Agent"
+  description: "Hướng dẫn từng bước kỹ thuật Feynman, giúp tạo analogy, tìm gap, build note cá nhân"
+  systemPrompt: |
+    Bạn là Feynman Tutor - chuyên gia hướng dẫn kỹ thuật học tập của Richard Feynman.
+    Quy trình 4 bước:
+    1. **Explain simply** - Yêu cầu user giải thích khái niệm bằng ngôn ngữ đơn giản
+    2. **Identify gaps** - Phân tích chỗ user lúng túng, dùng jargon, logic jump
+    3. **Fill gaps** - Gợi ý tài nguyên, ví dụ, counter-example để lấp đầy
+    4. **Simplify & Analogize** - Hỗ trợ tạo analogy cá nhân, visual mental model, Feynman Note
+
+    Nguyên tắc:
+    - Không giảng bài, chỉ hỏi điều hướng (Socratic method)
+    - Khuyến khích user tự tạo analogy từ background của họ
+    - Focus vào "Tại sao" và "Như thế nào" hơn là "Định nghĩa là gì"
+    - Celebrate sự confused - đó là dấu hiệu đang học 깊
+  model: "gpt-4"
+  temperature: 0.6
+  tools:
+    - "web_search"
+relatedSkillIds:
+  - "doc-lap-ke-hoach-hoc-tap"
+  - "active-recall"
+  - "concept-mapping"
+author: "AI Life Hub Team"
+source: "Richard Feynman - 'The Pleasure of Finding Things Out'; Scott Young - 'Ultralearning'"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: kythuat-feynman
+---

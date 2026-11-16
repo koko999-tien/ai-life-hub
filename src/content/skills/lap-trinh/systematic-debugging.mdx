@@ -1,0 +1,118 @@
+---
+id: systematic-debugging
+categoryId: lap-trinh
+name: "Debug Hệ thống & Tìm lỗi gốc rễ"
+description: "Quy trình 4 bước debug khoa học: Tái hiện → Khoanh vùng → Sửa triệt để → Test chống tái phát"
+whenToUse:
+  - "Bug lạ không báo lỗi rõ ràng"
+  - "Production incident cần fix gấp"
+  - "Memory leak, race condition, performance degradation"
+difficulty: "advanced"
+estimatedTime: "30 phút - vài giờ tùy độ phức tạp"
+tags: ["debugging", "troubleshooting", "root-cause-analysis", "production-support"]
+prompts:
+  - id: prompt-debug-process
+    name: "Hướng dẫn quy trình Debug 4 bước"
+    description: "Áp dụng quy trình debug hệ thống cho bug/incident cụ thể"
+    template: |
+      Bạn là Senior Debugger. Hãy hướng dẫn tôi debug vấn đề sau theo quy trình 4 bước:
+
+      **Mô tả vấn đề:**
+      {{problemDescription}}
+
+      **Môi trường:**
+      {{environment}}
+
+      **Đã thử gì:**
+      {{triedAlready}}
+
+      **Log/Error message:**
+      {{errorLogs}}
+
+      **Quy trình 4 bước:**
+      1. **Tái hiện (Reproduce)**: Tạo min reproduction case, xác định điều kiện trigger
+      2. **Khoanh vùng (Isolate)**: Binary search (bisection), logging, breakpoint, divide & conquer
+      3. **Sửa triệt để (Fix Root Cause)**: Không workaround, sửa nguyên nhân gốc, defensive coding
+      4. **Test chống tái phát (Regression Test)**: Unit test + Integration test + Monitoring alert
+
+      Output: Kế hoạch debug từng bước, câu hỏi thăm dò, tools gợi ý (debugger, profiler, log aggregator).
+    variables:
+      - name: problemDescription
+        type: textarea
+        label: "Mô tả bug/incident"
+        required: true
+      - name: environment
+        type: textarea
+        label: "Môi trường (OS, runtime, version, infra)"
+        required: true
+      - name: triedAlready
+        type: textarea
+        label: "Đã thử gì, kết quả ra sao"
+        required: false
+      - name: errorLogs
+        type: textarea
+        label: "Log, stack trace, error message"
+        required: false
+    examples:
+      - inputs:
+          problemDescription: "API /api/users đôi khi trả về 500 Internal Server Error, không đều đặn, chỉ xảy ra lúc traffic cao"
+          environment: "Node.js 20, Express, PostgreSQL (Prisma ORM), Kubernetes (3 replicas), Redis cache"
+          triedAlready: "Restart pod thì tạm hết, sau 1h lại bị. Log không có stack trace rõ ràng."
+          errorLogs: "Error: connect ECONNREFUSED 127.0.0.1:5432\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)"
+        output: |
+          # 🔍 Debug Plan: API 500 Intermittent Under Load
+
+          ## Bước 1: Tái hiện (Reproduce)
+          **Hypothesis:** Connection pool exhaustion / DB connection leak / Resource limit
+          **Min Repro:**
+          - Load test: `k6` hoặc `artillery` simulate 100 VUs, ramp up 5 phút
+          - Theo dõi: DB connections count, Redis connections, Node.js event loop lag
+          - Correlation: Map 500 errors với pool metrics
+
+          ## Bước 2: Khoanh vùng (Isolate)
+          **Binary Search Strategy:**
+          1. Bypass Redis cache → test → nếu vẫn lỗi → không phải Redis
+          2. Tăng DB connection pool limit → test → nếu hết lỗi → pool exhaustion
+          3. Check Prisma connection lifecycle: `prisma.$connect()` / `$disconnect()` trong request handler?
+          4. **Tools:**
+             - `kubectl top pods` - CPU/Memory
+             - `pg_stat_activity` - active connections
+             - Node.js `--inspect` + Chrome DevTools heap snapshot
+             - Datadog/New Relic APM trace
+
+          ## Bước 3: Sửa triệt để (Root Cause Fix)
+          **Likely Root Causes & Fixes:**
+          | Nguyên nhân | Fix |
+          |------------|-----|
+          | Prisma không disconnect đúng (middleware) | Thêm `await prisma.$disconnect()` trong graceful shutdown |
+          | Connection pool limit quá thấp (default 10) | Tăng `connection_limit=20` trong DATABASE_URL |
+          | Không có retry logic cho transient DB errors | Thêm exponential backoff retry (p-retry) |
+          | Kubernetes pod memory limit quá thấp → OOM kill | Tăng memory limit, thêm liveness probe |
+
+          ## Bước 4: Test chống tái phát
+          - **Unit test:** Mock Prisma, simulate connection error → expect retry
+          - **Integration test:** Testcontainers PostgreSQL, load test 50 VUs
+          - **Monitoring alert:**
+            - Alert nếu `db_connections_active > 80% pool`
+            - Alert nếu `api_5xx_rate > 1%` trong 5p
+          - **Chaos engineering:** Kill DB pod, verify graceful degradation
+        context: "Debug production incident Node.js + PostgreSQL + K8s"
+    difficulty: "advanced"
+    useCases:
+      - "Debug production incident"
+      - "Tìm memory leak, race condition"
+agentTemplate:
+  name: "Debug Expert Agent"
+  description: "Hỗ trợ debug systematic, root cause analysis, profiling, production incident response"
+  systemPrompt: |
+    Bạn là Debug Expert. Áp dụng quy trình khoa học, không đoán mò. Luôn hỏi: "Làm sao để tái hiện?", "Đã loại trừ gì?".
+  model: "gpt-4"
+  temperature: 0.3
+relatedSkillIds:
+  - "clean-code-refactor"
+  - "performance-optimization"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: systematic-debugging
+---

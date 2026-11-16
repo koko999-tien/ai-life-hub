@@ -1,0 +1,158 @@
+---
+id: phuong-phap-hoc-tap-cho-con
+categoryId: giao-duc-con
+name: "Phương pháp học tập cho con (0-12 tuổi)"
+description: "Montessori, Reggio, Waldorf, Phonics, Math manipulatives, Executive function, Growth mindset"
+whenToUse:
+  - "Chọn phương pháp giáo dục phù hợp con"
+  - "Hỗ trợ con học tại nhà (Homeschool/Afterschool)"
+  - "Phát triển kỹ năng suy nghĩ, tự học"
+difficulty: "intermediate"
+estimatedTime: "Học phương pháp 1-2 tuần, áp dụng hàng ngày"
+tags: ["montessori", "reggio", "waldorf", "phonics", "early-math", "executive-function", "growth-mindset", "homeschool"]
+prompts:
+  - id: prompt-montessori-at-home
+    name: "Áp dụng Montessori tại nhà (0-6 tuổi)"
+    description: "Prepared environment, Practical life, Sensorial, Language, Math, Cultural - DIY materials"
+    template: |
+      Bạn là Montessori Guide (AMI/AMS). Hãy thiết kế môi trường Montessori tại nhà cho:
+
+      **Thông tin con:**
+      - Tuổi: {{childAge}} tháng/tuổi
+      - Sở thích/Quan sát: {{interests}}
+      - Kỹ năng hiện tại: {{currentSkills}}
+      - Không gian: {{space}} (Phòng riêng / Góc phòng chung / Balcony)
+
+      **Output:**
+      1. **Prepared Environment (Môi trường chuẩn bị)**:
+         - Low shelves (Kệ thấp), Trays (Khay), Baskets (Rổ), Child-sized furniture
+         - Rotation: 6-8 activities tại một thời điểm, Rotate theo quan sát
+      2. **5 Khu vực học tập (Areas)** với hoạt động cụ thể theo tuổi:
+         - **Practical Life (Đời sống thực tế)**: Pouring, Spooning, Buttoning, Washing, Food prep, Cleaning
+         - **Sensorial (Giác quan)**: Pink Tower, Brown Stair, Color Tablets, Sound Boxes, Smelling Jars
+         - **Language (Ngôn ngữ)**: Sandpaper letters, Moveable alphabet, Phonics, Reading corner, Storytelling
+         - **Math (Toán)**: Number rods, Spindle box, Cards & Counters, Golden beads, Stamp game
+         - **Cultural (Văn hóa/Khoa học)**: Puzzle maps, Botany/Zoology cards, Timeline, Experiments
+      3. **DIY Materials (Tự làm dụng cụ)**: Cardboard, Recycled, In household items
+      4. **Daily Rhythm (Nhịp độ ngày)**: Work cycle 2-3h (Uninterrupted), Outdoor, Practical life integration
+      5. **Adult Role (Vai trò người lớn)**: Observer, Guide (Not teacher), Prepare environment, Model behavior
+      6. **Red Flags**: Over-praising, Interrupting concentration, Too many toys, Adult-led play
+    variables:
+      - name: childAge
+        type: text
+        label: "Tuổi con (Ví dụ: 28 tháng / 3.5 tuổi / 5 tuổi)"
+        required: true
+      - name: interests
+        type: textarea
+        label: "Sở thích/Quan sát (Con thích làm gì? Nấu ăn? Xếp hình? Vẽ? Sách?)"
+        required: true
+      - name: currentSkills
+        type: textarea
+        label: "Kỹ năng hiện tại (Tự ăn được? Đi vệ sinh? Nhận chữ? Đếm?)"
+        required: true
+      - name: space
+        type: select
+        label: "Không gian có sẵn"
+        options:
+          - "Phòng riêng cho con"
+          - "Góc trong phòng chung"
+          - "Balcony/Sân thượng"
+          - "Chia sẻ không gian sống"
+        required: true
+    examples:
+      - inputs:
+          childAge: "3.5 tuổi (42 tháng)"
+          interests: "Thích nấu ăn giả vờ, Xếp lego, Vẽ bút màu, Nghe chuyện, Muốn tự làm mọi việc"
+          currentSkills: "Tự ăn được, Đi vệ sinh được, Nhận được 10 chữ cái, Đếm 1-10, Cầm bút vẽ được"
+          space: "Góc trong phòng chung (2m x 2m)"
+        output: |
+          # 🏫 Montessori Tại Nhà: Con 3.5 tuổi, Góc 2x2m
+
+          ## 1. Prepared Environment (Setup 1 lần, maintain hàng tuần)
+          | Item | Mua/Làm | Vị trí | Chi phí ước tính |
+          |------|---------|--------|------------------|
+          | Kệ thấp 3 tầng (IKEA KALLAX / Gỗ tự làm) | Mua | Góc phòng | 1-2M |
+          | Khay gỗ/nhựa (6-8 cái, size A4/A5) | Mua/Shopee | Trên kệ | 200k |
+          | Rổ tre/nhựa (4-6 cái) | Mua | Trên kệ/sàn | 150k |
+          | Bàn ghế size con (IKEA FLISAT / Gỗ tự làm) | Mua | Trước kệ | 1-2M |
+          | Thảm hoạt động (Puzzle mat / Thảm cotton) | Mua | Dưới bàn | 300k |
+          | **Tổng** | | | **~3.5-4.5M** |
+
+          ## 2. Hoạt Động Theo Tuổi 3.5 Tuổi (6-8 activities rotate)
+
+          ### Practical Life (Đời Sống Thực Tế) - Con thích nấu ăn, tự làm
+          1. **Pouring (Rót nước)**: 2 bình nhỏ, Nước + Color → Rót qua lại (Fine motor, Concentration)
+          2. **Food Prep (Chuẩn bị đồ ăn)**: Cắt chuối (Dao nhựa), Bóc đậu phộng, Làm bánh mì kẹp (Spread butter)
+          3. **Cleaning (Dọn dọn)**: Quét bụi (Chổi size con), Lau bàn, Hút bụi mini, Rửa chén (Bồn nhỏ)
+          4. **Self-care**: Rửa tay (Bậc cầu), Đi vệ sinh (Bệ cầu), Mặc áo (Áo cài nút, Quần thun)
+
+          ### Sensorial (Giác Quan) - Phát triển 5 giác quan
+          5. **Pink Tower / Brown Stair (DIY: Hộp giấy/vỏ chai size dần)** - Kích thước, Trật tự
+          6. **Color Tablets (DIY: Màu ván ép/văn phòng phẩm)** - Ghép màu, Gradient
+          7. **Sound Boxes (DIY: Hộp الصغير chứa đậu/đường/cát)** - Phân biệt âm thanh
+
+          ### Language (Ngôn Ngữ) - Nhận 10 chữ, thích nghe chuyện
+          8. **Sandpaper Letters (DIY: Cát dán trên gỗ/ván)** - Chữ cái Montessori (Phonics sound)
+          9. **Picture Cards (3-part cards: Picture, Label, Control)** - Từ vựng: Hoa, Quả, Động vật, Xe cộ
+          10. **Reading Corner**: 10-15 sách hình đẹp, Ghế nệm, Đèn đọc
+
+          ### Math (Toán) - Đếm 1-10
+          11. **Number Rods (DIY: Que gỗ/văn sơn 10cm-1m)** - Số lượng, Trật tự
+          12. **Spindle Box (DIY: Hộp giấy 10 ngăn, Que tre)** - Số 0-9, Khái niệm "Không"
+          13. **Cards & Counters (DIY: Thẻ số 1-10, Đá/Đậu đếm)** - Chẵn/Lẻ, Ghép số lượng
+
+          ### Cultural (Khoa Học/Văn Hóa)
+          14. **Puzzle Map Việt Nam (DIY: In bản đồ, Dán foam, Cắt tỉnh)** - Địa lý
+          15. **Botany Cards**: Lá cây, Hoa, Quả (Chụp ảnh thật, In ảnh)
+          16. **Simple Experiments**: Nồi nâu baking soda+giấm, Màu nước di chuyển, Mầm đậu
+
+          ## 3. DIY Materials (Tự Làm - Tiết Kiệm 80%)
+          - **Pink Tower**: 10 hộp giấy cứng size 1cm³ đến 10cm³, Sơn hồng
+          - **Sandpaper Letters**: Ván MDF 3mm, Cát mịn (Vân tay), Keo dán
+          - **Number Rods**: Que gỗ 1x1cm, Dài 10cm-1m, Sơn đỏ/xanh xen kẽ
+          - **3-Part Cards**: Chụp ảnh thật (Điện thoại), In A6, Laminate (Máy laminate 500k hoặc dán keo trong)
+
+          ## 4. Daily Rhythm (Nhịp Độ Ngày)
+          | Thời gian | Hoạt động |
+          |-----------|-----------|
+          | 7:00-8:00 | Morning routine (Practical life: Rửa mặt, Mặc áo, Ăn sáng cùng) |
+          | 8:00-11:00 | **Work Cycle (2.5-3h)** - Con tự chọn activity, Người lớn quan sát/hỗ trợ khi cần |
+          | 11:00-12:00 | Outdoor (Công viên, Sân thượng, Dạo phố - Gross motor, Nature) |
+          | 12:00-13:00 | Lunch + Practical life (Rửa chén, Lau bàn) |
+          | 13:00-15:00 | Nap / Quiet time (Đọc sách, Nghe nhạc) |
+          | 15:00-17:00 | Free play / Outdoor / Screen time (Giới hạn 30p) |
+          | 17:00-19:00 | Dinner + Family time |
+          | 19:00-20:00 | Bedtime routine (Tắm, Đọc sách, 3 điều biết ơn) |
+
+          ## 5. Adult Role (Vai Trò Người Lớn) - QUAN TRỌNG
+          - ✅ **Observe (Quan sát)**: Ghi chép: Con chọn gì? Bao lâu? Kỹ năng gì đang phát triển?
+          - ✅ **Guide (Hướng dẫn)**: Demo chậm, ít nói, Cho con thử, Không can thiệp sớm
+          - ✅ **Prepare (Chuẩn bị)**: Môi trường sạch, Đầy đủ, Truy cập dễ dàng
+          - ✅ **Model (Làm gương)**: Người lớn làm trước, Con học bằng mô phỏng
+          - ❌ **Không**: Khen "Con giỏi quá!", Ngắt quãng khi con tập trung, Làm thay con, So sánh
+
+          ## 6. Red Flags (Tránh)
+          - Quà tặng quá nhiều đồ chơi (Overstimulation) → Rotate 6-8 items
+          - Đồ chơi điện tử/có tiếng/đèn (Passive entertainment) → Open-ended toys
+          - Ép con "học" (Worksheet, Flashcard drill) → Follow the child
+        context: "Con 3.5 tuổi, thích practical life, không gian góc phòng chung, budget thấp DIY"
+    difficulty: "intermediate"
+    useCases:
+      - "Cha mẹ muốn áp dụng Montessori tại nhà"
+      - "Homeschool / Afterschool enrichment"
+      - "Phát triển tự chủ, tập trung, trật tự cho con"
+agentTemplate:
+  name: "Early Childhood Educator"
+  description: "Montessori, Reggio, Waldorf, Phonics, Early Math, Executive Function, Play-based learning"
+  systemPrompt: |
+    Bạn là Early Childhood Educator. Montessori: Follow the child, Prepared environment, Sensitive periods, Absorbent mind. Play is work. Process > Product.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "giao-duc-con-tinh-khoe"
+  - "nghi-le-gia-dinh-tinh-khoe"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: phuong-phap-hoc-tap-cho-con
+---

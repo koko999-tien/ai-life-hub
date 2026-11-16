@@ -1,0 +1,168 @@
+---
+id: ke-hoach-tai-chinh-gia-dinh
+categoryId: gia-dinh
+name: "Kế hoạch tài chính gia đình"
+description: "Ngân sách hộ gia đình, Bảo hiểm, Quỹ giáo dục con, Kế hoạch nghỉ hưu đôi, Thừa kế"
+whenToUse:
+  - "Vợ chồng muốn thống nhất tài chính"
+  - "Có con nhỏ, cần kế hoạch dài hạn"
+  - "Muốn bảo vệ gia đình khỏi rủi ro"
+difficulty: "intermediate"
+estimatedTime: "Setup 2-3 giờ, review 6 tháng/lần"
+tags: ["family-finance", "insurance", "education-fund", "joint-retirement", "estate-planning"]
+prompts:
+  - id: prompt-family-budget-insurance
+    name: "Thiết lập Ngân sách & Bảo hiểm gia đình"
+    description: "Ngân sách chung/riêng, Emergency fund hộ gia đình, Bảo hiểm nhân thọ/y tế đủ mức"
+    template: |
+      Bạn là Family Financial Planner. Hãy thiết kế kế hoạch tài chính cho gia đình:
+
+      **Thông tin gia đình:**
+      - Vợ: Tuổi {{wifeAge}}, Thu nhập {{wifeIncome}}, Nghề {{wifeJob}}
+      - Chồng: Tuổi {{husbandAge}}, Thu nhập {{husbandIncome}}, Nghề {{husbandJob}}
+      - Con: {{childrenCount}} con, tuổi {{childrenAges}}
+      - Chi tiêu hộ gia đình/tháng: {{householdExpenses}}
+      - Tài sản hiện có: {{assets}}
+      - Nợ: {{debts}}
+
+      **Output:**
+      1. **Mô hình quản lý tiền**: Joint account / Separate + Shared / Proportional
+      2. **Ngân sách hộ gia đình**: Fixed / Variable / Discretionary
+      3. **Emergency Fund**: 6-12 tháng chi tiêu (cao hơn cá nhân)
+      4. **Bảo hiểm cần thiết**:
+         - Nhân thọ (Term life): Bảo hiểm cho người kiếm tiền chính
+         - Y tế (Health): Bảo hiểm y tế riêng + BHYT
+         - Tai nạn (Accident): Cho cả gia đình
+         - Bảo hiểm bệnh nghiêm trọng (Critical illness)
+      5. **Quỹ giáo dục con**: Ước tính chi phí, kênh đầu tư (ETF, Bond, Bảo hiểm liên kết đầu tư)
+      6. **Kế hoạch nghỉ hưu đôi**: FIRE number cho 2 người
+      7. **Thừa kế cơ bản**: Viết di chúc, chỉ định người nhận bảo hiểm
+    variables:
+      - name: wifeAge
+        type: number
+        label: "Tuổi vợ"
+        required: true
+      - name: wifeIncome
+        type: number
+        label: "Thu nhập vợ/tháng (VND)"
+        required: true
+      - name: wifeJob
+        type: text
+        label: "Nghề nghiệp vợ"
+        required: true
+      - name: husbandAge
+        type: number
+        label: "Tuổi chồng"
+        required: true
+      - name: husbandIncome
+        type: number
+        label: "Thu nhập chồng/tháng (VND)"
+        required: true
+      - name: husbandJob
+        type: text
+        label: "Nghề nghiệp chồng"
+        required: true
+      - name: childrenCount
+        type: number
+        label: "Số con"
+        required: true
+        default: 1
+      - name: childrenAges
+        type: text
+        label: "Tuổi các con (cách nhau bởi dấu phẩy)"
+        required: true
+      - name: householdExpenses
+        type: number
+        label: "Chi tiêu hộ gia đình/tháng (VND)"
+        required: true
+      - name: assets
+        type: textarea
+        label: "Tài sản (Nhà, xe, tiết kiệm, đầu tư...)"
+        required: true
+      - name: debts
+        type: textarea
+        label: "Nợ vay (Nhà, xe, thẻ tín dụng...)"
+        required: true
+    examples:
+      - inputs:
+          wifeAge: 32
+          wifeIncome: 20000000
+          wifeJob: "Marketing Manager"
+          husbandAge: 34
+          husbandIncome: 25000000
+          husbandJob: "Software Engineer"
+          childrenCount: 1
+          childrenAges: "3"
+          householdExpenses: 25000000
+          assets: "Nhà tự đặt (còn nợ 500M), Tiết kiệm 200M, Chứng khoán 150M"
+          debts: "Nợ nhà 500M (lãi 8.5%), Thẻ tín dụng 0"
+        output: |
+          # 👨‍👩‍👧 Kế Hoạch Tài Chính Gia Đình: Double Income, 1 Con 3 Tuổi
+
+          ## 1. Mô Hình Quản Lý Tiền: Proportional Shared
+          - **Tổng thu nhập**: 45M/tháng
+          - **Tỷ lệ**: Vợ 44%, Chồng 56%
+          - **Joint Account (Shared)**: 30M/tháng (Chi tiêu chung + Emergency fund + Investment)
+          - **Personal Account**: Vợ 8.8M, Chồng 11.2M (Chi tiêu cá nhân: quần áo, hobby, quà tặng...)
+
+          ## 2. Ngân Sách Hộ Gia Đình (30M Joint)
+          | Category | % | Số tiền | Note |
+          |----------|---|---------|------|
+          | **Fixed (Cố định)** | 50% | 15M | Nhà 12M (trả nợ), Bảo hiểm 1.5M, Điện/nước/net 1.5M |
+          | **Variable (Biến đổi)** | 30% | 9M | Ăn uống 5M, Con (sữa, học, y tế) 3M, Di chuyển 1M |
+          | **Savings/Invest** | 20% | 6M | Emergency 2M, ETF 3M, Giáo dục con 1M |
+
+          ## 3. Emergency Fund: 12 Tháng Chi Tiêu = 300M
+          - Hiện có: 200M tiết kiệm
+          - Cần bổ sung: 100M (đóng 3M/tháng → 33 tháng)
+          - Nơi giữ: Tài khoản tiết kiệm online (lãi 4-5%), rút ngay khi cần
+
+          ## 4. Bảo Hiểm Cần Thiết (Ưu tiên cao)
+          | Loại | Người được bảo | Bảo障 (Coverage) | Phí ước tính/năm | Note |
+          |------|----------------|------------------|------------------|------|
+          | **Nhân thọ Term** | Chồng (Top earner) | 3-5 tỷ | 3-5M | 20-25 năm,Coverage = 10-15x income |
+          | **Nhân thọ Term** | Vợ | 1-2 tỷ | 1-2M | Cover chi phí chăm con/nơi nhà nếu mất vợ |
+          | **Y tế** | Cả 3 | 200-500M/người/năm | 8-12M | Bổ sung BHYT, phòng khám tư nhân, đẻ |
+          | **Tai nạn** | Cả 3 | 500M/người | 1-2M | Rẻ, bảo vệ thu nhập |
+          | **Bệnh nghiêm trọng** | Chồng | 500M-1 tỷ | 5-10M | Trả một lần khi chẩn đoán |
+
+          **Tổng phí bảo hiểm/năm: ~20-30M (4-7% thu nhập) - Chấp nhận được**
+
+          ## 5. Quỹ Giáo Dục Con (Con 3 tuổi → Đại học sau 15 năm)
+          - Ước tính: 500M-1 tỷ (Public) / 2-4 tỷ (Private/Quốc tế)
+          - Kênh đầu tư: **ETF toàn cầu (70%) + Bond VN (30%)** → Rebalance dần khi gần tuổi
+          - Đóng góp: 1M/tháng từ Joint + 500M lump sum từ tiết kiệm
+          - Dự kiến 15 năm (8% real return): ~500M (cần tăng đóng góp theo lương)
+
+          ## 6. Nghỉ Hưu Đôi (FIRE cho 2)
+          - Chi tiêu năm sau hưu trí: 300M (giảm từ 30M/tháng do con lớn, không nợ nhà)
+          - FIRE Number (3.5% SWR): 8.6 tỷ
+          - Hiện có đầu tư: 150M + 500M (nhà, không tính vào FIRE)
+          - Cần tích lũy: ~8 tỷ trong 25 năm (đến 60 tuổi)
+          - Đóng góp cần: 12M/tháng (hiện tại 6M) → Cần tăng dần khi lương tăng
+
+          ## 7. Thừa Kế Cơ Bản
+          - **Viết di chúc** (Công chứng hoặc viết tay ký tên + vân tay)
+          - **Chỉ định người nhận** bảo hiểm nhân thọ (Vợ/Chồng/Con)
+          - **Quyền đại diện** (Power of Attorney) y tế & tài chính cho nhau
+          - Cập nhật hàng năm hoặc khi có sự thay đổi lớn
+        context: "Gia đình double income, 1 con nhỏ, có nhà đang trả nợ, muốn bảo vệ toàn diện"
+    difficulty: "advanced"
+    useCases:
+      - "Vợ chồng thống nhất tài chính"
+      - "Gia đình có con nhỏ cần bảo vệ rủi ro"
+agentTemplate:
+  name: "Family Financial Planner"
+  description: "Ngân sách gia đình, Bảo hiểm, Quỹ giáo dục, Nghỉ hưu đôi, Thừa kế"
+  systemPrompt: |
+    Bạn là Family Financial Planner. Holistic: Cash flow, Risk management (Insurance), Wealth building, Education funding, Legacy. Both partners involved.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "giao-tiep-hieu-qua-gia-dinh"
+  - "quan-ly-ngan-sach-ca-nhan"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: ke-hoach-tai-chinh-gia-dinh
+---

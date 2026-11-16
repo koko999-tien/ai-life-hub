@@ -1,0 +1,154 @@
+---
+id: dinh-duong-the-thao
+categoryId: suc-khoe
+name: "Dinh dưỡng thể thao & Macro tracking"
+description: "Tính TDEE, phân bổ Macro (Protein/Carb/Fat), Meal prep, Supplement evidence-based"
+whenToUse:
+  - "Muốn giảm mỡ / tăng cơ / recomp hiệu quả"
+  - "Tự tính calo, macro cho bản thân"
+  - "Chuẩn bị meal prep hàng tuần"
+difficulty: "intermediate"
+estimatedTime: "Setup 30p, tracking 5p/ngày"
+tags: ["nutrition", "macro-tracking", "meal-prep", "tdee", "supplements", "evidence-based"]
+prompts:
+  - id: prompt-macro-calculation
+    name: "Tính TDEE & Phân bổ Macro"
+    description: "Tính calo duy trì, deficit/surplus, phân bổ protein/carb/fat theo mục tiêu"
+    template: |
+      Bạn là Sports Nutritionist. Hãy tính dinh dưỡng cho tôi:
+
+      **Thông tin:**
+      - Tuổi: {{age}}
+      - Giới tính: {{gender}}
+      - Chiều cao/Cân nặng: {{heightWeight}}
+      - Hoạt động: {{activityLevel}} (Sedentary / Light / Moderate / Very / Athlete)
+      - Mục tiêu: {{goal}} (Fat loss / Muscle gain / Recomp / Maintenance)
+      - Ưu tiên ăn uống: {{dietPreference}} (Omnivore / Vegetarian / Vegan / Keto / IF)
+
+      **Output:**
+      1. **BMR** (Mifflin-St Jeor) & **TDEE**
+      2. **Target Calories** (Deficit 15-25% / Surplus 10-15% / Maintenance)
+      3. **Macro Split** (g/kg bodyweight):
+         - Protein: 1.6-2.2g/kg (tăng cơ/giảm mỡ), 1.2-1.6g/kg (maintenance)
+         - Fat: 0.8-1.2g/kg (20-30% calories)
+         - Carb: Còn lại
+      4. **Meal frequency & Timing** gợi ý
+      5. **Sample Meal Plan** 1 ngày (hit macro ±5g)
+      6. **Supplement evidence-based** (Tier A: Creatine, Protein, Vitamin D, Omega-3 / Tier B: Caffeine, Beta-alanine / Tier C: Others)
+      7. **Tracking guide** (App: MyFitnessPal, MacroFactor, Cronometer)
+    variables:
+      - name: age
+        type: number
+        label: "Tuổi"
+        required: true
+      - name: gender
+        type: select
+        label: "Giới tính"
+        options:
+          - "Nam"
+          - "Nữ"
+        required: true
+      - name: heightWeight
+        type: text
+        label: "Chiều cao / Cân nặng"
+        required: true
+      - name: activityLevel
+        type: select
+        label: "Mức độ hoạt động"
+        options:
+          - "Sedentary (Ít vận động, làm văn phòng)"
+          - "Light (Tập 1-3 buổi/tuần)"
+          - "Moderate (Tập 3-5 buổi/tuần)"
+          - "Very (Tập 6-7 buổi/tuần + labor)"
+          - "Athlete (2 buổi/ngày, intensity cao)"
+        required: true
+      - name: goal
+        type: select
+        label: "Mục tiêu"
+        options:
+          - "Fat loss (Giảm mỡ)"
+          - "Muscle gain (Tăng cơ)"
+          - "Recomp (Giảm mỡ + tăng cơ)"
+          - "Maintenance (Duy trì)"
+        required: true
+      - name: dietPreference
+        type: select
+        label: "Chế độ ăn ưu tiên"
+        options:
+          - "Omnivore (Ăn cả động/vật thực vật)"
+          - "Vegetarian"
+          - "Vegan"
+          - "Keto / Low carb"
+          - "Intermittent Fasting (16:8)"
+        required: true
+        default: "Omnivore (Ăn cả động/vật thực vật)"
+    examples:
+      - inputs:
+          age: 28
+          gender: "Nam"
+          heightWeight: "175cm / 75kg"
+          activityLevel: "Moderate (Tập 3-5 buổi/tuần)"
+          goal: "Fat loss (Giảm mỡ)"
+          dietPreference: "Omnivore (Ăn cả động/vật thực vật)"
+        output: |
+          # 🥗 Dinh Dưỡng: Fat Loss, Nam 28t, 175cm/75kg, Moderate
+
+          ## 1. BMR & TDEE
+          - **BMR (Mifflin-St Jeor)**: 10×75 + 6.25×175 - 5×28 + 5 = **1,794 kcal**
+          - **TDEE** (Moderate × 1.55): 1,794 × 1.55 = **2,780 kcal**
+
+          ## 2. Target Calories (Fat Loss: Deficit 20%)
+          - **Target: 2,780 × 0.80 = 2,224 kcal** → Làm tròn **2,200 kcal**
+
+          ## 3. Macro Split
+          | Macro | g/kg | Total (g) | Calories | % |
+          |-------|------|-----------|----------|---|
+          | **Protein** | 2.0g/kg | **150g** | 600 | 27% |
+          | **Fat** | 0.9g/kg | **68g** | 612 | 28% |
+          | **Carb** | Còn lại | **202g** | 808 | 37% |
+          | **Fiber** | - | **30-40g** | - | - |
+          | **Total** | - | - | **2,020 kcal** | - |
+
+          *Lưu ý: Protein 2g/kg cho fat loss giữ cơ tối đa. Fat 0.9g/kg cho hormone. Carb fuel tập.*
+
+          ## 4. Meal Timing (4 bữa/ngày)
+          | Bữa | Thời gian | Calories | P / C / F | Gợi ý |
+          |-----|-----------|----------|-----------|-------|
+          | Bữa 1 (Sau tập/Buổi sáng) | 7:00 | 550 | 40/55/15 | Trứng + Oats + Blueberry + Whey |
+          | Bữa 2 (Trưa) | 12:00 | 650 | 40/65/20 | Gà xào rau + Gạo lứt + Dầu olive |
+          | Bữa 3 (Snack/Pre-workout) | 16:00 | 400 | 30/40/10 | Sữa chua Hy Lạp + Chuối + Whey |
+          | Bữa 4 (Tối) | 19:00 | 600 | 40/42/23 | Cá hồi + Khoai lang + Salad + Avocado |
+
+          ## 5. Supplement Evidence-Based
+          | Tier | Supplement | Dose | Evidence | Cost/tháng |
+          |------|------------|------|----------|------------|
+          | **A (Strong)** | Creatine Monohydrate | 5g/ngày | A (RCTs nhiều) | ~50k |
+          | **A** | Whey Protein | 20-40g/ngày (nếu thiếu) | A | ~500k |
+          | **A** | Vitamin D3 | 2000-4000 IU/ngày | A (nếu thiếu) | ~50k |
+          | **A** | Omega-3 (EPA/DHA) | 1-2g/ngày | A | ~150k |
+          | **B (Moderate)** | Caffeine | 3-6mg/kg pre-workout | B | ~20k |
+          | **C (Weak)** | Beta-alanine, Citrulline | Theoétude | C | ~200k |
+
+          ## 6. Tracking Guide
+          - **App khuyên dùng**: MacroFactor (AI adjust), MyFitnessPal (DB lớn), Cronometer (Micronutrient)
+          - **Tip**: Cân thức ăn raw (trước khi nấu) cho chính xác. Scan barcode. Save meals thường ăn.
+        context: "Fat loss moderate deficit, high protein, evidence-based supplements"
+    difficulty: "intermediate"
+    useCases:
+      - "Tự setup dinh dưỡng cho mục tiêu thể hình"
+      - "Meal prep hàng tuần"
+agentTemplate:
+  name: "Sports Nutritionist Agent"
+  description: "Tính TDEE, Macro, Meal plan, Supplement evidence-based, Hydration"
+  systemPrompt: |
+    Bạn là Sports Nutritionist. Evidence-based: Protein 1.6-2.2g/kg, Fat 0.8-1.2g/kg, Carb fuel performance. Supplement hierarchy: Tier A/B/C. Food first.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "tap-luyen-khoa-hoc"
+  - "ngu-va-hoi-phuc"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: dinh-duong-the-thao
+---

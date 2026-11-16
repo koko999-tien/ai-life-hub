@@ -1,0 +1,134 @@
+---
+id: quan-ly-ngan-sach-ca-nhan
+categoryId: tai-chinh
+name: "Quản lý ngân sách cá nhân"
+description: "Thiết lập ngân sách 50/30/20, theo dõi chi tiêu, tự động hóa tiết kiệm, fund khẩn cấp"
+whenToUse:
+  - "Muốn kiểm soát dòng tiền, biết tiền đi đâu"
+  - "Xây dựng fund khẩn cấp 3-6 tháng chi phí"
+  - "Tự động hóa tiết kiệm, đầu tư định kỳ"
+difficulty: "beginner"
+estimatedTime: "Setup 1 giờ, review 15p/tuần"
+tags: ["budgeting", "personal-finance", "expense-tracking", "emergency-fund", "automation"]
+prompts:
+  - id: prompt-budget-setup-503020
+    name: "Thiết lập ngân sách 50/30/20"
+    description: "Phân bổ thu nhập theo quy tắc 50% Needs / 30% Wants / 20% Savings/Debt"
+    template: |
+      Bạn là Financial Planner. Hãy thiết lập ngân sách 50/30/20 cho tôi:
+
+      **Thu nhập hàng tháng (net):**
+      {{monthlyIncome}}
+
+      **Chi phí cố định hiện tại:**
+      {{fixedExpenses}}
+
+      **Chi phí biến động ước lượng:**
+      {{variableExpenses}}
+
+      **Nợ hiện có:**
+      {{debts}}
+
+      **Mục tiêu tài chính:**
+      {{goals}}
+
+      **Output:**
+      1. Bảng phân bổ 50/30/20 chi tiết
+      2. Đánh giá: Đang overspend category nào?
+      3. Gợi ý điều chỉnh chi tiêu
+      4. Kế hoạch xây dựng Emergency Fund (mục tiêu, timeline)
+      5. Tự động hóa: Auto-transfer ngày nhận lương
+      6. Template Notion/Excel tracking hàng tháng
+    variables:
+      - name: monthlyIncome
+        type: number
+        label: "Thu nhập thuần tháng (VND)"
+        required: true
+      - name: fixedExpenses
+        type: textarea
+        label: "Chi phí cố định (nhà, xe, bảo hiểm, subscription...)"
+        required: true
+      - name: variableExpenses
+        type: textarea
+        label: "Chi phí biến động (ăn uống, mua sắm, giải trí...)"
+        required: true
+      - name: debts
+        type: textarea
+        label: "Nợ (thẻ tín dụng, vay tiêu dùng, lãi suất...)"
+        required: false
+      - name: goals
+        type: textarea
+        label: "Mục tiêu tài chính (ngắn hạn, dài hạn)"
+        required: true
+    examples:
+      - inputs:
+          monthlyIncome: 25000000
+          fixedExpenses: "Thuê nhà: 7M, Điện/nước/net: 1.5M, Bảo hiểm: 1M, Subscription: 0.5M"
+          variableExpenses: "Ăn uống: 4M, Mua sắm: 2M, Giải trí: 1.5M, Di chuyển: 1M, Khác: 1M"
+          debts: "Thẻ tín dụng: 20M (lãi 3%/tháng), Vay xe: 150M (lãi 8%/năm)"
+          goals: "1. Emergency fund 6 tháng (60M). 2. Trả hết thẻ tín dụng 6 tháng. 3. Đầu tư ETF 3M/tháng."
+        output: |
+          # 💰 Ngân Sách 50/30/20: Thu nhập 25M/tháng
+
+          ## Phân bổ lý thuyết
+          | Category | % | Số tiền | Mục tiêu |
+          |----------|---|---------|----------|
+          | **Needs (50%)** | 50% | 12.5M | Chi phí sinh tồn bắt buộc |
+          | **Wants (30%)** | 30% | 7.5M | Chi phí đời sống, giải trí |
+          | **Savings/Debt (20%)** | 20% | 5M | Tiết kiệm + Trả nợ thêm |
+
+          ## Thực tế hiện tại
+          | Category | Chi tiêu | So với ngân sách |
+          |----------|----------|------------------|
+          | Needs | 11M (Nhà 7M + Điện/nước 1.5M + BH 1M + Sub 0.5M + Di chuyển 1M) | ✅ Dưới 12.5M |
+          | Wants | 8.5M (Ăn 4M + Mua 2M + Giải trí 1.5M + Khác 1M) | ⚠️ **Vượt 1M** |
+          | Savings/Debt | 5.5M (Trả nợ thẻ ~2M + Vay xe ~3.5M) | ⚠️ Chỉ trả nợ tối thiểu |
+
+          ## ⚠️ Vấn đề: Wants vượt 1M, Savings chỉ trả nợ tối thiểu
+
+          ## Gợi ý điều chỉnh
+          1. **Giảm Wants 1M**: Ăn ngoài giảm 0.5M (meal prep), Giải trí giảm 0.5M (free alternatives)
+          2. **Tăng Savings**: Chuyển 1M từ Wants → Trả nợ thẻ ưu tiên (lãi 36%/năm)
+          3. **Snowball debt**: Trả thẻ tín dụng trước (lãi cao), sau đó vay xe
+
+          ## Emergency Fund Plan
+          - Mục tiêu: 6 tháng × 12.5M (Needs) = **75M** (bảo thủ hơn 60M)
+          - Hiện có: 0
+          - Đóng góp/tháng sau điều chỉnh: 2M (từ Wants) + 1M (từ Needs optimize) = **3M/tháng**
+          - Timeline: 75M / 3M = **25 tháng** (qua 2 năm)
+          - **Accelerate**: Sau khi trả xong thẻ tín dụng (tháng 6), +2M/tháng → 5M/tháng → 15 tháng nữa
+
+          ## Tự động hóa (Setup 1 lần)
+          ```
+          Ngày 1 (Nhận lương):
+          ├─ Auto-transfer 3M → Emergency Fund Account
+          ├─ Auto-transfer 2M → Credit Card Payment (extra)
+          ├─ Auto-transfer 3.5M → Car Loan
+          └─ Còn lại 16.5M → Spending Account (Needs + Wants)
+          ```
+
+          ## Tracking Template (Notion/Excel)
+          | Tháng | Income | Needs | Wants | Savings/Debt | EF Balance | Note |
+          |-------|--------|-------|-------|--------------|------------|------|
+          | 01/2024 | 25M | 11M | 7.5M | 6.5M | 3M | Setup auto |
+          | 02/2024 | 25M | 10.5M | 7M | 7.5M | 6M | Optimize nhà |
+        context: "Ngân sách thực tế cho người thu nhập 25M, có nợ thẻ tín dụng"
+    difficulty: "medium"
+    useCases:
+      - "Người mới làm việc thiết lập ngân sách đầu tiên"
+      - "Muốn thoát vòng luân hồi sống tháng đến tháng"
+agentTemplate:
+  name: "Personal Finance Coach"
+  description: "Tư vấn ngân sách, emergency fund, debt payoff, investment automation"
+  systemPrompt: |
+    Bạn là Personal Finance Coach. Nguyên tắc: Pay yourself first, Emergency fund trước, High-interest debt ưu tiên, Automate everything.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "dau-tu-chung-khoan-co-ban"
+  - "ke-hoach-tai-chinh-dai-han"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: quan-ly-ngan-sach-ca-nhan
+---

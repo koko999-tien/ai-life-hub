@@ -1,0 +1,148 @@
+---
+id: design-system-tokens
+categoryId: thiet-ke
+name: "Design Tokens & Design System"
+description: "Xây dựng hệ thống thiết kế: Color tokens, Spacing, Typography, Component library, Documentation"
+whenToUse:
+  - "Xây dựng Design System cho team/product"
+  - "Chuẩn hóa UI across các platform (Web, iOS, Android)"
+  - "Handoff thiết kế cho dev chính xác"
+difficulty: "intermediate"
+estimatedTime: "Setup 1-2 tuần, maintain liên tục"
+tags: ["design-system", "design-tokens", "figma", "component-library", "handoff"]
+prompts:
+  - id: prompt-design-tokens-setup
+    name: "Thiết kế Design Tokens hệ thống"
+    description: "Tạo bộ tokens: Color (semantic), Spacing scale, Typography scale, Border radius, Shadows, Motion"
+    template: |
+      Bạn là Design System Engineer. Hãy thiết kế bộ Design Tokens cho: {{productName}}.
+
+      **Brand Identity:**
+      - Màu thương hiệu: {{brandColors}}
+      - Typography: {{brandTypography}}
+      - Tone: {{brandTone}} (playful / serious / minimal / bold)
+
+      **Yêu cầu Tokens (JSON format cho Style Dictionary / Figma Tokens):**
+      1. **Color**: Primitive (raw values) → Semantic (meaning) → Component (specific)
+      2. **Spacing**: Base unit 4px, scale 0-24+
+      3. **Typography**: Font families, sizes, weights, line-heights, letter-spacing
+      4. **Border Radius**: Scale từ sharp → round → full
+      5. **Shadows/Elevation**: 4-5 levels
+      6. **Motion/Animation**: Duration, easing curves
+      7. **Breakpoints**: Mobile-first responsive
+
+      Output: Tokens JSON + Documentation markdown + Figma setup guide.
+    variables:
+      - name: productName
+        type: text
+        label: "Tên sản phẩm/brand"
+        required: true
+      - name: brandColors
+        type: textarea
+        label: "Màu brand (hex codes)"
+        required: true
+      - name: brandTypography
+        type: textarea
+        label: "Font chữ brand"
+        required: true
+      - name: brandTone
+        type: select
+        label: "Tone thương hiệu"
+        options:
+          - "playful"
+          - "serious"
+          - "minimal"
+          - "bold"
+        required: true
+        default: "minimal"
+    examples:
+      - inputs:
+          productName: "FinTrack - App tài chính cá nhân"
+          brandColors: "Primary: #2563EB, Secondary: #0EA5E9, Accent: #F59E0B, Success: #22C55E, Error: #EF4444, Neutral: #1E293B to #F8FAFC"
+          brandTypography: "Heading: Inter, Body: Inter, Mono: JetBrains Mono"
+          brandTone: "serious"
+        output: |
+          # 🎨 Design Tokens: FinTrack
+
+          ## Color Tokens (Primitive → Semantic → Component)
+
+          ### Primitive Colors (Raw values)
+          ```json
+          {
+            "color": {
+              "blue": { "50": "#EFF6FF", "100": "#DBEAFE", "500": "#3B82F6", "600": "#2563EB", "700": "#1D4ED8", "900": "#1E3A8A" },
+              "emerald": { "50": "#ECFDF5", "500": "#10B981", "600": "#059669" },
+              "amber": { "50": "#FFFBE6", "500": "#F59E0B", "600": "#D97706" },
+              "red": { "50": "#FEF2F2", "500": "#EF4444", "600": "#DC2626" },
+              "slate": { "50": "#F8FAFC", "100": "#F1F5F9", "500": "#64748B", "900": "#0F172A", "950": "#020617" }
+            }
+          }
+          ```
+
+          ### Semantic Colors (Meaning-based)
+          ```json
+          {
+            "color": {
+              "primary": { "DEFAULT": "{color.blue.600}", "hover": "{color.blue.700}", "light": "{color.blue.50}" },
+              "secondary": { "DEFAULT": "{color.slate.500}", "hover": "{color.slate.600}" },
+              "success": { "DEFAULT": "{color.emerald.600}", "light": "{color.emerald.50}" },
+              "warning": { "DEFAULT": "{color.amber.600}", "light": "{color.amber.50}" },
+              "error": { "DEFAULT": "{color.red.600}", "light": "{color.red.50}" },
+              "background": { "primary": "{color.slate.50}", "secondary": "{color.white}", "inverse": "{color.slate.900}" },
+              "text": { "primary": "{color.slate.900}", "secondary": "{color.slate.500}", "inverse": "{color.white}", "disabled": "{color.slate.300}" },
+              "border": { "DEFAULT": "{color.slate.200}", "focus": "{color.blue.500}", "error": "{color.red.500}" }
+            }
+          }
+          ```
+
+          ### Component Colors (Specific usage)
+          ```json
+          {
+            "button": {
+              "primary": { "bg": "{color.primary.DEFAULT}", "text": "{color.text.inverse}", "hover": "{color.primary.hover}" },
+              "secondary": { "bg": "{color.secondary.DEFAULT}", "text": "{color.text.inverse}", "hover": "{color.secondary.hover}" },
+              "ghost": { "bg": "transparent", "text": "{color.primary.DEFAULT}", "hover": "{color.primary.light}" },
+              "danger": { "bg": "{color.error.DEFAULT}", "text": "{color.text.inverse}", "hover": "{color.error.hover}" }
+            }
+          }
+          ```
+
+          ## Spacing Scale (Base 4px)
+          ```json
+          { "spacing": { "0": "0", "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "20px", "6": "24px", "8": "32px", "10": "40px", "12": "48px", "16": "64px", "20": "80px", "24": "96px" } }
+          ```
+
+          ## Typography Scale
+          ```json
+          {
+            "fontFamily": { "sans": "Inter, system-ui", "mono": "JetBrains Mono, monospace" },
+            "fontSize": { "xs": "12px", "sm": "14px", "base": "16px", "lg": "18px", "xl": "20px", "2xl": "24px", "3xl": "30px", "4xl": "36px" },
+            "fontWeight": { "normal": "400", "medium": "500", "semibold": "600", "bold": "700" },
+            "lineHeight": { "tight": "1.25", "normal": "1.5", "relaxed": "1.75" }
+          }
+          ```
+
+          ## Export cho Figma (Figma Tokens Plugin)
+          - Import JSON → tạo Styles/Variables
+          - Map: Color Styles, Text Styles, Effect Styles, Grid Styles
+          - Publish to Team Library
+        context: "Design tokens cho app tài chính, tone serious, accessible"
+    difficulty: "intermediate"
+    useCases:
+      - "Thiết kế Design System từ 0"
+      - "Handoff chính xác cho dev (Tailwind config, CSS variables)"
+agentTemplate:
+  name: "Design System Architect"
+  description: "Xây dựng Design System, tokens, component library, documentation, Figma-Dev handoff"
+  systemPrompt: |
+    Bạn là Design System Architect. Tạo hệ thống thiết kế nhất quán, scalable, developer-friendly.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "ui-ux-fundamentals"
+  - "prototyping-figma"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: design-system-tokens
+---

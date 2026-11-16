@@ -1,0 +1,462 @@
+---
+id: api-design-rest-graphql
+categoryId: lap-trinh
+name: "Thiết kế API REST & GraphQL"
+description: "Thiết kế API chuẩn OpenAPI 3.1: Resource modeling, Versioning, Error handling, Rate limiting, Security"
+whenToUse:
+  - "Thiết kế API cho frontend/mobile consumption"
+  - "Tài liệu hóa API (Swagger/OpenAPI)"
+  - "Chuyển đổi từ REST sang GraphQL hoặc hybrid"
+difficulty: "intermediate"
+estimatedTime: "1-2 giờ thiết kế spec"
+tags: ["api-design", "rest", "graphql", "openapi", "backend"]
+prompts:
+  - id: prompt-api-design-rest
+    name: "Thiết kế API RESTful theo chuẩn"
+    description: "Tạo OpenAPI 3.1 spec cho resource: CRUD, filtering, pagination, versioning"
+    template: |
+      Bạn là API Architect. Hãy thiết kế REST API cho resource: {{resourceName}}.
+
+      **Thông tin:**
+      - Mô tả resource: {{resourceDescription}}
+      - Các action cần hỗ trợ: {{actions}} (list, get, create, update, delete, custom)
+      - Authentication: {{auth}} (JWT / API Key / OAuth2)
+      - Phân quyền: {{authorization}} (RBAC / ABAC)
+      - Versioning strategy: {{versioning}} (URL path / Header / Query param)
+
+      **Yêu cầu output (OpenAPI 3.1 / Markdown):**
+      1. Resource hierarchy & naming conventions
+      2. Endpoints table (Method, Path, Description, Auth)
+      3. Request/Response schemas (JSON Schema)
+      4. Error response format chuẩn (RFC 7807 Problem Details)
+      5. Query parameters: filter, sort, pagination, fields selection
+      6. Rate limiting headers
+      7. Versioning example
+
+      Output: Có thể copy vào Swagger Editor render.
+    variables:
+      - name: resourceName
+        type: text
+        label: "Tên resource (ví dụ: Users, Orders, Products)"
+        required: true
+      - name: resourceDescription
+        type: textarea
+        label: "Mô tả resource và nghiệp vụ"
+        required: true
+      - name: actions
+        type: multiselect
+        label: "Actions cần hỗ trợ"
+        options:
+          - "List (GET collection)"
+          - "Get by ID"
+          - "Create"
+          - "Update (PUT/PATCH)"
+          - "Delete"
+          - "Bulk operations"
+          - "Custom actions (export, import, approve...)"
+        required: true
+        default: ["List (GET collection)", "Get by ID", "Create", "Update (PUT/PATCH)", "Delete"]
+      - name: auth
+        type: select
+        label: "Authentication"
+        options:
+          - "JWT (Bearer Token)"
+          - "API Key"
+          - "OAuth 2.0"
+        required: true
+        default: "JWT (Bearer Token)"
+      - name: authorization
+        type: select
+        label: "Authorization model"
+        options:
+          - "RBAC (Role-based)"
+          - "ABAC (Attribute-based)"
+        required: true
+        default: "RBAC (Role-based)"
+      - name: versioning
+        type: select
+        label: "Versioning strategy"
+        options:
+          - "URL Path (/v1/...)"
+          - "Header (Accept-Version)"
+          - "Query param (?version=1)"
+        required: true
+        default: "URL Path (/v1/...)"
+    examples:
+      - inputs:
+          resourceName: "Orders"
+          resourceDescription: "Quản lý đơn hàng cho hệ thống e-commerce. Đơn hàng có trạng thái: pending, confirmed, shipping, delivered, cancelled. Mỗi đơn hàng thuộc về 1 user, chứa nhiều order_items."
+          actions: '["List (GET collection)", "Get by ID", "Create", "Update (PUT/PATCH)", "Delete", "Custom actions (export, import, approve...)"]'
+          auth: "JWT (Bearer Token)"
+          authorization: "RBAC (Role-based)"
+          versioning: "URL Path (/v1/...)"
+        output: |
+          # 📋 API Design: Orders Resource
+
+          ## 1. Resource Hierarchy
+          ```
+          /v1/users/{userId}/orders           # Orders của 1 user
+          /v1/orders                          # Admin: tất cả orders
+          /v1/orders/{orderId}
+          /v1/orders/{orderId}/items
+          /v1/orders/{orderId}/timeline       # Trạng thái chuyển đổi
+          ```
+
+          ## 2. Endpoints
+          | Method | Path | Description | Auth | Roles |
+          |--------|------|-------------|------|-------|
+          | GET | `/v1/orders` | List orders (filter, sort, paginate) | JWT | admin, seller |
+          | GET | `/v1/users/{userId}/orders` | List orders của user | JWT | user (own), admin |
+          | GET | `/v1/orders/{id}` | Chi tiết order | JWT | user (own), admin, seller |
+          | POST | `/v1/orders` | Tạo order mới | JWT | user |
+          | PATCH | `/v1/orders/{id}` | Cập nhật order (partial) | JWT | admin, seller |
+          | DELETE | `/v1/orders/{id}` | Huỷ order (soft delete) | JWT | user (own), admin |
+          | POST | `/v1/orders/{id}/cancel` | Huỷ order (action) | JWT | user (own), admin |
+          | GET | `/v1/orders/export` | Export CSV/Excel | JWT | admin |
+
+          ## 3. Schemas
+
+          ### Order (Response)
+          ```json
+          {
+            "id": "ord_abc123",
+            "userId": "usr_456",
+            "status": "confirmed",
+            "currency": "VND",
+            "subtotal": 500000,
+            "tax": 50000,
+            "shippingFee": 30000,
+            "total": 580000,
+            "items": [
+              {
+                "productId": "prd_789",
+                "variantId": "var_012",
+                "quantity": 2,
+                "unitPrice": 250000,
+                "total": 500000
+              }
+            ],
+            "shippingAddress": { ... },
+            "createdAt": "2024-01-15T10:30:00Z",
+            "updatedAt": "2024-01-15T10:35:00Z"
+          }
+          ```
+
+          ### Create Order Request
+          ```json
+          {
+            "items": [
+              { "productId": "prd_789", "variantId": "var_012", "quantity": 2 }
+            ],
+            "shippingAddressId": "addr_345",
+            "paymentMethodId": "pm_678",
+            "couponCode": "WELCOME10"
+          }
+          ```
+
+          ## 4. Query Parameters (List Endpoint)
+          | Param | Type | Description | Example |
+          |-------|------|-------------|---------|
+          | `page` | integer | Trang (1-indexed) | `page=1` |
+          | `limit` | integer | Số item/trang (max 100) | `limit=20` |
+          | `sort` | string | Sắp xếp: `field:asc|desc` | `sort=createdAt:desc` |
+          | `status` | string | Lọc theo trạng thái (csv) | `status=pending,confirmed` |
+          | `dateFrom` | ISO8601 | Từ ngày | `dateFrom=2024-01-01` |
+          | `dateTo` | ISO8601 | Đến ngày | `dateTo=2024-01-31` |
+          | `fields` | string | Chọn field trả về (csv) | `fields=id,status,total` |
+
+          ## 5. Error Format (RFC 7807)
+          ```json
+          {
+            "type": "https://api.example.com/errors/validation-failed",
+            "title": "Validation Failed",
+            "status": 422,
+            "detail": "One or more fields failed validation",
+            "instance": "/v1/orders",
+            "errors": [
+              { "field": "items[0].quantity", "code": "min", "message": "Quantity must be >= 1" }
+            ]
+          }
+          ```
+
+          ## 6. Rate Limiting Headers
+          ```
+          X-RateLimit-Limit: 1000
+          X-RateLimit-Remaining: 999
+          X-RateLimit-Reset: 1705312800
+          ```
+
+          ## 7. Versioning
+          - Current: `/v1/orders`
+          - Deprecation: Header `Sunset: Sat, 01 Jan 2025 00:00:00 GMT`
+          - New version: `/v2/orders` (breaking changes)
+        context: "API thiết kế cho hệ thống e-commerce, chuẩn OpenAPI 3.1"
+    difficulty: "intermediate"
+    useCases:
+      - "Backend developer thiết kế API cho frontend team"
+      - "Tạo tài liệu API (Swagger/OpenAPI)"
+  - id: prompt-graphql-schema
+    name: "Thiết kế GraphQL Schema"
+    description: "Tạo GraphQL schema từ requirements: Types, Queries, Mutations, Subscriptions, Resolvers"
+    template: |
+      Hãy thiết kế GraphQL Schema cho: {{domain}}.
+
+      **Yêu cầu nghiệp vụ:**
+      {{businessRequirements}}
+
+      **Output:**
+      1. Schema Definition Language (SDL)
+      2. Root types: Query, Mutation, Subscription
+      3. Input types cho mutations
+      4. Enum types
+      5. Directives (auth, rateLimit, cache)
+      6. Resolver structure gợi ý (DataLoader pattern cho N+1)
+    variables:
+      - name: domain
+        type: text
+        label: "Domain (ví dụ: E-commerce, Blog, Chat)"
+        required: true
+      - name: businessRequirements
+        type: textarea
+        label: "Yêu cầu nghiệp vụ chi tiết"
+        required: true
+    examples:
+      - inputs:
+          domain: "E-commerce (Products, Categories, Orders)"
+          businessRequirements: "Product có tên, giá, mô tả, hình ảnh, danh mục. Category phân cấp. Order có nhiều items, trạng thái, lịch sử. Cần query: products (filter, paginate), product detail, categories tree, user orders. Mutation: createOrder, updateProduct (admin)."
+        output: |
+          # 📊 GraphQL Schema: E-commerce
+
+          ```graphql
+          # Enums
+          enum OrderStatus {
+            PENDING
+            CONFIRMED
+            SHIPPING
+            DELIVERED
+            CANCELLED
+          }
+
+          # Types
+          type Product {
+            id: ID!
+            name: String!
+            description: String
+            price: Float!
+            currency: String! @default(value: "VND")
+            images: [String!]!
+            category: Category!
+            categoryId: ID!
+            variants: [ProductVariant!]!
+            createdAt: DateTime!
+            updatedAt: DateTime!
+          }
+
+          type ProductVariant {
+            id: ID!
+            product: Product!
+            sku: String!
+            attributes: JSON!  # {color: "red", size: "M"}
+            price: Float
+            stock: Int!
+          }
+
+          type Category {
+            id: ID!
+            name: String!
+            slug: String!
+            parent: Category
+            parentId: ID
+            children: [Category!]!
+            products: [Product!]!
+          }
+
+          type Order {
+            id: ID!
+            user: User!
+            userId: ID!
+            status: OrderStatus!
+            items: [OrderItem!]!
+            subtotal: Float!
+            tax: Float!
+            shippingFee: Float!
+            total: Float!
+            shippingAddress: Address!
+            createdAt: DateTime!
+            updatedAt: DateTime!
+          }
+
+          type OrderItem {
+            id: ID!
+            order: Order!
+            product: Product!
+            variant: ProductVariant
+            quantity: Int!
+            unitPrice: Float!
+            total: Float!
+          }
+
+          type User {
+            id: ID!
+            email: String!
+            name: String
+            orders: [Order!]!
+            addresses: [Address!]!
+          }
+
+          type Address {
+            id: ID!
+            recipientName: String!
+            phone: String!
+            province: String!
+            district: String!
+            ward: String!
+            street: String!
+            isDefault: Boolean!
+          }
+
+          # Queries
+          type Query {
+            # Products
+            products(
+              filter: ProductFilter
+              sort: ProductSort
+              pagination: PaginationInput
+            ): ProductConnection!
+
+            product(id: ID!): Product
+
+            # Categories
+            categories(rootOnly: Boolean = false): [Category!]!
+            category(id: ID!): Category
+            categoryTree: [Category!]!  # Flat tree for UI
+
+            # Orders
+            orders(
+              filter: OrderFilter
+              sort: OrderSort
+              pagination: PaginationInput
+            ): OrderConnection!
+
+            order(id: ID!): Order
+            myOrders(pagination: PaginationInput): OrderConnection! @auth
+          }
+
+          # Mutations
+          type Mutation {
+            createOrder(input: CreateOrderInput!): Order! @auth
+            updateProduct(id: ID!, input: UpdateProductInput!): Product! @auth(roles: ["ADMIN"])
+            updateOrderStatus(id: ID!, status: OrderStatus!): Order! @auth(roles: ["ADMIN", "SELLER"])
+          }
+
+          # Inputs
+          input ProductFilter {
+            categoryId: ID
+            minPrice: Float
+            maxPrice: Float
+            search: String
+            inStock: Boolean
+          }
+
+          input ProductSort {
+            field: ProductSortField!
+            direction: SortDirection!
+          }
+
+          enum ProductSortField { NAME PRICE CREATED_AT }
+          enum SortDirection { ASC DESC }
+
+          input PaginationInput {
+            first: Int = 20
+            after: String
+            last: Int
+            before: String
+          }
+
+          input CreateOrderInput {
+            items: [OrderItemInput!]!
+            shippingAddressId: ID!
+            paymentMethodId: ID!
+            couponCode: String
+          }
+
+          input OrderItemInput {
+            productId: ID!
+            variantId: ID
+            quantity: Int!
+          }
+
+          # Connections (Relay-style pagination)
+          type ProductConnection {
+            edges: [ProductEdge!]!
+            pageInfo: PageInfo!
+            totalCount: Int!
+          }
+
+          type ProductEdge {
+            node: Product!
+            cursor: String!
+          }
+
+          type PageInfo {
+            hasNextPage: Boolean!
+            hasPreviousPage: Boolean!
+            startCursor: String
+            endCursor: String
+          }
+
+          # Directives
+          directive @auth(roles: [String]) on FIELD_DEFINITION
+          directive @default(value: String) on FIELD_DEFINITION
+          directive @rateLimit(max: Int!, window: String!) on FIELD_DEFINITION
+          directive @cacheControl(maxAge: Int, scope: CacheScope) on FIELD_DEFINITION
+
+          enum CacheScope { PUBLIC PRIVATE }
+          ```
+
+          ## Resolver Structure (N+1 Prevention)
+          ```typescript
+          // DataLoaders
+          const productLoader = new DataLoader(async (ids: string[]) => {
+            const products = await prisma.product.findMany({ where: { id: { in: ids } } });
+            return ids.map(id => products.find(p => p.id === id) || null);
+          });
+
+          // Resolver example
+          const resolvers = {
+            Category: {
+              products: (category, args) => 
+                prisma.product.findMany({ where: { categoryId: category.id }, ...args }),
+              children: (category) => 
+                prisma.category.findMany({ where: { parentId: category.id } })
+            },
+            Order: {
+              user: (order) => userLoader.load(order.userId),
+              items: (order) => orderItemLoader.load(order.id)
+            },
+            Query: {
+              products: async (_, { filter, sort, pagination }) => 
+                // cursor-based pagination implementation
+            }
+          };
+          ```
+        context: "GraphQL schema cho e-commerce, có DataLoader pattern cho N+1"
+    difficulty: "advanced"
+    useCases:
+      - "Thiết kế GraphQL API cho frontend team"
+      - "Migration từ REST sang GraphQL"
+agentTemplate:
+  name: "API Designer Agent"
+  description: "Thiết kế API REST/GraphQL, OpenAPI spec, versioning, security, performance"
+  systemPrompt: |
+    Bạn là API Designer. Thiết kế API developer-friendly, versionable, secure, performant.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "clean-code-refactor"
+  - "system-design-basics"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: api-design-rest-graphql
+---

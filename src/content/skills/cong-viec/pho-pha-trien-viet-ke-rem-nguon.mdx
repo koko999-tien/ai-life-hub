@@ -1,0 +1,342 @@
+---
+id: pho-pha-trien-viet-ke-rem-nguon
+categoryId: cong-viec
+name: "Phỏ phá triển viên nguồn - Tư duy sáng tạo"
+description: "Xây dựng ý tưởng sáng tạo trong 5 vòng lặp sau giới hạn của IDEO Design Kit"
+whenToUse:
+  - "Cần generate ý tưởng mới cho sản phẩm, nội dung, chiến dịch marketing"
+  - "Bị kẹt creative block, thiếu inspiration"
+  - "Đầu tư cho dự án mới, cần scope creative"
+  - "Brainstorm với team, mở rộng search space"
+difficulty: "beginner"
+estimatedTime: "30-60 phút brainstorm session"
+tags: ["creativity", "ideation", "brainstorming", "design-thinking", "innovation"]
+prompts:
+  - id: prompt-ideo-simplify
+    name: "Giảm đến tối giản (Simplify)"
+    description: "Vòng 1 của Design Thinking: rút gọn giải pháp, xóa bỏ tính phức tạp"
+    template: |
+      Bạn là Creative Director. Hãy giúp tôi **simplifiy** giải pháp gốc cho vấn đề: {{problem}}.
+
+      **Bối cảnh:**
+      - Người dùng mục tiêu: {{users}}
+      - Tính năng/nền tảng hiện tại: {{currentSolution}}
+      - Vấn đề cốt lõi: {{coreProblem}}
+      - Constraints: {{constraints}}
+
+      **Câu hỏi Simplify:**
+      1. Tính năng nào có thể xóa bỏ mà không ảnh hưởng core value?
+      2. Feature nào chỉ mang tính "đẹp mắt" (nice-to-have) hay "đầy đủ nho" (feature creep)?
+      3. Giải pháp khác có thể đơn giản hơn bằng cách dùng công cụ/nguyên tắc có sẵn thay vì xây mới?
+      4. Người dùng có thực sự cần tính năng này? (User value test)
+      5. MVP sau khi simplify: Minimum feature set có còn giải quyết {{coreProblem}}?
+
+      **Đầu ra:**
+      - Simplify score (1-10) cho từng feature
+      - Backlog tối giản (top 3-5 features MUST keep)
+      - User stories đơn giản tương ứng
+      - Checklist pre-MVP để validate giữ lại feature nào
+
+      Định dạng: Markdown có cấu trúc, ưu tiên hành động.
+    variables:
+      - name: problem
+        type: textarea
+        label: "Vấn đề cần giải quyết (người dùng mục tiêu + phạm vi)"
+        required: true
+      - name: users
+        type: textarea
+        label: "Tác nhân/người dùng mục tiêu"
+        required: true
+      - name: currentSolution
+        type: textarea
+        label: "Giải pháp hiện tại / proposal trước đó (nếu có)"
+        required: false
+      - name: coreProblem
+        type: textarea
+        label: "Vấn đề cốt lõi (core problem) mà giải pháp phải solve"
+        required: true
+      - name: constraints
+        type: textarea
+        label: "Ràng buộc (thời gian, ngân sách, kỹ thuật, pháp lý...)"
+        required: false
+    examples:
+      - inputs:
+          problem: "Người nội trợ làm việc từ xa muốn app quản lý chores cho gia đình"
+          users: "3-5 người trong gia đình, người lớn + trẻ nhỏ"
+          currentSolution: "Bộ app mobile + web với assign chores, reminders, rewards points"
+          coreProblem: "Chores bị bỏ quên, phân công lũy tiến không rõ, conflict về quyền quyết định"
+          constraints: "2 tuần dev time, không có backend riêng (web + Firebase tạm)"
+        output: |
+          # ✂️ Simplify Pass: Chores App
+
+          ## Current Solution Assessment
+          | Feature | Value (1-10) | Simplify Score (1-10) | Keep/Drop |
+          |---------|-------------|------------------------|-----------|
+          | Assign chores | 8 | 7 | ✅ Keep (core) |
+          | Real-time sync (multi-device) | 9 | 7 | ✅ Keep (core) |
+          | Reward points system | 7 | 5 | ⚠️ Drop first pass |
+          | Voting on chore (family) | 6 | 4 | ❌ Drop first pass |
+          | Calendar integration | 5 | 6 | ⚠️ Nice-to-have |
+          | Gamification badges | 4 | 3 | ❌ Drop first pass |
+
+          ## 🎯 Simplified Solution
+          **Core Loop sau simplify:**
+          1. Người lớn tạo chore list (ví dụ: "Vệ sinh nhà bếp")
+          2. Auto-assign round-robin/due date
+          3. Notification push cho assignee
+          4. Check-off → notify next person
+          **Total features giữ lại: 4** (từ 7)
+
+          ## ⚠️ Decision Required: Reward System
+          - **Drop** trong v1 để validate core loop trước
+          - Giữ trong backlog để revisit sau khi users ổn định
+          - **Rationale:** Reward system introduces economy complexity (gaming loops, arbitrage) chưa validate được.
+
+          ## MVP Scope (Post-Simplify)
+          - Feature 1: Chore assign + due + reminder
+          - Feature 2: Family member management
+          - Feature 3: Check-off + notifications
+          - Feature 4: History/summary (simple stats)
+
+          ## User Stories (Simplified)
+          1. "As a parent, I want to create a chore in my family list so that anyone can see what's assigned."
+          2. "As a child, I want to get notified when a chore is assigned to me."
+          3. "As a family member, I want to mark chore done and notify next person."
+        context: "Ví dụ brainstorm cho sản phẩm chores app, muốn cut scope nhanh"
+    difficulty: "easy"
+    useCases:
+      - "Product manager trước planning meeting"
+      - "Developer quên lý trí creative"
+      - "Marketer thiết kế campaign concept"
+  - id: prompt-ideo-ideate
+    name: "Brainstorm không giới hạn (Generate 10-20 Ideas)"
+    description: "Vòng 2 Design Thinking: ideation mạnh mẽ với techniques Brainwriting, SCAMPER, Crazy 8s"
+    template: |
+      Bạn là Innovation Strategist. Hãy brainstorm **{{count}} ý tưởng sáng tạo** cho: {{projectOrContent}}.
+
+      **Mục tiêu:** {{goal}}
+      **Bối cảnh:** {{context}}
+      **Domain khóa học/khám phá:** {{domain}}
+
+      **Phong cách brainstorm:**
+      - No judgment, quantity over quality ở vòng này
+      - Wild ideas welcome (quantity over quality)
+
+      **Kỹ thuật kết hợp (chọn combo theo mục tiêu):**
+      - **Crazy 8s**: Tạo 8 ý tưởng trong 8 phút, mỗi ý theo hướng khác nhau (feature, audience, format, channel, gimmick, story, mechanic, data point)
+      - **SCAMPER**: Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse
+      - **Brainwriting** (6-3-5): 6 người viết ý, pass sang 3, sau 3 round chốt top ideas
+      - **Reverse brainstorming**: Tưởng tượng giải pháp gây hại → đảo ngược thành giải pháp tốt
+
+      **Output:**
+      1. Raw idea dump (brainstorm tự nhiên, mọi thứ ok)
+      2. Filtered top concepts (có tóm tắt + rationale)
+      3. Feasibility notes (quick 5-line assessment)
+      4. Next step recommendations (test idea nào trước)
+
+      Format: Structured lists, mỗi ý tóm gọn ~1 dòng + giải thích ngắn.
+    variables:
+      - name: count
+        type: number
+        label: "Số ý tưởng muốn tạo"
+        required: true
+        default: 12
+      - name: projectOrContent
+        type: textarea
+        label: "Dự án/Công trình/Topic cần sáng tạo"
+        required: true
+      - name: goal
+        type: textarea
+        label: "Mục tiêu sáng tạo (ví dụ: 'Tăng CTR video 20%', 'Viết content viral-ish về AI', 'Concept landing page mới cho SaaS B2B')"
+        required: true
+      - name: context
+        type: textarea
+        label: "Bối cảnh/Bối cảnh tham khảo (audience, thị trường, resources hiện có)"
+        required: false
+      - name: domain
+        type: text
+        label: "Domain nghiên cứu/thiết kế (tùy chọn)"
+        required: false
+        default: "Digital Product / Marketing / Design / Education"
+    examples:
+      - inputs:
+          count: 8
+          projectOrContent: "Podcast ngắn về AI tools cho creatives - format 'One Tool, One Prompt'"
+          goal: "Tạo 8 episode ideas khác biệt nhau, audience content creators"
+          context: "Podcast 20-30 min, sponsor cần engagement cao, audience tech-savvy creatives"
+          domain: "Media/Content"
+        output: |
+          # 💡 Crazy 8s: AI Podcast - "One Tool, One Prompt"
+
+          | # | Direction | Idea |
+          |---|-----------|------|
+          | 1 | **Tool-focused** | Episode 1: Tool A (Midjourney) - 5 prompts hay nhất, prompt engineering deep dive |
+          | 2 | **Prompt-focused** | Episode 2: User-built prompt library - template để clone prompts mạnh |
+          | 3 | **Workflow-focused** | Episode 3: Prompt chaining (A→B→C) cho video pipeline |
+          | 4 | **Failure-focused** | Episode 4: "Prompt that failed spectacularly" - lessons learned |
+          | 5 | **Speed-focused** | Episode 5: 60-second prompt sprint (generate full ad in 60s) |
+          | 6 | **Comparison** | Episode 6: Tool A vs Tool B cho use case X (objective benchmark) |
+          | 7 | **Narrative** | Episode 7: Từ 0 prompt → full campaign (case study) |
+          | 8 | **Meta** | Episode 8: "How to build a podcast with AI" - AI host co-host workflow |
+
+          ## Top Concepts (Sau filter)
+          1. **"Prompt That Failed Spectacularly"** (#4) - Storytelling gold + educational
+             - Rationale: Curiosity gap + failure-to-lesson arc
+             - Feasibility: Low (scripting effort)
+         2. **"60-Second Prompt Sprint"** (#5) - High energy, viral potential
+             - Rationale: High entertainment value, sponsor-friendly, clip-able
+             - Feasibility: Medium (need recording format)
+          3. **"Prompt Chaining Deep Dive"** (#3) - Technical value, evergreen
+             - Rationale: SEO searchable, practitioner value
+             - Feasibility: High (research + demo)
+
+          ## Next Step
+          - ✅ Recommend #4 làm pilot episode tháng này (lowest effort, highest impact)
+          - 📝 Giữ #5 cho batch content next quarter
+          - 🔬 Validate #3 với survey creator audience trước khi produce
+        context: "Ví dụ brainstorm cho podcast content, audience tech-savvy"
+    difficulty: "easy"
+    useCases:
+      - "Content strategist cần content pillar mới"
+      - "Product designer mở rộng feature space"
+      - "Marketer creative campaign"
+  - id: prompt-ideo-personas
+    name: "Tạo Personas khách hàng cho sáng tạo"
+    description: "Xây dựng 5-8 personas chi tiết theo framework, dùng cho copy, design, feature prioritization"
+    template: |
+      Bạn là Design Researcher. Hãy tạo personas cho: {{businessOrFeature}}.
+
+      **Target Market:** {{market}}
+      **Mục tiêu business:** {{businessGoal}}
+      **Pain Points hiện tại:** {{painPoints}}
+      **Đối thủ đang cạnh tranh:** {{competitors}}
+
+      **Framework Persona (đầy đủ fields):**
+      Persona 1: {{name}}
+      - Demographics: {{demographics}}
+      - Psychographics: {{psychographics}}
+      - Goals: {{goals}}
+      - Pains: {{pains}}
+      - Behaviors: {{behaviors}}
+      - Quote: "{{quote}}"
+
+      Persona 2..N: (tương tự)
+
+      **Yêu cầu:**
+      1. Đa dạng hóa (diverse segments) - không chỉ persona "happy path"
+      2. Dùng data/insights thực tế (nếu có stats thị trường) hoặc assumptions clearly flagged
+      3. Mỗi persona có **job-to-be-done** rõ ràng
+      4. Quote mẫu phải authentic-sounding (giả định, ghi chú ⚠️)
+
+      **Output:**
+      - Persona cards (markdown format)
+      - Job-to-be-done statements
+      - How personas map to design/marketing decisions
+      - Risk: personas quá generic
+
+      Format: Table + Persona cards có quote. Flag assumptions.
+    variables:
+      - name: businessOrFeature
+        type: text
+        label: "Sản phẩm/Dịch vụ/mục tiêu sáng tạo"
+        required: true
+      - name: market
+        type: textarea
+        label: "Thị trường mục tiêu (B2B/B2C, ngân hàng, ngành nào...)"
+        required: true
+      - name: businessGoal
+        type: textarea
+        label: "Mục tiêu kinh doanh cần phục vụ (ví dụ: acquisition, activation, retention)"
+        required: true
+      - name: painPoints
+        type: textarea
+        label: "Pain points/triệu chứng người dùng đang có"
+        required: false
+      - name: competitors
+        type: textarea
+        label: "Đối thủ / Alternatives đang được người dùng dùng"
+        required: false
+    examples:
+      - inputs:
+          businessOrFeature: "App quản lý household chores cho gia đình"
+          market: "B2C households có con 6-14 tuổi, size 2-5 người"
+          businessGoal: "User acquisition - tạo habit loop daily/weekly"
+          painPoints: "Người lớn thấy mệt mỏi, trẻ em thấy game/quên chores"
+          competitors: "Handwritten chore chart, generic todo apps (Todoist), sticky notes"
+        output: |
+          # 👤 Persona: "Busy Parents of Young Kids"
+
+          ⚠️ **Assumptions** (cần validate bằng user research): Dựa trên industry reports + reddit parenting forums + competitor gaps.
+
+          | Field | Chi tiết |
+          |-------|----------|
+          | **Name** | *Anna (34) & Minh (36), có 2 con 6 & 9 tuổi* |
+          | **Demographics** | Urban area, both work professional, household income ~8M VND/tháng |
+          | **Psychographics** | Values fairness & education through chores, time-poor but wants kids independent |
+          | **Goals** | Children learn responsibility without nagging; reduce parent burnout |
+          | **Pains** | Nagging ineffective, kids ignore, inconsistent chore assignment |
+          | **Behaviors** | Sticky notes on fridge, Sunday evening planning, occasional token reward (candy) |
+
+          > "Tôi muốn kids tự làm được nhà bếp mà không cần nhắc mãi, và tôi không muốn là 'nhà lao động nhà". - Anna
+
+          ## Persona's Jobs-to-be-Done
+          1. **"When I feel guilty watching kids watch TV all weekend, I want a neutral chore system so they learn self-discipline."**
+          2. **"When I'm tired after work, I want chores that require minimal coordination so they happen automatically."**
+
+          ## Segmentation Insights
+          - **Core persona**: Anna & Minh - target acquisition
+          - **Secondary**: Single parent (solo household) - needs simplified version
+          - **Tertiary**: Family with older kids (13-16) - more autonomy, less app value
+
+          ## Design Implications
+          - ✅ Onboarding: 3-step setup cho household (members list → first chore → schedule)
+          - ✅ UX: Check-off by child, notification to parent, no nagging UI pattern
+          - ✅ Rewards: Points optional at launch - can add later via "gamification layer"
+
+          ## Risk: Too Generic?
+          - ⚠️ This persona could apply to many household apps - differentiate via **non-digital fallback** (paper chart integrated?) để maintain real-world behavior.
+          - ⚠️ Need primary research (interview 10 families) before finalizing.
+
+          ## Next Steps
+          1. User interviews (n=10 households) để validate pain & assumptions
+          2. Build anti-persona (mom who's too lazy vs dad who's hands-on) để design better onboarding
+          3. Segment marketing messages theo persona
+        context: "Ví dụ cho app chores, đang ở validation stage"
+    difficulty: "intermediate"
+    useCases:
+      - "Product manager thiết kế positioning"
+      - "UX designer biết ai dùng design"
+      - "Content creator biết audience để make content"
+
+agentTemplate:
+  name: "Creative Studio Agent"
+  description: "Chuyên gia sáng tạo multi-disciplinary: design thinking facilitator, brainstorming coach, persona researcher"
+  systemPrompt: |
+    Bạn là Creative Studio Agent - studio sáng tạo đa ngành của AI Life Hub.
+    Nhiệm vụ:
+    - Facilitate Design Thinking sessions (Empathize → Define → Ideate → Prototype → Test)
+    - Run structured brainstorming (Crazy 8s, SCAMPER, Brainwriting, Reverse brainstorm)
+    - Run Simplify pass / Creative pruning
+    - Develop personas đa dạng cho product/content/marketing
+    - Challenge assumptions, push past local maxima
+
+    Nguyên tắc:
+    - Quantity before quality ở ideation phase
+    - "How might we..." framing cho user-centered
+    - Kill your darlings - Simplify pass bắt buộc sau ideate
+    - Personas phải diverse, có Job-to-be-Done
+    - Luôn có **next experiment** sau brainstorm
+  model: "gpt-4"
+  temperature: 0.9
+  tools:
+    - "web_search"
+relatedSkillIds:
+  - "brainstorm-team"
+  - "design-thinking-empathize"
+  - "market-research-positioning"
+author: "AI Life Hub Team"
+source: "IDEO Design Kit; Tim Brown - 'Change by Design'; Creativity research (Scott G. Isaksen)"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: pho-pha-trien-viet-ke-rem-nguon
+---

@@ -1,0 +1,156 @@
+---
+id: ngu-va-hoi-phuc
+categoryId: suc-khoe
+name: "Ngủ & Hồi phục tối ưu"
+description: "Sleep hygiene, Circadian rhythm, HRV tracking, Napping, Stress management, Recovery modalities"
+whenToUse:
+  - "Khó ngủ, ngủ không sâu, thức giấc mệt mỏi"
+  - "Tập luyện nặng cần tối ưu hồi phục"
+  - "Quản lý stress, burnout"
+difficulty: "beginner"
+estimatedTime: "Setup routine 1 tuần, maintain suốt đời"
+tags: ["sleep", "recovery", "circadian-rhythm", "hrv", "stress-management", "nap"]
+prompts:
+  - id: prompt-sleep-optimization
+    name: "Tối ưu giấc ngủ (Sleep Hygiene Protocol)"
+    description: "Xây dựng routine ngủ dựa trên chronotype, môi trường, supplement, tracking"
+    template: |
+      Bạn là Sleep Coach. Hãy tối ưu giấc ngủ cho tôi:
+
+      **Hồ sơ:**
+      - Thời gian ngủ hiện tại: {{currentSleep}} (ví dụ: 1h sáng - 7h sáng)
+      - Chronotype: {{chronotype}} (Sớm / Trung bình / Muộn / Không biết)
+      - Vấn đề: {{sleepIssues}} (Khó ngủ / Ngủ không sâu / Thức giấc mệt / Đêm ngủ thất thường)
+      - Môi trường: {{environment}} (Tối/mịn/nhiễu nhiệt độ/bàn phím)
+      - Caffeine/Alcohol: {{substances}}
+      - Stress level: {{stressLevel}} (1-10)
+
+      **Output (Sleep Protocol):**
+      1. **Chronotype-based Schedule**: Giờ ngủ/dậy lý tưởng, Caffeine cutoff
+      2. **Evening Wind-down Routine** (90-120p trước giường): Digital sunset, Light, Temperature, Activities
+      3. **Sleep Environment Optimization**: Đen kịt, 18-20°C, White noise, Bedding
+      4. **Morning Anchor**: Ánh sáng mặt trời 10p, Hydration, Movement
+      5. **Supplement Stack** (Evidence-based): Magnesium Glycinate, Glycine, L-Theanine, Apigenin, Melatonin (thận trọng)
+      6. **Tracking**: HRV (Morning), Sleep stages (Oura/Whoop/Apple Watch), Sleep diary
+      7. **Troubleshooting**: Nếu thức giấc 3h sáng, nếu không ngủ được sau 20p, nếu jetlag/shift work
+    variables:
+      - name: currentSleep
+        type: text
+        label: "Thời gian ngủ/dậy hiện tại"
+        required: true
+      - name: chronotype
+        type: select
+        label: "Chronotype (Loa giấc ngủ tự nhiên)"
+        options:
+          - "Sớm (Lark) - Ngủ 9-10h, dậy 5-6h"
+          - "Trung bình (Bear) - Ngủ 10-11h, dậy 6-7h"
+          - "Muộn (Owl) - Ngủ 12-1h, dậy 8-9h"
+          - "Không biết"
+        required: true
+        default: "Không biết"
+      - name: sleepIssues
+        type: multiselect
+        label: "Vấn đề giấc ngủ"
+        options:
+          - "Khó ngủ (Onset insomnia)"
+          - "Ngủ không sâu / Hay thức giấc (Maintenance insomnia)"
+          - "Thức giấc mệt mỏi (Non-restorative)"
+          - "Đêm ngủ thất thường (Shift work / Social jetlag)"
+          - "Ngủ trưa quá nhiều"
+        required: true
+      - name: environment
+        type: textarea
+        label: "Môi trường ngủ (Ánh sáng, tiếng ồn, nhiệt độ, giường, gối)"
+        required: true
+      - name: substances
+        type: textarea
+        label: "Caffeine/Alcohol/Nicotine (Khi nào, bao nhiêu)"
+        required: true
+      - name: stressLevel
+        type: number
+        label: "Mức độ stress trung bình (1-10)"
+        required: true
+        default: 5
+    examples:
+      - inputs:
+          currentSleep: "1h sáng - 7h sáng (6h)"
+          chronotype: "Muộn (Owl) - Ngủ 12-1h, dậy 8-9h"
+          sleepIssues: '["Khó ngủ (Onset insomnia)", "Thức giấc mệt mỏi (Non-restorative)"]'
+          environment: "Phòng không t rèm che nắng hoàn toàn, có tiếng ồn xe cộ, nhiệt độ ~26°C, gối cũ"
+          substances: "Caffe 2 ly/ngày (cuối cùng 4h chiều), Rượu bia cuối tuần 2-3 ly"
+          stressLevel: 7
+        output: |
+          # 😴 Sleep Optimization Protocol: Owl Chronotype, High Stress
+
+          ## 1. Chronotype Schedule (Owl - Muộn)
+          | Metric | Current | Target (Owl) |
+          |--------|---------|--------------|
+          | Sleep Onset | 1:00 AM | **12:00 AM** (shift dần 15p/tuần) |
+          | Wake Time | 7:00 AM | **8:00 AM** |
+          | Sleep Duration | 6h | **8h** (7h30-8h tối thiểu) |
+          | Caffeine Cutoff | 4:00 PM | **2:00 PM** (Half-life 5-6h) |
+          | Alcohol Cutoff | Weekend | **3h trước giường**, max 1 drink |
+
+          ## 2. Evening Wind-down (90-120p trước 12h = 10:00-10:30 PM)
+          | Time | Activity | Purpose |
+          |------|----------|---------|
+          | 10:00 PM | **Digital Sunset**: Tắt laptop/điện thoại, bật Night Shift/Red filter | Giảm Blue light → Melatonin |
+          | 10:15 PM | Dim lights (Red/Amber bulb only), nhiệt độ 19-20°C | Signal circadian |
+          | 10:30 PM | **Wind-down activities** (chọn 2): Đọc sách vật lý / Stretch nhẹ / Meditation 10p / Journal / Nghe podcast nhẹ | Giảm cortisol, activate parasympathetic |
+          | 11:15 PM | Supplement stack (nếu dùng) | Hỗ trợ ngủ |
+          | 11:30 PM | Vệ sinh cá nhân, vào giường | Sleep association |
+          | 11:45 PM | **Non-sleep deep rest (NSDR) / Yoga Nidra 10-20p** nếu chưa buồn ngủ | Giảm arousal |
+
+          ## 3. Environment Fixes (Ưu tiên cao)
+          - ✅ **Rèm che nắng 100% (Blackout)** - Quan trọng nhất cho Owl
+          - ✅ **Nhiệt độ 19-20°C** (Máy lạnh/quạt + chăn mỏng)
+          - ✅ **White noise** (App: Rainy Mood, máy white noise) - Che tiếng xe cộ
+          - ✅ **Gối đệm phù hợp** (Memory foam/latex, độ cứng medium)
+
+          ## 4. Morning Anchor (8:00 AM)
+          1. **Ánh sáng mặt trời 10-15p** (Cửa sổ/ban công) - Reset circadian
+          2. **500ml nước lọc + muối Himalaya/Chanh** - Hydration sau 8h
+          3. **Nhẹ nhàng movement** (Stretch 5p / Đi bộ 10p) - Cortisol awakening response
+
+          ## 5. Supplement Stack (Evidence-based, Thử 2 tuần/loại)
+          | Supplement | Dose | Thời điểm | Evidence | Note |
+          |------------|------|-----------|----------|------|
+          | Magnesium Glycinate | 200-400mg | 1h trước ngủ | B (RCTs) | Ít tiêu chảy hơn citrate |
+          | Glycine | 3g | 30p trước ngủ | B | Giảm nhiệt độ cơ thể |
+          | L-Theanine | 200-400mg | 30p trước ngủ | B | Giảm stress, không buồn ngủ ban ngày |
+          | Apigenin (Chamomile extract) | 50mg | 30p trước ngủ | C | An toàn |
+          | Melatonin | 0.5-1mg | 30p trước ngủ | A (Short-term) | Chỉ dùng tạm, không dài hạn |
+
+          ## 6. Tracking (4 tuần)
+          - **HRV Morning** (App: Elite HRV, Welltory) - Baseline sau 7 ngày
+          - **Sleep Stages** (Oura/Whoop/Apple Watch) - Deep sleep > 1.5h, REM > 1.5h
+          - **Sleep Diary** (Giấy/App): Giờ ngủ/dậy, chất lượng 1-10, caffeine/alcohol, stress
+
+          ## 7. Troubleshooting
+          | Vấn đề | Giải pháp ngay |
+          |--------|----------------|
+          | Thức 3h sáng, không ngủ lại | Không nhìn đồng hồ → NSDR 20p → Nếu >20p vẫn không ngủ → Ra khỏi giường, đọc sách đèn mờ |
+          | Không ngủ được sau 20p | Ra khỏi phòng → Hoạt động nhẹ (đọc, stretch) → Quay lại khi buồn ngủ |
+          | Stress cao (7-8/10) | Thêm: Ashwagandha KSM-66 300mg/ngày (sáng), Therapy/CBT-I |
+        context: "Owl chronotype, high stress, poor environment, caffeine late"
+    difficulty: "intermediate"
+    useCases:
+      - "Người bị insomnia, ngủ không ngon"
+      - "Vận động viên tối ưu hồi phục"
+      - "Người làm shift work"
+agentTemplate:
+  name: "Sleep & Recovery Coach"
+  description: "Tối ưu giấc ngủ, circadian rhythm, HRV, stress management, supplement"
+  systemPrompt: |
+    Bạn là Sleep Coach. Evidence-based: Light exposure, Temperature, Consistency, Caffeine timing, Supplement hierarchy. Chronotype-first approach.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "tap-luyen-khoa-hoc"
+  - "dinh-duong-the-thao"
+  - "quan-ly-stress-mindfulness"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: ngu-va-hoi-phuc
+---

@@ -1,0 +1,425 @@
+---
+id: quan-ly-thoi-gian-side-project
+categoryId: side-project
+name: "Quản Lý Thời Gian Side Project: Cân Bằng Full-time Job & Xây Dựng Sản Phẩm"
+description: "Hệ thống time-blocking, energy management, deep work cho người làm full-time muốn build side project bền vững"
+whenToUse:
+  - "Làm full-time 8-10h/ngày, muốn dành 10-20h/tuần cho side project"
+  - "Hay bị burnout, procrastination, context switching cost cao"
+  - "Không có routine cố định, làm theo cảm xúc"
+  - "Muốn progress đo lường được mỗi tuần"
+difficulty: "beginner"
+estimatedTime: "Setup 30p, duy trì 15p/tuần review"
+tags: ["time-management", "productivity", "deep-work", "energy-management", "side-hustle", "work-life-balance"]
+prompts:
+  - id: prompt-side-project-weekly-design
+    name: "Thiết Kế Tuần Lý Tưởng Cho Side Project"
+    description: "Tạo weekly template cân bằng năng lượng, deep work blocks, và recovery"
+    template: |
+      Bạn là Time Coach cho knowledge worker. Hãy thiết kế tuần lý tưởng cho side project dựa trên:
+
+      **Hồ sơ năng lượng:**
+      - Giờ làm chính: {{workHours}} (ví dụ: 8:00-17:00, shift 14:00-22:00)
+      - Chronotype: {{chronotype}} (Sáng sớm / Đêm muộn / Giữa ngày)
+      - Năng lượng cao nhất: {{peakEnergyHours}} (ví dụ: 6-9h sáng, 20-23h tối)
+      - Năng lượng thấp nhất: {{lowEnergyHours}}
+      - Ngủ: {{sleepSchedule}} (ví dụ: 23h-6h)
+      - Tập thể dục: {{exerciseSchedule}}
+      - Cam kết gia đình/xã hội: {{socialCommitments}}
+
+      **Mục tiêu side project:**
+      - Mục tiêu tuần này: {{weeklyGoal}}
+      - Loại task cần deep work: {{deepWorkTasks}} (coding, writing, design, strategy)
+      - Loại task shallow work: {{shallowTasks}} (email, admin, reply comment, research)
+      - Thời gian muốn dành: {{targetHours}}/tuần
+
+      **Yêu cầu output:**
+      1. **Weekly Time-Block Calendar** (Bảng 7 ngày x 24h, color-coded: Deep/Shallow/Work/Sleep/Recovery/Buffer)
+      2. **Daily Routines**: Morning (Khởi động), Transition (Sau work chính), Evening (Deep work), Wind-down
+      3. **Energy Budget**: Phân bổ % năng lượng cho Work chính / Side project / Health / Relationships / Self
+      4. **Context Switching Protocol**: Quy trình chuyển đổi Work chính ↔ Side project (5-10p ritual)
+      5. **Weekly Review Template** (Chủ Nhật 30p): Metrics, Wins, Blockers, Adjustments
+      6. **Emergency Protocols**: Khi overtime, ốm, crisis, motivation = 0
+    variables:
+      - name: workHours
+        type: text
+        label: "Giờ làm việc chính (cụ thể)"
+        required: true
+        default: "8:00-17:00 (Thứ 2-6), Có overtime 1-2h/tuần"
+      - name: chronotype
+        type: select
+        label: "Chronotype (Nhịp sinh học)"
+        options:
+          - "Sáng sớm (Dậy 5-6h, ngủ 21-22h) - Lion"
+          - "Đêm muộn (Dậy 8-9h, ngủ 1-2h) - Wolf"
+          - "Giữa ngày (Dậy 7-8h, ngủ 23-24h) - Bear"
+          - "Khó phân loại / Thay đổi - Dolphin"
+        required: true
+        default: "Giữa ngày (Dậy 7-8h, ngủ 23-24h) - Bear"
+      - name: peakEnergyHours
+        type: text
+        label: "Khung giờ năng lượng CAO nhất (có thể nhiều khung)"
+        required: true
+        default: "6:00-8:00 sáng, 20:00-22:00 tối"
+      - name: lowEnergyHours
+        type: text
+        label: "Khung giờ năng lượng THẤP nhất"
+        required: true
+        default: "13:00-15:00 (sau trưa), 22:00-23:00"
+      - name: sleepSchedule
+        type: text
+        label: "Lịch ngủ thực tế"
+        required: true
+        default: "23:00-6:30 (7.5h)"
+      - name: exerciseSchedule
+        type: text
+        label: "Lịch tập thể dục"
+        required: false
+        default: "T3, T5, T7: 18:30-19:30 (Gym/Chạy)"
+      - name: socialCommitments
+        type: textarea
+        label: "Cam kết gia đình/xã hội (cố định)"
+        required: false
+        default: "Tối T2/T4: Ăn tối gia đình 19:00-20:30. Cuối tuần: 1 ngày family time."
+      - name: weeklyGoal
+        type: textarea
+        label: "Mục tiêu side project tuần này (cụ thể, có số)"
+        required: true
+        default: "Hoàn thành MVP booking flow (Bubble), Deploy staging, Test payment Momo sandbox"
+      - name: deepWorkTasks
+        type: textarea
+        label: "Task cần Deep Work (90-120p/block)"
+        required: true
+        default: "Bubble workflow logic, Database design, API connector setup, Code custom plugin"
+      - name: shallowTasks
+        type: textarea
+        label: "Task Shallow Work (15-30p/block)"
+        required: true
+        default: "Reply user feedback, Research competitor, Write LinkedIn post, Admin/Invoice, Email"
+      - name: targetHours
+        type: number
+        label: "Mục tiêu giờ side project/tuần"
+        required: true
+        default: 15
+    examples:
+      - inputs:
+          workHours: "8:00-17:00 (Thứ 2-6), Remote, Flexible 1h lunch"
+          chronotype: "Sáng sớm (Dậy 5-6h, ngủ 21-22h) - Lion"
+          peakEnergyHours: "5:30-8:00 sáng (Deep work best), 19:00-21:00 (Shallow/Creative)"
+          lowEnergyHours: "13:00-15:00, 21:30-22:00"
+          sleepSchedule: "21:30-5:30 (8h)"
+          exerciseSchedule: "T2, T4, T6: 6:00-6:45 (Chạy nhẹ/Bodyweight). T7: 7:00-8:30 (Tennis/Hike)"
+          socialCommitments: "Tối T3/T5: Ăn tối bạn bè/Date 19:00-21:00. CN: Family lunch 11:00-14:00."
+          weeklyGoal: "Xong Booking flow + Payment Momo sandbox + Deploy staging + 3 LinkedIn post draft"
+          deepWorkTasks: "Bubble: Booking workflow (date picker, availability, confirmation), Momo API connector, Database schema refinement, Custom CSS for mobile responsive"
+          shallowTasks: "Reply 10 beta user emails, Research 3 competitor pricing, Draft 3 LinkedIn posts, Update Notion dashboard, Invoice Momo merchant"
+          targetHours: 18
+        output: |
+          # 📅 Weekly Design: Side Project (Chronotype: Lion - Early Bird)
+
+          ## Energy Budget Allocation
+          | Category | % Energy | Giờ/Tuần | Priority |
+          |----------|----------|----------|----------|
+          | Full-time Work | 45% | 45h | 🔴 Non-negotiable |
+          | Side Project (Deep) | 20% | **14h** | 🟢 Core Progress |
+          | Side Project (Shallow) | 5% | **4h** | 🟡 Maintenance |
+          | Health (Sleep/Exercise/Nutrition) | 15% | 10h | 🔴 Foundation |
+          | Relationships/Family | 10% | 7h | 🟢 Non-negotiable |
+          | Self/Recovery/Hobby | 5% | 3h | 🟡 Recharge |
+          | **Tổng** | **100%** | **~83h waking** | |
+
+          ## Weekly Time-Block Calendar (Color Code)
+          | Time | T2 | T3 | T4 | T5 | T6 | T7 | CN |
+          |------|----|----|----|----|----|----|----|
+          | 5:30-6:30 | 🟢 **Deep Work** | 🏃 **Exercise** | 🟢 **Deep Work** | 🏃 **Exercise** | 🟢 **Deep Work** | 🏃 **Exercise** | ☕ **Slow Morning** |
+          | 6:30-7:30 | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 📖 **Learn/Read** |
+          | 7:30-8:00 | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Brunch |
+          | 8:00-12:00 | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🟢 **Deep Work** | 👨‍👩‍👧 **Family** |
+          | 12:00-13:00 | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch | 👨‍👩‍👧 **Family** |
+          | 13:00-15:00 | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Shallow/Errands | 🟡 Shallow/Hobby |
+          | 15:00-17:00 | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🟡 Shallow/Prep | 🟢 **Deep Work** |
+          | 17:00-18:30 | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🏃 Exercise/Social | 🟢 **Deep Work** |
+          | 18:30-19:30 | 🏃 **Exercise** | 👨‍👩‍👧 **Family Dinner** | 🏃 **Exercise** | 👨‍👩‍👧 **Family Dinner** | 🏃 **Exercise** | 👥 **Social** | 🍽️ **Prep Week** |
+          | 19:30-21:00 | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 👥 **Social** | 📝 **Weekly Review** |
+          | 21:00-21:30 | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** |
+          | 21:30 | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** |
+
+          **Legend**: 🟢 Deep Work (90-120p) | 🟡 Shallow Work (15-45p) | 🔴 Full-time Work | 🏃 Exercise | 🔄 Transition | 👨‍👩‍👧 Family | 👥 Social | 🛁 Recovery | ☕ Slow/Prep
+
+          ## Daily Routines
+
+          ### Morning Routine (5:30-7:30) - "Win the Morning"
+          1. **5:30** Wake up → 500ml nước + 5p stretching (Không điện thoại)
+          2. **5:35** Quick journal: "Hôm nay 1 việc quan trọng nhất side project là gì?" (2p)
+          3. **5:40-7:00** **DEEP WORK BLOCK 1** (80p) - Task khó nhất, cần focus cao
+             - T2/T4/T6: Bubble logic/Database/API
+             - T3/T5/T7: Writing/Strategy/Design
+          4. **7:00-7:30** Breakfast + Prep work chính (No email/Slack)
+
+          ### Transition Ritual (17:00-17:30) - "Switch Context"
+          1. **Shutdown Work chính**: Close all tabs, Clear desktop, Note "Tomorrow top 3" (5p)
+          2. **Physical reset**: Đứng lên, stretch 3p, Đi ra cửa sổ hít thở 10 lần (3p)
+          3. **Mental switch**: Mở Notion Side Project → Review "Today's Focus" → Chọn 1 task (5p)
+          4. **Environment cue**: Bật playlist "Deep Work" (Instrumental), Đèn bàn, Đặt ly nước
+
+          ### Evening Block (19:30-21:00) - "Second Wind"
+          - **T2/T4/T6 (Post-exercise)**: Shallow/Creative - LinkedIn draft, Research, Admin, Reply email (Low cognitive load)
+          - **T3/T5 (Post-dinner)**: Creative/Strategic - Content writing, UI design, Planning (Relaxed focus)
+          - **T6/T7/CN**: Deep Work nếu không social - Feature build, Complex debugging
+
+          ### Wind-down (21:00-21:30) - "Close the Loop"
+          1. Log progress: Notion "Daily Log" - Done/Not done + 1 line note (2p)
+          2. Prep tomorrow: Top 1 Deep Work task + Top 2 Shallow tasks (3p)
+          3. Digital sunset: Không screen, Đọc sách/Fl� meditation (10p)
+
+          ## Context Switching Protocol (Work Chính ↔ Side Project)
+          **Từ Work Chính → Side Project (17:00-17:30)**
+          1. **Capture** (2p): Ghi ngay idea/task dang dở của work chính vào "Work Parking Lot" (Notion)
+          2. **Close** (3p): Tắt Slack/Email/Work tabs. Logout nếu cần.
+          3. **Physical** (3p): Thay đồ, Rửa mặt, Uống nước, Di chuyển không gian (khác bàn work)
+          4. **Prime** (5p): Đọc "Side Project Vision" (1 câu) + "This Week Focus" (3 bullet) → Chọn task
+          5. **Start** (2p): Pomodoro 1: "Chỉ làm 25p, không hoàn thành cũng ok" → Lower barrier
+
+          **Từ Side Project → Wind-down (21:00)**
+          1. **Save state** (3p): Commit code / Save Bubble / Note "Next step" trong task
+          2. **Log** (2p): Daily Log - Progress, Blocker, Energy level (1-10)
+          3. **Transition** (5p): Stretch, Walk nhà, Chăm sóc cây/Thú cưng - Signal não "Done"
+
+          ## Weekly Review (Chủ Nhật 20:00-20:45 - 45 phút)
+          ### Part 1: Metrics & Data (10p)
+          - [ ] Hours logged: Deep work = ?h | Shallow = ?h | Target = 18h
+          - [ ] Output: Features shipped / Content published / Users talked / Revenue $
+          - [ ] Energy avg: Deep work sessions energy (1-10) = ?
+          - [ ] Sleep avg: ?h/night | Exercise: ? sessions
+
+          ### Part 2: Wins & Learnings (10p)
+          - [ ] **Top 3 Wins**: Cụ thể, có evidence (link, screenshot, metric)
+          - [ ] **Top 1 Lesson**: Insight về product/user/process/self
+          - [ ] **Surprise**: Điều không ngờ (tốt/xấu)
+
+          ### Part 3: Blockers & Adjustments (15p)
+          - [ ] **Blocker pattern**: Lặp lại > 2 lần? (Ví dụ: T3/T5 luôn mệt sau dinner → Move deep work to morning)
+          - [ ] **Calendar audit**: Block nào bị encroach? Buffer đủ không?
+          - [ ] **Next Week Adjustments**: 1 cosa đổi (Time, Task type, Routine, Environment)
+
+          ### Part 4: Next Week Setup (10p)
+          - [ ] Top 1 Outcome Goal (Outcome-based, không task-based)
+          - [ ] 3 Deep Work Tasks (Priority order)
+          - [ ] 5 Shallow Tasks (Batching)
+          - [ ] Calendar blocks confirmed → Send calendar invite to self
+
+          ## Emergency Protocols
+
+          | Scenario | Protocol | Side Project Action |
+          |----------|----------|---------------------|
+          | **Overtime work chính** (Về 19-20h) | Skip evening block. Chỉ Morning deep work. | Morning deep work = Non-negotiable. Evening = Optional recovery. |
+          | **Ốm / Energy = 0** | Nghỉ hoàn toàn. Sleep + Hydration. | **Zero guilt**. Side project pause. Log "Sick day". |
+          | **Crisis gia đình** | All-in family. Work chính PTO nếu cần. | Pause 1-2 tuần. Set "Return date" trên calendar. |
+          | **Motivation = 0** (2+ tuần) | Root cause: Burnout? Boring task? Unclear goal? | **Pivot task**: Đổi sang task vui/creative. Hoặc "Maintenance mode" 2h/tuần. |
+          | **Weekend bận rộn** (Event, đi vắng) | Accept. Không补. | Shift deep work to T2-T6 morning. CN = Review only. |
+          | **Feature stuck** (Technical blocker > 2 ngày) | Timebox 2h research. Still stuck → Ask expert/Community. | Parallel: Switch sang shallow task (content, design, research). |
+
+          ## Tools & Templates
+          - **Calendar**: Google Calendar (Color-coded calendars: Work, Side, Health, Family)
+          - **Time Tracking**: Toggl Track (Project: Side Project - Tags: Deep/Shallow/Meeting)
+          - **Task Management**: Notion Database "Side Project Sprint" (Week, Goal, Tasks, Status, Log)
+          - **Focus**: Forest App / Focusmate (Accountability partner cho deep work)
+          - **Automation**: Zapier: Calendar event "Deep Work" → Start Toggl + Play Focus playlist
+        context: "Early bird chronotype, full-time 8-5, 18h/tuần target, family commitments, sustainable long-term"
+    difficulty: "medium"
+    useCases:
+      - "Thiết kế routine bền vững cho side project lâu dài"
+      - "Xử lý context switching giữa 2 công việc"
+      - "Weekly review system để adjust liên tục"
+  - id: prompt-energy-audit-optimization
+    name: "Energy Audit & Tối Ưu Hóa Năng Lượng"
+    description: "Theo dõi năng lượng 2 tuần, tìm peak/trough, optimize schedule cho deep work chất lượng"
+    template: |
+      Bạn là Energy Management Coach. Hãy tạo Energy Audit Protocol 2 tuần cho: {{name}}.
+
+      **Mục đích**: Xác định chính xác khi nào não bộ hoạt động tốt nhất cho deep work, creative work, shallow work.
+
+      **Protocol 14 ngày:**
+      1. **Tracking**: Mỗi 90p ghi nhận (Energy 1-10, Focus 1-10, Mood, Activity, Context)
+      2. **Variables**: Sleep, Food, Caffeine, Exercise, Light, Social, Task type
+      3. **Analysis**: Pattern recognition → Optimal schedule design
+      4. **Experimentation**: A/B test schedule changes tuần 3-4
+
+      **Output template:**
+      - Energy Heatmap (7 ngày x 24h)
+      - Chronotype confirmation
+      - Deep Work Windows (Top 3)
+      - Recovery Protocols per energy level
+      - Personalized Schedule v2
+    variables:
+      - name: name
+        type: text
+        label: "Tên/Nickname"
+        required: true
+      - name: currentSchedule
+        type: textarea
+        label: "Lịch trình hiện tại (giờ ngủ, work, side project, exercise, meal)"
+        required: true
+      - name: mainComplaints
+        type: multiselect
+        label: "Khiếu nại chính"
+        options:
+          - "Mệt mỏi luôn, không có năng lượng"
+          - "Khó tập trung vào deep work"
+          - "Procrastination, không bắt đầu được"
+          - "Context switching mệt não"
+          - "Ban đêm không ngủ được do tư duy side project"
+          - "Cuối tuần crash, không recover"
+          - "Không biết khi nào hiệu quả nhất"
+        required: true
+        default: ["Khó tập trung vào deep work", "Context switching mệt não", "Không biết khi nào hiệu quả nhất"]
+      - name: trackingWillingness
+        type: select
+        label: "Sẵn sàng tracking chi tiết mức nào"
+        options:
+          - "Full: Mỗi 90p, 14 ngày, nhiều biến số"
+          - "Medium: 3 lần/ngày (Sáng/Trưa/Tối), 14 ngày"
+          - "Light: Morning + Evening journal, 14 ngày"
+          - "Chỉ muốn template, tự adjust"
+        required: true
+        default: "Medium: 3 lần/ngày (Sáng/Trưa/Tối), 14 ngày"
+    examples:
+      - inputs:
+          name: "Minh (Dev, 28 tuổi)"
+          currentSchedule: "Ngủ 1h-8h. Work 9h-18h. Side project 20h-23h (thường lướt phone đến 22h mới bắt đầu). Tập T3/T5 18h30. Ăn trưa 12h, tối 19h30. Caffeine: 2 cà phê (8h, 14h). Cuối tuần ngủ nướng 10h, side project ít."
+          mainComplaints: '["Khó tập trung vào deep work", "Context switching mệt não", "Ban đêm không ngủ được do tư duy side project"]'
+          trackingWillingness: "Medium: 3 lần/ngày (Sáng/Trưa/Tối), 14 ngày"
+        output: |
+          # ⚡ Energy Audit Protocol: Minh (Dev, 28t)
+
+          ## 14-Day Tracking Template (Medium - 3x/day)
+
+          ### Daily Log Format (Notion/Google Sheet)
+          | Time | Energy (1-10) | Focus (1-10) | Mood (1-10) | Activity | Sleep (h) | Caffeine | Exercise | Light | Notes |
+          |------|---------------|--------------|-------------|----------|-----------|----------|----------|-------|-------|
+          | 08:00 (Morning) | | | | | | | | | |
+          | 14:00 (Afternoon) | | | | | | | | | |
+          | 21:00 (Evening) | | | | | | | | | |
+
+          ### Variables to Track Daily
+          - **Sleep**: Giờ ngủ/dậy, Chất lượng (1-10), Đánh thức giữa đêm?
+          - **Food**: Ăn gì, Khi nào, Cảm giác sau ăn (Buồn ngủ/Tăng năng lượng/Bình thường)
+          - **Caffeine**: Loại, Lượng, Giờ uống cuối cùng
+          - **Exercise**: Loại, Thời lượng, Cường độ, Giờ
+          - **Light**: Natural light exposure (Giờ ra ngoài / Cửa sổ)
+          - **Social**: Interaction quality (Drain / Neutral / Charge)
+          - **Task Type**: Deep / Shallow / Meeting / Learning / Creative
+
+          ## Analysis Framework (Sau 14 ngày)
+
+          ### Step 1: Energy Heatmap
+          Tạo pivot table: Ngày (hàng) x Giờ (cột) = Energy score → Heatmap
+          - **Green zones (8-10)**: Prime Deep Work Windows
+          - **Yellow zones (5-7)**: Shallow Work / Learning / Creative
+          - **Red zones (1-4)**: Recovery / Admin / Avoid deep work
+
+          ### Step 2: Pattern Detection Questions
+          1. **Chronotype confirmation**: Peak energy consistent ở khung giờ nào?
+          2. **Post-lunch dip**: 13-15h energy drop bao nhiêu? (Baseline - dip)
+          3. **Caffeine curve**: Energy spike sau caffeine bao lâu? Crash khi nào?
+          4. **Exercise effect**: Ngày tập vs không tập → Energy evening khác ra sao?
+          5. **Sleep pressure**: Ngủ < 7h → Next day peak energy giảm bao nhiêu %?
+          6. **Evening wind-down**: Side project sau 21h → Sleep latency (phút ngủ) tăng bao nhiêu?
+
+          ### Step 3: Deep Work Window Identification
+          Criteria cho **Prime Deep Work Window**:
+          - Energy ≥ 8 naturally (không caffeine)
+          - Focus ≥ 7
+          - Duration ≥ 90 phút liên tục
+          - Consistent ≥ 4/7 ngày trong tuần
+          - Low interruption probability
+
+          **Output**: Top 3 Deep Work Windows (Ranked)
+          1. Window A: Giờ - Giờ (Duration, Consistency, Energy avg)
+          2. Window B: Giờ - Giờ
+          3. Window C: Giờ - Giờ
+
+          ### Step 4: Recovery Protocols per Energy Level
+          | Energy Level | Signal | Protocol (5-15p) | Avoid |
+          |--------------|--------|------------------|-------|
+          | 9-10 (Flow) | Mất cảm giác thời gian | Protect! Không meeting, Không notify | Context switch |
+          | 7-8 (High) | Tự chủ, clear thinking | Deep work task tiếp theo | Shallow work |
+          | 5-6 (Medium) | Có thể làm việc nhẹ | Shallow batch: Email, Admin, Research | Deep work mới |
+          | 3-4 (Low) | Mệt, hay phân tâm | NSDR 10p / Walk / Power nap 20p / Stretch | Screen, Decision |
+          | 1-2 (Depleted) | Burnout signal | Full stop. Sleep / Nature / Social charge | Mọi work |
+
+          ### Step 5: Personalized Schedule v2 (Template)
+          Dựa trên data, thiết kế lại Weekly Calendar (giống prompt trước nhưng data-driven).
+
+          ## Experimentation Weeks 3-4 (A/B Tests)
+
+          | Hypothesis | Test (Tuần 3) | Control (Tuần 4) | Metric |
+          |------------|---------------|------------------|--------|
+          | Caffeine sau 14h làm gián đoạn deep work tối | Cut caffeine sau 12h | Normal caffeine | Sleep latency, Evening energy |
+          | Morning deep work > Evening deep work | 5:30-7:30 Deep work | 20:00-22:00 Deep work | Output quality, Energy next day |
+          | Exercise sáng boost energy cả ngày | Exercise 6:00-6:45 | Exercise 18:30-19:30 | Daily energy avg, Focus score |
+          | NSDR 10p sau trưa thay power nap | NSDR 13:00 | Power nap 13:00 | Afternoon energy dip depth |
+          | Digital sunset 21h cải thiện sleep | No screen 21:00-22:00 | Normal screen | Sleep latency, Morning energy |
+
+          ## Minh's Predicted Results (Dựa trên profile)
+          **Current Issues Identified:**
+          1. **Evening deep work (20-23h) conflict với wind-down** → Sleep latency cao, quality giảm
+          2. **Caffeine 14h** → Half-life 5-6h → Còn 50% caffeine lúc 20h → Giảm deep sleep
+          3. **No morning deep work** → Waste peak cortisol/alertness window
+          4. **Phone scroll 20-22h** → Dopamine drain → Khó vào flow
+
+          **Recommended Schedule v2:**
+          - **5:30-7:00**: Deep Work (Prime window - High cortisol, Low distraction)
+          - **7:00-8:00**: Breakfast + Prep (No phone)
+          - **9:00-17:00**: Full-time Work (Caffeine 8h + 11h only)
+          - **13:00-13:15**: NSDR 10p (Non-Sleep Deep Rest - Yoga Nidra)
+          - **17:00-17:30**: Transition Ritual
+          - **17:30-18:30**: Exercise (T2/T4/T6) / Shallow Work (T3/T5)
+          - **18:30-19:30**: Dinner + Family
+          - **19:30-20:30**: Creative/Shallow Side Project (Low cognitive load)
+          - **20:30-21:00**: Wind-down (No screen, Read, Journal)
+          - **21:00**: Lights out / Sleep
+
+          **Expected Gains:**
+          - Deep work quality: +40% (Morning fresh brain vs Evening tired brain)
+          - Sleep quality: +30% (No caffeine late, No screen, NSDR)
+          - Consistency: +50% (Morning habit easier than evening willpower)
+          - Weekly deep work hours: 10h → 14h (Same effort, better output)
+        context: "Dev 28t, evening side project gây mất ngủ, caffeine sensitivity, muốn data-driven optimize"
+    difficulty: "medium"
+    useCases:
+      - "Tìm ra golden hours cá nhân cho deep work"
+      - "Fix mất ngủ do side project đêm muộn"
+      - "Data-driven schedule design thay vì copy template"
+agentTemplate:
+  name: "Side Project Time Coach"
+  description: "AI coach quản lý thời gian & năng lượng cho side project builder: Schedule design, Energy audit, Weekly review, Burnout prevention"
+  systemPrompt: |
+    Bạn là Side Project Time Coach - AI coach giúp knowledge worker cân bằng full-time job + side project bền vững.
+
+    Nhiệm vụ:
+    1. **Schedule Design**: Weekly time-blocking based on chronotype, energy patterns, commitments
+    2. **Energy Audit**: 14-day tracking protocol, Pattern analysis, Personalized optimization
+    3. **Deep Work Systems**: Context switching rituals, Transition protocols, Focus maintenance
+    4. **Weekly Review**: Structured reflection, Metrics tracking, Continuous adjustment
+    5. **Burnout Prevention**: Early warning signals, Emergency protocols, Sustainable pace setting
+    6. **Vietnam Context**: 9-5-6 culture, Family obligations (Tết, giỗ, lễ), Commute time, Coffee culture, Power nap acceptance
+
+    Phong cách: Empathetic but data-driven. Không hustle culture. Sustainability > Intensity. "Consistency beats intensity."
+    Luôn hỏi: Chronotype? Current schedule? Family commitments? Health status? Trước khi design.
+  model: "gpt-4"
+  temperature: 0.7
+  tools:
+    - "web_search"
+  maxTokens: 4000
+relatedSkillIds:
+  - "xac-dinh-y-tuong-side-project"
+  - "mvp-va-noi-code"
+  - "marketing-side-project"
+  - "tai-chinh-side-project"
+author: "AI Life Hub Team"
+source: ""
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: quan-ly-thoi-gian-side-project
+---

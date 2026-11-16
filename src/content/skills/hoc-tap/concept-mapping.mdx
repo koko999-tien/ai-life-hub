@@ -1,0 +1,520 @@
+---
+id: concept-mapping
+categoryId: hoc-tap
+name: "Concept Mapping & Knowledge Graphs"
+description: "Tổ chức kiến thức thành mạng lưới liên kết: Concept Map, Mind Map, Knowledge Graph (Obsidian/Roam), Zettelkasten"
+whenToUse:
+  - "Học subject phức tạp, nhiều khái niệm liên quan (Systems, Anatomy, Law, CS Theory)"
+  - "Nghiên cứu literature review - tổng hợp paper, tìm gap"
+  - "Thiết kế kiến trúc hệ thống / Database schema / API design"
+  - "Muốn thấy 'big picture' và tìm insight cross-domain"
+difficulty: "intermediate"
+estimatedTime: "20-40 phút tạo map, maintain hàng tuần"
+tags: ["concept-mapping", "knowledge-graph", "zettelkasten", "obsidian", "visual-thinking"]
+prompts:
+  - id: prompt-concept-map-creation
+    name: "Tạo Concept Map từ tài liệu nguồn"
+    description: "Chuyển sách, paper, lecture notes thành Concept Map có cấu trúc (Node + Link + Proposition)"
+    template: |
+      Bạn là Knowledge Cartographer. Hãy tạo Concept Map cho chủ đề: {{topic}} từ nguồn: {{source}}.
+
+      **Yêu cầu:**
+      1. **Focus Question** - Câu hỏi trung tâm map trả lời (ví dụ: "Làm sao thiết kế hệ thống scalable?")
+      2. **Parking Lot** - Liệt kê 15-25 khái niệm quan trọng (từ khóa, không phải câu)
+      3. **Ranking** - Sắp xếp từ general → specific (superordinate → subordinate)
+      4. **Linking** - Nối concepts bằng **linking words/phrases** (tạo thành proposition: "A **là một loại** B", "A **gây ra** B")
+      5. **Cross-links** - Kết nối giữa các branch khác nhau (insight creativity ở đây)
+      6. **Examples** - Thêm specific examples cho concept abstract
+
+      **Output formats:**
+      - **Mermaid.js diagram** (copy vào Obsidian/Notion render)
+      - **Structured text** (indent-based cho import tool)
+      - **Obsidian Canvas / Excalidraw** instructions
+
+      **Quality checklist (Novak & Cañas):**
+      - Hierarchical structure rõ ràng
+      - Linking words tạo câu có nghĩa (propositions)
+      - Cross-links ≥ 3
+      - Specific examples ≥ 5
+      - Không orphan nodes
+    variables:
+      - name: topic
+        type: text
+        label: "Chủ đề Concept Map (ví dụ: 'Database Normalization', 'React Rendering Lifecycle', 'Criminal Law Defenses')"
+        required: true
+      - name: source
+        type: textarea
+        label: "Nguồn tài liệu (paste text, outline, hoặc mô tả key concepts)"
+        required: true
+      - name: purpose
+        type: select
+        label: "Mục đích map"
+        options:
+          - "Học tập/Ôn thi (student)"
+          - "Nghiên cứu/Literature review (researcher)"
+          - "Thiết kế hệ thống/Kiến trúc (engineer/architect)"
+          - "Trình bày/Giảng dạy (instructor)"
+          - "Cá nhân/Second Brain (PKM)"
+        required: true
+        default: "Học tập/Ôn thi (student)"
+    examples:
+      - inputs:
+          topic: "React Rendering Lifecycle (Mount → Update → Unmount)"
+          source: |
+            React component lifecycle:
+            - Mount: constructor → render → componentDidMount (class) / useEffect(() => {}, []) (function)
+            - Update: props/state change → render → componentDidUpdate / useEffect(() => {}, [deps])
+            - Unmount: componentWillUnmount / useEffect cleanup
+            - Render phase: pure, no side effects
+            - Commit phase: DOM mutations, layout effects, passive effects
+            - Concurrent features: Suspense, Transitions, useDeferredValue
+            - Performance: React.memo, useMemo, useCallback, shouldComponentUpdate
+          purpose: "Học tập/Ôn thi (student)"
+        output: |
+          # 🗺️ Concept Map: React Rendering Lifecycle
+
+          ## Focus Question
+          "React component trải qua những giai đoạn nào từ sinh đến tử, và side effects được quản lý như thế nào?"
+
+          ## Parking Lot (Concepts)
+          Component, Mount, Update, Unmount, Render Phase, Commit Phase, Side Effect, Lifecycle Method, Hook, useEffect, useLayoutEffect, useInsertionEffect, Cleanup, Dependency Array, Suspense, Transition, Concurrent Mode, React.memo, useMemo, useCallback, Pure Component, Re-render, Virtual DOM, Fiber, Reconciliation
+
+          ## Mermaid Diagram
+          ```mermaid
+          graph TD
+              A[React Component Lifecycle] --> B[Mount Phase]
+              A --> C[Update Phase]
+              A --> D[Unmount Phase]
+
+              B --> B1[Constructor / Initial Render]
+              B1 --> B2[useEffect [] / componentDidMount]
+              B2 --> B3[Side Effects: Fetch, Subscribe, DOM]
+
+              C --> C1[Trigger: Props/State/Context Change]
+              C1 --> C2[Re-render]
+              C2 --> C3[Render Phase: Pure, No Side Effects]
+              C3 --> C4[Reconciliation / Diffing]
+              C4 --> C5[Commit Phase]
+              C5 --> C6[DOM Mutations]
+              C5 --> C7[useLayoutEffect Sync]
+              C5 --> C8[useEffect Async / Passive]
+
+              C8 --> C9[Dependency Array Controls]
+              C9 --> C10[[]: Mount only]
+              C9 --> C11[[deps]: Mount + deps change]
+              C9 --> C12[No array: Every render]
+
+              D --> D1[Cleanup Function]
+              D1 --> D2[Unsubscribe, Cancel, Clear Timers]
+
+              A --> E[Render Phases Detail]
+              E --> E1[Render Phase: Pure Functions]
+              E --> E2[Commit Phase: Side Effects Allowed]
+              E1 --> E3[Virtual DOM Creation]
+              E3 --> E4[Fiber Tree / Reconciliation]
+
+              A --> F[Concurrent Features]
+              F --> F1[Suspense: Promise throwing]
+              F --> F2[Transitions: Urgent vs Non-urgent]
+              F --> F3[useDeferredValue: Defer low-priority]
+
+              A --> G[Performance Optimization]
+              G --> G1[React.memo: Props Shallow Compare]
+              G --> G2[useMemo: Memoize Computation]
+              G --> G3[useCallback: Memoize Function]
+              G --> G4[shouldComponentUpdate: Class Only]
+
+              %% Cross-links
+              B2 -.->|"same timing"| C8
+              C8 -.->|"cleanup prevents leaks"| D1
+              C3 -.->|"pure = memoizable"| G1
+              F2 -.->|"non-urgent = batched"| C1
+              G3 -.->|"stable ref = deps stable"| C9
+
+              style A fill:#1f2937,color:#fff
+              style E fill:#374151,color:#fff
+              style F fill:#374151,color:#fff
+              style G fill:#374151,color:#fff
+          ```
+
+          ## Key Propositions (Linking Phrases)
+          1. Mount Phase **includes** Initial Render **followed by** useEffect []
+          2. Update Phase **triggered by** Props/State Change **results in** Re-render
+          3. Render Phase **is** Pure **enables** React.memo / useMemo
+          4. Commit Phase **performs** DOM Mutations **then runs** useLayoutEffect **then** useEffect
+          5. useEffect **controlled by** Dependency Array **determines** when side effect runs
+          6. Cleanup Function **runs before** next Effect **or** Unmount **prevents** Memory Leaks
+          7. Concurrent Features **modify** Update Priority **allow** Interruptible Rendering
+          8. Performance Hooks **memoize** Values/Functions **reduce** Unnecessary Re-renders
+
+          ## Cross-links (Creative Insights)
+          1. **useEffect cleanup ↔ Unmount**: Cùng mechanism - cleanup chạy trước effect mới HOẶC unmount
+          2. **Render Phase purity ↔ Memoization**: Chỉ pure functions mới có thể memoize an toàn
+          3. **Transitions ↔ Batching**: Non-urgent updates được batch giống event handlers
+          4. **Dependency array ↔ Referential equality**: useCallback/useMemo giữ deps stable → effect ít chạy hơn
+
+          ## Specific Examples
+          1. **Mount**: `useEffect(() => { fetchUser(id) }, [])` - fetch once
+          2. **Update**: `useEffect(() => { subscribe(id) }, [id])` - resubscribe khi id đổi
+          3. **Cleanup**: `return () => { clearInterval(timer) }` - clear timer
+          4. **Layout Effect**: `useLayoutEffect(() => { ref.current.focus() }, [])` - sync DOM read/write
+          5. **Transition**: `startTransition(() => { setSearchQuery(input) })` - non-blocking search
+          6. **Memo**: `const Memoized = React.memo(ExpensiveComponent)` - skip render nếu props same
+        context: "React developer muốn master lifecycle mental model cho interview/architecture"
+    difficulty: "medium"
+    useCases:
+      - "Sinh viên tạo concept map cho môn khó (Physiology, Tax Law, Distributed Systems)"
+      - "Researcher literature review mapping papers"
+      - "Engineer system design interview prep"
+  - id: prompt-obsidian-knowledge-graph
+    name: "Xây dựng Knowledge Graph trong Obsidian"
+    description: "Setup vault, plugin, workflow cho Zettelkasten/Second Brain: Atomic notes, linking, graph view, canvas"
+    template: |
+      Hãy hướng dẫn tôi setup **Obsidian Knowledge Graph** cho lĩnh vực: {{domain}}.
+
+      **Context:**
+      - Mức độ quen Obsidian: {{obsidianLevel}}
+      - Vault structure hiện tại: {{vaultStructure}}
+      - Plugin đã cài: {{installedPlugins}}
+      - Mục tiêu: {{goal}} (Learning / Research / Writing / PKM / Project Management)
+
+      **Yêu cầu setup:**
+      1. **Folder Structure** (PARA / Johnny Decimal / Domain-based)
+      2. **Core Plugins** config (Graph View, Canvas, Outliner, Dataview, Templater, QuickAdd)
+      3. **Note Types & Templates** (Fleeting, Literature, Permanent/Atomic, Project, MOC)
+      4. **Linking Convention** (wiki-link vs markdown, aliases, block references, tags vs links)
+      5. **MOC (Map of Content)** strategy - entry points cho từng domain
+      6. **Graph View** customization (groups, filters, colors, force-directed settings)
+      7. **Canvas/Excalidraw** cho visual thinking
+      8. **Daily/Weekly Review** workflow với Dataview queries
+      9. **Sync & Backup** (Git, Sync plugin, Remotely Save)
+
+      Output: Step-by-step guide + config snippets + template files + Dataview queries.
+    variables:
+      - name: domain
+        type: text
+        label: "Lĩnh vực chính (ví dụ: 'Software Engineering', 'Medical Studies', 'Law', 'Content Creation')"
+        required: true
+      - name: obsidianLevel
+        type: select
+        label: "Mức độ quen Obsidian"
+        options:
+          - "Beginner (Vừa cài, chưa biết plugin)"
+          - "Intermediate (Dùng cơ bản, biết link/tag)"
+          - "Advanced (Dùng Dataview, Templater, custom CSS/JS)"
+        required: true
+        default: "Intermediate (Dùng cơ bản, biết link/tag)"
+      - name: vaultStructure
+        type: textarea
+        label: "Cấu trúc vault hiện tại (hoặc 'Chưa có - tạo mới')"
+        required: true
+        default: "Chưa có - tạo mới"
+      - name: installedPlugins
+        type: multiselect
+        label: "Plugin đã cài (Community plugins)"
+        options:
+          - "Dataview"
+          - "Templater"
+          - "QuickAdd"
+          - "Excalidraw"
+          - "Obsidian Git"
+          - "Remotely Save"
+          - "Dataview"
+          - "Calendar"
+          - "Periodic Notes"
+          - "Various Complements"
+        required: false
+        default: []
+      - name: goal
+        type: select
+        label: "Mục tiêu chính"
+        options:
+          - "Learning (Học tập, ôn thi, concept mapping)"
+          - "Research (Literature review, paper synthesis)"
+          - "Writing (Blog, book, thesis, documentation)"
+          - "PKM (Personal Knowledge Management - Second Brain)"
+          - "Project Management (Tasks, planning, meeting notes)"
+        required: true
+        default: "Learning (Học tập, ôn thi, concept mapping)"
+    examples:
+      - inputs:
+          domain: "Software Engineering (Fullstack, System Design, Architecture)"
+          obsidianLevel: "Intermediate (Dùng cơ bản, biết link/tag)"
+          vaultStructure: "Chưa có - tạo mới"
+          installedPlugins: '["Dataview", "Templater", "QuickAdd", "Excalidraw", "Obsidian Git"]'
+          goal: "Learning (Học tập, ôn thi, concept mapping)"
+        output: |
+          # 🧠 Obsidian Knowledge Graph Setup: Software Engineering
+
+          ## 1. Folder Structure (Domain-based + PARA hybrid)
+          ```
+          Vault/
+          ├── 00 Inbox/                    # Quick capture, process daily
+          ├── 01 Projects/                 # Active projects (has deadline/deliverable)
+          │   ├── side-project-ecommerce/
+          │   └── interview-prep-2024/
+          ├── 02 Areas/                    # Ongoing responsibilities (no deadline)
+          │   ├── Learning/
+          │   │   ├── React/
+          │   │   ├── System-Design/
+          │   │   ├── DSA/
+          │   │   └── Backend/
+          │   ├── Career/
+          │   └── Health/
+          ├── 03 Resources/                # Reference material (read-only mostly)
+          │   ├── Books/
+          │   ├── Papers/
+          │   ├── Courses/
+          │   ├── Articles/
+          │   └── Cheatsheets/
+          ├── 04 Archives/                 # Completed/Inactive
+          ├── MOCs/                        # Map of Content - Entry points
+          │   ├── MOC-React.md
+          │   ├── MOC-System-Design.md
+          │   ├── MOC-DSA.md
+          │   └── MOC-Backend.md
+          ├── Templates/                   # Note templates
+          ├── Scripts/                     # QuickAdd macros, DataviewJS
+          └── Assets/                      # Images, PDFs, Excalidraw files
+          ```
+
+          ## 2. Core Plugin Configs
+
+          ### Graph View (Settings → Graph View)
+          - **Groups**:
+            - `tag:#project` → Color: #3B82F6 (Blue)
+            - `tag:#learning` → Color: #10B981 (Green)
+            - `tag:#area` → Color: #F59E0B (Amber)
+            - `tag:#resource` → Color: #8B5CF6 (Purple)
+            - `path:MOCs` → Color: #EF4444 (Red), Size: 2.0
+          - **Filters**: Hide `tag:#archive`, `path:Templates`, `path:Scripts`
+          - **Display**: Show tags, Show attachments, Edge width: 0.5
+          - **Force-directed**: Repel: 0.8, Attract: 0.3, Center: 0.1
+
+          ### Templater (User Scripts)
+          - Template folder: `Templates/`
+          - Trigger on new file: `tp.file.creation_date()`
+
+          ### Dataview (Queries for Reviews)
+          ```dataview
+          // Weekly Review - Notes created this week
+          LIST FROM ""
+          WHERE file.cday >= date(today).minus(weeks(1))
+          SORT file.cday DESC
+          ```
+
+          ```dataview
+          // MOC Auto-index: All notes linking to this MOC
+          LIST FROM [[]] AND -"Templates" AND -"Scripts"
+          WHERE contains(file.outlinks, this.file.link)
+          SORT file.mtime DESC
+          ```
+
+          ## 3. Note Templates (`Templates/`)
+
+          ### Fleeting Note (`Templates/Fleeting.md`)
+          ```markdown
+          ---
+          type: fleeting
+          created: {{date:YYYY-MM-DD HH:mm}}
+          tags: [fleeting]
+          ---
+          # {{title}}
+
+          {{content}}
+
+          **Source:** {{source}}
+          **Action:** [ ] Process to Literature/Permanent
+          ```
+
+          ### Literature Note (`Templates/Literature.md`)
+          ```markdown
+          ---
+          type: literature
+          title: "{{title}}"
+          author: {{author}}
+          source: {{source}}  # URL, ISBN, DOI
+          date_read: {{date:YYYY-MM-DD}}
+          tags: [literature, {{domain}}]
+          status: processing  # processing / done / archived
+          ---
+          # {{title}}
+
+          ## Metadata
+          - **Author:** {{author}}
+          - **Source:** {{source}}
+          - **Date:** {{date_read}}
+          - **Rating:** ⭐⭐⭐⭐⭐
+
+          ## Key Concepts (Atomic - sẽ tách thành Permanent Notes)
+          - [[Concept 1]]
+          - [[Concept 2]]
+
+          ## Summary (3-5 sentences)
+          {{summary}}
+
+          ## Quotes / Insights
+          > "{{quote}}"
+          > — {{author}}
+
+          ## Questions / Disagreements
+          - ❓ Question 1
+          - 💭 Disagreement: ...
+
+          ## Related MOCs
+          - [[MOC-{{domain}}]]
+          ```
+
+          ### Permanent/Atomic Note (`Templates/Permanent.md`)
+          ```markdown
+          ---
+          type: permanent
+          title: "{{title}}"
+          concept: {{concept}}  # Single atomic concept
+          tags: [permanent, {{domain}}, {{subdomain}}]
+          related: [[]]  # Links to other permanent notes
+          moc: [[]]      # Link to MOC
+          ---
+          # {{title}}
+
+          **One-liner:** {{one_liner}}
+
+          ## Explanation
+          {{explanation}}
+
+          ## Analogy / Mental Model
+          {{analogy}}
+
+          ## Examples / Applications
+          - Example 1
+          - Example 2
+
+          ## Related Concepts
+          - [[Related Concept 1]] - relationship
+          - [[Related Concept 2]] - relationship
+
+          ## Sources
+          - [[Literature Note Source]]
+
+          ## Questions / Open Loops
+          - ❓ ...
+          ```
+
+          ### MOC Template (`Templates/MOC.md`)
+          ```markdown
+          ---
+          type: moc
+          title: "MOC - {{domain}}"
+          tags: [moc, {{domain}}]
+          ---
+          # MOC: {{domain}}
+
+          > **Purpose:** Entry point & navigation for {{domain}} knowledge
+
+          ## 🗺️ Structure
+          ### Core Concepts
+          - [[Concept A]]
+          - [[Concept B]]
+
+          ### Sub-domains
+          - [[MOC-Subdomain 1]]
+          - [[MOC-Subdomain 2]]
+
+          ### Resources
+          - [[Book: Title]]
+          - [[Course: Title]]
+
+          ### Projects Applying This
+          - [[Project: Name]]
+
+          ## 📊 Dataview Auto-Index
+          ```dataview
+          LIST FROM [[#]] AND -"Templates"
+          WHERE contains(file.tags, "permanent") AND contains(file.moc, this.file.link)
+          SORT file.name ASC
+          ```
+
+          ## 🔗 Graph View (Click to open local graph)
+          ```
+
+          ## 4. Linking Convention
+          | Element | Convention | Example |
+          |---------|------------|---------|
+          | Wiki-link | `[[Note Title]]` | `[[React Hooks]]` |
+          | Alias | `[[Note Title\|Display Text]]` | `[[React Hooks\|useState & useEffect]]` |
+          | Block ref | `[[Note Title#^block-id]]` | `[[React Lifecycle#^commit-phase]]` |
+          | Tag | `#domain/subdomain` | `#learning/react/hooks` |
+          | Tag (MOC) | `#moc` | `#moc` |
+
+          **Rule:** Ưu tiên **links > tags**. Tag chỉ cho classification (type, status, domain). Link cho relationship.
+
+          ## 5. MOC Strategy
+          - Mỗi domain lớn = 1 MOC (MOC-React, MOC-System-Design)
+          - MOC **không chứa knowledge**, chỉ **navigation + dataview index**
+          - Permanent note **phải link về MOC** (frontmatter `moc: [[MOC-React]]`)
+          - Review MOC hàng tuần: add missing links, restructure
+
+          ## 6. Daily/Weekly Review Workflow
+
+          ### Daily (5-10 phút, sáng)
+          1. Open **Daily Note** (Periodic Notes plugin)
+          2. Process **Inbox** (00 Inbox folder) → Move to Literature/Permanent/Projects
+          3. Quick capture → Fleeting notes
+          4. Review **Graph View** - spot new connections
+
+          ### Weekly (30-45 phút, Chủ Nhật)
+          1. Run Dataview: Notes created this week → Process fleeting → permanent
+          2. Check **Orphan notes** (no links in/out) → Link or delete
+          3. Update MOCs: New permanent notes added?
+          4. **Canvas**: Create visual map cho 1 topic phức tạp
+          5. Export **Graph View snapshot** (PNG) → Track knowledge growth
+
+          ## 7. Sync & Backup
+          - **Primary**: Obsidian Sync (paid) HOẶC **Remotely Save** (free, S3/WebDAV)
+          - **Version Control**: Obsidian Git plugin → Auto-commit mỗi 30p, push daily
+          - **Backup**: GitHub private repo + Google Drive sync vault folder
+
+          ## 🛠️ Troubleshooting
+          | Issue | Fix |
+          |-------|-----|
+          | Graph too cluttered | Increase filter, use Groups, hide tags |
+          | Slow vault | Disable unused plugins, limit vault size, use `.obsidian-ignore` |
+          | Duplicate notes | Search `file.name` duplicates, merge, update links |
+          | Dataview not updating | Restart Obsidian, check query syntax, `dataview: false` frontmatter |
+
+    difficulty: "intermediate"
+    useCases:
+      - "Knowledge worker build Second Brain"
+      - "PhD student literature review management"
+      - "Content creator research & writing pipeline"
+      - "Engineer technical documentation personal wiki"
+agentTemplate:
+  name: "Knowledge Graph Architect"
+  description: "Thiết kế Obsidian/Logseq/Roam vault, MOC strategy, Dataview queries, linking conventions, graph analysis"
+  systemPrompt: |
+    Bạn là Knowledge Graph Architect - chuyên gia Personal Knowledge Management (PKM) và networked thought tools.
+    Chuyên môn:
+    - Vault architecture: PARA, Johnny Decimal, Domain-based, Zettelkasten
+    - Note types: Fleeting → Literature → Permanent (Atomic) → MOC
+    - Linking theory: Explicit links > Tags, Block references, Transclusion
+    - Obsidian ecosystem: Dataview (query), Templater (automation), QuickAdd (capture), Canvas/Excalidraw (visual), Graph View (analysis)
+    - Workflow: Capture → Process → Connect → Review → Create
+    - Graph analysis: Centrality, Communities, Structural holes, Bridge notes
+
+    Triết lý: "Links are not references, they are relationships." (Niklas Luhmann)
+    Focus: Actionable setup, không over-engineer. Start simple, evolve with need.
+  model: "gpt-4"
+  temperature: 0.5
+  tools:
+    - "web_search"
+relatedSkillIds:
+  - "doc-lap-ke-hoach-hoc-tap"
+  - "kythuat-feynman"
+  - "active-recall"
+  - "spaced-repetition-anki"
+author: "AI Life Hub Team"
+source: "Sönke Ahrens - 'How to Take Smart Notes'; Tiago Forte - 'Building a Second Brain'; Obsidian Documentation; Nick Milo - 'Linking Your Thinking'"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: concept-mapping
+---

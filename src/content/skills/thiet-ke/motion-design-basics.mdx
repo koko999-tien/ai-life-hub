@@ -1,0 +1,122 @@
+---
+id: motion-design-basics
+categoryId: thiet-ke
+name: "Motion Design cơ bản cho UI"
+description: "Animation principles cho UI: Easing, Duration, Choreography, Micro-interactions, Lottie/Rive integration"
+whenToUse:
+  - "Thêm animation cho button, loading, transition màn hình"
+  - "Tạo micro-interactions delightful (pull-to-refresh, toggle, success state)"
+  - "Handoff animation specs cho dev (Framer Motion, CSS, Lottie)"
+difficulty: "intermediate"
+estimatedTime: "30 phút - 2 giờ / interaction"
+tags: ["motion-design", "animation", "micro-interactions", "framer-motion", "lottie", "css-animation"]
+prompts:
+  - id: prompt-ui-animation-spec
+    name: "Tạo Animation Spec cho dev"
+    description: "Định nghĩa chi tiết animation: Easing curve, Duration, Delay, Stagger, Keyframes"
+    template: |
+      Bạn là Motion Designer. Hãy tạo Animation Spec cho: {{interactionName}}.
+
+      **Mô tả interaction:**
+      {{interactionDescription}}
+
+      **Context:** {{context}} (Web / iOS / Android / Cross-platform)
+
+      **Yêu cầu Spec (Markdown table):**
+      1. **Trigger**: User action / System event
+      2. **Easing**: Custom cubic-bezier hoặc named (ease-out, ease-in-out, spring)
+      3. **Duration**: ms (đề xuất: 150-300ms cho micro, 300-500ms cho transition)
+      4. **Properties**: Transform, Opacity, Color, Clip-path, Filter...
+      5. **Keyframes**: 0%, 50%, 100% (hoặc chi tiết hơn)
+      6. **Stagger**: Delay giữa các element (nếu list/grid)
+      7. **Reduced Motion**: Fallback cho `prefers-reduced-motion`
+      8. **Dev Handoff**: Framer Motion code / CSS @keyframes / Lottie JSON
+
+      Output: Spec table + Code snippet cho Framer Motion & CSS.
+    variables:
+      - name: interactionName
+        type: text
+        label: "Tên interaction (ví dụ: Button Press, Modal Enter, List Item Delete)"
+        required: true
+      - name: interactionDescription
+        type: textarea
+        label: "Mô tả chi tiết hành vi animation"
+        required: true
+      - name: context
+        type: select
+        label: "Platform"
+        options:
+          - "Web (React/Vue/Svelte + Framer Motion/CSS)"
+          - "iOS (SwiftUI / UIKit)"
+          - "Android (Jetpack Compose / MotionLayout)"
+          - "Cross-platform (Lottie / Rive)"
+        required: true
+        default: "Web (React/Vue/Svelte + Framer Motion/CSS)"
+    examples:
+      - inputs:
+          interactionName: "Button Press & Loading State"
+          interactionDescription: "Khi user click button: Scale down 0.95 → Scale up 1.0 → Nếu loading: spinner rotate + text change → Success: checkmark scale in → Reset"
+          context: "Web (React/Vue/Svelte + Framer Motion/CSS)"
+        output: |
+          # 🎞️ Animation Spec: Button Press & Loading
+
+          ## Spec Table
+          | Phase | Trigger | Easing | Duration | Properties | Keyframes |
+          |-------|---------|--------|----------|------------|-----------|
+          | Press Down | Pointer Down | `ease-out` | 100ms | `transform: scale(0.95)` | 0%: scale(1) → 100%: scale(0.95) |
+          | Press Up | Pointer Up | `ease-out` | 150ms | `transform: scale(1)` | 0%: scale(0.95) → 100%: scale(1) |
+          | Loading Enter | Async Start | `ease-in-out` | 200ms | `opacity: 0→1`, `transform: rotate(0→360deg)` | Spinner: 0%: rotate(0) → 100%: rotate(360) |
+          | Loading Loop | Continuous | `linear` | 1000ms | `transform: rotate(360deg)` | Infinite |
+          | Success | Async Resolve | `spring` (stiffness: 300, damping: 30) | 400ms | `scale: 0→1.2→1`, `opacity: 0→1` | Checkmark: 0%: scale(0) → 60%: scale(1.2) → 100%: scale(1) |
+          | Reset | Auto (1.5s after success) | `ease-out` | 300ms | `opacity: 1→0` (spinner/check), `text: loading→default` | Fade out |
+
+          ## Reduced Motion Fallback
+          ```css
+          @media (prefers-reduced-motion: reduce) {
+            .btn { transition: none !important; }
+            .spinner { animation: none; opacity: 0; }
+            .checkmark { transform: scale(1); opacity: 1; }
+          }
+          ```
+
+          ## Framer Motion Code (React)
+          ```tsx
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            animate={status === 'loading' ? { rotate: 360 } : status === 'success' ? { scale: [1, 1.2, 1] } : {} }
+            transition={{ type: status === 'success' ? 'spring' : 'tween', stiffness: 300, damping: 30 }}
+          >
+            {status === 'loading' && <Spinner />}
+            {status === 'success' && <Checkmark />}
+            <span>{text}</span>
+          </motion.button>
+          ```
+
+          ## CSS @keyframes (Vanilla)
+          ```css
+          @keyframes spin { to { transform: rotate(360deg); } }
+          @keyframes checkmark-pop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+          .btn:active { transform: scale(0.95); transition: transform 100ms ease-out; }
+          .spinner { animation: spin 1s linear infinite; }
+          .checkmark { animation: checkmark-pop 400ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+          ```
+        context: "Button interaction phổ biến: press, loading, success, reset"
+    difficulty: "intermediate"
+    useCases:
+      - "Designer handoff animation spec cho dev"
+      - "Dev implement animation chính xác theo design"
+agentTemplate:
+  name: "Motion Designer Agent"
+  description: "Thiết kế animation UI, micro-interactions, spec handoff, Framer Motion/Lottie"
+  systemPrompt: |
+    Bạn là Motion Designer. Tạo animation meaningful, performant, accessible (prefers-reduced-motion). Focus: easing, timing, choreography.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "prototyping-figma"
+  - "design-system-tokens"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: motion-design-basics
+---

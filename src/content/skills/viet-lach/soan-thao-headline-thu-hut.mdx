@@ -1,0 +1,110 @@
+---
+id: soan-thao-headline-thu-hut
+categoryId: viet-lach
+name: "Viết tiêu đề (Headline) thu hút clicks"
+description: "Kỹ thuật viết tiêu đề bài viết, video, email không spam, thu hút và sát sự thật"
+whenToUse:
+  - "Viết tiêu đề bài blog, bài báo, landing page"
+  - "Tên video YouTube/TikTok để tăng CTR"
+  - "Tiêu đề email marketing để tăng mở (Open rate)"
+difficulty: "beginner"
+estimatedTime: "5-10 phút/dựng tiêu đề"
+tags: ["headline", "copywriting", "ctr", "clickbait-ethical"]
+prompts:
+  - id: prompt-headline-generator
+    name: "Sinh tiêu đề đa dạng từ 1 ý tưởng"
+    description: "Tạo 10 tiêu đề khác nhau từ 1 chủ đề, theo các công thức: số, câu hỏi, so sánh, tong hop, challenge"
+    template: |
+      Hãy viết 10 tiêu đề thu hút clicks cho chủ đề: {{topic}}.
+
+      **Thông tin:**
+      - Đối tượng: {{targetAudience}}
+      - Kênh đăng: {{channel}} (Blog/YouTube/Email/Facebook)
+      - Góc góc nhìn: {{angle}} (tutorial / review / so sánh / bí kíp / thách thức)
+
+      **Các công thức đề xuất (khuyên dùng ít nhất 3):**
+      - **Số liệu**: "7 Cách..., 5 Sai lầm..., 3 Mẹo..."
+      - **Câu hỏi**: "Bạn có biết..., Làm sao để..."
+      - **So sánh**: "A vs B: Cái nào...?"
+      - **Thách thức**: "Tôi đã thử X trong 30 ngày, kết quả là..."
+      - **Tổng hợp**: "Tất cả những gì bạn cần biết về..."
+
+      Yêu cầu:
+      1. Không clickbait lừa đảo, phải sát sự thật
+      2. Có chứa từ khóa chính nếu có
+      3. Tối đa 60 ký tự cho tiêu đề blog/YouTube
+      4. Có biến thể hook (gây tò mò) và giá trị
+
+      Output: Bảng 2 cột (Tiêu đề | Công thức sử dụng | Tại sao thu hút).
+    variables:
+      - name: topic
+        type: text
+        label: "Chủ đề cần viết tiêu đề"
+        required: true
+      - name: targetAudience
+        type: text
+        label: "Đối tượng người đọc/xem"
+        required: true
+      - name: channel
+        type: select
+        label: "Kênh đăng"
+        options:
+          - "Blog/Website"
+          - "YouTube Video"
+          - "Email Newsletter"
+          - "Facebook Post"
+        required: true
+        default: "Blog/Website"
+      - name: angle
+        type: select
+        label: "Góc nhìn bài viết"
+        options:
+          - "Hướng dẫn/Tutorial"
+          - "Review/Sản phẩm"
+          - "So sánh"
+          - "Bí kíp/Mẹo"
+          - "Thử thách/Case study"
+        required: true
+        default: "Hướng dẫn/Tutorial"
+    examples:
+      - inputs:
+          topic: "Học tiếng Anh giao tiếp nhanh"
+          targetAudience: "Người đi làm, sinh viên"
+          channel: "YouTube Video"
+          angle: "Hướng dẫn/Tutorial"
+        output: |
+          # 10 Tiêu đề Video YouTube: "Học tiếng Anh giao tiếp nhanh"
+
+          | # | Tiêu đề | Công thức | Tại sao thu hút |
+          |---|---------|-----------|-----------------|
+          | 1 | "7 cách học tiếng Anh giao tiếp mà bạn không cần lớp học" | Số liệu | Cung cấp giá trị cụ thể, không cần chi phí lớp học |
+          | 2 | "Bạn có thể nói tiếng Anh thạo trong 30 ngày? Thử thách này sẽ trả lời" | Câu hỏi + Thách thức | Tạo tò mò, thách thức quan hệ thời gian ngắn |
+          | 3 | "Duolingo vs HelloTalk: Ứng dụng nào giúp nói tiếng Anh hơn?" | So sánh | Giúp người xem chọn đúng công cụ |
+          | 4 | "Tôi đã tự học giao tiếp tiếng Anh trong 3 tháng: Kết quả thực tế" | Case study | Thực tế, có bằng chứng, kinh nghiệm cá nhân |
+          | 5 | "Tất cả những gì cần biết để bắt đầu nói tiếng Anh hôm nay" | Tổng hợp | Văn bản toàn diện, an toàn cho người mới |
+          | 6 | "5 sai lầm chết người khi học tiếng Anh giao tiếp (tránh ngay)" | Số liệu + Cảnh báo | Khơi gợi sợ hãi, hữu ích |
+          | 7 | "Làm sao để nói tiếng Anh tự tin ngay cả khi ngữ pháp chưa tốt?" | Câu hỏi | Chạm đúng pain point của người mới |
+          | 8 | "Học 500 từ tiếng Anh phổ biến nhất để giao tiếp trong 1 tuần" | Số liệu | Cam kết giá trị nhanh, cụ thể |
+          | 9 | "Tôi đã từ chối lớp Anh để tự học: Điều bất ngờ xảy ra" | Thách thức | Câu chuyện cá nhân, ngược trendu |
+          | 10 | "Cách tiếp cận ngữ pháp tiếng Anh mà không bị buồn ngủ" | Hướng dẫn | Giải quyết nỗi đau chán ngắt |
+
+          **Tùy chọn nhất:** Tiêu đề #4 (Case study thực tế) hoặc #2 (Thách thức 30 ngày) — thường có CTR cao trên YouTube.
+        context: "Tiêu đề YouTube cho kênh học tiếng Anh, audience trẻ đi làm/sinh viên"
+    difficulty: "easy"
+    useCases:
+      - "Viết tiêu đề bài blog, YouTube, email"
+agentTemplate:
+  name: "Headline Specialist Agent"
+  description: "Tư vấn và viết tiêu đề thu hút clicks cho các nền tảng nội dung"
+  systemPrompt: |
+    Bạn là Headline Specialist. Tập trung vào CTR, tâm lý người đọc, và tính trung thực của tiêu đề.
+  model: "gpt-4"
+  temperature: 0.8
+relatedSkillIds:
+  - "phong-cach-viet-copywriting-aida"
+  - "viet-bai-viet-seo-khoa-hoc"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: soan-thao-headline-thu-hut
+---

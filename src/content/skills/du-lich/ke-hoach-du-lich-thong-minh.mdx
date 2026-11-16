@@ -1,0 +1,150 @@
+---
+id: ke-hoach-du-lich-thong-minh
+categoryId: du-lich
+name: "Kế hoạch du lịch thông minh"
+description: "Lộ trình tối ưu chi phí/zeit, Booking hack, Visa, Bảo hiểm, Packing list, Emergency plan"
+whenToUse:
+  - "Kế hoạch chuyến đi trong/ngoài nước"
+  - "Tối ưu ngân sách, thời gian, trải nghiệm"
+  - "Du lịch gia đình, solo, couple, nhóm bạn"
+difficulty: "beginner"
+estimatedTime: "2-4 giờ lập kế hoạch, maintain khi đi"
+tags: ["travel-planning", "budget-travel", "itinerary", "visa", "packing", "travel-hacks"]
+prompts:
+  - id: prompt-travel-itinerary
+    name: "Tạo Lộ trình du lịch chi tiết"
+    description: "Tối ưu route, chi phí, trải nghiệm theo ngân sách và sở thích"
+    template: |
+      Bạn là Travel Planner. Hãy tạo lộ trình cho chuyến đi:
+
+      **Thông tin chuyến đi:**
+      - Điểm đến: {{destination}}
+      - Thời gian: {{duration}} ngày
+      - Ngân sách: {{budget}} (Low / Medium / Luxury)
+      - Phong cách: {{travelStyle}} (Chill / Adventure / Culture / Foodie / Family / Solo)
+      - Đối tượng: {{travelers}} (Solo / Couple / Family với trẻ / Nhóm bạn)
+      - Thời điểm: {{travelDate}} (Mùa vụ, lễ tết)
+
+      **Output:**
+      1. **Route Optimization**: Các địa điểm theo cluster địa lý, minimize di chuyển
+      2. **Daily Itinerary**: Buổi sáng/trưa/chiều/tối, buffer time, plan B
+      3. **Budget Breakdown**: Vé máy bay, Ở, Ăn, Di chuyển, Vé tham quan, Mua sắm, Dự phòng 15%
+      4. **Booking Hacks**: Khi nào book vé máy bay rẻ, App/WEB so sánh giá, Loyalty program
+      5. **Visa & Documents**: Yêu cầu visa, Passport validity, Visa on arrival / E-visa
+      6. **Travel Insurance**: So sánh gói, Coverage y tế, Hủy chuyến, Mất hành lý
+      7. **Packing List**: Capsule wardrobe, Tech, Toiletries, First aid, Documents
+      8. **Emergency Plan**: Số điện thoại khẩn cấp, Embassy, Bệnh viện, Backup fund
+    variables:
+      - name: destination
+        type: text
+        label: "Điểm đến (Ví dụ: Đà Nẵng - Hội An, Tokyo - Kyoto, Châu Âu 3 quốc gia)"
+        required: true
+      - name: duration
+        type: number
+        label: "Số ngày"
+        required: true
+      - name: budget
+        type: select
+        label: "Ngân sách"
+        options:
+          - "Low (Tiết kiệm, backpacker)"
+          - "Medium (Cân bằng, comfortable)"
+          - "Luxury (Sang trọng, all-inclusive)"
+        required: true
+        default: "Medium (Cân bằng, comfortable)"
+      - name: travelStyle
+        type: select
+        label: "Phong cách du lịch"
+        options:
+          - "Chill (Nghỉ dưỡng, resort, cafe)"
+          - "Adventure (Trekking, water sports, motorbike)"
+          - "Culture (Bảo tàng, di tích, workshop)"
+          - "Foodie (Ẩm thực đường phố, fine dining, market)"
+          - "Family (Trẻ em, an toàn, tiện nghi)"
+          - "Solo (Tự do, kết bạn, reflection)"
+        required: true
+      - name: travelers
+        type: text
+        label: "Đối tượng đi cùng"
+        required: true
+      - name: travelDate
+        type: text
+        label: "Thời điểm dự kiến (Tháng/năm, tránh lễ tết cao điểm nếu muốn tiết kiệm)"
+        required: true
+    examples:
+      - inputs:
+          destination: "Đà Nẵng - Hội An (5 ngày 4 đêm)"
+          duration: 5
+          budget: "Medium (Cân bằng, comfortable)"
+          travelStyle: "Foodie & Culture"
+          travelers: "Couple (2 người)"
+          travelDate: "Tháng 3 (Tránh Tết, thời tiết đẹp)"
+        output: |
+          # 🌴 Lộ Trình: Đà Nẵng - Hội An 5N4Đ (Couple, Foodie & Culture)
+
+          ## Route Optimization
+          **Base 1: Đà Nẵng (2 đêm)** - Bãi biển, Cầu Rồng, Bà Nà, Ăn hải sản
+          **Base 2: Hội An (2 đêm)** - Phố cổ, Làm đèn lồng, Ẩm thực, An Bàng beach
+          **Di chuyển**: Taxi/Grab 45p (30km) hoặc Xe khách 1h30p
+
+          ## Daily Itinerary
+          | Ngày | Buổi sáng | Buổi trưa | Buổi chiều | Buổi tối |
+          |------|-----------|-----------|------------|----------|
+          | 1 | Bay đến ĐN 10h, Check-in, Ăn trưa Mỳ Quảng | Bà Nà Hills (Golden Bridge) 13-17h | Nghỉ ngơi, Massage | Ăn hải sản Bê Bê, Dạo Cầu Rồng, Cà phê 43 |
+          | 2 | Sơn Trà (Bản Châu, Linh Ứng) 6-10h | Ăn trưa Bún chả cá, Ngủ trưa | Mỹ Khê beach, Cà phê Cộng | Ăn Bún mắm, Bar Sky36 |
+          | 3 | Check-out, Đi Hội An (dừng Marble Mountains) | Check-in, Ăn trưa Cao lầu | Phố cổ Hội An (Chùa Cầu, Phúc Kiến), Làm đèn lồng | Đi dạo phố cổ đèn lồng, Ăn Bánh mì Phượng, Karaoke nhỏ |
+          | 4 | Xe đạp Cù Lao Chàm (snorkel) 7-14h | Ăn trưa hải sản đảo | An Bàng beach chill, Massage | Ăn Cơm gà, Bar The Fisherman |
+          | 5 | Chợ Hội An mua quà (Trà, Mùi, Áo lụa) | Ăn trưa Mì Quảng, Bay về | - | - |
+
+          ## Budget Breakdown (2 người, VND)
+          | Category | Chi phí | Note |
+          |----------|---------|------|
+          | Vé máy bay (KG/ĐN khứ hồi) | 4.000.000 | Book sớm 2-3 tháng, flexible date |
+          | Khách sạn (4 đêm, 4* beachfront) | 6.000.000 | Agoda/Booking, free cancellation |
+          | Ăn uống | 4.000.000 | 500k/ngày/người |
+          | Di chuyển (Grab, Xe đạp, Tour) | 1.500.000 | |
+          | Vé tham quan (Bà Nà, Cù Lao Chàm) | 1.500.000 | Book online giảm 10-15% |
+          | Mua sắm/Quà | 1.000.000 | |
+          | **Tổng** | **18.000.000** | +15% buffer = **20.7M** |
+
+          ## Booking Hacks
+          - **Vé máy bay**: Skyscanner "Whole month" view, book Thứ 3-4, bay Thứ 2-3
+          - **Khách sạn**: Agoda + Booking so sánh, đọc review mới nhất, free cancellation
+          - **Tour Cù Lao Chàm**: Book qua Klook/KKday (giảm 15-20% so với tại chỗ)
+          - **Loyalty**: Agoda Cashback, Airline miles, Credit card travel perks
+
+          ## Packing List (Capsule Wardrobe - 5N4Đ)
+          | Category | Items |
+          |----------|-------|
+          | **Áo** | 3 Áo thun, 2 Áo sơ mi/khoác nhẹ, 1 Áo hoodie (bay), 2 Áo bikini/ngủ |
+          | **Quần** | 2 Quần short, 1 Quần dài nhẹ, 1 Váy/Short nữ |
+          | **Giày** | 1 Dép sandal, 1 Sneaker nhẹ, 1 Dép đi biển |
+          | **Tech** | Phone, Powerbank, Cáp sạc, Adapter, Earphones |
+          | **Toiletries** | Kem chống nắng SPF50 (bắt buộc), Kính râm, Mũ nón, Repellent |
+          | **Docs** | CCCD/Passport, Vé máy bay (app), Bảo hiểm, Tiền mặt + Thẻ |
+
+          ## Emergency Plan
+          - **Số khẩn cấp**: 113 (Cấp cứu), 114 (PCCC), 115 (Công an)
+          - **Bệnh viện**: Bệnh viện Đa khoa Đà Nẵng, Bệnh viện Hội An
+          - **Backup fund**: 5M tiền mặt + Thẻ tín dụng dự phòng
+          - **Embassy**: Lĩnh sự quốc gia (nếu ra khơi)
+        context: "Couple, 5N4Đ Đà Nẵng-Hội An, Foodie & Culture, tháng 3"
+    difficulty: "easy"
+    useCases:
+      - "Kế hoạch chuyến đi bất kỳ"
+      - "Tối ưu chi phí, trải nghiệm"
+agentTemplate:
+  name: "Travel Planner Agent"
+  description: "Lộ trình, Budget, Booking hacks, Visa, Insurance, Packing, Emergency"
+  systemPrompt: |
+    Bạn là Travel Planner. Optimize: Route, Cost, Experience. Practical hacks: Book timing, Loyalty, Insurance, Packing light.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "quan-ly-ngan-sach-ca-nhan"
+  - "nghi-le-gia-dinh-tinh-khoe"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: ke-hoach-du-lich-thong-minh
+---

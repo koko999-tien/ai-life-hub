@@ -1,0 +1,171 @@
+---
+id: soan-thao-email-chuyen-nghiep
+categoryId: cong-viec
+name: "Soạn thảo Email chuyên nghiệp"
+description: "Kỹ thuật email hiệu quả: cấu trúc email, tone of voice, call-to-action, follow-up"
+whenToUse:
+  - "Liên hệ đối tác, khách hàng, cấp trên"
+  - "Gửi báo cáo, request, proposal qua email"
+  - "Follow-up sau cuộc họp, interview"
+  - "Viết email khó (từ chối, xin lỗi, nhắc nợ)"
+difficulty: "beginner"
+estimatedTime: "5-10 phút cho mỗi email"
+tags: ["email", "communication", "professional-writing", "productivity"]
+prompts:
+  - id: prompt-email-structure
+    name: "Email cấu trúc chuẩn (Cấu trúc Kim Tự Tháp)"
+    description: "Soạn thảo email theo cấu trúc: Chủ đề ngắn → Nội dung chính → Hỗ trợ → Call to Action"
+    template: |
+      Bạn là một chuyên gia truyền thông doanh nghiệp. Hãy soạn thảo email cho: {{recipient}}.
+
+      **Thông tin:**
+      - Chủ đề: {{topic}}
+      - Mục đích chính: {{goal}}
+      - Tone of voice: {{tone}}
+      - Các thông tin cần bao gồm: {{details}}
+
+      **Cấu trúc yêu cầu:**
+      1. Chủ đề (Subject line): Ngắn gọn, nêu bật giá trị/tính khẩn cấp (<= 50 ký tự)
+      2. Mở đầu (Greeting): Chuyên nghiệp, cá nhân hóa
+      3. Thông điệp cốt lõi (Bottom line up front - BLUF): Nêu rõ mục đích ngay câu đầu/đoạn đầu
+      4. Chi tiết hỗ trợ: Bullet points (nếu nhiều thông tin)
+      5. Lời kêu gọi hành động (CTA): Rõ ràng, cụ thể (ví dụ: ngày giờ họp, link, deadline)
+      6. Kết thúc (Sign-off): Chuyên nghiệp
+
+      Output: Bản nháp email đã soạn hoàn chỉnh.
+    variables:
+      - name: recipient
+        type: text
+        label: "Người nhận (ví dụ: Đối tác, Sếp, Khách hàng tiềm năng)"
+        required: true
+      - name: topic
+        type: text
+        label: "Chủ đề chính"
+        required: true
+      - name: goal
+        type: select
+        label: "Mục đích"
+        options:
+          - "Xin họp/Appointment"
+          - "Gửi báo cáo/Proposal"
+          - "Follow-up/Nhắc việc"
+          - "Xin thông tin/Hỗ trợ"
+          - "Từ chối/Báo tin xấu"
+        required: true
+      - name: tone
+        type: select
+        label: "Tone of voice"
+        options:
+          - "Trang trọng (Formal)"
+          - "Chuyên nghiệp nhưng thân thiện (Professional & Friendly)"
+          - "Ngắn gọn, súc tích (Direct)"
+        required: true
+        default: "Chuyên nghiệp nhưng thân thiện (Professional & Friendly)"
+      - name: details
+        type: textarea
+        label: "Các thông tin/điểm chính cần đề cập"
+        required: true
+    examples:
+      - inputs:
+          recipient: "Khách hàng tiềm năng (Mr. Nam - Giám đốc dự án)"
+          topic: "Giới thiệu giải pháp AI cho dự án X"
+          goal: "Xin họp giới thiệu Demo"
+          tone: "Chuyên nghiệp nhưng thân thiện (Professional & Friendly)"
+          details: "Đã research dự án X, thấy tiềm năng tiết kiệm 20% chi phí vận hành bằng AI của chúng tôi. Muốn show demo 15 phút tuần sau."
+        output: |
+          Subject: [Demo] Giải pháp AI giúp dự án X tiết kiệm 20% chi phí
+
+          Chào anh Nam,
+
+          Tôi đã theo dõi dự án X của anh trong thời gian qua và thấy tiềm năng rất lớn để tối ưu hóa vận hành.
+
+          Tại [Tên Công Ty], chúng tôi có giải pháp AI đã giúp các dự án tương tự tiết kiệm trung bình 20% chi phí vận hành hàng tháng.
+
+          Tôi tin rằng giải pháp này sẽ phù hợp với nhu cầu hiện tại của anh. Anh có sẵn sàng dành 15 phút để tôi giới thiệu qua Demo vào chiều thứ Ba (14:00) hoặc sáng thứ Tư (10:00) tuần sau không?
+
+          Rất mong sớm nhận được phản hồi từ anh.
+
+          Trân trọng,
+          [Tên bạn]
+        context: "Email gửi khách hàng B2B chuyên nghiệp"
+    difficulty: "easy"
+    useCases:
+      - "Nhân viên kinh doanh gửi email lạnh (cold outreach)"
+      - "Gửi email cho cấp trên request nguồn lực"
+  - id: prompt-email-followup
+    name: "Follow-up email hiệu quả"
+    description: "Soạn thảo email follow-up sau khi gửi proposal/họp mà chưa có phản hồi"
+    template: |
+      Bạn là chuyên gia follow-up. Hãy soạn email follow-up cho: {{recipient}}.
+
+      **Thông tin:**
+      - Lần gửi trước: {{lastSentContext}}
+      - Lý do gửi lại: {{reason}} (vẫn chưa nhận phản hồi / cần update mới)
+      - Mục đích: {{goal}}
+
+      **Yêu cầu:**
+      1. Nhắc nhẹ nhàng, không gây áp lực/tạo cảm giác "đòi nợ"
+      2. Nêu lại giá trị cốt lõi (tóm tắt cực ngắn)
+      3. CTA rõ ràng, dễ trả lời (Yes/No hoặc gợi ý thời gian)
+      4. Giọng văn tôn trọng thời gian của họ
+    variables:
+      - name: recipient
+        type: text
+        label: "Người nhận"
+        required: true
+      - name: lastSentContext
+        type: textarea
+        label: "Nội dung lần gửi trước / Đã họp lúc nào"
+        required: true
+      - name: reason
+        type: select
+        label: "Lý do follow-up"
+        options:
+          - "Chưa có phản hồi (Gentle nudge)"
+          - "Cần update thông tin mới"
+          - "Sắp đến deadline"
+        required: true
+        default: "Chưa có phản hồi (Gentle nudge)"
+      - name: goal
+        type: text
+        label: "Mục đích hiện tại"
+        required: true
+    examples:
+      - inputs:
+          recipient: "Mr. Nam"
+          lastSentContext: "Đã gửi Proposal demo AI dự án X hôm thứ Ba tuần trước."
+          reason: "Chưa có phản hồi (Gentle nudge)"
+          goal: "Confirm họ đã xem chưa và chốt lịch demo"
+        output: |
+          Subject: Re: [Demo] Giải pháp AI giúp dự án X tiết kiệm 20% chi phí
+
+          Chào anh Nam,
+
+          Tôi viết email này để follow-up lại proposal tôi gửi anh tuần trước về giải pháp AI cho dự án X.
+
+          Tôi hiểu anh có thể đang bận rộn. Anh đã có thời gian xem qua tài liệu chưa ạ? Tôi rất sẵn lòng giải đáp nếu anh có bất kỳ câu hỏi nào.
+
+          Nếu vẫn thấy phù hợp, anh cho tôi xin lịch demo 15 phút để chúng ta trao đổi sâu hơn nhé.
+
+          Cảm ơn anh,
+          [Tên bạn]
+        context: "Follow-up khách hàng chưa phản hồi"
+    difficulty: "easy"
+    useCases:
+      - "Follow-up đối tác chưa phản hồi email/đề nghị"
+      - "Follow-up kết quả tuyển dụng/phỏng vấn"
+agentTemplate:
+  name: "Email Consultant Agent"
+  description: "Tư vấn cấu trúc email, tone of voice, soạn thảo email chuyên nghiệp"
+  systemPrompt: |
+    Bạn là Email Consultant. Nhiệm vụ: giúp người dùng soạn thảo email chuyên nghiệp, đúng mục đích, hiệu quả.
+    Focus: BLUF, CTA rõ ràng, Tone control, Concise.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "pho-pha-trien-viet-ke-rem-nguon"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: soan-thao-email-chuyen-nghiep
+---

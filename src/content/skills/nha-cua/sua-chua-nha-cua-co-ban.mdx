@@ -1,0 +1,138 @@
+---
+id: sua-chua-nha-cua-co-ban
+categoryId: nha-cua
+name: "Sửa chữa & Bảo trì nhà cửa cơ bản"
+description: "DIY cơ bản: Điện, Nước, Sơn, Kiểm tra định kỳ, Khi nào gọi chuyên gia, Toolkit thiết yếu"
+whenToUse:
+  - "Chai nước rò rỉ, Đèn chớp, Ống thoát tắc"
+  - "Muốn tự sửa các việc nhỏ, tiết kiệm chi phí"
+  - "Bảo trì định kỳ nhà cửa (6 tháng/năm)"
+difficulty: "beginner"
+estimatedTime: "Sửa vụn 15-60p, Bảo trì 2-4h/6 tháng"
+tags: ["diy", "home-repair", "maintenance", "plumbing", "electrical", "toolkit", "handyman"]
+prompts:
+  - id: prompt-diy-home-repair
+    name: "Hướng dẫn sửa chữa nhà cửa cơ bản (DIY)"
+    description: "Xử lý các sự cố thường gặp: Rò rỉ nước, Điện, Tắc nghẽn, Sơn tường, Kết mồ hôi"
+    template: |
+      Bạn là Handyman Expert. Hãy hướng dẫn sửa chữa:
+
+      **Vấn đề:**
+      {{problem}}
+
+      **Triệu chứng:**
+      {{symptoms}}
+
+      **Loại nhà/Thiết bị:**
+      {{propertyDetails}}
+
+      **Output:**
+      1. **Chẩn đoán**: Nguyên nhân có thể (Top 3)
+      2. **An toàn trước**: Điện/Nước/Gas - Tắt nguồn trước khi làm
+      3. **Công cụ cần**: Toolkit cơ bản + chuyên dụng
+      4. **Các bước sửa chữa** (Step-by-step, có hình ảnh mô tả)
+      5. **Kiểm tra sau sửa**: Test hoạt động, Signs of success
+      6. **Khi nào GỌI CHUYÊN GIA**: Red flags (Điện nóng, Nước chảy mạnh, Cấu trúc, Gas)
+      7. **Phòng ngừa**: Maintenance schedule cho vấn đề này
+
+      **Toolkit thiết yếu (Mua 1 lần dùng lâu năm):**
+      - Cờ lê (Phillips, Flathead, Precision)
+      - Kìm (Cộp, Kìm cắt dây, Kìm vặn ống)
+      - Chìa khóa (Allen hex, Cờ lê ốc vít, Khoan tay)
+      - Dây keo (Duct tape, Teflon tape, Electrical tape)
+      - Kéo cắt, Búa nhẹ, Cây đinh, Mực chơi
+      - Đèn pin đầu, Đa năng (Multimeter - cho điện)
+    variables:
+      - name: problem
+        type: text
+        label: "Vấn đề chính (Ví dụ: Chai nước rò rỉ, Đèn không sáng, Bồn cầu tắc)"
+        required: true
+      - name: symptoms
+        type: textarea
+        label: "Triệu chứng chi tiết (Khi nào xảy ra, Ở đâu, Có tiếng/khói/mùi gì không)"
+        required: true
+      - name: propertyDetails
+        type: textarea
+        label: "Loại nhà, Tuổi nhà, Hệ thống điện/nước (Cũ/Mới), Thiết bị liên quan"
+        required: true
+    examples:
+      - inputs:
+          problem: "Bồn cầu tắc (Không xả được nước, Nước dâng lên)"
+          symptoms: "Sau khi xả, nước dâng lên gần mép, chậm xóa, có tiếng gùgù. Không có vật thể rơi vào."
+          propertyDetails: "Căn hộ 10 năm, Hệ thống nước PVC, Bồn cầu siphon, Không có bơm hút"
+        output: |
+          # 🔧 Sửa Bồn Cầu Tắc (DIY)
+
+          ## 1. Chẩn đoán (Top 3 nguyên nhân)
+          1. **Tắc ở~Siphon (Còng nước)** - Tóc, Giấy, Chất béo 쌓積
+          2. **Tắc ở ống thoát chính** - Xây dựng bẩn, Rễ cây (nhà thấp tầng)
+          3. **Hệ thống thoát khí (Vent pipe) tắc** - Khí không thoát, hút ngược
+
+          ## 2. An toàn
+          - Đeo găng tay y tế, Kính bảo hộ
+          - Mở cửa sổ thông gió (Mùi khí metan)
+          - **Không** dùng chất tẩy mạnh (Sulfuric acid) - Hủy ống PVC, Nguy hiểm da/mắt
+
+          ## 3. Công cụ
+          - Xà bông bồn cầu (Flange plunger - có lưng nách)
+          - Dây thông ống (Drain snake / Auger 3-5m)
+          - Xô, Găng tay, Khăn lau, Giấm + Baking soda
+
+          ## 4. Các bước sửa chữa
+
+          ### Bước 1: Xà bông (90% cases fixed)
+          1. Nước trong bồn phải ngập đầu xà bông
+          2. Đặt xà bông kín miệng xả, Ép xuống nhẹ → Hút lên mạnh (Tạo áp suất âm)
+          3. Lặp 10-15 lần, Kiểm tra xả nước
+          4. Nếu xong → Xả vài lần nước nóng (50-60°C) rửa sạch
+
+          ### Bước 2: Giấm + Baking Soda (Dinh dưỡng ống)
+          1. Rót 1 cốc Baking soda vào miệng xả
+          2. Rót 1 cốc Giấm ăn (Sủi bọt bọt)
+          3. Đậy nắp, Đợi 30p-1h
+          4. Rót 2-3 lít nước sôi (Không quá 80°C tránh méo ống PVC)
+          5. Xả nước kiểm tra
+
+          ### Bước 3: Dây thông ống (Snake/Auger) - Nếu bước 1,2 thất bại
+          1. Tháo nắp miệng xả (Nếu có) hoặc tháo bồn cầu (phức tạp hơn)
+          2. Đẩy dây vào ống, Xoay tay cầm theo chiều kim đồng hồ
+          6. Khi cảm chướng ngại vật → Xoay nhẹ, Kéo ra
+          7. Xả nước kiểm tra
+
+          ## 5. Kiểm tra sau sửa
+          - Xả 3-4 lần liên tiếp → Nước xoáy nhanh, Không tiếng gùgù
+          - Rót xô nước vào → Xóa ngay lập tức
+          - Kiểm tra xung quanh gốc bồn → Không rò rỉ
+
+          ## 6. Khi nào GỌI CHUYÊN GIA (Red Flags)
+          - ❌ Xà bông + Snake thất bại sau 30p
+          - ❌ Nhiều thiết bị tắc cùng lúc (Bồn rửa, Bồn tắm, Bồn cầu) → Tắc ống chính
+          - ❌ Nước thải tràn ngược từ miệng xả khác
+          - ❌ Mùi hôi khó chịu lan tỏa (Hệ thống Septic tank đầy)
+          - ❌ Nhà cũ, Ống gang/xương → Dễ gãy khi snake
+
+          ## 7. Phòng ngừa (Maintenance)
+          - **Hàng tuần**: Rót 1 lít nước nóng (50-60°C) vào miệng xả
+          - **Hàng tháng**: 1/2 cốc Baking soda + 1/2 cốc Giấm → 30p → Nước nóng
+          - **6 tháng**: Kiểm tra nắp hụi bụi (Cleanout) nếu có
+          - **Không xả**: Giấy vệ sinh dày, Bông tăm, Tơ tóc, Chất béo nấu ăn, Chất tẩy mạnh
+        context: "Bồn cầu tắc phổ biến, DIY an toàn, tiết kiệm 300-500k gọi thợ"
+    difficulty: "easy"
+    useCases:
+      - "Sự cố nhà cửa thường gặp"
+      - "Tiết kiệm chi phí gọi thợ"
+agentTemplate:
+  name: "DIY Handyman Coach"
+  description: "Sửa chữa điện/nước cơ bản, Toolkit, Maintenance schedule, Khi nào gọi pro"
+  systemPrompt: |
+    Bạn là Handyman Coach. Safety first: Turn off power/water/gas. Know your limits. Call pro for: Gas, Structural, Main electrical panel, High voltage, Permit-required.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "to-chuc-nha-cua-khoan-khoai"
+  - "ke-hoach-tai-chinh-gia-dinh"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: sua-chua-nha-cua-co-ban
+---

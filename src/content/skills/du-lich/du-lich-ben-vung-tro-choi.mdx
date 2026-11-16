@@ -1,0 +1,132 @@
+---
+id: du-lich-ben-vung-tro-choi
+categoryId: du-lich
+name: "Du lịch bền vững & Trải nghiệm địa phương"
+description: "Slow travel, Homestay, Community-based tourism, Carbon footprint reduction, Cultural immersion, Responsible photography"
+whenToUse:
+  - "Muốn du lịch có ý nghĩa, không chỉ check-in"
+  - "Hỗ trợ cộng đồng địa phương, bảo vệ môi trường"
+  - "Trải nghiệm văn hóa sâu, kết nối con người"
+difficulty: "beginner"
+estimatedTime: "Research 1-2h, mindset shift lâu dài"
+tags: ["sustainable-travel", "slow-travel", "community-tourism", "cultural-immersion", "responsible-travel", "eco-tourism"]
+prompts:
+  - id: prompt-sustainable-travel-plan
+    name: "Kế hoạch du lịch bền vững"
+    description: "Chọn chỗ ở, di chuyển, hoạt động có tác động tích cực đến cộng đồng & môi trường"
+    template: |
+      Bạn là Sustainable Travel Advisor. Hãy thiết kế chuyến đi bền vững:
+
+      **Điểm đến:**
+      {{destination}}
+
+      **Thời gian & Ngân sách:**
+      {{durationBudget}}
+
+      **Giá trị ưu tiên:**
+      {{values}} (Môi trường / Cộng đồng / Văn hóa / Dynamic)
+
+      **Output:**
+      1. **Chỗ ở**: Homestay, Ecolodge, Community guesthouse, Certified green hotel (Green Key, EarthCheck, GSTC)
+      2. **Di chuyển**: Công cộng (Train, Bus, Ferry), Xe đạp/Đi bộ, Chia sẻ xe (BlaBlaCar), Bay thẳng (giảm takeoff/landing), Carbon offset
+      3. **Hoạt động**: Community-based tourism (CBT), Workshop thủ công, Nấu ăn cùng local, Volunteer (ngắn hạn, có kỹ năng), Wildlife ethical (Không cưỡi voi, không selfie động vật nuôi)
+      4. **Ăn uống**: Nhà hàng địa phương, Chợ, Farm-to-table, Ăn chay/giảm thịt, Mang hộp/ly tái sử dụng
+      5. **Mua sắm**: Hàng thủ công trực tiếp từ nghệ nhân, Tránh hàng giả/souvenir đại trà, Thanh toán tiền mặt cho small business
+      6. **Hành vi**: Trang phục phù hợp văn hóa, Hỏi trước khi chụp ảnh người, Không rác, Tiết kiệm nước/điện
+      7. **Carbon Footprint**: Tính toán (Carbonfootprint.com, MyClimate), Offset (Gold Standard, Verra), Giảm bay (Slow travel)
+      8. **Give Back**: Donate cho NGO địa phương, Review tích cực cho small business, Chia sẻ kinh nghiệm responsible
+    variables:
+      - name: destination
+        type: text
+        label: "Điểm đến"
+        required: true
+      - name: durationBudget
+        type: textarea
+        label: "Thời gian & Ngân sách"
+        required: true
+      - name: values
+        type: multiselect
+        label: "Giá trị ưu tiên"
+        options:
+          - "Môi trường (Giảm carbon, rác, bảo vệ thiên nhiên)"
+          - "Cộng đồng (Hỗ trợ thu nhập, việc làm địa phương)"
+          - "Văn hóa (Học hỏi, tôn trọng, bảo tồn di sản)"
+          - "Dynamic (Cân bằng tất cả)"
+        required: true
+        default: ["Môi trường (Giảm carbon, rác, bảo vệ thiên nhiên)", "Cộng đồng (Hỗ trợ thu nhập, việc làm địa phương)"]
+    examples:
+      - inputs:
+          destination: "Hà Giang Loop (4 ngày 3 đêm)"
+          durationBudget: "4 ngày, Budget Medium (2-3M VND/người)"
+          values: '["Môi trường (Giảm carbon, rác, bảo vệ thiên nhiên)", "Cộng đồng (Hỗ trợ thu nhập, việc làm địa phương)", "Văn hóa (Học hỏi, tôn trọng, bảo tồn di sản)"]'
+        output: |
+          # 🌿 Du Lịch Bền Vững: Hà Giang Loop 4N3Đ
+
+          ## 1. Chỗ ở: Homestay & Community Guesthouse
+          | Đêm | Chỗ ở | Loại | Tác động |
+          |-----|-------|------|----------|
+          | 1 | Homestay Mẹ Pí (Quản Bạ) | Dao family | Thu nhập trực tiếp cho gia đình, học văn hóa Dao |
+          | 2 | Lũng Cú Ecolodge (Đồng Văn) | Hmong community | Dự án CBT, đào tạo hướng dẫn viên địa phương |
+          | 3 | Homestay Cô Tâm (Mèo Vạc) | Tày family | Nấu ăn cùng, học thêu, đồng ruộng |
+
+          ## 2. Di chuyển: Xe khách + Xe máy thuê (Chia sẻ)
+          - **Đến Hà Giang**: Xe khách giường nằm (Hà Nội - Hà Giang, 6-7h, ~300k) - Carbon thấp hơn bay
+          - **Trong Loop**: Thuê xe máy 2 người/1 xe (Giảm 50% xe), Lái chậm, tận hưởng cảnh
+          - **Tùy chọn**: Xe ô tô 4 chỗ share (4 người/xe) nếu không lái được xe máy
+
+          ## 3. Hoạt động: Cultural Immersion
+          | Ngày | Hoạt động | Tác động cộng đồng |
+          |------|-----------|-------------------|
+          | 1 | Học thêu truyền thống Dao (2h, 200k) | Thu nhập cho nghệ nhân, bảo tồn kỹ thuật |
+          | 2 | Nấu ăn cùng gia đình Hmong (Thắng cố, Mèn mén) | Học văn hóa ẩm thực, thu nhập cho chủ homestay |
+          | 3 | Tham quan chợ Đồng Văn (Buổi sáng sớm) | Mua trực tiếp từ người dân tộc, hỗ trợ kinh tế |
+          | 4 | Trekking nhẹ Lũng Cú với hướng dẫn viên Hmong | Việc làm cho youth địa phương, chia sẻ kiến thức địa lý |
+
+          ## 4. Ăn uống & Mua sắm Responsible
+          - **Ăn**: 100% tại homestay/nhà hàng gia đình (Farm-to-table: rau tự trồng, heo gà tự nuôi)
+          - **Mua**: Mua trực tiếp thêu, vải, mùi, trà từ người làm (Không qua trung gian)
+          - **Mang theo**: Hộp inox, Ly giữ nhiệt, Túi vải, Khăn giấy tái sử dụng
+
+          ## 5. Hành vi Responsible
+          - **Trang phục**: Quần áo kín, lịch sự khi vào làng, chùa, nhà người dân
+          - **Chụp ảnh**: **Luôn hỏi xin phép** trước khi chụp người (Đặc biệt người già, trẻ em)
+          - **Rác**: Mang rác ra khỏi rừng/làng (Leave no trace), Không bao nilon dùng 1 lần
+          - **Nước/Điện**: Tắm nhanh, Tắt đèn/máy lạnh khi ra khỏi phòng
+
+          ## 6. Carbon Footprint & Offset
+          - **Xe khách HN-HG**: ~15kg CO2/người (vs Bay: ~80kg)
+          - **Xe máy Loop 4 ngày**: ~8kg CO2/người (2 người/xe)
+          - **Tổng**: ~23kg CO2/người
+          - **Offset**: MyClimate / Gold Standard (~$5-10) → Dự án năng lượng tái tạo Việt Nam
+
+          ## 7. Give Back
+          - **Review Google Maps/TripAdvisor** chi tiết cho homestay/nhà hàng nhỏ (Giúp SEO, thu hút khách)
+          - **Donate** 100-200k cho quỹ giáo dục/y tế làng (Hỏi chủ homestay uy tín)
+          - **Chia sẻ** bài viết/Story Instagram tag location, khuyến khích du lịch responsible
+
+          ## Checklist Trước Khi Đi
+          - [ ] Học 5-10 câu tiếng địa phương (Cảm ơn, Xin chào, Ngon quá)
+          - [ ] Mang quà nhỏ cho trẻ em làng (Bút, Vở, Kẹo - hỏi chủ homestay trước)
+          - [ ] Backup tiền mặt nhỏ (20k, 50k) cho mua sắm chợ
+          - [ ] Cài app offline maps (Maps.me, Organic Maps)
+          - [ ] Bảo hiểm du lịch cover xe máy, trekking
+        context: "Hà Giang Loop 4N3Đ, tập trung văn hóa & cộng đồng, budget medium"
+    difficulty: "intermediate"
+    useCases:
+      - "Du lịch có ý nghĩa, không chỉ check-in"
+      - "Hỗ trợ cộng đồng địa phương"
+agentTemplate:
+  name: "Sustainable Travel Advisor"
+  description: "Slow travel, Community-based tourism, Carbon reduction, Cultural respect, Ethical wildlife"
+  systemPrompt: |
+    Bạn là Sustainable Travel Advisor. Leave positive trace. Support local economy. Respect culture. Reduce carbon. Ethical wildlife only.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "ke-hoach-du-lich-thong-minh"
+  - "du-lich-tiet-kiem-ngan-sach"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: du-lich-ben-vung-tro-choi
+---

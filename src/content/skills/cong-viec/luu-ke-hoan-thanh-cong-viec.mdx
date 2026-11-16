@@ -1,0 +1,110 @@
+---
+id: luu-ke-hoan-thanh-cong-viec
+categoryId: cong-viec
+name: "Tóm tắt cuộc họp & Action Items"
+description: "Chuyển ghi chú họp thành bản tóm tắt, phân công việc cụ thể, thời hạn, người phụ trách"
+whenToUse:
+  - "Sau cuộc họp online/direct, cần gửi bản tóm tắt cho team"
+  - "Phân công việc sau họp (đầu ra rõ ràng, deadline, người phụ trách)"
+  - "Lưu trữ knowledge từ cuộc họp cho référence sau này"
+difficulty: "beginner"
+estimatedTime: "5-10 phút sau mỗi cuộc họp"
+tags: ["meeting-notes", "action-items", "communication", "team-collaboration"]
+prompts:
+  - id: prompt-meeting-summary
+    name: "Tóm tắt cuộc họp chuẩn 회의"
+    description: "Biến transcript/ghi chú thô thành bản tóm tắt có cấu trúc: key decisions, action items, next steps"
+    template: |
+      Bạn là một chuyên gia thanh tra & ghi chép cuộc họp. Dưới đây là ghi chú thô của cuộc họp:
+
+      {{meetingTranscriptOrNotes}}
+
+      **Thông tin bổ sung:**
+      - Thời gian họp: {{meetingTime}}
+      - Người tham dự: {{attendees}}
+      - Mục đích họp: {{purpose}}
+
+      **Yêu cầu đầu ra (Markdown):**
+      1. **Thông tin chung**: Ngày, giờ, người tham dự, mục đích
+      2. **Tóm tắt chính (TL;DR)**: 3-5 bullet points nêu bát nội dung cốt lõi
+      3. **Quyết định chính**: Những gì đã đồng ý, lý do ngắn gọn
+      4. **Action Items**: Bảng cột (Người phụ trách, Công việc, Deadline, Ưu tiên)
+      5. **Next Steps / Follow-up**: Các bước tiếp theo, cuộc họp tiếp theo nếu có
+      6. **Rủi ro/Lo ngại**: Các vấn đề vẫn chưa giải quyết (nếu có)
+
+      Output: Chuyên nghiệp, súc tích, dễ copy gửi email/Slack/Notion.
+    variables:
+      - name: meetingTranscriptOrNotes
+        type: textarea
+        label: "Ghi chú thô/Transcript cuộc họp"
+        required: true
+      - name: meetingTime
+        type: text
+        label: "Thời gian họp (ví dụ: 14:00 - 15:30, Thứ Ba 19/11/2024)"
+        required: true
+      - name: attendees
+        type: textarea
+        label: "Danh sách người tham dự"
+        required: true
+      - name: purpose
+        type: text
+        label: "Mục đích họp"
+        required: true
+    examples:
+      - inputs:
+          meetingTranscriptOrNotes: "Anh Minh mở cuộc họp nhấn mạnh mục tiêu Q4 là tăng 20% doanh thu. Chị Lan trình bày kết quả 3 tháng đầu chỉ đạt 12%, lý do là pipeline chưa đủ. Anh Đạt đề xuất mở rộng kênh TikTok Ads. Chị Hằng lo ngại ngân sách quảng cáo đã hết. Kết luận: Chị Lan cung cấp báo cáo chi tiết pipeline đến thứ Năm. Anh Đạt thiết kế chiến dịch TikTok để review thứ Sáu. Chị Hằng reallocate 20% ngân sách từ Facebook sang TikTok."
+          meetingTime: "10:00 - 11:00, Thứ Hai 18/11/2024"
+          attendees: "Minh (Lead), Lan (Marketing), Đạt (Ads), Hằng (Finance)"
+          purpose: "Review KPI Q4 và điều chỉnh chiến dịch quảng cáo"
+        output: |
+          # 📋 Bản Tóm Tắt Cuộc Họp
+
+          ## Thông tin chung
+          - **Ngày/Giờ:** Thứ Hai 18/11/2024, 10:00 - 11:00
+          - **Người tham dự:** Minh (Lead), Lan (Marketing), Đạt (Ads), Hằng (Finance)
+          - **Mục đích:** Review KPI Q4 và điều chỉnh chiến dịch quảng cáo
+
+          ## TL;DR
+          - Mục tiêu Q4: tăng 20% doanh thu (hiện chỉ đạt 12% sau 3 tháng đầu)
+          - Vấn đề: Pipeline chưa đủ để đạt goal
+          - Quyết định: Mở rộng kênh TikTok Ads và reallocate ngân sách từ Facebook
+
+          ## Quyết định chính
+          | Nội dung | Người nêu | Lý do |
+          |----------|-----------|-------|
+          | Mở rộng kênh TikTok Ads | Đạt (Ads) | Tiềm năng tiếp cận khách hàng mới |
+          | Reallocate 20% ngân sách từ FB sang TikTok | Hằng (Finance) | Tối ưu nguồn lực |
+
+          ## Action Items
+          | Người phụ trách | Công việc | Deadline | Ưu tiên |
+          |-----------------|-----------|----------|---------|
+          | Lan | Báo cáo chi tiết pipeline Q4 | Thứ Năm 21/11 | Cao |
+          | Đạt | Thiết kế chiến dịch TikTok để review | Thứ Sáu 22/11 | Cao |
+          | Hằng | Điều chỉnh ngân sách vào hệ thống | Thứ Sáu 22/11 | Trung bình |
+
+          ## Next Steps
+          - Review chiến dịch TikTok vào buổi Thứ Sáng 25/11
+          - Theo dõi độ tăng trưởng pipeline sau khi vận hành TikTok
+
+          ## Rủi ro/Lo ngại
+          - Ngân sách quảng cáo có thể bị hạn chế nếu TikTok không đòi hỏi cao.
+        context: "Bản tóm tắt họp’équipe marketing, chuyên nghiệp, có thể gửi qua Slack/Email"
+    difficulty: "easy"
+    useCases:
+      - "Gửi bản tóm tắt họp cho team sau cuộc họp"
+      - "Lưu trữ conocimiento của nhóm làm việc"
+agentTemplate:
+  name: "Meeting Assistant Agent"
+  description: "Tự động tóm tắt cuộc họp, trích xuất action items, ghi chú kết quả họp"
+  systemPrompt: |
+    Bạn là Meeting Assistant. Nhiệm vụ: biến ghi chú thô thành bản tóm tắt chuyên nghiệp với action items rõ ràng.
+  model: "gpt-3.5-turbo"
+  temperature: 0.3
+relatedSkillIds:
+  - "soan-thao-email-chuyen-nghiep"
+  - "quan-ly-thoi-gian-pomodoro"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: luu-ke-hoan-thanh-cong-viec
+---

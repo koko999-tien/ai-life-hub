@@ -1,0 +1,100 @@
+---
+id: sang-tao-kich-ban-video-ngan
+categoryId: viet-lach
+name: "Sáng tạo kịch bản Video ngắn (TikTok/Reels/Shorts)"
+description: "Quy trình viết kịch bản 15-60s giữ chân người xem: Hook mạnh → Story/Value → Call to action"
+whenToUse:
+  - "Làm nội dung video ngắn cho TikTok, Facebook Reels, YouTube Shorts"
+  - "Xây dựng kênh thương hiệu cá nhân hoặc bán hàng qua video"
+  - "Cần tăng giữ chân người xem (retention rate) trong 3 giây đầu"
+difficulty: "beginner"
+estimatedTime: "10-15 phút/kịch bản"
+tags: ["video-script", "tiktok", "reels", "content-creation", "storytelling"]
+prompts:
+  - id: prompt-short-video-script
+    name: "Kịch bản Video ngắn 30-45 giây"
+    description: "Soạn kịch bản chi tiết bao gồm thoại, hành động visual, văn bản hiển thị trên màn hình"
+    template: |
+      Bạn là TikTok/Reels Content Director. Hãy viết kịch bản video ngắn cho:
+
+      **Thông tin:**
+      - Chủ đề/Ý tưởng: {{topic}}
+      - Thời lượng: {{duration}} (15s / 30s / 60s)
+      - Mục tiêu: {{goal}} (xây kênh / bán hàng / giải trí / giáo dục)
+      - Phong cách: {{style}} (hài hước / nghiêm túc / drama / vlog fast-paced)
+
+      **Cấu trúc 3 phần:**
+      1. **HOOK (0-3s)**: Khung hình + Lời thoại + Text on screen gây sốc/tò mò
+      2. **BODY (3-25s)**: Trao giá trị / Câu chuyện / Giải pháp ngắn gọn, dồn dập
+      3. **CTA (25-30s)**: Lời kêu gọi follow/comment/mua hàng tự nhiên
+
+      Output: Bảng kịch bản 3 cột (Thời gian | Lời thoại/Âm thanh | Hình ảnh/Visual & Text Screen).
+    variables:
+      - name: topic
+        type: text
+        label: "Chủ đề video"
+        required: true
+      - name: duration
+        type: select
+        label: "Thời lượng dự kiến"
+        options:
+          - "15 giây (Siêu ngắn, viral)"
+          - "30 giây (Chuẩn TikTok/Reels)"
+          - "60 giây (Chuyên sâu/Bán hàng)"
+        required: true
+        default: "30 giây (Chuẩn TikTok/Reels)"
+      - name: goal
+        type: select
+        label: "Mục tiêu"
+        options:
+          - "Xây kênh/Tăng follow"
+          - "Bán hàng/Chuyển đổi"
+          - "Giáo dục/Chia sẻ kiến thức"
+        required: true
+      - name: style
+        type: select
+        label: "Phong cách"
+        options:
+          - "Nhanh, dồn dập (Fast-paced Vlog)"
+          - "Trực diện, nói thẳng (Talking head)"
+          - "Tình huống/Drama ngắn"
+        required: true
+        default: "Nhanh, dồn dập (Fast-paced Vlog)"
+    examples:
+      - inputs:
+          topic: "3 mẹo dùng ChatGPT mà 90% người dùng không biết"
+          duration: "30 giây (Chuẩn TikTok/Reels)"
+          goal: "Giáo dục/Chia sẻ kiến thức"
+          style: "Nhanh, dồn dập (Fast-paced Vlog)"
+        output: |
+          # 🎬 Kịch Bản Video TikTok (30 Giây)
+
+          **Chủ đề:** 3 mẹo ChatGPT cực đỉnh
+
+          | Thời gian | Lời thoại / Âm thanh | Visual / Text Screen |
+          |-----------|----------------------|----------------------|
+          | **0 - 3s (Hook)** | "Dừng lướt lại! Nếu bạn vẫn dùng ChatGPT theo cách này thì đang lãng phí 90% sức mạnh của nó!" | *Cảnh quay tay đập bàn hoặc chỉ vào màn hình laptop. Text to: "NGỪNG DÙNG CHATGPT KIỂU NÀY!"* |
+          | **3 - 10s (Mẹo 1)** | "Mẹo 1: Đừng bảo nó 'viết bài'. Hãy giao vai: 'Bạn là chuyên gia Marketing 10 năm kinh nghiệm'." | *Quay nhanh thao tác gõ prompt tạo persona. Text: "1. Giao vai chuyên gia"* |
+          | **10 - 18s (Mẹo 2)** | "Mẹo 2: Dùng lệnh 'Giải thích như cho đứa trẻ 5 tuổi' khi gặp khái niệm khó." | *Chèn meme hoặc icon em bé ngơ ngác. Text: "2. Feynman Technique"* |
+          | **18 - 25s (Mẹo 3)** | "Mẹo 3: Yêu cầu nó tạo bảng so sánh thay vì viết văn dài lê thê." | *Show màn hình ChatGPT xuất ra bảng đẹp mắt. Text: "3. Xuất dạng BẢNG"* |
+          | **25 - 30s (CTA)** | "Lưu video này lại kẻo quên và follow kênh để giỏi AI mỗi ngày nhé!" | *Chỉ tay xuống nút Follow. Text: "LƯU LẠI + FOLLOW KHỎI MẤT"* |
+        context: "Kịch bản TikTok 30s chuẩn chỉnh cho kênh kiến thức"
+    difficulty: "easy"
+    useCases:
+      - "Sáng tạo nội dung hàng ngày cho KOC/TikToker"
+      - "Làm video quảng cáo sản phẩm TikTok Shop"
+agentTemplate:
+  name: "Short Video Scriptwriter Agent"
+  description: "Chuyên gia biên kịch video ngắn TikTok, Reels, Shorts"
+  systemPrompt: |
+    Bạn là biên kịch video ngắn hàng đầu. Bạn hiểu rõ thuật toán giữ chân người xem của TikTok, Reels và Shorts.
+  model: "gpt-4"
+  temperature: 0.8
+relatedSkillIds:
+  - "phong-cach-viet-copywriting-aida"
+  - "soan-thao-headline-thu-hut"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: sang-tao-kich-ban-video-ngan
+---

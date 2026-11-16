@@ -1,0 +1,200 @@
+---
+id: quan-ly-man-hinh-con
+categoryId: giao-duc-con
+name: "Quản lý màn hình & Thiết bị số cho con"
+description: "Screen time guidelines (AAP/WHO), App curation, Digital citizenship, Tech contracts, Alternatives"
+whenToUse:
+  - "Con nghiện màn hình, khóc khi cất điện thoại"
+  - "Muốn thiết lập quy tắc screen time hợp lý"
+  - "Chọn app/video giáo dục chất lượng cho con"
+difficulty: "beginner"
+estimatedTime: "Thiết lập quy tắc 1h, enforce hàng ngày"
+tags: ["screen-time", "digital-parenting", "app-curation", "digital-citizenship", "tech-contract", "media-literacy"]
+prompts:
+  - id: prompt-screen-time-plan
+    name: "Kế hoạch Screen Time theo độ tuổi (AAP/WHO)"
+    description: "Thiết lập giới hạn, Chọn nội dung chất lượng, Tech contract, Alternative activities"
+    template: |
+      Bạn là Pediatric Digital Health Expert. Hãy tạo Screen Time Plan cho:
+
+      **Thông tin con:**
+      - Tuổi: {{childAge}}
+      - Thiết bị: {{devices}} (TV / Tablet / Phone / Console / PC)
+      - Screen time hiện tại: {{currentUsage}} (Giờ/ngày, Loại nội dung)
+      - Vấn đề: {{issues}} (Nghiện / Khóc khi cất / Mắt kém / Ngủ kém / Hành vi hung hăng)
+      - Mục tiêu cha mẹ: {{goals}}
+
+      **Output (Theo khuyến cáo AAP/WHO):**
+      1. **Giới hạn khuyến cáo theo độ tuổi**:
+         - < 18 tháng: 0 màn hình (Trừ video call)
+         - 18-24 tháng: Chỉ nội dung chất lượng cao, cùng xem (Co-viewing)
+         - 2-5 tuổi: ≤ 1 giờ/ngày, Nội dung chất lượng, Cùng xem
+         - 6-12 tuổi: ≤ 2 giờ/ngày (Recreational), Ưu tiên sleep, physical activity, homework
+         - 13-18 tuổi: Không giới hạn cứng, Nhưng có boundary (No screen 1h trước ngủ, No device phòng ngủ)
+      2. **Tech Contract (Hợp đồng gia đình)** - Ký cùng con (Tuổi 4+):
+         - Khi nào được dùng / Không được dùng (Bữa ăn, Trước ngủ, Xe hơi, Phòng ngủ)
+         - Nội dung được / Không được (App list trắng/đen)
+         - Hậu quả khi vi phạm (Cảnh báo → Mất quyền 1 ngày → Tuần)
+         - Quy tắc cha mẹ cũng tuân thủ (Modeling)
+      3. **Content Curation (Chọn lọc nội dung)**:
+         - App giáo dục chất lượng (Khan Academy Kids, Duolingo ABC, ScratchJr, Epic, PBS Kids)
+         - YouTube Kids: Tắt search, Approve channels, Timer
+         - Common Sense Media reviews
+      4. **Alternative Activities (Hoạt động thay thế)**: Danh sách 20+ ideas theo độ tuổi
+      5. **Transition Strategies (Chuyển đổi không khóc)**:
+         - Cảnh báo 10p/5p/1p (Visual timer)
+         - "Một lần nữa xong là cất" (First/Then board)
+         - Ritual cất thiết bị (Đổ vào "Bệ đỗ", Sạc, Đọc sách)
+      6. **Monitoring & Parental Controls**: iOS Screen Time, Google Family Link, Qustodio, Bark
+      7. **Red Flags cần chuyên gia**: Nghiêm trọng ảnh hưởng ngủ, học tập, xã hội, tâm lý
+    variables:
+      - name: childAge
+        type: text
+        label: "Tuổi con"
+        required: true
+      - name: devices
+        type: multiselect
+        label: "Thiết bị con truy cập"
+        options:
+          - "TV / Smart TV"
+          - "Tablet (iPad / Android)"
+          - "Điện thoại (Phone)"
+          - "Game Console (Switch / PS5 / Xbox)"
+          - "Laptop / PC"
+        required: true
+      - name: currentUsage
+        type: textarea
+        label: "Màn hình hiện tại (Giờ/ngày, App/YouTube/Game gì)"
+        required: true
+      - name: issues
+        type: multiselect
+        label: "Vấn đề gặp phải"
+        options:
+          - "Nghiện, khóc khi cất"
+          - "Mắt kém / Cận thị"
+          - "Ngủ kém / Khó ngủ"
+          - "Hành vi hung hăng / Quậy phá"
+          - "Học tập kém / Trì hoãn"
+          - "Ít vận động / Thừa cân"
+        required: true
+      - name: goals
+        type: textarea
+        label: "Mục tiêu cha mẹ (Ví dụ: Giảm từ 4h -> 1h, Không màn hình bữa ăn/ngủ)"
+        required: true
+    examples:
+      - inputs:
+          childAge: "5 tuổi"
+          devices: '["TV / Smart TV", "Tablet (iPad / Android)"]'
+          currentUsage: "3-4h/ngày (YouTube Kids: Ryan's World, Cartoon; Game: Roblox, Minecraft). Ăn饭 phải xem, Ngủ phải xem."
+          issues: '["Nghiện, khóc khi cất", "Ngủ kém / Khó ngủ", "Ít vận động / Thừa cân"]'
+          goals: "Giảm xuống 1h/ngày (AAP), Không màn hình khi ăn/ngủ, Con tự cất được"
+        output: |
+          # 📱 Screen Time Plan: Con 5 Tuổi, Giảm 4h → 1h
+
+          ## 1. Giới Hạn Khuyến Cáo (AAP/WHO)
+          - **Tuổi 5**: ≤ **1 giờ/ngày** recreational screen time
+          - **Ưu tiên**: Ngủ 10-13h, Vận động 1h+, Học tập/Chơi tự do
+          - **Cấm tuyệt đối**: Màn hình 1h trước ngủ, Trong phòng ngủ, Khi ăn uống
+
+          ## 2. Tech Contract (Hợp Đồng Gia Đình) - Ký Cùng Con
+          ```
+          HỢP ĐỒNG MÀN HÌNH CỦA GIA ĐÌNH [TÊN CON]
+
+          1. THỜI GIAN: Tối đa 1 giờ/ngày (Thứ 2-6), 1.5h (Thứ 7-CN)
+          2. KHUNG GIỜ: 15:00-16:00 (Sau ngủ trưa) HOẶC 17:00-18:00 (Trước ăn tối)
+          3. NỘI DUNG ĐƯỢC: App trắng (Khan Academy Kids, Duolingo ABC, PBS Kids, ScratchJr, Epic)
+          4. NỘI DUNG CẤM: YouTube không kiểm soát, Game暴力, Social media, Quà tặng trong game
+          5. CẤM TUYỆT ĐỐI: Ăn uống, Phòng ngủ, 1h trước ngủ, Xe hơi (ngắn), WC
+          6. CHUYỂN ĐỔI: Cảnh báo 10p/5p/1p (Visual timer). "Một lượt nữa xong cất."
+          7. HẬU QUẢ VI PHẠM:
+             - Lần 1: Cảnh báo nhắc nhở
+             - Lần 2: Mất quyền màn hình hôm sau
+             - Lần 3: Mất quyền 3 ngày + Làm việc nhà phụ
+          8. CHA MẸ CŨNG TUÂN THỦ: Không phone khi ăn/chơi với con, Không scroll trước ngủ
+
+          Ký tên: [Con] _______  [Ba] _______  [Mẹ] _______  Ngày: _______
+          ```
+
+          ## 3. Content Curation (App Trắng - Whitelist)
+          | App | Tuổi | Loại | Chi phí | Tại sao tốt |
+          |-----|------|------|---------|-------------|
+          | **Khan Academy Kids** | 2-8 | Toán, Đọc, SEL | Free | Research-based, No ads, Adaptive |
+          | **Duolingo ABC** | 3-6 | Phonics, Đọc | Free | Systematic phonics, Gamified |
+          | **PBS Kids Games** | 2-8 | STEM, SEL | Free | Research-based, Characters quen |
+          | **ScratchJr** | 5-7 | Coding | Free | Creative coding, MIT |
+          | **Epic!** | 2-12 | Đọc sách | Free (School) / $80/năm | 40k+ sách, Read-to-me |
+          | **Kokoro Kids** | 2-6 | Toán, Ngôn ngữ | Free trial | Adaptive, No ads |
+          | **Thinkrolls** | 3-8 | Logic, Physics | $3-5 | Puzzles quality, No ads |
+
+          **YouTube Kids Setup:**
+          - Tắt "Allow searching"
+          - "Approved content only" → Chọn kênh: Khan Academy Kids, PBS Kids, National Geographic Kids, SciShow Kids, Art for Kids Hub
+          - Timer: 30p/phiên, Auto-lock
+
+          ## 4. Alternative Activities (20+ Ideas - In "Boredom Jar")
+          **Indoor (Trong nhà):**
+          1. Lego/Block challenge (Xây tháp cao nhất)
+          2. Vẽ/Tô màu (Prompt: "Vẽ con quái 3 đầu")
+          3. Nấu ăn giả vờ / Thật (Bánh mì kẹp, Trái cây)
+          4. Đọc sách / Nghe truyện audio (Audible, Spotify podcast trẻ em)
+          5. Xếp hình / Puzzle / Board game (Snail's Pace Race, Outfoxed)
+          6. Khoan khoa học đơn giản (Baking soda + Giấm, Màu nước)
+          7. Yoga/Cosmic Kids Yoga (YouTube - nhưng xem cùng)
+          8. Làm bùn/Bánh mì nặn (Playdough tự làm: Bột, Nước, Dầu, Màu)
+          9. Ẩn nấp / Xây lều chăn
+          10. Viết thư / Làm thiệp cho ông bà/bạn
+
+          **Outdoor (Ngoài trời):**
+          11. Công trình cát / Nước
+          12. Tìm kho báu (Nature scavenger hunt: Lá, Đá, Hoa, Sâu)
+          13. Chạy nhảy / Bóng / Xe đạp / Xe lăn
+          14. Quan sát thiên nhiên (Kính lúp, Sổ ghi chép nature journal)
+          15. Vẽ tiza đường / Bóng bay
+
+          ## 5. Transition Strategies (Chuyển Đổi Không Khóc)
+          | Chiến thuật | Cách làm |
+          |------------|----------|
+          | **Visual Timer** | Time Timer / App "Visual Timer" - Con thấy thời gian trôi |
+          | **First/Then Board** | "First: iPad 20p → Then: Lego" (Hình ảnh) |
+          | **Countdown Ritual** | "Còn 10p → 5p → 1p → Bye bye iPad, Hello [Activity]" |
+          | **Docking Station** | "Bệ đỗ" chuyên biệt: Sạc + Đọc sách + Đồ chơi nhỏ |
+          | **Special Transition Object** | Gấu bông "Bảo vệ iPad" / Chìa khóa thần kỳ |
+
+          ## 6. Parental Controls Setup
+          - **iOS**: Settings → Screen Time → Child Account → Downtime, App Limits, Content Restrictions
+          - **Android**: Google Family Link → Daily limit, Bedtime, App approval
+          - **Router**: OpenWrt/Asus/UniFi → Schedule internet off cho MAC address của iPad
+
+          ## 7. Implementation Roadmap (4 Tuần)
+          | Tuần | Focus | Action |
+          |------|-------|--------|
+          | 1 | **Baseline & Contract** | Track usage hiện tại, Ký contract, Setup parental control |
+          | 2 | **Reduce 50%** | 2h → 1.5h, Thêm alternative activities, Visual timer |
+          | 3 | **Target 1h** | 1h/ngày, Strict no-screen zones, Transition rituals |
+          | 4 | **Maintain** | Review, Adjust, Praise effort, Family screen-free day (CN) |
+
+          ## Red Flags (Cần chuyên gia)
+          - Con không thể chức năng nếu không có màn hình
+          - Giấc ngủ bị rối loạn nghiêm trọng
+          - Hành vi hung hăng khi cất thiết bị kéo dài > 2 tuần
+          - Mắt: Cận thị tiến triển nhanh, Đau mắt, Nhìn mờ
+        context: "Con 5 tuổi, 3-4h/ngày, ăn/ngủ phải xem, mục tiêu 1h/ngày AAP"
+    difficulty: "medium"
+    useCases:
+      - "Con nghiện màn hình, khóc khi cất"
+      - "Cha mẹ muốn thiết lập ranh giới số lành mạnh"
+agentTemplate:
+  name: "Digital Parenting Coach"
+  description: "Screen time guidelines, App curation, Digital citizenship, Tech contracts, Alternatives"
+  systemPrompt: |
+    Bạn là Digital Parenting Coach. AAP/WHO guidelines. Co-viewing > Solo. Content > Time. Modeling > Controlling. Connection before correction.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "phuong-phap-hoc-tap-cho-con"
+  - "giao-duc-con-tinh-khoe"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: quan-ly-man-hinh-con
+---

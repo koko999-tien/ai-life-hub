@@ -1,0 +1,155 @@
+---
+id: du-lich-tiet-kiem-ngan-sach
+categoryId: du-lich
+name: "Du lịch tiết kiệm & Budget hack"
+description: "Vé máy bay rẻ, Ở miễn phí/giá tốt, Ăn uống local, Di chuyển công cộng, Travel hacking (Miles/Points)"
+whenToUse:
+  - "Du lịch với ngân sách thấp (Sinh viên, Fresh graduate)"
+  - "Muốn đi nhiều nơi hơn với cùng tiền"
+  - "Travel hacking: Credit card miles, Airline status"
+difficulty: "intermediate"
+estimatedTime: "Research 2-3h/trip, setup miles game lâu dài"
+tags: ["budget-travel", "travel-hacking", "miles-points", "credit-card-rewards", "hostel", "slow-travel"]
+prompts:
+  - id: prompt-travel-hacking-miles
+    name: "Travel Hacking: Miles, Points, Credit Card"
+    description: "Tối ưu miles/points từ thẻ tín dụng, airline, hotel loyalty để đi miễn phí/giảm mạnh chi phí"
+    template: |
+      Bạn là Travel Hacking Expert. Hãy thiết kế chiến lược miles/points cho tôi:
+
+      **Hồ sơ:**
+      - Quốc gia cư trú: {{country}} (VN / US / SG / Other)
+      - Chi tiêu thẻ/tháng: {{monthlySpend}}
+      - Mục tiêu du lịch: {{travelGoals}} (Domestic / Southeast Asia / International / Business class)
+      - Thẻ hiện có: {{currentCards}}
+      - Credit score: {{creditScore}} (Good / Excellent / Building)
+
+      **Output:**
+      1. **Chiến lược Earn**: Thẻ nào cho spending category nào (Dining, Travel, Grocery, Online, Everything else)
+      2. **Sign-up Bonus (SUB)**: Thẻ nào đang có offer tốt, minimum spend khả thi
+      3. **Burn Strategy**: Chuyển điểm sang airline/hotel partner nào giá trị cao nhất (cpp - cents per point)
+      4. **Airline/Hotel Status**: Đường nhanh đạt status (Segment run, Mattress run, Credit card status)
+      5. **Tools & Resources**: AwardHacker, Point.me, ExpertFlyer, AwardWallet
+      6. **Rủi ro & Compliance**: Annual fee, Churning rules (Chase 5/24, Amex once per lifetime), Credit impact
+    variables:
+      - name: country
+        type: select
+        label: "Quốc gia cư trú"
+        options:
+          - "Việt Nam"
+          - "Singapore"
+          - "Hoa Kỳ"
+          - "Khác"
+        required: true
+        default: "Việt Nam"
+      - name: monthlySpend
+        type: number
+        label: "Chi tiêu thẻ trung bình/tháng (VND/USD)"
+        required: true
+      - name: travelGoals
+        type: multiselect
+        label: "Mục tiêu du lịch"
+        options:
+          - "Domestic (Trong nước)"
+          - "Southeast Asia (Đông Nam Á)"
+          - "International (Châu Á, Châu Âu, Mỹ)"
+          - "Business/First class experience"
+        required: true
+      - name: currentCards
+        type: textarea
+        label: "Thẻ tín dụng đang có (Ngân hàng, Loại thẻ, Điểm/đồng)"
+        required: true
+      - name: creditScore
+        type: select
+        label: "Credit score / Profile"
+        options:
+          - "Excellent (Dễ duyệt thẻ cao cấp)"
+          - "Good"
+          - "Building (Đang xây dựng)"
+        required: true
+    examples:
+      - inputs:
+          country: "Việt Nam"
+          monthlySpend: 30000000
+          travelGoals: '["Southeast Asia (Đông Nam Á)", "International (Châu Á, Châu Âu, Mỹ)"]'
+          currentCards: "VPBank Visa Infinite (Miles), HSBC Premier (Reward points), Techcombank Visa Platinum"
+          creditScore: "Good"
+        output: |
+          # 💳 Travel Hacking VN: VPBank/HSBC/Techcombank Ecosystem
+
+          ## 1. Earn Strategy (VN Market Context)
+          *Lưu ý: VN không có ecosystem transfer points linh hoạt như US (Chase UR, Amex MR). Points thườngredeem cố định hoặc chuyển sang airline partner hạn chế.*
+
+          | Category | Thẻ khuyến nghị | Earn Rate | Note |
+          |----------|-----------------|-----------|------|
+          | **Ăn uống/F&B** | VPBank Visa Infinite | 3-5 miles/10k VND | Cap tháng ~50k miles |
+          | **Du lịch/Travel** | HSBC Premier / Visa Infinite | 3-5 miles/10k VND | Book vé máy bay, khách sạn |
+          | **Online Shopping** | Techcombank / Sacombank | 2-3x points | Shopee, Lazada, Grab |
+          | **Everything else** | Thẻ Cashback (Timo, VPBank Cashback) | 1-2% cashback | Đơn giản, không lo expire |
+
+          ## 2. Sign-up Bonus (SUB) - VN Market
+          - VPBank Visa Infinite: Thường 20k-50k miles (Min spend 10-20M/3 tháng)
+          - HSBC Premier: 50k-100k Reward Points (Min spend 20-30M)
+          - **Tip**: Đăng ký qua link referral (bạn bè/nhóm FB) để thêm bonus
+          - **Churning**: VN ít strict hơn US, nhưng vẫn cần gap 6-12 tháng giữa các lần đăng ký cùng ngân hàng
+
+          ## 3. Burn Strategy (Redeem Points/Miles)
+          | Chương trình | Partner chuyển điểm | Giá trị tốt nhất (cpp) | Note |
+          |--------------|-------------------|------------------------|------|
+          | VPBank Miles | Vietnam Airlines (Lotusmiles) | 1.5-2 cpp | Business class VN > Economy |
+          | HSBC Points | Vietnam Airlines / Cathay / KrisFlyer | 1-1.5 cpp | Chuyển 1:1 hoặc 2:1 |
+          | Techcombank Points | Vietnam Airlines / Đổi voucher | 0.8-1 cpp | Voucher dining/travel giá trị thấp hơn |
+
+          **Best value**: Redeem **Business class Vietnam Airlines** (US/VN routes) → 2-3 cpp.
+          **Tránh**: Đổi voucher mua sắm, giảm giá Grab/Food (thường < 0.5 cpp).
+
+          ## 4. Status Strategy
+          - **Vietnam Airlines Lotusmiles**: Silver (20k miles/năm) → Priority check-in, baggage +10kg, lounge access
+          - **Credit card status**: VPBank Infinite / HSBC Premier → Lounge Priority Pass (2-4 lượt/năm)
+          - **Mattress run**: Không phổ biến VN, tập trung vào miles earning
+
+          ## 5. Tools VN
+          - **AwardHacker**: Check route, airline, cost miles
+          - **Point.me** (Paid): Search award availability cross airline
+          - **AwardWallet**: Track điểm hết hạn, balance across programs
+          - **Facebook Groups**: "Du lịch giá rẻ", "Miles & Points VN", "VPBank/HSBC/Techcombank Community"
+
+          ## 6. Rủi ro & Compliance
+          | Rủi ro | Mitigation |
+          |--------|------------|
+          | Annual fee cao (1-5M/năm) | Downgrade sau năm 1 (giữ history), hoặc retain offer (miles bonus) |
+          | Points expire (12-24 tháng) | AwardWallet remind, redeem trước hạn |
+          | Churning bị từ chối | Gap 6-12 tháng, không mở quá nhiều thẻ cùng lúc |
+          | Credit score giảm | Không mở > 3 thẻ/6 tháng, giữ utilization < 30% |
+          | Điểm mất giá (Devaluation) | Burn earn, không hoard points lâu năm |
+
+          ## Roadmap 12 Tháng
+          | Tháng | Action |
+          |-------|--------|
+          | 1-2 | Review thẻ hiện tại, tối ưu spend category |
+          | 3 | Apply VPBank Visa Infinite (nếu chưa có) - SUB |
+          | 4-6 | Concentrate spend trên VPBank (Dining/Travel) |
+          | 7 | Apply HSBC Premier (nếu eligible) - SUB |
+          | 8-10 | Concentrate spend HSBC (Travel/Online) |
+          | 11 | Check miles balance, plan chuyến đi redeem |
+          | 12 | Redeem Business class VN cho chuyến năm sau |
+        context: "VN resident, spend 30M/tháng, muốn du lịch SEA & International, Business class"
+    difficulty: "advanced"
+    useCases:
+      - "Người đi du lịch thường xuyên muốn tối ưu chi phí"
+      - "Credit card enthusiast"
+agentTemplate:
+  name: "Budget Travel Hacker"
+  description: "Miles/Points, Credit card rewards, Budget accommodation, Transport hacks, Slow travel"
+  systemPrompt: |
+    Bạn là Budget Travel Hacker. Earn & Burn strategically. Points are perishable currency. Focus on high cpp redemptions. Compliance first.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "ke-hoach-du-lich-thong-minh"
+  - "quan-ly-ngan-sach-ca-nhan"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: du-lich-tiet-kiem-ngan-sach
+---

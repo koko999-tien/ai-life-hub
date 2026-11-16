@@ -1,0 +1,142 @@
+---
+id: toi-uu-thue-ca-nhan
+categoryId: tai-chinh
+name: "Tối ưu thuế thu nhập cá nhân"
+description: "Tận dụng giảm trừ gia cảnh, quyên góp từ thiện, đầu tư có ưu đãi thuế, khai thuế đúng luật"
+whenToUse:
+  - "Khai thuế TNCN hàng năm (tháng 3-4)"
+  - "Tối ưu thuế cho người có thu nhập cao"
+  - "Lập kế hoạch thuế đa năm"
+difficulty: "intermediate"
+estimatedTime: "1-2 giờ/năm"
+tags: ["tax", "tncn", "tax-optimization", "vietnam-tax", "deductions"]
+prompts:
+  - id: prompt-tax-optimization-vn
+    name: "Tối ưu TNCN theo luật Việt Nam"
+    description: "Tính thuế, áp dụng giảm trừ, đề xuất tối ưu hợp pháp"
+    template: |
+      Bạn là Tax Advisor Việt Nam. Hãy tối ưu TNCN cho tôi:
+
+      **Thông tin cá nhân:**
+      - Thu nhập chịu thuế năm: {{taxableIncome}}
+      - Người phụ thuộc: {{dependents}} (người)
+      - Quyên góp từ thiện: {{charityDonations}}
+      - Bảo hiểm nhân thọ/đồng hành: {{insurancePremium}}
+      - Đóng góp quỹ hưu trí tự nguyện: {{voluntaryPension}}
+      - Chi phí khác (điều kiện kinh doanh...): {{otherDeductions}}
+
+      **Output:**
+      1. Tính thuế TNCN theo thang lũy tiến (Luật TNCN 2007 + sửa đổi)
+      2. Tổng giảm trừ gia cảnh + người phụ thuộc
+      3. Các khoản trừ khác hợp pháp (bảo hiểm, từ thiện, quỹ hưu trí)
+      4. Thuế phải nộp cuối cùng
+      5. Đề xuất tối ưu: Nên tăng bảo hiểm/quỹ hưu trí/quyên góp bao nhiêu?
+      6. Checklist giấy tờ cần chuẩn bị khi khai thuế
+    variables:
+      - name: taxableIncome
+        type: number
+        label: "Thu nhập chịu thuế năm (VND)"
+        required: true
+      - name: dependents
+        type: number
+        label: "Số người phụ thuộc (theo luật: không có thu nhập, cùng sống)"
+        required: true
+        default: 0
+      - name: charityDonations
+        type: number
+        label: "Quyên góp từ thiện năm (VND, tối đa 10% thu nhập chịu thuế)"
+        required: true
+        default: 0
+      - name: insurancePremium
+        type: number
+        label: "Phí bảo hiểm nhân thọ/đồng hành năm (VND, tối đa 24M/năm)"
+        required: true
+        default: 0
+      - name: voluntaryPension
+        type: number
+        label: "Đóng góp quỹ hưu trí tự nguyện năm (VND)"
+        required: true
+        default: 0
+      - name: otherDeductions
+        type: number
+        label: "Các khoản trừ khác (VND)"
+        required: true
+        default: 0
+    examples:
+      - inputs:
+          taxableIncome: 600000000
+          dependents: 2
+          charityDonations: 20000000
+          insurancePremium: 24000000
+          voluntaryPension: 12000000
+          otherDeductions: 0
+        output: |
+          # 📊 Tối Ưu TNCN: Thu nhập 600M/năm, 2 người phụ thuộc
+
+          ## 1. Giảm trừ gia cảnh (Cố định 2024)
+          - Bản thân: 11M/tháng = 132M/năm
+          - Mỗi người phụ thuộc: 4.4M/tháng = 52.8M/năm × 2 = 105.6M/năm
+          - **Tổng giảm trừ gia cảnh: 237.6M/năm**
+
+          ## 2. Các khoản trừ khác (Hợp pháp)
+          - Bảo hiểm nhân thọ: 24M (tối đa 24M) ✅
+          - Quỹ hưu trí tự nguyện: 12M ✅
+          - Quyên góp từ thiện: 20M (tối đa 10% thu nhập chịu thuế = 60M) ✅
+          - **Tổng trừ khác: 56M/năm**
+
+          ## 3. Thu nhập chịu thuế sau giảm trừ
+          ```
+          Thu nhập ban đầu: 600,000,000
+          - Giảm trừ gia cảnh: (237,600,000)
+          - Trừ khác: (56,000,000)
+          = Thu nhập chịu thuế: 306,400,000
+          ```
+
+          ## 4. Tính thuế theo thang lũy tiến (2024)
+          | Bậc | Thu nhập chịu thuế | Thuế suất | Thuế |
+          |-----|-------------------|-----------|------|
+          | 1 | 60,000,000 | 5% | 3,000,000 |
+          | 2 | 60,000,000 | 10% | 6,000,000 |
+          | 3 | 60,000,000 | 15% | 9,000,000 |
+          | 4 | 60,000,000 | 20% | 12,000,000 |
+          | 5 | 66,400,000 | 25% | 16,600,000 |
+          | **Tổng** | **306,400,000** | | **46,600,000** |
+
+          ## 5. Kết quả
+          - **Thuế TNCN phải nộp: 46.6M VND**
+          - Effective tax rate: 46.6M / 600M = **7.77%**
+
+          ## 6. Đề xuất tối ưu thêm
+          | Hành động | Chi phí thêm | Thuế tiết kiệm | ROI |
+          |-----------|-------------|----------------|-----|
+          | Tăng quyên góp từ thiện lên 60M (max) | +40M | 10M (25% bracket) | 25% |
+          | Tăng quỹ hưu trí tự nguyện | Theo khả năng | 25% marginal rate | 25% |
+          | Mua bảo hiểm nhân thọ thêm (nếu < 24M) | +X | 25% của X | 25% |
+
+          ## 7. Checklist khai thuế (Tháng 3-4 hàng năm)
+          - [ ] Bảng kê thu nhập (từ đơn vị trả lương)
+          - [ ] Giấy khai sinh/CCCD người phụ thuộc
+          - [ ] Hợp đồng bảo hiểm + biên lai đóng phí
+          - [ ] Giấy nhận quyên góp từ thiện (có dấu đỏ cơ quan nhận)
+          - [ ] Xác nhận đóng quỹ hưu trí tự nguyện
+          - [ ] Ký tên, nộp qua HTKK hoặc đơn vị
+        context: "Tối ưu thuế cho người thu nhập 600M, 2 người phụ thuộc, đã có bảo hiểm/quỹ hưu trí"
+    difficulty: "intermediate"
+    useCases:
+      - "Khai thuế TNCN hàng năm"
+      - "Lập kế hoạch thuế cuối năm"
+agentTemplate:
+  name: "Tax Optimizer Agent"
+  description: "Tính toán, tối ưu thuế TNCN Việt Nam, khai thuế đúng luật"
+  systemPrompt: |
+    Bạn là Tax Advisor chuyên luật thuế Việt Nam. Chỉ tư vấn tối ưu hợp pháp (tax avoidance), không tax evasion. Luật tham chiếu: Luật TNCN 2007, Luật sửa đổi 2012, 2014, Nghị định 65/2013, Thông tư 111/2013.
+  model: "gpt-4"
+  temperature: 0.3
+relatedSkillIds:
+  - "ke-hoach-tai-chinh-dai-han"
+  - "quan-ly-ngan-sach-ca-nhan"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: toi-uu-thue-ca-nhan
+---

@@ -1,0 +1,114 @@
+---
+id: giao-tiep-hieu-qua-gia-dinh
+categoryId: gia-dinh
+name: "Giao tiếp hiệu quả trong gia đình"
+description: "Non-violent Communication (NVC), Active listening, Conflict resolution, Family meetings"
+whenToUse:
+  - "Cãi vã thường xuyên với vợ/chồng/con cái"
+  - "Muốn cải thiện mối quan hệ, hiểu nhau sâu hơn"
+  - "Giải quyết xung đột mà không làm tổn thương"
+difficulty: "beginner"
+estimatedTime: "Thực hành hàng ngày, family meeting 30p/tuần"
+tags: ["communication", "nvc", "conflict-resolution", "active-listening", "family-meeting"]
+prompts:
+  - id: prompt-nvc-framework
+    name: "Áp dụng Non-Violent Communication (NVC)"
+    description: "Chuyển diễn đạt chỉ trích/đòi hỏi thành quan sát - cảm xúc - nhu cầu - yêu cầu cụ thể"
+    template: |
+      Bạn là NVC Facilitator. Hãy chuyển đổi lời nói sau sang ngôn ngữ NVC:
+
+      **Lời nói gốc (thường dùng khi nóng giận):**
+      {{originalStatement}}
+
+      **Bối cảnh:**
+      {{context}}
+
+      **NVC 4 bước:**
+      1. **Observation (Quan sát)**: Mô tả sự việc cụ thể, không đánh giá, không khái quát ("Luôn", "Không bao giờ")
+      2. **Feeling (Cảm xúc)**: Tên cảm xúc thực sự (buồn, lo lắng, thất vọng, giận) - không phải suy nghĩ ("Tôi cảm thấy bị bỏ rơi" = suy nghĩ)
+      3. **Need (Nhu cầu)**: Nhu cầu phổ quát chưa được đáp ứng (An toàn, Tôn trọng, Kết nối, Tự chủ, Hiểu được)
+      4. **Request (Yêu cầu)**: Cụ thể, khả thi, tích cực (làm gì) - không phải yêu cầu không làm gì
+
+      **Output:**
+      - Phiên bản NVC đầy đủ
+      - Phiên bản ngắn gọn (dành cho conversation thực tế)
+      - Lưu ý: NVC không phải kỹ thuật thao túng, là tâm thức kết nối
+    variables:
+      - name: originalStatement
+        type: textarea
+        label: "Lời nói gốc (ví dụ: 'Mày luân luân về nhà muộn, chẳng quan tâm gia đình gì cả!')"
+        required: true
+      - name: context
+        type: textarea
+        label: "Bối cảnh (ai nói với ai, tình huống gì)"
+        required: true
+      - name: relationship
+        type: select
+        label: "Mối quan hệ"
+        options:
+          - "Vợ/Chồng"
+          - "Cha/Mẹ - Con"
+          - "Anh/Chị em"
+          - "Cha/Mẹ già"
+        required: true
+        default: "Vợ/Chồng"
+    examples:
+      - inputs:
+          originalStatement: "Mày luân luân về nhà muộn, chẳng quan tâm gia đình gì cả!"
+          context: "Vợ nói với chồng, thứ 6 tối, chồng về 9h tối (hẹn 7h), con 3 tuổi đã ngủ"
+          relationship: "Vợ/Chồng"
+        output: |
+          # 💬 NVC Transformation: "Luôn về muộn"
+
+          ## Phân tích lời nói gốc
+          - **Judgment/Diagnosis**: "Luôn luân", "Chẳng quan tâm" → Khái quát, chỉ trích nhân cách
+          - **Effect**: Chồng phòng vệ, phản công, hoặc im lặng → Mất kết nối
+
+          ## NVC 4 Bước
+
+          ### 1. Observation (Quan sát)
+          > "Hôm nay thứ 6, anh về nhà lúc 9h tối. Chúng ta hẹn nhau 7h. Con đã ngủ từ 8h30."
+
+          ### 2. Feeling (Cảm xúc)
+          > "Tôi cảm thấy **buồn**, **đơn độc**, và **lo lắng**."
+
+          ### 3. Need (Nhu cầu)
+          > "Tôi cần **kết nối** với anh, cần **sự tin cậy** vào lời hẹn, cần **hỗ trợ** chăm con buổi tối."
+
+          ### 4. Request (Yêu cầu)
+          > "Anh có sẵn sàng **thông báo cho tôi trước 6h** nếu anh về muộn hơn 30p không? Và **cuối tuần này anh có thể dậy sớm chơi với con 30p** để bù thời gian hôm nay không?"
+
+          ## Phiên bản ngắn gọn (Real conversation)
+          > *"Anh ơi, hôm nay anh về 9h trong khi hẹn 7h. Con đã ngủ mất rồi. Tôi buồn và lo lắng vì muốn có thời gian cùng anh và con. Anh có thể nhắn cho tôi biết sớm hơn nếu bị kẹt không? Cuối tuần anh dậy sớm bù cho con nhé?"*
+
+          ## So sánh
+          | Phong cách | Lời nói | Hiệu quả dự kiến |
+          |------------|---------|------------------|
+          | **Gốc (Violent)** | "Luôn về muộn, chẳng quan tâm!" | Phòng vệ, cãi nhau, cách ly |
+          | **NVC** | Quan sát + Cảm xúc + Nhu cầu + Yêu cầu | Kết nối, hợp tác, giải quyết vấn đề |
+
+          ## ⚠️ Lưu ý quan trọng
+          - NVC **không phải** công cụ để khiến người khác làm theo ý mình
+          - Yêu cầu (Request) ≠ Đòi hỏi (Demand): Người kia có quyền nói "Không"
+          - Nếu bị từ chối → Quay lại bước 2-3: Tìm hiểu cảm xúc/nhu cầu của người kia
+        context: "Vợ-chồng, xung đột về giờ về nhà, con nhỏ"
+    difficulty: "medium"
+    useCases:
+      - "Cãi vã vợ chồng lặp lại"
+      - "Cha mẹ nói con không nghe"
+      - "Xung đột gia đình lớn"
+agentTemplate:
+  name: "Family Communication Coach"
+  description: "NVC, Active listening, Conflict resolution, Family meeting facilitation"
+  systemPrompt: |
+    Bạn là Family Communication Coach. NVC (Rosenberg): Observation → Feeling → Need → Request. Focus: Connection before correction. Empathy first.
+  model: "gpt-4"
+  temperature: 0.6
+relatedSkillIds:
+  - "giao-duc-con-tinh-khoe"
+  - "ke-hoach-tai-chinh-gia-dinh"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: giao-tiep-hieu-qua-gia-dinh
+---

@@ -1,0 +1,214 @@
+---
+id: system-design-basics
+categoryId: lap-trinh
+name: "System Design Cơ bản"
+description: "Thiết kế hệ thống có khả năng mở rộng: Load balancing, Caching, Database scaling, Message queue, CAP theorem"
+whenToUse:
+  - "Chuẩn bị phỏng vấn System Design (Big Tech)"
+  - "Thiết kế architecture cho dự án mới"
+  - "Tối ưu hóa hệ thống đang chạy (scale up/out)"
+difficulty: "advanced"
+estimatedTime: "2-4 giờ thiết kế / ôn tập 1 topic"
+tags: ["system-design", "architecture", "scalability", "distributed-systems", "interview-prep"]
+prompts:
+  - id: prompt-system-design-interview
+    name: "Thiết kế hệ thống theo format phỏng vấn"
+    description: "Dàn kiến trúc hệ thống cho bài toán phỏng vấn: Requirements → API → Data model → High-level → Deep dive"
+    template: |
+      Bạn là Principal Engineer. Hãy thiết kế hệ thống: {{systemName}}.
+
+      **Yêu cầu chức năng (Functional):**
+      {{functionalReqs}}
+
+      **Yêu cầu phi chức năng (Non-functional):**
+      - QPS (Requests/sec): {{qps}}
+      - Latency: {{latency}}
+      - Availability: {{availability}}
+      - Data consistency: {{consistency}}
+      - Scale: {{scale}}
+
+      **Format System Design Interview (45 phút):**
+      1. **Clarify Requirements (5p)**: Hỏi rõ scope, constraints, out of scope
+      2. **Back-of-envelope Estimation (5p)**: Tính QPS, storage, bandwidth, memory
+      3. **API Design (5p)**: REST/gRPC endpoints, request/response schema
+      4. **Data Model (5p)**: Schema DB, quan hệ, indexing strategy
+      5. **High-level Architecture (10p)**: Components, data flow, protocols
+      6. **Deep Dive (10p)**: 2-3 topic sâu (Cache strategy / Sharding / Consensus / Rate limiting)
+      7. **Bottlenecks & Trade-offs (5p)**: Single points of failure, CAP trade-offs
+
+      Output: Kiến trúc chi tiết dạng markdown + diagram mermaid.js.
+    variables:
+      - name: systemName
+        type: text
+        label: "Tên hệ thống (ví dụ: URL Shortener, Chat App, E-commerce)"
+        required: true
+      - name: functionalReqs
+        type: textarea
+        label: "Yêu cầu chức năng chính"
+        required: true
+      - name: qps
+        type: number
+        label: "QPS dự kiến (Requests per second)"
+        required: true
+        default: 10000
+      - name: latency
+        type: text
+        label: "Latency yêu cầu (ví dụ: p99 < 200ms)"
+        required: true
+        default: "p99 < 200ms"
+      - name: availability
+        type: text
+        label: "Availability (ví dụ: 99.99%)"
+        required: true
+        default: "99.99%"
+      - name: consistency
+        type: select
+        label: "Mức độ consistency"
+        options:
+          - "Strong consistency (ACID)"
+          - "Eventual consistency (BASE)"
+        required: true
+        default: "Strong consistency (ACID)"
+      - name: scale
+        type: text
+        label: "Quy mô dữ liệu (users, data size)"
+        required: true
+        default: "100M users, 10TB data"
+    examples:
+      - inputs:
+          systemName: "URL Shortener (như bit.ly)"
+          functionalReqs: "1. Rút gọn URL dài thành short link\n2. Redirect short link → URL gốc\n3. Analytics: click count, referrer, geo\n4. Custom alias (tùy chọn)\n5. Expiration (tùy chọn)"
+          qps: 10000
+          latency: "p99 < 100ms"
+          availability: "99.9%"
+          consistency: "Eventual consistency (BASE)"
+          scale: "1B URLs, 100M DAU"
+        output: |
+          # 🏗️ System Design: URL Shortener
+
+          ## 1. Clarify Requirements
+          - **In scope**: Shorten URL, Redirect, Analytics, Custom alias, Expiration
+          - **Out of scope**: User auth (assume anonymous), Dashboard UI, Malware detection
+          - **Assumptions**: Read-heavy (redirect 100:1 write), URL length <= 2048 chars
+
+          ## 2. Back-of-envelope
+          - **Write QPS**: 10K QPS * (1/100) = 100 writes/sec
+          - **Read QPS**: 10K QPS
+          - **Storage**: 1B URLs * (50 bytes key + 200 bytes value + overhead) ≈ 300GB
+          - **Bandwidth**: 10K QPS * 500 bytes ≈ 5 MB/s in, 50 MB/s out
+          - **Memory (Cache)**: Hot URLs (20% = 200M) * 300 bytes ≈ 60GB → cần cluster Redis
+
+          ## 3. API Design
+          ```
+          POST /api/v1/shorten
+          Body: { "longUrl": "string", "customAlias?: string", "expiresAt?: timestamp" }
+          Response: { "shortUrl": "https://shr.t/abc123", "expiresAt": "..." }
+
+          GET /{shortCode}
+          Response: 301 Redirect to longUrl + increment analytics counter
+
+          GET /api/v1/analytics/{shortCode}
+          Response: { "clicks": 1234, "referrers": {...}, "countries": {...} }
+          ```
+
+          ## 4. Data Model
+          **PostgreSQL (Primary - write path):**
+          ```sql
+          CREATE TABLE urls (
+            id BIGSERIAL PRIMARY KEY,
+            short_code VARCHAR(20) UNIQUE NOT NULL,  -- base62 encoded
+            long_url TEXT NOT NULL,
+            custom_alias VARCHAR(50) UNIQUE,
+            created_at TIMESTAMP DEFAULT NOW(),
+            expires_at TIMESTAMP,
+            click_count BIGINT DEFAULT 0,
+            user_id BIGINT  -- nullable cho anonymous
+          );
+          CREATE INDEX idx_short_code ON urls(short_code);
+          CREATE INDEX idx_custom_alias ON urls(custom_alias);
+          CREATE INDEX idx_expires_at ON urls(expires_at) WHERE expires_at IS NOT NULL;
+          ```
+
+          **Redis (Cache - read path):**
+          - Key: `url:{short_code}` → Value: `{long_url, expires_at}`
+          - TTL: 24h (hoặc expires_at - now)
+          - Analytics: `analytics:{short_code}` → Hash {clicks, referrers, countries}
+
+          ## 5. High-level Architecture
+          ```mermaid
+          graph LR
+            Client[Client] --> LB[Load Balancer]
+            LB --> API[API Servers<br/>Stateless]
+            API --> Cache[(Redis Cluster<br/>Read Cache)]
+            API --> DB[(PostgreSQL<br/>Primary + Replicas)]
+            API --> MQ[Message Queue<br/>Analytics Events]
+            MQ --> Worker[Analytics Workers]
+            Worker --> OLAP[(ClickHouse<br/>Analytics DB)]
+            Cache -.->|Cache Miss| DB
+            DB -.->|Replication| Replica[(Read Replicas)]
+          ```
+
+          **Flow Redirect (Read Path):**
+          1. Client GET `/abc123` → Load Balancer
+          2. API Server check Redis `url:abc123`
+          3. **Hit**: Return 301 Redirect + async increment analytics via MQ
+          4. **Miss**: Query PostgreSQL → Populate Redis → Return 301
+          5. **Not found**: 404
+
+          **Flow Shorten (Write Path):**
+          1. Client POST `/shorten` → API
+          2. Validate URL, generate short_code (base62 of snowflake ID)
+          3. Insert PostgreSQL (transaction)
+          4. Invalidate/Update Redis cache
+          5. Return short URL
+
+          ## 6. Deep Dive: Cache Strategy & Sharding
+
+          ### Cache Strategy (Read-heavy optimization)
+          - **Write-through**: Write DB → Update Redis (strong consistency)
+          - **Cache-aside**: API quản lý (flexible, but race condition risk)
+          - **Chosen**: Cache-aside + **Probabilistic early expiration** (random TTL ±10%) tránh thundering herd
+
+          ### Sharding (Scale write path)
+          - **Shard Key**: `short_code` (hash-based)
+          - **Shards**: 16 shards PostgreSQL (mỗi shard ~20GB)
+          - **Routing**: API hash `short_code` % 16 → shard ID
+          - **Cross-shard query**: Không cần (analytics dùng ClickHouse riêng)
+
+          ### ID Generation (Unique short codes)
+          - **Snowflake ID**: 64-bit (timestamp + worker ID + sequence)
+          - **Base62 encode**: 64-bit → ~11 chars (a-z, A-Z, 0-9)
+          - **Collision handling**: Retry với sequence mới
+
+          ## 7. Bottlenecks & Trade-offs
+          | Vấn đề | Giải pháp / Trade-off |
+          |--------|----------------------|
+          | Single point: LB | Multi-AZ LB (AWS ALB / Cloudflare) |
+          | DB Write bottleneck | Sharding + Async analytics via MQ |
+          | Cache consistency | Eventual (analytics delay acceptable) |
+          | Custom alias collision | Unique constraint + retry logic |
+          | Hot key (viral URL) | Local cache trên API server + Redis Cluster |
+          | Analytics scale | Tách biệt sang ClickHouse (OLAP) |
+
+          ---
+          **Key Takeaways:** Read-heavy workload → Cache aggressively. Write path đơn giản → Shard by key. Analytics tách biệt OLAP.
+        context: "Classic system design interview question: URL Shortener"
+    difficulty: "advanced"
+    useCases:
+      - "Chuẩn bị phỏng vấn System Design FAANG"
+      - "Thiết kế architecture cho dự án thực tế"
+agentTemplate:
+  name: "System Architect Agent"
+  description: "Tư vấn thiết kế hệ thống phân tán, scalability, database design, caching strategy"
+  systemPrompt: |
+    Bạn là System Architect. Thiết kế hệ thống có khả năng mở rộng, tin cậy, hiệu năng cao. Luôn cân nhắc trade-offs.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "clean-code-refactor"
+  - "git-workflow-collaboration"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: system-design-basics
+---

@@ -1,0 +1,101 @@
+---
+id: design-critique-feedback
+categoryId: thiet-ke
+name: "Design Critique & Giving Feedback"
+description: "Kỹ năng review thiết kế, cho nhận xét xây dựng: Framework critique, Actionable feedback, Receiving feedback"
+whenToUse:
+  - "Design review hàng tuần với team"
+  - "Mentor junior designer"
+  - "Stakeholder review cần feedback rõ ràng"
+difficulty: "beginner"
+estimatedTime: "15-30 phút / session"
+tags: ["design-critique", "feedback", "design-review", "mentoring", "communication"]
+prompts:
+  - id: prompt-design-critique-framework
+    name: "Khung nhận xét thiết kế (I like / I wish / What if)"
+    description: "Cấu trúc feedback xây dựng, không cá nhân, tập trung vào user & business goals"
+    template: |
+      Bạn là Design Lead. Hãy cho feedback cho thiết kế: {{designDescription}}.
+
+      **Mục tiêu thiết kế:**
+      {{designGoals}}
+
+      **Người dùng & Context:**
+      {{userContext}}
+
+      **Framework Feedback (I Like / I Wish / What If):**
+      1. **I Like (Điểm mạnh)**: Cái gì đang tốt, giải quyết được vấn đề gì
+      2. **I Wish (Mong muốn cải thiện)**: Cái gì chưa tốt, tại sao (gắn với heuristic/principle)
+      3. **What If (Gợi ý thử nghiệm)**: Ý tưởng thử nghiệm, không bắt buộc phải làm
+
+      **Yêu cầu:**
+      - Không dùng "Tôi thích/không thích" (subjective)
+      - Gắn feedback vào: User need, Business goal, Usability principle, Accessibility
+      - Ưu tiên: Critical > High > Medium > Low
+      - Mời designer trả lời/counter-argument
+
+      Output: Feedback document có cấu trúc.
+    variables:
+      - name: designDescription
+        type: textarea
+        label: "Mô tả thiết kế (hoặc link Figma)"
+        required: true
+      - name: designGoals
+        type: textarea
+        label: "Mục tiêu thiết kế (business + user)"
+        required: true
+      - name: userContext
+        type: textarea
+        label: "Người dùng, context sử dụng"
+        required: true
+    examples:
+      - inputs:
+          designDescription: "Màn hình Dashboard tài chính: Header (Balance total), 4 Quick Action cards, Chart chi tiêu 7 ngày, List giao dịch gần đây (5 items), Bottom nav"
+          designGoals: "User nhìn nhanh số dư, thực hiện hành động thường dùng, theo dõi xu hướng chi tiêu"
+          userContext: "Dân văn phòng 25-40 tuổi, check app 2-3 lần/ngày, muốn nhanh, chính xác"
+        output: |
+          # 💬 Design Critique: Financial Dashboard
+
+          ## I Like ✅
+          1. **Hierarchy rõ ràng**: Balance total toップ, dễ thấy nhất → Giải quyết "nhìn nhanh số dư"
+          2. **Quick Actions**: 4 card ở vị trí prime (thumb zone) → Hành động nhanh (Nap, Chuyển, Quét mã, Lịch sử)
+          3. **Chart 7 ngày**: Sparkline đơn giản, không quá chi tiết → Đủ để thấy trend
+
+          ## I Wish 🔧
+          | # | Feedback | Principle/Heuristic | Priority |
+          |---|----------|---------------------|----------|
+          | 1 | Balance amount font-size quá nhỏ trên mobile (24px), khó đọc ở ánh sáng mạnh | Accessibility (WCAG AA), Visual Hierarchy | **Critical** |
+          | 2 | Chart không có label giá trị, user không biết chính xác số tiền | Recognition over recall (Heuristic #6) | **High** |
+          | 3 | Giao dịch gần đây chỉ 5 items, không có "Xem tất cả" link | User control & freedom (Heuristic #3) | **Medium** |
+          | 4 | Quick Action "Lịch sử" trùng với Bottom Nav "Lịch sử" | Consistency (Heuristic #4) | **Low** |
+
+          ## What If 💡
+          1. **What if** Balance card có pull-to-refresh animation nhỏ (delightful)?
+          2. **What if** Chart có toggle "Tuần/Tháng/Năm" thay vì fix 7 ngày?
+          3. **What if** Empty state cho "Chưa có giao dịch" có illustration + CTA "Tạo giao dịch đầu tiên"?
+
+          ## Action Items cho Designer
+          - [ ] Tăng Balance font-size ≥ 32px, font-weight 700
+          - [ ] Thêm tooltip/label cho chart data points
+          - [ ] Thêm link "Xem tất cả" dưới list giao dịch
+          - [ ] Review Quick Actions: gộp/bỏ "Lịch sử" trùng lặp
+        context: "Critique màn hình dashboard tài chính mobile"
+    difficulty: "easy"
+    useCases:
+      - "Design review session hàng tuần"
+      - "Mentor junior designer"
+agentTemplate:
+  name: "Design Critique Facilitator"
+  description: "Hướng dẫn quy trình design critique, framework feedback, actionable outcomes"
+  systemPrompt: |
+    Bạn là Design Critique Facilitator. Tạo môi trường an toàn, feedback dựa trên evidence, outcome actionable.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "ui-ux-fundamentals"
+  - "prototyping-figma"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: design-critique-feedback
+---

@@ -1,0 +1,131 @@
+---
+id: prototyping-figma
+categoryId: thiet-ke
+name: "Prototyping & Figma Advanced"
+description: "Tạo prototype tương tác cao: Auto layout, Variants, Interactive components, Smart animate, Handoff dev"
+whenToUse:
+  - "Thiết kế flow phức tạp (onboarding, checkout, dashboard)"
+  - "Usability testing với prototype clickable"
+  - "Handoff cho dev: specs, assets, redlines"
+difficulty: "intermediate"
+estimatedTime: "1-4 giờ / flow"
+tags: ["figma", "prototyping", "auto-layout", "variants", "handoff", "design-to-dev"]
+prompts:
+  - id: prompt-figma-prototype-flow
+    name: "Thiết kế Prototype flow hoàn chỉnh"
+    description: "Tạo prototype Figma cho user flow: Screen designs, Interactive components, Flow connections"
+    template: |
+      Bạn là Senior Product Designer. Hãy tạo kế hoạch prototype Figma cho flow: {{flowName}}.
+
+      **Flow Description:**
+      {{flowDescription}}
+
+      **Screens cần thiết kế:**
+      {{screenList}}
+
+      **Interactions cần thiết:**
+      {{interactions}}
+
+      **Yêu cầu Figma file structure:**
+      1. **Pages**: Cover, Design System, Flows, Components, Archive
+      2. **Auto Layout**: Tất cả frames/components dùng Auto Layout
+      3. **Variants**: Button states, Input states, Card variants
+      4. **Interactive Components**: Toggle, Dropdown, Tabs, Carousel
+      5. **Prototype Connections**: Smart Animate, Overlay, Scroll behavior
+      6. **Annotations**: Redlines, Specs, Assets export (SVG/PNG/WebP)
+      7. **Dev Handoff**: Inspect mode ready, CSS variables mapping
+
+      Output: Checklist Figma file setup + Component inventory + Prototype flow map.
+    variables:
+      - name: flowName
+        type: text
+        label: "Tên flow (ví dụ: User Onboarding, Checkout, Dashboard Setup)"
+        required: true
+      - name: flowDescription
+        type: textarea
+        label: "Mô tả flow chi tiết (bước 1→2→3...)"
+        required: true
+      - name: screenList
+        type: textarea
+        label: "Danh sách màn hình trong flow"
+        required: true
+      - name: interactions
+        type: textarea
+        label: "Tương tác phức tạp cần prototype"
+        required: true
+    examples:
+      - inputs:
+          flowName: "User Onboarding (3 bước)"
+          flowDescription: "B1: Welcome + Value prop → B2: Permission requests (Notifications, Location) → B3: Personalization (Chọn topics) → B4: Home dashboard"
+          screenList: "Welcome Screen, Permission Screen, Topic Selection, Home Dashboard (empty state)"
+          interactions: "Swipe carousel welcome, Toggle permissions, Multi-select topics chips, Empty state CTA"
+        output: |
+          # 📱 Figma Prototype Plan: User Onboarding
+
+          ## File Structure
+          ```
+          📁 FinTrack Design File
+          ├── 📄 Cover (Thumbnail + Info)
+          ├── 📄 Design System (Tokens, Components)
+          ├── 📄 Flows
+          │   └── Onboarding Flow (Prototype frames)
+          ├── 📄 Components (Button, Input, Chip, Card, Modal)
+          └── 📄 Archive
+          ```
+
+          ## Component Inventory (Variants)
+          | Component | Variants | Properties |
+          |-----------|----------|------------|
+          | Button | Primary/Secondary/Ghost/Danger, Size (sm/md/lg), State (default/hover/active/disabled/loading) | 4×3×5 = 60 variants |
+          | Input | Type (text/email/password), State (default/focus/error/disabled), Size (sm/md) | 3×4×2 = 24 variants |
+          | Chip (Topic) | State (default/selected/disabled), Size (sm/md) | 3×2 = 6 variants |
+          | Card | Variant (elevated/outlined/filled), Padding (sm/md/lg) | 3×3 = 9 variants |
+
+          ## Interactive Components
+          - **Permission Toggle**: Interactive component với 2 variants (granted/denied), transition Smart Animate 200ms
+          - **Topic Chips**: Multi-select behavior (component set + prototype interaction)
+          - **Carousel Welcome**: Auto-layout frame + horizontal scroll + page indicator
+
+          ## Prototype Connections
+          ```
+          Welcome Screen (Frame 1)
+            → Click "Bắt đầu" → Permission Screen (Smart Animate, 300ms)
+          
+          Permission Screen (Frame 2)
+            → Click "Cho phép" (Toggle) → State change (Instant)
+            → Click "Tiếp theo" → Topic Selection (Smart Animate, 300ms)
+          
+          Topic Selection (Frame 3)
+            → Click chips → Selected state (Instant)
+            → Click "Hoàn tất" → Home Dashboard (Smart Animate, 300ms)
+          
+          Home Dashboard (Frame 4)
+            → Empty state CTA "Tạo giao dịch đầu tiên" → Navigate to Create Transaction
+          ```
+
+          ## Annotations & Handoff
+          - **Redlines**: Spacing 16px giữa sections, 24px padding screen edges
+          - **Typography**: Heading 24px/600, Body 16px/400, Caption 12px/400
+          - **Colors**: Mapped to Design Tokens (semantic names)
+          - **Assets**: Export SVG cho icons, PNG 2x/3x cho illustrations
+          - **CSS Variables**: `--color-primary: #2563EB`, `--spacing-4: 16px`
+        context: "Prototype onboarding 4 màn hình, interactive components"
+    difficulty: "intermediate"
+    useCases:
+      - "Thiết kế prototype cho usability testing"
+      - "Handoff chi tiết cho frontend dev team"
+agentTemplate:
+  name: "Figma Prototyper Agent"
+  description: "Tạo prototype Figma nâng cao, component library, dev handoff"
+  systemPrompt: |
+    Bạn là Figma Expert. Tạo prototype production-ready: Auto Layout, Variants, Interactive Components, Design Tokens sync.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "design-system-tokens"
+  - "ui-ux-fundamentals"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: prototyping-figma
+---

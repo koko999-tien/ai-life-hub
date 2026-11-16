@@ -1,0 +1,131 @@
+---
+id: git-workflow-collaboration
+categoryId: lap-trinh
+name: "Git Workflow & Collaboration"
+description: "Quy trình Git team: Branching strategy (GitFlow/GitHub Flow), Code Review, Conflict giải quyết, CI/CD"
+whenToUse:
+  - "Làm việc nhóm 2+ người trên cùng codebase"
+  - "Cần quản lý feature, release, hotfix branches"
+  - "Giải quyết merge conflict, rebase vs merge"
+difficulty: "intermediate"
+estimatedTime: "Setup 1 lần, duy trì hàng ngày"
+tags: ["git", "version-control", "collaboration", "ci-cd"]
+prompts:
+  - id: prompt-git-branching-strategy
+    name: "Thiết kế Branching Strategy cho team"
+    description: "Lựa chọn và triển khai GitFlow, GitHub Flow, hoặc Trunk Based Development phù hợp team size"
+    template: |
+      Bạn là DevOps & Team Lead. Hãy thiết kế Git workflow cho team:
+
+      **Thông tin team:**
+      - Số thành viên: {{teamSize}}
+      - Tần suất release: {{releaseFreq}} (daily / weekly / monthly)
+      - Mức độ ổn định yêu cầu: {{stability}} (experimental / production-critical)
+      - CI/CD đã có chưa: {{hasCI}}
+
+      **Đề xuất workflow phù hợp:**
+      1. So sánh 3 model: GitFlow vs GitHub Flow vs Trunk Based
+      2. Đề xuất model tối ưu + lý do
+      3. Chi tiết naming convention cho branches
+      4. Quy trình tạo PR, Review, Merge
+      5. Chiến lược giải quyết conflict
+      6. Tags & Releases management
+
+      Output: Markdown guide có thể dán vào team wiki.
+    variables:
+      - name: teamSize
+        type: number
+        label: "Số thành viên trong team dev"
+        required: true
+        default: 5
+      - name: releaseFreq
+        type: select
+        label: "Tần suất release"
+        options:
+          - "daily"
+          - "weekly"
+          - "monthly"
+          - "quarterly"
+        required: true
+        default: "weekly"
+      - name: stability
+        type: select
+        label: "Mức độ ổn định yêu cầu"
+        options:
+          - "experimental (startup, MVP)"
+          - "production-critical (fintech, healthcare)"
+        required: true
+        default: "experimental (startup, MVP)"
+      - name: hasCI
+        type: select
+        label: "Đã có CI/CD chưa?"
+        options:
+          - "Có (GitHub Actions, GitLab CI, Jenkins)"
+          - "Chưa"
+        required: true
+        default: "Có (GitHub Actions, GitLab CI, Jenkins)"
+    examples:
+      - inputs:
+          teamSize: 8
+          releaseFreq: "weekly"
+          stability: "experimental (startup, MVP)"
+          hasCI: "Có (GitHub Actions, GitLab CI, Jenkins)"
+        output: |
+          # 🌿 Git Workflow Đề Xuất: GitHub Flow (vì team 8 người, release weekly)
+
+          ## 1. So sánh 3 model
+          | Model | Ưu điểm | Nhược điểm | Phù hợp |
+          |-------|---------|-----------|---------|
+          | GitFlow | Nhiều release song song, rõ ràng | Phức tạp, merge nhiều | Enterprise, release chậm |
+          | GitHub Flow | Đơn giản, CI/CD dễ | Không phù hợp nhiều release | Startup, release nhanh ✅ |
+          | Trunk Based | Đơn giản nhất, merge conflict ít | Cần discipline cao | Team rất lớn, CI mạnh |
+
+          ## 2. GitHub Flow chi tiết
+          ```
+          main (production-ready, protected)
+            └── feature/abc-123 (mỗi ticket)
+            └── feature/xyz-456
+          ```
+
+          **Naming convention:**
+          - `feature/ABC-123-mo-ta-ngan` (feature mới)
+          - `fix/ABC-456-sua-loi` (bug fix)
+          - `hotfix/ABC-789-khan-cap` (production bug)
+          - `chore/...` (cập nhật tool, config)
+
+          ## 3. Quy trình PR
+          1. Tạo branch từ `main`
+          2. Code + commit nhỏ, có ý nghĩa
+          3. Push branch, tạo Pull Request
+          4. CI chạy tự động (test, lint, build)
+          5. ≥ 1 reviewer approve
+          6. Squash merge vào `main`
+          7. Xóa branch
+
+          ## 4. Giải quyết Conflict
+          - **Ưu tiên:** Rebase feature branch lên `main` mới nhất trước khi merge
+          - **Tránh:** Merge `main` vào feature nhiều lần (tạo commit rác)
+          - **Tool:** Dùng VS Code merge editor hoặc `git mergetool`
+
+          ## 5. Tags & Releases
+          - Tag theo SemVer: `v1.2.3`
+          - GitHub Release kèm changelog tự động (github-changelog-generator)
+        context: "Team 8 devs, release weekly, startup"
+    difficulty: "intermediate"
+    useCases:
+      - "Team lead setup Git quy trình cho team mới"
+      - "Developer muốn hiểu cách collaboration đúng chuẩn"
+agentTemplate:
+  name: "Git & DevOps Mentor"
+  description: "Tư vấn Git workflow, CI/CD pipeline, code review best practices"
+  systemPrompt: |
+    Bạn là Git & DevOps Mentor. Giúp team thiết lập workflow hiệu quả, giải quyết conflict, tối ưu CI/CD.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "clean-code-refactor"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: git-workflow-collaboration
+---

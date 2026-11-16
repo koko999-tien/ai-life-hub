@@ -1,0 +1,1681 @@
+---
+id: phong-cach-viet-copywriting-aida
+categoryId: viet-lach
+name: "Viết Copywriting Theo Framework AIDA/PAS/BAB"
+description: "Nắm vững 3 framework copywriting kinh điển: AIDA (Attention-Interest-Desire-Action), PAS (Problem-Agitation-Solution), BAB (Before-After-Bridge) để viết copy bán hàng, landing page, email marketing"
+whenToUse:
+  - "Viết landing page, sales page, quảng cáo Facebook/Google"
+  - "Viết email marketing sequence (welcome, nurture, sales)"
+  - "Viết caption Facebook/Instagram/LinkedIn bán hàng"
+  - "Viết script video quảng cáo ngắn (Reels/TikTok/YouTube Shorts)"
+difficulty: "beginner"
+estimatedTime: "Học 1h, thực hành 30p/bài copy"
+tags: ["copywriting", "AIDA", "PAS", "BAB", "marketing", "sales", "content-writing"]
+prompts:
+  - id: prompt-aida-landing-page
+    name: "Viết Landing Page Theo Framework AIDA"
+    description: "Tạo landing page chuyển đổi cao cho sản phẩm/dịch vụ với cấu trúc AIDA chuẩn"
+    template: |
+      Bạn là Senior Copywriter chuyên viết landing page conversion. Hãy viết landing page AIDA cho: {{productName}}.
+
+      **Thông tin sản phẩm:**
+      - Tên: {{productName}}
+      - Mô tả 1 câu: {{oneLiner}}
+      - Giá: {{price}}
+      - Đối tượng mục tiêu: {{targetAudience}}
+      - Nỗi đau (Pain points): {{painPoints}}
+      - Lợi ích chính (Benefits): {{benefits}}
+      - Tính năng nổi bật (Features): {{features}}
+      - Social proof: {{socialProof}} (Số lượng user, testimonial, case study, logo khách hàng)
+      - Đối tượng so sánh: {{competitors}}
+      - Cam kết/Guarantee: {{guarantee}}
+      - Call to Action mong muốn: {{cta}} (Đăng ký dùng thử / Mua ngay / Đặt lịch demo / Tải lead magnet)
+
+      **Yêu cầu output:**
+      1. **Headline Options (5 cái)**: Hook mạnh, gợi curiosity, promise benefit
+      2. **Sub-headline**: Giải thích rõ value prop trong 1 câu
+      3. **AIDA Sections**:
+         - **ATTENTION**: Hero section (Headline + Sub + CTA + Visual cue)
+         - **INTEREST**: Problem agitation + "Why now" + Mechanism giới thiệu
+         - **DESIRE**: Benefits stack (không phải features), Transformation story, Social proof wall, Objection handling (FAQ)
+         - **ACTION**: Primary CTA + Secondary CTA + Urgency/Scarcity + Risk reversal
+      4. **Above the fold** vs **Below the fold** structure
+      5. **Mobile-first considerations**: Copy length, CTA placement, Readability
+      6. **A/B Test Ideas**: 3 test đề xuất cho headline, CTA, Social proof placement
+    variables:
+      - name: productName
+        type: text
+        label: "Tên sản phẩm/dịch vụ"
+        required: true
+      - name: oneLiner
+        type: text
+        label: "Mô tả 1 câu (Value proposition)"
+        required: true
+      - name: price
+        type: text
+        label: "Giá (Ví dụ: 499k/tháng, 2.999k/trọn đời, Free tier + Pro 199k)"
+        required: true
+      - name: targetAudience
+        type: textarea
+        label: "Đối tượng mục tiêu (ICP chi tiết)"
+        required: true
+      - name: painPoints
+        type: textarea
+        label: "Nỗi đau (Top 3-5, cụ thể, có cảm xúc)"
+        required: true
+      - name: benefits
+        type: textarea
+        label: "Lợi ích chính (Outcome user đạt được, không phải tính năng)"
+        required: true
+      - name: features
+        type: textarea
+        label: "Tính năng nổi bật (Feature hỗ trợ benefit)"
+        required: true
+      - name: socialProof
+        type: textarea
+        label: "Social proof (Số liệu, Testimonial, Logo, Case study)"
+        required: false
+        default: "Chưa có (Viết placeholder)"
+      - name: competitors
+        type: textarea
+        label: "Đối thủ so sánh (Tên + Điểm yếu của họ)"
+        required: false
+      - name: guarantee
+        type: text
+        label: "Cam kết/Guarantee (Ví dụ: Hoàn tiền 30 ngày, Dùng thử 14 ngày không cần thẻ)"
+        required: false
+        default: "Dùng thử 14 ngày miễn phí, không cần thẻ tín dụng"
+      - name: cta
+        type: select
+        label: "Call to Action chính"
+        options:
+          - "Đăng ký dùng thử miễn phí"
+          - "Mua ngay"
+          - "Đặt lịch demo/tư vấn"
+          - "Tải lead magnet (PDF/Template/Checklist)"
+          - "Đăng ký waitlist"
+          - "Bắt đầu miễn phí"
+        required: true
+        default: "Đăng ký dùng thử miễn phí"
+    examples:
+      - inputs:
+          productName: "Notion Second Brain Template"
+          oneLiner: "Hệ thống quản lý kiến thức, dự án và cuộc sống tất cả trong 1 Notion template - Thiết lập 10 phút, dùng trọn đời"
+          price: "299.000đ (Mua 1 lần, cập nhật trọn đời) - Có bản Free cơ bản"
+          targetAudience: "Knowledge worker, Developer, Designer, Student, Freelancer 22-35 tuổi, dùng Notion nhưng chưa có hệ thống, bị information overload, muốn organized mà không tốn thời gian setup phức tạp"
+          painPoints: '["Thông tin rải rác: Note trên Notion, Google Drive, Obsidian, Apple Notes, Todoist - Không tìm thấy khi cần", "Dự án bị delay: Không có system track progress, next action, deadline", "Học rồi quên: Đọc sách, khóa học, bài viết → Không capture, không review, không apply", "Setup paralysis: Xem 50 template YouTube, đọc 20 bài blog → Vẫn không biết bắt đầu từ đâu", "Mental clutter: Non như có việc quên, stress khi thấy backlog ngày càng lớn"]'
+          benefits: '["Single Source of Truth: 1 nơi chứa TẤT CẢ - Note, Project, Task, Habit, Finance, Contact, Learning", "Capture trong 5s: Quick capture widget → Inbox → Process weekly (GTD style)", "Project clarity: Mỗi project có Goal, Next Action, Resources, Deadline, Status - Không bao giờ lost", "Spaced Repetition built-in: Learning database + Review schedule (Daily/Weekly/Monthly) - Học nhớ lâu", "Setup 10 phút: Duplicate template → Rename → Done. Không config database phức tạp", "Tùy biến vô hạn: Notion native, thêm/bớt property, view, filter theo ý thích"]'
+          features: '["7 Databases tích hợp: Inbox, Projects, Tasks, Areas, Resources, Archive, Learning", "15+ Views: Kanban, Calendar, Timeline, List, Gallery cho mỗi database", "Automated Dashboard: Today view, Weekly Review, Monthly Review, Yearly Review", "PARA Method implemented: Projects, Areas, Resources, Archives", "Quick Capture buttons: Mobile/Desktop widget", "Notion Formula: Progress bar, Auto-status, Overdue alert, Priority matrix", "Bonus: Habit Tracker, Finance Tracker, Contact CRM, Meeting Notes", "Video walkthrough 20p + Cheat sheet PDF + Lifetime updates"]'
+          socialProof: '["500+ bản sao đã bán trong 3 tháng", "Rating 4.9/5 từ 120+ review", "Featured trên Notion Template Gallery", "Testimonial: \"Tiết kiệm 5h/tuần setup & organize\" - Anh Minh, Senior Dev", "Case study: Freelancer anh Nam từ chaos → 3 client retainer nhờ system"]'
+          competitors: "Generic Notion template (Free nhưng basic, không system), Obsidian (Học curve cao, không visual), Todoist + Notion (Disconnected), Life OS Notion templates khác (Caro, complex, $50+)"
+          guarantee: "Hoàn tiền 30 ngày nếu không thấy giá trị - Chỉ cần email, không hỏi lý do"
+          cta: "Mua ngay - Lifetime access"
+        output: |
+          # 🎯 Landing Page AIDA: Notion Second Brain Template
+
+          ## Headline Options (Test 5 cái)
+          1. **Direct Benefit**: "Chiến Thắng Information Overload: Hệ Thống Second Brain Trong Notion Setup 10 Phút"
+          2. **Pain Agitation**: "Đừng Để Kiến Thức Mất Tích Giữa Rừng Note Rải Rác - Xây Second Brain Hôm Nay"
+          3. **Curiosity + Promise**: "Bí Mật Của Những Người 'Luôn Có Hệ Thống': 1 Template Notion Thay Thể 10 App"
+          4. **Social Proof Lead**: "500+ Knowledge Worker Đã Thoát Khỏi Chaos Với Template Này - Bạn Là Kế Tiếp"
+          5. **Anti-Setup**: "Không Cần Config Database. Không Cần Học Formula. Chỉ Cần Duplicate → Done."
+
+          ## Sub-headline
+          > **PARA Method + GTD + Spaced Repetition** tất cả trong 1 template Notion native. Mua 1 lần, dùng trọn đời, cập nhật miễn phí. 30 ngày hoàn tiền không hỏi lý do.
+
+          ---
+
+          ## ABOVE THE FOLD (Hero Section)
+
+          ### ATTENTION
+          **Headline (Chọn 1):**
+          # Chiến Thắng Information Overload: Hệ Thống Second Brain Trong Notion Setup 10 Phút
+
+          **Sub-headline:**
+          > PARA + GTD + Spaced Repetition trong 1 template. 500+ knowledge worker đã thoát khỏi chaos. Setup 10 phút → Dùng trọn đời.
+
+          **Primary CTA:** [Mua Ngay - 299.000đ 🎁 Lifetime Access]
+          **Secondary CTA:** [Dùng Thử Bản Free →]
+
+          **Trust Bar:**
+          ⭐ 4.9/5 (120+ review) | 🏆 Notion Template Gallery Featured | 👥 500+ users | 🛡️ 30-day Money Back
+
+          **Visual:** GIF 5s: Duplicate → Rename → Dashboard hiện ra → Click "New Project" → Auto-create linked tasks
+
+          ---
+
+          ## BELOW THE FOLD
+
+          ### INTEREST: Vấn Đề & Tại Sao Bây Giờ?
+
+          #### 🧠 Bạn Có Biết?
+          > Trung bình knowledge worker **mất 2.1h/ngày** chỉ để tìm kiếm thông tin đã từng lưu (McKinsey).
+          > **80% kiến thức** từ sách/khóa học bị quên sau 1 tuần nếu không có hệ thống review (Ebbinghaus).
+          > **Context switching** giữa 5-7 app (Notion, Drive, Obsidian, Todo, Calendar...) hao tốn **40% năng lượng não** (APA).
+
+          #### 🎯 Tại Sao Các Giải Pháp Khác Thất Bại?
+          | Giải Pháp | Vấn Đề |
+          |-----------|--------|
+          | **Free template cơ bản** | Chỉ có database đơn lẻ, không link nhau, không dashboard, không review system |
+          | **Obsidian/Logseq** | Học curve 2-4 tuần, text-based, không visual dashboard, mobile weak |
+          | **Todoist + Notion + Google Drive** | Data rải rác, không single source of truth, sync manual, context switch liên tục |
+          | **Life OS templates $50+** | Over-engineered: 50+ database, 100+ view, setup 3h+, maintain nặng nề,'abandon rate 70%' |
+
+          #### ⚡ Cơ Chế Cốt Lõi: **PARA + GTD + Spaced Repetition = Second Brain**
+          1. **PARA** (Tiago Forte): Tổ chức theo *Actionability* - Projects (có deadline) → Areas (tiếp tục) → Resources (tham khảo) → Archives (xong)
+          2. **GTD** (David Allen): Capture → Clarify → Organize → Reflect → Engage. Inbox → Weekly Review → Next Action
+          3. **Spaced Repetition**: Learning database + Auto-review schedule (1 ngày, 3 ngày, 1 tuần, 1 tháng, 3 tháng)
+
+          ### DESIRE: Lợi Ích & Chuyển Hóa
+
+          #### 💎 7 Lợi Ích Cốt Lõi (Benefits, không phải Features)
+          | # | Benefit | Transformation |
+          |---|---------|----------------|
+          | 1 | **Single Source of Truth** | Từ "Tìm 10 phút không thấy note" → "Search 3 giây có ngay" |
+          | 2 | **Project Clarity** | Từ "Dự án bị delay, không biết next step" → "Mở dashboard thấy ngay 3 next action hôm nay" |
+          | 3 | **Learn & Retain** | Từ "Học xong quên sạch" → "Auto-review schedule giúp nhớ 80% sau 1 năm" |
+          | 4 | **Mental Peace** | Từ "Non nơ lo quên việc" → "Non na biết mọi thứ đã có hệ thống" |
+          | 5 | **Time Reclaimed** | Từ "Setup/maintain 5h/tuần" → "Maintain 30p/tuần (Weekly Review)" |
+          | 6 | **Decision Ready** | Từ "Ra quyết định dựa trên cảm tính" → "Mở Area/Resource có data ngay" |
+          | 7 | **Compound Growth** | Từ "Kiến thức rời rạc" → "Knowledge graph tự phát triển theo thời gian" |
+
+          #### 📖 Transformation Story: Anh Minh - Senior Developer
+          > **"Trước: 50+ tab browser, 200+ note Notion rác, 10 dự án dang dở, stress mỗi tối."**
+          >
+          > **"Sau 2 tuần: Inbox zero hàng ngày, 3 dự án active clear next action, Learning review auto-populate, tuần này hoàn thành 2 cert AWS."**
+          >
+          > *— Anh Minh, Senior Dev @ Fintech, Mua template tháng 1/2024*
+
+          #### 🏆 Social Proof Wall
+          > **"Template duy nhất tôi mua và thực sự dùng hàng ngày. Tiết kiệm 5h/tuần so với tự setup."** ⭐⭐⭐⭐⭐
+          > *— Anh Nam, Freelancer Fullstack (3 client retainer)*
+          >
+          > **"PARA implementation tốt nhất tôi thấy. Notion formula tự động hóa status, overdue - Không cần manual update."** ⭐⭐⭐⭐⭐
+          > *— Chị Lan, Product Manager*
+          >
+          > **📊 500+ bản sao bán ra | ⭐ 4.9/5 | 🏆 Notion Gallery Featured | 🔄 Lifetime updates**
+
+          #### ❓ Objection Handling (FAQ)
+          **Q: "Tôi không rành Notion formula/database, có khó không?"**
+          > A: Template **ready-to-use**. Bạn chỉ cần Duplicate → Rename → Bắt đầu. Formula, View, Filter đã config sẵn. Video walkthrough 20p hướng dẫn từng click.
+
+          **Q: "Có khác biệt gì so với template free trên Reddit/Notion Gallery?"**
+          > A: Free template = **Database đơn lẻ**. Template này = **Hệ thống 7 database liên kết** (Project ↔ Task ↔ Resource ↔ Learning) + Dashboard tự động + Review system + Spaced Repetition. So sánh: Xe đạp vs Ô tô có GPS + Cruise control.
+
+          **Q: "Mua xong có update không? Notion hay đổi UI."**
+          > A: **Lifetime updates miễn phí**. Mỗi khi Notion ra feature mới (Button, Chart, AI...), tôi update template và bạn nhận được bản mới qua email.
+
+          **Q: "299k có caro không? Có template 99k, 199k."**
+          > A: Template rẻ = Setup 3h + Maintain 2h/tuần + Không review system + Không support. Template này = **Setup 10p + Maintain 30p/tuần + Học trọn đời + Support email**. ROI: Tiết kiệm 10h/tháng x 12 tháng = 120h. 299k/120h = **2.500đ/giờ tiết kiệm**.
+
+          ### ACTION: Chuyển Đổi
+
+          #### 🛡️ Risk Reversal
+          > **Thử trọn vẹn 30 ngày.** Nếu không thấy hệ thống giúp bạn organized hơn, tiết kiệm thời gian hơn → **Chỉ cần reply email → Hoàn tiền 100%**. Không cần trả lời lý do. Không form phức tạp.
+
+          #### ⏰ Urgency & Scarcity (Authentic)
+          > **Giá 299k chỉ áp dụng cho 100 bản sao đầu tiên của batch này.** Batch sau sẽ 399k khi thêm feature: AI Summary, Chart Dashboard, Mobile Widget Pack.
+          >
+          > **Bonus cho 50 người mua hôm nay:**
+          > 1. 📱 Notion Mobile Widget Setup Guide (PDF)
+          > 2. ⚡ 50 Notion Formula Cheat Sheet
+          > 3. 🎥 Video: "Build Your First Project in 5 Minutes"
+
+          #### 🎯 Primary CTA (Sticky, High Contrast)
+          # [ MUA NGAY - 299.000Đ 🎁 LIFETIME ACCESS + 3 BONUS ]
+          > Thanh toán: Momo / VNPay / Bank Transfer / Stripe (Visa/Mastercard)
+          > Nhận template tức thì qua email + Notion duplicate link
+
+          #### 🔗 Secondary CTA (Soft)
+          > **Chưa chắc? → [Dùng Thử Bản Free: 3 Database Core + 1 Dashboard]**
+          > Không cần email. Chỉ cần click Duplicate → Trải nghiệm core system.
+
+          ---
+
+          ## MOBILE-FIRST CONSIDERATIONS
+          - Headline ≤ 60 chars (wrap 2 lines max)
+          - Sub-headline ≤ 120 chars
+          - CTA button: Full width, 48px height, thumb-reachable
+          - Social proof: Carousel swipe, không stack vertical quá dài
+          - FAQ: Accordion (tap to expand)
+          - Testimonial: 1 per screen, swipe navigation
+          - Form: Chỉ Email + Name (2 fields), Apple Pay/Google Pay ready
+
+          ## A/B TEST IDEAS
+          | Test | Variant A (Control) | Variant B (Challenger) | Hypothesis | Metric |
+          |------|---------------------|------------------------|------------|--------|
+          | **Headline** | Direct Benefit | Pain Agitation | Pain-driven convert better cho cold traffic | Click CTA |
+          | **CTA Copy** | "Mua Ngay - 299k" | "Bắt Đầu Xây Second Brain" | Action-oriented verb > Price mention | Checkout Start |
+          | **Social Proof** | Rating + Count (Top) | Video Testimonial (Hero) | Video human connection > Abstract number | Scroll Depth |
+          | **Price Display** | Strikethrough 399k → 299k | Chỉ hiện 299k + "Lifetime" | Anchor pricing vs Value framing | Purchase Rate |
+          | **Guarantee** | "30-day Money Back" | "Không Hài Lòng → Hoàn Tiền + Giữ Template" | Generous guarantee reduces risk | Conversion Rate |
+        context: "Digital product (Notion template), VN market, 299k one-time, lifetime updates, PARA/GTD methodology"
+    difficulty: "medium"
+    useCases:
+      - "Viết landing page cho digital product, course, template, SaaS"
+      - "Áp dụng AIDA cho cold traffic (Ads → Landing page)"
+      - "Cấu trúc landing page mobile-first, conversion-focused"
+  - id: prompt-pas-email-sequence
+    name: "Viết Email Sequence Theo Framework PAS"
+    description: "Tạo chuỗi email nurture & sales (5-7 email) dùng Problem-Agitation-Solution cho lead magnet → paid product"
+    template: |
+      Bạn là Email Marketing Strategist. Hãy viết email sequence PAS (5-7 email) cho funnel: {{leadMagnet}} → {{paidProduct}}.
+
+      **Thông tin Funnel:**
+      - Lead Magnet: {{leadMagnet}} (Miễn phí: PDF, Template, Mini-course, Checklist, Webinar)
+      - Paid Product: {{paidProduct}} (Course, Template pack, SaaS, Service, Cohort)
+      - Giá sản phẩm: {{price}}
+      - Đối tượng: {{targetAudience}}
+      - Nỗi đau cốt lõi: {{corePain}}
+      - Kết quả mong muốn: {{desiredOutcome}}
+      - Unique Mechanism: {{uniqueMechanism}} (Phương pháp/công cụ đặc biệt của bạn)
+      - Social Proof: {{socialProof}}
+      - Objections thường gặp: {{objections}}
+      - Tone of voice: {{tone}} (Ví dụ: Bạn bè chia sẻ / Chuyên gia 권威 / Vulnerable storyteller)
+      - Gửi lúc: {{sendTime}} (Ví dụ: 7h sáng / 12h trưa / 20h tối)
+
+      **Yêu cầu output:**
+      1. **Sequence Overview**: Mục tiêu mỗi email, Timing, Subject line strategy
+      2. **Email 1: Delivery + Indoctrination** (Ngay sau opt-in) - PAS: Problem (nhắc lại pain) → Agitation (cost of inaction) → Solution (Lead magnet value + Preview paid)
+      3. **Email 2: Deep Dive Problem** (Ngày 1) - PAS: Problem specific scenario → Agitation (emotional cost) → Solution (Framework/tip từ lead magnet)
+      4. **Email 3: Agitation - Cost of Status Quo** (Ngày 2) - PAS: Problem (common mistake) → Agitation (long-term consequence, regret) → Solution (Case study/user story)
+      4. **Email 4: Solution - Unique Mechanism Reveal** (Ngày 3) - PAS: Problem (why old way fails) → Agitation (frustration) → Solution (Your method/framework demo)
+      5. **Email 5: Social Proof & Objection Handling** (Ngày 4) - PAS: Problem (doubt/skepticism) → Agitation (missed opportunity) → Solution (Testimonial + FAQ)
+      6. **Email 6: Pitch - Direct Offer** (Ngày 5) - PAS: Problem (urgency) → Agitation (cost of waiting) → Solution (Product + Bonus + Guarantee + CTA)
+      7. **Email 7: Last Call / FAQ** (Ngày 6/7) - PAS: Problem (FOMO/indecision) → Agitation (price increase/bonus expire) → Solution (Final push + FAQ link)
+      8. **Subject Lines**: 3 options mỗi email (Curiosity / Benefit / Personal / Urgency)
+      9. **P.S. Strategy**: Mỗi email có P.S. chuyển tiếp sang email sau
+    variables:
+      - name: leadMagnet
+        type: text
+        label: "Lead Magnet (Miễn phí)"
+        required: true
+      - name: paidProduct
+        type: text
+        label: "Sản phẩm trả phí (Upsell)"
+        required: true
+      - name: price
+        type: text
+        label: "Giá sản phẩm"
+        required: true
+      - name: targetAudience
+        type: textarea
+        label: "Đối tượng mục tiêu"
+        required: true
+      - name: corePain
+        type: textarea
+        label: "Nỗi đau cốt lõi (Cụ thể, cảm xúc)"
+        required: true
+      - name: desiredOutcome
+        type: textarea
+        label: "Kết quả mong muốn (Transformation)"
+        required: true
+      - name: uniqueMechanism
+        type: textarea
+        label: "Unique Mechanism (Phương pháp/công cụ đặc biệt của bạn)"
+        required: true
+      - name: socialProof
+        type: textarea
+        label: "Social Proof (Testimonial, Case study, Số liệu)"
+        required: false
+      - name: objections
+        type: textarea
+        label: "Objections thường gặp (Top 3-5)"
+        required: false
+      - name: tone
+        type: select
+        label: "Tone of voice"
+        options:
+          - "Bạn bè chia sẻ (Friendly, vulnerable, 'tôi cũng từng...')"
+          - "Chuyên gia quyền威 (Authoritative, data-driven, framework)"
+          - "Vulnerable Storyteller (Chia sẻ journey thất bại/thành công)"
+          - "Coach/Khích lệ (Empowering, action-oriented, 'bạn có thể')"
+          - "Mix: 50% Chuyên gia + 50% Bạn bè"
+        required: true
+        default: "Mix: 50% Chuyên gia + 50% Bạn bè"
+      - name: sendTime
+        type: text
+        label: "Giờ gửi tối ưu"
+        required: true
+        default: "7:00 sáng (Khi check email đầu ngày)"
+    examples:
+      - inputs:
+          leadMagnet: "PDF 'Notion Second Brain Quickstart: 7 Bước Setup Hệ Thống Quản Trị Kiến Thức Trong 30 Phút' (15 trang, có screenshot, checklist)"
+          paidProduct: "Notion Second Brain Template (Full System: 7 DB, 15+ Views, Dashboard, Spaced Repetition, Habit/Finance/CRM Bonus)"
+          price: "299.000đ (Mua 1 lần, Lifetime updates)"
+          targetAudience: "Knowledge worker, Dev, Designer, PM, Student 22-35t, dùng Notion nhưng chưa có system, bị info overload"
+          corePain: "Thông tin rải rác khắp nơi (Notion, Drive, Obsidian, Apple Notes, Todoist, Browser tab) → Không tìm thấy khi cần → Học rồi quên → Dự án delay → Stress, non nơ, cảm giác mất kiểm soát cuộc sống"
+          desiredOutcome: "Single Source of Truth: 1 nơi chứa TẤT CẢ. Capture 5s. Project clarity. Auto-review. Mental peace. Tiết kiệm 5h/tuần."
+          uniqueMechanism: "PARA Method (Tiago Forte) + GTD (David Allen) + Spaced Repetition (Anki-style) = 3 methodology tích hợp trong 1 Notion template native. Không cần tool khác. Không cần code. Chỉ Duplicate → Done."
+          socialProof: '["500+ bản sao bán ra", "4.9/5 stars (120+ review)", "Anh Minh (Senior Dev): \"Tiết kiệm 5h/tuần, project không bao giờ delay\"", "Chị Lan (PM): \"PARA implementation tốt nhất, formula auto-status\"", "Featured Notion Template Gallery"]'
+          objections: '["Không rành Notion formula/database", "Có template free/reddit rồi", "299k caro so với template 99k", "Sợ mua xong không dùng / không setup được", "Notion hay đổi UI, template có bị broken?"]'
+          tone: "Mix: 50% Chuyên gia + 50% Bạn bè"
+          sendTime: "7:00 sáng"
+        output: |
+          # 📧 Email Sequence PAS: Notion Second Brain (Lead Magnet → Template)
+
+          ## Sequence Overview
+          | Email | Day | Goal | PAS Focus | Subject Strategy |
+          |-------|-----|------|-----------|------------------|
+          | 1 | 0 (Instant) | Deliver lead magnet + Indoctrination | P: Info overload → A: Cost of chaos → S: Quickstart PDF + Preview Template | Delivery + Curiosity |
+          | 2 | 1 | Deep dive Problem | P: Scattered tools → A: Mental energy drain → S: PARA/GTD framework tip | Benefit + Specific |
+          | 3 | 2 | Agitate Status Quo Cost | P: "Sẽ setup sau" → A: Regret compounding → S: Case study (Anh Minh) | Story + Pain |
+          | 4 | 3 | Reveal Unique Mechanism | P: Why free template fails → A: Setup paralysis → S: 3-method integration demo | Mechanism + Curiosity |
+          | 5 | 4 | Social Proof + Objections | P: "Có thật sự giúp?" → A: Missed transformation → S: Testimonials + FAQ | Proof + Authority |
+          | 6 | 5 | Direct Pitch | P: Time running out → A: Cost of another month chaos → S: Template + Bonuses + Guarantee | Urgency + Offer |
+          | 7 | 7 | Last Call / FAQ | P: Indecision → A: Price increase soon → S: Final push + FAQ link | Scarcity + Clarity |
+
+          ---
+
+          ## EMAIL 1: Instant Delivery + Indoctrination (Day 0)
+          **Subject Options:**
+          1. 📎 Notion Second Brain Quickstart PDF (Mở ngay)
+          2. Tài liệu bạn yêu cầu: 7 bước setup Second Brain 30 phút
+          3. Từ chaos → organized: PDF gift cho bạn
+
+          **Preview Text:** 15 trang, có screenshot, checklist actionable. Mở file → Làm theo → Xong.
+
+          **Body:**
+          Chào {{first_name}},
+
+          PDF **Notion Second Brain Quickstart** đã sẵn sàng trong hộp thư của bạn. 👇
+
+          **[📥 TẢI PDF NGAY (15 TRANG)]**
+
+          ---
+
+          Trước khi bạn mở đọc, cho tôi hỏi 1 câu:
+
+          > **Bao nhiêu lần bạn mở Notion lên mà không biết bắt đầu từ đâu?**
+          >
+          > Bao nhiêu lần bạn search "note về meeting hôm qua" mà mất 10 phút?
+          >
+          > Bao nhiêu ý tưởng hay, insight từ sách/khóa học... bay mất vì không kịp capture?
+
+          Tôi hiểu. Tôi từng vậy. **3 năm trước, tôi có 50+ tab Chrome, 200+ note Notion rác, 10 dự án dang dở.** Mỗi tối đi ngủ với cảm giác: *"Mình có làm gì hôm nay không? Có quên gì không?"*
+
+          **Chi phí của sự hỗn loạn không chỉ là thời gian.** Nó là:
+          - ⚡ **Năng lượng não** hao hụt cho context switching (trung bình 2.1h/ngày - McKinsey)
+          - 🧠 **Kiến thức không compound** - Học xong quên, không connect được dots
+          - 😰 **Mental load** - Non nơ, stress, mất tự tin vào khả năng organized của mình
+
+          PDF Quickstart này chính là **bước đầu tiên** thoát khỏi vòng luẩn quẩn đó. 7 bước, 30 phút, bạn sẽ có:
+          ✅ Inbox capture system (Không còn ý tưởng nào mất tích)
+          ✅ PARA structure (Projects, Areas, Resources, Archives - Clear như ngày)
+          ✅ Weekly Review template (30 phút/Chủ Nhật = Clear mind cả tuần)
+
+          **Nhưng đây mới chỉ là khởi đầu.**
+
+          Hệ thống đầy đủ (Template full) có thêm:
+          🔥 **Spaced Repetition Learning Database** - Học nhớ lâu như Anki mà visual, trong Notion
+          🔥 **Project Dashboard** - Next action, Deadline, Progress bar auto-calc
+          🔥 **Habit Tracker + Finance + CRM** - All-in-one, không cần app riêng
+          🔥 **Formula tự động** - Status, Priority, Overdue alert, لا cần manual update
+
+          **P.S.** Email mai tôi sẽ chia sẻ: **"Tại sao 90% template Notion free khiến bạn BỎ DỎNG sau 3 ngày?"** - Một lỗi setup phổ biến mà hầu hết mọi người mắc phải. Đừng bỏ lỡ! 👀
+
+          ---
+
+          ## EMAIL 2: Deep Dive Problem (Day 1)
+          **Subject Options:**
+          1. Tại sao template free Notion khiến bạn... bỏ dở? 🤔
+          2. Lỗi #1 khi tự build Second Brain (Tôi mắc 3 lần)
+          3. Notion database: Liên kết hay Không liên kết? 🔗
+
+          **Preview Text:** Free template = Đ.database đơn lẻ. Hệ thống thật = Database LIÊN KẾT. Khác biệt trời cỏ.
+
+          **Body:**
+          Chào {{first_name}},
+
+          Hôm qua bạn đã tải Quickstart PDF. Đã mở đọc chưa? 📖
+
+          Nếu chưa, đừng lo. Email này sẽ cho bạn **lý do at nhất để mở nó ngay hôm nay**.
+
+          ---
+
+          **VẤN ĐỀ: Template Free = "Đảo Đơn Lẻ"**
+
+          Bạn tải 1 template free: "Project Tracker". Đẹp, có view Kanban, Calendar. Bạn setup xong. Hôm sau bạn cần lưu tài liệu reference → Tạo page mới. Tuần sau cần track habit → Tạo database khác.
+
+          Kết quả sau 1 tháng: **7 database không liên kết, 3 dashboard không đồng bộ, 0 review system.**
+
+          Bạn cảm thấy: *"Notion phức tạp quá, không phù hợp mình."* → **Bỏ dở.**
+
+          **THẬT SỰ: Không phải Notion phức tạp. Là template free KHÔNG PHẢI HỆ THỐNG.**
+
+          ---
+
+          **KHIẾU NẠI: Chi Phí Của Sự Phân Mảnh**
+
+          Mỗi database đơn lẻ = **Một silo thông tin**.
+          - Task trong Project Tracker không link được Resource trong Knowledge Base
+          - Habit Tracker không biết Project nào đang priority
+          - Learning note không auto-schedule review
+
+          Não bộ bạn phải **manual connect** mọi thứ. Mỗi lần switch context = **23 phút focus lost** (UCI research).
+
+          **Giải Pháp: Database Liên Kết (Relational Database) - Core của Second Brain**
+
+          Trong PDF Quickstart (Bước 3-4), tôi hướng dẫn setup **PARA Structure**:
+          ```
+          Projects (Có deadline) ↔ Tasks (Next Action)
+                    ↕
+          Areas (Tiếp tục) ↔ Resources (Tham khảo) ↔ Learning (Học tập → Review)
+                    ↕
+          Archives (Xong)
+          ```
+
+          Mỗi database **liên kết 2 chiều** (Relation property). Tạo 1 Project → Auto gợi ý Task template. Capture 1 Resource → Tag Area liên quan. Học xong → Auto tạo Review schedule.
+
+          **Đây chính là "Secret sauce" của template Full.** Không formula phức tạp. Chỉ là **Relational Design** đúng cách.
+
+          **P.S.** Email mai: Câu chuyện của anh Minh - Senior Dev từ "50 tab, 10 dự án dang dở" → "Inbox zero, 3 project clear,.aws cert done". Thật ra anh ấy chỉ thay đổi 1 việc nhỏ... 👇
+
+          ---
+
+          ## EMAIL 3: Agitate Status Quo Cost (Day 2)
+          **Subject Options:**
+          1. "Sẽ setup sau" - Câu nói tốn anh Minh 6 tháng 😢
+          2. Chi phí của việc... không làm gì (Regret math)
+          3. Anh Minh: Từ chaos → AWS Certified trong 8 tuần
+
+          **Preview Text:** Không phải talent. Không phải IQ. Chỉ là... HỆ THỐNG. Xem case study 3 phút.
+
+          **Body:**
+          Chào {{first_name}},
+
+          Anh Minh, Senior Dev tại công ty Fintech, 28 tuổi.
+
+          **Trước khi dùng Second Brain:**
+          - 50+ tab Chrome "sẽ đọc sau"
+          - 10 dự án side project dang dở (GitHub repo chết yểu)
+          - Học AWS 3 lần, 3 lần bỏ ở giữa (Quên đã học gì, không biết ôn gì)
+          - Mỗi tối: *"Hôm nay mình có productive không?"* → Không trả lời được.
+
+          **Anh ấy nghĩ:** *"Bận quá, cuối tuần setup Notion cho nó xong."*
+
+          **Cái "cuối tuần" đó... kéo dài 6 tháng.** 😔
+
+          ---
+
+          **CHI PHÍ CỦA VIỆC CHỜ ĐỢI (Regret Math):**
+
+          | Metric | 6 Tháng Chờ | Nếu Setup Sớm |
+          |--------|-------------|---------------|
+          | Side project shipped | 0 | 2-3 (Portfolio cho job hop) |
+          | AWS Cert | Chưa có | Đã có (Salary +15-20%) |
+          | Mental energy | Stress, non nơ | Clear, confident |
+          | Opportunities missed | 3-5 interview | Ready khi opportunity đến |
+
+          **Sự thật đau lòng:** **Không có "thời gian rảnh" để setup.** Chỉ có **quyết định ưu tiên**.
+
+          ---
+
+          **ANH MINH THAY ĐỔI NHƯ THẾ NÀO?**
+
+          Tuần 1: Duplicate Template Second Brain → 10 phút setup → Bắt đầu capture mọi thứ vào Inbox.
+          Tuần 2: Weekly Review đầu tiên (30p) → Thấy rõ 3 Project priority → Archive 7 dự án "someday".
+          Tuần 3: Learning Database + Spaced Repetition → Học AWS theo schedule auto.
+          Tuần 8: **Pass AWS Solutions Architect.** Apply Senior Dev → **Receive offer +25% salary.**
+
+          > *"Template không phải magic. Magic là: Tôi cuối cùng CÓ HỆ THỐNG. Và hệ thống làm việc CHO tôi, không phải Tôi làm việc CHO nó."* — Anh Minh
+
+          ---
+
+          **BẠN CÓ MUỐN LÀ ANH MINH KẾ TIẾP KHÔNG?**
+
+          PDF Quickstart bạn tải hôm qua đã cho bạn **khung xương (PARA Structure)**.
+
+          Template Full cho bạn **cơ thể hoàn chỉnh**: Dashboard, Spaced Repetition, Habit, Finance, CRM, Formula automation, Video walkthrough.
+
+          **P.S.** Email mai tôi sẽ reveal: **"Bí mật 3 Methodology trong 1 Template: PARA + GTD + Spaced Repetition"**. Tại sao không ai khác làm được điều này trong Notion? 🤫
+
+          ---
+
+          ## EMAIL 4: Reveal Unique Mechanism (Day 3)
+          **Subject Options:**
+          1. Bí mật: PARA + GTD + Spaced Repetition trong 1 Template 🤫
+          2. Tại sao không ai khác build được hệ thống này?
+          3. 3 Methodology = 1 Template. Magic ở chỗ nào? ✨
+
+          **Preview Text:** Tiago Forte (PARA) + David Allen (GTD) + Anki (Spaced Repetition). Tích hợp native Notion.
+
+          **Body:**
+          Chào {{first_name}},
+
+          Hôm qua anh Minh đã show bạn **kết quả**. Hôm nay tôi reveal **cơ chế (Mechanism)** tạo ra kết quả đó.
+
+          ---
+
+          **VẤN ĐỀ: Tại Sao Free Template Không Kết Hợp Được 3 Cái Này?**
+
+          1. **PARA (Tiago Forte)** - Tổ chức theo *Actionability*. Tốt cho filing, kém cho execution.
+          2. **GTD (David Allen)** - Workflow Capture → Clarify → Organize → Reflect → Engage. Tốt cho execution, kém cho knowledge retention.
+          3. **Spaced Repetition (Anki/SuperMemo)** - Học nhớ lâu. Tốt cho retention, kém cho project management.
+
+          **Free template thường chỉ làm 1 trong 3.** Vì:
+          - Notion formula phức tạp để auto-review schedule
+          - Relation + Rollup giữa 7 database = Setup nightmare
+          - Dashboard tự động cần Formula + Filter + Sort phức tạp
+
+          **KẾT QUẢ: Bạn phải chọn: Organized HOẶC Execution HOẶC Retention. Không thể có cả 3.**
+
+          ---
+
+          **GIẢI PHÁP: Unique Mechanism Của Second Brain Template**
+
+          Tôi đã **pre-build toàn bộ logic** vào template:
+
+          | Methodology | Implementation Trong Template | User Action |
+          |-------------|-------------------------------|-------------|
+          | **PARA** | 7 Database liên kết (Project↔Task↔Area↔Resource↔Learning↔Archive) + Auto-Archive script | Chỉ cần Tag "Project/Area/Resource" → Auto sort |
+          | **GTD** | Inbox Database + Quick Capture Button + Weekly Review Dashboard (Today/This Week/Overdue/Waiting For) | Capture 5s → Weekly Review 30p theo checklist |
+          | **Spaced Repetition** | Learning Database + Formula: `Next Review = Date + Interval (1d, 3d, 7d, 30d, 90d)` + Review Dashboard (Due Today/This Week) | Học xong click "Done" → Auto schedule review |
+
+          **Kết quả:** **Single Source of Truth** cho Project + Knowledge + Habit + Learning. Không context switch. Não bộ chỉ focus vào *Next Action*.
+
+          ---
+
+          **DEMO 2 PHÚT: Xem Cơ Chế Hoạt Động**
+
+          🎥 **[Xem Video Walkthrough 20 Phút]** (Link trong PDF Quickstart trang 14)
+
+          Trong video bạn sẽ thấy:
+          1. Duplicate template → Rename → **Ready** (0 config)
+          2. Tạo Project "AWS Cert" → Auto gợi ý Task template + Deadline + Progress bar
+          3. Capture Resource "AWS Whitepaper" → Tag Area "Cloud" → Auto link
+          4. Học xong chapter → Click "Review Done" → **Next review auto-populate: 1 ngày, 3 ngày, 1 tuần...**
+          5. Mở Dashboard "Today" → Thấy ngay 3 Next Action + Review Due + Habit streak
+
+          **P.S.** Email mai: **Social Proof thực tế** - 120+ review 4.9/5, Case study chi tiết, Và trả lời top 5 objections bạn đang nghĩ. Đừng bỏ lỡ! 📊
+
+          ---
+
+          ## EMAIL 5: Social Proof + Objection Handling (Day 4)
+          **Subject Options:**
+          1. 120+ người đã đánh giá 4.9/5 - Đây là lý do 👇
+          2. "Template caro?" "Không rành Notion?" - Trả lời 5 thắc mắc top
+          3. Social proof & FAQ: Mọi thứ bạn cần biết trước khi quyết định
+
+          **Preview Text:** Objection #1: "Không rành Notion formula" → Trả lời: Không cần. Template ready-to-use.
+
+          **Body:**
+          Chào {{first_name}},
+
+          Tôi hiểu. Trước khi đầu tư 299k, bạn muốn chắc chắn: **"Điều này thực sự giúp tôi?"**
+
+          Hãy để **người đã dùng** trả lời. 👇
+
+          ---
+
+          **🏆 SOCIAL PROOF (Thực tế, có thể verify)**
+
+          ⭐ **4.9/5 từ 120+ review trên Gumroad/Notion Gallery**
+
+          > **"Template duy nhất tôi mua và thực sự dùng HÀNG NGÀY. Tiết kiệm 5h/tuần so với tự setup."**
+          > — **Anh Nam**, Freelancer Fullstack (3 client retainer)
+
+          > **"PARA implementation tốt nhất tôi thấy. Notion formula tự động hóa status, overdue - Không cần manual update."**
+          > — **Chị Lan**, Product Manager @ Unicorn VN
+
+          > **"Spaced Repetition trong Notion = Game changer cho việc học cert. Không cần Anki riêng."**
+          > — **Anh Dũng**, DevOps Engineer
+
+          > **"Support email phản hồi trong 24h. Update template khi Notion ra feature mới. Worth every penny."**
+          > — **Chị Hương**, UX Designer
+
+          **📊 SỐ LIỆU:**
+          - 500+ bản sao bán ra (3 tháng)
+          - Refund rate: **< 1%** (Chỉ 2 case, lý do: mua trùng)
+          - 85% user active sau 30 ngày (Theo dõi qua Gumroad analytics)
+
+          ---
+
+          **❓ TOP 5 OBJECTIONS → TRẢ LỜI THẬT**
+
+          | # | Objection | Trả Lời Ngắn | Chi Tiết |
+          |---|-----------|--------------|----------|
+          | 1 | **"Tôi không rành Notion formula/database"** | **Không cần.** Duplicate → Rename → Done. Formula/View/Filter đã config sẵn. Video 20p hướng dẫn click-by-click. | Template = **Product**, không phải DIY kit. Bạn là user, không phải builder. |
+          | 2 | **"Có template free/Reddit rồi"** | Free = **Database đơn lẻ**. Template này = **Hệ thống 7 DB liên kết + Dashboard + Review + Spaced Repetition**. So sánh: Xe đạp vs Ô tô có GPS+Cruise. | Xem Email 2 để hiểu chi tiết "Database đơn lẻ vs Hệ thống". |
+          | 3 | **"299k caro (Template khác 99k, 199k)"** | **ROI Math:** Tiết kiệm 10h/tháng x 12 tháng = 120h. 299k/120h = **2.500đ/giờ**. Lương dev 200k-500k/h. Template rẻ hơn 100x. | Template rẻ = Setup 3h + Maintain 2h/tuần + Không review + Không support. |
+          | 4 | **"Sợ mua xong không dùng / Setup không được"** | **30-day Money Back Guarantee.** Không hài lòng → Reply email → Hoàn tiền 100%. Giữ template. Không hỏi lý do. | Risk = 0. Bạn chỉ mất 5p để duplicate. Không thử = mất cơ hội. |
+          | 5 | **"Notion hay đổi UI, template bị broken?"** | **Lifetime Updates Free.** Notion ra feature mới (Button, Chart, AI...) → Tôi update template → Bạn nhận bản mới qua email. | Version history: 12 updates trong 6 tháng qua. Commitment long-term. |
+
+          ---
+
+          **🎁 BONUS CHO NGƯỜI QUYẾT ĐỊNHH NGAY HÔM NAY:**
+          1. 📱 Notion Mobile Widget Setup Guide (PDF)
+          2. ⚡ 50 Notion Formula Cheat Sheet
+          3. 🎥 Video: "Build Your First Project in 5 Minutes"
+
+          **P.S.** Email mai: **Direct Offer** - Template + Bonus + Guarantee. Chỉ có 50 slot bonus. Đừng để lỡ! ⏰
+
+          ---
+
+          ## EMAIL 6: Direct Pitch (Day 5)
+          **Subject Options:**
+          1. 🎁 Notion Second Brain Template + 3 Bonus (Chỉ 50 slot)
+          2. Mua 1 lần, dùng trọn đời - Setup 10 phút hôm nay
+          3. Last chance: Bonus expire đêm nay 23:59
+
+          **Preview Text:** 299k lifetime. 30-day guarantee. 3 bonus worth 500k. Chỉ 50 slot.
+
+          **Body:**
+          Chào {{first_name}},
+
+          5 ngày qua tôi đã chia sẻ:
+          - Chi phí của chaos (Email 1)
+          - Tại sao free template fail (Email 2)
+          - Regret math của việc chờ đợi (Email 3)
+          - Unique Mechanism: PARA+GTD+Spaced Repetition (Email 4)
+          - Social Proof & Objections (Email 5)
+
+          **Bây giờ: Quyết định.** ⚡
+
+          ---
+
+          **🎯 OFFER: Notion Second Brain Template - Full System**
+
+          **Bao gồm:**
+          ✅ Template Full (7 Database, 15+ Views, Dashboard, Automation)
+          ✅ Video Walkthrough 20 phút (Click-by-click setup)
+          ✅ Cheat Sheet PDF (Formula, Shortcut, Best Practice)
+          ✅ **Lifetime Updates Free** (Mỗi feature Notion mới → Template update)
+          ✅ **Email Support** (Reply trong 24h)
+          ✅ **30-Day Money Back Guarantee** (Không hài lòng → Hoàn tiền, giữ template)
+
+          **🎁 BONUS (Chỉ 50 slot đầu tiên):**
+          1. 📱 Mobile Widget Setup Guide (Giá 199k)
+          2. ⚡ 50 Formula Cheat Sheet (Giá 199k)
+          3. 🎥 Micro-course: "First Project in 5 Minutes" (Giá 299k)
+          **Total Bonus Value: 697k → FREE**
+
+          **💰 GIÁ: 299.000đ (Mua 1 lần, dùng trọn đời)**
+          Thanh toán: Momo / VNPay / Bank Transfer / Stripe (Visa/Mastercard/JCB)
+
+          **⏰ DEADLINE: Bonus expire trong 24h (Đêm nay 23:59)**
+
+          ---
+
+          **[👉 MUA NGAY - NHẬN TEMPLATE TỨC THỨI + 3 BONUS]**
+
+          ---
+
+          **SAU KHI MUA BẠN NHẬN ĐƯỢC NGAY:**
+          1. Email confirmation + Notion Duplicate Link (Click → Add to workspace)
+          2. Access Notion page hướng dẫn (Video + PDF + Cheat sheet)
+          3. Invite group hỗ trợ riêng (Notion + Zalo/Telegram)
+          4. Bonus download links
+
+          **P.S.** Nếu bạn vẫn chưa chắc, email mai (cuối cùng) tôi sẽ gửi link **FAQ chi tiết 20 câu hỏi** + **So sản bảng với 5 template phổ biến**. Giúp bạn quyết định với tất cả thông tin. 📋
+
+          ---
+
+          ## EMAIL 7: Last Call / FAQ (Day 7)
+          **Subject Options:**
+          1. ⏰ 6h cuối: Bonus expire + FAQ 20 câu hỏi
+          2. Câu hỏi cuối cùng trước khi bạn quyết định?
+          3. Không muốn regret 6 tháng sau như anh Minh? 🤔
+
+          **Preview Text:** Bonus expire 23:59 hôm nay. FAQ chi tiết. So sánh 5 template. Quyết định informed.
+
+          **Body:**
+          Chào {{first_name}},
+
+          Đây là **email cuối cùng** trong sequence này.
+
+          Bonus 3 món (Mobile Widget Guide + Formula Cheat Sheet + Micro-course) **expire lúc 23:59 hôm nay**.
+
+          Sau đó giá vẫn 299k nhưng **không có bonus**.
+
+          ---
+
+          **📋 FAQ CHI TIẾT (20 CÂU HỎI) - [XEM TẠI ĐÂY]**
+          (Link Notion page public, luôn cập nhật)
+
+          **Các câu hỏi hay gặp:**
+          - "Template hoạt động trên Notion Free plan không?" (Có, 100%)
+          - "Có thể share cho team/đồng nghiệp không?" (Personal use only. Team license riêng)
+          - "Tôi dùng Obsidian/Logseq, có import được không?" (Markdown import OK, nhưng structure khác)
+          - "Có version tiếng Anh không?" (Đang làm, update free cho user hiện tại)
+          - "Hỗ trợ setup 1-on-1 có không?" (Có service riêng 500k/1h, nhưng 95% user tự setup xong)
+
+          **📊 SO SÁNH 5 TEMPLATE PHỔ BIẾN - [XEM BẢNG CHI TIẾT]**
+
+          | Template | Giá | Database | PARA | GTD | Spaced Rep | Dashboard | Updates | Support |
+          |----------|-----|----------|------|-----|------------|-----------|---------|---------|
+          | **Second Brain (This)** | **299k** | **7** | ✅ | ✅ | ✅ | ✅ Auto | ✅ Lifetime | ✅ Email |
+          | Life OS (Popular) | $49 (1.2tr) | 25+ | ✅ | ⚠️ | ❌ | ✅ Manual | ⚠️ Paid | ⚠️ Discord |
+          | Minimal PARA | Free | 4 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+          | GTD Notion | 199k | 6 | ❌ | ✅ | ❌ | ⚠️ Basic | ❌ | ❌ |
+          | Student OS | 299k | 8 | ⚠️ | ⚠️ | ⚠️ Basic | ✅ | ❌ | ❌ |
+
+          ---
+
+          **🎯 QUYẾT ĐỊNH BÂY GIỜ:**
+
+          Bạn có 2 lựa chọn:
+
+          **Lựa chọn 1: Không làm gì.**
+          → 6 tháng sau: Vẫn 50 tab, vẫn stress, vẫn "sẽ setup sau".
+          → Chi phí cơ hội: Salary increase missed, Project không shipped, Mental peace lost.
+
+          **Lựa chọn 2: Mua Template + Bonus (299k, risch 0 do guarantee).**
+          → Hôm nay: Duplicate → 10p setup → Có hệ thống.
+          → Tuần sau: Weekly Review đầu tiên → Clear mind.
+          → Tháng sau: Project shipped, Cert passing, Habit built.
+          → 6 tháng sau: **Như anh Minh - AWS Cert, Salary +25%, Inbox Zero.**
+
+          **Risch = 0.** (30-day refund, giữ template)
+          **Upside = Vô hạn.** (Hệ thống phục vụ trọn đời)
+
+          **[👉 MUA NGAY - NHẬN TEMPLATE + 3 BONUS TRƯỚC 23:59]**
+
+          ---
+
+          **P.S.** Dù bạn quyết định gì, tôi trân trọng bạn đã đọc hết 7 email này. Nếu không mua hôm nay, bạn vẫn giữ PDF Quickstart miễn phí trọn đời. Và tôi sẽ vẫn chia sẻ tips Notion/Productivity qua newsletter hàng tuần (nếu bạn chưa unsubscribe).
+
+          **Chúc bạn build hệ thống tuyệt vời!** 🧠✨
+          — [Tên bạn], Creator of Notion Second Brain Template
+
+          ---
+
+          ## SUBJECT LINE STRATEGY SUMMARY
+          | Email | Curiosity | Benefit | Personal | Urgency |
+          |-------|-----------|---------|----------|---------|
+          | 1 | "Tài liệu bạn yêu cầu..." | "7 bước setup 30 phút" | "Từ chaos → organized" | - |
+          | 2 | "Tại sao template free... bỏ dở?" | "Lỗi #1 khi tự build" | "Tôi mắc 3 lần" | - |
+          | 3 | "Sẽ setup sau - tốn 6 tháng" | "Chi phí chờ đợi" | "Anh Minh: chaos → cert" | - |
+          | 4 | "Bí mật 3 methodology" | "Tại sao không ai khác làm được" | "Reveal mechanism" | - |
+          | 5 | "120+ review 4.9/5" | "Trả lời 5 thắc mắc" | "Social proof & FAQ" | - |
+          | 6 | - | "Template + 3 Bonus" | "Mua 1 lần, dùng trọn đời" | "Chỉ 50 slot, expire 24h" |
+          | 7 | "Câu hỏi cuối cùng" | "FAQ 20 câu + So sánh" | "Không muốn regret" | "Bonus expire 23:59" |
+
+          ## P.S. STRATEGY (Chuyển tiếp email)
+          | Email | P.S. Content |
+          |-------|--------------|
+          | 1 | Teaser Email 2: "Tại sao 90% template free khiến bạn bỏ dở?" |
+          | 2 | Teaser Email 3: "Case study anh Minh - Senior Dev" |
+          | 3 | Teaser Email 4: "Bí mật 3 Methodology trong 1 Template" |
+          | 4 | Teaser Email 5: "Social Proof thực tế + Top 5 Objections" |
+          | 5 | Teaser Email 6: "Direct Offer + Bonus expire 24h" |
+          | 6 | Teaser Email 7: "Last Call + FAQ 20 câu + So sánh 5 template" |
+          | 7 | Soft close: "Giữ PDF miễn phí, newsletter tips hàng tuần" |
+        context: "Digital product funnel, Lead magnet PDF → Paid Template 299k, 7-day sequence, VN market, Momo/VNPay payment"
+    difficulty: "medium"
+    useCases:
+      - "Viết email sequence cho digital product launch"
+      - "Nurture lead từ lead magnet đến paid product"
+      - "Framework PAS cho email marketing high conversion"
+  - id: prompt-linkedin-carousel-copy
+    name: "Viết LinkedIn Carousel Copy (Slide-by-Slide)"
+    description: "Tạo carousel LinkedIn viral: Hook slide, Value slides, CTA slide - Tối ưu algorithm LinkedIn (dwell time, share, comment)"
+    template: |
+      Bạn là LinkedIn Content Strategist. Hãy viết carousel copy cho: {{topic}}.
+
+      **Thông tin:**
+      - Chủ đề: {{topic}}
+      - Mục tiêu: {{goal}} (Brand awareness / Lead generation / Education / Authority building / Product promotion)
+      - Đối tượng: {{targetAudience}}
+      - Key Insight / Big Idea: {{bigIdea}} (1 insight contrarian / counter-intuitive / framework mới)
+      - Framework/Structure: {{framework}} (Ví dụ: 3-step, 5-mistakes, Before/After, Myth vs Reality, Checklist)
+      - Social Proof/Data: {{socialProof}} (Số liệu, quote, case study ngắn)
+      - CTA: {{cta}} (Follow / Comment / Link in bio / DM / Download / Register)
+      - Tone: {{tone}}
+      - Số slide mong muốn: {{slideCount}} (Mặc định 8-12 slide)
+
+      **Yêu cầu output:**
+      1. **Slide 1: Hook Slide** (Headline + Sub-headline + Visual cue) - Dừng scroll
+      2. **Slide 2: Context/Problem Slide** (Relatable pain point, agitates)
+      3. **Slides 3-N: Value Slides** (Framework steps, Mistakes, Tips, Data, Framework visualization)
+      4. **Slide N-1: Social Proof/Result Slide** (Transformation, Testimonial, Metric)
+      5. **Slide N: CTA Slide** (Clear action + Reason to act now)
+      6. **Caption/Post Text** (150-300 từ, hashtags, tagging strategy)
+      7. **First Comment Strategy** (Pin comment với link/lead magnet/CTA)
+      8. **Design Notes** (Text hierarchy, Visual suggestion per slide)
+      9. **Repurpose Ideas** (Twitter thread, Instagram carousel, Newsletter section)
+    variables:
+      - name: topic
+        type: text
+        label: "Chủ đề carousel"
+        required: true
+      - name: goal
+        type: select
+        label: "Mục tiêu carousel"
+        options:
+          - "Brand Awareness (Reach, Follow)"
+          - "Lead Generation (Link in bio, DM, Download)"
+          - "Education/Value (Save, Share, Authority)"
+          - "Authority Building (Expert positioning)"
+          - "Product/Service Promotion (Sales, Demo, Waitlist)"
+        required: true
+        default: "Education/Value (Save, Share, Authority)"
+      - name: targetAudience
+        type: textarea
+        label: "Đối tượng mục tiêu"
+        required: true
+      - name: bigIdea
+        type: textarea
+        label: "Key Insight / Big Idea (Contrarian, Counter-intuitive, Framework mới)"
+        required: true
+      - name: framework
+        type: text
+        label: "Framework/Structure (Ví dụ: 3-step, 5 Mistakes, Before/After, Myth vs Reality, Checklist)"
+        required: true
+      - name: socialProof
+        type: textarea
+        label: "Social Proof/Data (Số liệu, Quote, Case study ngắn)"
+        required: false
+      - name: cta
+        type: select
+        label: "Call to Action"
+        options:
+          - "Follow cho thêm content như này"
+          - "Comment 'TEMPLATE' để nhận link"
+          - "Link in bio / Profile link"
+          - "DM từ khóa 'X' để nhận resource"
+          - "Đăng ký newsletter / Webinar"
+          - "Tải miễn phí tại link bio"
+        required: true
+        default: "Comment 'TEMPLATE' để nhận link"
+      - name: tone
+        type: select
+        label: "Tone of voice"
+        options:
+          - "Chuyên gia chia sẻ (Authoritative, concise, data-driven)"
+          - "Bạn bè đồng hành (Relatable, vulnerable, 'tôi cũng từng')"
+          - "Coach khích lệ (Empowering, action-oriented)"
+          - "Storyteller (Narrative, hook-story-lesson)"
+          - "Contrarian (Provocative, myth-busting, hot take)"
+        required: true
+        default: "Chuyên gia chia sẻ (Authoritative, concise, data-driven)"
+      - name: slideCount
+        type: number
+        label: "Số slide mong muốn"
+        required: true
+        default: 10
+    examples:
+      - inputs:
+          topic: "Tại sao Dev Junior nên học System Design SỚM (Không đợi Senior)"
+          goal: "Education/Value (Save, Share, Authority)"
+          targetAudience: "Dev Junior 0-3 năm exp, Dev muốn level up, CS Student, Career switcher vào Tech"
+          bigIdea: "System Design KHÔNG chỉ dành cho Senior. Học sớm = Code tốt hơn, Review tốt hơn, Promote nhanh hơn. Junior biết System Design = 'Force multiplier' cho career."
+          framework: "5 Myths vs Reality + 3-Step Learning Path + 1 Action Plan"
+          socialProof: '["Anh Tuấn (Junior 1 năm) học System Design → Code review detect bottleneck → Promote 10 tháng", "Survey 200 Dev VN: 78% regret không học System Design sớm", "FAANG interview: System Design weight 40% từ L4/L5, nhưng L3 cũng hỏi cơ bản"]'
+          cta: "Comment 'SYSTEM' để nhận Roadmap 12 tuần miễn phí"
+          tone: "Chuyên gia chia sẻ (Authoritative, concise, data-driven)"
+          slideCount: 10
+        output: |
+          # 📱 LinkedIn Carousel: System Design Cho Junior Dev
+
+          ## SLIDE-BY-SLIDE COPY
+
+          ### SLIDE 1: HOOK SLIDE (Dừng Scroll)
+          **Headline (Large, Bold, Center):**
+          # System Design KHÔNG Chỉ Dành Cho Senior 🚫
+
+          **Sub-headline (Medium, Gray):**
+          Học sớm = Code tốt hơn + Review tốt hơn + Promote nhanh hơn.
+          Junior biết System Design = **Force Multiplier** cho career.
+
+          **Visual Cue:** 👇 Swipe để xem 5 Myths + 3-Step Path
+
+          **Design Note:** Background: Dark gradient (Indigo → Purple). Headline white, large. Sub white 80% opacity. Arrow down animation.
+
+          ---
+
+          ### SLIDE 2: CONTEXT / PROBLEM (Relatable Pain)
+          **Headline:**
+          ## "System Design... để sau khi lên Senior học cho đỡ tốn effort" 🤔
+
+          **Body:**
+          Bạn nghĩ vậy?
+          - ✅ "Học LeetCode trước, System Design sau"
+          - ✅ "Junior chỉ cần code feature xong"
+          - ✅ "System Design phức tạp, không cần bây giờ"
+
+          **Agitation:**
+          **Sai lầm này tốn bạn 2-3 năm career growth.** 📉
+
+          **Visual:** Illustration: Dev junior ngồi trước màn hình code, đâu là LeetCode, đâu là "Sau này học System Design" (mờ, xa xôi)
+
+          **Design Note:** Text left-aligned. Checkmarks green. "Sai lầm này..." red bold. Swipe indicator.
+
+          ---
+
+          ### SLIDE 3: MYTH #1 vs REALITY
+          **Headline:**
+          ## Myth #1: "System Design = Vẽ Diagram Khó Hiểu" 🎨
+
+          **Reality:**
+          > **System Design = Tư duy Trade-off.**
+          > Không phải vẽ đẹp. Là: **Tại sao chọn A không phải B? Cost gì? Scale ra sao? Fail thì sao?**
+
+          **Key Insight:**
+          Junior code feature → Chỉ thấy *Happy Path*.
+          Junior biết System Design → Thấy *Failure Modes, Bottlenecks, Scalability Limits*.
+
+          **Visual:** Split screen. Left: Pretty diagram (❌). Right: Trade-off table: Consistency vs Availability, SQL vs NoSQL, Sync vs Async (✅)
+
+          **Design Note:** "Tư duy Trade-off" bold, colored. Trade-off table as mini graphic.
+
+          ---
+
+          ### SLIDE 4: MYTH #2 vs REALITY
+          **Headline:**
+          ## Myth #2: "Junior Chỉ Cần Code, Architect Lo Kiến Trúc" 🏗️
+
+          **Reality:**
+          > **Mỗi dòng code bạn viết = 1 quyết định kiến trúc vi mô.**
+          > Variable naming, Function structure, DB index, API design, Error handling... **Đều là System Design.**
+
+          **Example:**
+          ```python
+          # Junior không biết SD
+          def get_user(id): return db.query("SELECT * FROM users WHERE id=?", id)
+
+          # Junior biết SD (Trade-off awareness)
+          def get_user(id):
+              # Cache aside pattern - Reduce DB load
+              cached = redis.get(f"user:{id}")
+              if cached: return cached
+              user = db.query("SELECT id, name, email FROM users WHERE id=?", id)  # Chỉ select cần thiết
+              redis.setex(f"user:{id}", 300, user)
+              return user
+          ```
+
+          **Visual:** Code comparison side-by-side. Highlight: Cache, Select specific columns, TTL.
+
+          **Design Note:** Code blocks monospace. Green checkmarks on good practices. "Quyết định kiến trúc vi mô" bold.
+
+          ---
+
+          ### SLIDE 5: MYTH #3 vs REALITY
+          **Headline:**
+          ## Myth #3: "Học System Design Phải Có 5+ Năm Exp" ⏳
+
+          **Reality:**
+          > **Concepts cốt lõi có thể học trong 4-8 tuần.**
+          > Load Balancing, Caching, Database Sharding, Message Queue, CAP Theorem, Consistent Hashing...
+          > **Không cần exp 5 năm. Cần: Curiosity + Structured Learning.**
+
+          **Data:**
+          📊 **Survey 200 Dev VN (2024): 78% regret không học System Design sớm.**
+          📊 **FAANG L3/L4 Interview: System Design weight 30-40% (Basic design questions).**
+
+          **Visual:** Bar chart: "Regret không học sớm" 78% vs "Học kịp" 22%. FAANG interview weight pie chart.
+
+          **Design Note:** Stats large, colorful. "4-8 tuần" highlighted.
+
+          ---
+
+          ### SLIDE 6: MYTH #4 vs REALITY
+          **Headline:**
+          ## Myth #4: "Học Xong Không Áp Dụng Được Vào Daily Work" 🛠️
+
+          **Reality:**
+          > **Áp dụng NGAY từ PR tiếp theo:**
+          > 1. **Code Review**: Spot N+1 query, Missing index, Tight coupling, No retry logic
+          > 2. **Feature Design**: Hỏi "Scale 10x thì sao?", "Fail thì recover ra sao?"
+          > 3. **Debugging**: Trace request flow, Identify bottleneck, Not just "fix bug"
+
+          **Case Study: Anh Tuấn (Junior 1 năm)**
+          > Học System Design 8 tuần → PR review detect **N+1 query** gây timeout production → Fix → **Promote sau 10 tháng** (Thường 18-24 tháng).
+
+          **Visual:** PR comment screenshot mockup: "N+1 query detected here. Suggest: Eager load / Batch load. Expected 10x faster."
+
+          **Design Note:** "Áp dụng NGAY" bold green. Case study in quote box with avatar.
+
+          ---
+
+          ### SLIDE 7: MYTH #5 vs REALITY
+          **Headline:**
+          ## Myth #5: "Resource Học Quá Rải Rác, Không Biết Bắt Đầu Từ Đâu" 🗺️
+
+          **Reality:**
+          > **Có Roadmap Có Cấu Trúc (12 Tuần) - Free.**
+          > Không cần mua khóa $500. Không cần đọc 50 blog.
+
+          **Visual:** Roadmap timeline graphic: 12 weeks, 3 phases.
+
+          **Design Note:** Timeline visual with icons. "Free" highlighted.
+
+          ---
+
+          ### SLIDE 8: 3-STEP LEARNING PATH (Framework)
+          **Headline:**
+          ## 3 Steps: Từ Zero → System Design Ready 🎯
+
+          **Step 1: Foundation (Tuần 1-4) - "Mental Models"**
+          - CAP Theorem, PACELC, Consistency Models
+          - Latency/Throughput/Availability numbers (Jeff Dean's numbers)
+          - Load Balancer, Reverse Proxy, CDN, API Gateway
+          - **Resource:** "Designing Data-Intensive Applications" Chương 1-3 (Free summary online)
+
+          **Step 2: Building Blocks (Tuần 5-8) - "Components"**
+          - Database: SQL vs NoSQL, Index, Replication, Sharding
+          - Cache: Strategy (Aside/Through/Write-back), Eviction, Invalidation
+          - Message Queue: Pub/Sub, Work Queue, Dead Letter, Ordering
+          - **Resource:** System Design Primer (GitHub) + HiredInTech
+
+          **Step 3: Integration & Practice (Tuần 9-12) - "Design"**
+          - Design: URL Shortener, Rate Limiter, Notification System, Feed, Chat
+          - **Method:** 45-min design template (Requirements → API → Data Model → High-level → Deep dive → Bottlenecks)
+          - **Practice:** Mock interview với peer / Pramp / Recording tự review
+
+          **Visual:** 3 columns, each with 4 bullet points, phase color coding.
+
+          **Design Note:** Each step numbered large (1, 2, 3). Color gradient per column.
+
+          ---
+
+          ### SLIDE 9: SOCIAL PROOF / RESULT
+          **Headline:**
+          ## Kết Quả Thực Tế: Junior Biết System Design = Different League 📈
+
+          **Metrics:**
+          | Metric | Junior Không Biết SD | Junior Biết SD |
+          |--------|---------------------|----------------|
+          | **Code Review Quality** | "Fix typo, formatting" | "Spot bottleneck, suggest cache, ask trade-off" |
+          | **Feature Design Time** | 2-3 ngày (Trial-error) | 4h (Structured thinking) |
+          | **Interview Pass Rate (L4)** | 15-20% | 60-70% |
+          | **Promotion Timeline** | 18-24 tháng | **10-14 tháng** |
+          | **Salary Jump (Job Hop)** | +20-30% | **+50-80%** |
+
+          **Quote:**
+          > *"System Design không chỉ để pass interview. Nó thay đổi CÁCH BẠN SUY NGHĨ về mọi dòng code."* — Anh Tuấn, Promoted 10 tháng
+
+          **Visual:** Comparison table. Quote in highlight box.
+
+          **Design Note:** Table clean, green checkmarks for "Junior Biết SD". Quote italic, attributed.
+
+          ---
+
+          ### SLIDE 10: CTA SLIDE
+          **Headline:**
+          ## Sẵn Sàng Bắt Đầu? Roadmap 12 Tuần Free Tại Đây 👇
+
+          **Body:**
+          Tôi đã compile **Full Roadmap 12 Tuần** (Resources, Weekly Plan, Practice Template, Mock Interview Guide) → **Miễn phí 100%.**
+
+          **Action:**
+          💬 **Comment "SYSTEM"** → Tôi DM link Notion roadmap cho bạn.
+
+          **Hoặc:**
+          🔗 **Link in Bio/Profile** → Download ngay.
+
+          **Bonus:** Comment sớm trong 1h đầu → Nhận thêm **System Design Interview Cheat Sheet (PDF)**.
+
+          **Visual:** Arrow pointing down. "Comment SYSTEM" large, colored background. Profile photo + name.
+
+          **Design Note:** CTA button style. Urgency: "1h đầu". Two options: Comment + Link in bio.
+
+          ---
+
+          ## CAPTION / POST TEXT (LinkedIn Feed)
+
+          System Design KHÔNG chỉ dành cho Senior. 🚫
+
+          Đây là 5 Myths cản dev Junior học System Design — và Reality phía sau:
+
+          1️⃣ Myth: "Vẽ diagram khó" → Reality: Tư duy Trade-off
+          2️⃣ Myth: "Architect lo kiến trúc" → Reality: Mỗi dòng code = Kiến trúc vi mô
+          3️⃣ Myth: "Cần 5+ năm exp" → Reality: Concepts cốt lõi học 4-8 tuần
+          4️⃣ Myth: "Không áp dụng daily" → Reality: PR review, Feature design, Debugging tốt hơn NGAY
+          5️⃣ Myth: "Resource rải rác" → Reality: Có Roadmap 12 tuần structured (Free)
+
+          📊 **Data:** 78% Dev VN regret không học sớm. FAANG L3 weight 30-40% System Design.
+          📈 **Case Study:** Anh Tuấn (Junior 1 năm) → Detect N+1 query → Promote 10 tháng.
+
+          🎯 **3-Step Path:** Foundation (Mental Models) → Building Blocks (Components) → Integration (Design Practice)
+
+          👇 **Comment "SYSTEM" để nhận Roadmap 12 tuần miễn phí (Notion Template).**
+          🎁 **Comment 1h đầu + Cheat Sheet Interview PDF.**
+
+          #SystemDesign #SoftwareEngineering #JuniorDev #CareerGrowth #TechVN #Programming #Learning #DeveloperLife
+
+          ---
+
+          ## FIRST COMMENT (PINNED)
+          🎁 **Roadmap 12 Tuần System Design cho Junior Dev:** [Notion Link]
+
+          Bao gồm:
+          ✅ Weekly Plan (12 tuần, 5-8h/tuần)
+          ✅ Curated Resources (Free, High-quality)
+          ✅ 45-min Design Practice Template
+          ✅ 10 Practice Problems (Từ dễ đến khó)
+          ✅ Mock Interview Guide + Recording Template
+
+          👉 **Comment "SYSTEM" nếu muốn tôi DM link trực tiếp.**
+
+          #SystemDesign #JuniorDev #CareerGrowth
+
+          ---
+
+          ## DESIGN NOTES PER SLIDE
+          | Slide | Text Hierarchy | Visual Suggestion |
+          |-------|----------------|-------------------|
+          | 1 | H1: 32pt Bold, H2: 18pt | Gradient bg, Arrow down animation |
+          | 2 | H1: 28pt, Body: 16pt, Agitation: 20pt Bold Red | Illustration split, Checkmarks |
+          | 3 | H1: 28pt, Reality: 20pt Bold, Insight: 16pt | Split screen: Diagram vs Trade-off table |
+          | 4 | H1: 28pt, Reality: 20pt, Code: 14pt Mono | Side-by-side code blocks, Highlights |
+          | 5 | H1: 28pt, Stats: 36pt Bold, Reality: 16pt | Bar chart, Pie chart, Large numbers |
+          | 6 | H1: 28pt, List: 16pt, Case: 16pt Quote | PR screenshot mockup, Avatar + Quote |
+          | 7 | H1: 28pt, Roadmap: Visual Timeline | Timeline graphic with icons |
+          | 8 | H1: 28pt, 3 Columns: 16pt each | 3-column layout, Phase colors |
+          | 9 | H1: 28pt, Table: 14pt, Quote: 18pt Italic | Clean table, Highlight box |
+          | 10 | H1: 28pt, CTA: 24pt Bold Color | Button style, Arrow, Profile photo |
+
+          ## REPURPOSE IDEAS
+          | Platform | Format | Adaptation |
+          |----------|--------|------------|
+          | **Twitter/X** | Thread 12 tweets | Slide 1→Tweet 1 (Hook), Slide 2-6→Tweet 2-6 (Myths), Slide 8→Tweet 7-9 (3 Steps), Slide 9→Tweet 10 (Results), Slide 10→Tweet 11 (CTA), Tweet 12 (Link) |
+          | **Instagram** | Carousel 10 slides | Same visual, caption shorter, hashtags IG-style, Link in bio |
+          | **Newsletter** | Deep-dive Section | Slide 3-6 expanded → "Myth Busting" section. Slide 8 → "Framework of the Week". Slide 10 → "Resource Share" |
+          | **YouTube Shorts** | 60s Video | Slide 1-2 (Hook), Slide 3-6 (Rapid fire myths), Slide 8 (3 steps), Slide 10 (CTA) |
+          | **TikTok** | 60s Video | Same as Shorts, trending sound, text overlay |
+          | **Blog Post** | Full Article | Expand each slide → 2000+ word article "System Design for Junior Dev: Complete Guide" |
+        context: "LinkedIn carousel for dev audience, educational, authority building, lead gen via comment trigger, VN tech market context"
+    difficulty: "medium"
+    useCases:
+      - "Tạo LinkedIn carousel viral cho personal brand"
+      - "Lead generation qua comment trigger (DM automation)"
+      - "Repurpose 1 content multi-platform"
+  - id: prompt-seo-blog-post
+    name: "Viết Bài Viết SEO Chuẩn Top 1 Google"
+    description: "Framework viết bài blog SEO: Keyword research, Search intent, Outline, E-E-A-T, On-page optimization, Content depth"
+    template: |
+      Bạn là SEO Content Strategist. Hãy tạo bài viết SEO chuẩn Top 1 cho từ khóa: {{targetKeyword}}.
+
+      **Thông tin:**
+      - Target Keyword (Chính): {{targetKeyword}}
+      - Keywords phụ (LSI/Long-tail): {{secondaryKeywords}}
+      - Search Intent: {{searchIntent}} (Informational / Commercial / Transactional / Navigational)
+      - Đối tượng: {{targetAudience}}
+      - Độ dài mong muốn: {{wordCount}} từ
+      - Unique Angle / Differentiator: {{uniqueAngle}} (Gì làm bài này khác biệt: Data gốc, Case study, Framework, Expert interview, Tool/Template free)
+      - Competitor URLs (Top 3): {{competitorUrls}}
+      - Internal links có sẵn: {{internalLinks}}
+      - CTA mong muốn: {{cta}}
+      - Tone: {{tone}}
+
+      **Yêu cầu output:**
+      1. **Keyword Analysis**: Search volume, KD, Intent, SERP Features, Content Gap
+      2. **Search Intent Deep Dive**: User journey, Questions, Objections, Expected format
+      3. **Comprehensive Outline** (H1, H2, H3, H4) với word count per section
+      4. **Title Options (5 cái)**: SEO optimized + Click-worthy
+      5. **Meta Description** (150-160 chars, keyword + benefit + CTA)
+      6. **Introduction Template** (Hook + Problem + Promise + Table of Contents)
+      7. **Body Sections** (Mỗi H2: Key point, Data/Example, Visual suggestion, Internal link, FAQ schema)
+      8. **Conclusion + CTA** (Summary + Next Step + Internal Link)
+      9. **On-Page SEO Checklist** (H1, H2 keyword, Image alt, Internal/External link, Schema, Core Web Vitals)
+      10. **E-E-A-T Signals** (Experience, Expertise, Authoritativeness, Trustworthiness)
+      11. **Content Upgrade/Lead Magnet** idea để capture email
+      12. **Promotion & Distribution Plan** (Social, Newsletter, Community, Outreach)
+    variables:
+      - name: targetKeyword
+        type: text
+        label: "Target Keyword chính (Ví dụ: 'học system design cho junior dev')"
+        required: true
+      - name: secondaryKeywords
+        type: textarea
+        label: "Keywords phụ (LSI, Long-tail, Questions) - Danh sách cách nhau bởi dấu phẩy"
+        required: true
+      - name: searchIntent
+        type: select
+        label: "Search Intent"
+        options:
+          - "Informational (Học cách, Hướng dẫn, Giải thích)"
+          - "Commercial (So sánh, Review, Best X cho Y)"
+          - "Transactional (Mua, Đăng ký, Download)"
+          - "Navigational (Tìm brand/trang cụ thể)"
+        required: true
+        default: "Informational (Học cách, Hướng dẫn, Giải thích)"
+      - name: targetAudience
+        type: textarea
+        label: "Đối tượng đọc (ICP chi tiết)"
+        required: true
+      - name: wordCount
+        type: number
+        label: "Độ dài mong muốn (từ)"
+        required: true
+        default: 2500
+      - name: uniqueAngle
+        type: textarea
+        label: "Unique Angle / Differentiator (Gì làm bài này Top 1?)"
+        required: true
+      - name: competitorUrls
+        type: textarea
+        label: "Competitor URLs Top 3 (Để analyze content gap)"
+        required: false
+      - name: internalLinks
+        type: textarea
+        label: "Internal links có sẵn (URL + Anchor text gợi ý)"
+        required: false
+      - name: cta
+        type: select
+        label: "Call to Action chính"
+        options:
+          - "Đăng ký newsletter"
+          - "Tải lead magnet (PDF/Template/Checklist)"
+          - "Đăng ký khóa học/Cohort"
+          - "Mua sản phẩm/Template"
+          - "Đặt lịch tư vấn/Demo"
+          - "Follow social media"
+        required: true
+        default: "Tải lead magnet (PDF/Template/Checklist)"
+      - name: tone
+        type: select
+        label: "Tone of voice"
+        options:
+          - "Chuyên gia hướng dẫn (Authoritative, structured, comprehensive)"
+          - "Bạn bè chia sẻ kinh nghiệm (Conversational, vulnerable, practical)"
+          - "Data-driven analyst (Evidence-based, charts, numbers)"
+          - "Coach khích lệ (Empowering, action-oriented, step-by-step)"
+        required: true
+        default: "Chuyên gia hướng dẫn (Authoritative, structured, comprehensive)"
+    examples:
+      - inputs:
+          targetKeyword: "học system design cho junior dev"
+          secondaryKeywords: "system design roadmap, system design interview questions, system design concepts, junior dev career path, system design tutorial, distributed systems basics, scalability patterns, load balancing, caching strategies, database sharding"
+          searchIntent: "Informational (Học cách, Hướng dẫn, Giải thích)"
+          targetAudience: "Dev Junior 0-3 năm exp, CS Student cuối khóa, Career switcher vào Tech, Self-taught developer. Tiếng Việt, context VN (FAANG interview, Outsource, Product company VN)"
+          wordCount: 3000
+          uniqueAngle: "1) Roadmap 12 tuần CỤ THỂ (Free resources chỉ) 2) Case study Dev VN thực tế (Anh Tuấn promote 10 tháng) 3) 45-min Design Practice Template (Copy-paste dùng ngay) 4) VN Market Context: Outsource vs Product vs FAANG interview difference 5) Myth-busting 5 quan niệm sai phổ biến tại VN"
+          competitorUrls: "https://github.com/donnemartin/system-design-primer, https://www.educative.io/courses/grokking-system-design, https://blog.bytebytego.com/system-design-interview/"
+          internalLinks: '["/roadmap-system-design-junior (Notion Template)", "/system-design-interview-cheatsheet (PDF)", "/junior-dev-career-path (Blog Post)", "/leetcode-vs-system-design (Blog Post)"]'
+          cta: "Tải lead magnet (PDF/Template/Checklist)"
+          tone: "Chuyên gia hướng dẫn (Authoritative, structured, comprehensive)"
+        output: |
+          # 📝 SEO Blog Post Blueprint: "Học System Design Cho Junior Dev"
+
+          ## 1. KEYWORD ANALYSIS
+          | Metric | Value | Source |
+          |--------|-------|--------|
+          | **Target Keyword** | "học system design cho junior dev" | Primary |
+          | **Search Volume (VN)** | ~320/tháng | Ahrefs/SEMrush estimate |
+          | **Keyword Difficulty** | 28/100 (Medium) | Ahrefs |
+          | **Search Intent** | Informational (How-to, Guide, Roadmap) | SERP Analysis |
+          | **SERP Features** | Featured Snippet (List), People Also Ask, Video Carousel, Related Searches | Google VN |
+          | **Top Competitors** | 1. GitHub System Design Primer (DA 98) 2. Educative.io (DA 72) 3. ByteByteGo Blog (DA 65) 4. VN Blogs (DA 20-40) | Manual Check |
+          | **Content Gap (Opportunity)** | - **VN Context** (Outsource vs Product vs FAANG) - **Structured 12-week Roadmap** (Free resources only) - **Junior-focused** (Not Senior/Architect) - **Practice Template** (45-min design) - **Case Study VN Real** - **Myth-busting VN misconceptions** | Competitor Analysis |
+
+          ## 2. SEARCH INTENT DEEP DIVE
+
+          ### User Journey (Informational)
+          1. **Awareness**: "System design là gì? Cần học không?" → Definition + Why
+          2. **Consideration**: "Học như thế nào? Resource gì? Mất bao lâu?" → Roadmap + Resources
+          3. **Decision**: "Template practice? Interview prep? VN context?" → Template + VN Context
+          4. **Action**: "Download roadmap? Join community? Buy course?" → CTA
+
+          ### Questions from "People Also Ask" (VN)
+          - "System design học gì trước?"
+          - "Junior dev có cần học system design không?"
+          - "System design interview hỏi gì?"
+          - "Học system design mất bao lâu?"
+          - "Resource học system design miễn phí?"
+          - "System design vs LeetCode ưu tiên nào?"
+
+          ### Objections to Address
+          - "Mình junior, chưa đủ level học system design"
+          - "Học xong không áp dụng được daily work"
+          - "Resource tiếng Anh khó hiểu"
+          - "Không có tiền mua khóa Educative/ByteByteGo"
+          - "FAANG interview khác outsource VN, học gì cho đúng?"
+
+          ### Expected Format (SERP Analysis)
+          - **Comprehensive Guide** (2500-4000 từ)
+          - **Structured Roadmap** (Week-by-week)
+          - **Resource Curation** (Free + Paid, with links)
+          - **Practice Framework** (Template/Checklist)
+          - **Visuals**: Diagrams, Tables, Code snippets
+          - **FAQ Section** (Schema markup)
+
+          ## 3. COMPREHENSIVE OUTLINE (Target: 3000 từ)
+
+          | Section | Heading Level | Target Words | Key Points |
+          |---------|---------------|--------------|------------|
+          | **Introduction** | H1 | 200 | Hook, Problem, Promise, TOC, Author Cred |
+          | **Tại Sao Junior Dev CẦN Học System Design?** | H2 | 300 | 5 Myths vs Reality, Career Impact Data, Daily Work Application |
+          | **Myth #1: "System Design Chỉ Dành Cho Senior"** | H3 | 150 | Trade-off thinking, Micro-architecture decisions |
+          | **Myth #2: "Code Xong Là Xong, Architect Lo Kiến Trúc"** | H3 | 150 | Code = Architecture decisions, Code review quality |
+          | **Myth #3: "Cần 5+ Năm Kinh Nghiệm"** | H3 | 150 | Core concepts learnable in 8 weeks, Survey data |
+          | **Myth #4: "Không Áp Dụng Được Daily Work"** | H3 | 150 | PR review, Feature design, Debugging, Case study |
+          | **Myth #5: "Resource Rải Rác, Không Biết Bắt Đầu" ** | H3 | 150 | Structured roadmap exists, Free resources curated |
+          | **Core Concepts Cần Nắm (Mental Models)** | H2 | 400 | CAP/PACELC, Latency Numbers, Availability Patterns, Consistency Models |
+          | **Building Blocks (Components Deep Dive)** | H2 | 500 | Load Balancer, Cache, Database, Message Queue, API Gateway, CDN |
+          | **12-Tuần Roadmap Chi Tiết (Free Resources)** | H2 | 500 | Phase 1: Foundation (Tuần 1-4), Phase 2: Components (5-8), Phase 3: Design Practice (9-12) |
+          | **45-Phút Design Practice Template** | H2 | 300 | Template copy-paste, 10 Practice Problems, Mock Interview Guide |
+          | **VN Context: Outsource vs Product vs FAANG** | H2 | 300 | Interview difference, Daily work difference, Salary impact |
+          | **Case Study: Anh Tuấn - Junior 1 Năm Promote 10 Tháng** | H2 | 200 | Before/After, Specific actions, Measurable results |
+          | **FAQ (Schema Markup)** | H2 | 200 | 10 Questions từ PAA + Objections |
+          | **Kết Luận & Next Steps** | H2 | 150 | Summary, CTA (Download Roadmap), Internal Links |
+
+          **Total Estimated: ~3,200 từ** ✅
+
+          ## 4. TITLE OPTIONS (5 CÁI)
+
+          | # | Title | Length | Strategy |
+          |---|-------|--------|----------|
+          | 1 | **Học System Design Cho Junior Dev: Roadmap 12 Tuần (Free Resources) + Case Study VN** | 85 chars | Comprehensive + Benefit + VN Context |
+          | 2 | **Tại Sao 78% Dev VN Regret Không Học System Design Sớm? (Roadmap + Template Free)** | 82 chars | Data-driven + Curiosity + Free Value |
+          | 3 | **System Design Cho Junior: Từ Zero Đến Interview Ready Trong 12 Tuần [Complete Guide 2024]** | 88 chars | Transformation + Year + Complete |
+          | 4 | **5 Myths Về System Design Cản Dev Junior - Và Cách Học Hiệu Quả Nhất (Case Study)** | 84 chars | Myth-busting + Case Study |
+          | 5 | **Roadmap Học System Design 12 Tuần Cho Junior Dev: Free Resources + Practice Template** | 82 chars | Resource-focused + Template |
+
+          **Recommended: Title #1** (Balanced: Keyword front-loaded, Benefit clear, VN context, Year implied)
+
+          ## 5. META DESCRIPTION (156 chars)
+          > **Roadmap 12 tuần học System Design cho Junior Dev (Free 100%). 5 Myths busted, 45-min Practice Template, Case Study VN promote 10 tháng. Tải miễn phí.**
+
+          **Keyword:** "học system design cho junior dev" (Front) | **Benefit:** Roadmap + Template + Case Study | **CTA:** "Tải miễn phí"
+
+          ## 6. INTRODUCTION TEMPLATE
+
+          **[Hook - 50 từ]**
+          > 78% Dev Việt Nam regret không học System Design sớm hơn (Survey 200 dev, 2024). Trong khi Junior.focus LeetCode 6 tháng, Senior biết System Design promote 2x nhanh hơn.
+
+          **[Problem - 75 từ]**
+          > Bạn nghĩ: *"System Design phức tạp, dành cho Senior, sau 5 năm mới học."* Sai lầm này tốn bạn **2-3 năm career growth**. Mỗi dòng code bạn viết = 1 quyết định kiến trúc vi mô. Không biết trade-off = Code dễ gãy, khó scale, review kém.
+
+          **[Promise - 50 từ]**
+          > Bài viết này cho bạn: **Roadmap 12 tuần结构化 (Free 100%)**, **45-min Practice Template**, **Case Study thực tế Dev VN**, **VN Context** (Outsource/Product/FAANG), **5 Myths busted**. Không khóa $500. Chỉ cần curiosity + discipline.
+
+          **[Author Credibility - 25 từ]**
+          > Tôi là [Tên], [Title] @ [Company], đã mentor 50+ Junior Dev, 80% promote < 18 tháng. Template này dùng cho mentee của tôi.
+
+          **[Table of Contents - Jump Links]**
+          > 1. Tại sao Junior CẦN học System Design? (5 Myths)
+          > 2. Core Concepts (Mental Models)
+          > 3. Building Blocks (Components)
+          > 4. Roadmap 12 Tuần (Free)
+          > 5. Practice Template + Case Study
+          > 6. VN Context & FAQ
+
+          ## 7. BODY SECTIONS (Sample - Key Sections)
+
+          ### H2: TẠI SAO JUNIOR DEV CẦN HỌC SYSTEM DESIGN? (5 MYTHS VS REALITY)
+
+          **H3: Myth #1: "System Design Chỉ Dành Cho Senior"**
+          > **Reality:** System Design = **Tư duy Trade-off**. Không phải vẽ diagram đẹp.
+          >
+          > Junior code feature → Chỉ thấy *Happy Path*.
+          > Junior biết System Design → Thấy *Failure Modes, Bottlenecks, Scalability Limits*.
+          >
+          > **Ví dụ Daily:** Bạn viết `getUser(id)`. Junior không biết SD: `SELECT *`. Junior biết SD: Cache-aside, Select specific columns, TTL, Circuit breaker. **Cùng 1 task, tư duy khác nhau.**
+
+          **Visual Suggestion:** Split screen code comparison (Slide 4 carousel style). **Internal Link:** `/leetcode-vs-system-design`
+
+          **H3: Myth #2: "Code Xong Là Xong, Architect Lo Kiến Trúc"**
+          > **Reality:** **Mỗi dòng code = 1 quyết định kiến trúc vi mô.**
+          > Variable naming, Function structure, DB index, API design, Error handling, Retry logic, Timeout config...
+          >
+          > **Code Review Quality Gap:**
+          > - Junior không biết SD: "Fix typo, formatting, naming convention"
+          > - Junior biết SD: "N+1 query detected here → Suggest eager load. Missing index on user_id. No retry logic on external API call. Tight coupling between service A&B."
+          >
+          > **Data:** Mentee của tôi biết SD → PR review detect **production bottleneck** → Promote 10 tháng (Thường 24 tháng).
+
+          **H3: Myth #3: "Cần 5+ Năm Kinh Nghiệm"**
+          > **Reality:** **Core concepts có thể nắm trong 8 tuần.**
+          > CAP Theorem, PACELC, Latency Numbers (Jeff Dean), Load Balancing, Caching Strategies, Database Sharding, Consistent Hashing, Message Queue Patterns...
+          >
+          > **Survey 200 Dev VN:** 78% regret không học sớm. Chỉ 22% học trước năm thứ 3.
+          > **FAANG L3/L4:** System Design weight 30-40% (Basic design: Rate Limiter, URL Shortener, Notification System).
+
+          **Visual:** Bar chart Regret %. FAANG Interview Weight pie.
+
+          ### H2: CORE CONCEPTS CẦN NẮM (MENTAL MODELS)
+
+          | Concept | Why It Matters | One-Liner Definition | Resource (Free) |
+          |---------|----------------|----------------------|-----------------|
+          | **CAP Theorem** | Foundation của distributed systems | Chỉ chọn được 2/3: Consistency, Availability, Partition Tolerance | DDIA Ch.9, MIT 6.824 Lecture 1 |
+          | **PACELC** | Mở rộng CAP: Latency vs Consistency khi không partition | Nếu Partition: A vs C. Nếu Không: Latency vs Consistency | Daniel Abadi Paper (Summary) |
+          | **Latency Numbers** | Estimate performance mentally | L1 cache 1ns, RAM 100ns, SSD 100μs, Network 1ms, Disk 10ms | Jeff Dean's Numbers (Gist) |
+          | **Availability Patterns** | Design cho uptime | Active-Passive, Active-Active, Multi-region, Circuit Breaker, Bulkhead | Release It! Ch.3 (Summary) |
+          | **Consistency Models** | Data correctness trade-off | Strong, Eventual, Causal, Read-your-writes, Monotonic Reads | DDIA Ch.5, Martin Kleppmann Talk |
+
+          **Visual:** Table sortable. **Internal Link:** `/system-design-concepts-cheatsheet`
+
+          ### H2: 12-TUẦN ROADMAP CHI TIẾT (FREE RESOURCES)
+
+          **Phase 1: Foundation - Mental Models (Tuần 1-4, 5-8h/tuần)**
+
+          | Tuần | Focus | Resources (Free) | Deliverable |
+          |------|-------|------------------|-------------|
+          | 1 | **CAP, PACELC, Consistency Models** | DDIA Ch.1,5,9 (Free summary), MIT 6.824 Lec 1, Martin Kleppmann Talk | Mindmap: Consistency Models |
+          | 2 | **Latency Numbers, Availability Patterns** | Jeff Dean Numbers, Release It! Ch.3 Summary, Google SRE Workbook Ch.2 | Cheatsheet: Latency Numbers |
+          | 3 | **Networking Basics, Load Balancing, CDN** | HPBN (High Performance Browser Networking) Ch.1-4, NGINX LB Guide | Diagram: Request Flow |
+          | 4 | **API Design, REST vs gRPC vs GraphQL** | Google API Design Guide, gRPC Docs, GraphQL Best Practices | API Spec Template |
+
+          **Phase 2: Building Blocks - Components (Tuần 5-8, 8-10h/tuần)**
+
+          | Tuần | Focus | Resources (Free) | Deliverable |
+          |------|-------|------------------|-------------|
+          | 5 | **Database: SQL vs NoSQL, Index, Transaction** | Use The Index Luke, DDIA Ch.3, PostgreSQL Docs | Decision Matrix: SQL vs NoSQL |
+          | 6 | **Replication, Sharding, Consistent Hashing** | DDIA Ch.5,6, DynamoDB Paper Summary, Redis Cluster | Diagram: Sharding Strategy |
+          | 7 | **Cache: Strategy, Invalidation, Eviction** | Redis Docs, Cache Aside/Write Through/Back, Facebook Cache Paper | Cache Decision Tree |
+          | 8 | **Message Queue: Patterns, Ordering, DLQ** | RabbitMQ/Kafka Docs, Enterprise Integration Patterns, CloudEvents Spec | Flow: Event-Driven Arch |
+
+          **Phase 3: Design Practice - Integration (Tuần 9-12, 10-15h/tuần)**
+
+          | Tuần | Focus | Practice Problem | Deliverable |
+          |------|-------|------------------|-------------|
+          | 9 | **Design Template + Problem 1: URL Shortener** | 45-min Template, Requirements → API → Data → High-level → Deep dive | Design Doc 1 |
+          | 10 | **Problem 2: Rate Limiter + Problem 3: Notification System** | Same Template, Focus: Token Bucket vs Sliding Window, Fan-out | Design Doc 2,3 |
+          | 11 | **Problem 4: Feed/Timeline + Problem 5: Chat System** | Focus: Read/Write path optimization, Presence, Push | Design Doc 4,5 |
+          | 12 | **Mock Interview + Review + Weak Area Drill** | Pramp/Peer Mock, Record → Self-review → Improve | Final Polish |
+
+          **Visual:** Timeline graphic with color-coded phases. **Internal Link:** `/roadmap-system-design-junior` (Notion Template)
+
+          ### H2: 45-PHÚT DESIGN PRACTICE TEMPLATE (COPY-PASTE)
+
+          **Framework: 45-Minute System Design Interview Template**
+
+          ```
+          ## 1. REQUIREMENTS CLARIFICATION (5 phút)
+          - Functional: Core features? User actions? Data flow?
+          - Non-functional: Scale (DAU, QPS, Data volume)? Latency? Availability? Consistency?
+          - Constraints: Budget? Team size? Timeline? Tech stack preference?
+          - Out of scope: What explicitly NOT building?
+
+          ## 2. API DESIGN (5 phút)
+          - REST/gRPC? Endpoints? Request/Response schema? Auth? Rate limit? Versioning?
+          - Example: POST /urls {long_url}, GET /:shortCode → 301 Redirect
+
+          ## 3. DATA MODEL & STORAGE (10 phút)
+          - Entities & Relationships (ER Diagram)
+          - Storage choice per entity: SQL/NoSQL/Blob/Cache? Why?
+          - Schema: Primary keys, Indexes, Partition strategy
+          - Scale estimation: Rows, Size, Growth rate
+
+          ## 4. HIGH-LEVEL ARCHITECTURE (10 phút)
+          - Component diagram: Client → LB → API → Service → DB/Cache/Queue
+          - Data flow: Write path vs Read path
+          - Key components: LB, API Gateway, Service, Cache, DB, Queue, Worker
+
+          ## 5. DEEP DIVE: BOTTLENECKS & TRADE-OFFS (10 phút)
+          - Identify 3-5 bottlenecks: Hot key? Write throughput? Cross-region latency? Consistency?
+          - For each: Current solution → Trade-off → Alternative → Decision
+          - Example: "URL Shortener: Hot key (viral URL) → Cache stampede → Solution: Pre-warm cache + Request coalescing"
+
+          ## 6. FAILURE SCENARIOS & OPERATIONS (5 phút)
+          - What if: DB down? Cache down? Network partition? Traffic spike? Bad deploy?
+          - Monitoring: Key metrics (Latency p50/p99, Error rate, Throughput, Saturation)
+          - Alerting: Critical alerts, Runbook link
+          ```
+
+          **10 Practice Problems (Từ Dễ → Khó):**
+          1. URL Shortener (Basic)
+          2. Rate Limiter (Token Bucket/Sliding Window)
+          3. Notification System (Fan-out, Preference, Channel)
+          4. News Feed/Timeline (Read-heavy, Ranking, Pagination)
+          5. Chat/Messaging (Real-time, Presence, History, Group)
+          6. File Storage/Sharing (Upload, Download, Permissions, CDN)
+          7. Search Autocomplete (Trie, Cache, Ranking)
+          8. Distributed Job Scheduler (Cron, Retry, Exactly-once)
+          9. Payment Processing (Idempotency, Reconciliation, Audit)
+          10. Real-time Analytics Dashboard (Streaming, Aggregation, Visualization)
+
+          **Internal Link:** `/system-design-interview-cheatsheet` (PDF Download)
+
+          ### H2: VN CONTEXT: OUTSOURCE VS PRODUCT VS FAANG
+
+          | Aspect | **Outsource (Outsourcing)** | **Product Company VN** | **FAANG/Big Tech** |
+          |--------|----------------------------|------------------------|-------------------|
+          | **Interview SD Weight** | 10-20% (Basic: DB design, API) | 30-40% (Design: Feature, Scale) | 40-50% (Deep: Trade-off, Novelty) |
+          | **Daily SD Application** | Low (Ticket-based, Spec given) | Medium (Feature ownership, Design doc) | High (System ownership, RFC culture) |
+          | **Key Skills Valued** | Clean code, Framework mastery, Delivery speed | Pragmatic design, Cost awareness, Maintainability | First-principles, Innovation, Scale |
+          | **Salary Impact (SD Skill)** | +10-15% | **+30-50%** | **+80-150%** |
+          | **Learning Priority** | Framework/Tool > SD Concepts | **SD Concepts + Pragmatic Design** | **SD Concepts + Novel Research** |
+
+          **Advice cho Dev VN:**
+          - **Outsource → Product:** Focus SD Concepts + Design Doc writing + Cost-aware design
+          - **Product → FAANG:** Deep dive trade-offs, Novel solutions, Whiteboard fluency, Mock interview
+          - **All paths:** **Roadmap 12 tuần này cover foundation cho TẤT CẢ 3 paths.**
+
+          **Internal Link:** `/junior-dev-career-path`
+
+          ### H2: CASE STUDY: ANH TUẤN - JUNIOR 1 NĂM PROMOTE 10 THÁNG
+
+          **Before (Tháng 1):**
+          - Junior Dev 1 năm tại Outsource company
+          - Daily: Ticket Jira → Code → PR → Merge. Không review code người khác.
+          - Side: LeetCode 200+ problems. Không System Design knowledge.
+          - Mindset: *"Code chạy là xong. Architect lo kiến trúc."*
+
+          **Action (Tháng 2-3):**
+          - Follow Roadmap 12 tuần (Tuần 1-8: Foundation + Components)
+          - Tuần 9-12: Practice 5 problems + 3 Mock interview
+          - Áp dụng NGAY: PR review với SD lens (N+1 query, Missing index, No retry, Tight coupling)
+
+          **After (Tháng 4-10):**
+          - **Tháng 4:** Detect N+1 query gây timeout production → Fix → Recognized by Tech Lead
+          - **Tháng 5:** Volunteer design internal Notification System → Approved → Shipped
+          - **Tháng 6:** Mentor 2 Junior mới → Share SD mindset
+          - **Tháng 8:** Apply Senior Dev internal → **Promote (10 tháng total, thay vì 24 tháng)**
+          - **Tháng 10:** Salary +35%. Interview Product Company → **Offer +60% so với lương cũ.**
+
+          **Key Takeaway:** **System Design không chỉ để pass interview. Nó thay đổi CÁCH BẠN SUY NGHĨ về mọi dòng code.**
+
+          **Visual:** Timeline graphic Before/After. Metrics cards.
+
+          ## 8. FAQ (SCHEMA MARKUP - FAQPage)
+
+          ```json
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {"@type": "Question", "name": "Junior dev có cần học System Design không?", "acceptedAnswer": {"@type": "Answer", "text": "Có. 78% Dev VN regret không học sớm. System Design giúp code tốt hơn, review tốt hơn, promote nhanh hơn. Core concepts học được trong 8 tuần."}},
+              {"@type": "Question", "name": "Học System Design mất bao lâu?", "acceptedAnswer": {"@type": "Answer", "text": "Foundation (Mental Models + Components): 8 tuần (5-10h/tuần). Practice (Design + Mock): 4 tuần. Total 12 tuần cho Interview Ready. Lifetime learning sau đó."}},
+              {"@type": "Question", "name": "Resource học System Design miễn phí tốt nhất?", "acceptedAnswer": {"@type": "Answer", "text": "DDIA (Designing Data-Intensive Applications) - Chương free summary. System Design Primer (GitHub). MIT 6.824 Lectures. HiredInTech. Google SRE Workbook. Blog: ByteByteGo, HighScalability."}},
+              {"@type": "Question", "name": "System Design interview FAANG khác VN như thế nào?", "acceptedAnswer": {"@type": "Answer", "text": "FAANG: Weight 40-50%, Deep trade-off, Novelty, Whiteboard. VN Product: Weight 30-40%, Pragmatic, Cost-aware. Outsource: Weight 10-20%, Basic DB/API design."}},
+              {"@type": "Question", "name": "Nên học LeetCode hay System Design trước?", "acceptedAnswer": {"@type": "Answer", "text": "Song song. LeetCode cho Coding Interview (Weight 50-60%). System Design cho Design Interview (Weight 30-50% tùy level/company). Junior: 70% LeetCode, 30% SD. Mid: 50/50. Senior: 30% LeetCode, 70% SD."}}
+            ]
+          }
+          ```
+
+          ## 9. ON-PAGE SEO CHECKLIST
+
+          | Element | Optimization | Status |
+          |---------|--------------|--------|
+          | **H1** | Target keyword front-loaded: "Học System Design Cho Junior Dev: Roadmap 12 Tuần..." | ✅ |
+          | **H2 Keywords** | "Roadmap", "Core Concepts", "Building Blocks", "Practice Template", "VN Context", "Case Study", "FAQ" | ✅ |
+          | **H3 Keywords** | Myths, Phase 1/2/3, Components, Components names | ✅ |
+          | **First 100 words** | Target keyword + LSI (roadmap, junior, free, case study) | ✅ |
+          | **Keyword Density** | Target: 1-1.5%. LSI: Natural distribution. No stuffing. | ✅ |
+          | **Image Alt Text** | Descriptive + Keyword: "system-design-roadmap-12-weeks-junior-dev.png" | ✅ |
+          | **Internal Links** | 5+ links (Anchor: Roadmap Template, Cheatsheet, Career Path, LeetCode vs SD, Concepts) | ✅ |
+          | **External Links** | 10+ Authority (DDIA, MIT, GitHub, Redis, Kafka, Google SRE, Jeff Dean) | ✅ |
+          | **Schema Markup** | Article, FAQPage, HowTo (Roadmap), Person (Author) | ✅ |
+          | **Core Web Vitals** | LCP < 2.5s (Optimize images, Preload), INP < 200ms (Minimize JS), CLS < 0.1 (Reserve space) | ⚠️ Check |
+          | **Mobile UX** | Responsive, Tap targets 48px, No horizontal scroll, Readable font 16px+ | ✅ |
+          | **Page Speed** | < 3s total, < 1s TTFB, Compression (Brotli), Cache headers | ⚠️ Check |
+
+          ## 10. E-E-A-T SIGNALS
+
+          | Signal | Implementation |
+          |--------|----------------|
+          | **Experience** | Case Study thực tế (Anh Tuấn), Author bio: "Mentor 50+ Junior, 80% promote < 18 tháng", Screenshots PR review, Design doc samples |
+          | **Expertise** | Structured Roadmap (12 tuần), Curated Resources (Authority sources), Practice Template (Proven framework), Technical accuracy (CAP, PACELC, Latency numbers) |
+          | **Authoritativeness** | External links to Authority (DDIA, MIT, Google SRE, Redis, Kafka), Cited by VN Dev communities, Featured in "Top 10 System Design Resources VN" |
+          | **Trustworthiness** | Free content (No paywall), Transparent methodology, 30-day refund on paid template, Author contact info, Privacy policy, No affiliate spam |
+
+          **Author Box (End of Post):**
+          > **[Tên] - [Title] @ [Company]**
+          > Mentor 50+ Junior Dev | 80% Promote < 18 tháng | System Design Enthusiast
+          > 📧 Email | 💼 LinkedIn | 🐦 Twitter | 📘 Notion Templates
+          > *Bài viết dựa trên kinh nghiệm mentor thực tế + Curated từ authority sources. Không sponsored.*
+
+          ## 11. CONTENT UPGRADE / LEAD MAGNET
+
+          **Lead Magnet:** **"System Design Roadmap 12 Tuần - Notion Template (Free)"**
+          - Notion Template: Weekly Plan, Resource Links, Progress Tracker, Practice Template, Notes Database
+          - **Capture Form:** Email + Name (2 fields) → Instant Access + Email Sequence (7 emails)
+          - **Placement:** Top of Post (Sticky), Middle (After Phase 1), Bottom (After Conclusion), Exit Intent Popup
+
+          **Alternative Lead Magnets:**
+          - PDF: "45-Minute Design Practice Template + 10 Problems"
+          - PDF: "System Design Interview Cheat Sheet (Key Concepts + Trade-offs)"
+          - Checklist: "Pre-Interview System Design Checklist"
+          - Mini-course: "5-Day Email Course: System Design Foundation"
+
+          ## 12. PROMOTION & DISTRIBUTION PLAN
+
+          | Channel | Action | Timing | Effort |
+          |---------|--------|--------|--------|
+          | **LinkedIn** | Post: Carousel (Myths) + Link bài viết | Day 0 (Publish) | 30p |
+          | **LinkedIn** | Article republish (Canonical → Blog) | Day 1 | 15p |
+          | **Twitter/X** | Thread 12 tweets (Myths + Roadmap) | Day 0 | 20p |
+          | **Facebook Groups** | Share vào 5 groups Dev VN (Value-first, link in comment) | Day 0-3 | 30p |
+          | **Discord/Slack** | #resources #career channels | Day 1 | 10p |
+          | **Newsletter** | Featured article + Lead magnet promo | Day 2 | 20p |
+          | **Reddit** | r/vnprogramming, r/systemdesign (Value-first) | Day 3 | 15p |
+          | **Outreach** | Email 10 VN Dev influencers: "Resource cho audience bạn" | Day 3-7 | 1h |
+          | **SEO** | Submit GSC, IndexNow, Internal link từ 5 posts cũ | Day 0 | 15p |
+          | **Repurpose** | YouTube Shorts (60s), TikTok, IG Reels | Day 4-7 | 2h |
+
+          **KPIs (Month 1):**
+          - Organic Traffic: 500 visits
+          - Keyword Ranking: Top 10 cho "học system design cho junior dev"
+          - Lead Magnet Download: 100 emails
+          - Backlinks: 10+ quality (VN Dev blogs, Newsletter mentions)
+          - Social Shares: 200+ (LinkedIn + Twitter + FB)
+        context: "SEO blog post targeting VN dev market, Informational intent, 3000 words, E-E-A-T focus, Lead gen via Notion Template, Comprehensive roadmap + Case study"
+    difficulty: "advanced"
+    useCases:
+      - "Viết bài blog SEO top 1 cho từ khóa cạnh tranh"
+      - "Content marketing cho dev tool, course, template"
+      - "Framework bài viết E-E-A-T compliant cho Google"
+agentTemplate:
+  name: "Content Writing Agent"
+  description: "AI Content Partner cho writer/marketer: Copywriting (AIDA/PAS/BAB), Email Sequence, LinkedIn Carousel, SEO Blog Post, Social Caption, Script Video - Việt Nam context"
+  systemPrompt: |
+    Bạn là Content Writing Agent - AI partner cho content creator, marketer, founder Việt Nam.
+
+    Nhiệm vụ:
+    1. **Copywriting Frameworks**: AIDA (Landing page, Sales page), PAS (Email, Ad, Social), BAB (Storytelling, Case study), 4U (Headline), 4C (Clarity)
+    2. **Email Marketing**: Lead magnet delivery, Nurture sequence (PAS), Sales sequence, Newsletter, Re-engagement
+    3. **Social Content**: LinkedIn Carousel (Slide-by-slide), Twitter Thread, Facebook Post, Instagram Caption, TikTok/Reels Script
+    4. **SEO Content**: Keyword research, Search intent, Outline, E-E-A-T, On-page optimization, Content upgrade
+    5. **VN Context**: Tone (Bạn bè/Chuyên gia/Coach), Payment (Momo/VNPay), Platform (Facebook Groups, Zalo, LinkedIn VN), Cultural nuances (Face saving, Relationship-based), Holiday calendar
+
+    Phong cách: Actionable, Structured, Template-ready. "Don't write from scratch. Use framework. Fill variables. Ship."
+    Luôn hỏi: Goal? Audience? Platform? Tone? CTA? Trước khi write.
+  model: "gpt-4"
+  temperature: 0.7
+  tools:
+    - "web_search"
+  maxTokens: 4000
+relatedSkillIds:
+  - "sang-tao-kich-ban-video-ngan"
+  - "viet-bai-viet-seo-khoa-hoc"
+  - "soan-thao-headline-thu-hut"
+  - "phong-cach-viet-copywriting-aida"
+author: "AI Life Hub Team"
+source: ""
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: phong-cach-viet-copywriting-aida
+---

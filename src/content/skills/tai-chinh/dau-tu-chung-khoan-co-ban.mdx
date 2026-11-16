@@ -1,0 +1,151 @@
+---
+id: dau-tu-chung-khoan-co-ban
+categoryId: tai-chinh
+name: "Đầu tư chứng khoán cơ bản"
+description: "ETF, Index fund, Dollar Cost Averaging, Portfolio allocation, Risk management, Tax optimization"
+whenToUse:
+  - "Bắt đầu đầu tư chứng khoán lần đầu"
+  - "Xây dựng portfolio dài hạn (10+ năm)"
+  - "Tối ưu hóa portfolio hiện tại"
+difficulty: "intermediate"
+estimatedTime: "Setup 2-3 giờ, review 30p/quý"
+tags: ["investing", "etf", "index-fund", "dca", "portfolio", "risk-management"]
+prompts:
+  - id: prompt-portfolio-design
+    name: "Thiết kế Portfolio ETF/Index Fund"
+    description: "Xây dựng portfolio đa dạng hóa theo risk tolerance, time horizon, goals"
+    template: |
+      Bạn là Investment Advisor. Hãy thiết kế portfolio cho tôi:
+
+      **Hồ sơ nhà đầu tư:**
+      - Tuổi: {{age}}
+      - Thu nhập/năm: {{annualIncome}}
+      - Time horizon: {{horizon}} năm
+      - Risk tolerance: {{riskTolerance}} (Conservative / Moderate / Aggressive)
+      - Số vốn ban đầu: {{initialCapital}}
+      - Đóng góp định kỳ: {{monthlyContribution}}
+      - Mục tiêu: {{goals}}
+
+      **Yêu cầu Portfolio:**
+      1. Asset Allocation % (Stocks / Bonds / Cash / Alternatives)
+      2. ETF/Index Fund cụ thể (Ticker, Expense Ratio, AUM)
+      3. Geographic diversification (US, Developed Intl, Emerging, VN)
+      4. Rebalancing strategy (Calendar / Threshold / Cash flow)
+      5. Tax-advantaged accounts usage (nếu áp dụng VN)
+      6. Expected return & Risk metrics (CAGR, Max Drawdown, Sharpe)
+      7. DCA schedule cho monthly contribution
+
+      Output: Portfolio table + Rationale + Action plan.
+    variables:
+      - name: age
+        type: number
+        label: "Tuổi"
+        required: true
+      - name: annualIncome
+        type: number
+        label: "Thu nhập năm (VND)"
+        required: true
+      - name: horizon
+        type: number
+        label: "Time horizon (năm)"
+        required: true
+      - name: riskTolerance
+        type: select
+        label: "Risk tolerance"
+        options:
+          - "Conservative (Bảo toàn vốn, chấp nhận lợi nhuận thấp)"
+          - "Moderate (Cân bằng tăng trưởng & rủi ro)"
+          - "Aggressive (Tối đa tăng trưởng, chấp nhận biến động lớn)"
+        required: true
+        default: "Moderate (Cân bằng tăng trưởng & rủi ro)"
+      - name: initialCapital
+        type: number
+        label: "Vốn ban đầu (VND)"
+        required: true
+        default: 0
+      - name: monthlyContribution
+        type: number
+        label: "Đóng góp hàng tháng (VND)"
+        required: true
+      - name: goals
+        type: textarea
+        label: "Mục tiêu tài chính"
+        required: true
+    examples:
+      - inputs:
+          age: 30
+          annualIncome: 300000000
+          horizon: 20
+          riskTolerance: "Moderate (Cân bằng tăng trưởng & rủi ro)"
+          initialCapital: 50000000
+          monthlyContribution: 5000000
+          goals: "Tự do tài chính 45 tuổi, hưu trí thoải mái"
+        output: |
+          # 📈 Portfolio Design: Moderate, 20-year horizon
+
+          ## Asset Allocation (Core-Satellite)
+          | Asset Class | % | Rationale |
+          |-------------|---|-----------|
+          | **Global Stocks** | 70% | Tăng trưởng dài hạn |
+          | ├─ US Total Market | 42% | Core, low cost, đa dạng |
+          | ├─ Developed Intl (ex-US) | 14% | Đa dạng hóa địa lý |
+          | ├─ Emerging Markets | 7% | Tăng trưởng cao, rủi ro cao |
+          | ├─ Vietnam (VN30/VFMVF30) | 7% | Home bias, familiar |
+          | **Bonds** | 25% | Ổn định, giảm volatility |
+          | ├─ US Aggregate Bond | 15% | Quality, USD hedged |
+          | ├─ VN Government Bond | 10% | Local currency, tax advantage |
+          | **Cash/Equivalents** | 5% | Liquidity, opportunity fund |
+
+          ## ETF Recommendations (VN Market Access)
+          | Allocation | Ticker (VN/Global) | Name | ER | AUM |
+          |------------|-------------------|------|-----|-----|
+          | US Total Market | VFMVFVN30 / VT (IB) | Vanguard Total Stock Market | 0.03% | $1.3T |
+          | Developed Intl | VEA (IB) / VFMVFVNG | Vanguard FTSE Developed | 0.05% | $100B |
+          | Emerging | VWO (IB) | Vanguard FTSE Emerging | 0.08% | $70B |
+          | Vietnam | VFMVF30 / FUEVFVND | VFM VN30 ETF / SSIAM VN30 | 0.5-0.65% | ~2,000B VND |
+          | US Aggregate Bond | BND (IB) / VFMVFVNB | Vanguard Total Bond | 0.03% | $300B |
+          | VN Gov Bond | VFMVFVNB | VFM Vietnam Gov Bond | 0.35% | ~500B VND |
+
+          ## Rebalancing Strategy
+          - **Method**: Threshold-based (±5% cho stock/bond, ±3% cho sub-asset)
+          - **Frequency**: Check quý, rebalance khi vượt threshold
+          - **Tax-efficient**: Dùng new contributions (DCA) để rebalance trước, bán chỉ khi cần thiết
+
+          ## DCA Schedule (5M/tháng)
+          | Month | US Total (42%) | Dev Intl (14%) | EM (7%) | VN (7%) | US Bond (15%) | VN Bond (10%) | Cash (5%) |
+          |-------|----------------|----------------|---------|---------|---------------|---------------|-----------|
+          | 1 | 2.1M | 0.7M | 0.35M | 0.35M | 0.75M | 0.5M | 0.25M |
+          | ... | ... | ... | ... | ... | ... | ... | ... |
+
+          ## Expected Metrics (Historical 20-year)
+          - Expected CAGR: ~8-9% (nominal), ~5-6% (real)
+          - Max Drawdown (2008): ~35-40%
+          - Sharpe Ratio: ~0.6-0.7
+          - **Key Risk**: VN concentration (7% single country), Currency risk (USD/VND)
+
+          ## Action Plan
+          1. Mở tài khoản chứng khoán (VCBS, MBS, SSI - có ETF VFM)
+          2. Setup auto-invest 월 5M (nếu broker hỗ trợ) hoặc manual hàng tháng
+          2. Mở tài khoản IBKR (Interactive Brokers) cho ETF US (VT, VEA, VWO, BND) - chi phí thấp hơn
+          3. Track portfolio trên Google Sheet / Portfolio Visualizer
+          4. Review quý 1 lần, rebalance nếu cần
+        context: "Portfolio cho người 30 tuổi, horizon 20 năm, risk moderate, tiếp cận từ VN"
+    difficulty: "advanced"
+    useCases:
+      - "Người mới bắt đầu đầu tư ETF/Index fund"
+      - "Tối ưu hóa portfolio hiện tại"
+agentTemplate:
+  name: "Investment Advisor Agent"
+  description: "Tư vấn portfolio ETF, asset allocation, DCA, rebalancing, tax optimization"
+  systemPrompt: |
+    Bạn là Investment Advisor. Nguyên tắc: Diversify, Low cost (ER), Long-term, DCA, Rebalance, Tax-efficient. Không financial advice cá nhân hóa pháp lý.
+  model: "gpt-4"
+  temperature: 0.4
+relatedSkillIds:
+  - "quan-ly-ngan-sach-ca-nhan"
+  - "ke-hoach-tai-chinh-dai-han"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: dau-tu-chung-khoan-co-ban
+---

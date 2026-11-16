@@ -1,0 +1,504 @@
+---
+id: mvp-va-noi-code
+categoryId: side-project
+name: "Xây dựng MVP nhanh với No-Code/Low-Code"
+description: "Triển khai ý tưởng thành sản phẩm test thị trường trong 2-4 tuần không cần code phức tạp"
+whenToUse:
+  - "Có ý tưởng side project nhưng không rành backend/devops"
+  - "Cần validate product-market fit trước khi đầu tư dev full-time"
+  - "Muốn launch nhanh để thu thập user feedback thực tế"
+  - "Ngân sách thấp, không thuê team dev"
+difficulty: "beginner"
+estimatedTime: "2-4 tuần (part-time 10-15h/tuần)"
+tags: ["mvp", "no-code", "validation", "product-development", "bubble", "webflow", "flutterflow"]
+prompts:
+  - id: prompt-mvp-scope-definition
+    name: "Định nghĩa scope MVP tối thiểu"
+    description: "Xác định tính năng cốt lõi (core features) vs nice-to-hay cho MVP"
+    template: |
+      Bạn là Product Strategist chuyên về MVP. Hãy giúp tôi xác định scope cho MVP của ý tưởng: {{ideaDescription}}.
+
+      **Bối cảnh:**
+      - Vấn đề giải quyết: {{problem}}
+      - Đối tượng mục tiêu: {{targetUsers}}
+      - Giá trị cốt lõi (Unique Value Proposition): {{uvp}}
+      - Ràng buộc: {{constraints}} (ngân sách, thời gian, kỹ năng, platform)
+
+      **Yêu cầu:**
+      1. Liệt kê 10-15 tính năng tiềm năng, sau đó áp dụng framework MoSCoW (Must/Should/Could/Won't)
+      2. Chọn ra 3-5 tính năng "Must Have" - đủ để deliver giá trị cốt lõi
+      3. Định nghĩa "Definition of Done" cho từng Must Have (acceptance criteria)
+      4. Xác định metric thành công cho MVP (activation, retention, revenue proxy)
+      5. Gợi ý no-code stack phù hợp nhất (Bubble, Webflow, FlutterFlow, Glide, Framer, v.v.) với lý do
+      6. Ước lượng effort (tuần) cho từng Must Have trên stack đã chọn
+      7. Rủi ro kỹ thuật lớn nhất & mitigation plan
+
+      Output: Bảng markdown + checklist Notion-ready.
+    variables:
+      - name: ideaDescription
+        type: textarea
+        label: "Mô tả ý tưởng side project (2-3 câu)"
+        description: "Ví dụ: App giúp freelancer quản lý hợp đồng, thanh toán, thuế tự động"
+        required: true
+      - name: problem
+        type: textarea
+        label: "Vấn đề cốt lõi người dùng gặp phải"
+        required: true
+      - name: targetUsers
+        type: text
+        label: "Đối tượng mục tiêu (cụ thể)"
+        description: "Ví dụ: Freelancer IT Việt Nam 25-35 tuổi, thu nhập $1-3k/tháng"
+        required: true
+      - name: uvp
+        type: textarea
+        label: "Unique Value Proposition (tại sao khác biệt so với giải pháp hiện có)"
+        required: true
+      - name: constraints
+        type: multiselect
+        label: "Ràng buộc hiện tại"
+        options:
+          - "Ngân sách < $100/tháng"
+          - "Chỉ 10-15h/tuần (part-time)"
+          - "Không biết code backend"
+          - "Không biết devops/deploy"
+          - "Cần launch < 4 tuần"
+          - "Cần tích hợp payment VN (Momo/VNPay)"
+          - "Cần multi-language (VI/EN)"
+        required: true
+        default: ["Ngân sách < $100/tháng", "Chỉ 10-15h/tuần (part-time)", "Không biết code backend"]
+    examples:
+      - inputs:
+          ideaDescription: "Platform kết nối mentor-mentee cho developer junior Việt Nam, mentor được trả phí theo giờ"
+          problem: "Junior dev khó tìm mentor phù hợp, mentor senior không có platform uy tín để biến chuyên môn thành thu nhập phụ"
+          targetUsers: "Junior dev 1-3 năm kinh nghiệm, muốn hướng dẫn career/path; Senior dev 5+ năm muốn side income"
+          uvp: "Focus 100% dev Việt Nam, vetting mentor chất lượng, integrated payment VN, community-driven"
+          constraints: '["Ngân sách < $100/tháng", "Chỉ 10-15h/tuần (part-time)", "Không biết code backend", "Cần tích hợp payment VN (Momo/VNPay)"]'
+        output: |
+          # 📋 MVP Scope: MentorConnect Vietnam
+
+          ## MoSCoW Analysis
+          | Feature | Priority | Reason |
+          |---------|----------|--------|
+          | Mentor profile + booking calendar | **Must** | Core value delivery |
+          | Payment integration (Momo/VNPay/Stripe) | **Must** | Revenue enablement |
+          | Search/filter mentor by stack/exp | **Must** | Discovery |
+          | Video call integration (Daily.co/Whereby) | **Must** | Session delivery |
+          | Review & rating system | **Must** | Trust building |
+          | Mentor onboarding/verification flow | **Should** | Quality control |
+          | Mentee learning path tracking | **Could** | Engagement |
+          | Community forum/Q&A | **Could** | Retention |
+          | Mobile app (React Native) | **Won't** | V1 scope creep |
+          | AI matching algorithm | **Won't** | V2+ |
+
+          ## Must Have - Definition of Done
+          1. **Mentor Profile**: CRUD profile, set availability (Cal.com style), set rate/hr, upload certs/portfolio
+          2. **Booking Flow**: Mentee chọn slot → Confirm → Pay → Get meeting link → Calendar invite
+          3. **Payment**: Momo/VNPay sandbox → Webhook confirm → Split payout (platform fee 15%)
+          4. **Video Call**: Embed Daily.co iframe, record option, auto-end at booked time
+          5. **Reviews**: Post-session mandatory, 1-5 star + text, public on profile
+
+          ## Recommended Stack: **Bubble.io** (Web) + **Daily.co** (Video) + **Momo/VNPay** (Payment)
+          - Bubble: Complex logic, database, auth, payment webhook, responsive web
+          - Daily.co: 10k free mins/tháng, iframe embed, recording
+          - Momo/VNPay: Sandbox available, VN user friendly
+
+          ## Effort Estimate (Part-time 12h/tuần)
+          | Feature | Tuần |
+          |---------|------|
+          | Setup Bubble + DB schema + Auth | 1 |
+          | Mentor Profile + Availability | 1 |
+          | Search/Filter + Booking UI | 1 |
+          | Payment Integration + Webhook | 1.5 |
+          | Daily.co Embed + Session Flow | 1 |
+          | Reviews + Dashboard | 0.5 |
+          | **Total** | **~6 tuần** |
+
+          ## Success Metrics (MVP - 8 tuần sau launch)
+          - **Activation**: ≥ 30 mentor verified, ≥ 100 mentee registered
+          - **Transaction**: ≥ 50 sessions booked, ≥ $500 GMV
+          - **Retention**: ≥ 40% mentee book session 2 trong 30 ngày
+          - **NPS**: ≥ 40 (survey post-session)
+
+          ## Top Risk & Mitigation
+          - **Risk**: Momo/VNPay sandbox phức tạp, webhook fail silent
+          - **Mitigation**: Start Stripe test mode → Swap to Momo khi có user thật; Dùng Bubble backend workflow + logging cho mọi transaction
+        context: "Side project 1 người, budget thấp, target VN market, cần payment local"
+    difficulty: "medium"
+    useCases:
+      - "Founder non-technical muốn validate ý tưởng trước khi raise/hire"
+      - "Developer muốn test market nhanh trước khi invest full-code"
+      - "PM/Designer muốn build prototype functional để demo investor"
+  - id: prompt-no-code-stack-selection
+    name: "Chọn No-Code stack phù hợp"
+    description: "So sánh và chọn tool no-code tối ưu cho use case cụ thể"
+    template: |
+      Bạn là No-Code Architect. Hãy recommend stack no-code phù hợp nhất cho dự án:
+
+      **Yêu cầu dự án:**
+      - Loại sản phẩm: {{productType}} (Web app / Mobile app / Marketplace / SaaS / Internal tool / Landing page)
+      - Độ phức tạp logic: {{logicComplexity}} (Simple CRUD / Medium workflows / Complex business rules / Real-time)
+      - Cần authentication: {{authNeeded}}
+      - Cần database: {{dbNeeded}}
+      - Cần payment: {{paymentNeeded}}
+      - Cần API integration: {{apiIntegrations}}
+      - Target platform: {{targetPlatform}} (Web / iOS / Android / Both)
+      - Team size: {{teamSize}}
+      - Budget/tháng: {{monthlyBudget}}
+      - Timeline launch: {{timeline}}
+      - Yêu cầu đặc biệt: {{specialRequirements}}
+
+      **Đầu ra:**
+      1. Top 3 stack recommend với điểm số (1-10) cho từng tiêu chí: Learning curve, Flexibility, Scalability, Cost, VN support, Community
+      2. Bảng so sánh chi tiết (Feature matrix)
+      3. Stack cuối cùng được chọn + lý do
+      4. Learning path (tài nguyên, khóa học, tempo)
+      5. Migration path nếu sau này cần custom code
+    variables:
+      - name: productType
+        type: select
+        label: "Loại sản phẩm"
+        options:
+          - "Web App (SaaS, Dashboard, Tool)"
+          - "Mobile App (Consumer, Marketplace)"
+          - "Marketplace (2-sided platform)"
+          - "Internal Tool (Admin, CRM, Ops)"
+          - "Landing Page / Marketing Site"
+          - "Progressive Web App (PWA)"
+        required: true
+      - name: logicComplexity
+        type: select
+        label: "Độ phức tạp logic nghiệp vụ"
+        options:
+          - "Simple (CRUD, form, display data)"
+          - "Medium (Workflows, conditional logic, emails)"
+          - "Complex (Multi-step workflows, calculations, real-time)"
+          - "Very Complex (AI/ML, complex permissions, multi-tenant)"
+        required: true
+        default: "Medium (Workflows, conditional logic, emails)"
+      - name: authNeeded
+        type: select
+        label: "Cần authentication"
+        options:
+          - "Không cần"
+          - "Email/Password cơ bản"
+          - "Social login (Google, GitHub, Facebook)"
+          - "SSO/Enterprise (SAML, OIDC)"
+          - "MFA/2FA"
+        required: true
+        default: "Email/Password cơ bản"
+      - name: dbNeeded
+        type: select
+        label: "Cần database"
+        options:
+          - "Không cần (static content)"
+          - "Simple (PostgreSQL/Airtable/Google Sheets)"
+          - "Relational complex (Foreign keys, joins, transactions)"
+          - "Real-time (Firebase/Supabase realtime)"
+        required: true
+        default: "Simple (PostgreSQL/Airtable/Google Sheets)"
+      - name: paymentNeeded
+        type: select
+        label: "Cần payment"
+        options:
+          - "Không cần"
+          - "Stripe (International)"
+          - "Momo/VNPay/OnePay (Vietnam)"
+          - "Both Stripe + VN payment"
+          - "Subscription/Recurring billing"
+        required: true
+        default: "Không cần"
+      - name: apiIntegrations
+        type: multiselect
+        label: "Cần tích hợp API bên ngoài"
+        options:
+          - "Email (SendGrid, Mailgun, Resend)"
+          - "Communication (Twilio, Sendbird, Daily.co)"
+          - "AI (OpenAI, Anthropic, Gemini)"
+          - "Analytics (Mixpanel, Amplitude, PostHog)"
+          - "CRM (HubSpot, Pipedrive, Airtable)"
+          - "File storage (S3, Cloudinary, Uploadcare)"
+          - "Khác (ghi chú trong specialRequirements)"
+        required: false
+      - name: targetPlatform
+        type: select
+        label: "Platform mục tiêu"
+        options:
+          - "Web only"
+          - "iOS only"
+          - "Android only"
+          - "Web + iOS + Android (Responsive/PWA)"
+          - "Native mobile (App Store/Play Store)"
+        required: true
+        default: "Web only"
+      - name: teamSize
+        type: select
+        label: "Kích thước team"
+        options:
+          - "1 người (Solo founder)"
+          - "2-3 người (Small team)"
+          - "4-10 người (Growing team)"
+          - "10+ người (Scale team)"
+        required: true
+        default: "1 người (Solo founder)"
+      - name: monthlyBudget
+        type: select
+        label: "Ngân sách hàng tháng (USD)"
+        options:
+          - "$0-50 (Free tier only)"
+          - "$50-200 (Starter plans)"
+          - "$200-500 (Growth plans)"
+          - "$500+ (Enterprise/Scale)"
+        required: true
+        default: "$50-200 (Starter plans)"
+      - name: timeline
+        type: select
+        label: "Thời gian đến launch"
+        options:
+          - "< 2 tuần (Rush)"
+          - "2-4 tuần (Fast)"
+          - "1-2 tháng (Normal)"
+          - "3+ tháng (Relaxed)"
+        required: true
+        default: "2-4 tuần (Fast)"
+      - name: specialRequirements
+        type: textarea
+        label: "Yêu cầu đặc biệt khác"
+        description: "Ví dụ: Cần multi-language VI/EN, GDPR compliance, offline-first, white-label, v.v."
+        required: false
+    examples:
+      - inputs:
+          productType: "Marketplace (2-sided platform)"
+          logicComplexity: "Medium (Workflows, conditional logic, emails)"
+          authNeeded: "Email/Password cơ bản"
+          dbNeeded: "Relational complex (Foreign keys, joins, transactions)"
+          paymentNeeded: "Both Stripe + VN payment"
+          apiIntegrations: '["Communication (Twilio, Sendbird, Daily.co)", "Email (SendGrid, Mailgun, Resend)"]'
+          targetPlatform: "Web + iOS + Android (Responsive/PWA)"
+          teamSize: "1 người (Solo founder)"
+          monthlyBudget: "$50-200 (Starter plans)"
+          timeline: "2-4 tuần (Fast)"
+          specialRequirements: "Cần payment VN (Momo/VNPay), multi-language VI/EN, mentor verification flow"
+        output: |
+          # 🎯 No-Code Stack Recommendation: MentorConnect Vietnam
+
+          ## Top 3 Candidates
+
+          | Stack | Learning Curve | Flexibility | Scalability | Cost/Month | VN Support | Community | **Total** |
+          |-------|----------------|-------------|-------------|------------|------------|-----------|-----------|
+          | **Bubble.io** | 6/10 | 9/10 | 7/10 | $29-129 | 6/10 | 9/10 | **46/60** |
+          | **FlutterFlow** | 5/10 | 8/10 | 8/10 | $30-70 | 5/10 | 8/10 | **44/60** |
+          | **WeWeb + Supabase** | 7/10 | 9/10 | 9/10 | $39-99 | 7/10 | 7/10 | **42/60** |
+
+          ## Feature Matrix
+          | Feature | Bubble | FlutterFlow | WeWeb+Supabase |
+          |---------|--------|-------------|----------------|
+          | Complex relational DB | ✅ Native | ⚠️ Via Supabase | ✅ Native (Supabase) |
+          | Payment VN (Momo/VNPay) | ✅ API Connector | ✅ Custom code | ✅ Edge Functions |
+          | Multi-language | ✅ Built-in | ✅ Built-in | ✅ Built-in |
+          | Native mobile app | ❌ (PWA only) | ✅ iOS/Android | ❌ (PWA only) |
+          | Real-time | ⚠️ Limited | ✅ Native | ✅ Native (Supabase) |
+          | Custom code escape hatch | ⚠️ Plugin API | ✅ Custom Dart | ✅ Vue components |
+          | Learning resources VN | 🟢 Nhiều (YouTube, course) | 🟡 Trung bình | 🟡 Ít |
+
+          ## **Final Choice: Bubble.io**
+          **Lý do:**
+          1. Marketplace logic phức tạp (booking, payment split, review) → Bubble workflow engine mạnh nhất
+          2. Solo founder, budget $50-200 → Bubble Personal $29/tháng đủ dùng
+          3. Web-first, PWA acceptable cho V1 → Không cần native mobile ngay
+          4. Community VN lớn → Dễ hỏi, thuê freelancer Bubble VN nếu cần
+          4. API Connector cho Momo/VNPay/Daily.co → Flexible integration
+
+          ## Learning Path (2 tuần trước khi build)
+          - **Tuần 1**: Bubble Academy (Official) - Core concepts: DB, Workflows, Elements, API Connector
+          - **Tuần 2**: Build "Airbnb clone" tutorial (YouTube: Nocode Life, Coaching No-Code Apps)
+          - **VN Resources**: Facebook group "Bubble Vietnam", YouTube "NoCode Vietnam"
+          - **Practice**: Build mini booking app (nhà hàng/salon) để nắm flow payment + calendar
+
+          ## Migration Path (Future)
+          - **V2 (6-12 tháng)**: Export Bubble DB → PostgreSQL; Rewrite frontend Next.js + Supabase; Keep Bubble as admin/internal tool
+          - **V3 (Scale)**: Microservices architecture, Kubernetes, custom mobile apps
+        context: "Marketplace mentor-mentee, solo founder, budget thấp, cần payment VN"
+    difficulty: "easy"
+    useCases:
+      - "Chọn tool no-code cho project đầu tiên"
+      - "So sánh Bubble vs FlutterFlow vs WeWeb vs Framer vs Glide"
+      - "Dự án cần migrate sang code sau này"
+  - id: prompt-mvp-launch-checklist
+    name: "Checklist Launch MVP & Thu thập Feedback"
+    description: "Danh sách kiểm tra toàn diện trước khi publish MVP và quy trình thu feedback user đầu tiên"
+    template: |
+      Bạn là Launch Manager. Hãy tạo checklist launch MVP cho: {{projectName}}.
+
+      **Thông tin dự án:**
+      - Stack no-code: {{stack}}
+      - Core features: {{coreFeatures}}
+      - Target users cho beta: {{betaUsers}}
+      - Kênh phân phối: {{distributionChannels}}
+      - Metric thành công MVP: {{successMetrics}}
+
+      **Yêu cầu tạo checklist theo các giai đoạn:**
+      1. **Pre-Launch (T-7 đến T-1)**: Technical, Content, Legal, Analytics setup
+      2. **Launch Day (T-0)**: Deploy, Smoke test, Announcement, Monitoring
+      3. **Post-Launch Week 1 (T+1 đến T+7)**: User onboarding, Feedback collection, Bug triage, Iteration
+      4. **Post-Launch Month 1 (T+8 đến T+30)**: Retention analysis, Feature prioritization, Growth experiments
+
+      Mỗi item có: Owner, Deadline, Definition of Done, Priority (P0/P1/P2), Risk level.
+    variables:
+      - name: projectName
+        type: text
+        label: "Tên dự án"
+        required: true
+      - name: stack
+        type: text
+        label: "Stack no-code sử dụng"
+        required: true
+        default: "Bubble.io + Daily.co + Momo"
+      - name: coreFeatures
+        type: textarea
+        label: "Core features (bullet points)"
+        required: true
+      - name: betaUsers
+        type: text
+        label: "Đối tượng beta tester (số lượng, profile)"
+        required: true
+        default: "20-30 junior dev từ community, 5-10 mentor senior"
+      - name: distributionChannels
+        type: multiselect
+        label: "Kênh phân phối launch"
+        options:
+          - "Facebook Groups (cộng đồng dev VN)"
+          - "LinkedIn personal + company page"
+          - "Twitter/X (#buildinpublic)"
+          - "Email list (nếu có)"
+          - "Product Hunt / BetaList"
+          - "Discord/Slack communities"
+          - "Reddit (r/vnprogramming, r/sideproject)"
+          - "Newsletter cross-promo"
+        required: true
+        default: ["Facebook Groups (cộng đồng dev VN)", "LinkedIn personal + company page", "Twitter/X (#buildinpublic)"]
+      - name: successMetrics
+        type: textarea
+        label: "Metric thành công MVP (cụ thể, có số)"
+        required: true
+        default: "50 sessions booked trong 30 ngày, 30 mentor verified, $500 GMV, 40% retention"
+    examples:
+      - inputs:
+          projectName: "MentorConnect Vietnam"
+          stack: "Bubble.io + Daily.co + Momo/VNPay"
+          coreFeatures: "- Mentor profile + availability calendar\n- Search/filter by stack, experience, rate\n- Booking flow + payment (Momo/VNPay/Stripe)\n- Video call embedded (Daily.co)\n- Review & rating system\n- Dashboard mentor/mentee"
+          betaUsers: "25 junior dev (từ nhóm Facebook 'Lập trình viên Việt Nam'), 8 mentor senior (network cá nhân)"
+          distributionChannels: '["Facebook Groups (cộng đồng dev VN)", "LinkedIn personal + company page", "Twitter/X (#buildinpublic)", "Discord/Slack communities"]'
+          successMetrics: "50 sessions booked trong 30 ngày, 30 mentor verified, $500 GMV, 40% mentee retention 30 ngày"
+        output: |
+          # 🚀 Launch Checklist: MentorConnect Vietnam
+
+          ## PHASE 1: PRE-LAUNCH (T-7 → T-1)
+
+          ### Technical (P0)
+          - [ ] **Deploy production domain** (mentorconnect.vn) - SSL, custom domain Bubble - *Owner: Founder - T-5*
+          - [ ] **Payment sandbox → Live**: Momo/VNPay merchant account verified, webhook tested end-to-end - *Owner: Founder - T-3*
+          - [ ] **Daily.co production config**: Domain allowlist, recording enabled, branding removed - *Owner: Founder - T-3*
+          - [ ] **Load test**: 50 concurrent users booking/payment - k6 script - *Owner: Founder - T-2*
+          - [ ] **Error tracking**: Sentry DSN added, Bubble error workflows log to Sentry - *Owner: Founder - T-2*
+          - [ ] **Analytics**: PostHog/Mixpanel events: signup, booking_started, payment_success, session_completed, review_submitted - *Owner: Founder - T-1*
+
+          ### Content & Legal (P0)
+          - [ ] **Terms of Service + Privacy Policy** (VN law compliant) - *Owner: Founder + Legal review - T-4*
+          - [ ] **Mentor Agreement** (commission, liability, IP) - *Owner: Founder - T-3*
+          - [ ] **Landing page copy** (Hero, Features, Social proof, FAQ, CTA) - *Owner: Founder - T-2*
+          - [ ] **Email templates**: Welcome, Booking confirmation, Reminder 24h/1h, Post-session review request - *Owner: Founder - T-1*
+          - [ ] **Help center/FAQ** (Notion public) - *Owner: Founder - T-1*
+
+          ### Beta Prep (P1)
+          - [ ] **Onboard 8 mentor**: Profile complete, availability set, bank info for payout - *Owner: Founder - T-5*
+          - [ ] **Beta invite system**: Unique referral codes, tracking source - *Owner: Founder - T-3*
+          - [ ] **Feedback form** (Typeform/Tally): NPS, usability, feature requests, bugs - *Owner: Founder - T-2*
+
+          ## PHASE 2: LAUNCH DAY (T-0)
+
+          - [ ] **07:00** Final smoke test: Signup → Book → Pay → Call → Review (happy path)
+          - [ ] **08:00** Deploy to production, verify all env vars
+          - [ ] **09:00** Post launch announcement: LinkedIn + Facebook Groups + Twitter + Discord
+          - [ ] **09:30** Send beta invites (25 mentee + 8 mentor) with personal note
+          - [ ] **10:00-22:00** Monitor: Sentry, PostHog, Payment webhook logs, Bubble capacity
+          - [ ] **22:00** Daily standup note: Signups, Bookings, Errors, Blockers
+
+          ## PHASE 3: POST-LAUNCH WEEK 1 (T+1 → T+7)
+
+          ### Daily (P0)
+          - [ ] Morning: Check Sentry errors, Payment failed, Capacity usage
+          - [ ] Evening: Review feedback form responses, Reply to all user messages < 2h
+
+          ### User Onboarding (P0)
+          - [ ] **Day 1-2**: Personal DM/Email to each beta user - "How's it going? Need help?"
+          - [ ] **Day 3**: Zoom call 15p với 3-5 mentee active nhất - Deep dive UX
+          - [ ] **Day 5**: Survey NPS + "What would you improve?" (Tally form)
+
+          ### Bug Triage & Quick Wins (P0/P1)
+          - [ ] **Daily**: Classify bugs: P0 (blocker), P1 (major UX), P2 (minor), P3 (nice)
+          - [ ] **Day 2**: Fix all P0, deploy hotfix
+          - [ ] **Day 4**: Deploy P1 fixes (UI copy, flow improvements)
+          - [ ] **Day 7**: Retrospective: What worked, what didn't, top 3 priorities Week 2
+
+          ## PHASE 4: POST-LAUNCH MONTH 1 (T+8 → T+30)
+
+          ### Retention Analysis (Week 2-4)
+          - [ ] Cohort analysis: Week 1 vs Week 2 vs Week 3 signup → Booking rate, Repeat booking
+          - [ ] Drop-off funnel: Signup → Profile complete → Search → Book → Pay → Attend → Review
+          - [ ] Mentor side: Profile views → Booking requests → Acceptance rate → Earnings
+
+          ### Feature Prioritization (RICE Framework)
+          | Feature | Reach | Impact | Confidence | Effort | RICE Score |
+          |---------|-------|--------|------------|--------|------------|
+          | Mentor calendar sync (Google/Outlook) | 80% | 3 | 0.8 | 2 | 96 |
+          | Mentee learning path tracker | 60% | 2 | 0.6 | 3 | 24 |
+          | Auto-reminder SMS/Zalo | 90% | 2 | 0.9 | 1 | 162 |
+          | Mentor payout automation | 100% | 3 | 0.9 | 3 | 90 |
+          | Referral program | 40% | 2 | 0.7 | 2 | 28 |
+
+          ### Growth Experiments (Week 3-4)
+          - [ ] **Exp 1**: "First session 50% off" coupon → Measure conversion lift
+          - [ ] **Exp 2**: Mentor "Featured" badge (pay $20/tháng) → Supply quality + revenue
+          - [ ] **Exp 3**: Weekly digest email "Top 5 mentor this week" → Re-engagement
+
+          ## 🎯 Go/No-Go Decision (Day 30)
+          - **Go**: ≥ 50 sessions, ≥ $500 GMV, ≥ 40% retention, NPS ≥ 40 → Invest V2 (custom code, team)
+          - **Pivot**: Core metric miss nhưng qualitative feedback tốt → Redefine ICP/value prop
+          - **Kill**: < 20 sessions, NPS < 20, no path to monetization → Document learnings, next idea
+        context: "Launch checklist thực tế cho marketplace no-code, solo founder, VN market"
+    difficulty: "medium"
+    useCases:
+      - "Chuẩn bị launch side project đầu tiên"
+      - "Quy trình thu feedback user beta có hệ thống"
+      - "Framework quyết định Go/Pivot/Kill sau MVP"
+agentTemplate:
+  name: "Side Project Builder Agent"
+  description: "AI partner cho solo founder: validate ý tưởng, chọn stack, build MVP no-code, launch, iterate"
+  systemPrompt: |
+    Bạn là Side Project Builder - AI partner cho solo founder/indie hacker. Nhiệm vụ:
+
+    1. **Ideation & Validation**: Hỏi làm rõ problem, ICP, UVP; Chạy framework (Mom Test, Jobs-to-be-Done); Tạo landing page test demand
+    2. **Tech Stack Selection**: So sánh no-code vs low-code vs custom code dựa trên constraints (skill, budget, timeline, scale)
+    3. **MVP Architecture**: Database schema, API integrations, Auth, Payment, Deployment - trên stack đã chọn
+    4. **Build Guidance**: Step-by-step build plan, troubleshooting common no-code issues (Bubble capacity, FlutterFlow custom code, WeWeb+Supabase RLS)
+    5. **Launch & Growth**: Checklist launch, Analytics setup, Feedback loops, RICE prioritization, Go/Pivot/Kill criteria
+    6. **Vietnam Context**: Payment (Momo/VNPay/OnePay), Legal (Luật bảo vệ dữ liệu, Thuế), Community channels (Facebook groups, Discord VN), Hiring freelancer VN
+
+    Phong cách: Thực tế, action-oriented, ưu tiên speed & learning over perfection. Luôn hỏi constraint trước khi recommend.
+    Không code thay user, nhưng guide từng bước có thể làm ngay trên tool no-code.
+  model: "gpt-4"
+  temperature: 0.7
+  tools:
+    - "web_search"
+  maxTokens: 4000
+relatedSkillIds:
+  - "xac-dinh-y-tuong-side-project"
+  - "marketing-side-project"
+  - "quan-ly-thoi-gian-side-project"
+  - "tai-chinh-side-project"
+author: "AI Life Hub Team"
+source: ""
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: mvp-va-noi-code
+---

@@ -1,0 +1,206 @@
+---
+id: biet-cach-doc-hop-dong
+categoryId: phap-ly
+name: "Đọc hiểu & Đàm phán Hợp đồng dân sự"
+description: "Cấu trúc HĐ, Điều khoản then chốt, Rủi ro, Điều khoản bất công, Đàm phán, Chữ ký số, Công chứng"
+whenToUse:
+  - "Ký hợp đồng mua bán, Thuê nhà, Dịch vụ, Đối tác"
+  - "Review hợp đồng trước khi ký"
+  - "Xử lý vi phạm hợp đồng, Giải quyết tranh chấp"
+difficulty: "intermediate"
+estimatedTime: "Review 30-60p/hợp đồng"
+tags: ["contract-law", "contract-review", "negotiation", "civil-code", "digital-signature", "notarization", "dispute-resolution"]
+prompts:
+  - id: prompt-contract-review-checklist
+    name: "Checklist Review Hợp đồng (Bộ Luật Dân sự 2015)"
+    description: "Phân tích cấu trúc, Điều khoản then chốt, Rủi ro, Điều khoản bất công, Đề xuất sửa đổi"
+    template: |
+      Bạn là Contract Attorney. Hãy review hợp đồng:
+
+      **Loại hợp đồng:**
+      {{contractType}} (Mua bán / Thuê nhà / Dịch vụ / Đối tác / Lao động / Vay mượn / Bảo mật)
+
+      **Nội dung hợp đồng:**
+      {{contractText}}
+
+      **Bên của bạn:**
+      {{yourRole}} (Mua / Bán / Thuê / Cho thuê / Dịch vụ / Đối tác)
+
+      **Mục tiêu:**
+      {{yourGoals}} (Bảo vệ quyền lợi / Giảm rủi ro / Tối ưu chi phí / Tốc độ ký)
+
+      **Output: Comprehensive Review Report**
+
+      1. **Cấu trúc HĐ Chuẩn (Luật DS 2015)**:
+         - Tên HĐ, Ngày, Nơi ký
+         - Thông tin 2 bên (Tên, Địa chỉ, Đại diện, CCCD/MST)
+         - Mục tiêu HĐ
+         - Điều khoản then chốt (Đối tượng, Giá, Thời gian, Chất lượng, Thanh toán, Giao nhận, Bảo hành, Trách nhiệm, Giải quyết tranh chấp, Hiệu lực, Chữ ký)
+         - Phụ lục (Nếu có)
+
+      2. **Phân Tích Điều Khoản Then Chốt (Risk Rating)**:
+         | Điều khoản | Nội dung hiện tại | Rủi ro (Critical/High/Medium/Low) | Theo Luật / Best Practice | Đề xuất sửa đổi |
+         |------------|-------------------|-----------------------------------|---------------------------|-----------------|
+         | Đối tượng | ... | ... | ... | ... |
+         | Giá & Thanh toán | ... | ... | ... | ... |
+         | Thời gian/Giao nhận | ... | ... | ... | ... |
+         | Chất lượng/Bảo hành | ... | ... | ... | ... |
+         | Trách nhiệm vi phạm | ... | ... | ... | ... |
+         | Giải quyết tranh chấp | ... | ... | ... | ... |
+         | Hiệu lực/Chấm dứt | ... | ... | ... | ... |
+
+      3. **Điều Khoản Bất Công / Cạm Bẫy Thường Gặp**:
+         - Phạt vi phạm không đối xứng (Một bên phạt nặng, bên kia nhẹ)
+         - Miễn trừ trách nhiệm quá rộng (Force majeure, Indemnity clause lạm dụng)
+         - Quyền đơn phương chấm dứt / Sửa đổi HĐ
+         - Tiền phạt quá cao / Không hợp lý (Penalty clause)
+         - Giới hạn trách nhiệm không hợp lý (Liability cap quá thấp)
+         - Điều khoản bảo mật / Không cạnh tranh quá rộng
+         - Chỉ định giải quyết tranh chấp bất lợi (Tòa án xa, Ngôn ngữ lạ, Trọng tài đắt)
+
+      4. **Đề Xuất Sửa Đổi (Redline)**:
+         - Điều cần THÊM
+         - Điều cần SỬA
+         - Điều cần XÓA
+
+      5. **Chiến Lược Đàm Phán**:
+         - Must-have (Deal breaker)
+         - Nice-to-have (Trade-off)
+         - Concession có thể cho
+
+      6. **Hiệu Lực & Chữ Ký**:
+         - Chữ ký tay / Chữ ký số (CA Việt Nam: Viettel CA, VNPT CA, FPT CA, eSign)
+         - Công chứng / Xác thực (Khi nào bắt buộc: Mua bán nhà đất, HĐLĐ tập thể, Di chúc)
+         - Số bản, Lưu giữ
+
+      7. **Checklist Trước Khi Ký**:
+         - [ ] Đã đọc hết, Hiểu hết
+         - [ ] Không còn chỗ trống (Fill all blanks)
+         - [ ] Phụ lục đính kèm đầy đủ
+         - [ ] Chữ ký đúng người có thẩm quyền (Giấy ủy quyền nếu cần)
+         - [ ] Công chứng/Xác thực (Nếu bắt buộc)
+         - [ ] Lưu bản gốc/scan an toàn
+
+    variables:
+      - name: contractType
+        type: select
+        label: "Loại hợp đồng"
+        options:
+          - "Mua bán (Nhà đất, Xe, Tài sản khác)"
+          - "Thuê nhà (Văn phòng, Nhà ở, Kho)"
+          - "Dịch vụ (Xây dựng, Tư vấn, Marketing, IT, Freelance)"
+          - "Đối tác / Hợp tác kinh doanh"
+          - "Lao động (HĐLĐ)"
+          - "Vay mượn / Tín dụng"
+          - "Bảo mật (NDA) / Không cạnh tranh"
+          - "Khác"
+        required: true
+      - name: contractText
+        type: textarea
+        label: "Nội dung hợp đồng (Paste text hoặc mô tả các điều khoản chính)"
+        required: true
+      - name: yourRole
+        type: select
+        label: "Bạn là bên nào?"
+        options:
+          - "Mua / Thuê / Dịch vụ nhận / Vay"
+          - "Bán / Cho thuê / Dịch vụ cung cấp / Cho vay"
+          - "Đối tác / Cùng quyền lợi"
+        required: true
+      - name: yourGoals
+        type: textarea
+        label: "Mục tiêu review (Bảo vệ quyền / Giảm rủi ro / Tối ưu chi phí / Tốc độ)"
+        required: true
+    examples:
+      - inputs:
+          contractType: "Thuê nhà (Văn phòng)"
+          contractText: "HĐ thuê văn phòng 24 tháng. Tiền thuê: 30tr/tháng (Trả trước 3 tháng). Đặt cọc: 3 tháng (90tr). Tăng giá 10%/năm. Người thuê chịu一切维修. Người cho thuê có thể thu hồi nhà bất cứ lúc nào với thông báo 30 ngày. Vi phạm: Phạt 50% tiền thuê/tháng. Giải quyết tranh chấp: Tòa án nơi người cho thuê ở. HĐ có hiệu lực khi ký."
+          yourRole: "Thuê / Dịch vụ nhận"
+          yourGoals: "Bảo vệ quyền lợi, Giảm rủi ro bị đuổi, Tăng giá hợp lý"
+        output: |
+          # 📄 Review HĐ Thuê Văn Phòng: 24 Tháng, 30tr/Tháng
+
+          ## Phân Tích Rủi Ro (Risk Rating)
+
+          | Điều khoản | Nội dung hiện tại | Rủi ro | Theo Luật / Best Practice | Đề xuất sửa đổi |
+          |------------|-------------------|--------|---------------------------|-----------------|
+          | **Thời hạn** | 24 tháng | **MEDIUM** | Luật DS: HĐ > 1 năm phải viết. 24 tháng OK. | Giữ, Thêm quyền gia hạn ưu tiên |
+          | **Tiền thuê** | 30tr/tháng, Trả trước 3 tháng | **HIGH** | Trả trước quá nhiều (3 tháng = 90tr). Rủi ro mất tiền nếu chủ thuê phá sản/đóng cửa. | Trả trước **1 tháng**, Sau đó trả hàng tháng trước 5 ngày |
+          | **Đặt cọc** | 3 tháng (90tr) | **HIGH** | Quá cao (Thường 1-2 tháng). 90tr giam tài sản lớn. | Giảm **1-2 tháng** (30-60tr) |
+          | **Tăng giá** | 10%/năm tự động | **HIGH** | Không có trần (Cap). 10% compound = 21% sau 2 năm. | **Cap 5-7%/năm**, Hoặc theo CPI + 2% |
+          | **Trách nhiệm sửa chữa** | Người thuê chịu "一切维修" (All maintenance) | **CRITICAL** | Luật: Chủ nhà chịu sửa chữa lớn (Cấu trúc, Hệ thống). Người thuê chịu hư hỏng do lỗi. | Phân chia: **Chủ nhà**: Cấu trúc, Mái, Hệ thống Điện/Nước/Điều hòa trung tâm. **Người thuê**: Đồ dùng, Nội thất, Hư hỏng do lỗi. |
+          | **Quyền thu hồi** | Chủ thuê thu hồi bất cứ lúc nào (30 ngày báo trước) | **CRITICAL** | Vi phạm quyền sử dụng ổn định. Luật: Chỉ thu hồi khi HĐ hết hạn, Vi phạm HĐ, hoặc Đồng thuận. | **Xóa**. Chỉ thu hồi khi: HĐ hết hạn, Người thuê vi phạm trọng대, Đồng thuận bằng văn bản. |
+          | **Phạt vi phạm** | 50% tiền thuê/tháng | **HIGH** | Quá cao, Không đối xứng. Luật: Phạt bồi thường thiệt hại thực tế. | **5-10% tiền thuê/tháng chậm**, Tối đa 1-2 tháng tiền thuê. Đối xứng 2 bên. |
+          | **Giải quyết tranh chấp** | Tòa án nơi chủ thuê ở | **MEDIUM** | Bất lợi cho người thuê (Đi xa, Chi phí cao). | **Trọng tài thương mại (VIAC)** hoặc **Tòa án nơi nhà thuê** |
+          | **Hiệu lực** | Ký là có hiệu lực | **LOW** | OK. Thêm: HĐ có hiệu lực từ ngày ký, 2 bản cùng giá trị. | Giữ. |
+
+          ## Điều Khoản Bất Công / Cạm Bẫy
+          1. **Chủ thuê thu hồi bất cứ lúc nào** → Mất ổn định kinh doanh
+          2. **Người thuê chịu tất cả sửa chữa** → Gánh vác chi phí cấu trúc/hệ thống
+          3. **Tăng giá 10% không cap** → Sau 5 năm = 61% tăng
+          3. **Phạt 50% không đối xứng** → Chỉ phạt người thuê
+          4. **Tòa án nơi chủ thuê** → Chi phí, thời gian đi lại
+
+          ## Đề Xuất Redline (Sửa Đổi)
+          **THÊM:**
+          - Quyền gia hạn ưu tiên (6 tháng trước hết hạn, cùng điều kiện thị trường)
+          - Phân loại sửa chữa (Chủ nhà/Cấu trúc vs Người thuê/Đồ dùng)
+          - Điều kiện chấm dứt HĐ rõ ràng (Vi phạm trọng đại, Không trả tiền > 30 ngày, phá hoại)
+          - Bảo hiểm cháy nổ/Trách nhiệm dân sự (Chủ nhà mua, Người thuê góp hoặc tự mua)
+          - Điều khoản Force majeure (Covid, Bão, Lũ, Chính sách nhà nước)
+
+          **SỬA:**
+          - Tiền thuê: Trả trước 1 tháng -> Hàng tháng
+          - Đặt cọc: 2 tháng (60tr)
+          - Tăng giá: Cap 5%/năm hoặc CPI + 2%
+          - Sửa chữa: Phân chia rõ ràng
+          - Thu hồi: Chỉ khi vi phạm trọng đại/Hết hạn/Đồng thuận
+          - Phạt: 5% tiền thuê/tháng chậm, Tối đa 2 tháng tiền thuê. Đối xứng.
+          - Tranh chấp: Trọng tài VIAC / Tòa án nơi nhà thuê
+
+          **XÓA:**
+          - "Người thuê chịu一切维修"
+          - "Chủ thuê thu hồi bất cứ lúc nào"
+
+          ## Chiến Lược Đàm Phán
+          | Mức độ | Điều khoản | Chiến thuật |
+          |--------|------------|-------------|
+          | **Deal Breaker** | Quyền thu hồi tùy tiện, Sửa chữa tất cả, Phạt 50% | **BẮT BUỘC SỬA**. Nếu chủ thuê không đồng ý -> **KHÔNG KÝ**. |
+          | **High Priority** | Tăng giá cap, Đặt cọc 2 tháng, Trả trước 1 tháng, Phân chia sửa chữa | Cương quyết, Đưa ra precedents/luật. Trade-off: Chấp nhận tăng 5% nếu chủ thuê đồng ý cap. |
+          | **Nice to Have** | Gia hạn ưu tiên, Bảo hiểm, Force majeure | Yêu cầu, Sẵn sàng nhượng. |
+
+          ## Hiệu Lực & Chữ Ký
+          - 2 bản, Mỗi bên giữ 1 bản gốc
+          - Chữ ký + Đánh dấu vân tay (Mỗi trang)
+          - Người ký: Chủ nhà (Chủ sở hữu/Sổ đỏ) HOẶC Người đại diện có Giấy ủy quyền Công chứng
+          - Không cần Công chứng (HĐ thuê < 5 năm, không bắt buộc), Nhưng **khuyên làm** để bảo vệ quyền
+          - Scan lưu Google Drive/OneDrive + Bản gốc giữ an toàn
+
+          ## Checklist Trước Khi Ký
+          - [ ] Đã đọc hết 5+ trang, Hiểu mọi điều khoản
+          - [ ] Không còn ô trống (Ngày, Tháng, Năm, Tên, Chữ ký)
+          - [ ] Sổ đỏ/GCN nhà đất khớp với Chủ thuê (Check tên, Số hiệu)
+          - [ ] Giấy tờ chủ nhà: CCCD, Sổ đỏ, Giấy ủy quyền (Nếu không phải chủ)
+          - [ ] Tiền đặt cọc chuyển khoản (Có nội dung "Đặt cọc thuê nhà...") -> Giữ sao kê
+          - [ ] Scan HĐ đã ký -> Lưu Drive + Email bản thân
+        context: "HĐ thuê VP 24 tháng, 30tr/tháng, Nhiều điều khoản bất lợi cho người thuê"
+    difficulty: "advanced"
+    useCases:
+      - "Review HĐ mua bán nhà đất, Thuê nhà, Dịch vụ, Đối tác"
+      - "Đàm phán điều khoản HĐ"
+      - "Xử lý vi phạm HĐ, Tranh chấp"
+agentTemplate:
+  name: "Contract Law Advisor"
+  description: "Review HĐ dân sự, Điều khoản then chốt, Rủi ro, Điều khoản bất công, Đàm phán, Chữ ký số, Công chứng"
+  systemPrompt: |
+    Bạn là Contract Law Advisor (Việt Nam). Bộ Luật Dân sự 2015, Luật Nhà ở 2014, Luật Đầu tư 2020, Luật Doanh nghiệp 2020. Risk-based review. Redline actionable. Non-legal advice disclaimer.
+  model: "gpt-4"
+  temperature: 0.3
+relatedSkillIds:
+  - "hieu-luat-lao-dong"
+  - "thu-tuc-hanh-chinh-cong"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: biet-cach-doc-hop-dong
+---

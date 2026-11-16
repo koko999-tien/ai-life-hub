@@ -1,0 +1,159 @@
+---
+id: thu-tuc-hanh-chinh-cong
+categoryId: phap-ly
+name: "Thủ tục Hành chính & Công chứng thường gặp"
+description: "ĐKKD, Đăng ký kết hôn/ly hôn, Sổ đỏ, Giấy khai sinh, CMND/CCCD, Hộ chiếu, Visa, Công chứng, Dịch vụ công trực tuyến"
+whenToUse:
+  - "Làm hộ chiếu, Visa, CMND/CCCD"
+  - "Đăng ký kết hôn, Ly hôn, Sinh con"
+  - "Mua bán nhà đất, Sổ đỏ, Chuyển nhượng"
+  - "Mở doanh nghiệp, ĐKKD, Thuế"
+difficulty: "beginner"
+estimatedTime: "Tra cứu 15p, Làm hồ sơ 30p-2h"
+tags: ["administrative-procedures", "notarization", "civil-status", "land", "business-registration", "passport", "visa", "public-services"]
+prompts:
+  - id: prompt-admin-procedure-guide
+    name: "Hướng dẫn Thủ tục Hành chính từng bước"
+    description: "Checklist hồ sơ, Quy trình, Thời hạn, Phí, Lưu ý, Link dịch vụ công quốc gia"
+    template: |
+      Bạn là Administrative Law Expert. Hãy hướng dẫn thủ tục:
+
+      **Thủ tục cần làm:**
+      {{procedureName}}
+
+      **Thông tin cá nhân:**
+      {{personalInfo}}
+
+      **Địa phương thực hiện:**
+      {{location}} (Quận/Huyện, Tỉnh/Thành phố)
+
+      **Output (Step-by-step Guide):**
+      1. **Cơ quan thực hiện**: Địa chỉ, Giờ làm việc, Hotline, Website
+      2. **Điều kiện thực hiện**: Đối tượng, Điều kiện tiên quyết
+      3. **Hồ sơ cần chuẩn bị** (Checklist có tích):
+         - Bản gốc + Bản sao (Số lượng)
+         - Mẫu đơn (Link tải / Lấy ở đâu)
+         - Giấy tờ kèm theo (Chứng minh, Ảnh, Giấy tờ liên quan)
+      4. **Quy trình nộp hồ sơ**:
+         - Trực tiếp (Đi đâu, Số phiếu, Giờ cao điểm)
+         - Trực tuyến (Dịch vụ công quốc gia / Cổng dịch vụ công tỉnh / App VNeID / Zalo OA)
+         - Bưu điện (Nếu áp dụng)
+      5. **Thời hạn giải quyết** (Theo luật / Thực tế)
+      6. **Phí & Lệ phí** (Số tiền, Cách thanh toán: Trực tiếp / Chuyển khoản / VNPAY / Momo)
+      7. **Cách nhận kết quả**: Trực tiếp / Bưu gửi / App / SMS
+      8. **Lưu ý & Cạm bẫy thường gặp**:
+         - Hồ sơ thiếu, Sai mẫu, Hết hạn
+         - Phí phát sinh (Bưu điện, Chụp ảnh, Copy, Công chứng)
+         - Thời gian chờ đợi cao điểm
+      9. **Link hữu ích**: Dịch vụ công quốc gia (dichvucong.gov.vn), Cổng tỉnh, Tra cứu hồ sơ
+
+      **Format:** Checklist có thể print, Tick khi làm xong
+    variables:
+      - name: procedureName
+        type: text
+        label: "Tên thủ tục (Ví dụ: Cấp hộ chiếu, ĐKKD, Đăng ký kết hôn, Cấp sổ đỏ, Cấp lại CMND)"
+        required: true
+      - name: personalInfo
+        type: textarea
+        label: "Thông tin người làm (Tên, Tuổi, Địa chỉ, CCCD, Nghề nghiệp...)"
+        required: true
+      - name: location
+        type: text
+        label: "Địa phương (Quận/Huyện, Tỉnh/Thành phố)"
+        required: true
+    examples:
+      - inputs:
+          procedureName: "Cấp hộ chiếu phổ thông (Lần đầu / Hết hạn)"
+          personalInfo: "Nguyễn Văn A, 30 tuổi, CCCD: 001200001234, Địa chỉ: Quận 1, TP.HCM, Nghề: Nhân viên văn phòng"
+          location: "Quận 1, TP.HCM (Cục Quản lý xuất nhập cảnh - 333-335 Nguyễn Trãi, Q1)"
+        output: |
+          # 📋 Hướng Dẫn: Cấp Hộ Chiếu Phổ Thông (TP.HCM)
+
+          ## 1. Cơ Quan Thực Hiện
+          - **Cục Quản lý Xuất nhập cảnh (QLXNC)**: 333-335 Nguyễn Trãi, Phường Nguyễn Cư Trinh, Q1, TP.HCM
+          - **Giờ**: Sáng 7:30-11:30, Chiều 13:00-17:00 (T2-T6). **T7, CN nghỉ**.
+          - **Hotline**: 1900.6968 / (028) 3925 1515
+          - **Website**: immigration.gov.vn / dichvucong.gov.vn
+
+          ## 2. Điều Kiện
+          - Công dân Việt Nam
+          - Có CCCD còn hiệu lực
+          - Không bị cấm xuất cảnh (Kiểm tra tại web immigration.gov.vn -> Tra cứu cấm xuất cảnh)
+
+          ## 3. Hồ Sơ Cần Chuẩn Bị (Checklist)
+          | STT | Hồ sơ | Số lượng | Ghi chú |
+          |-----|-------|----------|---------|
+          | 1 | **Đơn xin cấp hộ chiếu** (Mẫu X01) | 1 bản | Tải tại immigration.gov.vn hoặc lấy tại cửa |
+          | 2 | **CCCD** (Bản gốc + 1 bản sao A4) | 1 + 1 | Còn hiệu lực, Không rách mờ |
+          | 3 | **Ảnh hộ chiếu** (4x6cm, nền trắng, không kính) | 2 ảnh | Chụp tại cửa (50k) hoặc studio |
+          | 4 | **Hộ chiếu cũ** (Nếu gia hạn/đổi) | 1 bản gốc | Nếu có |
+          | 5 | **Giấy tờ chứng minh mối quan hệ** (Nếu đi cùng người thân 14-18t) | 1 bản sao | Giấy khai sinh, Sổ hộ khẩu |
+
+          ## 4. Quy Trình Nộp Hồ Sơ
+
+          ### Cách 1: Trực Tuyến (Khuyến Nghị - Nhanh, Không xếp hàng)
+          1. Vào **dichvucong.gov.vn** -> Đăng nhập VNeID (Cấp 2)
+          2. Tìm "Cấp hộ chiếu phổ thông" -> Chọn "Nộp hồ sơ trực tuyến"
+          3. Điền thông tin, Upload scan CCCD, ẢnhPortrait (JPG, <500KB)
+          4. Thanh toán phí online (VNPAY, Momo, Ngân hàng) -> **160.000 VNĐ** (Phí hộ chiếu) + **50.000 VNĐ** (Phí dịch vụ bưu điện EMS nếu nhận tại nhà)
+          5. Chọn **"Nhận tại cơ quan"** (Miễn phí bưu điện) HOẶC **"Giao tận nhà"** (+50k EMS)
+          6. Nhận mã hồ sơ -> Đợi SMS/App thông báo kết quả (3-5 ngày làm việc)
+
+          ### Cách 2: Trực Tiếp (Nếu không làm được online)
+          1. Điền đơn tại cửa (Mẫu X01) hoặc mang đơn đã điền
+          2. Lấy số, Chờ gọi (Cao điểm: Sáng sớm 7:00-8:00, Tránh T2, T7)
+          3. Nộp hồ sơ, Thanh toán tại quầy (Tiền mặt / QR code)
+          7. Nhận hẹn trả kết quả (Thường 5-7 ngày làm việc)
+
+          ## 5. Thời Hạn Giải Quyết
+          - **Quy định**: 8 ngày làm việc (Từ ngày nhận hồ sơ hợp lệ)
+          - **Thực tế Online**: 3-5 ngày làm việc
+          - **Thực tế Trực tiếp**: 5-7 ngày làm việc
+
+          ## 6. Phí & Lệ Phí
+          | Khoản phí | Số tiền | Cách thanh toán |
+          |-----------|---------|-----------------|
+          | Phí cấp hộ chiếu (5 năm) | **160.000 VNĐ** | Online (VNPAY/Momo/Bank) / Tiền mặt tại cửa |
+          | Phí bưu gửi EMS (Nhận tại nhà) | **50.000 VNĐ** | Online / COD |
+          | Chụp ảnh tại cửa (Nếu không mang) | ~50.000 VNĐ | Tiền mặt |
+
+          ## 7. Nhận Kết Quả
+          - **Online**: SMS + App VNeID -> Chọn "Nhận tại cửa" hoặc "Giao EMS"
+          - **Trực tiếp**: Mang phiếu hẹn + CCCD đến cửa nhận
+
+          ## 8. Lưu Ý & Cạm Bẫy
+          - ❌ **CCCD hết hạn / Rách / Mờ** -> Làm lại CCCD trước (Công an cấp huyện)
+          - ❌ **Ảnh không đúng quy cách** (Nền không trắng, Có kính, Quay mặt) -> Chụp lại
+          - ❌ **Đơn viết sai** (Thiếu chữ ký, Sai ngày tháng) -> Điền mẫu online tự validate
+          - ❌ **Bị cấm xuất cảnh** -> Check tại immigration.gov.vn -> Tra cứu cấm xuất cảnh TRƯỚC khi làm
+          - ❌ **Phí phát sinh**: Studio ảnh (100-200k), Bưu điện EMS (50k), Copy tại cửa (5k/trang)
+          - ✅ **Mẹo**: Làm Online + Nhận tại cửa = Nhanh nhất, Rẻ nhất, Không xếp hàng
+
+          ## 9. Link Hữu Ích
+          - **Dịch vụ công Quốc gia**: https://dichvucong.gov.vn
+          - **Cục QLXNC**: https://immigration.gov.vn
+          - **Tra cứu cấm xuất cảnh**: https://immigration.gov.vn/tra-cuu-cam-xuat-canh
+          - **Tra cứu hồ sơ**: https://dichvucong.gov.vn/tra-cuu-ho-so
+          - **App VNeID**: Cài đặt, Đăng ký cấp 2 (Đi qua bưu điện hoặc Ngân hàng)
+        context: "Cấp hộ chiếu phổ thông lần đầu tại TP.HCM, Online nhanh nhất"
+    difficulty: "easy"
+    useCases:
+      - "Làm hộ chiếu, Visa, CMND/CCCD"
+      - "Đăng ký kết hôn, Ly hôn, Sinh con"
+      - "Mua bán nhà đất, Sổ đỏ"
+      - "Mở công ty, ĐKKD, Thuế"
+agentTemplate:
+  name: "Administrative Law Guide"
+  description: "Hành chính, Công chứng, Dân sự, Doanh nghiệp, Đất đai, Công dân, Dịch vụ công trực tuyến"
+  systemPrompt: |
+    Bạn là Administrative Law Guide. Cung cấp thông tin thủ tục chính xác, cập nhật, link dịch vụ công. Không thay thế luật sư. Luôn khuyên check link chính thức.
+  model: "gpt-4"
+  temperature: 0.3
+relatedSkillIds:
+  - "hieu-luat-lao-dong"
+  - "biet-cach-doc-hop-dong"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: thu-tuc-hanh-chinh-cong
+---

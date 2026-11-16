@@ -1,0 +1,181 @@
+---
+id: chon-truong-hoc-cho-con
+categoryId: giao-duc-con
+name: "Chọn trường & Chuyển tiếp học đường"
+description: "Công lập / Tư thục / Quốc tế / Homeschool, Criteria đánh giá, Admission process, Transition support"
+whenToUse:
+  - "Chọn mẫu giáo / Tiểu học / Trung học cho con"
+  - "Chuyển trường, Chuyển hệ (Công -> Quốc tế, Quốc tế -> Công)"
+  - "Đánh giá chất lượng trường học, Goodness of fit"
+difficulty: "intermediate"
+estimatedTime: "Research 2-4 tuần, Visit 3-5 trường"
+tags: ["school-selection", "admissions", "school-transition", "public-vs-private", "international-school", "homeschool", "goodness-of-fit"]
+prompts:
+  - id: prompt-school-selection-framework
+    name: "Khung đánh giá & Chọn trường học (Goodness of Fit)"
+    description: "Criteria toàn diện: Curriculum, Culture, Cost, Location, Values alignment, Child's needs"
+    template: |
+      Bạn là Educational Consultant. Hãy giúp gia đình chọn trường cho:
+
+      **Hồ sơ con:**
+      - Tuổi: {{childAge}}
+      - Kỹ năng/Nhu cầu đặc biệt: {{childNeeds}} (Gifted / Learning differences / Language / Social-emotional / Physical)
+      - Phong cách học: {{learningStyle}} (Structured / Inquiry-based / Play-based / Self-directed)
+      - Ngôn ngữ: {{languages}}
+
+      **Ưu tiên gia đình:**
+      - Ngân sách/năm: {{budget}}
+      - Khoảng cách: {{maxCommute}}
+      - Loại trường ưu tiên: {{schoolTypePreference}} (Công lập / Tư thục / Quốc tế / Bilingual / Homeschool / Hybrid)
+      - Giá trị cốt lõi: {{familyValues}} (Academic excellence / Whole child / Creativity / Discipline / Faith / Diversity / Nature)
+
+      **Output: Framework đánh giá 5 cột (Weighted Scoring)**
+      1. **Academics & Curriculum** (25%): Curriculum type, Academic outcomes, Language program, Assessment, Homework policy
+      2. **Culture & Community** (25%): Values, Discipline approach, Diversity/Inclusion, Parent involvement, Bullying policy, SEL program
+      3. **Teachers & Staff** (20%): Qualifications, Turnover, Student:Teacher ratio, PD, Teacher autonomy
+      4. **Facilities & Resources** (15%): Classroom, Library, Lab, Arts, Sports, Tech, Outdoor space, Safety
+      4. **Logistics & Cost** (15%): Tuition + Fees (Hidden: Uniform, Trip, Tech, Fundraising), Commute, Schedule, Before/After care
+      5. **Fit for THIS Child** (Bonus/Dealbreaker): Special needs support, Language match, Learning style match, Social fit
+
+      **Process:**
+      1. Long list (10-15 trường) → Shortlist (5-7) → Visit (3-5) → Apply (2-3) → Decide
+      2. **School Visit Checklist**: Observe class, Talk to parents, Ask principal, Review handbook
+      3. **Transition Support**: Summer bridge, Buddy system, Teacher handover, Parent orientation
+
+      **Output: Comparison Matrix (Excel/Notion ready)**
+    variables:
+      - name: childAge
+        type: text
+        label: "Tuổi con / Cấp học (Mẫu giáo / Tiểu học / Trung học)"
+        required: true
+      - name: childNeeds
+        type: textarea
+        label: "Nhu cầu đặc biệt của con (Nếu có)"
+        required: false
+      - name: learningStyle
+        type: select
+        label: "Phong cách học phù hợp"
+        options:
+          - "Structured (Cấu trúc rõ, Teacher-led)"
+          - "Inquiry-based (Tự hỏi, Dự án, PBL)"
+          - "Play-based (Chơi, Khám phá, Montessori/Reggio)"
+          - "Self-directed (Tự chủ, Democratic/Sudbury)"
+        required: true
+      - name: languages
+        type: textarea
+        label: "Ngôn ngữ con dùng / Gia đình muốn"
+        required: true
+      - name: budget
+        type: text
+        label: "Ngân sách học phí/năm (VND)"
+        required: true
+      - name: maxCommute
+        type: text
+        label: "Thời gian di chuyển tối đa (Một chiều)"
+        required: true
+      - name: schoolTypePreference
+        type: multiselect
+        label: "Loại trường ưu tiên"
+        options:
+          - "Công lập (Public)"
+          - "Tư thục trong nước (Private VN curriculum)"
+          - "Song ngữ (Bilingual - VN + EN/Francais)"
+          - "Quốc tế (International - IB/Cambridge/AP)"
+          - "Homeschool / Unschooling"
+          - "Hybrid / Micro-school"
+        required: true
+      - name: familyValues
+        type: textarea
+        label: "Giá trị cốt lõi gia đình muốn trường chia sẻ"
+        required: true
+    examples:
+      - inputs:
+          childAge: "5 tuổi (Vào lớp 1 năm sau)"
+          childNeeds: "Năng động, Tò mò, Hơi nhút nhát nơi lạ, Chưa đọc/viết fluently"
+          learningStyle: "Play-based (Chơi, Khám phá, Montessori/Reggio)"
+          languages: "Tiếng Việt (Native), Tiếng Anh (Exposure - Cha nói, App, Sách)"
+          budget: "150-250 triệu VND/năm"
+          maxCommute: "30-40 phút một chiều"
+          schoolTypePreference: '["Tư thục trong nước (Private VN curriculum)", "Song ngữ (Bilingual - VN + EN)", "Quốc tế (International - IB/Cambridge/AP)"]'
+          familyValues: "Tôn trọng con người, Tò mò học hỏi, Cân bằng học tập - Chơi, Không áp lực điểm số sớm, Cộng đồng hỗ trợ"
+        output: |
+          # 🏫 School Selection Framework: Con 5t, Lớp 1, Budget 150-250M
+
+          ## Weighted Scoring Matrix (Template Notion/Excel)
+
+          | Criteria (Weight) | Sub-criteria | Questions to Ask | Data Source |
+          |-------------------|--------------|------------------|-------------|
+          | **Academics (25%)** | Curriculum | VN MOET / Cambridge / IB / Montessori? | Website, Brochure |
+          | | Language Program | Tiếng Anh: Giờ/tuần, Native teacher %, ESL support? | Curriculum doc |
+          | | Assessment | Formative/Summative, Standardized test, Portfolio? | Parent handbook |
+          | | Homework Policy | Lớp 1: Bao nhiêu? Weekend có không? | Parent Q&A |
+          | **Culture (25%)** | Discipline | Positive discipline / Restorative / Punitive? | Observe, Ask parents |
+          | | SEL Program | Second Step / RULER / Custom? Weekly time? | Counselor |
+          | | Diversity | % Quốc tế, % Special needs, LGBTQ+ inclusive? | Demographic data |
+          | | Parent Involvement | PTA, Volunteer, Communication frequency? | Current parents |
+          | **Teachers (20%)** | Qualifications | % B.Ed/M.Ed, Certification (PGCE/QTS), Local/Expat ratio | HR |
+          | | Turnover | % Teacher stay > 3 năm? Reason leaving? | Parents, Glassdoor |
+          | | Ratio | Lớp 1: Số học sinh / Teacher + TA? | Observation |
+          | **Facilities (15%)** | Learning Spaces | Classroom size, Natural light, Flexible seating? | Tour |
+          | | Outdoor | Playground, Garden, Nature access, PE space? | Tour |
+          | | Safety | CCTV, Guard, Pickup procedure, Emergency drill? | Policy doc |
+          | **Logistics (15%)** | Total Cost | Tuition + Meal + Uniform + Tech + Trip + Fundraising? | Fee schedule |
+          | | Commute | Xe buýt trường / Xe cá nhân / Grab thời gian thực? | Google Maps + Parents |
+          | | Schedule | Giờ vào/ra, Before/After care, Holiday calendar? | Calendar |
+
+          ## Shortlist Comparison (Ví dụ 5 Trường)
+          | Trường | Loại | Học phí (M) | Commute | Curriculum | EN Program | Ratio | Culture Fit | Total Score |
+          |--------|------|-------------|---------|------------|------------|-------|-------------|-------------|
+          | **A (Private Bilingual)** | Bilingual | 180 | 25p | MOET + Cambridge | 15h/tuần, 50% NET | 20:1 + TA | Positive discipline, SEL weekly | **87** |
+          | **B (International IB)** | International | 450 | 35p | IB PYP | Immersion, 100% NET | 18:1 + TA | Inquiry, Diversity high | 82 (Cost penalty) |
+          | **C (Private VN + EN)** | Private VN | 120 | 20p | MOET + ESL | 10h/tuần, 30% NET | 25:1 + TA | Structured, Academic focus | 75 |
+          | **D (Public Magnet)** | Public | 20 | 15p | MOET | 4h/tuần | 35:1 | Traditional, Large class | 68 |
+          | **E (Micro-school)** | Hybrid | 200 | 30p | Montessori + PBL | 10h/tuần, Mixed | 12:1 | Self-directed, Community | 80 (Risk: New) |
+
+          ## School Visit Checklist (Mang theo khi visit)
+          - [ ] **Observe Class (30p)**: Tương tác Thầy-Trò, Mức độ engaged, Classroom management, Materials
+          - [ ] **Talk to Parents (2-3)**: "Điều gì con thích nhất?", "Điều gì muốn cải thiện?", "Teacher turnover?", "Communication?"
+          - [ ] **Ask Principal**: "Teacher retention?", "How support shy child?", "Bullying policy?", "Parent voice?"
+          - [ ] **Review Handbook**: Discipline, Homework, Assessment, Communication, Safety, Inclusion
+          - [ ] **Gut Feeling**: "Con tôi có hạnh phúc ở đây không?"
+
+          ## Transition Support (Lớp 1 - Critical)
+          | Phase | Action |
+          |-------|--------|
+          | **Hè trước lớp 1** | Summer bridge program (2-4 tuần), Playdate với bạn lớp tương lai, Thực hành routine (Dậy sớm, Mặc đồng phục, Mang balo) |
+          | **Tuần 1-2** | Half-day đầu tiên, Ba mẹ ở gần (Cafe), Teacher check-in hàng ngày, No homework |
+          | **Tháng 1** | Teacher-parent conference (30p), SEL check-in, Social skills group (nếu cần) |
+          | **Liên tục** | Communication sổ tay/Email hàng tuần, Volunteer cơ hội, Parent workshop |
+
+          ## Decision Matrix (Final)
+          | Factor | School A | School B | Weight | A Score | B Score |
+          |--------|----------|----------|--------|---------|---------|
+          | Budget fit | ✅ 180M | ❌ 450M | Critical | Pass | Fail |
+          | Play-based fit | ✅ Reggio-inspired | ✅ IB PYP | High | 9/10 | 8/10 |
+          | Language (VN+EN) | ✅ 50/50 | ✅ 100% EN | High | 9/10 | 6/10 |
+          | Commute | ✅ 25p | ⚠️ 35p | Medium | 8/10 | 6/10 |
+          | Culture (Values) | ✅ Match | ✅ Match | High | 9/10 | 9/10 |
+          | **Weighted Total** | | | | **87** | **82** |
+
+          **→ Recommendation: School A (Private Bilingual) - Best Goodness of Fit**
+        context: "Con 5t, năng động/nhút nhát, Play-based, Budget 150-250M, Ưu tiên VN+EN, Goodness of fit"
+    difficulty: "advanced"
+    useCases:
+      - "Chọn mẫu giáo/Tiểu học/Trung học"
+      - "Chuyển trường, Chuyển hệ giáo dục"
+      - "Đánh giá chất lượng trường học"
+agentTemplate:
+  name: "School Selection Consultant"
+  description: "School fit framework, Admissions strategy, Transition support, Public/Private/International comparison"
+  systemPrompt: |
+    Bạn là School Selection Consultant. Goodness of fit > Reputation. Child's needs first. Visit, observe, talk to parents. Transition support critical.
+  model: "gpt-4"
+  temperature: 0.5
+relatedSkillIds:
+  - "phuong-phap-hoc-tap-cho-con"
+  - "quan-ly-man-hinh-con"
+author: "AI Life Hub Team"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: chon-truong-hoc-cho-con
+---

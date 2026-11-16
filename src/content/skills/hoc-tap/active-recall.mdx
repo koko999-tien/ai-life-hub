@@ -1,0 +1,386 @@
+---
+id: active-recall
+categoryId: hoc-tap
+name: "Active Recall - Kỹ thuật nhớ chủ động"
+description: "Thay vì đọc lại (passive), ép buộc não truy xuất thông tin: practice testing, blank page method, question generation"
+whenToUse:
+  - "Ôn thi mọi loại (đại học, chứng chỉ, công chức)"
+  - "Học subject mới: anatomy, law cases, programming syntax, history"
+  - "Cảm thấy 'đọc hiểu' nhưng làm bài tập/đề thi lại kết"
+  - "Muốn giảm thời gian học nhưng tăng retention"
+difficulty: "beginner"
+estimatedTime: "5-10 phút setup method, áp dụng mỗi session học"
+tags: ["active-recall", "retrieval-practice", "study-techniques", "test-prep"]
+prompts:
+  - id: prompt-active-recall-session
+    name: "Thiết kế session Active Recall"
+    description: "Chuyển nội dung học (sách, slide, video) thành session truy xuất chủ động có cấu trúc"
+    template: |
+      Bạn là Learning Scientist. Hãy thiết kế một **Active Recall Session** 45-60 phút cho chủ đề: {{topic}}.
+
+      **Input:**
+      - Nguồn tài liệu: {{sourceType}} (sách textbook / slide giảng / video lecture / documentation / paper)
+      - Độ dài nội dung: {{contentLength}} (số trang / phút video / số section)
+      - Mức độ quen thuộc: {{familiarity}} (1-10)
+      - Mục tiêu session: {{sessionGoal}} (first pass / deep review / pre-exam cram)
+
+      **Output cấu trúc:**
+      1. **Pre-test (3-5 min)**: 5-7 câu hỏi chẩn đoán - *đừng xem tài liệu trước*
+      2. **Study Sprint (20-30 min)**: Chia nhỏ content → đọc có mục đích → immediately recall
+      3. **Retrieval Practice (15-20 min)**: 3 dạng bài tập truy xuất (tăng dần độ khó)
+      4. **Gap Analysis (5 min)**: Đánh dấu chỗ chưa nhớ → plan cho session sau
+      5. **Next Session Preview**: 3 câu hỏi "hook" cho lần sau
+
+      **Techniques menu** (chọn 2-3 phù hợp):
+      - Blank Page Method (vẽ mindmap/write everything from memory)
+      - Practice Questions (tự tạo MCQ/SAQ từ learning objectives)
+      - Feynman Explanation (giải thích to record voice)
+      - Anki Cloze dari key concepts
+      - Teaching Simulation (giả định dạy cho peer)
+      - Diagram Reconstruction (vẽ lại flowchart/architecture từ nhớ)
+
+      Format: Markdown checklist + timer suggestions.
+    variables:
+      - name: topic
+        type: text
+        label: "Chủ đề/Chương cần ôn (ví dụ: 'React Hooks', 'Cardiovascular Anatomy', 'Contract Law - Offer & Acceptance')"
+        required: true
+      - name: sourceType
+        type: select
+        label: "Loại tài liệu nguồn"
+        options:
+          - "Sách textbook / Academic paper"
+          - "Slide giảng đường / Course materials"
+          - "Video lecture (YouTube, Coursera, edX)"
+          - "Documentation kỹ thuật (React, AWS, Kubernetes)"
+          - "Case law / Statute / Regulation"
+        required: true
+        default: "Sách textbook / Academic paper"
+      - name: contentLength
+        type: text
+        label: "Độ dài (ví dụ: 'Chương 12 - 30 trang', 'Video 45 phút', '5 sections')"
+        required: true
+      - name: familiarity
+        type: number
+        label: "Mức độ quen thuộc (1 = hoàn toàn mới, 10 = đã thành thạo)"
+        required: true
+        default: 3
+      - name: sessionGoal
+        type: select
+        label: "Mục tiêu session này"
+        options:
+          - "First pass (lần đầu tiếp xúc)"
+          - "Deep review (lần 2-3, muốn hiểu sâu)"
+          - "Pre-exam cram (gần thi, focus high-yield)"
+          - "Maintenance (giữ kiến thức lâu dài)"
+        required: true
+        default: "First pass"
+    examples:
+      - inputs:
+          topic: "React useEffect Hook - Dependencies & Cleanup"
+          sourceType: "Documentation kỹ thuật (React, AWS, Kubernetes)"
+          contentLength: "React docs useEffect page + 2 blog posts (tổng ~20 phút đọc)"
+          familiarity: 4
+          sessionGoal: "Deep review"
+        output: |
+          # 🧠 Active Recall Session: useEffect Dependencies & Cleanup
+
+          ## ⏱️ Timer: 50 phút total
+
+          ### 1. Pre-test (3 phút) - *ĐỪNG XEM DOCS*
+          1. useEffect chạy khi nào? (Mặc định / Có deps / Không deps)
+          2. Dependency array `[]` vs `[count]` vs `[count, flag]` khác nhau như thế nào?
+          3. Cleanup function chạy khi nào? Return value của useEffect là gì?
+          4. Tại sao eslint rule `exhaustive-deps` quan trọng?
+          5. Stale closure trong useEffect là gì? Ví dụ bug thường gặp.
+          6. useEffect vs useLayoutEffect khác gì? Khi nào dùng cái nào?
+          7. Custom hook `useFetch` - cleanup AbortController như thế nào?
+
+          → *Viết tóm tắt 1-2 câu/trên giấy. Đánh dấu ❓ chỗ không chắc.*
+
+          ### 2. Study Sprint (20 phút) - *ĐỌC CÓ MỤC ĐÍCH*
+          **Target:** Trả lời hết 7 câu trên + hiểu "tại sao"
+          - Phút 0-8: Đọc React docs useEffect (focus: Rules of Hooks, Cleanup, Timing)
+          - Phút 8-15: Đọc blog "A Complete Guide to useEffect" (Dan Abramov / overreacted.io) - focus mental model
+          - Phút 15-20: **ĐỂNG TÀI LIỆU** → Viết lại câu trả lời 7 câu pre-test
+
+          ### 3. Retrieval Practice (20 phút) - *3 DẠNG TĂNG DẦN*
+          **Level 1: Recognition (5p)**
+          - Anki Cloze: "useEffect(fn, {{c1::[]}}) runs {{c1::once after mount}}"
+          - MCQ: Cleanup runs before... (A) next effect (B) unmount (C) both → **Correct: C**
+
+          **Level 2: Recall (10p)**
+          - Blank Page: Vẽ lifecycle diagram: Mount → Effect → Cleanup → Re-render → Effect → ...
+          - Tự code từ nhớ: `useFetch` hook với AbortController cleanup
+
+          **Level 3: Transfer/Application (5p)**
+          - Bug hunt: Cho 3 code snippet có bug useEffect → diagnose & fix
+          - Design: "Cách implement `usePrevious` hook dùng useEffect + useRef?"
+
+          ### 4. Gap Analysis (5 phút)
+          | Câu pre-test | Trước session | Sau session | Cần ôn thêm? |
+          |--------------|---------------|-------------|---------------|
+          | 1. When runs | ❓ Vague | ✅ Clear | No |
+          | 2. Dep array diff | ❌ Wrong | ✅ Clear | No |
+          | 3. Cleanup timing | ❓ Partial | ⚠️ Fuzzy | **Yes - timing edge cases** |
+          | 4. exhaustive-deps | ❌ No idea | ✅ Understand | No |
+          | 5. Stale closure | ❌ Unknown | ⚠️ Know concept | **Yes - concrete examples** |
+          | 6. vs useLayoutEffect | ❓ Heard | ✅ Clear | No |
+          | 7. AbortController | ❌ Never seen | ⚠️ Basic | **Yes - practice code** |
+
+          ### 5. Next Session Hook (3 câu)
+          1. "Làm sao để fix stale closure mà không dùng useRef?"
+          2. "useEffect cleanup chạy trước hay sau paint? Tại sao quan trọng cho DOM measurement?"
+          3. "Custom hook `useInterval` - tại sao Dan Abramov khuyên không dùng? Alternative?"
+
+          ---
+          **📝 Note cho session sau:** Focus vào **Cleanup timing edge cases** + **Stale closure patterns** + **AbortController practice**. Dành 15p code `useFetch` + `useInterval` từ nhớ.
+        context: "Developer React level trung cấp, muốn master useEffect mental model"
+      - inputs:
+          topic: "Contract Law - Offer & Acceptance (Common Law)"
+          sourceType: "Case law / Statute / Regulation"
+          contentLength: "Textbook Chapter 2 (25 pages) + 5 landmark cases"
+          familiarity: 2
+          sessionGoal: "First pass"
+        output: |
+          # 🧠 Active Recall Session: Offer & Acceptance (Contract Law)
+
+          ## ⏱️ Timer: 60 phút total
+
+          ### 1. Pre-test (5 phút)
+          1. Đề nghị (Offer) khác mời chào mời (Invitation to treat) như thế nào?
+          2. Khi nào offer kết thúc? (Lập pháp 6 cách)
+          3. Chấp nhận (Acceptance) phải mirror image không? (Mirror image rule)
+          4. Postal rule áp dụng khi nào? Email/text message thì sao?
+          5. Battle of forms (UCC 2-207) giải quyết như thế nào?
+          6. Carlill v Carbolic Smoke Ball Co - tại sao đây là offer hợp lệ?
+          7. Consideration là gì? Past consideration hợp lệ không?
+
+          ### 2. Study Sprint (25 phút)
+          - Read textbook: Focus *elements of offer*, *termination*, *acceptance rules*
+          - Case briefs: Carlill, Pharmaceutical Society v Boots, Hyde v Wrench, Entores v Miles Far East
+          - **Close book** → Answer pre-test questions từ nhớ
+
+          ### 3. Retrieval Practice (25 phút)
+          **Level 1: Element Identification (5p)**
+          - Cho 5 fact patterns → Identify: Offer? Invitation to treat? Acceptance? Counter-offer?
+
+          **Level 2: Case Application (10p)**
+          - Blank page: Vẽ flowchart "Offer → Acceptance → Contract?" với decision nodes
+          - Feynman: Giải thích *Postal rule* cho client non-lawyer (analogy: "Gửi thư = đã bán house")
+
+          **Level 3: Problem Question (10p)**
+          - IRAC method: Issue → Rule → Analysis → Conclusion cho hypo:
+            > "A email B: 'Mua xe $10k, reply trước 5pm Friday'. B reply 4:59pm: 'Đồng ý, nhưng muốn bảo hành 2 năm'. A không reply. Có contract không?"
+
+          ### 4. Gap Analysis (5 phút)
+          | Concept | Confidence (1-5) | Action |
+          |---------|------------------|--------|
+          | Offer vs ITT | 3 | Review Boots case distinction |
+          | Termination ways | 2 | Memorize 6 ways mnemonic |
+          | Mirror image vs UCC 2-207 | 1 | **High priority** - read supplement |
+          | Postal rule modern | 3 | Check email jurisprudence |
+          | Consideration basics | 4 | OK |
+
+          ### 5. Next Session Hook
+          1. "UCC 2-207 'knock-out rule' vs 'last shot rule' - jurisdiction nào dùng cái nào?"
+          2. "Promissory estoppel - khi nào substitute consideration?"
+          3. "Option contract - firm offer rule (UCC 2-205) áp dụng như thế nào?"
+
+    difficulty: "medium"
+    useCases:
+      - "Law student ôn Contracts/Torts/Con Law"
+      - "Medical student ôn Anatomy/Pharma/Pathology"
+      - "Engineering student ôn Thermodynamics/Circuits/Control Systems"
+  - id: prompt-question-generation
+    name: "Tự tạo câu hỏi Practice Testing"
+    description: "Chuyển learning objectives / heading sách / slide thành bank câu hỏi MCQ, SAQ, Essay chất lượng"
+    template: |
+      Bạn là Assessment Designer. Hãy tạo bộ câu hỏi practice testing từ nội dung sau:
+
+      **Nội dung:** {{content}}
+      **Learning Objectives (nếu có):** {{objectives}}
+      **Độ khó mục tiêu:** {{difficulty}} (Bloom's taxonomy level)
+      **Số lượng:** {{count}} câu
+      **Loại câu:** {{questionTypes}}
+
+      **Yêu cầu chất lượng (Haladyna guidelines):**
+      1. Test *một* concept duy nhất mỗi câu
+      2. Stem rõ ràng, không ambigu, không negative phrasing ("Which is NOT..." hạn chế)
+      3. Distractors (đáp án sai) plausible, based trên common misconceptions
+      4. Không có "All of the above" / "None of the above"
+      5. Options cùng cấu trúc, cùng độ dài, không overlap
+      6. Correct answer không clear hơn distractors (grammar, length, specificity)
+
+      **Output:**
+      - Câu hỏi theo format: Stem | Options | Correct | Explanation (why right/why wrong)
+      - Phân bố Bloom's taxonomy
+      - Answer key riêng để print/import Anki
+    variables:
+      - name: content
+        type: textarea
+        label: "Nội dung nguồn (paste text, hoặc mô tả tóm tắt key concepts)"
+        required: true
+      - name: objectives
+        type: textarea
+        label: "Learning objectives (tùy chọn - từ syllabus/chương sách)"
+        required: false
+      - name: difficulty
+        type: select
+        label: "Mức độ Bloom's Taxonomy"
+        options:
+          - "Remember (Recall facts, definitions)"
+          - "Understand (Explain, classify, compare)"
+          - "Apply (Use in new situation, solve problem)"
+          - "Analyze (Break down, distinguish, organize)"
+          - "Evaluate (Judge, critique, defend)"
+          - "Create (Design, construct, formulate)"
+        required: true
+        default: "Apply (Use in new situation, solve problem)"
+      - name: count
+        type: number
+        label: "Số câu hỏi muốn tạo"
+        required: true
+        default: 10
+      - name: questionTypes
+        type: multiselect
+        label: "Loại câu hỏi"
+        options:
+          - "MCQ (Multiple Choice - 1 correct)"
+          - "MCQ Multiple Answer (Select all that apply)"
+          - "SAQ (Short Answer Question)"
+          - "Essay/Long Answer"
+          - "Case-based / Scenario"
+          - "Code completion / Debug (cho CS)"
+        required: true
+        default: ["MCQ (Multiple Choice - 1 correct)", "Case-based / Scenario"]
+    examples:
+      - inputs:
+          content: |
+            React useState:
+            - Returns array: [state, setState]
+            - State can be any type (primitive, object, array)
+            - setState triggers re-render
+            - Functional update: setCount(c => c + 1) - uses latest state
+            - Batching: multiple setState in event handler = 1 re-render (React 18+ auto-batch)
+            - Lazy initialization: useState(() => expensiveComputation()) - only runs once
+          objectives: "Hiểu useState API, functional updates, batching, lazy init"
+          difficulty: "Apply (Use in new situation, solve problem)"
+          count: 8
+          questionTypes: '["MCQ (Multiple Choice - 1 correct)", "Case-based / Scenario"]'
+        output: |
+          # 📝 Practice Questions: React useState
+
+          ## MCQ (Single Best Answer)
+
+          **Q1.** Component `Counter` dùng `const [count, setCount] = useState(0)`. Code sau render bao nhiêu lần?
+          ```jsx
+          function handleClick() {
+            setCount(count + 1);
+            setCount(count + 1);
+            setCount(count + 1);
+          }
+          ```
+          A. 1 lần (batching)
+          B. 3 lần (mỗi setState một render)
+          C. 2 lần (batch 2, render 1 riêng)
+          D. Tùy React version
+
+          **Correct: A** (React 18+ auto-batches in event handlers. `count` captured = 0, 3 updates → final state = 1, 1 re-render)
+          **Why wrong:** B - pre-18 behavior hoặc misunderstanding batching. C - confusion với flushSync. D - cop-out.
+
+          **Q2.** Khi nào NÊN dùng functional update `setCount(c => c + 1)` thay vì `setCount(count + 1)`?
+          A. Luôn luôn dùng functional update
+          B. Khi update dựa trên state trước (async, multiple updates, closure)
+          C. Chỉ khi state là object/array
+          D. Không bao giờ cần - React tự handle
+
+          **Correct: B** (Event handlers async, closures capture stale state, multiple rapid updates)
+          **Why wrong:** A - overkill cho simple independent updates. C - functional update works cho mọi type. D - false.
+
+          **Q3.** `useState(() => expensiveInitialState())` khác `useState(expensiveInitialState())` như thế nào?
+          A. Không khác gì cả
+          B. Lazy init chỉ chạy 1 lần (mount), eager chạy mỗi render
+          C. Lazy init chạy mỗi render, eager chỉ mount
+          D. Lazy init chỉ dùng cho object/array
+
+          **Correct: B** (Lazy init function chỉ execute mount. Eager expression evaluate mỗi render → waste)
+          **Why wrong:** A - performance diff rõ rệt. C - reversed. D - type không liên quan.
+
+          ## Case-based / Scenario
+
+          **Q4.** Bạn đang build `SearchResults` component. User gõ trong input → debounce 300ms → fetch API → hiển thị results. State quản lý: `query`, `results`, `loading`, `error`.
+          Vấn đề: User gõ nhanh "react" → "react hooks" → "react hooks useState". Có thể race condition (response cũ về sau response mới).
+          **Hỏi:** Pattern nào giải quyết race condition này?
+          A. `useEffect` cleanup với AbortController
+          B. `useState` functional update cho results
+          C. `useRef` lưu request ID, so sánh trước khi setState
+          D. Cả A và C đều đúng
+
+          **Correct: D** (A: cancel request cũ. C: ignore stale response. Cả 2 nên dùng kết hợp)
+          **Why wrong:** B - functional update không giải quyết race condition (vẫn set state từ response cũ).
+
+          **Q5.** Custom hook `useLocalStorage(key, initialValue)` - sync state với localStorage.
+          Requirements: Lazy read từ localStorage (chỉ mount), handle JSON parse error, sync cross-tab.
+          **Hỏi:** Implementation nào đúng cho lazy init?
+          A. `useState(() => JSON.parse(localStorage.getItem(key)) ?? initialValue)`
+          B. `useState(JSON.parse(localStorage.getItem(key)) ?? initialValue)`
+          C. `useState(() => { try { return JSON.parse(localStorage.getItem(key)) } catch { return initialValue } })`
+          D. C và thêm `useEffect` listen `storage` event
+
+          **Correct: D** (C handles lazy init + error. D adds cross-tab sync via storage event)
+          **Why wrong:** A - parse error crash app. B - not lazy, runs every render.
+
+          ---
+          ## Bloom's Distribution
+          | Level | Count | Questions |
+          |-------|-------|-----------|
+          | Remember | 0 | - |
+          | Understand | 1 | Q3 |
+          | Apply | 3 | Q1, Q2, Q4 |
+          | Analyze | 1 | Q5 |
+
+          ## Anki Import Format (Cloze)
+          ```
+          React 18 batches multiple setState in event handlers into {{c1::1 re-render}}.
+          Functional update {{c1::setCount(c => c + 1)}} needed when updates depend on previous state or in async closures.
+          Lazy init {{c1::useState(() => expensive())}} runs once at mount; eager {{c1::useState(expensive())}} runs every render.
+          Race condition in fetch: use {{c1::AbortController in useEffect cleanup}} + {{c1::useRef requestId check}} before setState.
+          ```
+    difficulty: "medium"
+    useCases:
+      - "Tự tạo ngân hàng câu hỏi ôn thi từ syllabus"
+      - "Giảng viên tạo quiz/assessment cho lớp học"
+      - "Developer tạo interview prep questions"
+agentTemplate:
+  name: "Active Recall Coach"
+  description: "Hướng dẫn thiết kế session active recall, tạo practice questions, analyze gaps, build retrieval schedule"
+  systemPrompt: |
+    Bạn là Active Recall Coach - chuyên gia về retrieval practice science.
+    Core principles:
+    - **Retrieval > Re-reading**: Effortful recall strengthens memory traces
+    - **Desirable Difficulties** (Bjork): Spacing, interleaving, variation, generation
+    - **Feedback-driven**: Immediate correction prevents error consolidation
+    - **Metacognition**: Learner phải judge own learning (JOL - Judgment of Learning)
+
+    Workflow:
+    1. Convert passive content → active questions
+    2. Design session: Pre-test → Study → Retrieval → Gap Analysis
+    3. Schedule: Spaced retrieval (1d, 3d, 1w, 1m)
+    4. Analyze: Confidence vs Accuracy calibration
+
+    Không cho phép "re-reading" làm main activity. Luôn hỏi: "How will you test yourself on this?"
+  model: "gpt-4"
+  temperature: 0.6
+  tools:
+    - "web_search"
+relatedSkillIds:
+  - "spaced-repetition-anki"
+  - "kythuat-feynman"
+  - "doc-lap-ke-hoach-hoc-tap"
+author: "AI Life Hub Team"
+source: "Brown, Roediger, McDaniel - 'Make It Stick'; Agarwal & Bain - 'Powerful Teaching'; Dunlosky et al. - 'Improving Students' Learning With Effective Learning Techniques'"
+version: "1.0.0"
+updatedAt: "2024-01-15"
+slug: active-recall
+---
