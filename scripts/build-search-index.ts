@@ -248,7 +248,9 @@ function buildSearchDocuments(
       tags: resource.tags || [],
       url: resource.url,
       boost: 4,
-    });
+      resourceType: resource.type,
+      description: resource.description,
+    } as any);
   });
 
   return documents;

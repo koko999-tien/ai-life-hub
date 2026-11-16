@@ -2,6 +2,7 @@
 
 import { AgentTemplate } from '@/types'
 import { cn } from '@/lib/utils'
+import { toast } from '@/components/ui'
 import {
   Bot,
   Cpu,
@@ -12,6 +13,7 @@ import {
   ExternalLink,
   Sparkles,
   Settings,
+  Download,
   type LucideIcon,
 } from 'lucide-react'
 import { useState, useCallback } from 'react'
@@ -67,15 +69,27 @@ export function AgentTemplateCard({ agent, skillName, className }: AgentTemplate
   const handleCopySystemPrompt = useCallback(async () => {
     await navigator.clipboard.writeText(agent.systemPrompt)
     setCopied('system')
+    toast.success('Đã sao chép System Prompt!')
     setTimeout(() => setCopied(null), 2000)
   }, [agent.systemPrompt])
 
-  const handleUseAgent = useCallback(() => {
-    // This would typically navigate to a chat interface with the agent pre-configured
-    // For now, copy the system prompt and show success
-    handleCopySystemPrompt()
-    // Could also trigger navigation: router.push(`/chat?agent=${encodeURIComponent(skillName)}`)
-  }, [handleCopySystemPrompt, skillName])
+  const handleDownloadCursorRules = useCallback(() => {
+    const content = `# ${agent.name} (.cursorrules)\n\n${agent.systemPrompt}\n\n# Model Config\nModel: ${agent.model || 'gpt-4'}\nTemperature: ${agent.temperature ?? 0.7}\n`
+    const blob = new Blob([content], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `.cursorrules`
+    a.click()
+    URL.revokeObjectURL(url)
+    toast.success('Đã tải xuống file .cursorrules!')
+  }, [agent])
+
+  const handleUseAgent = useCallback(async () => {
+    await navigator.clipboard.writeText(agent.systemPrompt)
+    toast.success('Đã copy System Prompt! Đang mở ChatGPT...')
+    window.open('https://chatgpt.com/', '_blank')
+  }, [agent.systemPrompt])
 
   return (
     <div className={cn('border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 overflow-hidden', className)}>
@@ -190,20 +204,28 @@ export function AgentTemplateCard({ agent, skillName, className }: AgentTemplate
         ) : null}
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-200 dark:border-slate-700">
           <button
             onClick={handleUseAgent}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors"
+            className="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors"
           >
             <Bot className="w-4 h-4" aria-hidden="true" />
-            Use This Agent
+            <span>Chạy với ChatGPT</span>
           </button>
           <button
             onClick={handleCopySystemPrompt}
             className="px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2"
           >
             <Copy className="w-4 h-4" aria-hidden="true" />
-            <span className="hidden sm:inline">Copy Prompt</span>
+            <span className="hidden sm:inline">Copy System Prompt</span>
+          </button>
+          <button
+            onClick={handleDownloadCursorRules}
+            className="px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5 text-xs"
+            title="Tải cấu hình Cursor Rules (.cursorrules)"
+          >
+            <Download className="w-4 h-4" aria-hidden="true" />
+            <span>.cursorrules</span>
           </button>
         </div>
       </div>

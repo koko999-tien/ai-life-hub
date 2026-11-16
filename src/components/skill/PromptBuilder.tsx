@@ -1,10 +1,9 @@
 'use client'
 
-'use client'
-
 import { Prompt, PromptVariable, PromptExample } from '@/types'
 import { cn } from '@/lib/utils'
 import { VARIABLE_TYPE_LABELS } from '@/lib/constants'
+import { toast } from '@/components/ui'
 import {
   X,
   Copy,
@@ -18,6 +17,7 @@ import {
   Loader2,
   Lightbulb,
   AlertCircle,
+  Bot,
   type LucideIcon,
 } from 'lucide-react'
 import { useState, useCallback, useEffect, useMemo } from 'react'
@@ -147,6 +147,18 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
     a.click()
     URL.revokeObjectURL(url)
   }, [prompt, variables, generatedPrompt])
+
+  const handleLaunchAI = useCallback(async (provider: 'chatgpt' | 'claude' | 'gemini') => {
+    if (!generatedPrompt) return
+    await navigator.clipboard.writeText(generatedPrompt)
+    toast.success(`Đã copy prompt! Đang mở ${provider === 'chatgpt' ? 'ChatGPT' : provider === 'claude' ? 'Claude' : 'Gemini'}...`)
+    const urls = {
+      chatgpt: 'https://chatgpt.com/',
+      claude: 'https://claude.ai/new',
+      gemini: 'https://gemini.google.com/app',
+    }
+    window.open(urls[provider], '_blank')
+  }, [generatedPrompt])
 
   const requiredVariables = prompt.variables?.filter((v) => v.required) ?? []
   const missingRequired = requiredVariables.filter((v) => !variables[v.name]?.trim())
@@ -329,6 +341,42 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
                     <span>Copy Share URL</span>
                     {copied === 'url' && <Check className="w-4 h-4 text-brand-600" aria-hidden="true" />}
                   </button>
+
+                  {/* Quick AI Launch */}
+                  <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider text-center">
+                      Mở trực tiếp trên AI
+                    </p>
+                    <div className="grid grid-cols-3 gap-2">
+                      <button
+                        onClick={() => handleLaunchAI('chatgpt')}
+                        disabled={missingRequired.length > 0}
+                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold hover:bg-emerald-100 transition-colors disabled:opacity-50"
+                        title="Copy prompt và mở ChatGPT"
+                      >
+                        <Bot className="w-3.5 h-3.5" />
+                        <span>ChatGPT</span>
+                      </button>
+                      <button
+                        onClick={() => handleLaunchAI('claude')}
+                        disabled={missingRequired.length > 0}
+                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-semibold hover:bg-amber-100 transition-colors disabled:opacity-50"
+                        title="Copy prompt và mở Claude"
+                      >
+                        <Bot className="w-3.5 h-3.5" />
+                        <span>Claude</span>
+                      </button>
+                      <button
+                        onClick={() => handleLaunchAI('gemini')}
+                        disabled={missingRequired.length > 0}
+                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-semibold hover:bg-blue-100 transition-colors disabled:opacity-50"
+                        title="Copy prompt và mở Gemini"
+                      >
+                        <Bot className="w-3.5 h-3.5" />
+                        <span>Gemini</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
