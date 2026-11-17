@@ -23,7 +23,7 @@ import { toast } from 'sonner';
 export interface EcosystemProject {
   id: string;
   name: string;
-  category: 'Epistemic Science' | 'Document Automation' | 'Knowledge Base' | 'OSINT & Scraping' | 'Productivity';
+  category: 'Epistemic Science' | 'Document Automation' | 'Knowledge Base' | 'OSINT & Scraping' | 'Productivity' | 'VR & Spatial Computing' | 'Fullstack E-Commerce';
   tagline: string;
   drivePath: string;
   githubUrl?: string;
@@ -141,6 +141,42 @@ export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
     stats: 'Node 24 • Native SQLite'
   },
   {
+    id: 'luma-fashion',
+    name: 'Luma Fashion Storefront & Admin',
+    category: 'Fullstack E-Commerce',
+    tagline: 'Nền tảng Thương mại Điện tử Thời trang Fullstack Next.js + Prisma + Cổng Thanh toán Việt Nam',
+    drivePath: 'D:\\luma-fashion',
+    githubUrl: 'https://github.com/koko999-tien/luma-fashion',
+    status: 'Production Ready',
+    techStack: ['Next.js 14', 'Prisma ORM', 'Tailwind CSS', 'MoMo', 'VNPay', 'ZaloPay', 'TypeScript'],
+    keyFeatures: [
+      'Giao diện Storefront mua hàng hiện đại, giỏ hàng Drawer, lọc đa tiêu chí và trang thanh toán',
+      'Tích hợp đầy đủ các cổng thanh toán nội địa: MoMo IPN, VNPay Return, ZaloPay Callback',
+      'Bảng điều khiển quản trị Admin: quản lý danh mục, bộ sưu tập, đơn hàng, mã giảm giá và báo cáo doanh thu',
+      'Hệ thống đánh giá sản phẩm, wishlist, thông báo email và phân quyền người dùng'
+    ],
+    quickStartCommand: 'cd D:\\luma-fashion; npm run dev',
+    stats: 'Fullstack E-Com • MoMo / VNPay'
+  },
+  {
+    id: 'vr-game-dev',
+    name: 'VR & Spatial Game Dev Studio',
+    category: 'VR & Spatial Computing',
+    tagline: 'Môi trường Phát triển Game Thực tế Ảo Đa luồng (Godot 4 OpenXR & WebXR Three.js)',
+    drivePath: 'D:\\vr_game_dev',
+    githubUrl: 'https://github.com/koko999-tien/vr-game-dev',
+    status: 'Fully Verified',
+    techStack: ['Godot Engine 4.3', 'OpenXR', 'WebXR', 'Three.js r170', 'Vite', 'DirectX 12 / Vulkan'],
+    keyFeatures: [
+      'Hỗ trợ kính thực tế ảo độc lập OpenXR kèm chế độ Desktop Free-Look giả lập không cần headset',
+      'Mô-đun WebXR chạy trực tiếp trên trình duyệt máy tính và kính Meta Quest qua Three.js + Vite',
+      'Hệ thống script tự động hóa kiểm thử headless trong môi trường CI/CD',
+      'Bộ tài liệu kiến trúc kỹ thuật và kịch bản tương tác vật lý 3D hoàn chỉnh'
+    ],
+    quickStartCommand: 'cd D:\\vr_game_dev; .\\1_MO_GODOT_LAM_GAME.bat',
+    stats: 'Godot 4.3 • OpenXR & WebXR'
+  },
+  {
     id: 'openbot-qoder',
     name: 'OpenBot & Qoder Autonomous Agent',
     category: 'Epistemic Science',
@@ -192,7 +228,9 @@ export function EcosystemHub() {
     { id: 'Document Automation', label: '📄 Văn thư & Báo cáo' },
     { id: 'Knowledge Base', label: '📚 Kho Tri thức 10 Sách' },
     { id: 'OSINT & Scraping', label: '🌐 Telegram & Bóc tách' },
-    { id: 'Productivity', label: '⏱️ Hiệu suất & Focus' },
+    { id: 'Productivity', label: '⏱️ Hiệu suất & Streaming' },
+    { id: 'Fullstack E-Commerce', label: '🛍️ Thương mại Điện tử' },
+    { id: 'VR & Spatial Computing', label: '🥽 Thực tế Ảo VR & 3D' },
   ];
 
   const filteredProjects = selectedCategory === 'all'
