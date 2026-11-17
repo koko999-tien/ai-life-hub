@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Zap, Brain, Target, Search, Command, Terminal, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Brain, Target, Search, Command, Terminal, CheckCircle2, Scale } from 'lucide-react';
 import { clsx } from 'clsx';
 
 export function Hero() {
@@ -38,34 +38,33 @@ export function Hero() {
 
           {/* High-contrast Typography Heading */}
           <h1 id="hero-heading" className="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-text text-balance mb-6 leading-[1.15]">
-            Khám phá, Thực hành &amp; Triển khai <br className="hidden sm:inline" />
+            Làm Chủ Trí Tuệ Nhân Tạo <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-accent via-accent-500 to-brand-500 bg-clip-text text-transparent drop-shadow-xs">
-              Trí Tuệ Nhân Tạo
-            </span>{' '}
-            Đỉnh Cao
+              Dễ Dàng Trong 5 Giây
+            </span>
           </h1>
 
           <p className="text-base sm:text-lg lg:text-xl text-text-muted max-w-2xl mx-auto mb-8 leading-relaxed text-balance">
-            Nền tảng tri thức mở toàn diện: 55 kỹ năng thực chiến, 14 kiến trúc AI Agent doanh nghiệp, 
-            bộ công cụ System Prompt XML và cẩm nang kỹ thuật thực chiến từ 10 công trình kinh điển.
+            Nơi biến AI thành trợ lý đắc lực của bạn: Hơn <strong>80+ mẫu câu lệnh (Prompts)</strong> dùng ngay cho công việc,
+            bộ công cụ <strong>tính chi phí token</strong>, <strong>so sánh các mô hình AI</strong> và 10 cẩm nang thực chiến tinh hoa.
           </p>
 
           {/* Dual CTA Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-3.5 mb-6">
             <Link
-              href="/categories"
+              href="/prompts"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-accent hover:bg-accent-hover shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_12px_24px_-4px_rgba(249,115,22,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-fast"
             >
-              <span>Khám phá Danh mục</span>
+              <span>Xem Thư Viện Câu Lệnh Dùng Ngay</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link
-              href="/playground"
+              href="/compare"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-text bg-bg-surface/80 hover:bg-hover backdrop-blur-md border border-border hover:border-accent/40 shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-fast"
             >
-              <Sparkles className="w-4 h-4 text-accent" />
-              <span>Thử AI Playground</span>
+              <Scale className="w-4 h-4 text-accent" />
+              <span>So Sánh Các Dòng AI</span>
             </Link>
           </div>
 
@@ -147,24 +146,24 @@ export function Hero() {
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-500 group-hover:scale-110 transition-transform">
               <Brain className="h-6 w-6" aria-hidden="true" />
             </div>
-            <h3 className="font-semibold text-text mb-2 text-base">Kiến thức hệ thống</h3>
-            <p className="text-sm text-text-muted leading-relaxed">16 danh mục chuyên ngành, 55 kỹ năng bài bản từ cơ bản đến chuyên sâu.</p>
+            <h3 className="font-semibold text-text mb-2 text-base">Ai Dùng Cũng Hiểu</h3>
+            <p className="text-sm text-text-muted leading-relaxed">Không dùng từ ngữ cao siêu. Mọi câu lệnh và hướng dẫn đều bằng tiếng Việt trực quan, rõ ràng.</p>
           </article>
 
           <article className="rounded-2xl border border-border bg-bg-surface/80 p-6 text-center hover:border-accent/40 hover:shadow-card-hover transition-all group" role="listitem">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent group-hover:scale-110 transition-transform">
               <Zap className="h-6 w-6" aria-hidden="true" />
             </div>
-            <h3 className="font-semibold text-text mb-2 text-base">Thực hành tức thì</h3>
-            <p className="text-sm text-text-muted leading-relaxed">System Prompt Studio chuẩn XML, bộ tối ưu CoT và Sandbox chạy thử nghiệm.</p>
+            <h3 className="font-semibold text-text mb-2 text-base">Dùng Ngay Vào Việc</h3>
+            <p className="text-sm text-text-muted leading-relaxed">Mẫu viết báo cáo, email, marketing, trắc nghiệm AI và bộ tính tiền Token chuẩn xác theo VNĐ.</p>
           </article>
 
           <article className="rounded-2xl border border-border bg-bg-surface/80 p-6 text-center hover:border-accent/40 hover:shadow-card-hover transition-all group sm:col-span-2 md:col-span-1" role="listitem">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 group-hover:scale-110 transition-transform">
               <Target className="h-6 w-6" aria-hidden="true" />
             </div>
-            <h3 className="font-semibold text-text mb-2 text-base">Hệ sinh thái thực chiến</h3>
-            <p className="text-sm text-text-muted leading-relaxed">Kết nối trực tiếp các công trình và cẩm nang từ phòng lab thực tế tại ổ D.</p>
+            <h3 className="font-semibold text-text mb-2 text-base">Kho Dự Án Thực Tế</h3>
+            <p className="text-sm text-text-muted leading-relaxed">8 dự án nguồn mở từ phòng Lab: kiểm định khoa học, văn bản hành chính, làm game VR và bóc tách dữ liệu.</p>
           </article>
         </div>
       </div>
