@@ -94,6 +94,7 @@ export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
     category: 'OSINT & Scraping',
     tagline: 'Hệ thống Bóc tách Tri thức & Tải Tài nguyên Tự động từ Telegram về Ổ D',
     drivePath: 'D:\\Telegram_AI_Tool',
+    githubUrl: 'https://github.com/koko999-tien/Telegram_AI_Tool',
     status: 'Production Ready',
     techStack: ['Python', 'Telethon', 'Pyrogram', 'SQLite', 'Human-in-the-loop'],
     keyFeatures: [
@@ -102,8 +103,8 @@ export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
       'Cơ chế kiểm duyệt an toàn Human-in-the-loop trước khi lưu trữ vào D:\\AI_Telegram_Downloads',
       'Đồng bộ siêu dữ liệu trực tiếp vào kho tri thức D:\\AI_Knowledge_Lab'
     ],
-    quickStartCommand: 'cd D:\\Telegram_AI_Tool; python main.py',
-    stats: 'Multi-Channel Crawl • HITL Safety'
+    quickStartCommand: 'cd D:\\Telegram_AI_Tool; python -m pytest tests/ -v',
+    stats: '800+ Files • 100% Tests Pass'
   },
   {
     id: 'lofi-pomodoro',
@@ -111,15 +112,33 @@ export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
     category: 'Productivity',
     tagline: 'Không gian Tập trung Làm việc & Học tập Sâu kết hợp Âm nhạc Lofi',
     drivePath: 'D:\\lofi-pomodoro',
+    githubUrl: 'https://github.com/koko999-tien/lofi-pomodoro',
     status: 'Production Ready',
-    techStack: ['React', 'Web Audio API', 'Tailwind CSS', 'LocalStorage'],
+    techStack: ['HTML5', 'Vanilla JavaScript', 'Web Audio API', 'CSS3 Modern'],
     keyFeatures: [
-      'Bộ đếm thời gian Pomodoro tiêu chuẩn (25 phút tập trung / 5 phút nghỉ ngắn)',
-      'Kho âm thanh Lofi thư giãn, tiếng mưa và white noise kích thích tập trung',
-      'Giao diện tối giản tối ưu cho các phiên làm việc Deep Work'
+      'Bộ đếm thời gian Pomodoro tiêu chuẩn (25 phút tập trung / 5 phút nghỉ ngắn / 15 phút nghỉ dài)',
+      'Kho âm thanh Lofi thư giãn, tiếng mưa và white noise kích thích trạng thái Flow State',
+      'Giao diện tối giản tối ưu cho các phiên làm việc Deep Work không gây phân tâm'
     ],
-    quickStartCommand: 'cd D:\\lofi-pomodoro; npm run dev',
+    quickStartCommand: 'cd D:\\lofi-pomodoro; start index.html',
     stats: 'Deep Work • Web Audio'
+  },
+  {
+    id: 'tubeflux',
+    name: 'Tubeflux Streaming Engine',
+    category: 'Productivity',
+    tagline: 'Nền tảng Lưu trữ & Phát Video Tự lưu trữ Hiệu năng cao (Node 24 + SQLite)',
+    drivePath: 'D:\\tubeflux',
+    githubUrl: 'https://github.com/koko999-tien/tubeflux',
+    status: 'Production Ready',
+    techStack: ['Node.js 24', 'Express', 'node:sqlite', 'FFmpeg', 'Vanilla JS'],
+    keyFeatures: [
+      'Hỗ trợ streaming video chunked range HTTP cho tốc độ xem mượt mà',
+      'Tự động trích xuất thumbnail và metadata thời lượng qua FFmpeg',
+      'Bảng điều khiển quản trị Admin phân loại danh mục, từ khóa và bình luận'
+    ],
+    quickStartCommand: 'cd D:\\tubeflux; npm install; npm start',
+    stats: 'Node 24 • Native SQLite'
   },
   {
     id: 'openbot-qoder',
