@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Twitter, MessageSquare, Mail, ArrowRight, Heart, BookOpen, Code, Zap, Brain, Globe, Shield, Terminal, Scale, Calculator, Sliders, GraduationCap } from 'lucide-react'
+import { Github, Twitter, MessageSquare, Mail, ArrowRight, Heart, BookOpen, Code, Zap, Brain, Globe, Shield, Terminal, Scale, Calculator, Sliders, GraduationCap, Sparkles } from 'lucide-react'
 import { clsx } from 'clsx'
 
 const footerNav = {
@@ -63,11 +63,16 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link
               href="/"
-              className="flex items-center gap-2 text-text font-display font-bold text-2xl"
+              className="group flex items-center gap-2.5 text-text font-display font-bold text-2xl transition-transform active:scale-95"
               aria-label="AI Life Hub Home"
             >
-              <span className="text-accent">AI</span>
-              <span className="text-text">Life Hub</span>
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <div className="flex items-center tracking-tight">
+                <span className="bg-gradient-to-r from-accent to-accent-600 bg-clip-text text-transparent font-extrabold">AI</span>
+                <span className="text-text ml-1 font-bold">Life Hub</span>
+              </div>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed max-w-sm">
               Nền tảng tri thức, thư viện kỹ năng và bộ công cụ thực hành AI hàng đầu Việt Nam cho lập trình viên, nhà sáng tạo và người dùng hiện đại.

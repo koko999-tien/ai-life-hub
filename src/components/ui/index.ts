@@ -3,6 +3,7 @@ export { Input } from './Input';
 export { Textarea } from './Textarea';
 export { Select } from './Select';
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from './Table';
 export { Modal, ConfirmModal } from './Modal';
 export { Dropdown } from './Dropdown';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';

@@ -40,7 +40,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={textareaId} className="label-base">
+          <label htmlFor={textareaId} className="block text-sm font-medium text-text mb-1.5">
             {label}
           </label>
         )}
@@ -50,8 +50,10 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             id={textareaId}
             onChange={handleChange}
             className={cn(
-              'input-base resize-y min-h-[100px]',
-              error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20',
+              'w-full rounded-lg border border-border bg-bg-surface px-3 py-2 text-sm text-text placeholder:text-text-subtle transition-colors duration-150 resize-y min-h-[100px]',
+              'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
+              'disabled:cursor-not-allowed disabled:opacity-50',
+              error && 'border-error-500 focus:border-error-500 focus:ring-error-500',
               className
             )}
             aria-invalid={error ? 'true' : 'false'}
@@ -61,17 +63,17 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         </div>
         <div className="mt-1.5 flex items-center justify-between">
           {error && (
-            <p id={`${textareaId}-error`} className="text-sm text-red-600 dark:text-red-400" role="alert">
+            <p id={`${textareaId}-error`} className="text-sm text-error-600 dark:text-error-400" role="alert">
               {error}
             </p>
           )}
           {hint && !error && (
-            <p id={`${textareaId}-hint`} className="text-sm text-gray-500 dark:text-gray-400">
+            <p id={`${textareaId}-hint`} className="text-sm text-text-muted">
               {hint}
             </p>
           )}
           {showCount && (
-            <p id={`${textareaId}-count`} className={cn('text-sm font-mono', count > (maxLength || 0) ? 'text-red-600' : 'text-gray-400')}>
+            <p id={`${textareaId}-count`} className={cn('text-sm font-mono', count > (maxLength || 0) ? 'text-error-600' : 'text-text-subtle')}>
               {count}{maxLength ? ` / ${maxLength}` : ''}
             </p>
           )}

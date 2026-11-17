@@ -14,7 +14,9 @@ import {
   SlidersHorizontal,
   Scale,
   Award,
-  Sparkles
+  Sparkles,
+  LayoutGrid,
+  TableProperties
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -240,6 +242,7 @@ export function ModelComparisonArena() {
   // Side-by-side versus state
   const [modelAId, setModelAId] = useState<string>('claude-3-5-sonnet');
   const [modelBId, setModelBId] = useState<string>('deepseek-r1');
+  const [versusMobileView, setVersusMobileView] = useState<'cards' | 'table'>('cards');
 
   // Advisor state
   const [advisorGoal, setAdvisorGoal] = useState<'coding' | 'reasoning' | 'budget' | 'long-context' | 'local'>('coding');
@@ -408,24 +411,48 @@ export function ModelComparisonArena() {
                     </div>
                   </div>
 
-                  {/* Benchmark badges */}
-                  <div className="space-y-1.5 mb-4 text-xs font-mono">
+                  {/* Benchmark badges with visual progress bars */}
+                  <div className="space-y-2.5 mb-4 text-xs font-mono">
                     {m.sweBenchScore && (
-                      <div className="flex justify-between items-center text-text-muted">
-                        <span>SWE-bench (Code thực tế):</span>
-                        <strong className="text-text font-semibold">{m.sweBenchScore}%</strong>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-text-muted">
+                          <span>SWE-bench (Code thực tế):</span>
+                          <strong className="text-text font-semibold">{m.sweBenchScore}%</strong>
+                        </div>
+                        <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
+                          <div 
+                            className="h-full bg-gradient-to-r from-accent to-accent-hover rounded-full transition-all duration-500"
+                            style={{ width: `${Math.min(100, Math.max(0, m.sweBenchScore))}%` }}
+                          />
+                        </div>
                       </div>
                     )}
                     {m.mathScore && (
-                      <div className="flex justify-between items-center text-text-muted">
-                        <span>MATH (Toán học/Logic):</span>
-                        <strong className="text-text font-semibold">{m.mathScore}%</strong>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-text-muted">
+                          <span>MATH (Toán học/Logic):</span>
+                          <strong className="text-text font-semibold">{m.mathScore}%</strong>
+                        </div>
+                        <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
+                          <div 
+                            className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full transition-all duration-500"
+                            style={{ width: `${Math.min(100, Math.max(0, m.mathScore))}%` }}
+                          />
+                        </div>
                       </div>
                     )}
                     {m.mmluScore && (
-                      <div className="flex justify-between items-center text-text-muted">
-                        <span>MMLU (Kiến thức tổng quát):</span>
-                        <strong className="text-text font-semibold">{m.mmluScore}%</strong>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-text-muted">
+                          <span>MMLU (Kiến thức tổng quát):</span>
+                          <strong className="text-text font-semibold">{m.mmluScore}%</strong>
+                        </div>
+                        <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
+                          <div 
+                            className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500"
+                            style={{ width: `${Math.min(100, Math.max(0, m.mmluScore))}%` }}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -497,107 +524,287 @@ export function ModelComparisonArena() {
             </div>
           </div>
 
-          {/* Comparison Table */}
-          <div className="card bg-bg-surface border-border overflow-hidden">
-            <div className="grid grid-cols-12 bg-bg p-4 border-b border-border text-xs font-bold uppercase text-text-muted">
-              <div className="col-span-4">Tiêu chí so sánh</div>
-              <div className="col-span-4 text-center text-accent">{modelA.name}</div>
-              <div className="col-span-4 text-center text-purple-400">{modelB.name}</div>
+          {/* Mobile View Toggle */}
+          <div className="flex items-center justify-between md:hidden pb-1">
+            <span className="text-xs text-text-muted">Chế độ xem trên di động:</span>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setVersusMobileView('cards')}
+                className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-all ${
+                  versusMobileView === 'cards'
+                    ? 'border-accent bg-accent/10 text-accent font-semibold'
+                    : 'border-border bg-bg text-text-muted'
+                }`}
+                title="Xem dạng thẻ dọc"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Thẻ dọc</span>
+              </button>
+              <button
+                onClick={() => setVersusMobileView('table')}
+                className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-all ${
+                  versusMobileView === 'table'
+                    ? 'border-accent bg-accent/10 text-accent font-semibold'
+                    : 'border-border bg-bg text-text-muted'
+                }`}
+                title="Xem dạng bảng cuộn"
+              >
+                <TableProperties className="w-3.5 h-3.5" />
+                <span>Bảng cuộn</span>
+              </button>
             </div>
+          </div>
 
-            <div className="divide-y divide-border text-sm">
+          {/* Vertical Comparative Cards View for Small Screens */}
+          {versusMobileView === 'cards' && (
+            <div className="space-y-3 md:hidden">
               {/* Provider */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Nhà phát triển</div>
-                <div className="col-span-4 text-center font-semibold text-text">{modelA.provider}</div>
-                <div className="col-span-4 text-center font-semibold text-text">{modelB.provider}</div>
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Nhà phát triển</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
+                    <span className="text-[10px] text-accent block font-bold">{modelA.name}</span>
+                    <strong className="text-text">{modelA.provider}</strong>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
+                    <span className="text-[10px] text-purple-400 block font-bold">{modelB.name}</span>
+                    <strong className="text-text">{modelB.provider}</strong>
+                  </div>
+                </div>
               </div>
 
               {/* License */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Bản quyền mã nguồn</div>
-                <div className="col-span-4 text-center text-text">{modelA.license}</div>
-                <div className="col-span-4 text-center text-text">{modelB.license}</div>
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Bản quyền mã nguồn</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
+                    <span className="text-[10px] text-accent block font-bold">{modelA.name}</span>
+                    <span className="text-text">{modelA.license}</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
+                    <span className="text-[10px] text-purple-400 block font-bold">{modelB.name}</span>
+                    <span className="text-text">{modelB.license}</span>
+                  </div>
+                </div>
               </div>
 
               {/* Context Window */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Cửa sổ ngữ cảnh (Context)</div>
-                <div className="col-span-4 text-center font-mono font-bold">
-                  {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M tokens` : `${modelA.contextWindow}k tokens`}
-                  {modelA.contextWindow > modelB.contextWindow && <span className="ml-1 text-emerald-400 text-xs">👑 Lớn hơn</span>}
-                </div>
-                <div className="col-span-4 text-center font-mono font-bold">
-                  {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M tokens` : `${modelB.contextWindow}k tokens`}
-                  {modelB.contextWindow > modelA.contextWindow && <span className="ml-1 text-emerald-400 text-xs">👑 Lớn hơn</span>}
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Cửa sổ ngữ cảnh (Context)</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
+                    <strong className="text-text">
+                      {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M` : `${modelA.contextWindow}k`} tokens
+                    </strong>
+                    {modelA.contextWindow > modelB.contextWindow && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">👑 Lớn hơn</span>}
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">
+                      {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M` : `${modelB.contextWindow}k`} tokens
+                    </strong>
+                    {modelB.contextWindow > modelA.contextWindow && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">👑 Lớn hơn</span>}
+                  </div>
                 </div>
               </div>
 
               {/* Input Price */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Giá Input (trên 1M tokens)</div>
-                <div className="col-span-4 text-center font-mono">
-                  ${modelA.inputPricePerMillion}
-                  {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
-                </div>
-                <div className="col-span-4 text-center font-mono">
-                  ${modelB.inputPricePerMillion}
-                  {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Giá Input (trên 1M tokens)</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
+                    <strong className="text-text">${modelA.inputPricePerMillion}</strong>
+                    {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">${modelB.inputPricePerMillion}</strong>
+                    {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                  </div>
                 </div>
               </div>
 
               {/* Output Price */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Giá Output (trên 1M tokens)</div>
-                <div className="col-span-4 text-center font-mono">
-                  ${modelA.outputPricePerMillion}
-                  {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
-                </div>
-                <div className="col-span-4 text-center font-mono">
-                  ${modelB.outputPricePerMillion}
-                  {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Giá Output (trên 1M tokens)</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
+                    <strong className="text-text">${modelA.outputPricePerMillion}</strong>
+                    {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">${modelB.outputPricePerMillion}</strong>
+                    {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                  </div>
                 </div>
               </div>
 
               {/* SWE-bench */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">SWE-bench (Khả năng giải bài toán lập trình)</div>
-                <div className="col-span-4 text-center font-mono font-bold text-text">
-                  {modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'N/A'}
-                  {modelA.sweBenchScore && modelB.sweBenchScore && modelA.sweBenchScore > modelB.sweBenchScore && (
-                    <span className="ml-1 text-accent text-xs">🏆 Thắng</span>
-                  )}
-                </div>
-                <div className="col-span-4 text-center font-mono font-bold text-text">
-                  {modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'N/A'}
-                  {modelA.sweBenchScore && modelB.sweBenchScore && modelB.sweBenchScore > modelA.sweBenchScore && (
-                    <span className="ml-1 text-purple-400 text-xs">🏆 Thắng</span>
-                  )}
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">SWE-bench (Code thực tế)</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
+                    <strong className="text-text">{modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'N/A'}</strong>
+                    {modelA.sweBenchScore && modelB.sweBenchScore && modelA.sweBenchScore > modelB.sweBenchScore && (
+                      <span className="block text-accent text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
+                    )}
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">{modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'N/A'}</strong>
+                    {modelA.sweBenchScore && modelB.sweBenchScore && modelB.sweBenchScore > modelA.sweBenchScore && (
+                      <span className="block text-purple-400 text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
               {/* MATH Score */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Điểm Toán học & Logic (MATH)</div>
-                <div className="col-span-4 text-center font-mono font-bold text-text">
-                  {modelA.mathScore ? `${modelA.mathScore}%` : 'N/A'}
-                  {modelA.mathScore && modelB.mathScore && modelA.mathScore > modelB.mathScore && (
-                    <span className="ml-1 text-accent text-xs">🏆 Thắng</span>
-                  )}
-                </div>
-                <div className="col-span-4 text-center font-mono font-bold text-text">
-                  {modelB.mathScore ? `${modelB.mathScore}%` : 'N/A'}
-                  {modelA.mathScore && modelB.mathScore && modelB.mathScore > modelA.mathScore && (
-                    <span className="ml-1 text-purple-400 text-xs">🏆 Thắng</span>
-                  )}
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Điểm Toán học & Logic (MATH)</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
+                    <strong className="text-text">{modelA.mathScore ? `${modelA.mathScore}%` : 'N/A'}</strong>
+                    {modelA.mathScore && modelB.mathScore && modelA.mathScore > modelB.mathScore && (
+                      <span className="block text-accent text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
+                    )}
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
+                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">{modelB.mathScore ? `${modelB.mathScore}%` : 'N/A'}</strong>
+                    {modelA.mathScore && modelB.mathScore && modelB.mathScore > modelA.mathScore && (
+                      <span className="block text-purple-400 text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Tốc độ */}
-              <div className="grid grid-cols-12 p-4 items-center">
-                <div className="col-span-4 text-text-muted font-medium">Độ trễ / Tốc độ phản hồi</div>
-                <div className="col-span-4 text-center text-text font-medium">{modelA.latencyRank}</div>
-                <div className="col-span-4 text-center text-text font-medium">{modelB.latencyRank}</div>
+              {/* Latency Rank */}
+              <div className="card p-4 bg-bg-surface border-border space-y-2">
+                <span className="text-xs font-semibold text-text-muted uppercase">Độ trễ / Tốc độ phản hồi</span>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
+                    <span className="text-[10px] text-accent block font-bold">{modelA.name}</span>
+                    <strong className="text-text">{modelA.latencyRank}</strong>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
+                    <span className="text-[10px] text-purple-400 block font-bold">{modelB.name}</span>
+                    <strong className="text-text">{modelB.latencyRank}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Comparison Table with Horizontal Scroll Wrapper */}
+          <div className={`overflow-x-auto ${versusMobileView === 'cards' ? 'hidden md:block' : 'block'}`}>
+            <div className="card bg-bg-surface border-border overflow-hidden min-w-[560px]">
+              <div className="grid grid-cols-12 bg-bg p-4 border-b border-border text-xs font-bold uppercase text-text-muted">
+                <div className="col-span-4">Tiêu chí so sánh</div>
+                <div className="col-span-4 text-center text-accent">{modelA.name}</div>
+                <div className="col-span-4 text-center text-purple-400">{modelB.name}</div>
+              </div>
+
+              <div className="divide-y divide-border text-sm">
+                {/* Provider */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Nhà phát triển</div>
+                  <div className="col-span-4 text-center font-semibold text-text">{modelA.provider}</div>
+                  <div className="col-span-4 text-center font-semibold text-text">{modelB.provider}</div>
+                </div>
+
+                {/* License */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Bản quyền mã nguồn</div>
+                  <div className="col-span-4 text-center text-text">{modelA.license}</div>
+                  <div className="col-span-4 text-center text-text">{modelB.license}</div>
+                </div>
+
+                {/* Context Window */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Cửa sổ ngữ cảnh (Context)</div>
+                  <div className="col-span-4 text-center font-mono font-bold">
+                    {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M tokens` : `${modelA.contextWindow}k tokens`}
+                    {modelA.contextWindow > modelB.contextWindow && <span className="ml-1 text-emerald-400 text-xs">👑 Lớn hơn</span>}
+                  </div>
+                  <div className="col-span-4 text-center font-mono font-bold">
+                    {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M tokens` : `${modelB.contextWindow}k tokens`}
+                    {modelB.contextWindow > modelA.contextWindow && <span className="ml-1 text-emerald-400 text-xs">👑 Lớn hơn</span>}
+                  </div>
+                </div>
+
+                {/* Input Price */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Giá Input (trên 1M tokens)</div>
+                  <div className="col-span-4 text-center font-mono">
+                    ${modelA.inputPricePerMillion}
+                    {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                  </div>
+                  <div className="col-span-4 text-center font-mono">
+                    ${modelB.inputPricePerMillion}
+                    {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                  </div>
+                </div>
+
+                {/* Output Price */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Giá Output (trên 1M tokens)</div>
+                  <div className="col-span-4 text-center font-mono">
+                    ${modelA.outputPricePerMillion}
+                    {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                  </div>
+                  <div className="col-span-4 text-center font-mono">
+                    ${modelB.outputPricePerMillion}
+                    {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                  </div>
+                </div>
+
+                {/* SWE-bench */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">SWE-bench (Khả năng giải bài toán lập trình)</div>
+                  <div className="col-span-4 text-center font-mono font-bold text-text">
+                    {modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'N/A'}
+                    {modelA.sweBenchScore && modelB.sweBenchScore && modelA.sweBenchScore > modelB.sweBenchScore && (
+                      <span className="ml-1 text-accent text-xs">🏆 Thắng</span>
+                    )}
+                  </div>
+                  <div className="col-span-4 text-center font-mono font-bold text-text">
+                    {modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'N/A'}
+                    {modelA.sweBenchScore && modelB.sweBenchScore && modelB.sweBenchScore > modelA.sweBenchScore && (
+                      <span className="ml-1 text-purple-400 text-xs">🏆 Thắng</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* MATH Score */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Điểm Toán học & Logic (MATH)</div>
+                  <div className="col-span-4 text-center font-mono font-bold text-text">
+                    {modelA.mathScore ? `${modelA.mathScore}%` : 'N/A'}
+                    {modelA.mathScore && modelB.mathScore && modelA.mathScore > modelB.mathScore && (
+                      <span className="ml-1 text-accent text-xs">🏆 Thắng</span>
+                    )}
+                  </div>
+                  <div className="col-span-4 text-center font-mono font-bold text-text">
+                    {modelB.mathScore ? `${modelB.mathScore}%` : 'N/A'}
+                    {modelA.mathScore && modelB.mathScore && modelB.mathScore > modelA.mathScore && (
+                      <span className="ml-1 text-purple-400 text-xs">🏆 Thắng</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Tốc độ */}
+                <div className="grid grid-cols-12 p-4 items-center">
+                  <div className="col-span-4 text-text-muted font-medium">Độ trễ / Tốc độ phản hồi</div>
+                  <div className="col-span-4 text-center text-text font-medium">{modelA.latencyRank}</div>
+                  <div className="col-span-4 text-center text-text font-medium">{modelB.latencyRank}</div>
+                </div>
               </div>
             </div>
           </div>

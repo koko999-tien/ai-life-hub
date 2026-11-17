@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 
@@ -38,11 +38,11 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
     };
   }, []);
 
-  useEffect(() => {
-    if (isVisible && childRef.current && tooltipRef.current) {
+  const updatePosition = useCallback(() => {
+    if (childRef.current) {
       const childRect = childRef.current.getBoundingClientRect();
-      const tooltipWidth = tooltipRef.current.offsetWidth;
-      const tooltipHeight = tooltipRef.current.offsetHeight;
+      const tooltipWidth = tooltipRef.current?.offsetWidth || 120;
+      const tooltipHeight = tooltipRef.current?.offsetHeight || 32;
       const gap = 8;
 
       let top = 0, left = 0;
@@ -68,10 +68,22 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
 
       setTooltipRect(new DOMRect(left, top, tooltipWidth, tooltipHeight));
     }
-  }, [isVisible, position]);
+  }, [position]);
+
+  useEffect(() => {
+    if (isVisible) {
+      updatePosition();
+      window.addEventListener('scroll', updatePosition, true);
+      window.addEventListener('resize', updatePosition);
+      return () => {
+        window.removeEventListener('scroll', updatePosition, true);
+        window.removeEventListener('resize', updatePosition);
+      };
+    }
+  }, [isVisible, updatePosition]);
 
   const tooltipStyle: React.CSSProperties = tooltipRect
-    ? { top: tooltipRect.top, left: tooltipRect.left }
+    ? { top: `${tooltipRect.top}px`, left: `${tooltipRect.left}px` }
     : {};
 
   const tooltipContent = isVisible && tooltipRect ? (
@@ -81,7 +93,7 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
         role="tooltip"
         style={tooltipStyle}
         className={cn(
-          'absolute z-50 px-3 py-1.5 text-xs font-medium text-white bg-gray-900 dark:bg-gray-100 dark:text-gray-900 rounded shadow-lg',
+          'fixed z-50 px-3 py-1.5 text-xs font-medium text-white bg-gray-900 dark:bg-gray-100 dark:text-gray-900 rounded-md shadow-md pointer-events-none',
           'animate-fade-in',
           'whitespace-nowrap',
           className

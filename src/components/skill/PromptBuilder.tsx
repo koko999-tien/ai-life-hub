@@ -132,6 +132,7 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
     }
     await navigator.clipboard.writeText(content)
     setCopied(type)
+    toast.success(`Đã sao chép ${type === 'prompt' ? 'Prompt' : type.toUpperCase()} vào clipboard!`)
     setTimeout(() => setCopied(null), 2000)
   }, [prompt, variables, generatedPrompt])
 
@@ -146,6 +147,7 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
     a.download = `${prompt.name.replace(/\s+/g, '-').toLowerCase()}.${type === 'markdown' ? 'md' : 'json'}`
     a.click()
     URL.revokeObjectURL(url)
+    toast.success(`Đã tải xuống file .${type === 'markdown' ? 'md' : 'json'}`)
   }, [prompt, variables, generatedPrompt])
 
   const handleLaunchAI = useCallback(async (provider: 'chatgpt' | 'claude' | 'gemini') => {
@@ -164,25 +166,25 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
   const missingRequired = requiredVariables.filter((v) => !variables[v.name]?.trim())
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in" onClick={onClose}>
       <div
-        className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden animate-scale-in flex flex-col"
+        className="w-full max-w-4xl max-h-[90vh] bg-bg-elevated rounded-3xl border border-border shadow-2xl overflow-hidden animate-scale-in flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 sticky top-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur z-10">
+        <div className="flex items-center justify-between p-5 border-b border-border sticky top-0 bg-bg-elevated/95 backdrop-blur z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
-              <FileText className="w-5 h-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
+            <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+              <FileText className="w-5 h-5" aria-hidden="true" />
             </div>
             <div>
-              <h2 className="font-semibold text-slate-900 dark:text-slate-100">{prompt.name}</h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{skillId} skill</p>
+              <h2 className="font-bold text-text text-base sm:text-lg">{prompt.name}</h2>
+              <p className="text-xs text-text-muted">{skillId} skill</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-xl bg-bg border border-border text-text-muted hover:text-text transition-colors"
             aria-label="Close prompt builder"
           >
             <X className="w-5 h-5" aria-hidden="true" />
@@ -196,31 +198,31 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
             <div className="lg:col-span-7 space-y-6">
               {/* Example Selector */}
               {prompt.examples && prompt.examples.length > 0 && (
-                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
-                    <Lightbulb className="w-4 h-4 text-amber-500" aria-hidden="true" />
-                    Load Example
+                <div className="bg-bg rounded-2xl p-4 border border-border">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-text-muted mb-2.5 flex items-center gap-2">
+                    <Lightbulb className="w-4 h-4 text-accent" aria-hidden="true" />
+                    Tải dữ liệu mẫu (Example)
                   </label>
                   <select
                     value={selectedExample !== null ? String(selectedExample) : ''}
                     onChange={(e) => setSelectedExample(e.target.value ? Number(e.target.value) : null)}
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-text text-sm focus:border-accent focus:outline-none transition-colors"
                     aria-label="Select example"
                   >
-                    <option value="">-- Choose an example --</option>
+                    <option value="">-- Chọn dữ liệu mẫu ví dụ --</option>
                     {prompt.examples.map((example, index) => (
                       <option key={index} value={String(index)}>
-                        {example.context || `Example ${index + 1}`}
+                        {example.context || `Ví dụ mẫu ${index + 1}`}
                       </option>
                     ))}
                   </select>
                   {selectedExample !== null && (
                     <button
                       onClick={() => setSelectedExample(null)}
-                      className="mt-2 text-sm text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                      className="mt-2 text-xs text-accent hover:underline flex items-center gap-1"
                     >
                       <X className="w-3 h-3" aria-hidden="true" />
-                      Clear example
+                      Xóa mẫu đã chọn
                     </button>
                   )}
                 </div>
@@ -235,12 +237,12 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
 
               {/* Validation Warning */}
               {missingRequired.length > 0 && (
-                <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-amber-800 dark:text-amber-300">Missing required variables</p>
-                    <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">
-                      Please fill in: {missingRequired.map((v) => v.label).join(', ')}
+                    <p className="font-semibold text-amber-300 text-xs">Còn thiếu tham số bắt buộc</p>
+                    <p className="text-xs text-amber-400/90 mt-0.5">
+                      Vui lòng nhập: {missingRequired.map((v) => v.label).join(', ')}
                     </p>
                   </div>
                 </div>
@@ -249,47 +251,47 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
 
             {/* Right: Live Preview */}
             <div className="lg:col-span-5">
-              <div className="sticky top-20 space-y-4">
+              <div className="sticky top-4 space-y-4">
                 {/* Preview Header */}
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                    <Code className="w-5 h-5" aria-hidden="true" />
-                    Live Preview
+                  <h3 className="font-bold text-text text-sm flex items-center gap-2">
+                    <Code className="w-4 h-4 text-accent" aria-hidden="true" />
+                    Bản Xem Trước Trực Tiếp
                   </h3>
                   {missingRequired.length === 0 && prompt.variables.length > 0 && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                       <Check className="w-3 h-3 mr-1" aria-hidden="true" />
-                      Ready
+                      Sẵn sàng
                     </span>
                   )}
                 </div>
 
                 {/* Preview Content */}
-                <div className="bg-slate-900/95 rounded-xl p-4 font-mono text-sm text-slate-100 max-h-[50vh] overflow-y-auto border border-slate-700">
-                  <pre className="whitespace-pre-wrap break-words">{generatedPrompt || 'Fill in variables to see preview'}</pre>
+                <div className="bg-[#05070f] rounded-2xl p-4 font-mono text-xs text-emerald-300/90 max-h-[46vh] overflow-y-auto border border-border shadow-inner leading-relaxed">
+                  <pre className="whitespace-pre-wrap break-words">{generatedPrompt || 'Điền các tham số để xem bản xem trước...'}</pre>
                 </div>
 
                 {/* Actions */}
-                <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                <div className="space-y-2.5 pt-2 border-t border-border">
                   <button
                     onClick={() => handleCopy('prompt')}
                     disabled={missingRequired.length > 0 || isGenerating}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent text-white font-medium text-sm hover:bg-accent-hover shadow-md active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isGenerating ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
-                        Generating...
+                        Đang tạo...
                       </>
                     ) : copied === 'prompt' ? (
                       <>
                         <Check className="w-4 h-4" aria-hidden="true" />
-                        Copied!
+                        Đã sao chép Prompt!
                       </>
                     ) : (
                       <>
                         <Copy className="w-4 h-4" aria-hidden="true" />
-                        Copy Prompt
+                        Sao chép Prompt
                       </>
                     )}
                   </button>
@@ -298,18 +300,18 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
                     <button
                       onClick={() => handleCopy('markdown')}
                       disabled={missingRequired.length > 0}
-                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-border bg-bg text-text hover:bg-hover transition-colors text-xs font-semibold disabled:opacity-50"
                     >
-                      <Download className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm">.md</span>
+                      <Download className="w-3.5 h-3.5 text-text-muted" />
+                      <span>Copy .md</span>
                     </button>
                     <button
                       onClick={() => handleCopy('json')}
                       disabled={missingRequired.length > 0}
-                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-border bg-bg text-text hover:bg-hover transition-colors text-xs font-semibold disabled:opacity-50"
                     >
-                      <Code className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm">.json</span>
+                      <Code className="w-3.5 h-3.5 text-text-muted" />
+                      <span>Copy .json</span>
                     </button>
                   </div>
 
@@ -317,41 +319,41 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
                     <button
                       onClick={() => handleDownload('markdown')}
                       disabled={missingRequired.length > 0}
-                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-border bg-bg text-text hover:bg-hover transition-colors text-xs font-semibold disabled:opacity-50"
                     >
-                      <FileText className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm">Download .md</span>
+                      <FileText className="w-3.5 h-3.5 text-text-muted" />
+                      <span>Tải file .md</span>
                     </button>
                     <button
                       onClick={() => handleDownload('json')}
                       disabled={missingRequired.length > 0}
-                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-border bg-bg text-text hover:bg-hover transition-colors text-xs font-semibold disabled:opacity-50"
                     >
-                      <FileText className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm">Download .json</span>
+                      <FileText className="w-3.5 h-3.5 text-text-muted" />
+                      <span>Tải file .json</span>
                     </button>
                   </div>
 
                   <button
                     onClick={() => handleCopy('url')}
                     disabled={missingRequired.length > 0}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-border bg-bg text-text hover:bg-hover transition-colors text-xs font-semibold disabled:opacity-50"
                   >
-                    <Link2 className="w-4 h-4" aria-hidden="true" />
-                    <span>Copy Share URL</span>
-                    {copied === 'url' && <Check className="w-4 h-4 text-brand-600" aria-hidden="true" />}
+                    <Link2 className="w-3.5 h-3.5 text-text-muted" />
+                    <span>Sao chép Link chia sẻ Prompt</span>
+                    {copied === 'url' && <Check className="w-3.5 h-3.5 text-accent" aria-hidden="true" />}
                   </button>
 
                   {/* Quick AI Launch */}
-                  <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
-                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider text-center">
+                  <div className="pt-2 border-t border-border">
+                    <p className="text-[11px] font-semibold text-text-muted mb-2 uppercase tracking-wider text-center">
                       Mở trực tiếp trên AI
                     </p>
                     <div className="grid grid-cols-3 gap-2">
                       <button
                         onClick={() => handleLaunchAI('chatgpt')}
                         disabled={missingRequired.length > 0}
-                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold hover:bg-emerald-100 transition-colors disabled:opacity-50"
+                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold hover:bg-emerald-500/20 transition-colors disabled:opacity-50"
                         title="Copy prompt và mở ChatGPT"
                       >
                         <Bot className="w-3.5 h-3.5" />
@@ -360,7 +362,7 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
                       <button
                         onClick={() => handleLaunchAI('claude')}
                         disabled={missingRequired.length > 0}
-                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-semibold hover:bg-amber-100 transition-colors disabled:opacity-50"
+                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold hover:bg-amber-500/20 transition-colors disabled:opacity-50"
                         title="Copy prompt và mở Claude"
                       >
                         <Bot className="w-3.5 h-3.5" />
@@ -369,7 +371,7 @@ export function PromptBuilder({ prompt, skillId, onClose }: PromptBuilderProps) 
                       <button
                         onClick={() => handleLaunchAI('gemini')}
                         disabled={missingRequired.length > 0}
-                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-semibold hover:bg-blue-100 transition-colors disabled:opacity-50"
+                        className="flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold hover:bg-blue-500/20 transition-colors disabled:opacity-50"
                         title="Copy prompt và mở Gemini"
                       >
                         <Bot className="w-3.5 h-3.5" />

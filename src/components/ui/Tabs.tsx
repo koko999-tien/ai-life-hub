@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, forwardRef, HTMLAttributes } from 'react';
+import React, { useState, forwardRef, HTMLAttributes, createContext, useContext } from 'react';
 import { cn } from '@/lib/utils';
 
 interface TabsProps {
@@ -118,5 +118,3 @@ export const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
   }
 );
 TabsContent.displayName = 'TabsContent';
-
-import React from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { 
   Sparkles, 
   Copy, 
@@ -14,9 +14,12 @@ import {
   FileText, 
   Plus, 
   Trash2,
-  ArrowRight
+  ArrowRight,
+  Terminal,
+  Cpu
 } from 'lucide-react';
 import Link from 'next/link';
+import { toast } from '@/components/ui';
 
 interface FewShotExample {
   user: string;
@@ -208,9 +211,35 @@ export function SystemPromptBuilder() {
     return Math.ceil(compiledPrompt.length / 3.8);
   }, [compiledPrompt]);
 
+  const liveCostEstimate = useMemo(() => {
+    // Standard baseline at ~$2.5 / 1M input tokens (GPT-4o / Claude 3.5 Sonnet class)
+    const costPer1kCalls = ((estimatedTokens / 1_000_000) * 2.5 * 1000).toFixed(3);
+    return costPer1kCalls;
+  }, [estimatedTokens]);
+
+  // Keyboard navigation for presets (keys 1 - 4)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = document.activeElement?.tagName.toLowerCase();
+      if (activeTag === 'input' || activeTag === 'textarea' || (document.activeElement as HTMLElement)?.isContentEditable) {
+        return;
+      }
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        const index = parseInt(e.key, 10) - 1;
+        if (PRESETS[index]) {
+          handleSelectPreset(PRESETS[index].id);
+          toast.success(`Đã chuyển preset: ${PRESETS[index].name.split('(')[0]}`);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleCopy = () => {
     navigator.clipboard.writeText(compiledPrompt);
     setCopied(true);
+    toast.success('Đã sao chép System Prompt vào clipboard!');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -224,29 +253,40 @@ export function SystemPromptBuilder() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    toast.success('Đã tải xuống file system-prompt-' + selectedPresetId + '.md');
   };
 
   return (
     <div className="space-y-8">
       {/* Preset Selector */}
       <div className="card p-6 bg-bg-surface border-border">
-        <label className="text-sm font-semibold text-text uppercase tracking-wider block mb-3">
-          Chọn bản mẫu (Presets cấu hình sẵn)
-        </label>
+        <div className="flex items-center justify-between mb-3">
+          <label className="text-sm font-semibold text-text uppercase tracking-wider block">
+            Chọn bản mẫu (Presets cấu hình sẵn)
+          </label>
+          <span className="text-xs text-text-muted hidden sm:inline-flex items-center gap-1.5">
+            Bấm phím tắt <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px] font-mono">1</kbd> - <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px] font-mono">4</kbd> để đổi nhanh
+          </span>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {PRESETS.map((p) => (
+          {PRESETS.map((p, idx) => (
             <button
               key={p.id}
               onClick={() => handleSelectPreset(p.id)}
-              className={`text-left p-3.5 rounded-xl border text-sm font-medium transition-all ${
+              className={`group text-left p-3.5 rounded-xl border text-sm font-medium transition-all relative ${
                 selectedPresetId === p.id
-                  ? 'border-accent bg-accent/10 text-accent font-semibold shadow-sm'
+                  ? 'border-accent bg-accent/10 text-accent font-semibold shadow-[0_0_15px_rgba(249,115,22,0.18)] ring-1 ring-accent/50'
                   : 'border-border bg-bg hover:border-accent/40 text-text-muted hover:text-text'
               }`}
             >
-              <div className="flex items-center gap-2 mb-1">
-                <Sparkles className="w-4 h-4 shrink-0 text-accent" />
-                <span className="truncate">{p.name.split('(')[0]}</span>
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2 truncate">
+                  <Sparkles className="w-4 h-4 shrink-0 text-accent" />
+                  <span className="truncate">{p.name.split('(')[0]}</span>
+                </div>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-bg border border-border text-text-muted group-hover:border-accent/40 group-hover:text-accent">
+                  {idx + 1}
+                </span>
               </div>
               <p className="text-xs text-text-muted line-clamp-1">{p.objective}</p>
             </button>
@@ -433,23 +473,34 @@ export function SystemPromptBuilder() {
 
         {/* Right Output: Live Preview & Exports */}
         <div className="lg:col-span-5 sticky top-24 space-y-4">
-          <div className="card p-6 bg-bg-surface border-border space-y-4 shadow-lg">
+          <div className="card p-6 bg-bg-surface border-border space-y-4 shadow-xl">
+            {/* Header with Title and Mode Switcher */}
             <div className="flex items-center justify-between pb-3 border-b border-border">
-              <div>
-                <h3 className="font-bold text-text flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-accent" />
-                  Live System Prompt
-                </h3>
-                <span className="text-xs text-text-muted">
-                  Ước tính: ~{estimatedTokens} tokens • Chuẩn Claude / GPT / DeepSeek
-                </span>
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-accent/10 border border-accent/20 text-accent">
+                  <Terminal className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-text text-sm">
+                    Prompt Preview
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-[11px] text-text-muted">
+                    <span className="inline-flex items-center gap-1 font-mono text-accent">
+                      <Cpu className="w-3 h-3" /> ~{estimatedTokens} tokens
+                    </span>
+                    <span>•</span>
+                    <span className="font-mono text-emerald-400">
+                      ~${liveCostEstimate}/1k req
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setUseXmlTags(!useXmlTags)}
                   className={`text-xs px-2.5 py-1 rounded-md border font-medium transition-all ${
                     useXmlTags 
-                      ? 'bg-accent/15 border-accent text-accent' 
+                      ? 'bg-accent/15 border-accent text-accent shadow-sm' 
                       : 'bg-bg border-border text-text-muted hover:text-text'
                   }`}
                   title="Chuyển đổi giữa cấu trúc XML Tags và Markdown tiêu chuẩn"
@@ -459,15 +510,33 @@ export function SystemPromptBuilder() {
               </div>
             </div>
 
-            {/* Code Output Box */}
-            <div className="relative">
-              <pre className="p-4 rounded-xl bg-bg border border-border text-xs text-text font-mono overflow-x-auto max-h-[520px] overflow-y-auto whitespace-pre-wrap leading-relaxed select-all">
+            {/* IDE-style Code Box Container */}
+            <div className="rounded-xl border border-border/80 overflow-hidden bg-[#05070f] shadow-inner">
+              {/* Window Header Bar */}
+              <div className="px-4 py-2.5 bg-[#090d1a] border-b border-border/60 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                  <span className="ml-2 font-mono text-[11px] text-text-muted/80">
+                    {useXmlTags ? 'system-prompt.xml' : 'system-prompt.md'}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-accent/10 border border-accent/20 text-accent">
+                    {useXmlTags ? 'XML / Semantic' : 'Markdown'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Code Pre Box */}
+              <pre className="p-4 text-xs font-mono overflow-x-auto max-h-[480px] overflow-y-auto whitespace-pre-wrap leading-relaxed select-all text-emerald-300/90 selection:bg-accent/30 selection:text-white">
                 {compiledPrompt}
               </pre>
             </div>
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-2 gap-3 pt-1">
               <button
                 onClick={handleCopy}
                 className="py-2.5 px-4 rounded-xl bg-accent text-white font-medium text-sm flex items-center justify-center gap-2 hover:bg-accent-hover shadow-md transition-all active:scale-[0.98]"

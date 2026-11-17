@@ -54,9 +54,9 @@ function TextInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
         {label}
-        {required && <span className="text-red-500" aria-hidden="true">*</span>}
+        {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
       <input
         type="text"
@@ -68,22 +68,22 @@ function TextInput({
         aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
         aria-invalid={!!error}
         className={cn(
-          'w-full px-3 py-2 rounded-lg border bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors',
-          'focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+          'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm placeholder:text-text-muted/60 transition-colors',
+          'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
           disabled
-            ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed opacity-70'
+            ? 'opacity-60 cursor-not-allowed'
             : error
-            ? 'border-red-300 dark:border-red-700'
-            : 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500'
+            ? 'border-red-400'
+            : 'border-border hover:border-accent/40'
         )}
       />
       {description && !error && (
-        <p id={`${id}-desc`} className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={`${id}-desc`} className="text-xs text-text-muted">
           {description}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+        <p id={`${id}-error`} className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -117,9 +117,9 @@ function TextareaInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
         {label}
-        {required && <span className="text-red-500" aria-hidden="true">*</span>}
+        {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
       <textarea
         id={id}
@@ -131,22 +131,22 @@ function TextareaInput({
         aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
         aria-invalid={!!error}
         className={cn(
-          'w-full px-3 py-2 rounded-lg border bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors resize-y min-h-[80px]',
-          'focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+          'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm placeholder:text-text-muted/60 transition-colors resize-y min-h-[90px]',
+          'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent leading-relaxed',
           disabled
-            ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed opacity-70'
+            ? 'opacity-60 cursor-not-allowed'
             : error
-            ? 'border-red-300 dark:border-red-700'
-            : 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500'
+            ? 'border-red-400'
+            : 'border-border hover:border-accent/40'
         )}
       />
       {description && !error && (
-        <p id={`${id}-desc`} className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={`${id}-desc`} className="text-xs text-text-muted">
           {description}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+        <p id={`${id}-error`} className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -180,9 +180,9 @@ function SelectInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
         {label}
-        {required && <span className="text-red-500" aria-hidden="true">*</span>}
+        {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
       <div className="relative">
         <select
@@ -193,17 +193,17 @@ function SelectInput({
           aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
           aria-invalid={!!error}
           className={cn(
-            'w-full px-3 py-2 rounded-lg border bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors appearance-none pr-10',
-            'focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+            'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm transition-colors appearance-none pr-10',
+            'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
             disabled
-              ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed opacity-70'
+              ? 'opacity-60 cursor-not-allowed'
               : error
-              ? 'border-red-300 dark:border-red-700'
-              : 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500'
+              ? 'border-red-400'
+              : 'border-border hover:border-accent/40'
           )}
         >
           <option value="" disabled>
-            {placeholder || 'Select an option'}
+            {placeholder || 'Chọn một tùy chọn'}
           </option>
           {options.map((option) => (
             <option key={option} value={option}>
@@ -211,17 +211,17 @@ function SelectInput({
             </option>
           ))}
         </select>
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          <ChevronDown className="w-4 h-4 text-slate-400" aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-text-muted">
+          <ChevronDown className="w-4 h-4" aria-hidden="true" />
         </div>
       </div>
       {description && !error && (
-        <p id={`${id}-desc`} className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={`${id}-desc`} className="text-xs text-text-muted">
           {description}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+        <p id={`${id}-error`} className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -266,25 +266,25 @@ function MultiselectInput({
 
   return (
     <div className="space-y-1.5">
-      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+      <label className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
         {label}
-        {required && <span className="text-red-500" aria-hidden="true">*</span>}
+        {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
 
       {/* Selected chips */}
-      <div className="flex flex-wrap gap-1.5 min-h-[38px]">
+      <div className="flex flex-wrap gap-1.5 min-h-[38px] p-1.5 rounded-xl bg-bg border border-border">
         {selectedValues.map((val) => (
           <span
             key={val}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-sm font-medium"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-accent/10 border border-accent/20 text-accent text-xs font-medium"
           >
             {val}
             {!disabled && (
               <button
                 type="button"
                 onClick={() => handleRemove(val)}
-                className="p-0.5 rounded hover:bg-brand-200 dark:hover:bg-brand-800/50"
-                aria-label={`Remove ${val}`}
+                className="p-0.5 rounded hover:bg-accent/20 text-accent"
+                aria-label={`Xóa ${val}`}
               >
                 <X className="w-3 h-3" aria-hidden="true" />
               </button>
@@ -299,11 +299,11 @@ function MultiselectInput({
               if (e.target.value) handleAdd(e.target.value)
               e.target.value = ''
             }}
-            className="px-2.5 py-1 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-300 cursor-pointer"
-            aria-label="Add option"
+            className="px-2.5 py-1 rounded-lg border border-border bg-bg-surface text-xs text-text cursor-pointer hover:border-accent focus:outline-none"
+            aria-label="Thêm tùy chọn"
           >
             <option value="" disabled selected>
-              + Add
+              + Thêm
             </option>
             {availableOptions.map((opt) => (
               <option key={opt} value={opt}>
@@ -315,10 +315,10 @@ function MultiselectInput({
       </div>
 
       {description && (
-        <p className="text-xs text-slate-500 dark:text-slate-400">{description}</p>
+        <p className="text-xs text-text-muted">{description}</p>
       )}
       {error && (
-        <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+        <p className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -356,9 +356,9 @@ function NumberInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
         {label}
-        {required && <span className="text-red-500" aria-hidden="true">*</span>}
+        {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
       <input
         type="number"
@@ -373,22 +373,22 @@ function NumberInput({
         aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
         aria-invalid={!!error}
         className={cn(
-          'w-full px-3 py-2 rounded-lg border bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors',
-          'focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+          'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm placeholder:text-text-muted/60 transition-colors',
+          'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
           disabled
-            ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed opacity-70'
+            ? 'opacity-60 cursor-not-allowed'
             : error
-            ? 'border-red-300 dark:border-red-700'
-            : 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500'
+            ? 'border-red-400'
+            : 'border-border hover:border-accent/40'
         )}
       />
       {description && !error && (
-        <p id={`${id}-desc`} className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={`${id}-desc`} className="text-xs text-text-muted">
           {description}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+        <p id={`${id}-error`} className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -418,9 +418,9 @@ function DateInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
         {label}
-        {required && <span className="text-red-500" aria-hidden="true">*</span>}
+        {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
       <div className="relative">
         <input
@@ -432,26 +432,26 @@ function DateInput({
           aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
           aria-invalid={!!error}
           className={cn(
-            'w-full px-3 py-2 rounded-lg border bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors pr-10',
-            'focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+            'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm transition-colors pr-10',
+            'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
             disabled
-              ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed opacity-70'
+              ? 'opacity-60 cursor-not-allowed'
               : error
-              ? 'border-red-300 dark:border-red-700'
-              : 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500'
+              ? 'border-red-400'
+              : 'border-border hover:border-accent/40'
           )}
         />
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          <Calendar className="w-4 h-4 text-slate-400" aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-text-muted">
+          <Calendar className="w-4 h-4" aria-hidden="true" />
         </div>
       </div>
       {description && !error && (
-        <p id={`${id}-desc`} className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={`${id}-desc`} className="text-xs text-text-muted">
           {description}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
+        <p id={`${id}-error`} className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -471,21 +471,21 @@ function ReadOnlyVariable({
   const displayValue = value || variable.default || '—'
 
   return (
-    <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+    <div className="p-3.5 rounded-2xl bg-bg border border-border">
       <div className="flex items-center gap-2 mb-1">
-        <Icon className="w-4 h-4 text-slate-400" aria-hidden="true" />
-        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+        <Icon className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
+        <span className="text-[10px] font-mono font-bold text-accent uppercase tracking-wider">
           {VARIABLE_TYPE_LABELS[variable.type]}
         </span>
         {variable.required && (
-          <span className="text-xs text-red-500" aria-hidden="true">*</span>
+          <span className="text-xs text-red-400" aria-hidden="true">*</span>
         )}
       </div>
-      <p className="font-medium text-slate-900 dark:text-slate-100">{variable.label}</p>
+      <p className="font-semibold text-text text-sm">{variable.label}</p>
       {variable.description && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{variable.description}</p>
+        <p className="text-xs text-text-muted mt-0.5">{variable.description}</p>
       )}
-      <div className="mt-2 p-2 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 font-mono text-sm text-slate-700 dark:text-slate-300 break-all">
+      <div className="mt-2 p-2.5 rounded-xl bg-bg-surface border border-border/80 font-mono text-xs text-text break-all">
         {displayValue}
       </div>
     </div>
@@ -524,7 +524,7 @@ export function VariableForm({
       {variables.map((variable) => {
         const id = `${generateId}-${variable.name}`
         const value = values[variable.name] || variable.default || ''
-        const error = variable.required && !value.trim() ? `${variable.label} is required` : undefined
+        const error = variable.required && !value.trim() ? `${variable.label} là bắt buộc` : undefined
 
         switch (variable.type) {
           case 'text':
@@ -570,7 +570,7 @@ export function VariableForm({
                 options={variable.options || []}
                 required={variable.required}
                 error={error}
-                placeholder={`Select ${variable.label.toLowerCase()}`}
+                placeholder={`Chọn ${variable.label.toLowerCase()}`}
               />
             )
 

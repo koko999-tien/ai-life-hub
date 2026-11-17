@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { Button, toast } from '@/components/ui';
 
-interface AgentBlueprint {
+export interface AgentBlueprint {
   id: string;
   name: string;
   category: 'engineering' | 'research' | 'marketing' | 'finance' | 'edtech' | 'operations' | 'legal';
@@ -34,7 +34,7 @@ interface AgentBlueprint {
   systemPrompt: string;
 }
 
-const BLUEPRINTS: AgentBlueprint[] = [
+export const BLUEPRINTS: AgentBlueprint[] = [
   {
     id: 'code-architect',
     name: 'Code Architect & Security Sentinel',
@@ -339,40 +339,41 @@ export function AgentDirectory() {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-400 text-xs font-semibold mb-3 border border-purple-200 dark:border-purple-800">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 text-accent text-xs font-semibold mb-3 border border-accent/20">
           <Bot className="h-4 w-4" />
           <span>Production AI Agent Blueprints</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-text mb-4">
           Thư Viện Cấu Hình AI Agent Doanh Nghiệp
         </h1>
-        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-          Tuyển tập kiến trúc System Prompts, Tool Specs và cấu hình `.cursorrules` / `CLAUDE.md` chuẩn mực sẵn sàng tích hợp vào Cursor, Windsurf, Claude Code hoặc OpenAI Assistant.
+        <p className="text-base sm:text-lg text-text-muted leading-relaxed">
+          Tuyển tập kiến trúc System Prompts, Tool Specs và cấu hình <code className="text-accent bg-bg-surface px-1.5 py-0.5 rounded font-mono text-xs">.cursorrules</code> / <code className="text-accent bg-bg-surface px-1.5 py-0.5 rounded font-mono text-xs">CLAUDE.md</code> chuẩn mực sẵn sàng tích hợp vào Cursor, Windsurf, Claude Code hoặc OpenAI Assistant.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
-        <div className="relative w-full md:w-96">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+      <div className="flex flex-col md:flex-row gap-4 mb-8 items-stretch md:items-center justify-between">
+        <div className="relative w-full md:w-80">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Tìm agent theo tên, vai trò hoặc công cụ..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-bg text-sm text-text placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent transition-colors"
           />
         </div>
 
-        <div className="flex flex-wrap gap-1.5 w-full md:w-auto">
+        {/* Mobile Horizontal Scroll for Role/Category Filters */}
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide w-full md:w-auto -mx-2 px-2 md:mx-0 md:px-0">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
                 selectedCategory === c.id
-                  ? 'bg-purple-600 text-white shadow-sm'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'bg-accent text-white shadow-sm'
+                  : 'bg-bg border border-border text-text-muted hover:text-text hover:border-accent/40'
               }`}
             >
               {c.label}
@@ -381,112 +382,134 @@ export function AgentDirectory() {
         </div>
       </div>
 
-      {/* Grid of Agents */}
-      <div className="grid gap-6 md:grid-cols-2">
-        {filteredAgents.map((agent) => (
-          <div
-            key={agent.id}
-            className="rounded-3xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
+      {/* Grid of Agents or Empty State */}
+      {filteredAgents.length === 0 ? (
+        <div className="rounded-2xl border border-border bg-bg-surface p-12 text-center shadow-xs">
+          <Bot className="w-12 h-12 text-text-muted mx-auto mb-4 opacity-40" />
+          <h3 className="text-lg font-bold text-text mb-2">Không tìm thấy Agent phù hợp</h3>
+          <p className="text-sm text-text-muted max-w-md mx-auto mb-6">
+            Không có kiến trúc Agent nào khớp với từ khóa &ldquo;{search}&rdquo; trong vai trò đã chọn.
+          </p>
+          <button
+            onClick={() => {
+              setSearch('');
+              setSelectedCategory('all');
+            }}
+            className="px-4 py-2 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all shadow-xs"
           >
-            <div>
-              {/* Card Header */}
-              <div className="flex items-start justify-between gap-3 mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
-                    <Bot className="h-6 w-6" />
+            Xóa bộ lọc tìm kiếm
+          </button>
+        </div>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2">
+          {filteredAgents.map((agent) => (
+            <div
+              key={agent.id}
+              className="rounded-2xl border border-border bg-bg-surface p-6 shadow-xs hover:shadow-card-hover hover:border-accent/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                {/* Card Header */}
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-brand-500/10 text-brand-500 flex items-center justify-center font-bold shrink-0">
+                      <Bot className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-accent">
+                        {agent.categoryLabel}
+                      </span>
+                      <h3 className="text-base font-bold text-text leading-snug">
+                        {agent.name}
+                      </h3>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
-                      {agent.categoryLabel}
-                    </span>
-                    <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug">
-                      {agent.name}
-                    </h3>
-                  </div>
-                </div>
 
-                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 shrink-0">
-                  {agent.model.includes('claude') ? 'Claude 3.5' : agent.model.includes('gemini') ? 'Gemini 1.5' : 'GPT-4o'}
-                </span>
-              </div>
-
-              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mb-3">
-                Vai trò: <span className="text-gray-700 dark:text-gray-300">{agent.role}</span>
-              </p>
-
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed">
-                {agent.description}
-              </p>
-
-              {/* Tools Tags */}
-              <div className="mb-4">
-                <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-                  <Settings className="h-3 w-3" />
-                  Công cụ tích hợp ({agent.tools.length}):
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {agent.tools.map((tool) => (
-                    <span
-                      key={tool}
-                      className="text-[11px] px-2.5 py-0.5 rounded-lg bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-mono"
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* System Prompt Snippet */}
-              <div className="mb-5">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                    System Prompt
+                  <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-bg border border-border text-text-muted shrink-0">
+                    {agent.model.includes('claude') ? 'Claude 3.5' : agent.model.includes('gemini') ? 'Gemini 1.5' : 'GPT-4o'}
                   </span>
+                </div>
+
+                <p className="text-xs text-text-muted font-medium mb-3">
+                  Vai trò: <span className="text-text font-semibold">{agent.role}</span>
+                </p>
+
+                <p className="text-sm text-text-muted mb-4 line-clamp-3 leading-relaxed">
+                  {agent.description}
+                </p>
+
+                {/* Tools Tags */}
+                <div className="mb-4">
+                  <div className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-2 flex items-center gap-1">
+                    <Settings className="h-3 w-3" />
+                    Công cụ tích hợp ({agent.tools.length}):
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {agent.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="text-[11px] px-2.5 py-0.5 rounded-lg bg-bg border border-border text-text-muted font-mono"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* System Prompt Snippet */}
+                <div className="mb-5">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] font-bold text-text-muted uppercase tracking-wider">
+                      System Prompt
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopySystemPrompt(agent.systemPrompt, agent.id)}
+                      className="text-[11px] text-accent hover:text-accent-hover hover:underline flex items-center gap-1 font-medium transition-colors"
+                    >
+                      {copiedId === agent.id ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
+                      <span className={copiedId === agent.id ? 'text-emerald-500 font-semibold' : ''}>
+                        {copiedId === agent.id ? 'Đã chép' : 'Sao chép'}
+                      </span>
+                    </button>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-bg border border-border font-mono text-[11px] text-text-muted max-h-24 overflow-y-auto whitespace-pre-wrap leading-relaxed select-all">
+                    {agent.systemPrompt}
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions Bar */}
+              <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5">
                   <button
-                    onClick={() => handleCopySystemPrompt(agent.systemPrompt, agent.id)}
-                    className="text-[11px] text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1"
+                    onClick={() => handleDownloadConfig(agent, 'cursor')}
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-border hover:border-accent/40 hover:text-accent text-text-muted transition-colors flex items-center gap-1 bg-bg shadow-xs"
+                    title="Tải cấu hình Cursor"
                   >
-                    {copiedId === agent.id ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                    <span>{copiedId === agent.id ? 'Đã chép' : 'Sao chép'}</span>
+                    <Download className="h-3.5 w-3.5" />
+                    <span>.cursorrules</span>
+                  </button>
+                  <button
+                    onClick={() => handleDownloadConfig(agent, 'claude')}
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-border hover:border-accent/40 hover:text-accent text-text-muted transition-colors flex items-center gap-1 bg-bg shadow-xs"
+                    title="Tải cấu hình Claude"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    <span>CLAUDE.md</span>
                   </button>
                 </div>
-                <div className="p-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 font-mono text-[11px] text-gray-700 dark:text-gray-300 max-h-24 overflow-y-auto whitespace-pre-wrap leading-relaxed">
-                  {agent.systemPrompt}
-                </div>
+
+                <Link
+                  href={`/playground?agent=${agent.id}`}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-accent hover:text-accent-hover hover:underline"
+                >
+                  <span>Chạy thử trong Sandbox →</span>
+                </Link>
               </div>
             </div>
-
-            {/* Actions Bar */}
-            <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={() => handleDownloadConfig(agent, 'cursor')}
-                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-gray-200 dark:border-gray-700 hover:border-purple-500 hover:text-purple-600 text-gray-700 dark:text-gray-300 transition-colors flex items-center gap-1"
-                  title="Tải cấu hình Cursor"
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  <span>.cursorrules</span>
-                </button>
-                <button
-                  onClick={() => handleDownloadConfig(agent, 'claude')}
-                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-gray-200 dark:border-gray-700 hover:border-purple-500 hover:text-purple-600 text-gray-700 dark:text-gray-300 transition-colors flex items-center gap-1"
-                  title="Tải cấu hình Claude"
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  <span>CLAUDE.md</span>
-                </button>
-              </div>
-
-              <Link
-                href={`/playground`}
-                className="inline-flex items-center gap-1 text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline"
-              >
-                Chạy thử trong Sandbox →
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

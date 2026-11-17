@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Target, BookOpen, Code2, Database, Users } from 'lucide-react';
+import { Target, BookOpen, Code2, Database } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Stat {
@@ -9,16 +9,39 @@ interface Stat {
   value: number;
   suffix?: string;
   icon: React.ComponentType<{ className?: string }>;
-  color: string;
+  colorKey: 'brand' | 'accent' | 'success' | 'warning';
   delay?: number;
 }
 
 const stats: Stat[] = [
-  { label: 'Danh mục', value: 8, icon: BookOpen, color: 'brand', delay: 0 },
-  { label: 'Kỹ năng', value: 52, icon: Code2, color: 'accent', delay: 100 },
-  { label: 'Prompt templates', value: 200, icon: Target, color: 'success', delay: 200 },
-  { label: 'Tài nguyên', value: 150, icon: Database, color: 'warning', delay: 300 },
+  { label: 'Danh mục tuyển chọn', value: 16, icon: BookOpen, colorKey: 'brand', delay: 0 },
+  { label: 'Kỹ năng chuyên sâu', value: 55, icon: Code2, colorKey: 'accent', delay: 100 },
+  { label: 'Tài liệu & Prompts index', value: 215, icon: Target, colorKey: 'success', delay: 200 },
+  { label: 'Tài nguyên & Blueprints', value: 150, suffix: '+', icon: Database, colorKey: 'warning', delay: 300 },
 ];
+
+const colorStyles = {
+  brand: {
+    bg: 'bg-brand-500/10 dark:bg-brand-500/15',
+    text: 'text-brand-600 dark:text-brand-400',
+    border: 'border-brand-500/20',
+  },
+  accent: {
+    bg: 'bg-accent/10 dark:bg-accent/15',
+    text: 'text-accent',
+    border: 'border-accent/20',
+  },
+  success: {
+    bg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
+    text: 'text-emerald-600 dark:text-emerald-400',
+    border: 'border-emerald-500/20',
+  },
+  warning: {
+    bg: 'bg-amber-500/10 dark:bg-amber-500/15',
+    text: 'text-amber-600 dark:text-amber-400',
+    border: 'border-amber-500/20',
+  },
+};
 
 export function StatsBar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +55,7 @@ export function StatsBar() {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     if (sectionRef.current) {
@@ -41,66 +64,53 @@ export function StatsBar() {
     return () => observer.disconnect();
   }, []);
 
-  const formatValue = (value: number) => {
-    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
-    if (value >= 1000) return (value / 1000).toFixed(1) + 'K';
-    return value.toString();
-  };
-
-  const getColorClasses = (color: string) => {
-    const map: Record<string, string> = {
-      brand: 'text-brand-600 dark:text-brand-400',
-      accent: 'text-accent-600 dark:text-accent-400',
-      success: 'text-success-600 dark:text-success-400',
-      warning: 'text-warning-600 dark:text-warning-400',
-    };
-    return map[color] || map.brand;
-  };
-
   return (
     <section
       ref={sectionRef}
-      className="border-y border-border/50 bg-muted/30 py-12 lg:py-16"
+      className="border-y border-border bg-bg-surface/50 backdrop-blur-sm py-12 lg:py-16"
       aria-labelledby="stats-heading"
     >
-      <div className="container">
+      <div className="container mx-auto px-section-x">
         <h2 id="stats-heading" className="sr-only">
-          Thống kê nền tảng
+          Thống kê nền tảng AI Life Hub
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          {stats.map((stat, index) => (
-            <div
-              key={stat.label}
-              className="text-center"
-              style={{ animationDelay: `${stat.delay || index * 100}ms` }}
-            >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
+          {stats.map((stat) => {
+            const style = colorStyles[stat.colorKey];
+            return (
               <div
-                className={cn(
-                  'mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl',
-                  `bg-${stat.color}-100 dark:bg-${stat.color}-900/30`,
-                  isVisible ? 'animate-scale-in' : 'opacity-0'
-                )}
-                aria-hidden="true"
+                key={stat.label}
+                className="text-center group"
               >
-                <stat.icon className={cn('h-7 w-7', getColorClasses(stat.color))} />
+                <div
+                  className={cn(
+                    'mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-700 ease-out group-hover:scale-110',
+                    style.bg,
+                    style.border,
+                    isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+                  )}
+                  aria-hidden="true"
+                >
+                  <stat.icon className={cn('h-7 w-7', style.text)} />
+                </div>
+                <div
+                  className={cn(
+                    'font-mono font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight transition-all duration-700',
+                    style.text,
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  )}
+                >
+                  <AnimatedCounter
+                    end={stat.value}
+                    duration={1800}
+                    isVisible={isVisible}
+                    suffix={stat.suffix}
+                  />
+                </div>
+                <p className="mt-2 text-xs sm:text-sm font-medium text-text-muted">{stat.label}</p>
               </div>
-              <div
-                className={cn(
-                  'font-mono font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight',
-                  getColorClasses(stat.color),
-                  isVisible ? 'animate-slide-up' : 'opacity-0 translate-y-4'
-                )}
-              >
-                <AnimatedCounter
-                  end={stat.value}
-                  duration={2000}
-                  isVisible={isVisible}
-                  suffix={stat.suffix}
-                />
-              </div>
-              <p className="mt-2 text-sm font-medium text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

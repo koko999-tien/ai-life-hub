@@ -1,9 +1,8 @@
 'use client';
 
 import { useRef, useEffect, useState, useId } from 'react';
-import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 export interface DropdownItem {
   label: string;
@@ -81,20 +80,20 @@ export function Dropdown({
       role="menu"
       aria-orientation="vertical"
       className={cn(
-        'absolute z-50 mt-1 rounded-lg bg-white border border-gray-200 shadow-lg dark:bg-gray-900 dark:border-gray-700',
+        'absolute z-50 top-full mt-1.5 p-1 rounded-xl bg-bg-surface border border-border shadow-card animate-fade-in',
         'min-w-[160px] max-w-[320px]',
         align === 'right' ? 'right-0' : 'left-0',
-        width !== 'trigger' && `w-[${width}px]`
+        typeof width === 'number' && `w-[${width}px]`
       )}
       onKeyDown={handleKeyDown}
     >
       {items.map((item, index) => {
         if (item.divider) {
-          return <div key={`divider-${index}`} className="my-1 border-t border-gray-200 dark:border-gray-700" role="separator" />;
+          return <div key={`divider-${index}`} className="my-1 border-t border-border" role="separator" />;
         }
         if (item.group) {
           return (
-            <div key={`group-${index}`} className="px-3 py-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <div key={`group-${index}`} className="px-3 py-1.5 text-xs font-semibold text-text-subtle uppercase tracking-wider">
               {item.group}
             </div>
           );
@@ -108,10 +107,10 @@ export function Dropdown({
             onClick={() => handleItemClick(item)}
             disabled={item.disabled}
             className={cn(
-              'w-full px-3 py-2 text-left text-sm transition-colors',
-              'focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800',
-              item.disabled ? 'opacity-50 cursor-not-allowed text-gray-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800',
-              item.danger && 'text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20'
+              'w-full px-3 py-2 text-left text-sm transition-colors rounded-lg',
+              'focus:outline-none focus:bg-bg-hover',
+              item.disabled ? 'opacity-50 cursor-not-allowed text-text-subtle' : 'text-text hover:bg-bg-hover',
+              item.danger && 'text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20'
             )}
             aria-disabled={item.disabled}
           >
@@ -123,13 +122,13 @@ export function Dropdown({
         );
       })}
       {items.length === 0 && (
-        <div className="px-3 py-4 text-center text-gray-500 dark:text-gray-400 text-sm">Không có tùy chọn</div>
+        <div className="px-3 py-4 text-center text-text-muted text-sm">Không có tùy chọn</div>
       )}
     </div>
   );
 
   return (
-    <div ref={containerRef} className="relative inline-block" tabIndex={0}>
+    <div ref={containerRef} className="relative inline-block">
       <button
         ref={triggerRef}
         type="button"
@@ -145,12 +144,12 @@ export function Dropdown({
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-controls={`${id}-dropdown`}
-        className="flex items-center gap-1"
+        className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
       >
         {trigger}
-        <ChevronDown className={cn('h-4 w-4 text-gray-400 transition-transform', isOpen && 'rotate-180')} aria-hidden="true" />
+        <ChevronDown className={cn('h-4 w-4 text-text-muted transition-transform duration-200', isOpen && 'rotate-180')} aria-hidden="true" />
       </button>
-      {isOpen && createPortal(dropdownContent, document.body)}
+      {isOpen && dropdownContent}
     </div>
   );
 }

@@ -18,8 +18,12 @@ import {
   Cpu,
   ArrowRight,
   ExternalLink,
-  FolderGit2
+  FolderGit2,
+  Copy,
+  Check
 } from 'lucide-react';
+import { Modal } from '@/components/ui/Modal';
+import { toast } from 'sonner';
 
 export interface Playbook {
   id: string;
@@ -294,6 +298,19 @@ export function PlaybooksDirectory() {
   const [selectedRole, setSelectedRole] = useState<string>('all');
   const [search, setSearch] = useState<string>('');
   const [activePlaybook, setActivePlaybook] = useState<Playbook | null>(null);
+  const [modalTab, setModalTab] = useState<'principles' | 'topics' | 'code'>('principles');
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopyCode = async (code: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedId(id);
+      toast.success('Đã sao chép mã nguồn/công thức!');
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      toast.error('Không thể sao chép mã nguồn.');
+    }
+  };
 
   const rolePathways = [
     { id: 'all', label: 'Tất cả 10 Sách' },
@@ -319,7 +336,7 @@ export function PlaybooksDirectory() {
   return (
     <div className="space-y-8">
       {/* Search and Role Pathways Filter */}
-      <div className="card p-6 bg-bg-surface border-border space-y-4">
+      <div className="card p-6 bg-bg-surface border-border space-y-4 shadow-xs">
         <div className="relative">
           <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
@@ -327,17 +344,17 @@ export function PlaybooksDirectory() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Tìm theo chủ đề, từ khóa kỹ thuật (vd: ReAct, Pandas, Bayes, Unity, Chernov, SELinux, SQL, C pointers)..."
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text focus:border-accent focus:outline-none"
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text placeholder-text-muted focus:border-accent focus:outline-none transition-colors"
           />
         </div>
 
         {/* Role Pills */}
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {rolePathways.map((r) => (
             <button
               key={r.id}
               onClick={() => setSelectedRole(r.id)}
-              className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedRole === r.id
                   ? 'bg-accent text-white shadow-sm'
                   : 'bg-bg border border-border text-text-muted hover:text-text hover:border-accent/40'
@@ -349,134 +366,233 @@ export function PlaybooksDirectory() {
         </div>
       </div>
 
-      {/* Grid of Playbooks */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredPlaybooks.map((p) => {
-          const Icon = p.icon;
-          return (
-            <div
-              key={p.id}
-              className="card p-6 bg-bg-surface border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-sm"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-colors">
-                      <Icon className="w-5 h-5" />
+      {/* Grid of Playbooks or Empty State */}
+      {filteredPlaybooks.length === 0 ? (
+        <div className="rounded-2xl border border-border bg-bg-surface p-12 text-center shadow-xs">
+          <BookOpen className="w-12 h-12 text-text-muted mx-auto mb-4 opacity-40" />
+          <h3 className="text-lg font-bold text-text mb-2">Không tìm thấy cẩm nang phù hợp</h3>
+          <p className="text-sm text-text-muted max-w-md mx-auto mb-6">
+            Không có cẩm nang nào khớp với từ khóa &ldquo;{search}&rdquo; trong vai trò đã chọn.
+          </p>
+          <button
+            onClick={() => {
+              setSearch('');
+              setSelectedRole('all');
+            }}
+            className="px-4 py-2 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all shadow-xs"
+          >
+            Xóa bộ lọc tìm kiếm
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          {filteredPlaybooks.map((p) => {
+            const Icon = p.icon;
+            return (
+              <div
+                key={p.id}
+                className="rounded-2xl p-6 bg-bg-surface border border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-xs hover:shadow-card-hover"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-colors shrink-0">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-mono font-bold text-accent px-2 py-0.5 rounded bg-accent/10">
+                          {p.bookNumber}
+                        </span>
+                        <h3 className="font-bold text-base sm:text-lg text-text mt-1 group-hover:text-accent transition-colors leading-snug">
+                          {p.title}
+                        </h3>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-xs font-mono font-bold text-accent px-2 py-0.5 rounded bg-accent/10">
-                        {p.bookNumber}
+                  </div>
+
+                  <p className="text-xs font-medium text-text-muted mb-3 leading-relaxed">
+                    {p.subtitle}
+                  </p>
+
+                  <p className="text-[11px] text-text-muted font-mono mb-4">
+                    📖 <strong>Nguyên tác:</strong> {p.originalWork} ({p.author})
+                  </p>
+
+                  {/* Key Topics Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {p.keyTopics.slice(0, 4).map((topic, idx) => (
+                      <span key={idx} className="text-[11px] px-2 py-0.5 rounded-md bg-bg border border-border text-text-muted">
+                        {topic}
                       </span>
-                      <h3 className="font-bold text-lg text-text mt-1 group-hover:text-accent transition-colors">
-                        {p.title}
-                      </h3>
-                    </div>
+                    ))}
+                    {p.keyTopics.length > 4 && (
+                      <span className="text-[11px] px-1.5 py-0.5 rounded-md bg-bg border border-border text-text-subtle">
+                        +{p.keyTopics.length - 4}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Code Preview Box with Copy Button */}
+                  <div className="relative mb-4 group/code">
+                    <pre className="p-3.5 rounded-xl bg-bg border border-border text-[11px] font-mono text-text overflow-x-auto whitespace-pre-wrap max-h-36 overflow-y-auto pr-10 leading-relaxed">
+                      {p.sampleCodeOrFormula}
+                    </pre>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyCode(p.sampleCodeOrFormula, p.id)}
+                      className="absolute top-2 right-2 p-1.5 rounded-lg bg-bg-surface/90 hover:bg-hover border border-border text-text-muted hover:text-text transition-all shadow-xs"
+                      title="Sao chép code mẫu"
+                      aria-label="Sao chép code mẫu"
+                    >
+                      {copiedId === p.id ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-500" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
-                <p className="text-xs font-medium text-text-muted mb-3 leading-relaxed">
-                  {p.subtitle}
-                </p>
-
-                <p className="text-[11px] text-text-muted font-mono mb-4">
-                  📖 <strong>Nguyên tác:</strong> {p.originalWork} ({p.author})
-                </p>
-
-                {/* Key Topics Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {p.keyTopics.slice(0, 4).map((topic, idx) => (
-                    <span key={idx} className="text-[11px] px-2 py-0.5 rounded-md bg-bg border border-border/80 text-text-muted">
-                      {topic}
-                    </span>
-                  ))}
+                <div className="pt-4 border-t border-border flex items-center justify-between text-xs gap-2">
+                  <span className="text-[11px] text-text-muted font-mono truncate max-w-[180px] sm:max-w-[240px]" title={p.drivePath}>
+                    📂 {p.drivePath.replace('D:\\', '')}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setActivePlaybook(p);
+                      setModalTab('principles');
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white font-semibold flex items-center gap-1.5 transition-all shrink-0"
+                  >
+                    <span>Chi tiết</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-
-                {/* Code Preview Box */}
-                <pre className="p-3 rounded-xl bg-bg border border-border text-[11px] font-mono text-text overflow-x-auto whitespace-pre-wrap max-h-36 overflow-y-auto mb-4">
-                  {p.sampleCodeOrFormula}
-                </pre>
               </div>
+            );
+          })}
+        </div>
+      )}
 
-              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
-                <span className="text-[11px] text-text-muted font-mono truncate max-w-[200px]" title={p.drivePath}>
-                  📂 {p.drivePath.replace('D:\\', '')}
-                </span>
-                <button
-                  onClick={() => setActivePlaybook(p)}
-                  className="px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white font-semibold flex items-center gap-1.5 transition-all"
-                >
-                  Chi tiết cẩm nang <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Modal View for Playbook Details */}
+      {/* Upgraded Modal View for Playbook Details with Tabs */}
       {activePlaybook && (
-        <div className="fixed inset-0 z-modal bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-bg-surface border border-border rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl animate-in fade-in zoom-in-95">
-            <div className="flex justify-between items-start gap-4 pb-4 border-b border-border">
-              <div>
-                <span className="text-xs font-mono font-bold text-accent px-2.5 py-0.5 rounded bg-accent/15">
-                  {activePlaybook.bookNumber}
-                </span>
-                <h2 className="text-2xl font-bold text-text mt-2">{activePlaybook.title}</h2>
-                <p className="text-xs sm:text-sm text-text-muted mt-1">{activePlaybook.subtitle}</p>
-              </div>
+        <Modal
+          isOpen={!!activePlaybook}
+          onClose={() => setActivePlaybook(null)}
+          title={`${activePlaybook.bookNumber}: ${activePlaybook.title}`}
+          description={activePlaybook.subtitle}
+          size="full"
+        >
+          <div className="space-y-6 pt-2">
+            {/* Modal Tabs */}
+            <div className="flex border-b border-border gap-2">
               <button
-                onClick={() => setActivePlaybook(null)}
-                className="p-2 rounded-lg bg-bg border border-border text-text-muted hover:text-text"
+                onClick={() => setModalTab('principles')}
+                className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all ${
+                  modalTab === 'principles'
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-text-muted hover:text-text'
+                }`}
               >
-                ✕
+                Nguyên lý cốt lõi
+              </button>
+              <button
+                onClick={() => setModalTab('topics')}
+                className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all ${
+                  modalTab === 'topics'
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-text-muted hover:text-text'
+                }`}
+              >
+                Chủ đề &amp; Nguồn gốc
+              </button>
+              <button
+                onClick={() => setModalTab('code')}
+                className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all ${
+                  modalTab === 'code'
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-text-muted hover:text-text'
+                }`}
+              >
+                Mã nguồn &amp; Công thức
               </button>
             </div>
 
-            <div className="space-y-4 text-sm">
-              <div>
-                <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2">Tác phẩm & Nguồn gốc</h4>
-                <p className="p-3 rounded-xl bg-bg border border-border text-text text-xs">
-                  <strong>{activePlaybook.originalWork}</strong> — {activePlaybook.author}
-                </p>
-              </div>
-
-              <div>
-                <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2">3 Nguyên lý cốt lõi</h4>
-                <ul className="space-y-1.5">
+            {/* Tab 1: Principles */}
+            {modalTab === 'principles' && (
+              <div className="space-y-4">
+                <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted">
+                  3 Nguyên lý thiết kế cốt lõi
+                </h4>
+                <ul className="space-y-2.5">
                   {activePlaybook.corePrinciples.map((cp, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-text">
+                    <li key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-bg border border-border text-xs sm:text-sm text-text">
                       <CheckCircle className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                       <span>{cp}</span>
                     </li>
                   ))}
                 </ul>
               </div>
+            )}
 
-              <div>
-                <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2">Toàn bộ chủ đề trọng tâm</h4>
-                <div className="flex flex-wrap gap-2">
-                  {activePlaybook.keyTopics.map((kt, idx) => (
-                    <span key={idx} className="text-xs px-2.5 py-1 rounded-lg bg-bg border border-border text-text font-medium">
-                      {kt}
-                    </span>
-                  ))}
+            {/* Tab 2: Topics */}
+            {modalTab === 'topics' && (
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2">Tác phẩm &amp; Tác giả gốc</h4>
+                  <p className="p-3.5 rounded-xl bg-bg border border-border text-text text-xs sm:text-sm">
+                    <strong>{activePlaybook.originalWork}</strong> — {activePlaybook.author}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2">Tất cả chủ đề trọng tâm</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {activePlaybook.keyTopics.map((kt, idx) => (
+                      <span key={idx} className="text-xs px-3 py-1.5 rounded-xl bg-bg border border-border text-text font-medium">
+                        {kt}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-accent/5 border border-accent/20 text-xs text-text-muted">
+                  <span className="font-bold text-text block mb-1">Vị trí tài liệu đầy đủ trên ổ D:</span>
+                  <code className="text-accent font-mono block break-all text-[11px]">{activePlaybook.drivePath}</code>
                 </div>
               </div>
+            )}
 
-              <div>
-                <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2">Mã nguồn / Công thức đặc trưng</h4>
-                <pre className="p-4 rounded-xl bg-bg border border-border text-xs font-mono text-text overflow-x-auto whitespace-pre-wrap">
+            {/* Tab 3: Code */}
+            {modalTab === 'code' && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted">
+                    Mã nguồn / Công thức đặc trưng
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={() => handleCopyCode(activePlaybook.sampleCodeOrFormula, 'modal')}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white transition-all"
+                  >
+                    {copiedId === 'modal' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-500" />
+                        <span>Đã sao chép!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Sao chép code</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+                <pre className="p-4 rounded-xl bg-bg border border-border text-xs font-mono text-text overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-72 overflow-y-auto">
                   {activePlaybook.sampleCodeOrFormula}
                 </pre>
               </div>
-
-              <div className="p-3.5 rounded-xl bg-accent/5 border border-accent/20 text-xs text-text-muted">
-                <span className="font-bold text-text block mb-1">Đường dẫn tài liệu đầy đủ trên ổ D:</span>
-                <code className="text-accent font-mono block break-all">{activePlaybook.drivePath}</code>
-              </div>
-            </div>
+            )}
 
             <div className="pt-4 border-t border-border flex justify-end">
               <button
@@ -487,7 +603,7 @@ export function PlaybooksDirectory() {
               </button>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

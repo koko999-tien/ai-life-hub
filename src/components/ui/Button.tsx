@@ -30,21 +30,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
 
     const variantStyles = {
-      primary: 'bg-brand-600 text-white shadow-sm hover:bg-brand-700 focus:ring-brand-500 focus:ring-offset-white dark:focus:ring-offset-gray-950',
-      secondary: 'bg-gray-100 text-gray-900 shadow-sm hover:bg-gray-200 focus:ring-gray-500 focus:ring-offset-white dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-950',
-      outline: 'border border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50 focus:ring-brand-500 focus:ring-offset-white dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:focus:ring-offset-gray-950',
-      ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-brand-500 focus:ring-offset-white dark:text-gray-300 dark:hover:bg-gray-800 dark:focus:ring-offset-gray-950',
-      danger: 'bg-red-600 text-white shadow-sm hover:bg-red-700 focus:ring-red-500 focus:ring-offset-white dark:focus:ring-offset-gray-950',
+      primary: 'bg-accent text-white shadow-sm hover:bg-accent-hover hover:shadow-glow-accent',
+      secondary: 'bg-bg-elevated text-text border border-border shadow-sm hover:bg-bg-hover hover:border-border-light',
+      outline: 'border border-border bg-transparent text-text hover:bg-bg-hover hover:border-border-light',
+      ghost: 'bg-transparent text-text-muted hover:text-text hover:bg-bg-hover',
+      danger: 'bg-error-600 text-white shadow-sm hover:bg-error-700 focus-visible:ring-error-500',
     };
 
     const sizeStyles = {
-      sm: 'px-3 py-1.5 text-sm gap-1.5',
-      md: 'px-4 py-2.5 text-sm gap-2',
-      lg: 'px-6 py-3 text-base gap-2.5',
-      icon: 'p-2 text-sm gap-0',
+      sm: 'px-3 py-1.5 text-xs rounded-md gap-1.5',
+      md: 'px-4 py-2 text-sm rounded-lg gap-2',
+      lg: 'px-6 py-2.5 text-base rounded-xl gap-2.5',
+      icon: 'p-2 text-sm rounded-lg gap-0',
     };
 
     const widthStyles = fullWidth ? 'w-full' : '';

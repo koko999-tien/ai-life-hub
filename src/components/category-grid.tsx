@@ -52,10 +52,10 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
     <section aria-labelledby="categories-heading" className="py-16 lg:py-24">
       <div className="container-main">
         <div className="text-center mb-12">
-          <h2 id="categories-heading" className="text-fluid-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">
+          <h2 id="categories-heading" className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-text mb-4">
             {variant === 'featured' ? 'Danh mục nổi bật' : 'Tất cả danh mục'}
           </h2>
-          <p className="text-fluid-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-text-muted max-w-2xl mx-auto">
             {variant === 'featured'
               ? 'Khám phá 6 lĩnh vực AI cốt lõi được thiết kế cho hành trình học tập của bạn'
               : 'Toàn bộ hệ thống kiến thức AI được tổ chức theo chủ đề'}
@@ -75,9 +75,8 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
             <article
               key={category.slug}
               className={cn(
-                'group relative flex flex-col h-full overflow-hidden rounded-2xl border bg-white p-6 transition-all duration-300',
-                'hover:shadow-card-hover hover:-translate-y-1',
-                'dark:bg-gray-900 dark:border-gray-800',
+                'group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border bg-bg-surface p-6 transition-all duration-300 shadow-xs',
+                'hover:shadow-card-hover hover:-translate-y-1 hover:border-accent/40',
                 'animate-slide-up'
               )}
               style={{ 
@@ -107,18 +106,18 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
                   </div>
                 </div>
 
-                <h3 className="font-heading text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                <h3 className="font-heading text-lg font-semibold text-text mb-2 group-hover:text-accent transition-colors">
                   {category.name}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 flex-1">
+                <p className="text-sm text-text-muted mb-4 line-clamp-2 flex-1">
                   {category.description}
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-800">
-                  <span className="text-sm font-medium text-gray-500 dark:text-gray-500">
+                <div className="flex items-center justify-between pt-4 border-t border-border">
+                  <span className="text-sm font-medium text-text-muted">
                     {category.skillCount} kỹ năng
                   </span>
-                  <span className="text-sm text-brand-600 dark:text-brand-400 font-medium group-hover:underline">
+                  <span className="text-sm text-accent font-medium group-hover:underline">
                     Khám phá →
                   </span>
                 </div>
@@ -130,10 +129,10 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
         {variant === 'featured' && (
           <div className="mt-10 text-center">
             <Link
-              href="/category"
-              className="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-medium hover:underline"
+              href="/categories"
+              className="inline-flex items-center gap-2 text-accent hover:text-accent-hover font-semibold transition-colors"
             >
-              Xem tất cả 15 danh mục
+              <span>Xem tất cả 16 danh mục</span>
               <span aria-hidden="true">→</span>
             </Link>
           </div>

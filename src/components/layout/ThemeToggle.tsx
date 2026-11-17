@@ -3,68 +3,45 @@
 import { useEffect, useState } from 'react'
 import { Sun, Moon, Monitor } from 'lucide-react'
 import { clsx } from 'clsx'
-
-type Theme = 'light' | 'dark' | 'system'
+import { useTheme } from './Providers'
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('system')
+  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const stored = localStorage.getItem('theme') as Theme | null
-    if (stored) {
-      setTheme(stored)
-    }
   }, [])
 
-  useEffect(() => {
-    if (!mounted) return
-    const root = document.documentElement
-    root.classList.remove('light', 'dark')
-
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
-      root.classList.add(systemTheme)
-    } else {
-      root.classList.add(theme)
-    }
-    localStorage.setItem('theme', theme)
-  }, [theme, mounted])
-
   const cycleTheme = () => {
-    setTheme((prev) => {
-      if (prev === 'light') return 'dark'
-      if (prev === 'dark') return 'system'
-      return 'light'
-    })
+    if (theme === 'light') setTheme('dark')
+    else if (theme === 'dark') setTheme('system')
+    else setTheme('light')
   }
 
   if (!mounted) {
     return (
       <button
         type="button"
-        className="p-2 rounded-md bg-hover text-text-muted transition-colors duration-fast"
+        className="p-2 rounded-lg bg-hover text-text-muted transition-colors duration-fast border border-transparent"
         aria-label="Loading theme..."
         disabled
       >
-        <Monitor size={20} />
+        <Monitor size={18} />
       </button>
     )
   }
 
   const icons = {
-    light: <Sun size={20} />,
-    dark: <Moon size={20} />,
-    system: <Monitor size={20} />,
+    light: <Sun size={18} className="text-amber-500 transition-transform duration-300 hover:rotate-45" />,
+    dark: <Moon size={18} className="text-brand-400 transition-transform duration-300 hover:-rotate-12" />,
+    system: <Monitor size={18} className="text-text-muted hover:text-text" />,
   }
 
   const labels = {
-    light: 'Switch to dark mode',
-    dark: 'Switch to system preference',
-    system: 'Switch to light mode',
+    light: 'Đang dùng giao diện Sáng (Chuyển sang Tối)',
+    dark: 'Đang dùng giao diện Tối (Chuyển sang Hệ thống)',
+    system: 'Đang theo Hệ thống (Chuyển sang Sáng)',
   }
 
   return (
@@ -73,7 +50,7 @@ export function ThemeToggle() {
       onClick={cycleTheme}
       className={clsx(
         'relative p-2 rounded-lg transition-all duration-fast',
-        'text-text-muted hover:text-text hover:bg-hover',
+        'text-text-muted hover:text-text hover:bg-hover border border-transparent hover:border-border',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg'
       )}
       aria-label={labels[theme]}

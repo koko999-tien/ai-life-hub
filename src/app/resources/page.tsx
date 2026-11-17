@@ -38,7 +38,7 @@ export default function ResourcesPage() {
     : allResources.filter(r => r.type === selectedType);
 
   return (
-    <div className="container py-12">
+    <div className="container mx-auto px-section-x pt-24 pb-16">
       <h1 className="heading-1 mb-4">Kho tài nguyên AI</h1>
       <p className="text-fluid-lg text-muted-foreground mb-8">
         Tổng hợp tài liệu, khóa học, công cụ và bài nghiên cứu hàng đầu về AI.

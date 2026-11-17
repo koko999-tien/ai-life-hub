@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import { getAllSkills } from '@/lib/data';
 import { PlaygroundClient } from '@/components/playground/PlaygroundClient';
 
@@ -31,7 +32,9 @@ export default async function PlaygroundPage() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <PlaygroundClient presets={presets} />
+      <Suspense fallback={<div className="container mx-auto px-4 py-12 text-center text-text-muted">Đang nạp AI Playground...</div>}>
+        <PlaygroundClient presets={presets} />
+      </Suspense>
     </div>
   );
 }

@@ -53,8 +53,8 @@ function DifficultyBadge({ level, variant = 'skill' }: { level: DifficultyLevel;
 
 function TagItem({ tag }: { tag: string }) {
   return (
-    <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800">
-      <Tag className="w-3 h-3 mr-1.5" aria-hidden="true" />
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-medium text-text-muted bg-bg border border-border">
+      <Tag className="w-3 h-3 mr-1.5 text-accent" aria-hidden="true" />
       {tag}
     </span>
   )
@@ -71,41 +71,14 @@ function WhenToUseList({ items }: { items: string[] }) {
   return (
     <ul className="space-y-3" role="list">
       {items.map((item, index) => (
-        <li key={index} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-brand-600 dark:text-brand-400" aria-hidden="true" />
+        <li key={index} className="flex items-start gap-3 p-3.5 bg-bg rounded-xl border border-border/80">
+          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+            <Sparkles className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
           </div>
-          <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed pt-0.5">{item}</p>
+          <p className="text-text text-sm leading-relaxed pt-0.5">{item}</p>
         </li>
       ))}
     </ul>
-  )
-}
-
-function SectionHeader({
-  title,
-  description,
-  action,
-  icon: IconComponent,
-}: {
-  title: string
-  description?: string
-  action?: React.ReactNode
-  icon?: LucideIcon
-}) {
-  return (
-    <div className="flex items-start justify-between gap-4 mb-6">
-      <div>
-        <div className="flex items-center gap-2 mb-1">
-          {IconComponent && <IconComponent className="w-5 h-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />}
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
-        </div>
-        {description && (
-          <p className="text-slate-500 dark:text-slate-400 text-sm ml-7">{description}</p>
-        )}
-      </div>
-      {action && <div className="flex-shrink-0 mt-1">{action}</div>}
-    </div>
   )
 }
 
@@ -125,27 +98,27 @@ function CollapsibleSection({
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
   return (
-    <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white dark:bg-slate-900">
+    <div className="border border-border rounded-2xl overflow-hidden bg-bg-elevated shadow-sm transition-all">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors text-left"
+        className="w-full px-5 py-4 flex items-center justify-between gap-4 hover:bg-hover transition-colors text-left"
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-3">
-          {IconComponent && <IconComponent className="w-5 h-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />}
+          {IconComponent && <IconComponent className="w-5 h-5 text-accent" aria-hidden="true" />}
           <div>
-            <h3 className="font-medium text-slate-900 dark:text-slate-100">{title}</h3>
-            {description && <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>}
+            <h3 className="font-semibold text-text text-base">{title}</h3>
+            {description && <p className="text-xs text-text-muted">{description}</p>}
           </div>
         </div>
         {isOpen ? (
-          <ChevronUp className="w-5 h-5 text-slate-400 flex-shrink-0" aria-hidden="true" />
+          <ChevronUp className="w-5 h-5 text-text-muted flex-shrink-0" aria-hidden="true" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" aria-hidden="true" />
+          <ChevronDown className="w-5 h-5 text-text-muted flex-shrink-0" aria-hidden="true" />
         )}
       </button>
       {isOpen && (
-        <div className="px-5 pb-5 border-t border-slate-200 dark:border-slate-700 animate-slide-down">
+        <div className="px-5 pb-5 border-t border-border animate-slide-down">
           {children}
         </div>
       )}
@@ -164,8 +137,7 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
         <div className="flex items-center gap-3 flex-wrap">
           <div
             className={cn(
-              'w-12 h-12 rounded-xl flex items-center justify-center',
-              `bg-[${skill.categoryId === 'learning' ? '#3B82F6' : skill.categoryId === 'work' ? '#8B5CF6' : skill.categoryId === 'writing' ? '#F59E0B' : skill.categoryId === 'coding' ? '#10B981' : skill.categoryId === 'design' ? '#EC4899' : skill.categoryId === 'finance' ? '#059669' : skill.categoryId === 'health' ? '#EF4444' : skill.categoryId === 'family' ? '#F97316' : skill.categoryId === 'travel' ? '#06B6D4' : skill.categoryId === 'home' ? '#84CC16' : skill.categoryId === 'parenting' ? '#D946EF' : skill.categoryId === 'legal' ? '#64748B' : skill.categoryId === 'sideproject' ? '#14B8A6' : skill.categoryId === 'research' ? '#6366F1' : '#F43F5E'}]/10`
+              'w-12 h-12 rounded-xl flex items-center justify-center bg-accent/10 border border-accent/20 text-accent shadow-sm'
             )}
           >
             <IconWrapper iconName={skill.categoryId} size={6} />
@@ -173,8 +145,8 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
           <div className="flex items-center gap-2 flex-wrap">
             <DifficultyBadge level={skill.difficulty} />
             {hasAgent && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
-                <Bot className="w-3 h-3 mr-1.5" aria-hidden="true" />
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                <Bot className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" />
                 Agent Template
               </span>
             )}
@@ -182,28 +154,28 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
         </div>
 
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-3">{skill.name}</h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">{skill.description}</p>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-text mb-3 tracking-tight">{skill.name}</h1>
+          <p className="text-base sm:text-lg text-text-muted max-w-3xl leading-relaxed">{skill.description}</p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-500">
+        <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-text-muted">
           <span className="flex items-center gap-1.5">
-            <BookOpen className="w-4 h-4" aria-hidden="true" />
+            <BookOpen className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
             {promptCount} prompt{promptCount !== 1 ? 's' : ''}
           </span>
           <span className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4" aria-hidden="true" />
+            <Clock className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
             Est. {skill.estimatedTime}
           </span>
           {skill.author && (
             <span className="flex items-center gap-1.5">
-              <ExternalLink className="w-4 h-4" aria-hidden="true" />
+              <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
               By {skill.author}
             </span>
           )}
           {skill.version && (
             <span className="flex items-center gap-1.5">
-              <Copy className="w-4 h-4" aria-hidden="true" />
+              <Copy className="w-3.5 h-3.5" aria-hidden="true" />
               v{skill.version}
             </span>
           )}
@@ -219,8 +191,8 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
       {/* When to Use */}
       {skill.whenToUse && skill.whenToUse.length > 0 && (
         <CollapsibleSection
-          title="When to use this skill"
-          description={`${skill.whenToUse.length} common scenarios`}
+          title="Khi nào nên sử dụng kỹ năng này"
+          description={`${skill.whenToUse.length} tình huống thực tiễn`}
           icon={Lightbulb}
           defaultOpen={true}
         >
@@ -231,8 +203,8 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
       {/* Prompts */}
       {skill.prompts && skill.prompts.length > 0 && (
         <CollapsibleSection
-          title="Prompts"
-          description={`${skill.prompts.length} ready-to-use prompts`}
+          title="Thư viện Prompts mẫu"
+          description={`${skill.prompts.length} prompts sẵn sàng kích hoạt`}
           icon={BookOpen}
           defaultOpen={true}
         >
@@ -247,8 +219,8 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
       {/* Agent Template */}
       {hasAgent && (
         <CollapsibleSection
-          title="Agent Template"
-          description="Ready-to-use AI agent configuration"
+          title="Agent Template cấu hình sẵn"
+          description="Cấu hình hệ thống AI Agent chuyên sâu"
           icon={Bot}
           defaultOpen={true}
         >
@@ -259,8 +231,8 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
       {/* Related Skills */}
       {relatedSkills.length > 0 && (
         <CollapsibleSection
-          title="Related Skills"
-          description={`${relatedSkills.length} skills you might also like`}
+          title="Kỹ năng liên quan"
+          description={`${relatedSkills.length} kỹ năng tương tự nên tham khảo`}
           icon={Sparkles}
           defaultOpen={false}
         >
@@ -272,12 +244,12 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
       <SkillReviews skillSlug={skill.slug} skillName={skill.name} />
 
       {/* Meta */}
-      <footer className="pt-6 border-t border-slate-200 dark:border-slate-700">
-        <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-slate-500 dark:text-slate-500">
+      <footer className="pt-6 border-t border-border">
+        <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-text-muted">
           <div className="flex items-center gap-2">
-            <span>Updated:</span>
-            <time dateTime={skill.updatedAt} className="font-mono">
-              {new Date(skill.updatedAt).toLocaleDateString('en-US', {
+            <span>Cập nhật lần cuối:</span>
+            <time dateTime={skill.updatedAt} className="font-mono text-text">
+              {new Date(skill.updatedAt).toLocaleDateString('vi-VN', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
@@ -289,10 +261,10 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
               href={skill.source}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="flex items-center gap-1.5 hover:text-accent transition-colors"
             >
-              <ExternalLink className="w-4 h-4" aria-hidden="true" />
-              Source
+              <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+              Nguồn tham khảo
             </a>
           )}
         </div>

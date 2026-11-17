@@ -26,6 +26,8 @@ const config: Config = {
         },
         // Accent colors
         accent: {
+          DEFAULT: 'var(--color-accent-500, #f97316)',
+          hover: 'var(--color-accent-600, #ea580c)',
           50: '#fff7ed',
           100: '#ffedd5',
           200: '#fed7aa',
@@ -79,9 +81,13 @@ const config: Config = {
         // Semantic aliases for dark mode (using CSS variables)
         bg: {
           DEFAULT: 'var(--color-bg)',
+          surface: 'var(--color-bg-surface, var(--color-bg-elevated))',
+          card: 'var(--color-bg-elevated)',
           elevated: 'var(--color-bg-elevated)',
           hover: 'var(--color-bg-hover)',
         },
+        surface: 'var(--color-bg-surface, var(--color-bg-elevated))',
+        card: 'var(--color-bg-elevated)',
         border: {
           DEFAULT: 'var(--color-border)',
           light: 'var(--color-border-light)',
@@ -92,10 +98,13 @@ const config: Config = {
           subtle: 'var(--color-text-subtle)',
           inverse: 'var(--color-text-inverse)',
         },
+        muted: 'var(--color-text-muted)',
+        subtle: 'var(--color-text-subtle)',
       },
       fontFamily: {
-        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
-        ui: ['var(--font-ui)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        ui: ['var(--font-ui)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
       fontSize: {
@@ -143,6 +152,10 @@ const config: Config = {
         'lg': '0 16px 48px rgba(0,0,0,0.5)',
         'xl': '0 24px 64px rgba(0,0,0,0.6)',
         'accent': '0 8px 24px rgba(255, 107, 53, 0.3)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+        'card-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+        'glow': '0 0 20px -5px var(--color-accent-500, rgba(249, 115, 22, 0.35))',
+        'glow-accent': '0 0 25px -3px var(--color-accent-500, rgba(249, 115, 22, 0.4))',
       },
       transitionDuration: {
         'fast': '150ms',

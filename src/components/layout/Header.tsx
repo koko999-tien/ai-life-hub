@@ -72,6 +72,18 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
+
   useEffect(() => {
     setMobileMenuOpen(false)
     setActiveDropdown(null)
@@ -92,9 +104,9 @@ export function Header() {
     <header
       className={clsx(
         'fixed top-0 left-0 right-0 z-sticky transition-all duration-base',
-        isScrolled
-          ? 'bg-bg/85 backdrop-blur-md border-b border-border shadow-sm'
-          : 'bg-bg/40 backdrop-blur-sm border-b border-border/40'
+        isScrolled || mobileMenuOpen
+          ? 'bg-bg/95 backdrop-blur-xl border-b border-border shadow-sm'
+          : 'bg-bg/60 backdrop-blur-md border-b border-border/40'
       )}
       role="banner"
     >
@@ -106,11 +118,17 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-text font-display font-bold text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-md shrink-0"
+            className="group flex items-center gap-2.5 text-text font-display font-bold text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg shrink-0 transition-transform active:scale-95"
             aria-label="AI Life Hub Home"
           >
-            <span className="text-accent">AI</span>
-            <span className="text-text">Life Hub</span>
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20 group-hover:scale-105 transition-all">
+              <Sparkles className="w-4 h-4 text-white" />
+              <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="flex items-center tracking-tight">
+              <span className="bg-gradient-to-r from-accent to-accent-600 bg-clip-text text-transparent font-extrabold">AI</span>
+              <span className="text-text ml-1 font-bold">Life Hub</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -230,7 +248,7 @@ export function Header() {
           id="mobile-menu"
           className={clsx(
             'lg:hidden overflow-hidden transition-all duration-300 ease-in-out',
-            mobileMenuOpen ? 'max-h-[640px] opacity-100 mt-4 pt-4 border-t border-border overflow-y-auto' : 'max-h-0 opacity-0'
+            mobileMenuOpen ? 'max-h-[85vh] opacity-100 mt-4 pt-4 pb-6 border-t border-border overflow-y-auto bg-bg/95 backdrop-blur-xl' : 'max-h-0 opacity-0'
           )}
           role="navigation"
           aria-label="Mobile navigation"

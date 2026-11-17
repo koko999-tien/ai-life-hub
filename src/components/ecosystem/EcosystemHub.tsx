@@ -14,8 +14,11 @@ import {
   Bot,
   Activity,
   Code2,
-  HardDrive
+  HardDrive,
+  Copy,
+  Check
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export interface EcosystemProject {
   id: string;
@@ -138,6 +141,31 @@ export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
 
 export function EcosystemHub() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [copiedCommandId, setCopiedCommandId] = useState<string | null>(null);
+
+  const copyCommand = async (cmd: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(cmd);
+      setCopiedCommandId(id);
+      toast.success('Đã sao chép lệnh chạy vào bộ nhớ tạm!');
+      setTimeout(() => setCopiedCommandId(null), 2000);
+    } catch {
+      toast.error('Không thể sao chép lệnh.');
+    }
+  };
+
+  const getStatusBadge = (status: EcosystemProject['status']) => {
+    switch (status) {
+      case 'Production Ready':
+        return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400';
+      case 'Fully Verified':
+        return 'border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400';
+      case 'Active Knowledge':
+        return 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400';
+      default:
+        return 'border-border bg-bg text-text-muted';
+    }
+  };
 
   const categories = [
     { id: 'all', label: 'Tất cả Dự án Ổ D' },
@@ -154,21 +182,28 @@ export function EcosystemHub() {
 
   return (
     <div className="space-y-8">
-      {/* Category Filter */}
-      <div className="card p-6 bg-bg-surface border-border flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <span className="text-xs font-semibold uppercase text-text-muted block mb-1">
-            Danh mục dự án thực chiến
+      {/* Category Filter with Mobile Horizontal Scroll */}
+      <div className="rounded-2xl p-6 bg-bg-surface border border-border space-y-4 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-wider text-text-muted block">
+              Danh mục dự án thực chiến
+            </span>
+            <h3 className="font-bold text-text text-base sm:text-lg">
+              Hệ sinh thái mã nguồn &amp; công cụ tại máy trạm
+            </h3>
+          </div>
+          <span className="text-xs font-mono text-text-muted">
+            {filteredProjects.length} dự án khả dụng
           </span>
-          <h3 className="font-bold text-text text-base">Hệ sinh thái mã nguồn & công cụ tại máy trạm</h3>
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedCategory === c.id
                   ? 'bg-accent text-white shadow-sm'
                   : 'bg-bg border border-border text-text-muted hover:text-text hover:border-accent/40'
@@ -185,19 +220,19 @@ export function EcosystemHub() {
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className="card p-6 bg-bg-surface border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-sm"
+            className="rounded-2xl p-6 bg-bg-surface border border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-xs hover:shadow-card-hover"
           >
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div>
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded bg-accent/10 text-accent mb-1.5 inline-block">
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent mb-1.5 inline-block border border-accent/20">
                     {project.category}
                   </span>
-                  <h3 className="font-bold text-xl text-text group-hover:text-accent transition-colors">
+                  <h3 className="font-bold text-lg sm:text-xl text-text group-hover:text-accent transition-colors">
                     {project.name}
                   </h3>
                 </div>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 whitespace-nowrap">
+                <span className={`text-[11px] font-mono px-2.5 py-1 rounded-full border whitespace-nowrap font-medium ${getStatusBadge(project.status)}`}>
                   {project.status}
                 </span>
               </div>
@@ -207,29 +242,29 @@ export function EcosystemHub() {
               </p>
 
               {/* Local Path & Stats Badge */}
-              <div className="p-3 rounded-xl bg-bg border border-border space-y-1.5 mb-4 text-xs font-mono">
-                <div className="flex justify-between items-center text-text-muted">
-                  <span className="flex items-center gap-1.5">
+              <div className="p-3.5 rounded-xl bg-bg border border-border space-y-1.5 mb-4 text-xs font-mono">
+                <div className="flex justify-between items-center text-text-muted gap-2">
+                  <span className="flex items-center gap-1.5 shrink-0">
                     <HardDrive className="w-3.5 h-3.5 text-accent" />
                     Đường dẫn ổ D:
                   </span>
-                  <strong className="text-text">{project.drivePath}</strong>
+                  <strong className="text-text truncate">{project.drivePath}</strong>
                 </div>
-                <div className="flex justify-between items-center text-text-muted">
-                  <span className="flex items-center gap-1.5">
-                    <Activity className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="flex justify-between items-center text-text-muted gap-2">
+                  <span className="flex items-center gap-1.5 shrink-0">
+                    <Activity className="w-3.5 h-3.5 text-emerald-500" />
                     Chỉ số thực tế:
                   </span>
-                  <span className="text-emerald-400 font-semibold">{project.stats}</span>
+                  <span className="text-emerald-500 font-semibold truncate">{project.stats}</span>
                 </div>
               </div>
 
               {/* Key Features */}
               <div className="space-y-1.5 mb-4">
-                <span className="text-[11px] font-semibold uppercase text-text">Tính năng nổi bật:</span>
-                <ul className="space-y-1">
+                <span className="text-[11px] font-semibold uppercase text-text block">Tính năng nổi bật:</span>
+                <ul className="space-y-1.5">
                   {project.keyFeatures.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-1.5 text-xs text-text-muted">
+                    <li key={idx} className="flex items-start gap-2 text-xs text-text-muted leading-relaxed">
                       <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </li>
@@ -240,20 +275,42 @@ export function EcosystemHub() {
               {/* Tech Stack Pills */}
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {project.techStack.map((tech, idx) => (
-                  <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-bg border border-border/80 text-text-muted">
+                  <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-bg border border-border/80 text-text-muted">
                     {tech}
                   </span>
                 ))}
               </div>
 
-              {/* CLI Execution Command */}
+              {/* CLI Execution Command with Copy Button */}
               <div className="mb-4">
-                <span className="text-[10px] font-mono uppercase text-text-muted block mb-1">
-                  Lệnh chạy kiểm thử / khởi động:
-                </span>
-                <pre className="p-2.5 rounded-lg bg-bg border border-border text-[11px] font-mono text-accent overflow-x-auto">
-                  {project.quickStartCommand}
-                </pre>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">
+                    Lệnh chạy kiểm thử / khởi động:
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => copyCommand(project.quickStartCommand, project.id)}
+                    className="inline-flex items-center gap-1 text-[11px] font-medium text-accent hover:text-accent-hover transition-colors"
+                    aria-label={`Sao chép lệnh cho ${project.name}`}
+                  >
+                    {copiedCommandId === project.id ? (
+                      <>
+                        <Check className="w-3 h-3 text-emerald-500 animate-in zoom-in" />
+                        <span className="text-emerald-500">Đã chép</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3 h-3" />
+                        <span>Sao chép lệnh</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+                <div className="relative group/cli">
+                  <pre className="p-3 rounded-xl bg-bg border border-border text-[11px] font-mono text-accent overflow-x-auto select-all leading-relaxed">
+                    {project.quickStartCommand}
+                  </pre>
+                </div>
               </div>
             </div>
 
@@ -265,7 +322,8 @@ export function EcosystemHub() {
                   rel="noopener noreferrer"
                   className="font-semibold text-accent hover:underline flex items-center gap-1"
                 >
-                  Mã nguồn GitHub <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Mã nguồn GitHub</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               ) : (
                 <span className="text-text-muted font-mono">Dự án Nội bộ máy trạm</span>

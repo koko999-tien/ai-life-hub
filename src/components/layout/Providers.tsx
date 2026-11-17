@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react'
 import { clsx } from 'clsx'
+import { Toaster } from 'sonner'
 
 // ============================================
 // Theme Provider (next-themes pattern)
@@ -51,37 +52,6 @@ export function ThemeProvider({ children, defaultTheme = 'system', enableSystem 
     root.classList.add(resolved)
     setResolvedTheme(resolved)
     localStorage.setItem('theme', theme)
-
-    // Apply CSS variables for brand colors based on theme
-    if (resolved === 'dark') {
-      root.style.setProperty('--color-bg', '#0A0A0A')
-      root.style.setProperty('--color-bg-elevated', '#111111')
-      root.style.setProperty('--color-bg-hover', '#1A1A1A')
-      root.style.setProperty('--color-border', '#2A2A2A')
-      root.style.setProperty('--color-border-light', '#3A3A3A')
-      root.style.setProperty('--color-text', '#FFFFFF')
-      root.style.setProperty('--color-text-muted', '#A0A0A0')
-      root.style.setProperty('--color-text-subtle', '#6A6A6A')
-      root.style.setProperty('--color-text-inverse', '#0A0A0A')
-      root.style.setProperty('--color-accent', '#FF6B35')
-      root.style.setProperty('--color-accent-hover', '#E85D2E')
-      root.style.setProperty('--color-accent-light', '#FF8A5B')
-      root.style.setProperty('--color-accent-muted', 'rgba(255, 107, 53, 0.15)')
-    } else {
-      root.style.setProperty('--color-bg', '#FFFFFF')
-      root.style.setProperty('--color-bg-elevated', '#F8F8F8')
-      root.style.setProperty('--color-bg-hover', '#F0F0F0')
-      root.style.setProperty('--color-border', '#E0E0E0')
-      root.style.setProperty('--color-border-light', '#EAEAEA')
-      root.style.setProperty('--color-text', '#0A0A0A')
-      root.style.setProperty('--color-text-muted', '#6A6A6A')
-      root.style.setProperty('--color-text-subtle', '#A0A0A0')
-      root.style.setProperty('--color-text-inverse', '#FFFFFF')
-      root.style.setProperty('--color-accent', '#FF6B35')
-      root.style.setProperty('--color-accent-hover', '#E85D2E')
-      root.style.setProperty('--color-accent-light', '#FF8A5B')
-      root.style.setProperty('--color-accent-muted', 'rgba(255, 107, 53, 0.15)')
-    }
   }, [theme, mounted, enableSystem])
 
   // Listen for system theme changes
@@ -500,6 +470,7 @@ export function Providers({ children }: ProvidersProps) {
         <FavoritesProvider>
           <ToastProvider>
             {children}
+            <Toaster richColors position="top-right" closeButton />
           </ToastProvider>
         </FavoritesProvider>
       </SearchProvider>

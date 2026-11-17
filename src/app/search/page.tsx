@@ -39,7 +39,7 @@ function SearchContent() {
   const otherResults = results.filter((r) => r.type !== 'skill' && r.type !== 'resource');
 
   return (
-    <div className="container py-12">
+    <div className="container mx-auto px-section-x pt-24 pb-16">
       <h1 className="heading-2 mb-8">Tìm kiếm</h1>
       <div className="relative mb-8">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" aria-hidden="true" />
@@ -94,7 +94,7 @@ function SearchContent() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="container py-12">Đang tải...</div>}>
+    <Suspense fallback={<div className="container mx-auto px-section-x pt-24 pb-16">Đang tải...</div>}>
       <SearchContent />
     </Suspense>
   );

@@ -11,11 +11,11 @@ interface RecentSearchesProps {
 }
 
 export function RecentSearches({ searches, onSearch, onClear, className = '' }: RecentSearchesProps) {
-  if (searches.length === 0) return null;
-
   const handleClick = useCallback((query: string) => {
     onSearch(query);
   }, [onSearch]);
+
+  if (searches.length === 0) return null;
 
   return (
     <div className={`${className} animate-in fade-in-0 duration-150`}>
@@ -35,7 +35,7 @@ export function RecentSearches({ searches, onSearch, onClear, className = '' }: 
       </div>
       <ul className="py-1" role="listbox">
         {searches.map((search, index) => (
-          <li key={search} role="option">
+          <li key={search} role="option" aria-selected={false}>
             <button
               onClick={() => handleClick(search)}
               className="w-full px-3 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex items-center gap-2"

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PlaybooksPage() {
   return (
-    <div className="container mx-auto px-section-x py-12">
+    <div className="container mx-auto px-section-x pt-24 pb-16">
       <div className="max-w-4xl mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-semibold mb-4">
           <BookOpen className="w-3.5 h-3.5" />
