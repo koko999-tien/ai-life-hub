@@ -8,7 +8,7 @@ const footerNav = {
     { name: 'Thư viện Prompts', href: '/prompts' },
     { name: 'Agent Blueprints', href: '/agents' },
     { name: 'Multi-Agent Workflows', href: '/workflows' },
-    { name: 'Kho tài nguyên tuyển chọn', href: '/resources' },
+    { name: 'Hệ sinh thái Ổ D', href: '/ecosystem' },
   ],
   tools: [
     { name: 'AI Playground', href: '/playground' },
@@ -18,9 +18,11 @@ const footerNav = {
     { name: 'So sánh Model Arena 2026', href: '/compare' },
   ],
   learn: [
+    { name: 'Cẩm nang 10 Sách (Playbooks)', href: '/playbooks' },
     { name: 'AI Engineering Cheatsheet', href: '/cheatsheet' },
     { name: 'Trắc nghiệm AI Quiz', href: '/learn/quiz' },
     { name: 'Danh sách Yêu thích', href: '/favorites' },
+    { name: 'Kho tài nguyên tuyển chọn', href: '/resources' },
     { name: 'Đóng góp Prompt mới', href: '/submit' },
   ],
   about: [

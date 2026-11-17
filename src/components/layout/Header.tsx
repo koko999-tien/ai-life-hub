@@ -17,7 +17,9 @@ import {
   BookOpen, 
   Layers, 
   FileCode,
-  GraduationCap
+  GraduationCap,
+  HardDrive,
+  FileText
 } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPaletteTrigger } from './CommandPaletteTrigger'
@@ -29,8 +31,9 @@ const navGroups = [
     items: [
       { name: 'Tất cả Danh mục', href: '/categories', desc: '16 lĩnh vực ứng dụng AI đời sống & kỹ thuật', icon: Layers },
       { name: 'Thư viện Prompts', href: '/prompts', desc: 'Hơn 80+ mẫu prompt tối ưu sẵn', icon: Sparkles },
-      { name: 'Agent Blueprints', href: '/agents', desc: '8 kiến trúc AI Agent doanh nghiệp', icon: Terminal },
+      { name: 'Agent Blueprints', href: '/agents', desc: '14 kiến trúc AI Agent thực chiến', icon: Terminal },
       { name: 'Multi-Agent Workflows', href: '/workflows', desc: 'Quy trình tự động hóa đa tác nhân', icon: FileCode },
+      { name: 'Hệ sinh thái Ổ D', href: '/ecosystem', desc: 'Reality Science, UniDoc, Knowledge Lab', icon: HardDrive },
     ]
   },
   {
@@ -44,9 +47,10 @@ const navGroups = [
     ]
   },
   {
-    name: 'Học tập',
+    name: 'Học tập & Tri thức',
     items: [
-      { name: 'AI Engineering Cheatsheet', href: '/cheatsheet', desc: 'Sổ tay tra cứu CoT, RAG, JSON Schema, tham số', icon: BookOpen },
+      { name: 'Cẩm nang 10 Sách (Playbooks)', href: '/playbooks', desc: 'Tri thức tinh hoa từ 10 công trình kinh điển', icon: BookOpen },
+      { name: 'AI Engineering Cheatsheet', href: '/cheatsheet', desc: 'Sổ tay tra cứu CoT, RAG, JSON Schema, tham số', icon: FileText },
       { name: 'Trắc nghiệm AI Quiz', href: '/learn/quiz', desc: 'Kiểm tra trình độ Prompt & LLM thực tế', icon: GraduationCap },
       { name: 'Kho Tài nguyên Tuyển chọn', href: '/resources', desc: 'Khóa học, tài liệu, công cụ hữu ích', icon: Layers },
     ]
