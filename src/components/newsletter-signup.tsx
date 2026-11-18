@@ -51,7 +51,7 @@ export function NewsletterSignup() {
         <div className="mx-auto max-w-2xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400 text-sm font-medium mb-6">
             <Mail className="h-4 w-4" aria-hidden="true" />
-            <span>Newsletter hàng tuần</span>
+            <span>Bản tin AI hàng tuần</span>
           </div>
 
           <h2 id="newsletter-heading" className="heading-2 mb-4">
@@ -59,8 +59,8 @@ export function NewsletterSignup() {
           </h2>
 
           <p className="text-fluid-lg text-gray-600 dark:text-gray-400 mb-8">
-            Nhận prompt templates, case studies, công cụ mới và insights độc quyền trực tiếp vào hộp thư.
-            Không spam, hủy đăng ký bất kỳ lúc nào.
+            Nhận câu lệnh mẫu thực chiến, tình huống ứng dụng thực tế, công cụ mới và kinh nghiệm chọn lọc trực tiếp vào hộp thư.
+            Không làm phiền, hủy đăng ký bất kỳ lúc nào.
           </p>
 
           {status === 'success' ? (
@@ -69,7 +69,7 @@ export function NewsletterSignup() {
                 <CheckCircle className="h-8 w-8" aria-hidden="true" />
               </div>
               <h3 className="heading-4 text-gray-900 dark:text-white">Cảm ơn bạn đã đăng ký!</h3>
-              <p className="text-gray-600 dark:text-gray-400">Kiểm tra email để xác nhận đăng ký. Chào đón bạn đến với cộng đồng AI Life Hub.</p>
+              <p className="text-gray-600 dark:text-gray-400">Đã ghi nhận email của bạn! Cảm ơn bạn đã đồng hành cùng cộng đồng AI Life Hub.</p>
               <Button variant="outline" onClick={() => setStatus('idle')} className="mt-2">
                 Đăng ký email khác
               </Button>

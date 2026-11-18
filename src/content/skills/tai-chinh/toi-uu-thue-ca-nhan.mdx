@@ -2,64 +2,64 @@
 id: toi-uu-thue-ca-nhan
 categoryId: tai-chinh
 name: "Tối ưu thuế thu nhập cá nhân"
-description: "Tận dụng giảm trừ gia cảnh, quyên góp từ thiện, đầu tư có ưu đãi thuế, khai thuế đúng luật"
+description: "Tận dụng đầy đủ các khoản giảm trừ gia cảnh, bảo hiểm bắt buộc, quỹ hưu trí tự nguyện và đóng góp từ thiện hợp pháp khi quyết toán thuế"
 whenToUse:
-  - "Khai thuế TNCN hàng năm (tháng 3-4)"
-  - "Tối ưu thuế cho người có thu nhập cao"
-  - "Lập kế hoạch thuế đa năm"
+  - "Chuẩn bị tự quyết toán thuế thu nhập cá nhân hằng năm (thường vào tháng 3-4)"
+  - "Kiểm tra xem mình đã tận dụng hết các khoản giảm trừ hợp pháp hay chưa"
+  - "Lập kế hoạch sắp xếp thu nhập và chứng từ thuế cho cả năm"
 difficulty: "intermediate"
-estimatedTime: "1-2 giờ/năm"
+estimatedTime: "Chuẩn bị 1-2 giờ mỗi năm vào mùa quyết toán thuế"
 tags: ["tax", "tncn", "tax-optimization", "vietnam-tax", "deductions"]
 prompts:
   - id: prompt-tax-optimization-vn
-    name: "Tối ưu TNCN theo luật Việt Nam"
-    description: "Tính thuế, áp dụng giảm trừ, đề xuất tối ưu hợp pháp"
+    name: "Tính toán và tối ưu thuế thu nhập cá nhân theo luật Việt Nam"
+    description: "Tính thuế theo biểu lũy tiến từng phần, rà soát các khoản giảm trừ hợp pháp và danh sách chứng từ cần chuẩn bị"
     template: |
-      Bạn là Tax Advisor Việt Nam. Hãy tối ưu TNCN cho tôi:
+      Bạn là chuyên gia tư vấn thuế thu nhập cá nhân theo quy định pháp luật Việt Nam. Hãy tính toán và gợi ý cách tối ưu thuế hợp pháp cho tôi:
 
-      **Thông tin cá nhân:**
-      - Thu nhập chịu thuế năm: {{taxableIncome}}
-      - Người phụ thuộc: {{dependents}} (người)
-      - Quyên góp từ thiện: {{charityDonations}}
-      - Bảo hiểm nhân thọ/đồng hành: {{insurancePremium}}
-      - Đóng góp quỹ hưu trí tự nguyện: {{voluntaryPension}}
-      - Chi phí khác (điều kiện kinh doanh...): {{otherDeductions}}
+      **Thông tin cá nhân trong năm:**
+      - Tổng thu nhập chịu thuế trong năm: {{taxableIncome}} đồng
+      - Số người phụ thuộc đã đăng ký hợp lệ: {{dependents}} người
+      - Đóng góp từ thiện, nhân đạo, khuyến học qua quỹ hợp pháp: {{charityDonations}} đồng
+      - Bảo hiểm bắt buộc đã đóng (BHXH, BHYT, BHTN): {{insurancePremium}} đồng
+      - Đóng góp quỹ hưu trí tự nguyện: {{voluntaryPension}} đồng
+      - Các khoản giảm trừ hợp pháp khác (nếu có): {{otherDeductions}} đồng
 
-      **Output:**
-      1. Tính thuế TNCN theo thang lũy tiến (Luật TNCN 2007 + sửa đổi)
-      2. Tổng giảm trừ gia cảnh + người phụ thuộc
-      3. Các khoản trừ khác hợp pháp (bảo hiểm, từ thiện, quỹ hưu trí)
-      4. Thuế phải nộp cuối cùng
-      5. Đề xuất tối ưu: Nên tăng bảo hiểm/quỹ hưu trí/quyên góp bao nhiêu?
-      6. Checklist giấy tờ cần chuẩn bị khi khai thuế
+      **Hãy tính toán và trình bày chi tiết theo các phần sau:**
+      1. Tổng mức giảm trừ gia cảnh cho bản thân (11 triệu/tháng) và người phụ thuộc (4,4 triệu/tháng/người theo Nghị quyết 954/2020/UBTVQH14)
+      2. Các khoản giảm trừ hợp pháp khác (bảo hiểm bắt buộc BHXH/BHYT/BHTN, quỹ hưu trí tự nguyện tối đa 1 triệu/tháng tức 12 triệu/năm, đóng góp từ thiện qua tổ chức có tư cách pháp nhân theo Thông tư 111/2013/TT-BTC)
+      3. Tính thuế thu nhập cá nhân theo biểu lũy tiến từng phần 7 bậc quy đổi theo năm
+      4. Số thuế phải nộp cuối cùng và tỷ lệ thuế thực tế trên tổng thu nhập
+      5. Gợi ý tối ưu hợp pháp cho năm tiếp theo (chú ý phân biệt rõ: phí bảo hiểm nhân thọ thông thường không được trừ thuế thu nhập cá nhân)
+      6. Danh sách giấy tờ, chứng từ cần chuẩn bị và kênh nộp quyết toán trực tuyến chính thức
     variables:
       - name: taxableIncome
         type: number
-        label: "Thu nhập chịu thuế năm (VND)"
+        label: "Tổng thu nhập chịu thuế năm (đồng)"
         required: true
       - name: dependents
         type: number
-        label: "Số người phụ thuộc (theo luật: không có thu nhập, cùng sống)"
+        label: "Số người phụ thuộc đã đăng ký hợp lệ (người)"
         required: true
         default: 0
       - name: charityDonations
         type: number
-        label: "Quyên góp từ thiện năm (VND, tối đa 10% thu nhập chịu thuế)"
+        label: "Đóng góp từ thiện, nhân đạo, khuyến học năm (đồng, qua quỹ/tổ chức hợp pháp)"
         required: true
         default: 0
       - name: insurancePremium
         type: number
-        label: "Phí bảo hiểm nhân thọ/đồng hành năm (VND, tối đa 24M/năm)"
+        label: "Bảo hiểm bắt buộc đã đóng trong năm: BHXH, BHYT, BHTN (đồng)"
         required: true
         default: 0
       - name: voluntaryPension
         type: number
-        label: "Đóng góp quỹ hưu trí tự nguyện năm (VND)"
+        label: "Đóng góp quỹ hưu trí tự nguyện trong năm (đồng, được trừ tối đa 12 triệu/năm)"
         required: true
         default: 0
       - name: otherDeductions
         type: number
-        label: "Các khoản trừ khác (VND)"
+        label: "Các khoản giảm trừ hợp pháp khác (đồng)"
         required: true
         default: 0
     examples:
@@ -71,65 +71,67 @@ prompts:
           voluntaryPension: 12000000
           otherDeductions: 0
         output: |
-          # 📊 Tối Ưu TNCN: Thu nhập 600M/năm, 2 người phụ thuộc
+          # 📊 Tính Toán & Tối Ưu Thuế Thu Nhập Cá Nhân (Thu nhập 600 triệu/năm, 2 người phụ thuộc)
 
-          ## 1. Giảm trừ gia cảnh (Cố định 2024)
-          - Bản thân: 11M/tháng = 132M/năm
-          - Mỗi người phụ thuộc: 4.4M/tháng = 52.8M/năm × 2 = 105.6M/năm
-          - **Tổng giảm trừ gia cảnh: 237.6M/năm**
+          ## 1. Giảm trừ gia cảnh (Theo Nghị quyết 954/2020/UBTVQH14)
+          - Giảm trừ cho bản thân: `11 triệu/tháng × 12` = **132 triệu đồng/năm**
+          - Giảm trừ cho 2 người phụ thuộc: `4,4 triệu/tháng × 12 × 2` = **105,6 triệu đồng/năm**
+          - **Tổng giảm trừ gia cảnh:** **237,6 triệu đồng/năm**
 
-          ## 2. Các khoản trừ khác (Hợp pháp)
-          - Bảo hiểm nhân thọ: 24M (tối đa 24M) ✅
-          - Quỹ hưu trí tự nguyện: 12M ✅
-          - Quyên góp từ thiện: 20M (tối đa 10% thu nhập chịu thuế = 60M) ✅
-          - **Tổng trừ khác: 56M/năm**
+          ## 2. Các khoản giảm trừ hợp pháp khác
+          - Bảo hiểm bắt buộc (BHXH, BHYT, BHTN): **24 triệu đồng** ✅
+          - Quỹ hưu trí tự nguyện (đúng mức trần tối đa 1 triệu/tháng): **12 triệu đồng** ✅
+          - Đóng góp từ thiện, nhân đạo qua tổ chức hợp pháp (có chứng từ): **20 triệu đồng** ✅
+          - **Tổng các khoản trừ khác:** **56 triệu đồng/năm**
 
-          ## 3. Thu nhập chịu thuế sau giảm trừ
+          *(Lưu ý quan trọng: Tiền mua bảo hiểm nhân thọ thương mại thông thường không được tính vào khoản giảm trừ thuế thu nhập cá nhân; chỉ các khoản bảo hiểm bắt buộc và quỹ hưu trí tự nguyện đúng quy định mới được trừ.)*
+
+          ## 3. Thu nhập tính thuế sau giảm trừ
           ```
-          Thu nhập ban đầu: 600,000,000
-          - Giảm trừ gia cảnh: (237,600,000)
-          - Trừ khác: (56,000,000)
-          = Thu nhập chịu thuế: 306,400,000
+          Tổng thu nhập chịu thuế:        600.000.000đ
+          - Giảm trừ gia cảnh:          (237.600.000đ)
+          - Bảo hiểm, hưu trí, từ thiện: (56.000.000đ)
+          = Thu nhập tính thuế cả năm:   306.400.000đ
           ```
 
-          ## 4. Tính thuế theo thang lũy tiến (2024)
-          | Bậc | Thu nhập chịu thuế | Thuế suất | Thuế |
-          |-----|-------------------|-----------|------|
-          | 1 | 60,000,000 | 5% | 3,000,000 |
-          | 2 | 60,000,000 | 10% | 6,000,000 |
-          | 3 | 60,000,000 | 15% | 9,000,000 |
-          | 4 | 60,000,000 | 20% | 12,000,000 |
-          | 5 | 66,400,000 | 25% | 16,600,000 |
-          | **Tổng** | **306,400,000** | | **46,600,000** |
+          ## 4. Tính thuế theo biểu lũy tiến từng phần 7 bậc (quy đổi theo năm)
+          | Bậc thuế | Khung thu nhập tính thuế/năm | Phần thu nhập rơi vào bậc này | Thuế suất | Số thuế phải đóng |
+          |---|---|---|---|---|
+          | Bậc 1 | Đến 60 triệu | 60.000.000đ | 5% | 3.000.000đ |
+          | Bậc 2 | Trên 60 đến 120 triệu (rộng 60 triệu) | 60.000.000đ | 10% | 6.000.000đ |
+          | Bậc 3 | Trên 120 đến 216 triệu (rộng 96 triệu) | 96.000.000đ | 15% | 14.400.000đ |
+          | Bậc 4 | Trên 216 đến 384 triệu (rộng 168 triệu) | 90.400.000đ | 20% | 18.080.000đ |
+          | **Tổng cộng** | | **306.400.000đ** | | **41.480.000đ** |
 
-          ## 5. Kết quả
-          - **Thuế TNCN phải nộp: 46.6M VND**
-          - Effective tax rate: 46.6M / 600M = **7.77%**
+          ## 5. Kết quả tổng hợp
+          - **Tổng thuế thu nhập cá nhân phải nộp cả năm:** **41.480.000đ**
+          - **Tỷ lệ thuế thực tế trên tổng thu nhập:** `41.480.000 / 600.000.000` = **6,91%**
+          - **Bậc thuế biên hiện tại của bạn:** **20%** (mỗi 1 triệu đồng giảm trừ hợp pháp thêm sẽ giúp tiết kiệm **200.000đ** tiền thuế).
 
-          ## 6. Đề xuất tối ưu thêm
-          | Hành động | Chi phí thêm | Thuế tiết kiệm | ROI |
-          |-----------|-------------|----------------|-----|
-          | Tăng quyên góp từ thiện lên 60M (max) | +40M | 10M (25% bracket) | 25% |
-          | Tăng quỹ hưu trí tự nguyện | Theo khả năng | 25% marginal rate | 25% |
-          | Mua bảo hiểm nhân thọ thêm (nếu < 24M) | +X | 25% của X | 25% |
+          ## 6. Gợi ý kiểm tra để không bỏ sót quyền lợi hợp pháp
+          1. **Rà soát đủ hồ sơ người phụ thuộc:** Đảm bảo cả 2 người phụ thuộc đã được đăng ký mã số thuế người phụ thuộc kịp thời để hưởng trọn 12 tháng giảm trừ (tiết kiệm được tới `52,8 triệu × 20% = 10,56 triệu/người/năm` ở bậc thuế này).
+          2. **Kiểm tra thời điểm đóng quỹ hưu trí tự nguyện:** Mức trần được trừ tối đa là 1 triệu/tháng (12 triệu/năm) — trong ví dụ trên bạn đã tận dụng tối đa.
+          3. **Lưu giữ đầy đủ biên lai từ thiện hợp pháp:** Chỉ các khoản đóng góp cho quỹ từ thiện, nhân đạo, khuyến học được thành lập và hoạt động hợp pháp có phiếu thu/chứng từ rõ ràng mới được cơ quan thuế chấp nhận giảm trừ.
+          4. **Đối chiếu số thuế đã tạm khấu trừ hằng tháng:** Nếu tổng số công ty đã tạm khấu trừ lớn hơn **41.480.000đ**, bạn nhớ làm thủ tục **hoàn thuế** để nhận lại phần nộp thừa.
 
-          ## 7. Checklist khai thuế (Tháng 3-4 hàng năm)
-          - [ ] Bảng kê thu nhập (từ đơn vị trả lương)
-          - [ ] Giấy khai sinh/CCCD người phụ thuộc
-          - [ ] Hợp đồng bảo hiểm + biên lai đóng phí
-          - [ ] Giấy nhận quyên góp từ thiện (có dấu đỏ cơ quan nhận)
-          - [ ] Xác nhận đóng quỹ hưu trí tự nguyện
-          - [ ] Ký tên, nộp qua HTKK hoặc đơn vị
-        context: "Tối ưu thuế cho người thu nhập 600M, 2 người phụ thuộc, đã có bảo hiểm/quỹ hưu trí"
+          ## 7. Danh sách giấy tờ cần chuẩn bị khi quyết toán thuế (Tháng 3–4 hằng năm)
+          - [ ] Chứng từ khấu trừ thuế thu nhập cá nhân và thư xác nhận thu nhập do đơn vị chi trả cấp.
+          - [ ] Giấy tờ chứng minh người phụ thuộc đã đăng ký (giấy khai sinh, CCCD, hồ sơ chứng minh nghĩa vụ nuôi dưỡng nếu cần).
+          - [ ] Bảng kê hoặc xác nhận số tiền đã đóng BHXH, BHYT, BHTN trong năm.
+          - [ ] Chứng từ đóng quỹ hưu trí tự nguyện (tối đa 12 triệu/năm).
+          - [ ] Biên lai, giấy xác nhận đóng góp từ thiện từ tổ chức hợp pháp (có chữ ký, con dấu hợp lệ).
+          - [ ] Nộp hồ sơ trực tuyến qua **Cổng Thuế điện tử (`thuedientu.gdt.gov.vn`)**, **ứng dụng eTax Mobile**, phần mềm hỗ trợ kê khai (**HTKK**), hoặc **ủy quyền quyết toán cho công ty** nếu chỉ có thu nhập tiền lương tại một nơi duy nhất.
+        context: "Tính và tối ưu thuế thu nhập cá nhân hợp pháp cho người có thu nhập 600 triệu đồng/năm, 2 người phụ thuộc"
     difficulty: "intermediate"
     useCases:
-      - "Khai thuế TNCN hàng năm"
-      - "Lập kế hoạch thuế cuối năm"
+      - "Tự kiểm tra và chuẩn bị hồ sơ quyết toán thuế thu nhập cá nhân hằng năm"
+      - "Lập kế hoạch thu thập chứng từ giảm trừ hợp pháp trước khi kết thúc năm tài chính"
 agentTemplate:
-  name: "Tax Optimizer Agent"
-  description: "Tính toán, tối ưu thuế TNCN Việt Nam, khai thuế đúng luật"
+  name: "Chuyên Gia Tư Vấn Thuế Thu Nhập Cá Nhân"
+  description: "Tính thuế thu nhập cá nhân theo biểu lũy tiến 7 bậc của Việt Nam và hướng dẫn chuẩn bị chứng từ giảm trừ hợp pháp"
   systemPrompt: |
-    Bạn là Tax Advisor chuyên luật thuế Việt Nam. Chỉ tư vấn tối ưu hợp pháp (tax avoidance), không tax evasion. Luật tham chiếu: Luật TNCN 2007, Luật sửa đổi 2012, 2014, Nghị định 65/2013, Thông tư 111/2013.
+    Bạn là chuyên gia tư vấn thuế thu nhập cá nhân theo quy định pháp luật Việt Nam (Luật Thuế TNCN, Nghị quyết 954/2020/UBTVQH14, Thông tư 111/2013/TT-BTC và các văn bản hướng dẫn hiện hành).
+    Nguyên tắc: Chỉ tư vấn các cách giảm thuế hợp pháp theo đúng quy định pháp luật (giảm trừ gia cảnh, bảo hiểm bắt buộc BHXH/BHYT/BHTN, quỹ hưu trí tự nguyện tối đa 1 triệu/tháng, đóng góp từ thiện có chứng từ hợp lệ); tuyệt đối không hướng dẫn trốn thuế hay gian lận thuế, và luôn nhắc người dùng kiểm tra quy định mới nhất trên cổng thông tin ngành Thuế khi quyết toán.
   model: "gpt-4"
   temperature: 0.3
 relatedSkillIds:

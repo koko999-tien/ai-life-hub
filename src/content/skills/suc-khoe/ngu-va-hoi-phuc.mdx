@@ -1,148 +1,146 @@
 ---
 id: ngu-va-hoi-phuc
 categoryId: suc-khoe
-name: "Ngủ & Hồi phục tối ưu"
-description: "Sleep hygiene, Circadian rhythm, HRV tracking, Napping, Stress management, Recovery modalities"
+name: "Ngủ ngon & Hồi phục cơ thể tối ưu"
+description: "Xây dựng thói quen ngủ khoa học theo nhịp sinh học tự nhiên, cải thiện không gian phòng ngủ, điều chỉnh giờ uống cà phê và phục hồi năng lượng mỗi ngày"
 whenToUse:
-  - "Khó ngủ, ngủ không sâu, thức giấc mệt mỏi"
-  - "Tập luyện nặng cần tối ưu hồi phục"
-  - "Quản lý stress, burnout"
+  - "Thường xuyên khó ngủ, ngủ chập chờn hoặc thức dậy vẫn thấy mệt mỏi"
+  - "Tập luyện thể thao hoặc làm việc trí óc căng thẳng cần phục hồi tốt hơn"
+  - "Muốn điều chỉnh lại giờ giấc sinh hoạt, giảm tình trạng kiệt sức kéo dài"
 difficulty: "beginner"
-estimatedTime: "Setup routine 1 tuần, maintain suốt đời"
+estimatedTime: "Thiết lập thói quen trong 1 tuần, duy trì nhẹ nhàng mỗi ngày"
 tags: ["sleep", "recovery", "circadian-rhythm", "hrv", "stress-management", "nap"]
 prompts:
   - id: prompt-sleep-optimization
-    name: "Tối ưu giấc ngủ (Sleep Hygiene Protocol)"
-    description: "Xây dựng routine ngủ dựa trên chronotype, môi trường, supplement, tracking"
+    name: "Lộ trình cải thiện giấc ngủ khoa học"
+    description: "Thiết kế lịch ngủ dậy theo nhịp sinh học, thói quen thư giãn buổi tối và cách chỉnh lại phòng ngủ"
     template: |
-      Bạn là Sleep Coach. Hãy tối ưu giấc ngủ cho tôi:
+      Bạn là chuyên gia tư vấn giấc ngủ và phục hồi sức khỏe. Hãy lập kế hoạch cải thiện giấc ngủ phù hợp cho tôi:
 
-      **Hồ sơ:**
-      - Thời gian ngủ hiện tại: {{currentSleep}} (ví dụ: 1h sáng - 7h sáng)
-      - Chronotype: {{chronotype}} (Sớm / Trung bình / Muộn / Không biết)
-      - Vấn đề: {{sleepIssues}} (Khó ngủ / Ngủ không sâu / Thức giấc mệt / Đêm ngủ thất thường)
-      - Môi trường: {{environment}} (Tối/mịn/nhiễu nhiệt độ/bàn phím)
-      - Caffeine/Alcohol: {{substances}}
-      - Stress level: {{stressLevel}} (1-10)
+      **Thông tin hiện tại:**
+      - Giờ ngủ và thức dậy hiện tại: {{currentSleep}}
+      - Nhịp sinh học tự nhiên: {{chronotype}}
+      - Vấn đề đang gặp: {{sleepIssues}}
+      - Môi trường phòng ngủ: {{environment}} (ánh sáng, tiếng ồn, nhiệt độ phòng, chăn gối)
+      - Thói quen dùng cà phê, trà đậm hoặc rượu bia: {{substances}}
+      - Mức độ căng thẳng hiện tại: {{stressLevel}}/10
 
-      **Output (Sleep Protocol):**
-      1. **Chronotype-based Schedule**: Giờ ngủ/dậy lý tưởng, Caffeine cutoff
-      2. **Evening Wind-down Routine** (90-120p trước giường): Digital sunset, Light, Temperature, Activities
-      3. **Sleep Environment Optimization**: Đen kịt, 18-20°C, White noise, Bedding
-      4. **Morning Anchor**: Ánh sáng mặt trời 10p, Hydration, Movement
-      5. **Supplement Stack** (Evidence-based): Magnesium Glycinate, Glycine, L-Theanine, Apigenin, Melatonin (thận trọng)
-      6. **Tracking**: HRV (Morning), Sleep stages (Oura/Whoop/Apple Watch), Sleep diary
-      7. **Troubleshooting**: Nếu thức giấc 3h sáng, nếu không ngủ được sau 20p, nếu jetlag/shift work
+      **Hãy lập lộ trình cải thiện giấc ngủ chi tiết theo các phần sau:**
+      1. **Lịch ngủ - thức dậy theo nhịp sinh học**: Giờ đi ngủ mục tiêu, giờ thức dậy cố định và giờ dừng uống cà phê hợp lý
+      2. **Thói quen thư giãn buổi tối (60-90 phút trước khi ngủ)**: Giờ tắt màn hình, giảm ánh sáng xanh, nhiệt độ phòng và hoạt động nhẹ giúp dễ buồn ngủ
+      3. **Tối ưu phòng ngủ**: Che sáng, giảm tiếng ồn bằng âm thanh dịu nhẹ nếu cần, nhiệt độ mát mẻ phù hợp khí hậu Việt Nam và chọn gối nệm nâng đỡ cổ vai
+      4. **Thói quen buổi sáng giúp tỉnh táo tự nhiên**: Tiếp xúc ánh sáng tự nhiên 10-15 phút, uống nước ấm và vận động nhẹ
+      5. **Hỗ trợ tự nhiên qua ăn uống & lưu ý y khoa**: Gợi ý thực phẩm/thảo mộc quen thuộc dễ ngủ (trà hoa cúc, tâm sen, thực phẩm giàu magiê) và nhấn mạnh cần hỏi bác sĩ/dược sĩ trước khi dùng viên uống bổ sung hay melatonin; đi khám nếu mất ngủ kéo dài trên 3 tuần
+      6. **Cách theo dõi tiến triển đơn giản**: Nhật ký giấc ngủ hằng ngày hoặc chỉ số biến thiên nhịp tim (HRV) trên đồng hồ thông minh (nếu có)
+      7. **Xử lý tình huống hay gặp**: Làm gì khi tỉnh giấc lúc 3 giờ sáng hoặc nằm trằn trọc quá 20 phút vẫn chưa ngủ được
     variables:
       - name: currentSleep
         type: text
-        label: "Thời gian ngủ/dậy hiện tại"
+        label: "Giờ ngủ và thức dậy hiện tại (ví dụ: 1 giờ sáng - 7 giờ sáng)"
         required: true
       - name: chronotype
         type: select
-        label: "Chronotype (Loa giấc ngủ tự nhiên)"
+        label: "Nhịp sinh học tự nhiên (bạn thường tỉnh táo nhất lúc nào?)"
         options:
-          - "Sớm (Lark) - Ngủ 9-10h, dậy 5-6h"
-          - "Trung bình (Bear) - Ngủ 10-11h, dậy 6-7h"
-          - "Muộn (Owl) - Ngủ 12-1h, dậy 8-9h"
-          - "Không biết"
+          - "Ngủ sớm dậy sớm (buồn ngủ lúc 21:00-22:00, dậy 05:00-06:00)"
+          - "Nhịp trung bình (ngủ 22:00-23:00, dậy 06:00-07:00)"
+          - "Cú đêm (thường ngủ muộn 00:00-01:00, dậy 08:00-09:00)"
+          - "Chưa rõ"
         required: true
-        default: "Không biết"
+        default: "Chưa rõ"
       - name: sleepIssues
         type: multiselect
-        label: "Vấn đề giấc ngủ"
+        label: "Vấn đề giấc ngủ đang gặp"
         options:
-          - "Khó ngủ (Onset insomnia)"
-          - "Ngủ không sâu / Hay thức giấc (Maintenance insomnia)"
-          - "Thức giấc mệt mỏi (Non-restorative)"
-          - "Đêm ngủ thất thường (Shift work / Social jetlag)"
-          - "Ngủ trưa quá nhiều"
+          - "Khó đi vào giấc ngủ"
+          - "Ngủ chập chờn hoặc dễ thức giấc giữa đêm"
+          - "Thức dậy vẫn thấy mệt mỏi"
+          - "Giờ giấc ngủ thất thường do làm ca hoặc thức khuya"
+          - "Ngủ trưa quá lâu làm tối khó ngủ"
         required: true
       - name: environment
         type: textarea
-        label: "Môi trường ngủ (Ánh sáng, tiếng ồn, nhiệt độ, giường, gối)"
+        label: "Môi trường phòng ngủ (ánh sáng, tiếng ồn, nhiệt độ, giường gối)"
         required: true
       - name: substances
         type: textarea
-        label: "Caffeine/Alcohol/Nicotine (Khi nào, bao nhiêu)"
+        label: "Thói quen dùng cà phê, trà đặc, rượu bia (mấy giờ, bao nhiêu)"
         required: true
       - name: stressLevel
         type: number
-        label: "Mức độ stress trung bình (1-10)"
+        label: "Mức độ căng thẳng trung bình (1-10)"
         required: true
         default: 5
     examples:
       - inputs:
-          currentSleep: "1h sáng - 7h sáng (6h)"
-          chronotype: "Muộn (Owl) - Ngủ 12-1h, dậy 8-9h"
-          sleepIssues: '["Khó ngủ (Onset insomnia)", "Thức giấc mệt mỏi (Non-restorative)"]'
-          environment: "Phòng không t rèm che nắng hoàn toàn, có tiếng ồn xe cộ, nhiệt độ ~26°C, gối cũ"
-          substances: "Caffe 2 ly/ngày (cuối cùng 4h chiều), Rượu bia cuối tuần 2-3 ly"
+          currentSleep: "1 giờ sáng - 7 giờ sáng (6 tiếng)"
+          chronotype: "Cú đêm (thường ngủ muộn 00:00-01:00, dậy 08:00-09:00)"
+          sleepIssues:
+            - "Khó đi vào giấc ngủ"
+            - "Thức dậy vẫn thấy mệt mỏi"
+          environment: "Phòng chưa có rèm cản sáng hoàn toàn, có tiếng xe cộ ngoài đường, nhiệt độ khoảng 26°C, gối hơi cũ"
+          substances: "Cà phê 2 ly/ngày (ly cuối lúc 4 giờ chiều), cuối tuần uống 2-3 ly bia"
           stressLevel: 7
         output: |
-          # 😴 Sleep Optimization Protocol: Owl Chronotype, High Stress
+          # 😴 Lộ Trình Cải Thiện Giấc Ngủ (Nhịp cú đêm, căng thẳng 7/10)
 
-          ## 1. Chronotype Schedule (Owl - Muộn)
-          | Metric | Current | Target (Owl) |
-          |--------|---------|--------------|
-          | Sleep Onset | 1:00 AM | **12:00 AM** (shift dần 15p/tuần) |
-          | Wake Time | 7:00 AM | **8:00 AM** |
-          | Sleep Duration | 6h | **8h** (7h30-8h tối thiểu) |
-          | Caffeine Cutoff | 4:00 PM | **2:00 PM** (Half-life 5-6h) |
-          | Alcohol Cutoff | Weekend | **3h trước giường**, max 1 drink |
+          ## 1. Điều chỉnh khung giờ theo nhịp sinh học
+          | Hạng mục | Hiện tại | Mục tiêu đề xuất |
+          |---|---|---|
+          | Giờ đi ngủ | 01:00 sáng | **00:00 đêm** (kéo sớm dần 15 phút mỗi tuần để cơ thể quen) |
+          | Giờ thức dậy | 07:00 sáng | **07:30 - 08:00 sáng** (cố định kể cả cuối tuần) |
+          | Tổng thời gian ngủ | 6 tiếng | **7,5 - 8 tiếng** |
+          | Giờ dừng uống cà phê | 16:00 chiều | **Trước 14:00 chiều** (cà phê tồn tại trong cơ thể 5-6 giờ) |
+          | Rượu bia (nếu có) | Cuối tuần | **Dừng ít nhất 3 tiếng trước khi ngủ**, tối đa 1 đơn vị vì rượu làm giấc ngủ nông và dễ tỉnh giữa đêm |
 
-          ## 2. Evening Wind-down (90-120p trước 12h = 10:00-10:30 PM)
-          | Time | Activity | Purpose |
-          |------|----------|---------|
-          | 10:00 PM | **Digital Sunset**: Tắt laptop/điện thoại, bật Night Shift/Red filter | Giảm Blue light → Melatonin |
-          | 10:15 PM | Dim lights (Red/Amber bulb only), nhiệt độ 19-20°C | Signal circadian |
-          | 10:30 PM | **Wind-down activities** (chọn 2): Đọc sách vật lý / Stretch nhẹ / Meditation 10p / Journal / Nghe podcast nhẹ | Giảm cortisol, activate parasympathetic |
-          | 11:15 PM | Supplement stack (nếu dùng) | Hỗ trợ ngủ |
-          | 11:30 PM | Vệ sinh cá nhân, vào giường | Sleep association |
-          | 11:45 PM | **Non-sleep deep rest (NSDR) / Yoga Nidra 10-20p** nếu chưa buồn ngủ | Giảm arousal |
+          ## 2. Thói quen thư giãn buổi tối (Bắt đầu từ 22:30)
+          | Khung giờ | Việc nên làm | Tác dụng |
+          |---|---|---|
+          | 22:30 | **Giờ tắt màn hình:** Bỏ điện thoại, máy tính sang chế độ lọc ánh sáng vàng hoặc cất ra ngoài tầm tay | Giúp cơ thể tiết hóc-môn buồn ngủ tự nhiên |
+          | 22:45 | Chuyển sang đèn ngủ ánh sáng vàng dịu, hạ nhiệt độ phòng mát mẻ dễ chịu | Báo hiệu cho não bộ sắp đến giờ nghỉ ngơi |
+          | 23:00 | **Chọn 1-2 việc thư giãn nhẹ:** Đọc sách giấy, giãn cơ cổ vai 5 phút, viết 3 dòng xả bớt suy nghĩ hoặc nghe nhạc không lời êm dịu | Hạ nhịp tim, xoa dịu căng thẳng sau ngày làm việc |
+          | 23:30 | Vệ sinh cá nhân, uống vài ngụm nước ấm hoặc trà thảo mộc không caffeine, lên giường | Tạo phản xạ quen thuộc hễ lên giường là nghỉ ngơi |
+          | 23:45 | Nếu đầu óc còn tỉnh, mở bài hướng dẫn thư giãn sâu (quét cơ thể từ đầu đến chân trong 10 phút) | Giúp hệ thần kinh dịu xuống tự nhiên |
 
-          ## 3. Environment Fixes (Ưu tiên cao)
-          - ✅ **Rèm che nắng 100% (Blackout)** - Quan trọng nhất cho Owl
-          - ✅ **Nhiệt độ 19-20°C** (Máy lạnh/quạt + chăn mỏng)
-          - ✅ **White noise** (App: Rainy Mood, máy white noise) - Che tiếng xe cộ
-          - ✅ **Gối đệm phù hợp** (Memory foam/latex, độ cứng medium)
+          ## 3. Tối ưu phòng ngủ (Ưu tiên làm trước)
+          - ✅ **Lắp rèm cản sáng dày:** Che bớt ánh đèn đường ban đêm và ánh nắng gắt sáng sớm.
+          - ✅ **Giữ phòng mát mẻ khoảng 24-26°C** (hoặc 20-22°C nếu đắp chăn vừa phải, kết hợp quạt gió thoảng nhẹ).
+          - ✅ **Giảm tiếng ồn xe cộ:** Mở âm thanh trắng dịu nhẹ (tiếng mưa rơi, tiếng quạt đều) ở mức nhỏ hoặc dùng nút tai mềm.
+          - ✅ **Kiểm tra lại gối ngủ:** Nếu gối đã xẹp làm mỏi cổ vai khi dậy, nên thay gối có độ cao vừa phải nâng đỡ đúng đường cong cổ.
 
-          ## 4. Morning Anchor (8:00 AM)
-          1. **Ánh sáng mặt trời 10-15p** (Cửa sổ/ban công) - Reset circadian
-          2. **500ml nước lọc + muối Himalaya/Chanh** - Hydration sau 8h
-          3. **Nhẹ nhàng movement** (Stretch 5p / Đi bộ 10p) - Cortisol awakening response
+          ## 4. Khởi động buổi sáng để tối dễ ngủ lại
+          1. **Đón ánh sáng tự nhiên 10-15 phút** ngay sau khi thức dậy (mở cửa sổ hoặc ra ban công) để đồng hồ sinh học đặt lại chuẩn xác.
+          2. **Uống 1 ly nước lọc ấm (300-400 ml)** để bù nước sau một đêm dài.
+          3. **Vận động nhẹ 5-10 phút** (vươn vai, đi bộ quanh nhà) giúp tỉnh táo nhanh mà không cần phụ thuộc ly cà phê thứ hai quá muộn.
 
-          ## 5. Supplement Stack (Evidence-based, Thử 2 tuần/loại)
-          | Supplement | Dose | Thời điểm | Evidence | Note |
-          |------------|------|-----------|----------|------|
-          | Magnesium Glycinate | 200-400mg | 1h trước ngủ | B (RCTs) | Ít tiêu chảy hơn citrate |
-          | Glycine | 3g | 30p trước ngủ | B | Giảm nhiệt độ cơ thể |
-          | L-Theanine | 200-400mg | 30p trước ngủ | B | Giảm stress, không buồn ngủ ban ngày |
-          | Apigenin (Chamomile extract) | 50mg | 30p trước ngủ | C | An toàn |
-          | Melatonin | 0.5-1mg | 30p trước ngủ | A (Short-term) | Chỉ dùng tạm, không dài hạn |
+          ## 5. Hỗ trợ từ thực phẩm tự nhiên & Lưu ý an toàn
+          - **Ưu tiên thói quen ăn uống lành mạnh:** Tránh ăn quá no hoặc đồ cay nhiều dầu mỡ sát giờ ngủ; bữa tối cân bằng, có thể bổ sung thực phẩm giàu magiê (hạt bí, hạnh nhân, chuối, rau lá xanh đậm) hoặc dùng 1 tách nhỏ trà hoa cúc / trà tâm sen ấm trước khi ngủ 1 giờ nếu hợp cơ địa.
+          - **Thận trọng với viên uống bổ sung & melatonin:** Không tự ý mua melatonin hay viên uống liều cao dùng kéo dài. Nếu muốn dùng thực phẩm hỗ trợ giấc ngủ, hãy trao đổi trước với bác sĩ hoặc dược sĩ, đặc biệt nếu bạn đang có bệnh nền hoặc dùng thuốc khác.
+          - **Khi nào cần đi khám:** Nếu tình trạng khó ngủ hoặc kiệt sức kéo dài hơn 3 tuần làm ảnh hưởng rõ rệt đến công việc và tinh thần, bạn nên gặp bác sĩ chuyên khoa để được đánh giá và tư vấn liệu pháp nhận thức - hành vi cho chứng mất ngủ.
 
-          ## 6. Tracking (4 tuần)
-          - **HRV Morning** (App: Elite HRV, Welltory) - Baseline sau 7 ngày
-          - **Sleep Stages** (Oura/Whoop/Apple Watch) - Deep sleep > 1.5h, REM > 1.5h
-          - **Sleep Diary** (Giấy/App): Giờ ngủ/dậy, chất lượng 1-10, caffeine/alcohol, stress
+          ## 6. Theo dõi đơn giản trong 4 tuần
+          - **Nhật ký giấc ngủ (2 phút mỗi sáng):** Ghi lại giờ lên giường, giờ dậy, cảm giác tỉnh táo (1-10) và xem hôm trước uống cà phê mấy giờ.
+          - **Chỉ số đồng hồ thông minh (nếu có):** Có thể tham khảo xu hướng giấc ngủ sâu hoặc chỉ số biến thiên nhịp tim (HRV) buổi sáng qua từng tuần để xem thói quen mới có hiệu quả không, tránh quá ám ảnh con số từng đêm.
 
-          ## 7. Troubleshooting
-          | Vấn đề | Giải pháp ngay |
-          |--------|----------------|
-          | Thức 3h sáng, không ngủ lại | Không nhìn đồng hồ → NSDR 20p → Nếu >20p vẫn không ngủ → Ra khỏi giường, đọc sách đèn mờ |
-          | Không ngủ được sau 20p | Ra khỏi phòng → Hoạt động nhẹ (đọc, stretch) → Quay lại khi buồn ngủ |
-          | Stress cao (7-8/10) | Thêm: Ashwagandha KSM-66 300mg/ngày (sáng), Therapy/CBT-I |
-        context: "Owl chronotype, high stress, poor environment, caffeine late"
+          ## 7. Cách xử lý tình huống hay gặp
+          | Tình huống | Nên làm gì ngay lúc đó? |
+          |---|---|
+          | **Tỉnh giấc lúc 3 giờ sáng không ngủ lại được** | Đừng nhìn đồng hồ xem mấy giờ; nhắm mắt hít thở chậm đều và thư giãn cơ thể. |
+          | **Nằm trằn trọc quá 20 phút vẫn tỉnh táo** | Rời khỏi giường, ra ghế ngồi dưới ánh đèn vàng rất mờ, đọc vài trang sách nhẹ nhàng rồi quay lại giường khi thấy mí mắt nặng dần. |
+          | **Căng thẳng công việc kéo dài** | Dành 5 phút trước giờ ngủ viết hết việc ngày mai ra giấy để đầu óc yên tâm tạm gác lại. |
+        context: "Người có nhịp ngủ muộn, mức căng thẳng 7/10, phòng còn lọt sáng và uống cà phê muộn"
     difficulty: "intermediate"
     useCases:
-      - "Người bị insomnia, ngủ không ngon"
-      - "Vận động viên tối ưu hồi phục"
-      - "Người làm shift work"
+      - "Người hay khó ngủ, ngủ không sâu giấc muốn tự điều chỉnh thói quen sinh hoạt"
+      - "Người tập luyện thể thao cần tối ưu giấc ngủ để phục hồi cơ bắp"
+      - "Người làm việc căng thẳng hoặc làm ca kíp cần ổn định lại nhịp nghỉ ngơi"
 agentTemplate:
-  name: "Sleep & Recovery Coach"
-  description: "Tối ưu giấc ngủ, circadian rhythm, HRV, stress management, supplement"
+  name: "Chuyên Gia Cải Thiện Giấc Ngủ & Hồi Phục"
+  description: "Tư vấn thói quen ngủ khoa học, sắp xếp giờ nghỉ ngơi theo nhịp sinh học và điều chỉnh không gian phòng ngủ phù hợp cuộc sống tại Việt Nam"
   systemPrompt: |
-    Bạn là Sleep Coach. Evidence-based: Light exposure, Temperature, Consistency, Caffeine timing, Supplement hierarchy. Chronotype-first approach.
+    Bạn là chuyên gia tư vấn cải thiện giấc ngủ và phục hồi sức khỏe bằng phương pháp tự nhiên, dễ áp dụng.
+    Nhiệm vụ: Hướng dẫn điều chỉnh ánh sáng, nhiệt độ phòng phù hợp khí hậu Việt Nam, giờ giấc sinh hoạt đều đặn, thời điểm dừng cà phê và các bài thư giãn buổi tối.
+    Lưu ý an toàn: Không kê đơn thuốc hay liều lượng thực phẩm chức năng điều trị bệnh; luôn nhắc người dùng hỏi ý kiến bác sĩ/dược sĩ trước khi dùng melatonin hoặc viên bổ sung, và khuyên đi khám nếu mất ngủ kéo dài trên 3 tuần.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

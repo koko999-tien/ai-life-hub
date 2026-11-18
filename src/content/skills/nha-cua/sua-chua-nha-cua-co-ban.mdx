@@ -2,130 +2,130 @@
 id: sua-chua-nha-cua-co-ban
 categoryId: nha-cua
 name: "Sửa chữa & Bảo trì nhà cửa cơ bản"
-description: "DIY cơ bản: Điện, Nước, Sơn, Kiểm tra định kỳ, Khi nào gọi chuyên gia, Toolkit thiết yếu"
+description: "Hướng dẫn tự sửa chữa điện nước cơ bản tại nhà, bộ dụng cụ cần có, lịch bảo trì định kỳ và dấu hiệu cần gọi thợ chuyên nghiệp"
 whenToUse:
-  - "Chai nước rò rỉ, Đèn chớp, Ống thoát tắc"
-  - "Muốn tự sửa các việc nhỏ, tiết kiệm chi phí"
-  - "Bảo trì định kỳ nhà cửa (6 tháng/năm)"
+  - "Vòi nước rò rỉ, bóng đèn nhấp nháy hoặc ống thoát nước bị tắc"
+  - "Muốn tự sửa các việc nhỏ trong nhà để tiết kiệm chi phí"
+  - "Kiểm tra và bảo trì nhà cửa định kỳ mỗi 6 tháng"
 difficulty: "beginner"
-estimatedTime: "Sửa vụn 15-60p, Bảo trì 2-4h/6 tháng"
+estimatedTime: "Việc nhỏ 15-60 phút, bảo trì định kỳ 2-4 giờ mỗi 6 tháng"
 tags: ["diy", "home-repair", "maintenance", "plumbing", "electrical", "toolkit", "handyman"]
 prompts:
   - id: prompt-diy-home-repair
-    name: "Hướng dẫn sửa chữa nhà cửa cơ bản (DIY)"
-    description: "Xử lý các sự cố thường gặp: Rò rỉ nước, Điện, Tắc nghẽn, Sơn tường, Kết mồ hôi"
+    name: "Hướng dẫn tự sửa chữa nhà cửa cơ bản"
+    description: "Xử lý các sự cố thường gặp như rò rỉ nước, lỗi điện đơn giản, tắc cống, bong tróc sơn và tường đọng hơi nước"
     template: |
-      Bạn là Handyman Expert. Hãy hướng dẫn sửa chữa:
+      Bạn là chuyên gia hướng dẫn sửa chữa và bảo trì nhà cửa an toàn. Hãy hướng dẫn cách xử lý cho:
 
-      **Vấn đề:**
+      **Vấn đề đang gặp:**
       {{problem}}
 
-      **Triệu chứng:**
+      **Triệu chứng chi tiết:**
       {{symptoms}}
 
-      **Loại nhà/Thiết bị:**
+      **Loại nhà và thiết bị liên quan:**
       {{propertyDetails}}
 
-      **Output:**
-      1. **Chẩn đoán**: Nguyên nhân có thể (Top 3)
-      2. **An toàn trước**: Điện/Nước/Gas - Tắt nguồn trước khi làm
-      3. **Công cụ cần**: Toolkit cơ bản + chuyên dụng
-      4. **Các bước sửa chữa** (Step-by-step, có hình ảnh mô tả)
-      5. **Kiểm tra sau sửa**: Test hoạt động, Signs of success
-      6. **Khi nào GỌI CHUYÊN GIA**: Red flags (Điện nóng, Nước chảy mạnh, Cấu trúc, Gas)
-      7. **Phòng ngừa**: Maintenance schedule cho vấn đề này
+      **Hãy hướng dẫn chi tiết theo các phần sau:**
+      1. **Chẩn đoán nguyên nhân**: Liệt kê 3 nguyên nhân phổ biến nhất
+      2. **An toàn trước khi làm**: Cách ngắt cầu dao điện, khóa van nước hoặc khóa bình gas trước khi thao tác
+      3. **Dụng cụ cần chuẩn bị**: Đồ dùng cơ bản trong nhà và dụng cụ chuyên dụng nếu cần
+      4. **Các bước thực hiện**: Hướng dẫn từng bước rõ ràng, dễ làm theo
+      5. **Kiểm tra sau khi sửa**: Cách thử lại để chắc chắn sự cố đã xử lý triệt để
+      6. **Khi nào cần gọi thợ ngay**: Các dấu hiệu nguy hiểm không nên tự làm (dây điện nóng chảy, rò rỉ gas, thấm dột kết cấu tường, nước rò mạnh)
+      7. **Cách phòng ngừa**: Thói quen bảo trì định kỳ để tránh lặp lại
 
-      **Toolkit thiết yếu (Mua 1 lần dùng lâu năm):**
-      - Cờ lê (Phillips, Flathead, Precision)
-      - Kìm (Cộp, Kìm cắt dây, Kìm vặn ống)
-      - Chìa khóa (Allen hex, Cờ lê ốc vít, Khoan tay)
-      - Dây keo (Duct tape, Teflon tape, Electrical tape)
-      - Kéo cắt, Búa nhẹ, Cây đinh, Mực chơi
-      - Đèn pin đầu, Đa năng (Multimeter - cho điện)
+      **Bộ dụng cụ cơ bản nên có sẵn trong nhà:**
+      - Bộ tua-vít (đầu 4 cạnh, đầu dẹt và tua-vít nhỏ sửa đồ điện)
+      - Kìm (kìm điện, kìm cắt dây, kìm mỏ quạ vặn ống nước)
+      - Bộ lục giác, cờ lê hoặc mỏ lết đa năng, máy khoan cầm tay
+      - Băng keo (băng keo vải chịu lực, băng tan quấn ren ống nước, băng keo cách điện)
+      - Kéo cắt, búa đóng đinh, hộp đinh vít và tắc kê, thước dây
+      - Đèn pin đội đầu, bút thử điện (hoặc đồng hồ đo điện vạn năng)
     variables:
       - name: problem
         type: text
-        label: "Vấn đề chính (Ví dụ: Chai nước rò rỉ, Đèn không sáng, Bồn cầu tắc)"
+        label: "Vấn đề chính (Ví dụ: Vòi nước rò rỉ, đèn không sáng, bồn cầu tắc)"
         required: true
       - name: symptoms
         type: textarea
-        label: "Triệu chứng chi tiết (Khi nào xảy ra, Ở đâu, Có tiếng/khói/mùi gì không)"
+        label: "Triệu chứng chi tiết (xảy ra khi nào, ở đâu, có tiếng kêu, khói hoặc mùi lạ không)"
         required: true
       - name: propertyDetails
         type: textarea
-        label: "Loại nhà, Tuổi nhà, Hệ thống điện/nước (Cũ/Mới), Thiết bị liên quan"
+        label: "Loại nhà, tuổi nhà, hệ thống điện nước (cũ hay mới) và thiết bị liên quan"
         required: true
     examples:
       - inputs:
-          problem: "Bồn cầu tắc (Không xả được nước, Nước dâng lên)"
-          symptoms: "Sau khi xả, nước dâng lên gần mép, chậm xóa, có tiếng gùgù. Không có vật thể rơi vào."
-          propertyDetails: "Căn hộ 10 năm, Hệ thống nước PVC, Bồn cầu siphon, Không có bơm hút"
+          problem: "Bồn cầu bị tắc (không xả được nước, nước dâng lên)"
+          symptoms: "Sau khi xả, nước dâng lên gần mép, thoát rất chậm và có tiếng ục ục. Không có vật cứng rơi vào."
+          propertyDetails: "Căn hộ chung cư 10 năm, đường ống nhựa PVC, bồn cầu xả thẳng không có bơm hút"
         output: |
-          # 🔧 Sửa Bồn Cầu Tắc (DIY)
+          # 🔧 Xử Lý Bồn Cầu Bị Tắc An Toàn Tại Nhà
 
-          ## 1. Chẩn đoán (Top 3 nguyên nhân)
-          1. **Tắc ở~Siphon (Còng nước)** - Tóc, Giấy, Chất béo 쌓積
-          2. **Tắc ở ống thoát chính** - Xây dựng bẩn, Rễ cây (nhà thấp tầng)
-          3. **Hệ thống thoát khí (Vent pipe) tắc** - Khí không thoát, hút ngược
+          ## 1. Chẩn Đoán (3 Nguyên Nhân Thường Gặp)
+          1. **Tắc ở đoạn ống cong chữ U dưới bồn cầu**: Do giấy dày, tóc rụng hoặc cặn bẩn tích tụ lâu ngày.
+          2. **Tắc ở đường ống thoát chung**: Do cặn xà phòng, dầu mỡ hoặc rác sinh hoạt bám thành ống.
+          3. **Ống thông hơi bị nghẹt**: Không khí không thoát được nên nước bị hút ngược và phát tiếng ục ục.
 
-          ## 2. An toàn
-          - Đeo găng tay y tế, Kính bảo hộ
-          - Mở cửa sổ thông gió (Mùi khí metan)
-          - **Không** dùng chất tẩy mạnh (Sulfuric acid) - Hủy ống PVC, Nguy hiểm da/mắt
+          ## 2. An Toàn Trước Khi Xử Lý
+          - Đeo găng tay cao su dài và khẩu trang.
+          - Mở cửa sổ hoặc bật quạt hút mùi cho phòng tắm thông thoáng.
+          - **Không đổ** axit mạnh hay hóa chất thông cống quá gắt vì dễ làm hỏng men sứ, biến dạng ống nhựa và gây bỏng da, cay mắt.
 
-          ## 3. Công cụ
-          - Xà bông bồn cầu (Flange plunger - có lưng nách)
-          - Dây thông ống (Drain snake / Auger 3-5m)
-          - Xô, Găng tay, Khăn lau, Giấm + Baking soda
+          ## 3. Dụng Cụ Cần Chuẩn Bị
+          - Cây thụt bồn cầu bằng cao su (loại đầu phễu tạo lực hút kín)
+          - Dây lò xo thông tắc đường ống (dài 3-5 m)
+          - Xô nước, găng tay, khăn lau cũ, giấm ăn và muối nở (baking soda)
 
-          ## 4. Các bước sửa chữa
+          ## 4. Các Bước Xử Lý Từng Bước
 
-          ### Bước 1: Xà bông (90% cases fixed)
-          1. Nước trong bồn phải ngập đầu xà bông
-          2. Đặt xà bông kín miệng xả, Ép xuống nhẹ → Hút lên mạnh (Tạo áp suất âm)
-          3. Lặp 10-15 lần, Kiểm tra xả nước
-          4. Nếu xong → Xả vài lần nước nóng (50-60°C) rửa sạch
+          ### Bước 1: Dùng cây thụt cao su (hiệu quả với phần lớn trường hợp tắc nhẹ)
+          1. Đảm bảo mực nước trong bồn ngập qua phần đầu cao su của cây thụt.
+          2. Đặt đầu thụt áp sát kín miệng thoát nước, ấn xuống nhẹ để đẩy hết không khí ra rồi kéo giật lên dứt khoát (tạo lực hút).
+          3. Lặp lại nhịp nhàng 10-15 lần rồi xả thử nước.
+          4. Nếu nước rút thông thoáng, xả thêm 2-3 lần nước ấm (khoảng 50-60°C) để rửa sạch cặn bám.
 
-          ### Bước 2: Giấm + Baking Soda (Dinh dưỡng ống)
-          1. Rót 1 cốc Baking soda vào miệng xả
-          2. Rót 1 cốc Giấm ăn (Sủi bọt bọt)
-          3. Đậy nắp, Đợi 30p-1h
-          4. Rót 2-3 lít nước sôi (Không quá 80°C tránh méo ống PVC)
-          5. Xả nước kiểm tra
+          ### Bước 2: Dùng muối nở và giấm (làm sạch nhẹ nhàng đường ống)
+          1. Đổ khoảng 1 cốc muối nở (baking soda) vào miệng thoát của bồn cầu.
+          2. Rót tiếp 1 cốc giấm ăn vào để hỗn hợp sủi bọt giúp làm mềm cặn bám.
+          3. Đậy nắp bồn cầu, chờ khoảng 30-60 phút.
+          4. Rót từ từ 2-3 lít nước ấm nóng khoảng 60-70°C (tránh dùng nước sôi 100°C làm biến dạng ống nhựa hoặc nứt men sứ).
+          5. Xả nước kiểm tra lại.
 
-          ### Bước 3: Dây thông ống (Snake/Auger) - Nếu bước 1,2 thất bại
-          1. Tháo nắp miệng xả (Nếu có) hoặc tháo bồn cầu (phức tạp hơn)
-          2. Đẩy dây vào ống, Xoay tay cầm theo chiều kim đồng hồ
-          6. Khi cảm chướng ngại vật → Xoay nhẹ, Kéo ra
-          7. Xả nước kiểm tra
+          ### Bước 3: Dùng dây lò xo thông tắc (nếu bước 1 và 2 chưa thông)
+          1. Đưa đầu dây lò xo vào sâu trong miệng thoát nước của bồn cầu.
+          2. Vừa đẩy nhẹ dây vào sâu vừa xoay tay cầm theo chiều kim đồng hồ để đầu lò xo đi qua đoạn ống cong.
+          3. Khi thấy vướng vật cản, xoay nhẹ để móc hoặc đánh tan mảng bám rồi từ từ kéo dây ra ngoài.
+          4. Xả nước kiểm tra độ thông thoát.
 
-          ## 5. Kiểm tra sau sửa
-          - Xả 3-4 lần liên tiếp → Nước xoáy nhanh, Không tiếng gùgù
-          - Rót xô nước vào → Xóa ngay lập tức
-          - Kiểm tra xung quanh gốc bồn → Không rò rỉ
+          ## 5. Kiểm Tra Sau Khi Sửa
+          - Xả nước 3-4 lần liên tiếp: nước xoáy mạnh và rút nhanh ngay lập tức, không còn tiếng ục ục.
+          - Rót thêm một xô nước đầy vào bồn cầu: nước rút gọn, không dâng ứ.
+          - Lau khô và quan sát quanh chân bồn cầu xem có rỉ nước ra sàn không.
 
-          ## 6. Khi nào GỌI CHUYÊN GIA (Red Flags)
-          - ❌ Xà bông + Snake thất bại sau 30p
-          - ❌ Nhiều thiết bị tắc cùng lúc (Bồn rửa, Bồn tắm, Bồn cầu) → Tắc ống chính
-          - ❌ Nước thải tràn ngược từ miệng xả khác
-          - ❌ Mùi hôi khó chịu lan tỏa (Hệ thống Septic tank đầy)
-          - ❌ Nhà cũ, Ống gang/xương → Dễ gãy khi snake
+          ## 6. Khi Nào Cần Gọi Thợ Ngay
+          - ❌ Đã dùng cây thụt và dây lò xo hơn 30 phút nhưng nước vẫn không rút.
+          - ❌ Nhiều chỗ trong nhà cùng bị tắc một lúc (chậu rửa mặt, phễu thoát sàn, bồn cầu) — dấu hiệu nghẹt đường ống trục chính.
+          - ❌ Nước thải từ bồn cầu trào ngược lên miệng thoát sàn nhà tắm.
+          - ❌ Có mùi hôi nặng kéo dài bất thường (dấu hiệu bể phốt/hầm cầu đã đầy).
+          - ❌ Nhà xây lâu năm dùng ống gang hoặc ống sành cũ giòn, dễ nứt vỡ nếu dùng lực mạnh.
 
-          ## 7. Phòng ngừa (Maintenance)
-          - **Hàng tuần**: Rót 1 lít nước nóng (50-60°C) vào miệng xả
-          - **Hàng tháng**: 1/2 cốc Baking soda + 1/2 cốc Giấm → 30p → Nước nóng
-          - **6 tháng**: Kiểm tra nắp hụi bụi (Cleanout) nếu có
-          - **Không xả**: Giấy vệ sinh dày, Bông tăm, Tơ tóc, Chất béo nấu ăn, Chất tẩy mạnh
-        context: "Bồn cầu tắc phổ biến, DIY an toàn, tiết kiệm 300-500k gọi thợ"
+          ## 7. Cách Phòng Ngừa Lâu Dài
+          - **Mỗi tuần**: Đổ khoảng 1 lít nước ấm 50-60°C xuống bồn cầu để hạn chế đóng cặn.
+          - **Mỗi tháng**: Dùng nửa cốc muối nở và nửa cốc giấm ngâm 30 phút rồi dội nước ấm.
+          - **Mỗi 6 tháng**: Kiểm tra và vệ sinh nắp cửa kiểm tra đường ống hoặc hố ga (nếu nhà riêng có bố trí).
+          - **Tuyệt đối không bỏ vào bồn cầu**: Giấy vệ sinh quá dày, khăn ướt, bông tăm, tóc rụng, dầu mỡ thừa sau nấu ăn.
+        context: "Bồn cầu bị tắc thường gặp, tự xử lý an toàn tại nhà, tiết kiệm 300.000-500.000đ tiền gọi thợ"
     difficulty: "easy"
     useCases:
-      - "Sự cố nhà cửa thường gặp"
-      - "Tiết kiệm chi phí gọi thợ"
+      - "Xử lý các sự cố điện nước nhỏ thường gặp trong nhà"
+      - "Tiết kiệm chi phí gọi thợ và chủ động bảo trì nhà cửa an toàn"
 agentTemplate:
-  name: "DIY Handyman Coach"
-  description: "Sửa chữa điện/nước cơ bản, Toolkit, Maintenance schedule, Khi nào gọi pro"
+  name: "Trợ Lý Tự Sửa Chữa Nhà Cửa"
+  description: "Hướng dẫn sửa chữa điện nước cơ bản, chuẩn bị bộ dụng cụ, lịch bảo trì định kỳ và nhận biết khi nào cần gọi thợ"
   systemPrompt: |
-    Bạn là Handyman Coach. Safety first: Turn off power/water/gas. Know your limits. Call pro for: Gas, Structural, Main electrical panel, High voltage, Permit-required.
+    Bạn là trợ lý hướng dẫn sửa chữa nhà cửa an toàn. Nguyên tắc hàng đầu: luôn nhắc người dùng ngắt cầu dao điện, khóa van nước hoặc khóa bình gas trước khi thao tác. Chỉ hướng dẫn những việc nhỏ trong khả năng tự làm tại nhà; yêu cầu gọi thợ chuyên nghiệp ngay khi sự cố liên quan đến rò rỉ gas, kết cấu chịu lực, tủ điện tổng hoặc điện áp cao.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:

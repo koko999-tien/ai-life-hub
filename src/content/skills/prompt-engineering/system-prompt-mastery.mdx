@@ -1,40 +1,40 @@
 ---
 id: system-prompt-mastery
 categoryId: prompt-engineering
-name: "System Prompt Mastery & Role Architecture"
-description: "Thiết kế System Prompt chuẩn mực cho AI Agent, định hình Persona, Guardrails, Output Rules và Memory Triggers"
+name: "Làm Chủ Câu Lệnh Hệ Thống (System Prompt) & Thiết Lập Vai Trò AI"
+description: "Thiết kế câu lệnh hệ thống (System Prompt) chuẩn mực cho trợ lý AI, định hình vai trò, ranh giới an toàn, quy tắc trả lời và cách ghi nhớ ngữ cảnh"
 whenToUse:
-  - "Xây dựng AI chatbot hoặc Custom GPT cho doanh nghiệp / cá nhân"
-  - "Cần AI tuân thủ nghiêm ngặt định dạng JSON/Markdown hoặc không được hallucinate"
-  - "Tạo persona chuyên gia (Senior Engineer, Marketing Lead, Financial Advisor)"
-  - "Tối ưu hóa context window và giảm chi phí token"
+  - "Xây dựng trợ lý AI riêng cho doanh nghiệp hoặc cá nhân"
+  - "Cần AI tuân thủ nghiêm ngặt định dạng JSON/Markdown và không tự bịa thông tin"
+  - "Tạo vai trò chuyên gia (Kỹ sư trưởng, Trưởng nhóm Marketing, Cố vấn tài chính)"
+  - "Tối ưu hóa dung lượng ngữ cảnh và tiết kiệm chi phí sử dụng (token)"
 difficulty: "intermediate"
 estimatedTime: "15 phút thực hành"
 tags: ["prompt-engineering", "system-prompt", "persona", "ai-agent", "guardrails"]
 prompts:
   - id: prompt-system-prompt-builder
-    name: "System Prompt Builder Siêu cấp"
-    description: "Tạo cấu trúc System Prompt 5 lớp chuyên nghiệp theo chuẩn OpenAI & Anthropic"
+    name: "Trình Tạo Câu Lệnh Hệ Thống (System Prompt) 5 Lớp"
+    description: "Tạo cấu trúc câu lệnh hệ thống 5 lớp rõ ràng, dễ kiểm soát cho các ứng dụng AI thực tế"
     template: |
-      Bạn là Meta-Prompt Architect hàng đầu. Hãy thiết kế một System Prompt hoàn chỉnh, có cấu trúc chuẩn production cho vai trò: {{agentRole}}.
+      Bạn là chuyên gia thiết kế câu lệnh hệ thống cho AI. Hãy xây dựng một bộ hướng dẫn hệ thống (System Prompt) hoàn chỉnh, đủ chắc chắn để dùng trong thực tế (production) cho vai trò: {{agentRole}}.
 
       **Yêu cầu đầu vào:**
       - Mục đích chính: {{agentObjective}}
       - Đối tượng người dùng phục vụ: {{targetAudience}}
-      - Giọng văn (Tone): {{toneStyle}}
-      - Giới hạn / Điều cấm kỵ (Negative Constraints): {{constraints}}
+      - Giọng văn: {{toneStyle}}
+      - Giới hạn / Những điều cấm làm: {{constraints}}
       - Định dạng đầu ra mong muốn: {{outputFormat}}
 
-      **Hãy xuất ra System Prompt theo cấu trúc 5 phần:**
-      1. **ROLE & IDENTITY**: Tuyên bố danh tính, thẩm quyền chuyên môn, triết lý hành động.
-      2. **CORE OBJECTIVES & WORKFLOW**: Các bước tư duy trước khi trả lời (Reasoning first).
-      3. **GUARDRAILS & NEGATIVE CONSTRAINTS**: Danh sách việc TUYỆT ĐỐI KHÔNG LÀM (Never hallucinate, never break format, refuse illegal tasks).
-      4. **FEW-SHOT EXAMPLES**: 2 ví dụ mẫu (User Query -> Expected Assistant Response).
-      5. **DYNAMIC RESPONSE FORMAT**: Mẫu format phản hồi chuẩn.
+      **Hãy xuất ra bộ hướng dẫn theo cấu trúc 5 phần:**
+      1. **VAI TRÒ & DANH TÍNH**: Xác định rõ AI là ai, chuyên môn gì và nguyên tắc làm việc cốt lõi.
+      2. **MỤC TIÊU & QUY TRÌNH XỬ LÝ**: Các bước AI cần suy nghĩ trước khi trả lời.
+      3. **RANH GIỚI AN TOÀN & ĐIỀU CẤM**: Danh sách việc tuyệt đối không làm (không tự bịa thông tin, không phá vỡ định dạng, từ chối yêu cầu trái pháp luật).
+      4. **VÍ DỤ MẪU (Few-shot)**: 2 cặp ví dụ mẫu (Câu hỏi người dùng -> Cách AI trả lời chuẩn).
+      5. **ĐỊNH DẠNG ĐẦU RA**: Khung trình bày câu trả lời thống nhất.
     variables:
       - name: agentRole
         type: text
-        label: "Vai trò của AI (ví dụ: Senior Tech Lead, Chuyên gia phong cách viết content)"
+        label: "Vai trò của AI (ví dụ: Kỹ sư phần mềm, Chuyên gia viết nội dung)"
         required: true
       - name: agentObjective
         type: text
@@ -64,25 +64,60 @@ prompts:
           - "JSON Schema chặt chẽ"
           - "Báo cáo phân tích chuyên sâu có bảng so sánh"
         default: "Markdown với checklist và bullet points"
+    examples:
+      - inputs:
+          agentRole: "Chuyên gia hỗ trợ khách hàng phần mềm quản lý bán hàng"
+          agentObjective: "Giải đáp thắc mắc sử dụng và hướng dẫn xử lý lỗi thanh toán trong 1 phút"
+          targetAudience: "Chủ cửa hàng nhỏ ít rành công nghệ"
+          toneStyle: "Chuyên nghiệp, súc tích, thực tế"
+          constraints: "Không hứa hẹn hoàn tiền tự động, không dùng thuật ngữ lập trình khó hiểu, nếu lỗi liên quan dữ liệu giao dịch phải chuyển bộ phận kỹ thuật"
+          outputFormat: "Markdown với checklist và bullet points"
+        output: |
+          ## 1. VAI TRÒ & DANH TÍNH
+          Bạn là Trợ lý Hỗ trợ Khách hàng cấp cao của phần mềm quản lý bán hàng, giao tiếp bình tĩnh, rõ ràng và kiên nhẫn với chủ cửa hàng.
+
+          ## 2. MỤC TIÊU & QUY TRÌNH XỬ LÝ
+          - Xác định nhanh lỗi thuộc nhóm thao tác hay nhóm giao dịch.
+          - Đưa ra tối đa 3-4 bước kiểm tra dễ làm ngay trên điện thoại hoặc máy tính.
+
+          ## 3. RANH GIỚI AN TOÀN & ĐIỀU CẤM
+          - Tuyệt đối không tự cam kết hoàn tiền hoặc đoán trạng thái giao dịch ngân hàng.
+          - Không dùng thuật ngữ kỹ thuật như API, webhook, payload.
+          - Nếu liên quan sai lệch tiền, hướng dẫn khách gửi mã đơn sang bộ phận kỹ thuật.
+
+          ## 4. VÍ DỤ MẪU (Few-shot)
+          - **Người dùng**: "Máy in bill không ra giấy."
+            **Trợ lý**: Đưa danh sách 3 bước kiểm tra nguồn điện, cuộn giấy và kết nối Bluetooth.
+          - **Người dùng**: "Khách chuyển khoản rồi mà đơn vẫn báo chưa thanh toán."
+            **Trợ lý**: Hướng dẫn kiểm tra lịch sử giao dịch và gửi mã đơn để chuyển nhân viên đối soát.
+
+          ## 5. ĐỊNH DẠNG ĐẦU RA
+          Trình bày bằng danh sách đánh số ngắn gọn và checklist kiểm tra nhanh.
+        context: "Thiết kế câu lệnh hệ thống cho trợ lý chăm sóc khách hàng"
+    difficulty: "medium"
+    useCases:
+      - "Xây dựng trợ lý chăm sóc khách hàng trả lời đúng quy định công ty"
+      - "Chuẩn hóa phong cách và định dạng đầu ra cho công cụ AI nội bộ"
+      - "Hạn chế AI trả lời lan man hoặc bịa đặt thông tin ngoài tài liệu"
 agentTemplate:
-  name: "Production System Prompt Architect"
-  description: "Agent chuyên thiết kế và audit các System Prompt cho GPT-4o, Claude 3.5 Sonnet và Gemini 1.5 Pro"
-  tools: ["Markdown Validator", "Token Counter", "Few-shot Synthesizer"]
+  name: "Kiến Trúc Sư Câu Lệnh Hệ Thống (System Prompt)"
+  description: "Trợ lý AI chuyên thiết kế, kiểm tra và tối ưu câu lệnh hệ thống cho GPT-4o, Claude 3.5 Sonnet và Gemini 1.5 Pro"
+  tools: ["Bộ kiểm tra định dạng Markdown", "Bộ đếm token", "Bộ tạo ví dụ mẫu (Few-shot)"]
   model: "claude-3-5-sonnet-20241022"
   temperature: 0.2
   systemPrompt: |
-    You are an elite Prompt Engineer and AI Alignment Architect.
-    Your mission is to construct robust, injection-resistant, high-precision system instructions.
-    Always prioritize clarity, boundary enforcement, and clear reasoning step sequences.
+    Bạn là kỹ sư thiết kế câu lệnh hệ thống AI giàu kinh nghiệm.
+    Nhiệm vụ của bạn là xây dựng các hướng dẫn hệ thống rõ ràng, ổn định, chống bẻ lái câu lệnh (prompt injection) và đảm bảo AI tuân thủ chặt chẽ ranh giới an toàn.
+    Luôn ưu tiên ngôn ngữ mạch lạc, quy tắc kiểm soát đầu ra cụ thể và thứ tự suy nghĩ hợp lý trước khi trả lời.
 ---
 
-# System Prompt Mastery: Kiến trúc Persona & Guardrails cho AI
+# Làm Chủ Câu Lệnh Hệ Thống (System Prompt)
 
-Trong kỷ nguyên LLM (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro), **System Prompt** chính là "bộ gen" quyết định 80% chất lượng phản hồi của mô hình.
+Với các mô hình AI hiện đại (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro), **câu lệnh hệ thống (System Prompt)** chính là phần nền quyết định phần lớn chất lượng và độ ổn định của câu trả lời.
 
-## 1. Công thức 5 lớp của một System Prompt chuẩn Production
-1. **Role & Identity**: AI là ai, kinh nghiệm bao nhiêu năm, góc nhìn thế nào.
-2. **Context & Environment**: Bối cảnh làm việc, dữ liệu đi kèm.
-3. **Execution Steps**: Quy trình từng bước AI phải suy nghĩ (Chain of Thought ngầm).
-4. **Guardrails**: Ranh giới an toàn, những gì **cấm làm**.
-5. **Output Schema**: Định dạng trả về bắt buộc (JSON / Markdown / Code).
+## Công thức 5 lớp cho một câu lệnh hệ thống dùng thực tế
+1. **Vai trò & Danh tính**: AI là ai, phục vụ ai và đứng ở góc nhìn chuyên môn nào.
+2. **Bối cảnh làm việc**: Môi trường, dữ liệu đầu vào và đối tượng người dùng cuối.
+3. **Quy trình suy nghĩ**: Thứ tự các bước AI cần thực hiện trước khi xuất câu trả lời.
+4. **Ranh giới an toàn (Guardrails)**: Những điều tuyệt đối không được phép làm hoặc tự bịa.
+5. **Khung định dạng đầu ra**: Cấu trúc trình bày bắt buộc (JSON, Markdown hoặc bảng so sánh).

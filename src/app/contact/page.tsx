@@ -1,15 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { 
-  Mail, 
-  MessageSquare, 
-  Github, 
-  Send, 
-  CheckCircle2, 
+import {
+  Mail,
+  MessageSquare,
+  Github,
+  Send,
+  CheckCircle2,
   Sparkles,
   HelpCircle,
-  FileQuestion
 } from 'lucide-react';
 
 export default function ContactPage() {
@@ -22,7 +21,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) return;
-    
+
     // Lưu vào localStorage hoặc log
     try {
       const existing = JSON.parse(localStorage.getItem('ai_life_hub_feedback') || '[]');
@@ -31,7 +30,7 @@ export default function ContactPage() {
         name,
         email,
         message,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       });
       localStorage.setItem('ai_life_hub_feedback', JSON.stringify(existing));
     } catch {}
@@ -40,14 +39,14 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container mx-auto px-section-x py-16 max-w-4xl">
+    <div className="container mx-auto px-section-x pt-24 pb-16 max-w-4xl">
       <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-semibold">
           <MessageSquare className="w-3.5 h-3.5" />
-          <span>Liên hệ & Hỗ trợ</span>
+          <span>Liên hệ &amp; Hỗ trợ</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-display font-bold text-text tracking-tight">
-          Kết nối cùng Ban phát triển
+          Kết nối cùng Đội ngũ AI Life Hub
         </h1>
         <p className="text-text-muted text-base leading-relaxed">
           Bạn có ý tưởng cải tiến, phát hiện lỗi hoặc muốn hợp tác tích hợp công cụ AI mới? Hãy để lại lời nhắn cho chúng tôi.
@@ -82,8 +81,8 @@ export default function ContactPage() {
               >
                 <Github className="w-5 h-5 text-accent shrink-0" />
                 <div>
-                  <strong className="block text-text">GitHub Repository</strong>
-                  <span className="text-xs text-text-muted">Đóng góp code & Issue</span>
+                  <strong className="block text-text">Mã nguồn trên GitHub</strong>
+                  <span className="text-xs text-text-muted">Đóng góp mã nguồn &amp; báo lỗi</span>
                 </div>
               </a>
             </div>
@@ -95,7 +94,7 @@ export default function ContactPage() {
               Thời gian phản hồi
             </h3>
             <p className="text-xs text-text-muted leading-relaxed">
-              Các báo cáo lỗi và phản hồi đóng góp prompt thường được rà soát và phản hồi trong vòng 24 - 48 giờ làm việc.
+              Các báo cáo lỗi và đề xuất câu lệnh mới thường được rà soát và phản hồi trong vòng 24 - 48 giờ làm việc.
             </p>
           </div>
         </div>
@@ -111,6 +110,7 @@ export default function ContactPage() {
                   Ý kiến đóng góp của bạn đã được ghi nhận. Đội ngũ AI Life Hub sẽ xem xét và phản hồi sớm nhất có thể.
                 </p>
                 <button
+                  type="button"
                   onClick={() => {
                     setSubmitted(false);
                     setMessage('');
@@ -123,26 +123,28 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="text-xs font-semibold uppercase text-text block mb-2">
+                  <label htmlFor="contact-topic" className="text-xs font-semibold uppercase text-text block mb-2">
                     Chủ đề phản hồi
                   </label>
                   <select
+                    id="contact-topic"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none"
                   >
                     <option value="feedback">Đóng góp ý kiến cải tiến</option>
-                    <option value="bug">Báo lỗi kỹ thuật (Bug Report)</option>
-                    <option value="prompt">Đề xuất thêm Prompt / Skill mới</option>
-                    <option value="collaboration">Hợp tác phát triển / Tích hợp API</option>
+                    <option value="bug">Báo lỗi hiển thị hoặc chức năng</option>
+                    <option value="prompt">Đề xuất thêm câu lệnh / chủ đề mới</option>
+                    <option value="collaboration">Hợp tác nội dung &amp; tích hợp công cụ mới</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold uppercase text-text block mb-2">
+                  <label htmlFor="contact-name" className="text-xs font-semibold uppercase text-text block mb-2">
                     Họ và tên của bạn
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
                     value={name}
@@ -153,24 +155,26 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold uppercase text-text block mb-2">
+                  <label htmlFor="contact-email" className="text-xs font-semibold uppercase text-text block mb-2">
                     Email liên hệ
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@example.com"
+                    placeholder="tenban@email.com"
                     className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold uppercase text-text block mb-2">
+                  <label htmlFor="contact-message" className="text-xs font-semibold uppercase text-text block mb-2">
                     Nội dung chi tiết
                   </label>
                   <textarea
+                    id="contact-message"
                     required
                     rows={4}
                     value={message}

@@ -2,36 +2,38 @@
 id: ke-hoach-tai-chinh-dai-han
 categoryId: tai-chinh
 name: "Kế hoạch tài chính dài hạn"
-description: "Lộ trình tài chính trọn đời: Hưu trí, bảo hiểm, kế hoạch thừa kế, giáo dục con, mua nhà"
+description: "Xây dựng lộ trình tài chính trọn đời: tính quỹ hưu trí và tự do tài chính, bảo hiểm bảo vệ rủi ro, quỹ học vấn cho con và mua nhà"
 whenToUse:
-  - "Xây dựng kế hoạch tài chính toàn diện 10-30 năm"
-  - "Tính số tiền cần cho hưu trí (FIRE number)"
-  - "Đánh giá bảo hiểm nhân thọ, y tế"
+  - "Muốn lập kế hoạch tài chính dài hạn trong 10-30 năm tới"
+  - "Muốn tính chính xác số tiền cần tích lũy để nghỉ hưu sớm hoặc tự do tài chính"
+  - "Cần cân đối giữa tích lũy hưu trí, bảo hiểm y tế - nhân thọ và mục tiêu lớn"
 difficulty: "advanced"
-estimatedTime: "3-5 giờ setup, review 1 năm/lần"
+estimatedTime: "Lập kế hoạch 3-5 giờ, rà soát lại mỗi năm 1 lần"
 tags: ["financial-planning", "retirement", "fire", "insurance", "estate-planning"]
 prompts:
   - id: prompt-fire-calculator
-    name: "Tính FIRE Number & Lộ trình hưu trí sớm"
-    description: "Tính số tiền cần để hưu trí (FIRE), withdrawal rate, timeline dựa trên chi tiêu & lãi suất thực"
+    name: "Tính quỹ tự do tài chính & Lộ trình nghỉ hưu sớm"
+    description: "Tính số tiền mục tiêu, tỷ lệ rút tiền an toàn hằng năm và số năm tích lũy dựa trên chi tiêu và lãi suất thực sau lạm phát"
     template: |
-      Bạn là FIRE Coach. Hãy tính FIRE number cho tôi:
+      Bạn là chuyên gia lập kế hoạch tài chính cá nhân. Hãy tính lộ trình tự do tài chính phù hợp cho tôi:
 
       **Thông tin hiện tại:**
-      - Tuổi: {{age}}
-      - Chi tiêu hàng năm (mong muốn khi hưu trí): {{annualExpense}}
-      - Tiền đang có (invested): {{currentInvestments}}
-      - Đóng góp hàng năm: {{annualContribution}}
-      - Lãi suất kỳ vọng (real, sau lạm phát): {{expectedRealReturn}}%
-      - Safe Withdrawal Rate: {{swr}}% (mặc định 3.5-4%)
+      - Tuổi hiện tại: {{age}}
+      - Chi tiêu hằng năm mong muốn khi nghỉ hưu: {{annualExpense}} đồng
+      - Số tiền đang đầu tư hiện có: {{currentInvestments}} đồng
+      - Số tiền đầu tư thêm mỗi năm: {{annualContribution}} đồng
+      - Lãi suất thực kỳ vọng sau khi trừ lạm phát: {{expectedRealReturn}}%/năm
+      - Tỷ lệ rút tiền an toàn mỗi năm: {{swr}}% (thường chọn 3,5% đến 4%)
 
-      **Output:**
-      1. FIRE Number = Annual Expense / SWR
-      2. Years to FIRE (compound interest formula)
-      3. Coast FIRE number (đóng góp 0 từ nay đến hưu trí truyền thống)
-      4. Barista FIRE (làm part-time cover một phần chi phí)
-      5. Sensitivity analysis: Bảng Years to FIRE theo các SWR/Return khác nhau
-      6. Lộ trình năm theo năm (số dư đầu năm, đóng góp, lãi, số dư cuối năm)
+      **Hãy tính toán và trình bày chi tiết theo các phần sau:**
+      1. **Số tiền mục tiêu để tự do tài chính** = Chi tiêu năm ÷ Tỷ lệ rút tiền an toàn
+      2. **Số năm cần tích lũy** (tính chính xác theo công thức lãi kép với giả định đóng góp đều mỗi năm)
+      3. **Mốc tích lũy bán thời gian và mốc tạm dừng góp sớm**:
+         - Mốc đủ vốn để ngừng góp thêm vẫn đủ hưu trí ở tuổi 65 (nhờ lãi kép tự tăng trưởng)
+         - Mốc làm việc bán thời gian (quỹ đầu tư trang trải 50% chi phí sinh hoạt)
+      4. **Bảng phân tích độ nhạy**: So sánh số năm đạt mục tiêu theo các mức tỷ lệ rút (3%, 3,5%, 4%) và lãi suất thực (4%, 5%, 6%, 7%)
+      5. **Bảng lộ trình 5 năm đầu tiên** (số dư đầu năm, tiền góp thêm, tiền lãi thực nhận, số dư cuối năm và phần trăm hoàn thành)
+      6. **Khuyến nghị thực tế** giúp rút ngắn thời gian mà vẫn giữ an toàn tài chính
     variables:
       - name: age
         type: number
@@ -39,25 +41,25 @@ prompts:
         required: true
       - name: annualExpense
         type: number
-        label: "Chi tiêu năm mong muốn khi hưu trí (VND)"
+        label: "Chi tiêu hằng năm mong muốn khi nghỉ hưu (đồng)"
         required: true
       - name: currentInvestments
         type: number
-        label: "Tiền đầu tư hiện có (VND)"
+        label: "Số tiền đầu tư hiện có (đồng)"
         required: true
         default: 0
       - name: annualContribution
         type: number
-        label: "Đóng góp đầu tư hàng năm (VND)"
+        label: "Số tiền góp đầu tư hằng năm (đồng)"
         required: true
       - name: expectedRealReturn
         type: number
-        label: "Lãi suất thực kỳ vọng (%/năm, sau lạm phát)"
+        label: "Lãi suất thực kỳ vọng sau khi trừ lạm phát (%/năm)"
         required: true
         default: 6
       - name: swr
         type: number
-        label: "Safe Withdrawal Rate (%)"
+        label: "Tỷ lệ rút tiền an toàn mỗi năm (%)"
         required: true
         default: 3.5
     examples:
@@ -69,49 +71,51 @@ prompts:
           expectedRealReturn: 6
           swr: 3.5
         output: |
-          # 🔥 FIRE Calculation: 30 tuổi, chi tiêu 300M/năm
+          # 🔥 Lộ Trình Tự Do Tài Chính: 30 tuổi, chi tiêu 300 triệu/năm
 
-          ## Kết quả chính
-          | Metric | Giá trị |
-          |--------|---------|
-          | **FIRE Number (3.5% SWR)** | 8.57 tỷ VND |
-          | **FIRE Number (4% SWR)** | 7.5 tỷ VND |
-          | **Years to FIRE (3.5%, 6% real)** | **15.2 năm** (45 tuổi) |
-          | **Years to FIRE (4%, 6% real)** | **13.8 năm** (44 tuổi) |
-          | **Coast FIRE (65 tuổi, 6% real)** | 1.1 tỷ VND (đã vượt!) |
-          | **Barista FIRE (cover 50% expense)** | 4.3 tỷ VND → ~9 năm |
+          ## 1. Kết quả tính toán chính (Giả định góp đều vào đầu mỗi năm)
+          | Chỉ tiêu | Giá trị tính được |
+          |---|---|
+          | **Quỹ tự do tài chính (tỷ lệ rút 3,5%/năm)** | **8,57 tỷ đồng** |
+          | **Quỹ tự do tài chính (tỷ lệ rút 4,0%/năm)** | **7,50 tỷ đồng** |
+          | **Thời gian đạt mục tiêu (rút 3,5%, lãi thực 6%)** | **24,1 năm** (khoảng 54 tuổi) |
+          | **Thời gian đạt mục tiêu (rút 4,0%, lãi thực 6%)** | **22,3 năm** (khoảng 52-53 tuổi) |
+          | **Mốc ngừng góp sớm vẫn đủ hưu ở tuổi 65 (mức 3,5%)** | **1,12 tỷ đồng** (mốc tính tại tuổi 30, đạt sau **~3,6 năm**); để ngừng góp hẳn từ lúc đó đến tuổi 65 cần góp khoảng **5,9 năm** tới mức **~1,57 tỷ đồng** (khoảng 35-36 tuổi) |
+          | **Mốc bán thời gian (quỹ lo 50% chi tiêu = 4,29 tỷ)** | Đạt sau khoảng **15,3 năm** (khoảng 45-46 tuổi) |
 
-          ## Sensitivity Analysis (Years to FIRE)
-          | SWR \ Return | 4% | 5% | 6% | 7% |
-          |-------------|----|----|----|----|
-          | 3.0% | 18.5 | 16.8 | 15.5 | 14.4 |
-          | 3.5% | 17.1 | 15.5 | 14.2 | 13.2 |
-          | 4.0% | 15.8 | 14.4 | 13.2 | 12.3 |
+          ## 2. Bảng độ nhạy: Số năm cần tích lũy theo tỷ lệ rút và lãi suất thực
+          | Tỷ lệ rút \ Lãi suất thực | 4%/năm | 5%/năm | 6%/năm | 7%/năm |
+          |---|---|---|---|---|
+          | **3,0%/năm** (10,0 tỷ) | 32,8 năm | 29,1 năm | 26,3 năm | 24,0 năm |
+          | **3,5%/năm** (8,57 tỷ) | 29,9 năm | 26,7 năm | 24,1 năm | 22,1 năm |
+          | **4,0%/năm** (7,50 tỷ) | 27,4 năm | 24,6 năm | 22,3 năm | 20,5 năm |
 
-          ## Lộ trình 5 năm đầu
-          | Năm | Tuổi | Đầu năm | Đóng góp | Lãi (6%) | Cuối năm | % FIRE (3.5%) |
-          |-----|------|---------|----------|----------|----------|---------------|
-          | 1 | 30 | 500M | 120M | 37.2M | 657M | 7.7% |
-          | 2 | 31 | 657M | 120M | 46.6M | 824M | 9.6% |
-          | 3 | 32 | 824M | 120M | 56.6M | 1.00B | 11.7% |
-          | 4 | 33 | 1.00B | 120M | 67.2M | 1.19B | 13.9% |
-          | 5 | 34 | 1.19B | 120M | 78.6M | 1.39B | 16.2% |
+          ## 3. Lộ trình 5 năm đầu tiên (Lãi suất thực 6%/năm, góp đầu năm)
+          | Năm | Tuổi | Số dư đầu năm | Góp thêm | Tiền lãi (6%) | Số dư cuối năm | Tỷ lệ hoàn thành (mốc 8,57 tỷ) |
+          |---|---|---|---|---|---|---|
+          | 1 | 30 | 500,0 triệu | 120,0 triệu | 37,2 triệu | 657,2 triệu | 7,7% |
+          | 2 | 31 | 657,2 triệu | 120,0 triệu | 46,6 triệu | 823,8 triệu | 9,6% |
+          | 3 | 32 | 823,8 triệu | 120,0 triệu | 56,6 triệu | 1,00 tỷ | 11,7% |
+          | 4 | 33 | 1,00 tỷ | 120,0 triệu | 67,2 triệu | 1,19 tỷ | 13,9% |
+          | 5 | 34 | 1,19 tỷ | 120,0 triệu | 78,5 triệu | 1,39 tỷ | 16,2% |
 
-          ## Khuyến nghị
-          1. **Tăng SWR an toàn**: 3.5% conservative, 4% standard. Cân nhắc 3.75% nếu flexible spending.
-          2. **Geo-arbitrage**: Hưu trí ở chi phí thấp hơn (Đà Lạt, Nha Trang,海外) → giảm FIRE number 30-50%.
-          3. **Side income**: Barista FIRE chỉ cần 4.3 tỷ → 9 năm. Rất khả thi.
-          4. **Sequence of Returns Risk**: 5 năm đầu hưu trí quan trọng nhất. Giữ 2-3 năm chi phí cash/bond.
-        context: "FIRE calculation cho người 30 tuổi, income tốt, mục tiêu hưu trí sớm"
+          ## 4. Khuyến nghị thực tế
+          1. **Chọn tỷ lệ rút phù hợp tuổi nghỉ hưu:** Nếu nghỉ hưu sớm trước 50 tuổi và thời gian hưởng hưu dài 35-40 năm, nên giữ tỷ lệ rút an toàn ở mức **3,5%/năm** để quỹ không bị hụt về sau.
+          2. **Chuyển nơi sinh sống có chi phí dễ chịu hơn:** Nếu khi nghỉ hưu sống tại các tỉnh hoặc thành phố chi phí thấp hơn (như Đà Lạt, Nha Trang, Quy Nhơn hoặc các đô thị vệ tinh), mức chi tiêu cần thiết có thể giảm 20-35%, giúp rút ngắn đáng kể số năm đi làm.
+          3. **Tận dụng phương án làm việc bán thời gian:** Chỉ cần đạt mốc **4,29 tỷ đồng** (sau khoảng 15,3 năm, khoảng 45-46 tuổi), bạn đã có thể giảm áp lực công việc toàn thời gian và làm thêm nhẹ nhàng để trang trải nửa chi phí còn lại.
+          4. **Phòng rủi ro thị trường giảm sâu đầu kỳ hưu trí:** Giai đoạn 5 năm đầu mới nghỉ hưu rất nhạy cảm với biến động chứng khoán; hãy luôn giữ sẵn **2-3 năm chi phí sinh hoạt** bằng tiền gửi hoặc trái phiếu an toàn để không phải bán tài sản lúc thị trường xuống đáy.
+        context: "Tính lộ trình tự do tài chính cho người 30 tuổi tại Việt Nam, chi tiêu 300 triệu/năm"
     difficulty: "advanced"
     useCases:
-      - "Người theo đuổi FIRE (Financial Independence Retire Early)"
-      - "Kế hoạch hưu trí truyền thống"
+      - "Người muốn tính mốc nghỉ hưu sớm và độc lập tài chính"
+      - "Người lập kế hoạch hưu trí dài hạn cho gia đình"
 agentTemplate:
-  name: "Financial Life Planner"
-  description: "Kế hoạch tài chính trọn đời: FIRE, Retirement, Insurance, Estate planning"
+  name: "Chuyên Gia Hoạch Định Tài Chính Trọn Đời"
+  description: "Tính toán lộ trình hưu trí, quỹ tự do tài chính bằng công thức lãi kép chính xác và cân đối bảo vệ rủi ro dài hạn"
   systemPrompt: |
-    Bạn là Financial Life Planner. Holistic approach: Cash flow, Risk management, Wealth accumulation, Distribution, Legacy.
+    Bạn là chuyên gia hoạch định tài chính cá nhân trọn đời tại Việt Nam.
+    Nhiệm vụ: Tính toán chính xác lộ trình tích lũy hưu trí bằng công thức lãi kép, phân tích độ nhạy theo lãi suất thực và tỷ lệ rút tiền an toàn, đồng thời nhắc người dùng chuẩn bị quỹ dự phòng và bảo hiểm y tế trước khi nghỉ hưu.
+    Lưu ý: Các con số lãi suất kỳ vọng là ước tính giả định sau lạm phát để lập kế hoạch, không phải cam kết lợi nhuận đầu tư.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:

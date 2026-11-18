@@ -1,181 +1,189 @@
 ---
 id: quan-ly-stress-mindfulness
 categoryId: suc-khoe
-name: "Quản lý Stress & Mindfulness"
-description: "Kỹ thuật giảm stress: Breathing, Meditation, CBT techniques, Journaling, Digital detox, Boundaries"
+name: "Quản lý căng thẳng & Thực hành chánh niệm"
+description: "Các kỹ thuật giảm căng thẳng dễ làm ngay: bài tập thở, thiền ngắn, điều chỉnh suy nghĩ tiêu cực, viết nhật ký, nghỉ ngơi khỏi màn hình và đặt ranh giới công việc"
 whenToUse:
-  - "Cảm thấy overwhelmed, lo âu, burnout"
-  - "Muốn xây dựng thiền/Mindfulness hàng ngày"
-  - "Cần kỹ thuật giảm stress ngay lập tức (trong meeting, trước deadline)"
+  - "Cảm thấy quá tải, lo âu hoặc kiệt sức vì công việc và cuộc sống"
+  - "Muốn xây dựng thói quen thiền ngắn và sống chánh niệm mỗi ngày"
+  - "Cần cách hạ nhịp tim và lấy lại bình tĩnh ngay trước cuộc họp quan trọng hoặc hạn chót"
 difficulty: "beginner"
-estimatedTime: "5-20 phút/ngày"
+estimatedTime: "Thực hành 5-20 phút mỗi ngày"
 tags: ["stress-management", "mindfulness", "meditation", "breathing", "cbt", "mental-health"]
 prompts:
   - id: prompt-stress-toolkit
-    name: "Bộ công cụ giảm Stress tức thì & dài hạn"
-    description: "Kỹ thuật 1-5 phút (tức thì) + Thiền 10-20 phút (dài hạn) + CBT reframing"
+    name: "Bộ công cụ giảm căng thẳng tức thì và dài hạn"
+    description: "Kỹ thuật 1-5 phút giúp bình tĩnh ngay, bài tập 10-20 phút hằng ngày và cách điều chỉnh suy nghĩ tiêu cực"
     template: |
-      Bạn là Mental Wellness Coach. Hãy tạo Stress Toolkit cho tôi:
+      Bạn là chuyên gia tâm lý ứng dụng và chăm sóc sức khỏe tinh thần. Hãy xây dựng bộ công cụ giảm căng thẳng phù hợp cho tôi:
 
-      **Tình trạng:**
-      - Stress level: {{stressLevel}}/10
-      - Trigger chính: {{triggers}} (Deadline / Quan hệ / Tài chính / Sức khỏe / Không rõ)
-      - Triệu chứng: {{symptoms}} (Đau đầu / Đau bụng / Mất ngủ / Cáu kỉnh / Rối loạn ăn / Rút lui)
-      - Thời gian có sẵn: {{timeAvailable}} (1p / 5p / 10p / 20p)
-      - Môi trường: {{environment}} (Văn phòng / Nhà / Xe / Công cộng)
+      **Tình trạng hiện tại:**
+      - Mức độ căng thẳng: {{stressLevel}}/10
+      - Nguyên nhân chính gây căng thẳng: {{triggers}}
+      - Biểu hiện đang gặp: {{symptoms}}
+      - Thời gian rảnh có thể thực hành: {{timeAvailable}}
+      - Không gian thực hành: {{environment}}
 
-      **Output:**
-      1. **Immediate Tools (1-5 phút)**: Breathing, Grounding, Micro-movement, Sensory reset
-      2. **Daily Practice (10-20 phút)**: Meditation style, Journaling prompts, Body scan
-      3. **CBT Reframing**: Thought record template, Cognitive distortions cheat sheet
-      4. **Lifestyle Boundaries**: Digital detox, Work-life separation, Saying no
-      5. **Weekly Review**: Stress audit, Energy audit, Adjustment
-      6. **Red Flags**: Khi nào cần chuyên gia (Therapist, Psychiatrist)
+      **Hãy lập hướng dẫn chi tiết theo các phần sau:**
+      1. **Công cụ hạ nhiệt tức thì (1-5 phút)**: Bài tập thở sâu làm dịu hệ thần kinh, bài tập neo lại cảm giác hiện tại qua 5 giác quan và cử động giãn cơ nhẹ
+      2. **Thói quen chăm sóc tinh thần mỗi ngày (10-20 phút)**: Thiền quan sát hơi thở, gợi ý câu hỏi viết nhật ký giải tỏa và thả lỏng từng vùng cơ thể
+      3. **Cách điều chỉnh suy nghĩ tiêu cực (dựa trên liệu pháp nhận thức - hành vi)**: Mẫu ghi chép lại suy nghĩ tự động và bảng nhận diện những lỗi suy nghĩ hay tự làm mình lo thêm
+      4. **Đặt ranh giới sinh hoạt lành mạnh**: Giờ nghỉ khỏi màn hình điện thoại, tách bạch giờ làm - giờ nghỉ và mẫu câu từ chối khéo léo
+      5. **Tự rà soát cuối tuần**: Kiểm tra điều gì làm hao năng lượng và điều gì giúp nạp lại năng lượng
+      6. **Dấu hiệu cảnh báo cần tìm chuyên gia**: Khi nào cần gặp chuyên gia tâm lý hoặc bác sĩ tâm thần để được hỗ trợ chuyên sâu
     variables:
       - name: stressLevel
         type: number
-        label: "Mức độ stress hiện tại (1-10)"
+        label: "Mức độ căng thẳng hiện tại (1-10)"
         required: true
       - name: triggers
         type: multiselect
-        label: "Trigger chính"
+        label: "Nguyên nhân chính gây căng thẳng"
         options:
-          - "Deadline / Workload"
-          - "Quan hệ (Đồng nghiệp / Gia đình / Bạn bè)"
-          - "Tài chính"
-          - "Sức khỏe (Cá nhân / Người thân)"
-          - "Không rõ nguyên nhân (Free-floating anxiety)"
-          - "Perfectionism / Imposter syndrome"
+          - "Áp lực công việc / Hạn chót"
+          - "Quan hệ với đồng nghiệp / gia đình / bạn bè"
+          - "Áp lực tài chính / Tiền bạc"
+          - "Sức khỏe bản thân hoặc người thân"
+          - "Lo âu mơ hồ không rõ nguyên nhân"
+          - "Cầu toàn quá mức / Tự ti năng lực"
         required: true
       - name: symptoms
         type: multiselect
-        label: "Triệu chứng thể chất/tâm lý"
+        label: "Biểu hiện thể chất hoặc tâm lý"
         options:
-          - "Đau đầu / Đau cổ vai"
-          - "Đau bụng / Tiêu hóa"
-          - "Mất ngủ / Ngủ không ngon"
-          - "Cáu kỉnh / Nóng giận dễ dàng"
-          - "Rối loạn ăn (Ăn quá nhiều / Quên ăn)"
-          - "Rút lui xã hội / Trì hoãn"
-          - "Tập trung kém / Brain fog"
+          - "Đau đầu / Căng cứng cổ vai gáy"
+          - "Đau dạ dày / Rối loạn tiêu hóa"
+          - "Mất ngủ / Ngủ không sâu giấc"
+          - "Dễ cáu gắt / Nóng giận vô cớ"
+          - "Ăn uống thất thường (ăn quá nhiều hoặc bỏ bữa)"
+          - "Ngại giao tiếp / Hay trì hoãn"
+          - "Khó tập trung / Đầu óc mụ mẫm"
         required: true
       - name: timeAvailable
         type: select
-        label: "Thời gian có sẵn cho practice"
+        label: "Thời gian có sẵn để thực hành"
         options:
-          - "1 phút (Giữa meeting)"
-          - "5 phút (Nghỉ trưa / Giữa ca)"
-          - "10-20 phút (Sáng sớm / Trước ngủ)"
-          - "30+ phút (Cuối tuần)"
+          - "1 phút (Giữa cuộc họp hoặc giờ làm)"
+          - "5 phút (Giờ nghỉ trưa hoặc giữa ca)"
+          - "10-20 phút (Buổi sáng hoặc trước khi ngủ)"
+          - "Từ 30 phút trở lên (Cuối tuần)"
         required: true
+        default: "5 phút (Giờ nghỉ trưa hoặc giữa ca)"
       - name: environment
         type: select
-        label: "Môi trường thực hành"
+        label: "Không gian thực hành"
         options:
           - "Văn phòng (Cần kín đáo)"
-          - "Nhà (Tự do)"
-          - "Xe / Di chuyển"
-          - "Công cộng (Cafe, park)"
+          - "Ở nhà (Không gian thoải mái)"
+          - "Trên xe / Đang di chuyển"
+          - "Nơi công cộng (Quán cà phê / Công viên)"
         required: true
+        default: "Văn phòng (Cần kín đáo)"
     examples:
       - inputs:
           stressLevel: 8
-          triggers: '["Deadline / Workload", "Perfectionism / Imposter syndrome"]'
-          symptoms: '["Đau đầu / Đau cổ vai", "Mất ngủ / Ngủ không ngon", "Tập trung kém / Brain fog"]'
-          timeAvailable: "5 phút (Nghỉ trưa / Giữa ca)"
+          triggers:
+            - "Áp lực công việc / Hạn chót"
+            - "Cầu toàn quá mức / Tự ti năng lực"
+          symptoms:
+            - "Đau đầu / Căng cứng cổ vai gáy"
+            - "Mất ngủ / Ngủ không sâu giấc"
+            - "Khó tập trung / Đầu óc mụ mẫm"
+          timeAvailable: "5 phút (Giờ nghỉ trưa hoặc giữa ca)"
           environment: "Văn phòng (Cần kín đáo)"
         output: |
-          # 🧘 Stress Toolkit: High Workload + Perfectionism, Office Setting
+          # 🧘 Bộ Công Cụ Giảm Căng Thẳng (Áp lực hạn chót, thực hành kín đáo tại văn phòng)
 
-          ## 1. Immediate Tools (1-5 phút, Văn phòng friendly)
+          ## 1. Công cụ hạ nhiệt tức thì (1-5 phút, làm ngay tại bàn làm việc)
 
-          ### A. Physiological Sigh (1 phút) - *Giảm cortisol nhanh nhất*
+          ### A. Hít thở hai nhịp kiểu sinh lý (1 phút) — *Giúp hạ nhịp tim nhanh nhất*
           ```
-          1. Hít sâu qua mũi (2s)
-          2. Hít thêm một chút nữa (1s) - "Double inhale"
-          3. Thở ra chậm qua miệng (6-8s) - "Long exhale"
-          4. Lặp 3-5 chu kỳ
+          1. Hít vào sâu bằng mũi (2 giây)
+          2. Hít thêm một hơi ngắn nữa cho đầy phổi (1 giây)
+          3. Thở ra thật chậm và dài qua miệng (6-8 giây)
+          4. Lặp lại 3-5 lần
           ```
-          *Khi nào: Trước meeting quan trọng, sau email khó xử, cảm thấy ngực chặt*
+          *Nên dùng khi:* Trước cuộc họp căng thẳng, vừa đọc xong một email khó chịu hoặc thấy tim đập nhanh, tức ngực.
 
-          ### B. 5-4-3-2-1 Grounding (2 phút) - *Rời khỏi suy nghĩ xoáy*
+          ### B. Bài tập 5-4-3-2-1 neo lại hiện tại (2 phút) — *Cắt dòng suy nghĩ rối bời*
           ```
-          5 thứ NHÌN thấy (màu xanh của cây, văn bản trên màn hình...)
-          4 thứ CHẮM cảm nhận (ghế lưng, bàn tay trên bàn, nhiệt độ không khí...)
-          3 thứ NGHE (Tiếng máy lạnh, tiếng gõ phím, tiếng nói xa...)
-          2 thứ NGHỆ (Cà phê, giấy in...)
-          1 thứ THẤY về bản thân (Tôi đang an toàn, tôi đang hít thở)
-          ```
-
-          ### C. Box Breathing (3 phút) - *Trước khi tập trung deep work*
-          ```
-          Hít (4s) → Giữ (4s) → Thở (4s) → Giữ (4s) × 4 rounds
+          - 5 thứ NHÌN thấy xung quanh (chậu cây xanh, chiếc cốc, dòng chữ trên bàn...)
+          - 4 thứ CHẠM cảm nhận được (tựa lưng ghế, mặt bàn mát, bàn chân chạm sàn...)
+          - 3 âm thanh NGHE thấy (tiếng điều hòa, tiếng gõ bàn phím, tiếng xe ngoài đường...)
+          - 2 mùi hương NGỬI thấy (mùi cà phê, mùi giấy mới...)
+          - 1 điều CẢM NHẬN bên trong cơ thể (hơi thở đang vào ra, mình vẫn đang an toàn lúc này)
           ```
 
-          ### D. Micro-movement (1 phút) - *Giải tỏa cơ bắp*
-          - Vai lên tai 3s → Thả xuống hẳn × 5
-          - Cổ xoay trái/phải nhẹ
-          - Cổ tay xoay (typing strain)
-
-          ## 2. Daily Practice (10-20 phút, Nhà - Sáng/Trước ngủ)
-
-          ### Meditation: Breath Awareness + Labeling (15 phút)
+          ### C. Thở hình vuông 4 nhịp (3 phút) — *Lấy lại bình tĩnh trước khi làm việc sâu*
           ```
-          1. Ngồi thoải mái, lưng thẳng (ghế/bàn chân)
-          2. Timer 15p (Insight Timer / Waking Up app)
-          3. Focus vào hơi thở (mũi/ngực/bụng)
-          4. Khi tâm lang thang → Nhãn nhẹ: "Suy nghĩ" / "Cảm xúc" / "Cảm giác" / "Âm thanh" → Trở về hơi thở
-          5. Không phán xét, chỉ nhận biết
+          Hít vào (4 giây) → Giữ nhẹ (4 giây) → Thở ra (4 giây) → Nghỉ (4 giây) × 4 vòng
           ```
 
-          ### Journaling: 3 Prompts (5 phút)
-          1. **"Hôm nay điều gì khiến tôi stress nhất? Tôi đã phản ứng như thế nào?"**
-          2. **"Điều gì trong tầm kiểm soát? Điều gì ngoài tầm kiểm soát?"** (Dichotomy of Control)
-          3. **"Một điều nhỏ tôi làm tốt hôm nay là gì?"** (Gratitude micro)
+          ### D. Giãn cơ nhanh 1 phút — *Thả lỏng cổ vai gáy do ngồi máy tính lâu*
+          - Nhún hai vai sát lên tai giữ 3 giây rồi buông thõng hẳn xuống × 5 lần.
+          - Nghiêng cổ nhẹ nhàng sang trái, sang phải (mỗi bên giữ 10 giây).
+          - Xoay tròn hai cổ tay nhẹ nhàng để giảm mỏi do gõ phím.
 
-          ## 3. CBT Reframing (Khi bắt thấy suy nghĩ tiêu cực)
+          ## 2. Thói quen chăm sóc tinh thần mỗi ngày (10-20 phút tại nhà)
 
-          ### Thought Record Template
-          | Tình huống | Suy nghĩ tự động | Cảm xúc (1-10) | Sai lầm nhận thức | Suy nghĩ cân bằng | Cảm xúc mới |
-          |------------|------------------|----------------|-------------------|---------------------|-------------|
-          | Sếp gửi email "Cần nói chuyện" | "Tôi sắp bị sa thải" | Lo âu 9/10 | **Catastrophizing** (Khoảng đại họa) | "Sếp có thể muốn bàn về project mới. Tôi đã chuẩn bị tốt." | Lo âu 3/10 |
+          ### Thiền quan sát hơi thở (15 phút)
+          ```
+          1. Ngồi thẳng lưng thoải mái trên ghế hoặc đệm, hai bàn chân chạm sàn.
+          2. Hẹn giờ 15 phút (dùng đồng hồ điện thoại đặt chế độ im lặng).
+          3. Đưa sự chú ý về luồng hơi thở ra vào ở đầu mũi hoặc bụng.
+          4. Khi đầu óc chạy đi nghĩ việc khác → chỉ gọi tên nhẹ trong đầu: "Đang suy nghĩ" hoặc "Đang lo" → rồi dịu dàng quay lại hơi thở.
+          5. Không tự trách mình nếu tâm trí hay xao nhãng; mỗi lần nhận ra và quay lại chính là đang tập luyện.
+          ```
 
-          ### Common Cognitive Distortions Cheat Sheet
-          | Distortion | Ví dụ | Counter |
-          |------------|-------|---------|
-          | **All-or-Nothing** | "Không hoàn hảo = Thất bại" | "Hoàn thành tốt hơn hoàn hảo" |
-          | **Catastrophizing** | "Sai này = Cuộc đời xong" | "Probability thấp, impact quản lý được" |
-          | **Mind Reading** | "Họ chắc ghét tôi" | "Tôi không đọc được tâm trí. Hỏi trực tiếp." |
-          | **Should Statements** | "Tôi phải làm mọi thứ hoàn hảo" | "Tôi chọn làm tốt nhất có thể" |
+          ### Viết nhật ký 3 câu hỏi trước khi ngủ (5 phút)
+          1. **"Hôm nay việc gì khiến mình căng thẳng nhất và mình đã phản ứng ra sao?"**
+          2. **"Trong chuyện đó, phần nào nằm trong tầm kiểm soát của mình và phần nào nằm ngoài kiểm soát?"**
+          3. **"Một điều nhỏ hôm nay mình đã làm khá tốt hoặc thấy biết ơn là gì?"**
 
-          ## 4. Lifestyle Boundaries (Hệ thống, không ý chí)
-          - **Digital Sunset**: Tắt thông báo công việc sau 7h tối (Focus mode / Separate work phone)
-          - **Email Batching**: Check 3 lần/ngày (9h, 13h, 16h) - Tắt notification
-          - **Say No Script**: *"Cảm ơn bạn, nhưng bandwidth hiện tại không cho phép. Tôi có thể hỗ trợ [thứ nhỏ] vào [thời gian]."*
-          - **Transition Ritual**: 10p sau work (Đổi đồ, đi bộ, tắm) → Signal não "Work done"
+          ## 3. Điều chỉnh suy nghĩ tiêu cực (Khi đầu óc tự vẽ ra kịch bản xấu)
 
-          ## 5. Weekly Review (Chủ Nhật 20 phút)
-          1. **Stress Audit**: Các trigger xuất hiện tuần này? Pattern gì?
-          2. **Energy Audit**: Hoạt động nào nạp năng lượng? Hoạt động nào hao năng lượng?
-          3. **Adjustment**: Tuần tới sẽ thêm/bớt gì? (1 việc thêm, 1 việc bớt)
+          ### Bảng ghi nhận và cân bằng lại suy nghĩ
+          | Tình huống | Suy nghĩ nảy ra ngay | Cảm xúc (1-10) | Lỗi suy nghĩ hay gặp | Cách nhìn thực tế, cân bằng hơn | Cảm xúc sau đó |
+          |---|---|---|---|---|---|
+          | Sếp nhắn "Chiều nay anh cần trao đổi riêng một chút" | "Chắc mình sắp bị khiển trách hoặc cho nghỉ việc" | Lo âu 9/10 | **Phóng đại thảm họa** (tưởng tượng ngay tình huống xấu nhất) | "Sếp có thể muốn bàn về kế hoạch mới hoặc góp ý công việc. Mình cứ chuẩn bị sẵn báo cáo tiến độ để trao đổi rõ ràng." | Lo âu 3/10 |
 
-          ## 6. Red Flags (Cần chuyên gia)
-          - Stress > 7/10 kéo dài > 2 tuần
-          - Triệu chứng thể chất ảnh hưởng sinh hoạt (ngủ, ăn, tập trung)
-          - Suy nghĩ tự tử / tự làm hại
-          - Sử dụng chất (rượu, thuốc) để cope
-          → **Tìm Therapist (CBT, ACT) hoặc Psychiatrist**
-        context: "High stress office worker, perfectionism, cần tools kín đáo"
+          ### Bốn kiểu suy nghĩ dễ tự làm mình mệt thêm
+          | Kiểu suy nghĩ | Ví dụ thường thấy | Câu tự nhắc để cân bằng lại |
+          |---|---|---|
+          | **Trắng - đen tuyệt đối** | "Không làm hoàn hảo nghĩa là thất bại" | "Làm tốt và hoàn thành đúng hạn có giá trị hơn sự cầu toàn gây kiệt sức" |
+          | **Phóng đại thảm họa** | "Sai sót nhỏ này sẽ phá hỏng toàn bộ sự nghiệp" | "Xác suất việc tệ nhất xảy ra rất thấp, hầu hết lỗi đều sửa được" |
+          | **Tự đoán suy nghĩ người khác** | "Chắc đồng nghiệp đang chê mình kém" | "Mình không đọc được suy nghĩ của ai; nếu cần rõ ràng thì hỏi thẳng nhẹ nhàng" |
+          | **Áp đặt chữ 'Phải'** | "Mình lúc nào cũng phải làm vừa lòng tất cả mọi người" | "Mình chọn làm hết sức trong khả năng và giới hạn thời gian hợp lý" |
+
+          ## 4. Đặt ranh giới sinh hoạt để bớt phụ thuộc vào ý chí
+          - **Giờ nghỉ khỏi màn hình:** Tắt thông báo tin nhắn công việc sau 19:00 tối (bật chế độ Không làm phiền hoặc tách riêng nhóm chat việc).
+          - **Gom giờ kiểm tra email:** Mở kiểm tra cố định 3 khung giờ/ngày (9:00, 13:30, 16:30) thay vì vừa làm vừa nhảy vào trả lời liên tục.
+          - **Mẫu câu từ chối khéo léo:** *"Cảm ơn bạn đã tin tưởng giao việc. Hiện tại lịch của mình đã kín đến hết thứ Tư, nên mình có thể hỗ trợ phần này vào sáng thứ Năm hoặc làm trước phần tóm tắt giúp bạn nhé."*
+          - **Nghi thức kết thúc ngày làm việc (10 phút):** Dọn gọn bàn, thay đồ thoải mái, đi bộ hoặc tắm nước ấm để báo hiệu cho não biết giờ làm đã xong.
+
+          ## 5. Rà soát nhanh vào tối Chủ nhật (20 phút)
+          1. **Điểm lại nguyên nhân căng thẳng:** Tuần vừa rồi tình huống nào lặp lại nhiều nhất?
+          2. **Kiểm tra năng lượng:** Việc nào giúp mình thấy nhẹ nhõm? Việc nào hút cạn sức lực?
+          3. **Điều chỉnh cho tuần tới:** Thêm 1 thói quen tốt và bớt 1 đầu việc không thật sự cấp bách.
+
+          ## 6. Dấu hiệu cảnh báo cần tìm chuyên gia hỗ trợ
+          - Căng thẳng ở mức trên 7/10 kéo dài liên tục quá 2 tuần không giảm.
+          - Mất ngủ kéo dài, ăn uống rối loạn hoặc mệt lả không thể làm việc bình thường.
+          - Có suy nghĩ muốn tự làm hại bản thân hoặc cảm giác tuyệt vọng kéo dài.
+          - Phụ thuộc vào rượu bia, thuốc an thần không kê đơn để giải tỏa.
+          → **Hãy chủ động gặp bác sĩ chuyên khoa tâm thần hoặc chuyên viên tham vấn tâm lý có chứng chỉ hành nghề.**
+        context: "Nhân viên văn phòng chịu áp lực cao và hay cầu toàn, cần công cụ giảm căng thẳng kín đáo"
     difficulty: "easy"
     useCases:
-      - "Người làm việc áp lực cao"
-      - "Sinh viên stress thi cử"
-      - "Cha mẹ burnout"
+      - "Người làm việc văn phòng áp lực cao dễ quá tải"
+      - "Sinh viên căng thẳng trong mùa thi cử"
+      - "Cha mẹ kiệt sức vì vừa đi làm vừa chăm con"
 agentTemplate:
-  name: "Mental Wellness Coach"
-  description: "Kỹ thuật giảm stress evidence-based: Breathing, Mindfulness, CBT, Lifestyle design"
+  name: "Chuyên Gia Chăm Sóc Tinh Thần & Giảm Căng Thẳng"
+  description: "Hướng dẫn bài tập thở, thiền chánh niệm ngắn, cách điều chỉnh suy nghĩ tiêu cực và đặt ranh giới nghỉ ngơi lành mạnh"
   systemPrompt: |
-    Bạn là Mental Wellness Coach. Evidence-based: CBT, ACT, Mindfulness (MBSR), Breathing physiology. Không thay thế therapy chuyên nghiệp. Luôn có red flag referral.
+    Bạn là chuyên gia đồng hành chăm sóc sức khỏe tinh thần bằng những kỹ thuật thực tế, dễ áp dụng hằng ngày: điều hòa hơi thở, sống chánh niệm, nhận diện suy nghĩ tiêu cực và sắp xếp ranh giới nghỉ ngơi hợp lý.
+    Lưu ý an toàn: Không thay thế chuyên viên trị liệu tâm lý hay bác sĩ chuyên khoa; luôn nhắc người dùng tìm gặp chuyên gia y tế nếu xuất hiện dấu hiệu cảnh báo kéo dài hoặc ý nghĩ tự làm hại bản thân.
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:

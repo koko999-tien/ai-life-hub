@@ -1,41 +1,41 @@
 ---
 id: dinh-duong-the-thao
 categoryId: suc-khoe
-name: "Dinh dưỡng thể thao & Macro tracking"
-description: "Tính TDEE, phân bổ Macro (Protein/Carb/Fat), Meal prep, Supplement evidence-based"
+name: "Dinh dưỡng thể thao & Theo dõi khẩu phần"
+description: "Cách tính mức năng lượng tiêu hao hằng ngày, chia tỷ lệ đạm - tinh bột - chất béo hợp lý, chuẩn bị bữa ăn gọn gàng và hiểu đúng về thực phẩm bổ sung"
 whenToUse:
-  - "Muốn giảm mỡ / tăng cơ / recomp hiệu quả"
-  - "Tự tính calo, macro cho bản thân"
-  - "Chuẩn bị meal prep hàng tuần"
+  - "Muốn giảm mỡ, tăng cơ hoặc cải thiện vóc dáng an toàn, bền vững"
+  - "Muốn tự tính lượng thức ăn và năng lượng phù hợp với thể trạng bản thân"
+  - "Muốn lên thực đơn chuẩn bị bữa ăn cho cả tuần tiết kiệm thời gian"
 difficulty: "intermediate"
-estimatedTime: "Setup 30p, tracking 5p/ngày"
+estimatedTime: "Thiết lập ban đầu 30 phút, theo dõi 5 phút mỗi ngày"
 tags: ["nutrition", "macro-tracking", "meal-prep", "tdee", "supplements", "evidence-based"]
 prompts:
   - id: prompt-macro-calculation
-    name: "Tính TDEE & Phân bổ Macro"
-    description: "Tính calo duy trì, deficit/surplus, phân bổ protein/carb/fat theo mục tiêu"
+    name: "Tính mức năng lượng & Phân bổ dinh dưỡng hằng ngày"
+    description: "Tính lượng năng lượng duy trì cân nặng, mức cần tăng hoặc giảm theo mục tiêu và chia khẩu phần đạm, tinh bột, chất béo hợp lý"
     template: |
-      Bạn là Sports Nutritionist. Hãy tính dinh dưỡng cho tôi:
+      Bạn là chuyên gia dinh dưỡng thể thao am hiểu ẩm thực Việt Nam. Hãy xây dựng kế hoạch dinh dưỡng phù hợp cho tôi:
 
-      **Thông tin:**
+      **Thông tin cơ thể và thói quen:**
       - Tuổi: {{age}}
       - Giới tính: {{gender}}
-      - Chiều cao/Cân nặng: {{heightWeight}}
-      - Hoạt động: {{activityLevel}} (Sedentary / Light / Moderate / Very / Athlete)
-      - Mục tiêu: {{goal}} (Fat loss / Muscle gain / Recomp / Maintenance)
-      - Ưu tiên ăn uống: {{dietPreference}} (Omnivore / Vegetarian / Vegan / Keto / IF)
+      - Chiều cao và cân nặng: {{heightWeight}}
+      - Mức độ vận động hằng tuần: {{activityLevel}}
+      - Mục tiêu hiện tại: {{goal}}
+      - Chế độ ăn ưu tiên: {{dietPreference}}
 
-      **Output:**
-      1. **BMR** (Mifflin-St Jeor) & **TDEE**
-      2. **Target Calories** (Deficit 15-25% / Surplus 10-15% / Maintenance)
-      3. **Macro Split** (g/kg bodyweight):
-         - Protein: 1.6-2.2g/kg (tăng cơ/giảm mỡ), 1.2-1.6g/kg (maintenance)
-         - Fat: 0.8-1.2g/kg (20-30% calories)
-         - Carb: Còn lại
-      4. **Meal frequency & Timing** gợi ý
-      5. **Sample Meal Plan** 1 ngày (hit macro ±5g)
-      6. **Supplement evidence-based** (Tier A: Creatine, Protein, Vitamin D, Omega-3 / Tier B: Caffeine, Beta-alanine / Tier C: Others)
-      7. **Tracking guide** (App: MyFitnessPal, MacroFactor, Cronometer)
+      **Hãy lập kế hoạch dinh dưỡng chi tiết theo các phần sau:**
+      1. **Chỉ số năng lượng cơ bản (BMR)** theo công thức Mifflin-St Jeor và **Tổng năng lượng tiêu hao hằng ngày (TDEE)**
+      2. **Mức năng lượng mục tiêu mỗi ngày** (giảm 15-25% nếu giảm mỡ, tăng 10-15% nếu tăng cơ, hoặc giữ nguyên nếu duy trì)
+      3. **Tỷ lệ 3 nhóm chất dinh dưỡng chính (tính theo gam/kg cân nặng)**:
+         - Chất đạm: 1,6-2,2 g/kg (nếu tăng cơ hoặc giảm mỡ giữ cơ), 1,2-1,6 g/kg (nếu duy trì)
+         - Chất béo tốt: 0,8-1,2 g/kg (khoảng 20-30% tổng năng lượng)
+         - Tinh bột: phần năng lượng còn lại để có sức tập luyện
+      4. **Số bữa và thời điểm ăn gợi ý trong ngày**
+      5. **Thực đơn mẫu 1 ngày bằng món Việt quen thuộc** (tổng các bữa khớp sát mức năng lượng và lượng đạm, tinh bột, chất béo đã tính)
+      6. **Đánh giá thực phẩm bổ sung dựa trên bằng chứng khoa học** (ưu tiên đồ ăn tự nhiên trước; phân loại nhóm có bằng chứng mạnh, nhóm hỗ trợ vừa và nhóm không cần thiết, kèm lưu ý an toàn sức khỏe)
+      7. **Hướng dẫn theo dõi đơn giản hằng ngày** (cách ước lượng hoặc cân đồ ăn thô trước khi nấu, ứng dụng hỗ trợ phổ biến)
     variables:
       - name: age
         type: number
@@ -48,100 +48,109 @@ prompts:
           - "Nam"
           - "Nữ"
         required: true
+        default: "Nam"
       - name: heightWeight
         type: text
-        label: "Chiều cao / Cân nặng"
+        label: "Chiều cao / Cân nặng (ví dụ: 175 cm / 75 kg)"
         required: true
       - name: activityLevel
         type: select
-        label: "Mức độ hoạt động"
+        label: "Mức độ vận động hằng tuần"
         options:
-          - "Sedentary (Ít vận động, làm văn phòng)"
-          - "Light (Tập 1-3 buổi/tuần)"
-          - "Moderate (Tập 3-5 buổi/tuần)"
-          - "Very (Tập 6-7 buổi/tuần + labor)"
-          - "Athlete (2 buổi/ngày, intensity cao)"
+          - "Ít vận động (làm văn phòng, hầu như không tập)"
+          - "Nhẹ nhàng (tập 1-3 buổi mỗi tuần)"
+          - "Trung bình (tập 3-5 buổi mỗi tuần)"
+          - "Nặng (tập 6-7 buổi mỗi tuần hoặc lao động thể lực)"
+          - "Vận động viên (tập 2 buổi mỗi ngày cường độ cao)"
         required: true
+        default: "Trung bình (tập 3-5 buổi mỗi tuần)"
       - name: goal
         type: select
-        label: "Mục tiêu"
+        label: "Mục tiêu chính"
         options:
-          - "Fat loss (Giảm mỡ)"
-          - "Muscle gain (Tăng cơ)"
-          - "Recomp (Giảm mỡ + tăng cơ)"
-          - "Maintenance (Duy trì)"
+          - "Giảm mỡ giữ cơ"
+          - "Tăng cơ nạc"
+          - "Giảm mỡ kết hợp tăng cơ chậm"
+          - "Duy trì cân nặng và sức khỏe"
         required: true
+        default: "Giảm mỡ giữ cơ"
       - name: dietPreference
         type: select
         label: "Chế độ ăn ưu tiên"
         options:
-          - "Omnivore (Ăn cả động/vật thực vật)"
-          - "Vegetarian"
-          - "Vegan"
-          - "Keto / Low carb"
-          - "Intermittent Fasting (16:8)"
+          - "Ăn đa dạng (cả thịt cá và rau củ)"
+          - "Ăn chay có trứng sữa"
+          - "Ăn thuần chay"
+          - "Ăn ít tinh bột"
+          - "Nhịn ăn gián đoạn (16:8)"
         required: true
-        default: "Omnivore (Ăn cả động/vật thực vật)"
+        default: "Ăn đa dạng (cả thịt cá và rau củ)"
     examples:
       - inputs:
           age: 28
           gender: "Nam"
-          heightWeight: "175cm / 75kg"
-          activityLevel: "Moderate (Tập 3-5 buổi/tuần)"
-          goal: "Fat loss (Giảm mỡ)"
-          dietPreference: "Omnivore (Ăn cả động/vật thực vật)"
+          heightWeight: "175 cm / 75 kg"
+          activityLevel: "Trung bình (tập 3-5 buổi mỗi tuần)"
+          goal: "Giảm mỡ giữ cơ"
+          dietPreference: "Ăn đa dạng (cả thịt cá và rau củ)"
         output: |
-          # 🥗 Dinh Dưỡng: Fat Loss, Nam 28t, 175cm/75kg, Moderate
+          # 🥗 Kế Hoạch Dinh Dưỡng: Giảm Mỡ Giữ Cơ (Nam 28 tuổi, 175 cm / 75 kg)
 
-          ## 1. BMR & TDEE
-          - **BMR (Mifflin-St Jeor)**: 10×75 + 6.25×175 - 5×28 + 5 = **1,794 kcal**
-          - **TDEE** (Moderate × 1.55): 1,794 × 1.55 = **2,780 kcal**
+          ## 1. Chỉ số năng lượng cơ bản và tiêu hao hằng ngày
+          - **Năng lượng trao đổi chất cơ bản (BMR — công thức Mifflin-St Jeor):**
+            `10 × 75 + 6,25 × 175 - 5 × 28 + 5 = 1.708,75` → **1.709 kcal/ngày**
+          - **Tổng năng lượng tiêu hao hằng ngày (TDEE — hệ số vận động vừa 1,55):**
+            `1.709 × 1,55` = **2.649 kcal/ngày**
 
-          ## 2. Target Calories (Fat Loss: Deficit 20%)
-          - **Target: 2,780 × 0.80 = 2,224 kcal** → Làm tròn **2,200 kcal**
+          ## 2. Mức năng lượng mục tiêu (Giảm khoảng 20% để giảm mỡ an toàn)
+          - `2.649 × 0,80 = 2.119 kcal` → Làm tròn thành **2.100 kcal/ngày** (tạo mức thâm hụt khoảng 550 kcal/ngày, giúp giảm trung bình 0,4-0,5 kg/tuần mà không quá mệt).
 
-          ## 3. Macro Split
-          | Macro | g/kg | Total (g) | Calories | % |
-          |-------|------|-----------|----------|---|
-          | **Protein** | 2.0g/kg | **150g** | 600 | 27% |
-          | **Fat** | 0.9g/kg | **68g** | 612 | 28% |
-          | **Carb** | Còn lại | **202g** | 808 | 37% |
-          | **Fiber** | - | **30-40g** | - | - |
-          | **Total** | - | - | **2,020 kcal** | - |
+          ## 3. Phân bổ nhóm chất dinh dưỡng (Khớp đúng 2.100 kcal)
+          | Nhóm chất | Tỷ lệ theo cân nặng | Tổng lượng/ngày | Năng lượng | Tỷ trọng |
+          |---|---|---|---|---|
+          | **Chất đạm (Protein)** | 2,0 g/kg | **150 g** | 600 kcal | 29% |
+          | **Chất béo (Fat)** | 0,85 g/kg | **64 g** | 576 kcal | 27% |
+          | **Tinh bột (Carb)** | Phần còn lại | **231 g** | 924 kcal | 44% |
+          | **Chất xơ** | Theo khuyến nghị | **30-35 g** | — | — |
+          | **Tổng cộng** | — | — | **2.100 kcal** | **100%** |
 
-          *Lưu ý: Protein 2g/kg cho fat loss giữ cơ tối đa. Fat 0.9g/kg cho hormone. Carb fuel tập.*
+          *Ghi chú: Giữ chất đạm ở mức 2,0 g/kg giúp bảo vệ khối cơ và no lâu khi ăn thâm hụt; chất béo 64 g bảo đảm cân bằng nội tiết; tinh bột cung cấp năng lượng cho buổi tập.*
 
-          ## 4. Meal Timing (4 bữa/ngày)
-          | Bữa | Thời gian | Calories | P / C / F | Gợi ý |
-          |-----|-----------|----------|-----------|-------|
-          | Bữa 1 (Sau tập/Buổi sáng) | 7:00 | 550 | 40/55/15 | Trứng + Oats + Blueberry + Whey |
-          | Bữa 2 (Trưa) | 12:00 | 650 | 40/65/20 | Gà xào rau + Gạo lứt + Dầu olive |
-          | Bữa 3 (Snack/Pre-workout) | 16:00 | 400 | 30/40/10 | Sữa chua Hy Lạp + Chuối + Whey |
-          | Bữa 4 (Tối) | 19:00 | 600 | 40/42/23 | Cá hồi + Khoai lang + Salad + Avocado |
+          ## 4. Thực đơn mẫu 1 ngày (4 bữa — Tổng đúng 2.100 kcal | 150 g Đạm / 231 g Tinh bột / 64 g Béo)
+          | Bữa ăn | Giờ gợi ý | Năng lượng | Đạm / Tinh bột / Béo | Gợi ý món ăn quen thuộc |
+          |---|---|---|---|---|
+          | **Bữa sáng** | 07:00 | 504 kcal | 35 g / 55 g / 16 g | 3 quả trứng gà ốp la ít dầu + 2 lát bánh mì nguyên cám + 1 quả chuối + cà chua, xà lách |
+          | **Bữa trưa** | 12:00 | 642 kcal | 45 g / 75 g / 18 g | 150 g ức gà áp chảo (cân sống) + 1 chén đầy cơm gạo lứt + rau cải luộc + 1 thìa nhỏ dầu ô-liu |
+          | **Bữa xế trước tập** | 16:00 | 370 kcal | 25 g / 45 g / 10 g | 1 hộp sữa chua Hy Lạp không đường + 40 g yến mạch + 1 quả táo nhỏ + vài hạt hạnh nhân |
+          | **Bữa tối** | 19:00 | 584 kcal | 45 g / 56 g / 20 g | 150 g cá hồi hoặc cá thu áp chảo + 200 g khoai lang hấp + đĩa rau xanh trộn |
+          | **Tổng cả ngày** | — | **2.100 kcal** | **150 g / 231 g / 64 g** | Khớp chính xác mục tiêu |
 
-          ## 5. Supplement Evidence-Based
-          | Tier | Supplement | Dose | Evidence | Cost/tháng |
-          |------|------------|------|----------|------------|
-          | **A (Strong)** | Creatine Monohydrate | 5g/ngày | A (RCTs nhiều) | ~50k |
-          | **A** | Whey Protein | 20-40g/ngày (nếu thiếu) | A | ~500k |
-          | **A** | Vitamin D3 | 2000-4000 IU/ngày | A (nếu thiếu) | ~50k |
-          | **A** | Omega-3 (EPA/DHA) | 1-2g/ngày | A | ~150k |
-          | **B (Moderate)** | Caffeine | 3-6mg/kg pre-workout | B | ~20k |
-          | **C (Weak)** | Beta-alanine, Citrulline | Theoétude | C | ~200k |
+          ## 5. Thực phẩm bổ sung (Luôn ưu tiên thức ăn tự nhiên trước)
+          | Nhóm bằng chứng | Tên sản phẩm | Liều tham khảo | Ghi chú sử dụng | Chi phí ước tính/tháng |
+          |---|---|---|---|---|
+          | **Nhóm A (Bằng chứng mạnh)** | Creatine Monohydrate | 3-5 g/ngày | Hỗ trợ sức bền tập tạ, uống đủ nước mỗi ngày | ~100.000đ - 150.000đ |
+          | **Nhóm A (Hỗ trợ tiện lợi)** | Bột đạm Whey | 1 muỗng khi thiếu đạm từ thịt cá | Không bắt buộc nếu bữa ăn đã đủ thịt, cá, trứng, đậu | ~500.000đ - 800.000đ |
+          | **Nhóm A (Nếu thiếu)** | Vitamin D3 & Dầu cá Omega-3 | Theo nhu cầu hoặc xét nghiệm | Hữu ích cho người làm văn phòng ít ra nắng, ít ăn cá béo | ~150.000đ - 200.000đ |
+          | **Nhóm B (Hỗ trợ vừa)** | Cà phê đen trước tập | 1 ly nhỏ trước tập 30 phút | Giúp tỉnh táo; tránh uống sau 14:00 kẻo mất ngủ | ~20.000đ - 50.000đ |
+          | **Nhóm C (Không cần thiết với người phổ thông)** | Các loại viên đốt mỡ, hỗn hợp tăng lực đắt tiền | Không khuyến khích | Hiệu quả thấp, dễ tốn tiền không đáng | — |
 
-          ## 6. Tracking Guide
-          - **App khuyên dùng**: MacroFactor (AI adjust), MyFitnessPal (DB lớn), Cronometer (Micronutrient)
-          - **Tip**: Cân thức ăn raw (trước khi nấu) cho chính xác. Scan barcode. Save meals thường ăn.
-        context: "Fat loss moderate deficit, high protein, evidence-based supplements"
+          *Lưu ý an toàn: Thực phẩm bổ sung không thay thế bữa ăn cân bằng. Nếu bạn có bệnh lý nền về gan, thận, tim mạch hoặc đang dùng thuốc điều trị, hãy hỏi ý kiến bác sĩ trước khi dùng.*
+
+          ## 6. Mẹo theo dõi nhẹ nhàng hằng ngày
+          - **Ứng dụng gợi ý:** MyFitnessPal hoặc Cronometer (có sẵn kho món ăn và quét mã vạch tiện lợi).
+          - **Mẹo thực tế:** Cân thực phẩm lúc còn sống/tươi trước khi nấu để số liệu chuẩn xác nhất; lưu lại 4-5 thực đơn hay ăn để lặp lại trong tuần mà không phải tính lại từ đầu.
+        context: "Kế hoạch giảm mỡ giữ cơ cho nam 28 tuổi, tập 3-5 buổi/tuần, thực đơn món Việt quen thuộc"
     difficulty: "intermediate"
     useCases:
-      - "Tự setup dinh dưỡng cho mục tiêu thể hình"
-      - "Meal prep hàng tuần"
+      - "Tự lập thực đơn giảm mỡ hoặc tăng cơ phù hợp thể trạng"
+      - "Lên danh sách đi chợ và chuẩn bị bữa ăn gọn nhẹ cho cả tuần"
 agentTemplate:
-  name: "Sports Nutritionist Agent"
-  description: "Tính TDEE, Macro, Meal plan, Supplement evidence-based, Hydration"
+  name: "Chuyên Gia Dinh Dưỡng Thể Thao"
+  description: "Tính năng lượng tiêu hao hằng ngày, chia tỷ lệ đạm - tinh bột - chất béo và gợi ý thực đơn món Việt khoa học"
   systemPrompt: |
-    Bạn là Sports Nutritionist. Evidence-based: Protein 1.6-2.2g/kg, Fat 0.8-1.2g/kg, Carb fuel performance. Supplement hierarchy: Tier A/B/C. Food first.
+    Bạn là chuyên gia dinh dưỡng thể thao am hiểu ẩm thực Việt Nam.
+    Nhiệm vụ: Tính toán chỉ số năng lượng chính xác, phân bổ đạm (1,6-2,2 g/kg), chất béo (0,8-1,2 g/kg) và tinh bột hợp lý theo mục tiêu, gợi ý bữa ăn từ thực phẩm tự nhiên quen thuộc.
+    Nguyên tắc: Luôn ưu tiên thực phẩm tự nhiên trước thực phẩm bổ sung; không đưa phác đồ điều trị y khoa và luôn khuyên hỏi bác sĩ nếu người dùng có bệnh nền.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:

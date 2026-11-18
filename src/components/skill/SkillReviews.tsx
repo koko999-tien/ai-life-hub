@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Star, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
+import { useState, useEffect, useId } from 'react';
+import { Star, MessageSquare, Send } from 'lucide-react';
 import { Button, toast } from '@/components/ui';
 import { fetchSkillReviews, submitSkillReview, type SkillReviewItem } from '@/lib/supabase/client';
 
@@ -18,6 +18,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const fieldIdPrefix = useId();
 
   useEffect(() => {
     async function load() {
@@ -41,7 +42,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!comment.trim()) {
-      toast.error('Vui lòng nhập nội dung đánh giá hoặc kinh nghiệm thực chiến của bạn.');
+      toast.error('Vui lòng nhập nội dung đánh giá hoặc kinh nghiệm thực tế của bạn.');
       return;
     }
 
@@ -67,9 +68,9 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
       setReviews((prev) => [newReview, ...prev]);
       setComment('');
       setShowForm(false);
-      toast.success('Cảm ơn bạn! Đánh giá đã được lưu vào Supabase.');
+      toast.success('Cảm ơn bạn! Đánh giá của bạn đã được ghi nhận.');
     } catch {
-      toast.error('Lỗi khi gửi đánh giá.');
+      toast.error('Không thể gửi đánh giá. Vui lòng thử lại.');
     } finally {
       setIsSubmitting(false);
     }
@@ -80,29 +81,30 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <MessageSquare className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+            <MessageSquare className="w-5 h-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
             <h2 id="reviews-heading" className="text-xl font-bold text-slate-900 dark:text-slate-100">
               Đánh Giá & Kinh Nghiệm Cộng Đồng
             </h2>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Kinh nghiệm thực chiến khi áp dụng kỹ năng này vào công việc hàng ngày
+            Kinh nghiệm thực tế khi áp dụng kỹ năng này vào công việc hằng ngày
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 text-sm font-bold border border-amber-200 dark:border-amber-800">
-            <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <Star className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
             <span>{averageRating} / 5</span>
             <span className="text-xs font-normal text-slate-500 dark:text-slate-400">({reviews.length} đánh giá)</span>
           </div>
 
           <Button
+            type="button"
             size="sm"
             onClick={() => setShowForm(!showForm)}
             className="text-xs"
           >
-            {showForm ? 'Đóng form' : 'Viết đánh giá'}
+            {showForm ? 'Đóng biểu mẫu' : 'Viết đánh giá'}
           </Button>
         </div>
       </div>
@@ -115,15 +117,16 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
           </h3>
 
           <div className="mb-4">
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+            <span className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">
               Đánh giá sao:
-            </label>
+            </span>
             <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   type="button"
                   key={star}
                   onClick={() => setRating(star)}
+                  aria-label={`Đánh giá ${star} sao`}
                   className="p-1 hover:scale-110 transition-transform"
                 >
                   <Star
@@ -132,6 +135,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
                         ? 'fill-amber-400 text-amber-400'
                         : 'text-slate-300 dark:text-slate-600'
                     }`}
+                    aria-hidden="true"
                   />
                 </button>
               ))}
@@ -143,29 +147,37 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
 
           <div className="grid sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                Tên hoặc Chức danh (tuỳ chọn):
+              <label
+                htmlFor={`${fieldIdPrefix}-username`}
+                className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+              >
+                Tên hoặc nghề nghiệp (tùy chọn):
               </label>
               <input
+                id={`${fieldIdPrefix}-username`}
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-                placeholder="Ví dụ: Hoàng Long (Frontend Dev)"
+                placeholder="Ví dụ: Minh Anh (Nhân viên văn phòng)"
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
           </div>
 
           <div className="mb-4">
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+            <label
+              htmlFor={`${fieldIdPrefix}-comment`}
+              className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+            >
               Kinh nghiệm / Mẹo thực tế khi dùng kỹ năng này:
             </label>
             <textarea
+              id={`${fieldIdPrefix}-comment`}
               required
               rows={3}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Chia sẻ cách bạn đã tinh chỉnh prompt, kết hợp công cụ hoặc kết quả đạt được..."
+              placeholder="Chia sẻ cách bạn đã tinh chỉnh câu lệnh, kết hợp công cụ hoặc kết quả đạt được..."
               className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
@@ -175,7 +187,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
               Hủy
             </Button>
             <Button type="submit" size="sm" disabled={isSubmitting} className="gap-1.5">
-              <Send className="w-3.5 h-3.5" />
+              <Send className="w-3.5 h-3.5" aria-hidden="true" />
               {isSubmitting ? 'Đang gửi...' : 'Gửi Đánh Giá'}
             </Button>
           </div>
@@ -205,13 +217,14 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-0.5">
+                <div className="flex items-center gap-0.5" aria-label={`${rev.rating} trên 5 sao`}>
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star
                       key={s}
                       className={`w-3.5 h-3.5 ${
                         s <= rev.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'
                       }`}
+                      aria-hidden="true"
                     />
                   ))}
                 </div>

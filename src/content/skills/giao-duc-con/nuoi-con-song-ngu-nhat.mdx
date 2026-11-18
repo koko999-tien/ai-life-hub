@@ -2,168 +2,165 @@
 id: nuoi-con-song-ngu-nhat
 categoryId: giao-duc-con
 name: "Nuôi dạy con song ngữ / đa ngữ"
-description: "OPOL, Minority language at home, Time & Place, Translanguaging, Literacy development, Identity"
+description: "Phương pháp mỗi phụ huynh một ngôn ngữ, giữ tiếng mẹ đẻ tại nhà, chia khung giờ giao tiếp, phát triển đọc viết và niềm tự hào bản sắc cho con"
 whenToUse:
-  - "Cha mẹ nói 2+ ngôn ngữ, muốn con thành thạo cả 2"
-  - "Sống ở nước ngoài, muốn giữ tiếng mẹ đẻ"
-  - "Con hiểu nhưng không nói được tiếng thứ 2"
+  - "Cha mẹ nói từ 2 ngôn ngữ trở lên, muốn con sử dụng tự nhiên cả hai"
+  - "Gia đình sống ở nước ngoài muốn giữ tiếng mẹ đẻ cho con"
+  - "Con nghe hiểu được nhưng ngại nói hoặc từ chối nói tiếng thứ 2"
 difficulty: "intermediate"
-estimatedTime: "Cam kết lâu dài, effort hàng ngày"
+estimatedTime: "Cam kết đồng hành lâu dài, trò chuyện đều đặn hằng ngày"
 tags: ["bilingual", "multilingual", "opol", "heritage-language", "biliteracy", "language-identity"]
 prompts:
   - id: prompt-bilingual-strategy
-    name: "Chiến lược nuôi dạy con song ngữ (OPOL/ML@H/T&P)"
-    description: "Chọn phương pháp, Thiết lập môi trường ngôn ngữ, Xử lý language refusal, Literacy"
+    name: "Lập kế hoạch nuôi con song ngữ tự nhiên theo hoàn cảnh gia đình"
+    description: "Chọn cách chia ngôn ngữ phù hợp, tạo môi trường nghe nói đọc tự nhiên và xử lý khi con ngại nói tiếng mẹ đẻ"
     template: |
-      Bạn là Bilingual Parenting Expert. Hãy thiết kế kế hoạch song ngữ cho:
+      Bạn là chuyên gia tư vấn nuôi con song ngữ và đa ngữ. Hãy thiết kế kế hoạch song ngữ thực tế cho gia đình sau:
 
-      **Hồ sơ gia đình:**
-      - Cha: Ngôn ngữ mẹ đẻ {{fatherL1}}, C2 {{fatherL2}}, C1 {{fatherL3}}
-      - Mẹ: Ngôn ngữ mẹ đẻ {{motherL1}}, C2 {{motherL2}}, C1 {{motherL3}}
-      - Ngôn ngữ cộng đồng/Trường: {{communityLang}}
-      - Con: Tuổi {{childAge}}, Ngôn ngữ hiện tại {{childLangs}}, Kỹ năng {{childSkills}}
+      **Hồ sơ ngôn ngữ gia đình:**
+      - Ba: Ngôn ngữ mẹ đẻ {{fatherL1}}, ngôn ngữ thứ 2: {{fatherL2}}, ngôn ngữ thứ 3 (nếu có): {{fatherL3}}
+      - Mẹ: Ngôn ngữ mẹ đẻ {{motherL1}}, ngôn ngữ thứ 2: {{motherL2}}, ngôn ngữ thứ 3 (nếu có): {{motherL3}}
+      - Ngôn ngữ cộng đồng / Trường học: {{communityLang}}
+      - Thông tin của con: {{childAge}}, ngôn ngữ đang dùng {{childLangs}}, kỹ năng hiện tại {{childSkills}}
 
-      **Output:**
-      1. **Chọn chiến lược (Strategy Selection)**:
-         - **OPOL (One Parent One Language)**: Mỗi cha mẹ nói 1 ngôn ngữ nhất quán
-         - **ML@H (Minority Language at Home)**: Nhà nói tiếng thiểu số, Ngoài xã hội nói tiếng đa số
-         - **Time & Place**: Chia theo thời gian (Sáng Tiếng A, Chiều Tiếng B) hoặc Địa điểm
-         - **Mixed/Pragmatic**: Linh hoạt, ưu tiên input chất lượng
-         → Đề xuất phù hợp nhất + Lý do
-      2. **Môi trường ngôn ngữ (Language Environment)**:
-         - Input sources: Sách, Audio, Video, Người nói, Tuổi thơ, Hoạt động
-         - Output opportunities: Chơi, Nấu ăn, Đọc truyện, Du lịch, Video call ông bà
-         - Literacy: Đọc/viết tiếng thiểu số (Khi nào bắt đầu, Phương pháp)
-      3. **Xử lý thách thức thường gặp**:
-         - **Language Refusal (Con từ chối nói tiếng thiểu số)**: Strategies
-         - **Code-switching / Translanguaging**: Bình thường, Không sửa liên tục
-         - **Dominant language takeover**: Bảo vệ tiếng thiểu số
-         - **School transition**: Chuẩn bị入学, Hỗ trợ song ngữ tại trường
-      4. **Kế hoạch hành động 12 tháng**:
-         - Input goals (Giờ/ngày mỗi ngôn ngữ)
-         - Output milestones (Từ vựng, Câu, Đọc/viết)
-         - Resources mua/sắm (Sách, App, Class, Camp)
-      5. **Identity & Attitude**: Gắn kết văn hóa, Tự hào tiếng mẹ đẻ, Community
+      **Hãy thiết kế kế hoạch nuôi con song ngữ chi tiết theo các phần sau:**
+      1. **Chọn cách chia ngôn ngữ phù hợp nhất**:
+         - **Mỗi phụ huynh một ngôn ngữ**: Ba luôn nói một thứ tiếng, mẹ luôn nói một thứ tiếng nhất quán
+         - **Ưu tiên ngôn ngữ ít phổ biến tại nhà**: Ở nhà cả gia đình cùng nói tiếng mẹ đẻ, ra ngoài xã hội và đi học dùng ngôn ngữ cộng đồng
+         - **Chia theo khung giờ hoặc địa điểm**: Ví dụ buổi sáng hoặc giờ nấu ăn dùng một ngôn ngữ, buổi tối hoặc cuối tuần dùng ngôn ngữ kia
+         - **Kết hợp linh hoạt**: Ưu tiên lượng nghe và trò chuyện chất lượng cao thay vì gò bó quá mức
+         → Đề xuất phương án phù hợp nhất với gia đình này và giải thích lý do.
+      2. **Xây dựng môi trường nghe - nói - đọc tự nhiên**:
+         - Nguồn nghe và đọc hằng ngày: sách truyện, truyện âm thanh, bài hát, người thân trò chuyện
+         - Cơ hội để con chủ động nói: vừa chơi vừa kể, cùng nấu ăn, gọi điện cho ông bà, đi chơi với bạn cùng ngôn ngữ
+         - Lộ trình tập đọc và viết chữ cho ngôn ngữ ít dùng ở trường (bắt đầu khi nào và học nhẹ nhàng ra sao)
+      3. **Cách gỡ rối những tình huống thường gặp**:
+         - **Khi con từ chối nói tiếng mẹ đẻ**: Cách phản hồi không ép buộc để con vẫn thấy vui và có động lực giao tiếp
+         - **Khi con nói trộn hai ngôn ngữ trong một câu**: Giải thích vì sao điều này bình thường và cách ba mẹ đáp lại tự nhiên mà không sửa gắt
+         - **Khi ngôn ngữ ở trường lấn át tiếng ở nhà**: Cách giữ cân bằng để con không quên tiếng mẹ đẻ
+         - **Chuẩn bị chuyển cấp**: Hỗ trợ từ vựng trường lớp mà vẫn giữ thói quen nói tiếng mẹ đẻ ở nhà
+      4. **Kế hoạch 12 tháng rõ ràng**:
+         - Mục tiêu thời lượng nghe và trò chuyện mỗi ngày cho từng ngôn ngữ
+         - Cột mốc mong đợi theo từng quý (từ vựng, ghép câu, nhận mặt chữ)
+         - Gợi ý sách, ứng dụng và tài liệu phù hợp dễ tìm mua
+      5. **Gắn kết bản sắc và cộng đồng**: Cách nuôi dưỡng niềm tự hào về văn hóa cội nguồn và tìm nhóm bạn đồng hành cho con
     variables:
       - name: fatherL1
         type: text
-        label: "Ngôn ngữ mẹ đẻ cha"
+        label: "Ngôn ngữ mẹ đẻ của ba"
         required: true
       - name: fatherL2
         type: text
-        label: "Ngôn ngữ thứ 2 cha (Trình độ)"
+        label: "Ngôn ngữ thứ 2 của ba (và mức độ thành thạo)"
         required: true
       - name: fatherL3
         type: text
-        label: "Ngôn ngữ thứ 3 cha (Nếu có)"
+        label: "Ngôn ngữ thứ 3 của ba (nếu có)"
         required: false
+        default: "Không có"
       - name: motherL1
         type: text
-        label: "Ngôn ngữ mẹ đẻ mẹ"
+        label: "Ngôn ngữ mẹ đẻ của mẹ"
         required: true
       - name: motherL2
         type: text
-        label: "Ngôn ngữ thứ 2 mẹ (Trình độ)"
+        label: "Ngôn ngữ thứ 2 của mẹ (và mức độ thành thạo)"
         required: true
       - name: motherL3
         type: text
-        label: "Ngôn ngữ thứ 3 mẹ (Nếu có)"
+        label: "Ngôn ngữ thứ 3 của mẹ (nếu có)"
         required: false
+        default: "Không có"
       - name: communityLang
         type: text
-        label: "Ngôn ngữ cộng đồng/Trường học"
+        label: "Ngôn ngữ cộng đồng / Trường học"
         required: true
       - name: childAge
         type: text
-        label: "Tuổi con"
+        label: "Tuổi của con"
         required: true
       - name: childLangs
         type: textarea
-        label: "Ngôn ngữ con đang dùng/hiểu"
+        label: "Ngôn ngữ con đang dùng và nghe hiểu"
         required: true
       - name: childSkills
         type: textarea
-        label: "Kỹ năng ngôn ngữ con (Nghe/Nói/Đọc/Viết từng ngôn ngữ)"
+        label: "Kỹ năng nghe, nói, đọc, viết hiện tại của con"
         required: true
     examples:
       - inputs:
-          fatherL1: "Tiếng Việt (Native)"
-          fatherL2: "Tiếng Anh (C1)"
-          motherL1: "Tiếng Anh (Native - hoặc Tiếng Pháp/France)"
-          motherL2: "Tiếng Việt (B2 - học được)"
-          communityLang: "Tiếng Anh (Úc/Mỹ/Canada/Singapore)"
+          fatherL1: "Tiếng Việt (tiếng mẹ đẻ)"
+          fatherL2: "Tiếng Anh (thành thạo)"
+          fatherL3: "Không có"
+          motherL1: "Tiếng Anh (tiếng mẹ đẻ)"
+          motherL2: "Tiếng Việt (giao tiếp khá)"
+          motherL3: "Không có"
+          communityLang: "Tiếng Anh (sống tại Úc)"
           childAge: "3 tuổi"
-          childLangs: "Hiểu Tiếng Việt & Tiếng Anh, Nói chủ yếu Tiếng Anh, Vừa bắt đầu ghép câu Tiếng Việt"
-          childSkills: "Nghe hiểu tốt 2 ngôn ngữ, Nói Tiếng Anh lưu loát, Tiếng Việt đơn giản (2-3 từ), Chưa đọc/viết"
+          childLangs: "Hiểu cả tiếng Việt và tiếng Anh, nói chủ yếu tiếng Anh, mới bắt đầu ghép câu ngắn tiếng Việt"
+          childSkills: "Nghe hiểu tốt cả 2 ngôn ngữ, nói tiếng Anh lưu loát, nói tiếng Việt câu ngắn 2-3 từ, chưa biết đọc viết"
         output: |
-          # 🌍 Nuôi Dạy Con Song Ngữ: Việt - Anh (Úc), Con 3 Tuổi
+          # 🌍 Kế Hoạch Nuôi Con Song Ngữ: Việt - Anh Tại Úc (Bé 3 Tuổi)
 
-          ## 1. Chiến Lược Đề Xuất: **OPOL + ML@H Hybrid**
-          - **Cha (Vietnamese Native)**: Luôn nói Tiếng Việt với con (OPOL strict)
-          - **Mẹ (English Native, Vietnamese B2)**: Nói Tiếng Anh với con, Nhưng **nhà nói Tiếng Việt** khi cả 3 có mặt (ML@H cho tiếng thiểu số)
-          - **Lý do**: Tiếng Việt là Minority language (Cần bảo vệ), Tiếng Anh là Majority (Trường, Xã hội, Mẹ native)
-          - **Linh hoạt**: Ngoài nhà/Trường → English. Nhà/Video call ông bà VN → Vietnamese.
+          ## 1. Chiến Lược Đề Xuất: Kết Hợp "Mỗi Người Một Ngôn Ngữ" & "Ưu Tiên Tiếng Việt Tại Nhà"
+          - **Ba (tiếng Việt là tiếng mẹ đẻ)**: Luôn nói 100% tiếng Việt với con mọi lúc.
+          - **Mẹ (tiếng Anh là tiếng mẹ đẻ, biết tiếng Việt giao tiếp)**: Nói tiếng Anh khi trò chuyện riêng với con, nhưng **khi cả nhà 3 người ở cùng nhau thì ưu tiên nói tiếng Việt**.
+          - **Vì sao chọn cách này**: Ngoài đường, ở lớp mẫu giáo và trên truyền hình đều là tiếng Anh, nên tiếng Anh của con sẽ tự phát triển rất nhanh. Tiếng Việt cần được bảo vệ và tạo môi trường ấm áp ngay trong gia đình.
 
-          ## 2. Môi Trường Ngôn Ngữ (Input/Output)
+          ## 2. Môi Trường Nghe - Nói - Đọc Hằng Ngày
 
-          ### Input Sources (Mục tiêu: 30% Vietnamese / 70% English cho Minority protection)
-          | Nguồn | Tiếng Việt | Tiếng Anh | Tần suất |
-          |-------|------------|-----------|----------|
-          | **Cha mẹ** | Cha: 100% VN | Mẹ: 80% EN / 20% VN (khi 3 người) | Hằng ngày |
-          | **Sách** | 50+ sách VN (Truyện cổ tích, Kiến thức, Thơ) | 100+ sách EN (Library, Epic) | Đọc 2-3 cuốn/ngày mỗi ngôn ngữ |
-          | **Audio/Video** | Truyện audio VN (Voiz, Tiki), Ca nhạc thiếu nhi | Khan Academy Kids, PBS Kids, Disney+ | 30p/ngày mỗi ngôn ngữ |
-          | **Người nói khác** | Video call ông bà VN (Tuần 2-3 lần), Playdate trẻ VN | Preschool, Teachers, Friends | Hàng tuần |
-          | **Hoạt động** | Nấu ăn VN cùng cha, Tết/Trung thu, Đi chợ | Preschool, Sports, Library storytime | Hằng tuần |
+          ### Nguồn Đầu Vào (Mục tiêu giữ tối thiểu 30% thời lượng tiếng Việt mỗi ngày)
+          | Nguồn tiếp xúc | Tiếng Việt | Tiếng Anh | Tần suất |
+          |---|---|---|---|
+          | **Ba mẹ trò chuyện** | Ba: 100% tiếng Việt | Mẹ: 80% tiếng Anh / 20% tiếng Việt khi ăn chung | Hằng ngày |
+          | **Đọc sách** | 50+ cuốn sách tranh, truyện cổ tích, thơ thiếu nhi | 100+ cuốn từ thư viện địa phương | 2-3 cuốn/ngày mỗi thứ tiếng |
+          | **Nghe & Xem chọn lọc** | Truyện kể trên Voiz FM, Spotify, nhạc thiếu nhi Việt | Khan Academy Kids, PBS Kids | 20-30 phút/ngày |
+          | **Người thân & Bạn bè** | Gọi video cho ông bà ở Việt Nam (2-3 lần/tuần), gặp nhóm bạn Việt cuối tuần | Lớp mẫu giáo, bạn hàng xóm | Hằng tuần |
+          | **Sinh hoạt thực tế** | Cùng ba nấu món Việt, đi chợ châu Á, đón Tết và Trung thu | Đi thư viện, chơi thể thao ở công viên | Hằng tuần |
 
-          ### Output Opportunities (Ép output nhẹ nhàng)
-          - **"VN Only" Time**: 30p/ngày (Nấu ăn, Chơi lego, Đọc sách - Chỉ tiếng Việt)
-          - **Video Call Ông Bà**: Con kể chuyện ngày hôm nay bằng Tiếng Việt
-          - **Narrate Play**: Cha comment bằng VN: "Con đang xây tháp cao cao!"
+          ### Tạo Cơ Hội Để Con Tự Tin Nói Tiếng Việt
+          - **Giờ "Cả nhà nói tiếng Việt"**: Dành 30 phút mỗi tối lúc nấu ăn, xếp hình hoặc đọc truyện chỉ dùng tiếng Việt vui vẻ.
+          - **Gọi điện cho ông bà**: Khuyến khích con tự khoe món đồ chơi mới hoặc kể chuyện đi học với ông bà bằng tiếng Việt.
+          - **Tường thuật lúc chơi**: Ba chơi cùng và mô tả nhẹ nhàng bằng tiếng Việt: *"Ồ, con đang xếp tòa tháp cao quá!"* để con nạp từ tự nhiên.
 
-          ### Literacy (Đọc/Viết) - Timeline
-          | Tuổi | Tiếng Việt | Tiếng Anh |
-          |------|------------|-----------|
-          | 3-4 | Chữ cái (Chữ cái VN - 29 chữ), Tên con | Phonics (Jolly Phonics), Tên con |
-          | 4-5 | Đọc từ đơn, Câu ngắn (Sách уровнен) | Blending, CVC words, Sight words |
-          | 5-6 | Đọc sách chương trình 1, Viết chữ | Đọc chapter books, Viết câu |
+          ### Lộ Trình Làm Quen Đọc Viết
+          | Độ tuổi | Tiếng Việt | Tiếng Anh |
+          |---|---|---|
+          | 3-4 tuổi | Nhận mặt 29 chữ cái tiếng Việt qua thẻ tranh và viết tên con | Làm quen âm chữ cái (ghép vần cơ bản), nhận biết tên mình |
+          | 4-5 tuổi | Ghép vần đơn giản, đọc từ ngắn trong sách tranh chữ to | Ghép âm đọc từ ngắn quen thuộc |
+          | 5-6 tuổi | Đọc sách tập đọc lớp 1 và tập viết nét cơ bản | Đọc truyện chữ ngắn và viết câu đơn giản |
 
-          ## 3. Xử Lý Thách Thức
-          | Thách thức | Chiến lược |
-          |------------|-----------|
-          | **Language Refusal** (Con nói "Tôi không muốn nói Tiếng Việt") | Không ép, Không phạt. **Recast**: Con nói EN → Cha repeat VN tự nhiên. Tạo "Need" thật (Video call ông bà, Chơi với bạn VN). |
-          | **Code-switching** (Lộn xộn 2 tiếng trong 1 câu) | **Bình thường** ở trẻ song ngữ. Không sửa. Cha repeat câu hoàn chỉnh bằng VN. |
-          | **Dominant Language Takeover** (Anh chiếm ưu thế) | Tăng **VN Input**: Sách VN nhiều hơn, Audio VN trong xe, Camp VN hè, Camp VN cuối tuần. |
-          | **School Transition** (Đi học) | Chuẩn bị: Từ vựng trường học EN. Giữ VN tại nhà. Hỏi trường có chương trình bilingual/ELL không. |
+          ## 3. Gỡ Rối 4 Tình Huống Thường Gặp
+          | Tình huống | Cách ba mẹ xử lý nhẹ nhàng |
+          |---|---|
+          | **Con từ chối nói tiếng Việt** | Không ép hay mắng. Khi con trả lời bằng tiếng Anh, ba chỉ cần lặp lại ý đó bằng tiếng Việt thật tự nhiên rồi tiếp tục trò chuyện. Tạo nhu cầu nói thật như gọi cho ông bà không biết tiếng Anh. |
+          | **Con nói trộn Việt - Anh trong 1 câu** | Đây là giai đoạn rất bình thường ở trẻ song ngữ. Ba mẹ không ngắt lời sửa lỗi, chỉ nhắc lại trọn câu bằng tiếng Việt chuẩn để con nghe theo. |
+          | **Tiếng Anh ở trường lấn át hẳn** | Tăng thêm truyện âm thanh tiếng Việt khi ngồi trên ô tô, rủ thêm gia đình người Việt đi dã ngoại cuối tuần, về Việt Nam thăm họ hàng mỗi năm nếu có điều kiện. |
+          | **Chuẩn bị vào tiểu học** | Dạy con trước một số từ vựng sinh hoạt ở trường bằng tiếng Anh để con tự tin, đồng thời giữ nếp đọc truyện tiếng Việt mỗi tối trước khi ngủ. |
 
-          ## 4. Kế Hoạch 12 Tháng
-          | Tháng | Mục tiêu VN | Hành động cụ thể |
-          |-------|-------------|------------------|
-          | 1-3 | Vocab 500 từ | Sách 3 cuốn/ngày, Audio 30p, VN-only time 20p |
-          | 4-6 | Câu 5-7 từ | Nấu ăn VN cùng cha 2 lần/tuần, Kể chuyện ảnh |
-          | 7-9 | Kể chuyện 3-5 câu | Camp VN hè (2-3 tuần), Playdate trẻ VN |
-          | 10-12 | Đọc chữ cái, Tên | Phonics VN (Chương trình "Tiếng Việt vui"), Viết tên |
+          ## 4. Kế Hoạch 12 Tháng Từng Bước
+          | Giai đoạn | Mục tiêu tiếng Việt | Việc làm cụ thể |
+          |---|---|---|
+          | Tháng 1-3 | Hiểu và dùng khoảng 500 từ quen thuộc | Đọc 3 truyện ngắn tiếng Việt mỗi ngày, nghe nhạc thiếu nhi 20 phút, giữ giờ nói tiếng Việt 20 phút/ngày |
+          | Tháng 4-6 | Nói được câu dài 5-7 từ | Nấu ăn cùng ba 2 buổi/tuần, xem ảnh gia đình và tập kể lại chuyện trong ảnh |
+          | Tháng 7-9 | Kể lại được câu chuyện ngắn 3-5 câu | Cho con tham gia câu lạc bộ cuối tuần hoặc trại hè giao lưu tiếng Việt cùng bạn đồng trang lứa |
+          | Tháng 10-12 | Nhận biết mặt chữ cái và viết tên | Chơi ghép chữ qua ứng dụng "Tiếng Việt vui", tập tô tên con bằng bút màu |
 
-          ## 5. Identity & Community
-          - **Tự hào**: "Con biết 2 ngôn ngữ = Siêu năng lực!"
-          - **Community**: Nhóm cha mẹ song ngữ VN-EN (FB, Zalo), Playdate đều đặn
-          - **Văn hóa**: Tết, Trung thu, Tết Đoan Ngọ - Giải thích ý nghĩa bằng VN
-          - **Du lịch**: Về VN 1-2 lần/năm (Immersion tốt nhất)
-
-          ## Resources Mua Sắm
-          - **Sách VN**: Nhà sách Fahasa/Phương Nam (Bộ "Truyện cổ tích Việt Nam", "Khoa học cho bé", "Thơ thiếu nhi")
-          - **App**: "Tiếng Việt vui", "Monkey Junior" (VN), "Khan Academy Kids" (EN), "Epic" (EN)
-          - **Audio**: Voiz FM, Spotify "Truyện thiếu nhi Việt Nam", YouTube "Cô Lan erzählt", "Trường học happiness"
-        context: "Cha VN native, Mẹ EN native (VN B2), Con 3t ở Úc, Minority language = Vietnamese"
+          ## 5. Gắn Kết Bản Sắc & Tìm Tài Liệu
+          - **Nuôi dưỡng niềm tự hào**: Khen ngợi con theo hướng *"Con biết nói cả hai thứ tiếng để trò chuyện với cả ông bà nội và ông bà ngoại thật tuyệt!"*.
+          - **Kết nối cộng đồng**: Tham gia nhóm cha mẹ Việt tại địa phương để con có bạn cùng tuổi nói tiếng Việt.
+          - **Sách và ứng dụng gợi ý**: Nhà sách Fahasa/Phương Nam (bộ truyện cổ tích, thơ thiếu nhi), ứng dụng Tiếng Việt vui, Monkey Junior, Khan Academy Kids, Voiz FM và Spotify (kênh truyện thiếu nhi tiếng Việt).
+        context: "Ba người Việt, mẹ nói tiếng Anh (biết tiếng Việt giao tiếp), bé 3 tuổi ở Úc, gia đình muốn giữ tiếng Việt cho con"
     difficulty: "advanced"
     useCases:
       - "Gia đình song ngữ/đa ngữ"
       - "Người Việt ở nước ngoài giữ tiếng cho con"
       - "Cha mẹ khác ngôn ngữ mẹ đẻ"
 agentTemplate:
-  name: "Bilingual Parenting Coach"
-  description: "OPOL, ML@H, Time & Place, Translanguaging, Biliteracy, Identity, Community"
+  name: "Cố Vấn Nuôi Con Song Ngữ"
+  description: "Phương pháp mỗi phụ huynh một ngôn ngữ, bảo vệ tiếng mẹ đẻ, phát triển kỹ năng đọc viết và gắn kết bản sắc văn hóa"
   systemPrompt: |
-    Bạn là Bilingual Parenting Coach. Input > Output. Minority language needs protection. Consistency > Perfection. Identity matters. Community essential.
+    Bạn là chuyên gia tư vấn nuôi con song ngữ. Lượng nghe - đọc đầu vào tự nhiên quan trọng hơn ép nói sớm; ngôn ngữ ít phổ biến trong cộng đồng cần được ưu tiên bảo vệ ở nhà; sự kiên trì đều đặn quan trọng hơn hoàn hảo; sự tự hào về bản sắc và cộng đồng hỗ trợ là nền tảng lâu dài.
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:

@@ -1,85 +1,85 @@
 ---
 id: design-system-tokens
 categoryId: thiet-ke
-name: "Design Tokens & Design System"
-description: "Xây dựng hệ thống thiết kế: Color tokens, Spacing, Typography, Component library, Documentation"
+name: "Hệ thống thiết kế & Biến thiết kế dùng chung (Design Tokens)"
+description: "Xây dựng bộ quy chuẩn giao diện đồng nhất: biến màu sắc, khoảng cách, cỡ chữ, bo góc, đổ bóng và cách bàn giao cho lập trình viên"
 whenToUse:
-  - "Xây dựng Design System cho team/product"
-  - "Chuẩn hóa UI across các platform (Web, iOS, Android)"
-  - "Handoff thiết kế cho dev chính xác"
+  - "Xây dựng bộ giao diện chuẩn dùng chung cho cả nhóm thiết kế và lập trình"
+  - "Đồng bộ màu sắc, cỡ chữ giữa bản web, iOS và Android để không bị lệch nhau"
+  - "Bàn giao thông số thiết kế sang mã nguồn chính xác, không phải đo thủ công từng màn hình"
 difficulty: "intermediate"
-estimatedTime: "Setup 1-2 tuần, maintain liên tục"
+estimatedTime: "1-2 tuần dựng khung ban đầu, cập nhật dần theo sản phẩm"
 tags: ["design-system", "design-tokens", "figma", "component-library", "handoff"]
 prompts:
   - id: prompt-design-tokens-setup
-    name: "Thiết kế Design Tokens hệ thống"
-    description: "Tạo bộ tokens: Color (semantic), Spacing scale, Typography scale, Border radius, Shadows, Motion"
+    name: "Xây dựng bộ biến thiết kế dùng chung"
+    description: "Tạo cấu trúc quy chuẩn đầy đủ từ màu sắc theo ngữ nghĩa, thang khoảng cách, cỡ chữ đến bo góc và đổ bóng"
     template: |
-      Bạn là Design System Engineer. Hãy thiết kế bộ Design Tokens cho: {{productName}}.
+      Bạn là kỹ sư chuyên xây dựng hệ thống thiết kế giao diện. Hãy thiết kế bộ **biến thiết kế dùng chung** (Design Tokens — nơi lưu tập trung mã màu, cỡ chữ, khoảng cách bằng tên gọi thống nhất) cho sản phẩm: {{productName}}.
 
-      **Brand Identity:**
-      - Màu thương hiệu: {{brandColors}}
-      - Typography: {{brandTypography}}
-      - Tone: {{brandTone}} (playful / serious / minimal / bold)
+      **Nhận diện thương hiệu:**
+      - Màu sắc thương hiệu: {{brandColors}}
+      - Bộ phông chữ: {{brandTypography}}
+      - Sắc thái thương hiệu: {{brandTone}}
 
-      **Yêu cầu Tokens (JSON format cho Style Dictionary / Figma Tokens):**
-      1. **Color**: Primitive (raw values) → Semantic (meaning) → Component (specific)
-      2. **Spacing**: Base unit 4px, scale 0-24+
-      3. **Typography**: Font families, sizes, weights, line-heights, letter-spacing
-      4. **Border Radius**: Scale từ sharp → round → full
-      5. **Shadows/Elevation**: 4-5 levels
-      6. **Motion/Animation**: Duration, easing curves
-      7. **Breakpoints**: Mobile-first responsive
-
-      Output: Tokens JSON + Documentation markdown + Figma setup guide.
+      **Hãy trình bày bộ quy chuẩn gồm các phần sau (mã JSON tương thích Style Dictionary / Figma Tokens kèm hướng dẫn tiếng Việt):**
+      1. **Bảng màu 3 tầng rõ ràng**: Màu gốc (Primitive — giá trị mã màu thô) → Màu theo mục đích dùng (Semantic — màu nền, màu chữ, màu báo lỗi) → Màu riêng từng thành phần (Component — màu nút bấm).
+      2. **Thang khoảng cách**: Dùng đơn vị chuẩn 4px, chia đều các mức từ nhỏ đến lớn.
+      3. **Thang chữ (Typography)**: Họ phông chữ, cỡ chữ, độ đậm, chiều cao dòng.
+      4. **Độ bo góc**: Từ vuông vức đến bo tròn hoàn toàn.
+      5. **Độ nổi / Đổ bóng**: 4-5 cấp độ tách lớp giao diện.
+      6. **Chuyển động cơ bản**: Thời lượng và kiểu gia tốc gợi ý.
+      7. **Điểm ngắt màn hình (Breakpoints)**: Theo nguyên tắc thiết kế ưu tiên điện thoại trước rồi mở rộng lên máy tính.
+      8. **Hướng dẫn nhập vào Figma và bàn giao cho lập trình viên**.
     variables:
       - name: productName
         type: text
-        label: "Tên sản phẩm/brand"
+        label: "Tên sản phẩm hoặc thương hiệu"
         required: true
       - name: brandColors
         type: textarea
-        label: "Màu brand (hex codes)"
+        label: "Các mã màu thương hiệu (dạng mã hex như #2563EB)"
         required: true
       - name: brandTypography
         type: textarea
-        label: "Font chữ brand"
+        label: "Phông chữ sử dụng (cho tiêu đề, nội dung chính, mã số)"
         required: true
       - name: brandTone
         type: select
-        label: "Tone thương hiệu"
+        label: "Sắc thái thương hiệu"
         options:
-          - "playful"
-          - "serious"
-          - "minimal"
-          - "bold"
+          - "Vui tươi, năng động"
+          - "Nghiêm túc, tin cậy"
+          - "Tối giản, gọn gàng"
+          - "Mạnh mẽ, nổi bật"
         required: true
-        default: "minimal"
+        default: "Tối giản, gọn gàng"
     examples:
       - inputs:
-          productName: "FinTrack - App tài chính cá nhân"
-          brandColors: "Primary: #2563EB, Secondary: #0EA5E9, Accent: #F59E0B, Success: #22C55E, Error: #EF4444, Neutral: #1E293B to #F8FAFC"
-          brandTypography: "Heading: Inter, Body: Inter, Mono: JetBrains Mono"
-          brandTone: "serious"
+          productName: "FinTrack - Ứng dụng quản lý tài chính cá nhân"
+          brandColors: "Chủ đạo: #2563EB, Phụ trợ: #0EA5E9, Điểm nhấn: #F59E0B, Thành công: #059669, Báo lỗi: #DC2626, Trung tính: #0F172A đến #F8FAFC"
+          brandTypography: "Tiêu đề: Inter, Nội dung: Inter, Con số/Mã: JetBrains Mono"
+          brandTone: "Nghiêm túc, tin cậy"
         output: |
-          # 🎨 Design Tokens: FinTrack
+          # 🎨 Bộ Biến Thiết Kế Dùng Chung: FinTrack
 
-          ## Color Tokens (Primitive → Semantic → Component)
+          ## 1. Bảng màu 3 tầng (Màu gốc → Màu theo mục đích → Màu từng thành phần)
 
-          ### Primitive Colors (Raw values)
+          ### Tầng 1: Màu gốc (Primitive Colors — giá trị thô)
           ```json
           {
             "color": {
+              "white": "#FFFFFF",
               "blue": { "50": "#EFF6FF", "100": "#DBEAFE", "500": "#3B82F6", "600": "#2563EB", "700": "#1D4ED8", "900": "#1E3A8A" },
               "emerald": { "50": "#ECFDF5", "500": "#10B981", "600": "#059669" },
-              "amber": { "50": "#FFFBE6", "500": "#F59E0B", "600": "#D97706" },
-              "red": { "50": "#FEF2F2", "500": "#EF4444", "600": "#DC2626" },
-              "slate": { "50": "#F8FAFC", "100": "#F1F5F9", "500": "#64748B", "900": "#0F172A", "950": "#020617" }
+              "amber": { "50": "#FFFBEB", "500": "#F59E0B", "600": "#D97706" },
+              "red": { "50": "#FEF2F2", "500": "#EF4444", "600": "#DC2626", "700": "#B91C1C" },
+              "slate": { "50": "#F8FAFC", "100": "#F1F5F9", "200": "#E2E8F0", "300": "#CBD5E1", "500": "#64748B", "600": "#475569", "900": "#0F172A", "950": "#020617" }
             }
           }
           ```
 
-          ### Semantic Colors (Meaning-based)
+          ### Tầng 2: Màu theo mục đích sử dụng (Semantic Colors)
           ```json
           {
             "color": {
@@ -87,15 +87,15 @@ prompts:
               "secondary": { "DEFAULT": "{color.slate.500}", "hover": "{color.slate.600}" },
               "success": { "DEFAULT": "{color.emerald.600}", "light": "{color.emerald.50}" },
               "warning": { "DEFAULT": "{color.amber.600}", "light": "{color.amber.50}" },
-              "error": { "DEFAULT": "{color.red.600}", "light": "{color.red.50}" },
+              "error": { "DEFAULT": "{color.red.600}", "hover": "{color.red.700}", "light": "{color.red.50}" },
               "background": { "primary": "{color.slate.50}", "secondary": "{color.white}", "inverse": "{color.slate.900}" },
-              "text": { "primary": "{color.slate.900}", "secondary": "{color.slate.500}", "inverse": "{color.white}", "disabled": "{color.slate.300}" },
-              "border": { "DEFAULT": "{color.slate.200}", "focus": "{color.blue.500}", "error": "{color.red.500}" }
+              "text": { "primary": "{color.slate.900}", "secondary": "{color.slate.600}", "inverse": "{color.white}", "disabled": "{color.slate.300}" },
+              "border": { "DEFAULT": "{color.slate.200}", "focus": "{color.blue.500}", "error": "{color.red.600}" }
             }
           }
           ```
 
-          ### Component Colors (Specific usage)
+          ### Tầng 3: Màu riêng cho nút bấm (Component Colors)
           ```json
           {
             "button": {
@@ -107,35 +107,36 @@ prompts:
           }
           ```
 
-          ## Spacing Scale (Base 4px)
+          ## 2. Thang khoảng cách (Gốc 4px)
           ```json
           { "spacing": { "0": "0", "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "20px", "6": "24px", "8": "32px", "10": "40px", "12": "48px", "16": "64px", "20": "80px", "24": "96px" } }
           ```
 
-          ## Typography Scale
+          ## 3. Thang chữ (Typography)
           ```json
           {
-            "fontFamily": { "sans": "Inter, system-ui", "mono": "JetBrains Mono, monospace" },
+            "fontFamily": { "sans": "Inter, system-ui, sans-serif", "mono": "JetBrains Mono, monospace" },
             "fontSize": { "xs": "12px", "sm": "14px", "base": "16px", "lg": "18px", "xl": "20px", "2xl": "24px", "3xl": "30px", "4xl": "36px" },
             "fontWeight": { "normal": "400", "medium": "500", "semibold": "600", "bold": "700" },
             "lineHeight": { "tight": "1.25", "normal": "1.5", "relaxed": "1.75" }
           }
           ```
 
-          ## Export cho Figma (Figma Tokens Plugin)
-          - Import JSON → tạo Styles/Variables
-          - Map: Color Styles, Text Styles, Effect Styles, Grid Styles
-          - Publish to Team Library
-        context: "Design tokens cho app tài chính, tone serious, accessible"
+          ## 4. Cách đưa vào Figma & Chia sẻ cho cả nhóm
+          - Mở tiện ích **Tokens Studio** trên Figma và dán khối mã JSON ở trên để tự sinh biến màu và khoảng cách.
+          - Ánh xạ thành bảng màu, kiểu chữ dùng chung rồi xuất bản lên thư viện của nhóm để mọi màn hình tự đồng bộ khi chỉnh sửa.
+        context: "Bộ biến thiết kế cho ứng dụng tài chính cá nhân, sắc thái nghiêm túc và dễ đọc"
     difficulty: "intermediate"
     useCases:
-      - "Thiết kế Design System từ 0"
-      - "Handoff chính xác cho dev (Tailwind config, CSS variables)"
+      - "Xây dựng hệ thống giao diện dùng chung từ con số 0 cho sản phẩm mới"
+      - "Bàn giao thông số màu sắc và khoảng cách chuẩn xác sang biến CSS hoặc Tailwind"
 agentTemplate:
-  name: "Design System Architect"
-  description: "Xây dựng Design System, tokens, component library, documentation, Figma-Dev handoff"
+  name: "Kiến Trúc Sư Hệ Thống Thiết Kế"
+  description: "Thiết kế bộ biến dùng chung, thư viện thành phần giao diện, tài liệu quy chuẩn và bàn giao mượt mà cho lập trình viên"
   systemPrompt: |
-    Bạn là Design System Architect. Tạo hệ thống thiết kế nhất quán, scalable, developer-friendly.
+    Bạn là kiến trúc sư hệ thống thiết kế giao diện.
+    Nhiệm vụ: Xây dựng hệ thống màu sắc, cỡ chữ, khoảng cách và thành phần giao diện nhất quán, dễ mở rộng và thuận tiện khi lập trình viên chuyển thành mã nguồn.
+    Luôn giải thích rõ cách đặt tên biến theo mục đích sử dụng để cả người thiết kế lẫn người viết mã đều hiểu và dùng đúng.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:

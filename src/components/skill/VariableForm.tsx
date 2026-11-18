@@ -3,6 +3,7 @@
 import { PromptVariable } from '@/types'
 import { cn } from '@/lib/utils'
 import { VARIABLE_TYPE_LABELS } from '@/lib/constants'
+import { normalizeVariableValue } from './categoryHelpers'
 import {
   ChevronDown,
   X,
@@ -251,7 +252,10 @@ function MultiselectInput({
   disabled?: boolean
   error?: string
 }) {
-  const selectedValues = value ? value.split(',').map((v) => v.trim()).filter(Boolean) : []
+  const normalizedValue = normalizeVariableValue(value)
+  const selectedValues = normalizedValue
+    ? normalizedValue.split(',').map((v) => v.trim()).filter(Boolean)
+    : []
   const availableOptions = options.filter((opt) => !selectedValues.includes(opt))
 
   const handleAdd = (option: string) => {
@@ -266,7 +270,10 @@ function MultiselectInput({
 
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
+      <label
+        htmlFor={`${id}-select`}
+        className="block text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5"
+      >
         {label}
         {required && <span className="text-red-400" aria-hidden="true">*</span>}
       </label>
@@ -294,15 +301,16 @@ function MultiselectInput({
         {!disabled && availableOptions.length > 0 && (
           <select
             id={`${id}-select`}
-            defaultValue=""
+            value=""
             onChange={(e) => {
               if (e.target.value) handleAdd(e.target.value)
-              e.target.value = ''
             }}
+            aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
+            aria-invalid={!!error}
             className="px-2.5 py-1 rounded-lg border border-border bg-bg-surface text-xs text-text cursor-pointer hover:border-accent focus:outline-none"
-            aria-label="Thêm tùy chọn"
+            aria-label={`Thêm ${label.toLowerCase()}`}
           >
-            <option value="" disabled selected>
+            <option value="" disabled>
               + Thêm
             </option>
             {availableOptions.map((opt) => (
@@ -314,11 +322,11 @@ function MultiselectInput({
         )}
       </div>
 
-      {description && (
-        <p className="text-xs text-text-muted">{description}</p>
+      {description && !error && (
+        <p id={`${id}-desc`} className="text-xs text-text-muted">{description}</p>
       )}
       {error && (
-        <p className="text-xs text-red-400 flex items-center gap-1">
+        <p id={`${id}-error`} className="text-xs text-red-400 flex items-center gap-1">
           <X className="w-3 h-3" aria-hidden="true" />
           {error}
         </p>
@@ -468,7 +476,9 @@ function ReadOnlyVariable({
   value: string
 }) {
   const Icon = VARIABLE_TYPE_ICONS[variable.type]
-  const displayValue = value || variable.default || '—'
+  const normalizedValue = normalizeVariableValue(value)
+  const normalizedDefault = normalizeVariableValue(variable.default)
+  const displayValue = normalizedValue || normalizedDefault || '—'
 
   return (
     <div className="p-3.5 rounded-2xl bg-bg border border-border">
@@ -508,7 +518,11 @@ export function VariableForm({
           <ReadOnlyVariable
             key={variable.name}
             variable={variable}
-            value={values[variable.name] || ''}
+            value={
+              variable.name in values
+                ? normalizeVariableValue(values[variable.name])
+                : ''
+            }
           />
         ))}
       </div>
@@ -523,8 +537,12 @@ export function VariableForm({
     <div className={cn('space-y-4', className)}>
       {variables.map((variable) => {
         const id = `${generateId}-${variable.name}`
-        const value = values[variable.name] || variable.default || ''
-        const error = variable.required && !value.trim() ? `${variable.label} là bắt buộc` : undefined
+        const value =
+          variable.name in values
+            ? normalizeVariableValue(values[variable.name])
+            : normalizeVariableValue(variable.default)
+        const isInvalid = Boolean(variable.required && !value.trim())
+        const error = isInvalid ? `${variable.label} là bắt buộc` : undefined
 
         switch (variable.type) {
           case 'text':

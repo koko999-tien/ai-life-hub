@@ -1,20 +1,20 @@
 ---
 id: chain-of-thought-reasoning
 categoryId: prompt-engineering
-name: "Chain-of-Thought & Reasoning Architectures"
-description: "Kỹ thuật kích hoạt suy luận đa bước (CoT, Tree-of-Thoughts, Self-Consistency) giải quyết bài toán phức tạp"
+name: "Kỹ Thuật Suy Luận Từng Bước (Chain-of-Thought)"
+description: "Kỹ thuật hướng dẫn AI suy luận nhiều bước rõ ràng (như chia nhỏ bài toán, thử nhiều nhánh giải pháp và tự đối chiếu) để giải quyết vấn đề phức tạp"
 whenToUse:
   - "Giải bài toán logic, toán học, lập trình thuật toán phức tạp"
-  - "Debug bug ẩn trong kiến trúc microservice hoặc smart contract"
+  - "Gỡ lỗi ẩn trong hệ thống phân tách (microservice) hoặc hợp đồng thông minh (smart contract)"
   - "Phân tích tài chính, đưa ra quyết định kinh doanh có nhiều biến số"
-  - "Hạn chế tối đa hallucination khi phân tích tài liệu dài"
+  - "Hạn chế tối đa tình trạng ảo giác (AI tự bịa thông tin) khi phân tích tài liệu dài"
 difficulty: "intermediate"
 estimatedTime: "20 phút học & thực hành"
-tags: ["prompt-engineering", "cot", "reasoning", "tree-of-thought", "logic"]
+tags: ["prompt-engineering", "suy-luan-tung-buoc", "reasoning", "tree-of-thought", "logic"]
 prompts:
   - id: prompt-cot-reasoning
-    name: "CoT Problem Solver 5 Bước"
-    description: "Bắt buộc LLM suy nghĩ từng bước trước khi kết luận"
+    name: "Giải Bài Toán Phức Tạp 5 Bước (Suy Luận Từng Bước)"
+    description: "Hướng dẫn AI suy nghĩ từng bước rõ ràng trước khi đưa ra kết luận cuối cùng"
     template: |
       Hãy giải quyết bài toán phức tạp sau bằng phương pháp suy luận từng bước (Chain-of-Thought).
 
@@ -28,35 +28,65 @@ prompts:
       {{desiredOutcome}}
 
       **Quy trình giải quyết bắt buộc:**
-      - **Bước 1 (Decomposition)**: Bóc tách bài toán thành 3-4 câu hỏi nhỏ cốt lõi.
-      - **Bước 2 (Hypothesis & Testing)**: Đưa ra 2 giả thuyết giải quyết và phản biện từng giả thuyết.
-      - **Bước 3 (Step-by-step Execution)**: Thực thi tính toán / lập luận chi tiết.
-      - **Bước 4 (Sanity Check)**: Kiểm tra lại các trường hợp biên (edge cases) và lỗi tiềm ẩn.
-      - **Bước 5 (Final Answer)**: Kết luận súc tích, kèm lời khuyên hành động cụ thể.
+      - **Bước 1 (Chia nhỏ vấn đề)**: Bóc tách bài toán thành 3-4 câu hỏi nhỏ cốt lõi.
+      - **Bước 2 (Đặt giả thuyết & kiểm chứng)**: Đưa ra 2 giả thuyết giải quyết và phản biện từng giả thuyết.
+      - **Bước 3 (Thực thi từng bước)**: Thực thi tính toán / lập luận chi tiết.
+      - **Bước 4 (Kiểm tra tính hợp lý)**: Kiểm tra lại các trường hợp ngoại lệ (edge cases) và lỗi tiềm ẩn.
+      - **Bước 5 (Kết luận cuối cùng)**: Tóm tắt kết quả súc tích, kèm đề xuất hành động cụ thể.
     variables:
       - name: problemDescription
         type: text
-        label: "Mô tả bài toán hoặc vấn đề hóc búa"
+        label: "Mô tả bài toán hoặc vấn đề cần giải quyết"
         required: true
       - name: knownConstraints
         type: text
-        label: "Các điều kiện biên, dữ liệu đầu vào hoặc ràng buộc"
-        default: "Thời gian có hạn, cần tối ưu độ phức tạp thuật toán O(n)"
+        label: "Các điều kiện giới hạn, dữ liệu đầu vào hoặc ràng buộc"
+        default: "Thời gian có hạn, cần tối ưu tốc độ xử lý"
       - name: desiredOutcome
         type: text
         label: "Kết quả mong đợi đạt được"
-        default: "Phương án tối ưu kèm code minh họa"
+        default: "Phương án tối ưu kèm hướng dẫn hoặc mã minh họa"
+    examples:
+      - inputs:
+          problemDescription: "Hệ thống đặt vé gặp lỗi bị bán trùng cùng một ghế khi có 500 người bấm thanh toán cùng lúc."
+          knownConstraints: "Dùng cơ sở dữ liệu PostgreSQL, lưu lượng tăng đột biến vào giờ mở bán, không được làm chậm trải nghiệm người dùng."
+          desiredOutcome: "Tìm nguyên nhân gốc rễ và đề xuất phương án khóa ghế an toàn kèm ví dụ câu truy vấn."
+        output: |
+          ### Bước 1: Chia nhỏ vấn đề
+          1. Vì sao hai yêu cầu cùng đọc thấy ghế còn trống tại một thời điểm?
+          2. Khóa ở tầng ứng dụng hay tầng cơ sở dữ liệu sẽ an toàn hơn khi chạy nhiều máy chủ?
+          3. Cần xử lý thế nào để người dùng bấm chậm hơn không bị treo trang quá lâu?
+
+          ### Bước 2: Đặt giả thuyết & kiểm chứng
+          - **Giả thuyết A (Kiểm tra trước rồi mới cập nhật)**: Dễ xảy ra tranh chấp dữ liệu (race condition) khi hai yêu cầu đọc cùng lúc. → Loại.
+          - **Giả thuyết B (Khóa trực tiếp trong giao dịch cơ sở dữ liệu)**: Dùng `SELECT ... FOR UPDATE` hoặc ràng buộc duy nhất kết hợp giữ chỗ tạm thời (TTL). → Khả thi và đảm bảo chính xác tuyệt đối.
+
+          ### Bước 3: Thực thi từng bước
+          Tạo cột `trang_thai` và `het_han_giu_cho` trên bảng ghế, cập nhật nguyên tử bằng điều kiện `WHERE trang_thai = 'TRONG'`.
+
+          ### Bước 4: Kiểm tra tính hợp lý (Trường hợp ngoại lệ)
+          - Nếu người dùng thoát giữa chừng trước khi thanh toán: cần tác vụ nền giải phóng ghế sau 10 phút.
+          - Nếu cùng lúc 500 người đặt cùng một ghế: chỉ 1 giao dịch cập nhật thành công (`rowCount = 1`), 499 người còn lại nhận thông báo ngay lập tức.
+
+          ### Bước 5: Kết luận cuối cùng
+          Áp dụng cập nhật có điều kiện kết hợp ràng buộc duy nhất ở cơ sở dữ liệu để chặn triệt để tình trạng bán trùng ghế mà vẫn giữ tốc độ phản hồi nhanh.
+        context: "Phân tích lỗi tranh chấp dữ liệu khi đặt vé đồng thời"
+    difficulty: "medium"
+    useCases:
+      - "Phân tích bài toán kỹ thuật nhiều ràng buộc trước khi viết mã"
+      - "Đánh giá phương án kinh doanh có nhiều kịch bản rủi ro"
+      - "Kiểm tra chéo lập luận để giảm sai sót khi xử lý tài liệu dài"
 agentTemplate:
-  name: "Deep Reasoning Engine"
-  description: "Agent chuyên phân tích đa chiều bằng Tree-of-Thoughts và Self-Consistency Verification"
-  tools: ["Python Sandbox", "Step Verifier", "Hypothesis Tester"]
+  name: "Trợ Lý Phân Tích & Suy Luận Sâu"
+  description: "Trợ lý AI chuyên phân tích đa chiều bằng cách chia nhỏ vấn đề, thử nhiều hướng giải quyết và tự đối chiếu để tránh sai sót"
+  tools: ["Môi trường chạy Python (Sandbox)", "Bộ kiểm tra từng bước", "Bộ thử nghiệm giả thuyết"]
   model: "gpt-4o"
   temperature: 0.1
   systemPrompt: |
-    You are an analytical powerhouse specializing in rigorous Chain-of-Thought deduction.
-    Never jump to conclusions. Always expose intermediate thinking steps and stress-test assumptions.
+    Bạn là trợ lý phân tích chuyên sâu theo phương pháp suy luận từng bước rõ ràng.
+    Không bao giờ nhảy cóc đến kết luận. Luôn trình bày các bước suy nghĩ trung gian, đặt câu hỏi phản biện lại giả định của chính mình và kiểm tra các trường hợp ngoại lệ trước khi chốt đáp án.
 ---
 
-# Chain-of-Thought (CoT) & Kỹ thuật Suy luận Đa bước
+# Kỹ thuật Suy luận Từng bước (Chain-of-Thought)
 
-CoT biến đổi một câu trả lời nông cạn thành một chuỗi lập luận logic sâu sắc, giảm đến 70% tỉ lệ ảo giác của LLM.
+Phương pháp suy luận từng bước giúp AI biến một câu trả lời hời hợt thành chuỗi lập luận chặt chẽ, có kiểm chứng, từ đó giảm mạnh tình trạng mô hình AI tự bịa thông tin (ảo giác) khi gặp bài toán nhiều dữ kiện.

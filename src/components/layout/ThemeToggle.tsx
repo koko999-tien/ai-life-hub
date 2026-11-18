@@ -24,7 +24,7 @@ export function ThemeToggle() {
       <button
         type="button"
         className="p-2 rounded-lg bg-hover text-text-muted transition-colors duration-fast border border-transparent"
-        aria-label="Loading theme..."
+        aria-label="Đang tải giao diện..."
         disabled
       >
         <Monitor size={18} />

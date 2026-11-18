@@ -10,7 +10,6 @@ export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 export { Tooltip } from './Tooltip';
 export { ToastProvider, useToast, toast } from './Toast';
 export { CopyButton } from './CopyButton';
-export { ThemeToggle } from './ThemeToggle';
 export { Badge } from './Badge';
 export { Avatar, AvatarGroup } from './Avatar';
 export { Separator } from './Separator';

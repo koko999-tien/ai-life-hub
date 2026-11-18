@@ -1,41 +1,41 @@
 ---
 id: tap-luyen-khoa-hoc
 categoryId: suc-khoe
-name: "Tập luyện khoa học (Strength & Hypertrophy)"
-description: "Thiết kế chương trình tập gym: Progressive overload, Periodization, Exercise selection, Recovery"
+name: "Tập luyện khoa học để tăng cơ & sức mạnh"
+description: "Hướng dẫn thiết kế lịch tập gym hoặc tại nhà bài bản: chọn bài tập cân đối các nhóm cơ, tăng tạ đúng cách, chia giai đoạn tập và phục hồi tránh chấn thương"
 whenToUse:
-  - "Bắt đầu tập gym lần đầu"
-  - "Đã tập nhưng không thấy tiến bộ (plateau)"
-  - "Muốn thiết kế chương trình riêng (không thuê PT)"
+  - "Mới bắt đầu tập thể hình hoặc tập sức mạnh lần đầu"
+  - "Đã tập một thời gian nhưng bị chững tạ, không thấy tiến bộ"
+  - "Muốn tự thiết kế lịch tập phù hợp với thời gian và dụng cụ sẵn có"
 difficulty: "intermediate"
-estimatedTime: "Setup 1-2 giờ, thực hiện 3-5 buổi/tuần"
+estimatedTime: "Lập lịch 1-2 giờ, tập 3-5 buổi mỗi tuần"
 tags: ["strength-training", "hypertrophy", "progressive-overload", "periodization", "gym-programming"]
 prompts:
   - id: prompt-workout-program-design
-    name: "Thiết kế chương trình tập cá nhân hóa"
-    description: "Tạo workout routine dựa trên mục tiêu, kinh nghiệm, thời gian, thiết bị có sẵn"
+    name: "Thiết kế lịch tập luyện cá nhân hóa"
+    description: "Lập lịch tập theo mục tiêu, kinh nghiệm, quỹ thời gian, dụng cụ hiện có và tình trạng khớp hoặc chấn thương"
     template: |
-      Bạn là Strength Coach. Hãy thiết kế chương trình tập cho tôi:
+      Bạn là huấn luyện viên thể hình am hiểu khoa học vận động. Hãy thiết kế chương trình tập phù hợp cho tôi:
 
-      **Hồ sơ:**
+      **Thông tin người tập:**
       - Tuổi: {{age}}
       - Giới tính: {{gender}}
-      - Chiều cao/Cân nặng: {{heightWeight}}
-      - Kinh nghiệm tập: {{experience}} (Beginner < 6 tháng / Intermediate 6-24 tháng / Advanced > 2 năm)
-      - Mục tiêu: {{goal}} (Strength / Hypertrophy / Fat loss / Recomp / Athletic)
-      - Thời gian/tuần: {{daysPerWeek}} ngày
-      - Thời gian/buổi: {{minutesPerSession}} phút
-      - Thiết bị: {{equipment}} (Full gym / Home dumbbells / Bodyweight / Resistance bands)
-      - Chấn thương/đau: {{injuries}}
+      - Chiều cao và cân nặng: {{heightWeight}}
+      - Kinh nghiệm tập luyện: {{experience}}
+      - Mục tiêu chính: {{goal}}
+      - Số ngày tập mỗi tuần: {{daysPerWeek}} ngày
+      - Thời gian mỗi buổi: {{minutesPerSession}} phút
+      - Dụng cụ sẵn có: {{equipment}}
+      - Chấn thương hoặc vùng hay đau nhức: {{injuries}}
 
-      **Output:**
-      1. **Training Split** (Full Body / Upper-Lower / Push-Pull-Legs / Body Part)
-      2. **Exercise Selection** (Compound + Accessory, theo movement patterns)
-      3. **Sets/Reps/RPE** scheme
-      4. **Progressive Overload** strategy (Double progression / Linear / RPE-based)
-      5. **Periodization** (Mesocycle 6-8 tuần: Hypertrophy → Strength → Deload)
-      6. **Warm-up & Mobility** routine
-      7. **Tracking template** (Notion/Excel/Strong app)
+      **Hãy thiết kế chương trình chi tiết theo các phần sau:**
+      1. **Cách chia lịch tập trong tuần** (toàn thân, chia thân trên - thân dưới, hoặc đẩy - kéo - chân)
+      2. **Danh sách bài tập cho từng buổi** (kết hợp bài tập đa khớp chính và bài phụ trợ theo đủ các hướng chuyển động tự nhiên)
+      3. **Số hiệp, số lần lặp và mức độ gắng sức (thang điểm 1-10)** để biết khi nào cần dừng trước khi mất kỹ thuật
+      4. **Chiến lược tăng tiến độ khó dần qua từng tuần** (cách tăng số lần lặp trước rồi mới nâng mức tạ để tiến bộ an toàn)
+      5. **Chu kỳ tập 8 tuần** (chia tuần xây nền tảng, tuần tăng cường độ và 1 tuần tập nhẹ phục hồi)
+      6. **Bài khởi động kỹ trước buổi tập** (làm nóng tim mạch, xoay mở khớp và tập làm quen mức tạ nhẹ)
+      7. **Mẫu bảng ghi chép buổi tập** để dễ theo dõi sự tiến bộ hằng tuần
     variables:
       - name: age
         type: number
@@ -48,127 +48,132 @@ prompts:
           - "Nam"
           - "Nữ"
         required: true
+        default: "Nam"
       - name: heightWeight
         type: text
-        label: "Chiều cao / Cân nặng (ví dụ: 175cm / 70kg)"
+        label: "Chiều cao / Cân nặng (ví dụ: 175 cm / 70 kg)"
         required: true
       - name: experience
         type: select
-        label: "Kinh nghiệm tập"
+        label: "Kinh nghiệm tập luyện"
         options:
-          - "Beginner (< 6 tháng)"
-          - "Intermediate (6-24 tháng)"
-          - "Advanced (> 2 năm)"
+          - "Mới tập (dưới 6 tháng)"
+          - "Trung bình (6-24 tháng)"
+          - "Lâu năm (trên 2 năm)"
         required: true
+        default: "Trung bình (6-24 tháng)"
       - name: goal
         type: select
         label: "Mục tiêu chính"
         options:
-          - "Strength (Tăng sức mạnh tối đa)"
-          - "Hypertrophy (Tăng cơ tối đa)"
-          - "Fat loss (Giảm mỡ giữ cơ)"
-          - "Recomp (Giảm mỡ + tăng cơ đồng thời)"
-          - "Athletic (Hiệu suất thể thao)"
+          - "Tăng sức mạnh tối đa"
+          - "Tăng khối lượng cơ bắp"
+          - "Giảm mỡ và giữ cơ nạc"
+          - "Vừa giảm mỡ vừa tăng cơ chậm"
+          - "Cải thiện thể lực chơi thể thao"
         required: true
+        default: "Tăng khối lượng cơ bắp"
       - name: daysPerWeek
         type: number
-        label: "Số ngày tập/tuần"
+        label: "Số ngày tập mỗi tuần"
         required: true
         default: 4
       - name: minutesPerSession
         type: number
-        label: "Phút/buổi"
+        label: "Số phút mỗi buổi tập"
         required: true
         default: 60
       - name: equipment
         type: select
-        label: "Thiết bị có sẵn"
+        label: "Dụng cụ tập luyện hiện có"
         options:
-          - "Full gym (Máy, tạ tự do, cable)"
-          - "Home gym (Tạ dumbbell, barbell, rack)"
-          - "Minimal (Dumbbell adjustable, bench)"
-          - "Bodyweight + Resistance bands"
+          - "Phòng gym đầy đủ (máy tập, tạ đòn, tạ đơn, dây kéo)"
+          - "Tập tại nhà có giàn tạ và tạ đòn"
+          - "Tại nhà tối giản (cặp tạ đơn điều chỉnh và ghế)"
+          - "Tập không dụng cụ kết hợp dây kháng lực"
         required: true
-        default: "Full gym (Máy, tạ tự do, cable)"
+        default: "Phòng gym đầy đủ (máy tập, tạ đòn, tạ đơn, dây kéo)"
       - name: injuries
         type: textarea
-        label: "Chấn thương/đau hiện tại (nếu có)"
+        label: "Chấn thương hoặc vùng hay đau nhức hiện tại (nếu có)"
         required: false
+        default: "Không có"
     examples:
       - inputs:
           age: 28
           gender: "Nam"
-          heightWeight: "175cm / 75kg"
-          experience: "Intermediate (6-24 tháng)"
-          goal: "Hypertrophy (Tăng cơ tối đa)"
+          heightWeight: "175 cm / 75 kg"
+          experience: "Trung bình (6-24 tháng)"
+          goal: "Tăng khối lượng cơ bắp"
           daysPerWeek: 4
           minutesPerSession: 75
-          equipment: "Full gym (Máy, tạ tự do, cable)"
-          injuries: "Đau vai nhẹ khi overhead press"
+          equipment: "Phòng gym đầy đủ (máy tập, tạ đòn, tạ đơn, dây kéo)"
+          injuries: "Đau vai nhẹ khi đẩy tạ thẳng qua đầu"
         output: |
-          # 💪 Chương Trình Tập: Hypertrophy 4 ngày (Upper/Lower)
+          # 💪 Chương Trình Tập Tăng Cơ 4 Buổi/Tuần (Chia Thân Trên - Thân Dưới)
 
-          ## Split: Upper / Lower / Rest / Upper / Lower / Rest / Rest
-          - **Upper A**: Ngang lưng, Ngực, Vai, Tay
-          - **Lower A**: Đùi, Mông, Cẳng chân, Core
-          - **Upper B**: Focus khác (Incline, Row, Lateral raise, Arm)
-          - **Lower B**: Focus khác (RDL, Lunge, Leg curl, Calf)
+          ## 1. Lịch chia buổi trong tuần: Thân trên A / Thân dưới A / Nghỉ / Thân trên B / Thân dưới B / Nghỉ / Nghỉ
+          - **Thân trên A:** Tập trung nhóm cơ lưng, ngực, vai và tay (tránh bài đẩy thẳng qua đầu).
+          - **Thân dưới A:** Tập trung đùi trước, đùi sau, mông, bắp chân và cơ bụng.
+          - **Thân trên B & Thân dưới B:** Thay đổi góc tập và dụng cụ để kích thích cơ toàn diện hơn.
 
-          ## Exercise Selection (Movement Patterns)
+          ## 2. Chi tiết bài tập mẫu (Thân trên A & Thân dưới A)
 
-          ### Upper A
-          | Pattern | Exercise | Sets × Reps | RPE | Note |
-          |---------|----------|-------------|-----|------|
-          | Horizontal Push | Incline DB Bench Press | 3 × 8-10 | 8-9 | Thay Overhead Press (đau vai) |
-          | Horizontal Pull | Chest-supported Row | 3 × 10-12 | 8-9 | An toàn cho vai |
-          | Vertical Pull | Lat Pulldown (neutral grip) | 3 × 10-12 | 8-9 | |
-          | Vertical Push | Landmine Press (single arm) | 3 × 10-12 | 8 | Thay OHP, ít stress vai hơn |
-          | Elbow Flexion | DB Hammer Curl | 3 × 12-15 | 9 | |
-          | Elbow Extension | Cable Tricep Pushdown | 3 × 12-15 | 9 | |
+          ### Buổi Thân trên A
+          | Hướng chuyển động | Tên bài tập | Số hiệp × Số lần | Mức độ gắng sức (1-10) | Ghi chú bảo vệ khớp |
+          |---|---|---|---|---|
+          | Đẩy ngang dốc lên | Đẩy ngực ghế dốc lên với tạ đơn (Incline Dumbbell Bench Press) | 3 × 8-10 | 8-9 | Thay cho đẩy vai thẳng để tránh đau khớp vai |
+          | Kéo ngang | Kéo lưng tựa ngực trên ghế (Chest-supported Row) | 3 × 10-12 | 8-9 | Ít áp lực lên lưng dưới, giữ vai ổn định |
+          | Kéo dọc | Kéo xô tay cầm trung lập (Lat Pulldown neutral grip) | 3 × 10-12 | 8-9 | Kéo sát ngực, không rướn cổ |
+          | Đẩy góc nghiêng an toàn | Đẩy tạ đòn góc chéo một tay (Single-arm Landmine Press) | 3 × 10-12 | 8 | An toàn cho vai bị đau nhẹ khi giơ tay thẳng |
+          | Gập khuỷu tay | Cuốn tạ đơn kiểu búa (Dumbbell Hammer Curl) | 3 × 12-15 | 9 | Giữ chặt khuỷu tay sát thân |
+          | Duỗi tay sau | Kéo cáp tay sau (Cable Tricep Pushdown) | 3 × 12-15 | 9 | Xuống hết biên độ, kiểm soát lúc thả lên |
 
-          ### Lower A
-          | Pattern | Exercise | Sets × Reps | RPE | Note |
-          |---------|----------|-------------|-----|------|
-          | Knee Dominant | Hack Squat / Leg Press | 3 × 8-10 | 8-9 | |
-          | Hip Dominant | Romanian Deadlift (DB) | 3 × 10-12 | 8 | Form chuẩn, không quá thấp |
-          | Unilateral | Bulgarian Split Squat | 2 × 10-12/side | 9 | |
-          | Knee Flexion | Seated Leg Curl | 3 × 12-15 | 9 | |
-          | Calf | Standing Calf Raise | 4 × 15-20 | 9 | |
-          | Core | Hanging Leg Raise / Plank | 3 × 10-15 / 45s | 8 | |
+          ### Buổi Thân dưới A
+          | Hướng chuyển động | Tên bài tập | Số hiệp × Số lần | Mức độ gắng sức (1-10) | Ghi chú kỹ thuật |
+          |---|---|---|---|---|
+          | Đạp/ngồi xổm | Đạp đùi máy nghiêng hoặc ngồi xổm máy (Leg Press / Hack Squat) | 3 × 8-10 | 8-9 | Xuống sâu kiểm soát, không khóa khớp gối |
+          | Gập hông | Nâng tạ đùi sau kiểu Romania với tạ đơn (Romanian Deadlift) | 3 × 10-12 | 8 | Giữ lưng thẳng, đẩy hông ra sau |
+          | Chân đơn | Bước chùng chân sau ghế (Bulgarian Split Squat) | 2 × 10-12 mỗi chân | 9 | Giữ thăng bằng chậm rãi |
+          | Gập gối | Gập đùi sau ngồi máy (Seated Leg Curl) | 3 × 12-15 | 9 | Cảm nhận căng nhóm cơ đùi sau |
+          | Bắp chân | Nhón bắp chân đứng (Standing Calf Raise) | 4 × 15-20 | 9 | Giữ 1 giây ở điểm giãn hết cỡ |
+          | Cơ trọng tâm | Treo xà nâng chân hoặc giữ tư thế tấm ván (Plank) | 3 × 10-15 lần hoặc 45 giây | 8 | Siết bụng, tránh võng thắt lưng |
 
-          ## Progressive Overload: Double Progression
-          - Cùng trọng lượng cho tất cả sets
-          - Khi **tất cả sets đạt top của rep range** (ví dụ 3×10) → Tăng trọng lượng lần sau
-          - Nếu không đạt → Giữ nguyên trọng lượng, cố gắng thêm reps
+          ## 3. Cách tăng tiến độ khó đều đặn (Quy tắc tăng kép)
+          - Chọn một mức tạ vừa sức và giữ nguyên cho cả 3 hiệp (ví dụ mục tiêu 3 × 8-10 lần).
+          - Khi **tất cả các hiệp đều đạt đủ ngưỡng trên** (đủ 10-10-10 lần đúng kỹ thuật) → Buổi sau nâng mức tạ thêm một nấc nhỏ (2-2,5 kg) và bắt đầu lại từ ngưỡng 8 lần.
+          - Nếu chưa đạt đủ 10 lần ở tất cả các hiệp → Giữ nguyên mức tạ hiện tại và cố gắng nhích thêm 1-2 lần lặp ở buổi tới.
 
-          ## Periodization (Mesocycle 8 tuần)
-          | Tuần | Focus | Volume | Intensity | Deload |
-          |------|-------|--------|-----------|--------|
-          | 1-3 | Hypertrophy Base | 12-15 sets/week/body part | RPE 7-8 | No |
-          | 4-6 | Hypertrophy Peak | 15-18 sets | RPE 8-9 | No |
-          | 7 | Strength Peaking | 8-10 sets | RPE 8-9 (3-5 reps) | No |
-          | 8 | **Deload** | 50% volume | RPE 5-6 | **YES** |
+          ## 4. Phân chia chu kỳ tập 8 tuần (Tránh kiệt sức và chững tạ)
+          | Giai đoạn | Trọng tâm | Khối lượng tập | Mức độ gắng sức | Ghi chú |
+          |---|---|---|---|---|
+          | Tuần 1-3 | Làm quen và xây nền tảng | 12-15 hiệp/nhóm cơ/tuần | Mức 7-8 (còn dư 2-3 lần) | Chú ý chuẩn từng động tác |
+          | Tuần 4-6 | Tăng dần khối lượng tập | 15-18 hiệp/nhóm cơ/tuần | Mức 8-9 (còn dư 1-2 lần) | Tăng tạ hoặc số lần đều đặn |
+          | Tuần 7 | Đẩy đỉnh cường độ | 10-12 hiệp nặng | Mức 9 (chọn mức tạ chắc tay) | Ngủ đủ 7,5-8 tiếng mỗi đêm |
+          | Tuần 8 | **Tuần tập nhẹ phục hồi** | Giảm còn 50% số hiệp | Mức 5-6 (nhẹ nhàng) | Giúp gân khớp và hệ thần kinh hồi phục hoàn toàn |
 
-          ## Warm-up (10 phút trước mỗi buổi)
-          1. Cardio nhẹ 3-5p (Rowing / Bike)
-          2. Dynamic: Band pull-apart, Scap push-up, World's greatest stretch, Hip circle
-          3. Specific warm-up: 50% working weight × 5-8 reps, 75% × 3-5 reps
+          ## 5. Khởi động 10 phút trước mỗi buổi tập
+          1. **Làm ấm cơ thể (3-5 phút):** Đi bộ nhanh trên máy hoặc đạp xe nhẹ.
+          2. **Mở khớp linh hoạt:** Kéo dây kháng lực mở ngực vai, xoay tròn khớp hông, kéo giãn đùi nhẹ nhàng.
+          3. **Khởi động trực tiếp với tạ nhẹ (cho bài đầu tiên):** Tập 1 hiệp bằng 50% mức tạ chính (6-8 lần) và 1 hiệp bằng 75% mức tạ chính (3-4 lần) trước khi vào hiệp tính điểm.
 
-          ## Tracking Template (Notion/Strong/Hevy)
-          | Date | Exercise | Set 1 | Set 2 | Set 3 | RPE | Notes |
-          |------|----------|-------|-------|-------|-----|-------|
-          | | Incline DB Bench | 25kg×10 | 25kg×10 | 25kg×9 | 9 | Felt good |
-          | | Chest-supported Row | 20kg×12 | 20kg×11 | 20kg×10 | 8 | |
-        context: "Intermediate male, hypertrophy focus, 4 ngày/tuần, đau vai nhẹ"
+          ## 6. Mẫu bảng theo dõi buổi tập (Dùng sổ tay, bảng tính Excel hoặc ứng dụng ghi chú)
+          | Ngày | Bài tập | Hiệp 1 | Hiệp 2 | Hiệp 3 | Mức gắng sức | Cảm nhận buổi tập |
+          |---|---|---|---|---|---|---|
+          | | Đẩy ngực dốc lên tạ đơn | 25 kg × 10 | 25 kg × 10 | 25 kg × 9 | 9 | Vai êm, không đau |
+          | | Kéo lưng tựa ngực | 20 kg × 12 | 20 kg × 11 | 20 kg × 10 | 8 | Lưng vào cơ rõ |
+        context: "Nam 28 tuổi, tập trình độ trung bình 4 buổi/tuần để tăng cơ, có lưu ý đau vai nhẹ"
     difficulty: "intermediate"
     useCases:
-      - "Tự thiết kế chương trình tập thay PT"
-      - "Breakthrough plateau"
+      - "Tự thiết kế lịch tập khoa học tại phòng gym hoặc ở nhà mà không tốn chi phí thuê huấn luyện viên riêng"
+      - "Phá vỡ giai đoạn chững tạ nhờ biết cách tăng mức tạ và sắp xếp tuần phục hồi hợp lý"
 agentTemplate:
-  name: "Strength Coach Agent"
-  description: "Thiết kế chương trình tập gym, periodization, progressive overload, technique cues"
+  name: "Huấn Luyện Viên Thể Hình & Sức Mạnh"
+  description: "Thiết kế lịch tập gym hoặc tại nhà phù hợp thể trạng, hướng dẫn tăng tạ an toàn và phòng tránh chấn thương khớp"
   systemPrompt: |
-    Bạn là Strength Coach. Nguyên tắc: Progressive overload, Specificity, Recovery, Individualization. An toàn trước, hiệu quả sau.
+    Bạn là huấn luyện viên thể hình am hiểu khoa học vận động.
+    Nguyên tắc cốt lõi: Tăng tiến độ khó từng bước vừa sức, chọn bài tập phù hợp mục tiêu và cấu trúc cơ thể từng người, tôn trọng thời gian phục hồi của khớp và hệ thần kinh.
+    Lưu ý an toàn: Luôn hỏi về tiền sử chấn thương trước khi xếp bài; nếu người tập có dấu hiệu đau khớp nhói hoặc chấn thương cấp tính, khuyên tạm dừng động tác gây đau và đi khám bác sĩ chuyên khoa chấn thương chỉnh hình hoặc vật lý trị liệu.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

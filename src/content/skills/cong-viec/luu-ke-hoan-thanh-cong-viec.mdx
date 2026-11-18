@@ -1,21 +1,21 @@
 ---
 id: luu-ke-hoan-thanh-cong-viec
 categoryId: cong-viec
-name: "Tóm tắt cuộc họp & Action Items"
-description: "Chuyển ghi chú họp thành bản tóm tắt, phân công việc cụ thể, thời hạn, người phụ trách"
+name: "Tóm tắt cuộc họp & Đầu việc cần làm"
+description: "Chuyển ghi chú họp thành bản tóm tắt rõ ràng, phân công việc cụ thể, thời hạn và người phụ trách"
 whenToUse:
-  - "Sau cuộc họp online/direct, cần gửi bản tóm tắt cho team"
-  - "Phân công việc sau họp (đầu ra rõ ràng, deadline, người phụ trách)"
-  - "Lưu trữ knowledge từ cuộc họp cho référence sau này"
+  - "Sau cuộc họp trực tuyến hoặc trực tiếp, cần gửi bản tóm tắt cho cả nhóm"
+  - "Phân công việc sau họp với kết quả mong đợi, hạn chót và người phụ trách rõ ràng"
+  - "Lưu trữ nội dung và quyết định từ cuộc họp để tra cứu lại khi cần"
 difficulty: "beginner"
 estimatedTime: "5-10 phút sau mỗi cuộc họp"
 tags: ["meeting-notes", "action-items", "communication", "team-collaboration"]
 prompts:
   - id: prompt-meeting-summary
-    name: "Tóm tắt cuộc họp chuẩn 회의"
-    description: "Biến transcript/ghi chú thô thành bản tóm tắt có cấu trúc: key decisions, action items, next steps"
+    name: "Tóm tắt cuộc họp rõ ràng, dễ theo dõi"
+    description: "Biến bản ghi chú thô thành bản tóm tắt có cấu trúc: quyết định chính, việc cần làm và bước tiếp theo"
     template: |
-      Bạn là một chuyên gia thanh tra & ghi chép cuộc họp. Dưới đây là ghi chú thô của cuộc họp:
+      Bạn là trợ lý thư ký cuộc họp chuyên nghiệp. Dưới đây là ghi chú thô của cuộc họp:
 
       {{meetingTranscriptOrNotes}}
 
@@ -24,19 +24,19 @@ prompts:
       - Người tham dự: {{attendees}}
       - Mục đích họp: {{purpose}}
 
-      **Yêu cầu đầu ra (Markdown):**
+      **Hãy trình bày bản tóm tắt rõ ràng theo các phần sau:**
       1. **Thông tin chung**: Ngày, giờ, người tham dự, mục đích
-      2. **Tóm tắt chính (TL;DR)**: 3-5 bullet points nêu bát nội dung cốt lõi
-      3. **Quyết định chính**: Những gì đã đồng ý, lý do ngắn gọn
-      4. **Action Items**: Bảng cột (Người phụ trách, Công việc, Deadline, Ưu tiên)
-      5. **Next Steps / Follow-up**: Các bước tiếp theo, cuộc họp tiếp theo nếu có
-      6. **Rủi ro/Lo ngại**: Các vấn đề vẫn chưa giải quyết (nếu có)
+      2. **Tóm tắt nhanh**: 3-5 gạch đầu dòng nêu bật nội dung cốt lõi
+      3. **Quyết định chính**: Những gì đã thống nhất và lý do ngắn gọn
+      4. **Đầu việc cần làm**: Kẻ bảng gồm các cột (Người phụ trách, Công việc, Hạn chót, Mức độ ưu tiên)
+      5. **Các bước tiếp theo & Theo dõi**: Việc cần làm tiếp và lịch họp kế tiếp (nếu có)
+      6. **Rủi ro hoặc vướng mắc**: Các vấn đề vẫn chưa giải quyết xong (nếu có)
 
-      Output: Chuyên nghiệp, súc tích, dễ copy gửi email/Slack/Notion.
+      Giọng văn cần chuyên nghiệp, súc tích, dễ sao chép để gửi qua email, nhóm chat công việc hoặc lưu vào sổ tay ghi chú.
     variables:
       - name: meetingTranscriptOrNotes
         type: textarea
-        label: "Ghi chú thô/Transcript cuộc họp"
+        label: "Ghi chú thô hoặc nội dung chép lại cuộc họp"
         required: true
       - name: meetingTime
         type: text
@@ -52,52 +52,52 @@ prompts:
         required: true
     examples:
       - inputs:
-          meetingTranscriptOrNotes: "Anh Minh mở cuộc họp nhấn mạnh mục tiêu Q4 là tăng 20% doanh thu. Chị Lan trình bày kết quả 3 tháng đầu chỉ đạt 12%, lý do là pipeline chưa đủ. Anh Đạt đề xuất mở rộng kênh TikTok Ads. Chị Hằng lo ngại ngân sách quảng cáo đã hết. Kết luận: Chị Lan cung cấp báo cáo chi tiết pipeline đến thứ Năm. Anh Đạt thiết kế chiến dịch TikTok để review thứ Sáu. Chị Hằng reallocate 20% ngân sách từ Facebook sang TikTok."
+          meetingTranscriptOrNotes: "Anh Minh mở cuộc họp nhấn mạnh mục tiêu quý 4 là tăng 20% doanh thu. Chị Lan trình bày kết quả 3 tháng đầu chỉ đạt 12%, nguyên nhân là lượng khách hàng tiềm năng chưa đủ. Anh Đạt đề xuất mở rộng quảng cáo trên TikTok. Chị Hằng lo ngại ngân sách quảng cáo đã gần hết. Kết luận: Chị Lan gửi báo cáo chi tiết nguồn khách hàng trước thứ Năm. Anh Đạt lên kế hoạch chiến dịch TikTok để cả nhóm duyệt vào thứ Sáu. Chị Hằng điều chỉnh chuyển 20% ngân sách từ Facebook sang TikTok."
           meetingTime: "10:00 - 11:00, Thứ Hai 18/11/2024"
-          attendees: "Minh (Lead), Lan (Marketing), Đạt (Ads), Hằng (Finance)"
-          purpose: "Review KPI Q4 và điều chỉnh chiến dịch quảng cáo"
+          attendees: "Minh (Trưởng nhóm), Lan (Tiếp thị), Đạt (Quảng cáo), Hằng (Tài chính)"
+          purpose: "Đánh giá chỉ tiêu quý 4 và điều chỉnh chiến dịch quảng cáo"
         output: |
           # 📋 Bản Tóm Tắt Cuộc Họp
 
-          ## Thông tin chung
+          ## 1. Thông tin chung
           - **Ngày/Giờ:** Thứ Hai 18/11/2024, 10:00 - 11:00
-          - **Người tham dự:** Minh (Lead), Lan (Marketing), Đạt (Ads), Hằng (Finance)
-          - **Mục đích:** Review KPI Q4 và điều chỉnh chiến dịch quảng cáo
+          - **Người tham dự:** Minh (Trưởng nhóm), Lan (Tiếp thị), Đạt (Quảng cáo), Hằng (Tài chính)
+          - **Mục đích:** Đánh giá chỉ tiêu quý 4 và điều chỉnh chiến dịch quảng cáo
 
-          ## TL;DR
-          - Mục tiêu Q4: tăng 20% doanh thu (hiện chỉ đạt 12% sau 3 tháng đầu)
-          - Vấn đề: Pipeline chưa đủ để đạt goal
-          - Quyết định: Mở rộng kênh TikTok Ads và reallocate ngân sách từ Facebook
+          ## 2. Tóm tắt nhanh
+          - Mục tiêu quý 4: tăng 20% doanh thu (hiện mới đạt 12% sau 3 tháng đầu).
+          - Vướng mắc chính: lượng khách hàng tiềm năng hiện tại chưa đủ để đạt chỉ tiêu.
+          - Hướng xử lý: mở rộng quảng cáo trên TikTok và chuyển 20% ngân sách từ Facebook sang kênh này.
 
-          ## Quyết định chính
-          | Nội dung | Người nêu | Lý do |
-          |----------|-----------|-------|
-          | Mở rộng kênh TikTok Ads | Đạt (Ads) | Tiềm năng tiếp cận khách hàng mới |
-          | Reallocate 20% ngân sách từ FB sang TikTok | Hằng (Finance) | Tối ưu nguồn lực |
+          ## 3. Quyết định chính
+          | Nội dung | Người đề xuất | Lý do |
+          |---|---|---|
+          | Mở rộng quảng cáo trên kênh TikTok | Đạt (Quảng cáo) | Tăng cơ hội tiếp cận nhóm khách hàng mới |
+          | Chuyển 20% ngân sách từ Facebook sang TikTok | Hằng (Tài chính) | Tối ưu hiệu quả chi tiêu trong phần còn lại của quý |
 
-          ## Action Items
-          | Người phụ trách | Công việc | Deadline | Ưu tiên |
-          |-----------------|-----------|----------|---------|
-          | Lan | Báo cáo chi tiết pipeline Q4 | Thứ Năm 21/11 | Cao |
-          | Đạt | Thiết kế chiến dịch TikTok để review | Thứ Sáu 22/11 | Cao |
-          | Hằng | Điều chỉnh ngân sách vào hệ thống | Thứ Sáu 22/11 | Trung bình |
+          ## 4. Đầu việc cần làm
+          | Người phụ trách | Công việc | Hạn chót | Mức độ ưu tiên |
+          |---|---|---|---|
+          | Lan | Gửi báo cáo chi tiết nguồn khách hàng tiềm năng quý 4 | Thứ Năm 21/11 | Cao |
+          | Đạt | Lên kế hoạch chiến dịch quảng cáo TikTok để cả nhóm duyệt | Thứ Sáu 22/11 | Cao |
+          | Hằng | Cập nhật điều chỉnh ngân sách trên hệ thống tài chính | Thứ Sáu 22/11 | Trung bình |
 
-          ## Next Steps
-          - Review chiến dịch TikTok vào buổi Thứ Sáng 25/11
-          - Theo dõi độ tăng trưởng pipeline sau khi vận hành TikTok
+          ## 5. Các bước tiếp theo & Theo dõi
+          - Cả nhóm cùng xem và duyệt kế hoạch chiến dịch TikTok vào sáng Thứ Hai 25/11.
+          - Theo dõi sát số lượng khách hàng tiềm năng tăng thêm sau tuần đầu chạy quảng cáo TikTok.
 
-          ## Rủi ro/Lo ngại
-          - Ngân sách quảng cáo có thể bị hạn chế nếu TikTok không đòi hỏi cao.
-        context: "Bản tóm tắt họp’équipe marketing, chuyên nghiệp, có thể gửi qua Slack/Email"
+          ## 6. Rủi ro hoặc vướng mắc
+          - Ngân sách dự phòng sẽ khá eo hẹp nếu kênh TikTok chưa mang lại kết quả như kỳ vọng trong 2 tuần đầu.
+        context: "Bản tóm tắt họp nhóm tiếp thị, gọn gàng, sẵn sàng gửi qua nhóm chat công việc hoặc Email"
     difficulty: "easy"
     useCases:
-      - "Gửi bản tóm tắt họp cho team sau cuộc họp"
-      - "Lưu trữ conocimiento của nhóm làm việc"
+      - "Gửi bản tóm tắt họp cho nhóm sau cuộc họp"
+      - "Lưu trữ kiến thức chung của nhóm làm việc"
 agentTemplate:
-  name: "Meeting Assistant Agent"
-  description: "Tự động tóm tắt cuộc họp, trích xuất action items, ghi chú kết quả họp"
+  name: "Trợ Lý Tóm Tắt Cuộc Họp"
+  description: "Tự động tóm tắt cuộc họp, trích xuất đầu việc cần làm và ghi chú kết quả họp"
   systemPrompt: |
-    Bạn là Meeting Assistant. Nhiệm vụ: biến ghi chú thô thành bản tóm tắt chuyên nghiệp với action items rõ ràng.
+    Bạn là trợ lý tóm tắt cuộc họp. Nhiệm vụ của bạn là biến ghi chú thô thành bản tóm tắt chuyên nghiệp với các đầu việc, người phụ trách và thời hạn rõ ràng.
   model: "gpt-3.5-turbo"
   temperature: 0.3
 relatedSkillIds:

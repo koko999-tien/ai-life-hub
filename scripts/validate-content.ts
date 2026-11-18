@@ -108,7 +108,7 @@ const skillSchema = z.object({
   tags: z.array(z.string()).optional(),
   prompts: z.array(promptSchema).optional(),
   agentTemplate: agentTemplateSchema.optional(),
-  relatedSkillIds: z.array(z.string()).optional(),
+  relatedSkillIds: z.array(z.string().min(1, 'Related skill ID must not be empty')).optional(),
   author: z.string().optional(),
   source: z.string().optional(),
   version: z.string().default('1.0.0'),
@@ -143,7 +143,7 @@ const skillSlugs = new Map<string, string>(); // slug -> file
 const promptIds = new Set<string>();
 const resourceIds = new Set<string>();
 const categoryIds = new Set([
-  'learning', 'work', 'writing', 'coding', 'design', 'finance', 'health', 'family', 'travel', 'home', 'parenting', 'legal', 'sideproject', 'research', 'entertainment',
+  'learning', 'work', 'writing', 'coding', 'design', 'finance', 'health', 'family', 'travel', 'home', 'parenting', 'legal', 'sideproject', 'research', 'entertainment', 'prompt-engineering',
   'hoc-tap', 'cong-viec', 'viet-lach', 'lap-trinh', 'thiet-ke', 'tai-chinh', 'suc-khoe', 'gia-dinh', 'du-lich', 'nha-cua', 'giao-duc-con', 'phap-ly', 'side-project', 'nghien-cuu', 'giai-tri'
 ]);
 
@@ -156,6 +156,8 @@ async function validateSkills(): Promise<void> {
     logWarning('No skill files found in src/content/skills/');
     return;
   }
+
+  const loadedSkills: Array<{ skill: z.infer<typeof skillSchema>; relativePath: string }> = [];
 
   for (const file of files) {
     const relativePath = path.relative(SKILLS_DIR, file);
@@ -212,8 +214,41 @@ async function validateSkills(): Promise<void> {
           }
         });
       }
+
+      loadedSkills.push({ skill, relativePath });
     } catch (error) {
       logError(`Failed to parse skill file: ${error}`, relativePath);
+    }
+  }
+
+  // Cross-check relatedSkillIds after all skill IDs are collected (supports forward references)
+  for (const { skill, relativePath } of loadedSkills) {
+    if (!skill.relatedSkillIds || skill.relatedSkillIds.length === 0) {
+      continue;
+    }
+
+    const seenRelatedIds = new Set<string>();
+    for (const relatedId of skill.relatedSkillIds) {
+      if (relatedId === skill.id) {
+        logError(
+          `Self-referencing relatedSkillId "${relatedId}" in skill "${skill.id}"`,
+          relativePath
+        );
+      } else if (!skillIds.has(relatedId)) {
+        logError(
+          `Broken relatedSkillId reference "${relatedId}": target skill ID does not exist`,
+          relativePath
+        );
+      }
+
+      if (seenRelatedIds.has(relatedId)) {
+        logError(
+          `Duplicate relatedSkillId "${relatedId}" in skill "${skill.id}"`,
+          relativePath
+        );
+      } else {
+        seenRelatedIds.add(relatedId);
+      }
     }
   }
 

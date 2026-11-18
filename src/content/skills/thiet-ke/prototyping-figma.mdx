@@ -1,124 +1,119 @@
 ---
 id: prototyping-figma
 categoryId: thiet-ke
-name: "Prototyping & Figma Advanced"
-description: "Tạo prototype tương tác cao: Auto layout, Variants, Interactive components, Smart animate, Handoff dev"
+name: "Thiết kế bản mẫu bấm thử nâng cao trên Figma"
+description: "Xây dựng bản mẫu tương tác như ứng dụng thật trên Figma: bố cục tự co giãn, biến thể trạng thái, chuyển cảnh mượt và bàn giao cho lập trình viên"
 whenToUse:
-  - "Thiết kế flow phức tạp (onboarding, checkout, dashboard)"
-  - "Usability testing với prototype clickable"
-  - "Handoff cho dev: specs, assets, redlines"
+  - "Thiết kế luồng nhiều màn hình phức tạp như đăng ký tài khoản, thanh toán, bảng điều khiển"
+  - "Tạo bản mẫu bấm thử để kiểm thử độ dễ dùng với người dùng thật trước khi lập trình"
+  - "Chuẩn bị tệp Figma sạch đẹp để bàn giao kích thước, khoảng cách và hình ảnh cho lập trình viên"
 difficulty: "intermediate"
-estimatedTime: "1-4 giờ / flow"
+estimatedTime: "1-4 giờ cho mỗi luồng màn hình"
 tags: ["figma", "prototyping", "auto-layout", "variants", "handoff", "design-to-dev"]
 prompts:
   - id: prompt-figma-prototype-flow
-    name: "Thiết kế Prototype flow hoàn chỉnh"
-    description: "Tạo prototype Figma cho user flow: Screen designs, Interactive components, Flow connections"
+    name: "Lập kế hoạch thiết kế bản mẫu trên Figma"
+    description: "Tổ chức cấu trúc tệp Figma, danh sách thành phần dùng lại và sơ đồ nối màn hình bấm thử hoàn chỉnh"
     template: |
-      Bạn là Senior Product Designer. Hãy tạo kế hoạch prototype Figma cho flow: {{flowName}}.
+      Bạn là chuyên gia thiết kế sản phẩm giàu kinh nghiệm dùng Figma. Hãy lập kế hoạch dựng bản mẫu bấm thử tương tác cho luồng: {{flowName}}.
 
-      **Flow Description:**
+      **Mô tả luồng trải nghiệm:**
       {{flowDescription}}
 
-      **Screens cần thiết kế:**
+      **Danh sách màn hình cần thiết kế:**
       {{screenList}}
 
-      **Interactions cần thiết:**
+      **Các tương tác cần bấm thử được:**
       {{interactions}}
 
-      **Yêu cầu Figma file structure:**
-      1. **Pages**: Cover, Design System, Flows, Components, Archive
-      2. **Auto Layout**: Tất cả frames/components dùng Auto Layout
-      3. **Variants**: Button states, Input states, Card variants
-      4. **Interactive Components**: Toggle, Dropdown, Tabs, Carousel
-      5. **Prototype Connections**: Smart Animate, Overlay, Scroll behavior
-      6. **Annotations**: Redlines, Specs, Assets export (SVG/PNG/WebP)
-      7. **Dev Handoff**: Inspect mode ready, CSS variables mapping
-
-      Output: Checklist Figma file setup + Component inventory + Prototype flow map.
+      **Hãy trình bày bản kế hoạch Figma gồm các phần sau:**
+      1. **Cấu trúc trang trong tệp Figma**: Chia gọn trang bìa, hệ thống biến dùng chung, luồng màn hình, kho thành phần dùng lại và mục lưu trữ bản nháp.
+      2. **Bố cục tự co giãn (Auto Layout) và Biến thể trạng thái (Variants)**: Quy hoạch nút bấm, ô nhập liệu, thẻ nội dung ở đủ trạng thái (bình thường, chạm vào, báo lỗi, vô hiệu hóa).
+      3. **Thành phần tương tác tại chỗ (Interactive Components)**: Công tắc bật tắt, menu thả xuống, thẻ chọn nhiều mục, băng chuyền lướt ngang.
+      4. **Sơ đồ nối chuyển màn hình**: Quy định rõ bấm nút nào chuyển sang màn hình nào, dùng chuyển cảnh mượt (Smart Animate) hay hộp thoại nổi (Overlay).
+      5. **Ghi chú bàn giao cho lập trình viên**: Khoảng cách chi tiết (redlines), quy chuẩn phông chữ, gắn biến màu dùng chung và xuất biểu tượng SVG / ảnh PNG sắc nét.
     variables:
       - name: flowName
         type: text
-        label: "Tên flow (ví dụ: User Onboarding, Checkout, Dashboard Setup)"
+        label: "Tên luồng màn hình (ví dụ: Làm quen người dùng mới, Thanh toán đơn hàng, Cài đặt tài khoản)"
         required: true
       - name: flowDescription
         type: textarea
-        label: "Mô tả flow chi tiết (bước 1→2→3...)"
+        label: "Mô tả từng bước trong luồng (Bước 1 → Bước 2 → Bước 3...)"
         required: true
       - name: screenList
         type: textarea
-        label: "Danh sách màn hình trong flow"
+        label: "Danh sách các màn hình có trong luồng"
         required: true
       - name: interactions
         type: textarea
-        label: "Tương tác phức tạp cần prototype"
+        label: "Những tương tác cần bấm thử được trực tiếp"
         required: true
     examples:
       - inputs:
-          flowName: "User Onboarding (3 bước)"
-          flowDescription: "B1: Welcome + Value prop → B2: Permission requests (Notifications, Location) → B3: Personalization (Chọn topics) → B4: Home dashboard"
-          screenList: "Welcome Screen, Permission Screen, Topic Selection, Home Dashboard (empty state)"
-          interactions: "Swipe carousel welcome, Toggle permissions, Multi-select topics chips, Empty state CTA"
+          flowName: "Làm quen người dùng mới (4 bước)"
+          flowDescription: "B1: Màn hình chào mừng và giới thiệu giá trị → B2: Xin quyền thông báo và vị trí → B3: Chọn chủ đề quan tâm → B4: Trang chủ khi chưa có dữ liệu"
+          screenList: "Màn hình chào mừng, Màn hình xin quyền, Màn hình chọn chủ đề, Trang chủ (trạng thái trống)"
+          interactions: "Lướt ngang băng chuyền giới thiệu, Bật/tắt công tắc xin quyền, Chạm chọn nhiều thẻ chủ đề, Bấm nút hành động chính ở trạng thái trống"
         output: |
-          # 📱 Figma Prototype Plan: User Onboarding
+          # 📱 Kế Hoạch Bản Mẫu Figma: Làm Quen Người Dùng Mới (4 Bước)
 
-          ## File Structure
+          ## 1. Cấu trúc trang trong tệp Figma
           ```
-          📁 FinTrack Design File
-          ├── 📄 Cover (Thumbnail + Info)
-          ├── 📄 Design System (Tokens, Components)
-          ├── 📄 Flows
-          │   └── Onboarding Flow (Prototype frames)
-          ├── 📄 Components (Button, Input, Chip, Card, Modal)
-          └── 📄 Archive
-          ```
-
-          ## Component Inventory (Variants)
-          | Component | Variants | Properties |
-          |-----------|----------|------------|
-          | Button | Primary/Secondary/Ghost/Danger, Size (sm/md/lg), State (default/hover/active/disabled/loading) | 4×3×5 = 60 variants |
-          | Input | Type (text/email/password), State (default/focus/error/disabled), Size (sm/md) | 3×4×2 = 24 variants |
-          | Chip (Topic) | State (default/selected/disabled), Size (sm/md) | 3×2 = 6 variants |
-          | Card | Variant (elevated/outlined/filled), Padding (sm/md/lg) | 3×3 = 9 variants |
-
-          ## Interactive Components
-          - **Permission Toggle**: Interactive component với 2 variants (granted/denied), transition Smart Animate 200ms
-          - **Topic Chips**: Multi-select behavior (component set + prototype interaction)
-          - **Carousel Welcome**: Auto-layout frame + horizontal scroll + page indicator
-
-          ## Prototype Connections
-          ```
-          Welcome Screen (Frame 1)
-            → Click "Bắt đầu" → Permission Screen (Smart Animate, 300ms)
-          
-          Permission Screen (Frame 2)
-            → Click "Cho phép" (Toggle) → State change (Instant)
-            → Click "Tiếp theo" → Topic Selection (Smart Animate, 300ms)
-          
-          Topic Selection (Frame 3)
-            → Click chips → Selected state (Instant)
-            → Click "Hoàn tất" → Home Dashboard (Smart Animate, 300ms)
-          
-          Home Dashboard (Frame 4)
-            → Empty state CTA "Tạo giao dịch đầu tiên" → Navigate to Create Transaction
+          📁 Tệp Thiết Kế FinTrack
+          ├── 📄 Bìa dự án (Ảnh thu nhỏ + Tên người phụ trách + Trạng thái)
+          ├── 📄 Hệ thống thiết kế (Biến màu, Cỡ chữ, Khoảng cách)
+          ├── 📄 Luồng màn hình
+          │   └── Luồng làm quen người dùng mới (4 màn hình nối nhau)
+          ├── 📄 Kho thành phần dùng lại (Nút bấm, Ô nhập, Thẻ chọn, Hộp thoại)
+          └── 📄 Lưu trữ bản cũ
           ```
 
-          ## Annotations & Handoff
-          - **Redlines**: Spacing 16px giữa sections, 24px padding screen edges
-          - **Typography**: Heading 24px/600, Body 16px/400, Caption 12px/400
-          - **Colors**: Mapped to Design Tokens (semantic names)
-          - **Assets**: Export SVG cho icons, PNG 2x/3x cho illustrations
-          - **CSS Variables**: `--color-primary: #2563EB`, `--spacing-4: 16px`
-        context: "Prototype onboarding 4 màn hình, interactive components"
+          ## 2. Danh sách thành phần & Biến thể trạng thái
+          | Thành phần | Các biến thể cần tạo | Tổng số biến thể |
+          |---|---|---|
+          | Nút bấm (Button) | 4 kiểu (Chính, Phụ, Viền, Cảnh báo) × 3 cỡ (nhỏ, vừa, lớn) × 5 trạng thái (bình thường, di chuột, nhấn, khóa, đang tải) | 4 × 3 × 5 = 60 |
+          | Ô nhập (Input) | 3 loại (chữ, email, mật khẩu) × 4 trạng thái (mặc định, đang gõ, báo lỗi, khóa) × 2 cỡ | 3 × 4 × 2 = 24 |
+          | Thẻ chọn chủ đề (Chip) | 3 trạng thái (chưa chọn, đã chọn, khóa) × 2 cỡ | 3 × 2 = 6 |
+          | Thẻ nội dung (Card) | 3 kiểu (đổ bóng, viền mảnh, nền nhạt) × 3 mức lề trong | 3 × 3 = 9 |
+
+          ## 3. Thành phần tương tác tại chỗ
+          - **Công tắc xin quyền**: Tạo 2 biến thể (Đã bật / Đã tắt), nối chuyển đổi mượt trong 200ms khi chạm.
+          - **Thẻ chủ đề**: Cho phép chạm bật/tắt chọn nhiều mục ngay trên cùng một màn hình mà không cần nhân bản thành nhiều khung hình phụ.
+          - **Băng chuyền chào mừng**: Dùng khung bố cục tự co giãn (Auto Layout) bật cuộn ngang kèm dấu chấm báo trang.
+
+          ## 4. Sơ đồ nối luồng 4 màn hình
+          ```
+          Màn hình 1 (Chào mừng)
+            → Bấm "Bắt đầu ngay" → Màn hình 2: Xin quyền (Chuyển cảnh mượt 300ms)
+
+          Màn hình 2 (Xin quyền)
+            → Gạt công tắc "Cho phép" → Đổi trạng thái bật/tắt tức thì
+            → Bấm "Tiếp theo" → Màn hình 3: Chọn chủ đề (Chuyển cảnh mượt 300ms)
+
+          Màn hình 3 (Chọn chủ đề)
+            → Chạm các thẻ → Đổi sang trạng thái đã chọn
+            → Bấm "Hoàn tất" → Màn hình 4: Trang chủ (Chuyển cảnh mượt 300ms)
+
+          Màn hình 4 (Trang chủ — khi chưa có dữ liệu)
+            → Bấm nút chính "Tạo giao dịch đầu tiên" → Mở màn hình Tạo giao dịch
+          ```
+
+          ## 5. Ghi chú thông số bàn giao cho lập trình viên
+          - **Khoảng cách chuẩn**: Cách giữa các khối 16px, lề hai bên màn hình 24px.
+          - **Kiểu chữ**: Tiêu đề lớn 24px đậm vừa (600), nội dung 16px thường (400), chú thích 12px (400).
+          - **Xuất tài nguyên**: Xuất biểu tượng dạng tệp vectơ SVG; hình minh họa xuất PNG độ phân giải 2x và 3x cho điện thoại.
+        context: "Bản mẫu tương tác 4 màn hình làm quen người dùng mới trên điện thoại"
     difficulty: "intermediate"
     useCases:
-      - "Thiết kế prototype cho usability testing"
-      - "Handoff chi tiết cho frontend dev team"
+      - "Tạo bản mẫu bấm thử như thật để kiểm thử với người dùng trước khi viết mã"
+      - "Chuẩn hóa tệp Figma và ghi chú thông số rõ ràng khi bàn giao cho nhóm lập trình"
 agentTemplate:
-  name: "Figma Prototyper Agent"
-  description: "Tạo prototype Figma nâng cao, component library, dev handoff"
+  name: "Chuyên Gia Dựng Bản Mẫu Figma"
+  description: "Hướng dẫn tổ chức tệp Figma, bố cục tự co giãn, biến thể trạng thái và bàn giao thông số chuẩn xác cho lập trình viên"
   systemPrompt: |
-    Bạn là Figma Expert. Tạo prototype production-ready: Auto Layout, Variants, Interactive Components, Design Tokens sync.
+    Bạn là chuyên gia thiết kế bản mẫu trên Figma.
+    Nhiệm vụ: Hướng dẫn sắp xếp tệp gọn gàng, dùng bố cục tự co giãn, biến thể trạng thái và thành phần tương tác thông minh để bản mẫu bấm thử mượt mà và đồng bộ biến thiết kế khi bàn giao cho lập trình viên.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

@@ -1,31 +1,31 @@
 ---
 id: kythuat-feynman
 categoryId: hoc-tap
-name: "Kỹ thuật Feynman - Hiểu sâu, nhớ lâu"
-description: "Phương pháp 4 bước của Nobel Richard Feynman: Giải thích đơn giản → Tìm gap → Lấp đầy → Đơn giản hóa thêm"
+name: "Kỹ thuật Feynman — Hiểu sâu, nhớ lâu"
+description: "Phương pháp 4 bước của nhà vật lý đoạt giải Nobel Richard Feynman: Giải thích thật đơn giản → Tìm lỗ hổng kiến thức → Đọc bổ sung → Ví von dễ nhớ"
 whenToUse:
-  - "Học khái niệm mới khó hiểu (closure, recursion, backprop, quantum...)"
-  - "Chuẩn bị giảng dạy, phỏng vấn, viết blog technical"
-  - "Cảm thấy 'hiểu lướt' nhưng không áp dụng được"
-  - "Ôn thi các môn tư duy trừu tượng (Toán, Vật lý, CS theory)"
+  - "Học khái niệm mới trừu tượng hoặc khó hiểu (đệ quy, lãi suất kép, trí tuệ nhân tạo...)"
+  - "Chuẩn bị giảng bài, phỏng vấn hoặc viết bài chia sẻ kiến thức cho số đông"
+  - "Cảm thấy mình hiểu lướt qua nhưng khi áp dụng hoặc giải thích lại cho người khác thì bị tắc"
+  - "Ôn thi các môn đòi hỏi hiểu bản chất như Toán, Vật lý, Kinh tế, Khoa học máy tính"
 difficulty: "beginner"
-estimatedTime: "10-30 phút / khái niệm"
+estimatedTime: "10-30 phút cho mỗi khái niệm"
 tags: ["learning-technique", "deep-understanding", "teaching", "mental-models"]
 prompts:
   - id: prompt-feynman-step1
-    name: "Bước 1: Giải thích cho trẻ 5 tuổi"
-    description: "Bước đầu tiên của Feynman - dịch thuật ngữ chuyên ngành thành ngôn ngữ đời thường"
+    name: "Bước 1: Giải thích như nói cho trẻ 5 tuổi"
+    description: "Chuyển mọi thuật ngữ chuyên ngành khô khan thành ngôn ngữ đời thường ai nghe cũng hiểu"
     template: |
-      Hãy giúp tôi giải thích khái niệm "{{concept}}" trong lĩnh vực "{{domain}}" như thể tôi đang giải thích cho một đứa trẻ 5 tuổi (hoặc người hoàn toàn không chuyên).
+      Hãy giúp tôi giải thích khái niệm "{{concept}}" trong lĩnh vực "{{domain}}" như thể đang kể cho một em bé 5 tuổi (hoặc một người hoàn toàn chưa từng học ngành này).
 
-      Yêu cầu:
-      1. Không dùng từ chuyên ngành (jargon) - hoặc nếu dùng phải giải thích ngay bằng từ đời thường
-      2. Dùng analogy (so sánh) với thứ quen thuộc trong đời sống hàng ngày
-      3. Tập trung vào "tại sao" và "như thế nào" chứ không phải định nghĩa khô khan
-      4. Dưới 100 từ tiếng Việt
-      5. Có thể dùng emoji để sinh động
+      **Yêu cầu:**
+      1. Không dùng từ chuyên ngành khó hiểu — nếu bắt buộc nhắc tới, phải giải thích ngay bằng từ ngữ đời thường.
+      2. Dùng một ví dụ so sánh quen thuộc trong sinh hoạt hằng ngày (nấu ăn, đi chợ, trồng cây, xếp đồ...).
+      3. Tập trung làm rõ "tại sao lại thế" và "chạy như thế nào", không chép lại định nghĩa sách giáo khoa.
+      4. Độ dài gói gọn dưới 120 từ tiếng Việt mạch lạc, tự nhiên.
+      5. Có thể dùng biểu tượng cảm xúc vừa phải để câu chuyện sinh động hơn.
 
-      Khái niệm: {{concept}}
+      Khái niệm cần giải thích: {{concept}}
       Lĩnh vực: {{domain}}
     variables:
       - name: concept
@@ -34,49 +34,49 @@ prompts:
         required: true
       - name: domain
         type: text
-        label: "Lĩnh vực/Ngành học"
+        label: "Lĩnh vực hoặc ngành học"
         required: true
-        default: "Khoa học máy tính / Toán / Vật lý / Kinh tế"
+        default: "Khoa học máy tính / Toán / Tài chính / Kinh tế"
     examples:
       - inputs:
-          concept: "Recursion (Đệ quy)"
+          concept: "Đệ quy (Recursion)"
           domain: "Lập trình"
         output: |
-          🔁 **Đệ quy giống như... mở hộp quà dentro hộp quà.**
+          🔁 **Đệ quy giống như... mở hộp quà lồng nhau.**
 
-          Em có một hộp quà lớn. Mở ra thấy bên trong có một hộp quà nhỏ hơn. Mở hộp nhỏ đó ra... lại thấy một hộp quà nữa. Cứ thế cho đến khi mở được hộp nhỏ nhất - bên trong là món quà thật sự (kết quả).
+          Bé nhận được một hộp quà thật to. Mở nắp ra lại thấy bên trong có thêm một hộp quà nhỏ hơn. Mở tiếp hộp nhỏ đó... lại gặp một hộp nhỏ xíu nữa. Bé cứ mở dần cho tới hộp cuối cùng nhỏ bằng lòng bàn tay — bên trong mới là món đồ chơi thật sự!
 
-          Mỗi lần mở hộp = một lần "gọi hàm". Hộp nhỏ nhất = "base case" (điều kiện dừng). Nếu không có hộp nhỏ nhất → mở mãi không xong = stack overflow! 💥
+          Trong lập trình, mỗi lần tự mở một hộp nhỏ hơn chính là "hàm tự gọi lại chính nó". Còn chiếc hộp cuối cùng chứa món quà là "điều kiện dừng". Nếu quên làm hộp cuối cùng, máy tính sẽ mở hộp mãi không ngừng đến khi tràn bộ nhớ! 💥
       - inputs:
-          concept: "Compound Interest (Lãi suất kép)"
+          concept: "Lãi suất kép (Compound Interest)"
           domain: "Tài chính"
         output: |
-          💰 **Lãi suất kép giống như... cây phấn hoa tự gieo hạt.**
+          💰 **Lãi suất kép giống như... gieo hạt giống sinh sôi.**
 
-          Em trồng 1 cây phấn hoa (gốc = $100). Mùa sau nó nở hoa, rụng hạt → mọc thêm 10 cây con (lãi 10% = $10). Mùa sau nữa: 11 cây đều nở hoa, rụng hạt → mọc thêm 110 cây con. Càng về sau, cây con mọc nhanh hơn vì *cây con cũng sinh ra cháu*!
+          Bạn bỏ ống tiết kiệm **1 triệu đồng** với lãi suất **10%/năm**. Hết năm thứ nhất, tiền lời là **100 nghìn đồng**, tổng cộng bạn có **1,1 triệu đồng**. Sang năm thứ hai, bạn không rút lãi ra mà để cả **1,1 triệu đồng** sinh lời tiếp: 10% của 1,1 triệu đồng là **110 nghìn đồng**, nâng tổng số lên **1,21 triệu đồng**.
 
-          Lãi đơn = chỉ cây gốc ra hoa. Lãi kép = cây con, cháu, chắt... đều ra hoa. ⏰ Thời gian là siêu năng lực!
+          Lãi đơn chỉ tính lời trên 1 triệu đồng ban đầu, còn lãi kép giúp tiền lời năm trước cũng tiếp tục đẻ ra tiền lời năm sau. Thời gian càng dài, số tiền tăng càng nhanh! ⏰
     difficulty: "easy"
     useCases:
-      - "Học sinh hiểu khái niệm Toán/Vật lý trừu tượng"
-      - "Developer giải thích technical concept cho non-tech stakeholder"
-      - "Content creator làm video edukasi"
+      - "Học sinh, sinh viên hiểu nhanh các khái niệm Toán, Lý, Kinh tế trừu tượng"
+      - "Người làm kỹ thuật giải thích giải pháp cho sếp hoặc khách hàng không chuyên"
+      - "Người sáng tạo nội dung làm video giáo dục dễ hiểu cho mọi người"
   - id: prompt-feynman-gap-analysis
-    name: "Bước 2: Tìm điểm mù (Knowledge Gap)"
-    description: "Xác định chính xác chỗ nào mình chưa hiểu thật sự - nơi lúng túng, nói vòng, dùng từ khó"
+    name: "Bước 2: Tìm lỗ hổng kiến thức"
+    description: "Phát hiện chính xác đoạn nào mình còn mơ hồ, nói vòng vo hoặc đang ngụy trang bằng thuật ngữ khó"
     template: |
-      Tôi vừa cố gắng giải thích "{{concept}}" theo cách đơn giản. Dưới đây là bản giải thích của tôi:
+      Tôi vừa thử tự giải thích khái niệm "{{concept}}" bằng lời của mình như dưới đây:
 
       {{myExplanation}}
 
-      Hãy giúp tôi phân tích:
-      1. Chỗ nào tôi dùng từ chuyên ngành mà không giải thích?
-      2. Chỗ nào tôi nói vòng vo, không chắc chắn?
-      3. Chỗ nào tôi giả định người nghe đã biết (nhưng thực ra không)?
-      4. 3 câu hỏi "Tại sao?" mà bản giải thích của tôi chưa trả lời được
-      5. Gợi ý tài nguyên/cụ thể nào để lấp đầy từng gap
+      Hãy giúp tôi soi kỹ và chỉ ra:
+      1. Chỗ nào tôi vẫn đang dùng thuật ngữ chuyên ngành mà chưa giải thích rõ?
+      2. Chỗ nào tôi diễn đạt vòng vo, mơ hồ hoặc chưa chắc chắn?
+      3. Chỗ nào tôi đang ngầm giả định người nghe đã biết sẵn kiến thức nền (nhưng người mới sẽ không hiểu)?
+      4. 3 câu hỏi "Tại sao?" quan trọng mà bản giải thích của tôi chưa trả lời được.
+      5. Gợi ý cụ thể cách tra cứu hoặc bài tập nhỏ để lấp đầy từng lỗ hổng đó.
 
-      Trả lời trực tiếp, không chê bai, tập trung actionable.
+      Hãy góp ý thẳng thắn, khích lệ và đưa ra hành động làm được ngay.
     variables:
       - name: concept
         type: text
@@ -84,63 +84,57 @@ prompts:
         required: true
       - name: myExplanation
         type: textarea
-        label: "Bản giải thích của bạn (copy từ bước 1 hoặc viết mới)"
+        label: "Bản giải thích do bạn tự viết (dán từ Bước 1 hoặc tự viết lại từ trí nhớ)"
         required: true
     examples:
       - inputs:
-          concept: "Closure trong JavaScript"
+          concept: "Closure (Hàm đóng) trong JavaScript"
           myExplanation: "Closure là khi một function nhớ được variables từ outer scope của nó ngay cả khi outer function đã return xong. Lexical scope quyết định biến nào được capture."
         output: |
-          ## 🔍 Gap Analysis: Closure
+          ## 🔍 Soi Lỗ Hổng Kiến Thức: Closure (Hàm Đóng)
 
-          **1. Từ chuyên ngành chưa giải thích:**
-          - "Lexical scope" → Người không chuyên không biết khác dynamic scope như thế nào
-          - "Capture" → Hidden mechanism, cần analogy
-          - "Outer/Inner function" → Cần ví dụ code cụ thể
+          **1. Thuật ngữ chuyên ngành chưa được giải thích:**
+          - "Outer scope" và "Lexical scope" → Người mới nghe sẽ không hiểu phạm vi biến được quyết định lúc viết mã hay lúc chạy mã.
+          - "Capture" → Chưa nói rõ hàm giữ biến bằng cách nào (giữ tham chiếu tới giá trị đang sống, chứ không chỉ sao chép cứng một con số).
 
-          **2. Nói vòng vo:**
-          - "Nhớ được variables" → Nhớ như thế nào? Lưu ở đâu? Lâu bao lâu?
-          - "Ngay cả khi outer function đã return" → Tại sao bình thường biến cục bộ bị hủy mà closure không?
+          **2. Đoạn diễn đạt còn mơ hồ:**
+          - "Nhớ được biến" → Nhớ trong bao lâu, lưu ở đâu trong bộ nhớ, và vì sao biến đó không bị dọn mất như biến thông thường?
 
-          **3. Giả định người nghe đã biết:**
-          - Scope là gì? Function là first-class citizen?
-          - Garbage collection cơ bản?
+          **3. Kiến thức nền đang mặc định người nghe đã biết:**
+          - Chưa giải thích rằng trong JavaScript, một hàm có thể được trả về như một món đồ bình thường từ bên trong hàm khác.
 
-          **4. 3 câu hỏi "Tại sao?" chưa trả lời:**
-          1. Tại sao `var` trong loop tạo closure sai (cùng reference) mà `let` thì đúng?
-          2. Tại sao closure có thể gây memory leak? (Event listener, circular reference)
-          3. Tại sao React hooks (useState, useEffect) lại dựa trên closure?
+          **4. 3 câu hỏi "Tại sao?" bạn nên tự trả lời tiếp:**
+          1. Vì sao viết vòng lặp bằng `var` hay làm các hàm bên trong in ra cùng một số cuối cùng, còn `let` thì đúng?
+          2. Vì sao giữ quá nhiều dữ liệu trong hàm đóng mà không gỡ bỏ có thể làm trình duyệt tốn bộ nhớ?
+          3. Các hook trong React như `useState` hay `useEffect` tận dụng cơ chế này như thế nào?
 
-          **5. Gợi ý lấp đầy gap:**
-          - Xem: "JavaScript Closure 101" - JS Conf (YouTube 15p)
-          - Đọc: "You Don't Know JS: Scope & Closures" - Chương 4-5 (free online)
-          - Thực hành: Viết 5 pattern closure thực tế (module, memoize, currying, event handler, React hook)
+          **5. Gợi ý lấp đầy lỗ hổng:**
+          - Đọc lại chương *Scope & Closures* trong bộ sách miễn phí *You Don't Know JS*.
+          - Tự tay viết 3 ví dụ ngắn: bộ đếm tăng dần, hàm lưu kết quả tính toán cũ (ghi nhớ kết quả) và bộ lọc theo ngưỡng tùy chỉnh.
     difficulty: "medium"
     useCases:
-      - "Tự kiểm tra mức độ hiểu sau khi học xong khái niệm mới"
-      - "Chuẩn bị phỏng vấn technical - dự đoán follow-up questions"
+      - "Tự kiểm tra xem mình đã hiểu thật chưa sau khi đọc xong một chương sách"
+      - "Chuẩn bị trước những câu hỏi xoáy của người phỏng vấn kỹ thuật"
   - id: prompt-feynman-analogy-builder
-    name: "Bước 3-4: Tạo Analogy & Note cá nhân"
-    description: "Xây dựng analogy riêng, vẽ diagram, tạo Feynman Note để ôn tập sau này"
+    name: "Bước 3-4: Tạo ví dụ so sánh & Sổ tay cá nhân"
+    description: "Xây dựng ví dụ ví von gắn với nghề nghiệp của riêng bạn và lưu thành mẫu ghi chú gọn đẹp để ôn lâu dài"
     template: |
-      Dựa trên gap analysis cho khái niệm "{{concept}}", hãy giúp tôi:
+      Dựa trên phần tìm lỗ hổng cho khái niệm "{{concept}}", hãy giúp tôi hoàn thiện Bước 3 và Bước 4 của kỹ thuật Feynman:
 
-      1. **Tạo 3 analogy khác nhau** (chọn 1 phù hợp nhất với background của tôi: {{background}})
-         - Analogy 1: Đời sống hàng ngày (nấu ăn, đi lại, chơi game...)
-         - Analogy 2: Nghề nghiệp/Chuyên môn của tôi ({{background}})
-         - Analogy 3: Visual/Đồ họa (miêu tả hình ảnh mental model)
-
-      2. **Tạo Feynman Note template** để lưu vào Obsidian/Notion:
-         - Title: {{concept}}
-         - One-liner (dưới 20 từ)
-         - Analogy được chọn
-         - Core mechanism (3 bullet points)
-         - Common pitfalls / Misconceptions
-         - Related concepts (links)
-         - Practice exercises (3 bài tập từ dễ đến khó)
-         - Câu hỏi còn mở
-
-      3. **Gợi ý cách ôn tập spaced repetition** cho note này
+      1. **Tạo 3 ví dụ so sánh khác nhau** (đánh dấu ví dụ hợp nhất với nền tảng của tôi là: {{background}}):
+         - Ví dụ 1: Gắn với sinh hoạt đời thường (nấu ăn, đi đường, mua sắm...)
+         - Ví dụ 2: Gắn với công việc hoặc chuyên môn của tôi ({{background}})
+         - Ví dụ 3: Mô tả bằng hình ảnh trực quan dễ tưởng tượng trong đầu
+      2. **Tạo mẫu ghi chú gọn để lưu vào Obsidian hoặc Notion** gồm đủ các mục:
+         - Tên khái niệm: {{concept}}
+         - Tóm tắt 1 câu dưới 20 từ
+         - Ví dụ so sánh đã chọn
+         - Cơ chế hoạt động cốt lõi (3 gạch đầu dòng ngắn)
+         - Những hiểu nhầm hay gặp và cách tránh
+         - Các khái niệm liên quan cần nối thêm
+         - 3 bài tập tự luyện từ dễ đến khó
+         - Câu hỏi còn mở để tìm hiểu thêm
+      3. **Gợi ý lịch ôn lại ngắt quãng** (ngày 1, ngày 3, ngày 7, ngày 30) cho ghi chú này.
     variables:
       - name: concept
         type: text
@@ -148,73 +142,72 @@ prompts:
         required: true
       - name: background
         type: text
-        label: "Background/Nghề nghiệp của bạn (để tùy chỉnh analogy)"
+        label: "Nghề nghiệp hoặc nền tảng hiện tại của bạn (để chọn ví dụ so sánh sát nhất)"
         required: true
-        default: "Software Engineer / Sinh viên CS / Data Analyst / Marketing / Teacher"
+        default: "Kỹ sư phần mềm / Sinh viên / Chuyên viên phân tích dữ liệu / Marketing / Giáo viên"
     examples:
       - inputs:
-          concept: "Backpropagation"
-          background: "Software Engineer, biết calculus cơ bản"
+          concept: "Lan truyền ngược (Backpropagation) trong mạng nơ-ron"
+          background: "Kỹ sư phần mềm, có kiến thức giải tích cơ bản"
         output: |
-          ## 🎯 Feynman Note: Backpropagation
+          ## 🎯 Sổ Tay Feynman: Lan Truyền Ngược (Backpropagation)
 
-          ### One-liner
-          "Lan truyền lỗi ngược từ output về input để điều chỉnh từng weight - giống như trace ngược lỗi bug từ crash log về dòng code gốc."
+          ### Tóm tắt 1 câu
+          "Truy ngược mức độ sai số từ kết quả cuối về từng tham số ban đầu để biết mỗi chỗ cần chỉnh tăng hay giảm bao nhiêu."
 
-          ### 3 Analogy
-          1. **Đời thường**: Nấu ăn sai muối → Thử lại lần sau giảm muối. Backprop = "Điều chỉnh nguyên liệu dựa trên kết quả món ăn".
-          2. **SWE**: Debug production bug → Xem stack trace → Tìm root cause line code → Fix. Backprop = "Stack trace cho neural network".
-          3. **Visual**: 🏔️ Gradient Descent đi xuống núi. Backprop = "Bản đồ địa hình (gradient) cho từng bước chân (weight)".
+          ### 3 ví dụ so sánh gần gũi
+          1. **Đời thường (Nấu ăn):** Nếm thử nồi canh thấy hơi mặn → Lần theo công thức xem là do nêm nhiều muối hay nước mắm, rồi lần nấu sau giảm đúng nguyên liệu đó.
+          2. **Nghề kỹ sư phần mềm (Chọn dùng chính):** Hệ thống báo lỗi → Đọc nhật ký truy vết (stack trace) từ đầu ra ngược về từng hàm gọi trước đó để tìm đúng dòng gây lỗi mà sửa.
+          3. **Hình ảnh trực quan:** 🏔️ Đứng trên sườn núi mù sương tìm đường xuống thung lũng thấp nhất; lan truyền ngược giống như chiếc la bàn đo độ dốc dưới chân ở từng bước đi để bạn bước xuống đúng hướng.
 
-          ### Core Mechanism (3 điểm)
-          1. **Forward pass**: Input → ... → Output → Loss (đo sai số)
-          2. **Backward pass**: ∂Loss/∂Weight = ∂Loss/∂Output × ∂Output/∂Hidden × ... × ∂Hidden/∂Weight (Chain rule)
-          3. **Update**: Weight ← Weight - LearningRate × Gradient
+          ### Cơ chế hoạt động cốt lõi (3 bước)
+          1. **Lượt tính xuôi (Forward pass):** Đưa dữ liệu đầu vào đi qua các lớp tính toán để ra dự đoán, rồi đo độ lệch so với đáp án thật.
+          2. **Lượt truy ngược sai số (Backward pass):** Dùng quy tắc đạo hàm dây chuyền tính xem từng trọng số góp phần bao nhiêu vào sai số chung.
+          3. **Cập nhật trọng số:** Chỉnh nhẹ từng trọng số ngược chiều sai số theo một bước nhảy vừa phải (tốc độ học) để lần sau đoán chuẩn hơn.
 
-          ### Common Pitfalls
-          - ❌ Vanishing gradient (sigmoid/tanh deep network) → Dùng ReLU, Residual, BatchNorm
-          - ❌ Exploding gradient → Gradient clipping
-          - ❌ Dead ReLU (gradient = 0 forever) → Leaky ReLU, He init
+          ### Hiểu nhầm & Lỗi hay gặp
+          - ❌ **Tín hiệu sửa lỗi tắt dần (Vanishing gradient):** Mạng quá sâu khiến con số truy ngược về đầu bị nhỏ xíu gần bằng 0 → khắc phục bằng hàm kích hoạt ReLU hoặc đường nối tắt.
+          - ❌ **Tín hiệu phình quá lớn (Exploding gradient):** Sai số nhân lên khổng lồ làm hỏng mô hình → giới hạn trần độ lớn bước chỉnh.
+          - ❌ **Nút mạng bị "tắt hẳn" (Dead ReLU):** Một số nút luôn cho ra 0 và không học tiếp được nữa → dùng biến thể Leaky ReLU hoặc khởi tạo trọng số hợp lý.
 
-          ### Related Concepts
-          - [[Chain Rule]], [[Gradient Descent]], [[Autograd]], [[Computational Graph]]
+          ### Khái niệm liên quan
+          - [[Quy tắc đạo hàm dây chuyền]], [[Hạ dốc tìm cực tiểu (Gradient Descent)]], [[Đồ thị tính toán tự động]]
 
-          ### Practice Exercises
-          1. **Dễ**: Tính gradient thủ công cho y = (2x + 3)² tại x=1
-          2. **Trung bình**: Implement backprop cho MLP 1 hidden layer (numpy only, no PyTorch)
-          3. **Khó**: Debug vanishing gradient trong RNN → Implement LSTM cell
+          ### 3 bài tập tự luyện
+          1. **Dễ:** Tính tay độ dốc của biểu thức đơn giản $y = (2x + 3)^2$ tại $x = 1$.
+          2. **Trung bình:** Tự viết phép lan truyền ngược cho mạng 1 lớp ẩn chỉ dùng thư viện tính mảng NumPy.
+          3. **Khó:** Thử nghiệm mô phỏng lỗi tín hiệu tắt dần trên chuỗi nhiều bước và xem cách kiến trúc LSTM giữ thông tin.
 
-          ### Spaced Repetition Schedule
-          - Ngày 1: Review note + làm bài 1
-          - Ngày 3: Làm bài 2
-          - Tuần 1: Làm bài 3
-          - Tuần 2: Viết blog giải thích cho junior
-          - Tháng 1: Relate sang Transformer attention gradient flow
+          ### Lịch ôn tập ngắt quãng
+          - Ngày 1: Đọc lại ghi chú và làm bài tập 1.
+          - Ngày 3: Tự viết mã bài tập 2 không nhìn tài liệu.
+          - Tuần 1: Làm bài tập 3.
+          - Tuần 2: Thử giải thích lại khái niệm này cho một đồng nghiệp mới.
     difficulty: "medium"
     useCases:
-      - "Tạo knowledge base cá nhân (Second Brain)"
-      - "Chuẩn bị giảng dạy/mentoring"
-      - "Học sâu ML/CS theory concepts"
+      - "Xây dựng sổ tay kiến thức cá nhân dễ tra cứu về sau"
+      - "Chuẩn bị giáo án giảng dạy hoặc hướng dẫn người mới"
+      - "Học sâu các khái niệm toán học, khoa học máy tính và trí tuệ nhân tạo"
 agentTemplate:
-  name: "Feynman Tutor Agent"
-  description: "Hướng dẫn từng bước kỹ thuật Feynman, giúp tạo analogy, tìm gap, build note cá nhân"
+  name: "Gia Sư Theo Phương Pháp Feynman"
+  description: "Hướng dẫn từng bước kỹ thuật Feynman, giúp tạo ví dụ so sánh đời thường, tìm lỗ hổng kiến thức và ghi chú cá nhân"
   systemPrompt: |
-    Bạn là Feynman Tutor - chuyên gia hướng dẫn kỹ thuật học tập của Richard Feynman.
+    Bạn là gia sư hướng dẫn kỹ thuật học sâu theo phương pháp Richard Feynman.
     Quy trình 4 bước:
-    1. **Explain simply** - Yêu cầu user giải thích khái niệm bằng ngôn ngữ đơn giản
-    2. **Identify gaps** - Phân tích chỗ user lúng túng, dùng jargon, logic jump
-    3. **Fill gaps** - Gợi ý tài nguyên, ví dụ, counter-example để lấp đầy
-    4. **Simplify & Analogize** - Hỗ trợ tạo analogy cá nhân, visual mental model, Feynman Note
+    1. **Giải thích thật đơn giản** - Yêu cầu người học diễn đạt lại khái niệm bằng ngôn ngữ đời thường
+    2. **Tìm lỗ hổng** - Chỉ ra chỗ còn lúng túng, lạm dụng thuật ngữ khó hoặc nhảy cóc lập luận
+    3. **Bổ sung kiến thức** - Gợi ý tài liệu, ví dụ và tình huống phản biện để lấp đầy chỗ hổng
+    4. **Đơn giản hóa & Ví von** - Hỗ trợ tạo ví dụ so sánh gần gũi với công việc của người học
 
     Nguyên tắc:
-    - Không giảng bài, chỉ hỏi điều hướng (Socratic method)
-    - Khuyến khích user tự tạo analogy từ background của họ
-    - Focus vào "Tại sao" và "Như thế nào" hơn là "Định nghĩa là gì"
-    - Celebrate sự confused - đó là dấu hiệu đang học 깊
+    - Không giảng bài một chiều, hãy đặt câu hỏi gợi mở từng bước
+    - Khuyến khích người học tự tạo ví dụ so sánh từ trải nghiệm cá nhân
+    - Tập trung vào "Tại sao" và "Hoạt động như thế nào" hơn là học thuộc định nghĩa
+    - Khích lệ khi người học nhận ra chỗ mình còn mơ hồ — đó là dấu hiệu đang hiểu sâu hơn
   model: "gpt-4"
   temperature: 0.6
   tools:
-    - "web_search"
+    - "Tìm kiếm thông tin"
 relatedSkillIds:
   - "doc-lap-ke-hoach-hoc-tap"
   - "active-recall"

@@ -2,53 +2,53 @@
 id: phuong-phap-hoc-tap-cho-con
 categoryId: giao-duc-con
 name: "Phương pháp học tập cho con (0-12 tuổi)"
-description: "Montessori, Reggio, Waldorf, Phonics, Math manipulatives, Executive function, Growth mindset"
+description: "Ứng dụng Montessori, Reggio và học qua chơi giúp con rèn tính tự lập, khả năng tập trung, ngôn ngữ, toán tư duy và tinh thần ham học hỏi"
 whenToUse:
-  - "Chọn phương pháp giáo dục phù hợp con"
-  - "Hỗ trợ con học tại nhà (Homeschool/Afterschool)"
-  - "Phát triển kỹ năng suy nghĩ, tự học"
+  - "Chọn phương pháp giáo dục sớm phù hợp với tính cách của con"
+  - "Hỗ trợ con tự học và vui chơi có ích tại nhà ngoài giờ lên lớp"
+  - "Phát triển khả năng tư duy độc lập và nếp tự giác cho con"
 difficulty: "intermediate"
-estimatedTime: "Học phương pháp 1-2 tuần, áp dụng hàng ngày"
+estimatedTime: "Tìm hiểu phương pháp 1-2 tuần, áp dụng nhẹ nhàng hằng ngày"
 tags: ["montessori", "reggio", "waldorf", "phonics", "early-math", "executive-function", "growth-mindset", "homeschool"]
 prompts:
   - id: prompt-montessori-at-home
     name: "Áp dụng Montessori tại nhà (0-6 tuổi)"
-    description: "Prepared environment, Practical life, Sensorial, Language, Math, Cultural - DIY materials"
+    description: "Sắp xếp góc học tập vừa tầm với của con, thiết kế hoạt động kỹ năng sống, giác quan, ngôn ngữ, toán và khám phá thế giới bằng đồ tự làm tại nhà"
     template: |
-      Bạn là Montessori Guide (AMI/AMS). Hãy thiết kế môi trường Montessori tại nhà cho:
+      Bạn là chuyên gia giáo dục sớm theo tinh thần Montessori. Hãy thiết kế góc học tập và hoạt động Montessori tại nhà cho:
 
-      **Thông tin con:**
-      - Tuổi: {{childAge}} tháng/tuổi
-      - Sở thích/Quan sát: {{interests}}
-      - Kỹ năng hiện tại: {{currentSkills}}
-      - Không gian: {{space}} (Phòng riêng / Góc phòng chung / Balcony)
+      **Thông tin của con:**
+      - Độ tuổi: {{childAge}}
+      - Sở thích và điều cha mẹ quan sát được: {{interests}}
+      - Kỹ năng con đã làm được: {{currentSkills}}
+      - Không gian trong nhà: {{space}}
 
-      **Output:**
-      1. **Prepared Environment (Môi trường chuẩn bị)**:
-         - Low shelves (Kệ thấp), Trays (Khay), Baskets (Rổ), Child-sized furniture
-         - Rotation: 6-8 activities tại một thời điểm, Rotate theo quan sát
-      2. **5 Khu vực học tập (Areas)** với hoạt động cụ thể theo tuổi:
-         - **Practical Life (Đời sống thực tế)**: Pouring, Spooning, Buttoning, Washing, Food prep, Cleaning
-         - **Sensorial (Giác quan)**: Pink Tower, Brown Stair, Color Tablets, Sound Boxes, Smelling Jars
-         - **Language (Ngôn ngữ)**: Sandpaper letters, Moveable alphabet, Phonics, Reading corner, Storytelling
-         - **Math (Toán)**: Number rods, Spindle box, Cards & Counters, Golden beads, Stamp game
-         - **Cultural (Văn hóa/Khoa học)**: Puzzle maps, Botany/Zoology cards, Timeline, Experiments
-      3. **DIY Materials (Tự làm dụng cụ)**: Cardboard, Recycled, In household items
-      4. **Daily Rhythm (Nhịp độ ngày)**: Work cycle 2-3h (Uninterrupted), Outdoor, Practical life integration
-      5. **Adult Role (Vai trò người lớn)**: Observer, Guide (Not teacher), Prepare environment, Model behavior
-      6. **Red Flags**: Over-praising, Interrupting concentration, Too many toys, Adult-led play
+      **Hãy thiết kế kế hoạch áp dụng tại nhà theo các phần sau:**
+      1. **Chuẩn bị góc học tập vừa tầm với của con**:
+         - Kệ thấp mở, khay và rổ gọn gàng, bàn ghế vừa chiều cao của con
+         - Nguyên tắc xoay vòng: mỗi lần chỉ bày 6-8 hoạt động trên kệ, thay mới dựa trên quan sát hứng thú của con
+      2. **5 nhóm hoạt động cụ thể theo độ tuổi**:
+         - **Kỹ năng sống hằng ngày**: Rót nước, xúc hạt, cài cúc áo, phụ rửa rau, lau bàn, quét nhà
+         - **Giác quan**: Phân biệt kích thước lớn nhỏ, ghép màu sắc đậm nhạt, hộp âm thanh, hộp ngửi mùi
+         - **Ngôn ngữ**: Chữ cái nhám sờ bằng tay, thẻ hình ghép từ, góc đọc sách vừa tầm, kể chuyện theo tranh
+         - **Toán tư duy**: Thanh số đếm độ dài, hộp que tính làm quen số 0, thẻ số ghép hạt đếm chẵn lẻ
+         - **Khám phá thế giới & khoa học**: Bản đồ ghép tỉnh thành, thẻ phân loại lá cây và con vật, thí nghiệm nhỏ an toàn
+      3. **Đồ học tập tự làm tại nhà**: Gợi ý cách tận dụng bìa cứng, hộp giấy, nắp chai và đồ dùng sẵn có trong bếp để tiết kiệm chi phí
+      4. **Nhịp sinh hoạt trong ngày**: Khung giờ tự chơi tập trung không bị ngắt quãng, giờ ra ngoài trời và lồng ghép việc nhà
+      5. **Vai trò của ba mẹ**: Quan sát trước khi hướng dẫn, làm mẫu chậm ít lời, chuẩn bị sẵn đồ và làm gương cho con
+      6. **Những điều ba mẹ nên tránh**: Khen chung chung quá mức, cắt ngang lúc con đang chăm chú, bày quá nhiều đồ chơi cùng lúc hoặc chơi thay con
     variables:
       - name: childAge
         type: text
-        label: "Tuổi con (Ví dụ: 28 tháng / 3.5 tuổi / 5 tuổi)"
+        label: "Tuổi con (Ví dụ: 28 tháng / 3,5 tuổi / 5 tuổi)"
         required: true
       - name: interests
         type: textarea
-        label: "Sở thích/Quan sát (Con thích làm gì? Nấu ăn? Xếp hình? Vẽ? Sách?)"
+        label: "Sở thích và thói quen quan sát được (ví dụ: thích nấu ăn, xếp hình, vẽ, đọc sách)"
         required: true
       - name: currentSkills
         type: textarea
-        label: "Kỹ năng hiện tại (Tự ăn được? Đi vệ sinh? Nhận chữ? Đếm?)"
+        label: "Kỹ năng hiện tại (tự xúc ăn, đi vệ sinh, nhận biết chữ cái, đếm số...)"
         required: true
       - name: space
         type: select
@@ -56,96 +56,97 @@ prompts:
         options:
           - "Phòng riêng cho con"
           - "Góc trong phòng chung"
-          - "Balcony/Sân thượng"
+          - "Ban công / Sân thượng"
           - "Chia sẻ không gian sống"
         required: true
+        default: "Góc trong phòng chung"
     examples:
       - inputs:
-          childAge: "3.5 tuổi (42 tháng)"
-          interests: "Thích nấu ăn giả vờ, Xếp lego, Vẽ bút màu, Nghe chuyện, Muốn tự làm mọi việc"
-          currentSkills: "Tự ăn được, Đi vệ sinh được, Nhận được 10 chữ cái, Đếm 1-10, Cầm bút vẽ được"
-          space: "Góc trong phòng chung (2m x 2m)"
+          childAge: "3,5 tuổi (42 tháng)"
+          interests: "Thích nấu ăn giả vờ, xếp khối lắp ghép, vẽ bút màu, nghe kể chuyện và thích tự làm mọi việc"
+          currentSkills: "Tự ăn được, tự đi vệ sinh, nhận biết 10 chữ cái, đếm từ 1-10, cầm bút vẽ được"
+          space: "Góc trong phòng chung"
         output: |
-          # 🏫 Montessori Tại Nhà: Con 3.5 tuổi, Góc 2x2m
+          # 🏫 Áp Dụng Montessori Tại Nhà: Bé 3,5 Tuổi (Góc Phòng Chung 2x2m)
 
-          ## 1. Prepared Environment (Setup 1 lần, maintain hàng tuần)
-          | Item | Mua/Làm | Vị trí | Chi phí ước tính |
-          |------|---------|--------|------------------|
-          | Kệ thấp 3 tầng (IKEA KALLAX / Gỗ tự làm) | Mua | Góc phòng | 1-2M |
-          | Khay gỗ/nhựa (6-8 cái, size A4/A5) | Mua/Shopee | Trên kệ | 200k |
-          | Rổ tre/nhựa (4-6 cái) | Mua | Trên kệ/sàn | 150k |
-          | Bàn ghế size con (IKEA FLISAT / Gỗ tự làm) | Mua | Trước kệ | 1-2M |
-          | Thảm hoạt động (Puzzle mat / Thảm cotton) | Mua | Dưới bàn | 300k |
-          | **Tổng** | | | **~3.5-4.5M** |
+          ## 1. Chuẩn Bị Góc Học Tập (Sắp Xếp 1 Lần, Thay Đồ Hằng Tuần)
+          | Đồ dùng | Mua hay tự làm | Vị trí | Chi phí ước tính |
+          |---|---|---|---|
+          | Kệ thấp 3 tầng không cửa | Mua hoặc đóng gỗ | Sát tường góc phòng | 1-2 triệu |
+          | Khay gỗ hoặc khay nhựa (6-8 chiếc cỡ A4/A5) | Mua sẵn | Xếp trên kệ | 200.000đ |
+          | Rổ tre hoặc rổ nhựa (4-6 chiếc) | Mua sẵn | Trên kệ hoặc sàn | 150.000đ |
+          | Bộ bàn ghế thấp vừa cỡ người bé | Mua sẵn | Đặt trước kệ | 1-2 triệu |
+          | Thảm ngồi chơi (thảm cotton hoặc thảm xốp ghép) | Mua sẵn | Trải dưới sàn khi chơi | 300.000đ |
+          | **Tổng dự kiến** | | | **Khoảng 3,5-4,5 triệu** |
 
-          ## 2. Hoạt Động Theo Tuổi 3.5 Tuổi (6-8 activities rotate)
+          ## 2. Gợi Ý Hoạt Động Cho Bé 3,5 Tuổi (Bày Luân Phiên 6-8 Khay)
 
-          ### Practical Life (Đời Sống Thực Tế) - Con thích nấu ăn, tự làm
-          1. **Pouring (Rót nước)**: 2 bình nhỏ, Nước + Color → Rót qua lại (Fine motor, Concentration)
-          2. **Food Prep (Chuẩn bị đồ ăn)**: Cắt chuối (Dao nhựa), Bóc đậu phộng, Làm bánh mì kẹp (Spread butter)
-          3. **Cleaning (Dọn dọn)**: Quét bụi (Chổi size con), Lau bàn, Hút bụi mini, Rửa chén (Bồn nhỏ)
-          4. **Self-care**: Rửa tay (Bậc cầu), Đi vệ sinh (Bệ cầu), Mặc áo (Áo cài nút, Quần thun)
+          ### Nhóm 1: Kỹ Năng Sống Hằng Ngày (Bé đang rất thích làm việc nhà)
+          1. **Rót nước khéo tay**: 2 ca nhỏ, nước pha chút màu thực phẩm an toàn để rót qua lại, rèn sự khéo léo và tập trung.
+          2. **Phụ chuẩn bị bữa phụ**: Cắt chuối bằng dao nhựa an toàn, bóc vỏ trứng luộc hoặc phết bơ lên bánh mì kẹp.
+          3. **Tự dọn dẹp**: Bộ chổi nhỏ vừa tay con, khăn lau bàn ẩm, giẻ lau vết nước rơi.
+          4. **Tự phục vụ bản thân**: Kê bậc gỗ thấp ở bồn rửa tay để con tự rửa tay, tự cài nút áo và xếp giày gọn.
 
-          ### Sensorial (Giác Quan) - Phát triển 5 giác quan
-          5. **Pink Tower / Brown Stair (DIY: Hộp giấy/vỏ chai size dần)** - Kích thước, Trật tự
-          6. **Color Tablets (DIY: Màu ván ép/văn phòng phẩm)** - Ghép màu, Gradient
-          7. **Sound Boxes (DIY: Hộp الصغير chứa đậu/đường/cát)** - Phân biệt âm thanh
+          ### Nhóm 2: Phát Triển Giác Quan
+          5. **Tháp khối kích thước tăng dần**: Xếp 10 hộp giấy từ lớn đến nhỏ theo đúng thứ tự.
+          6. **Bảng ghép sắc độ màu**: Dùng thẻ mẫu màu sơn ghép các cặp màu giống nhau và xếp từ nhạt đến đậm.
+          7. **Hộp âm thanh bí mật**: 4-6 cặp hộp kín đựng gạo, đậu xanh, đường, cát để con lắc và tìm cặp giống tiếng nhau.
 
-          ### Language (Ngôn Ngữ) - Nhận 10 chữ, thích nghe chuyện
-          8. **Sandpaper Letters (DIY: Cát dán trên gỗ/ván)** - Chữ cái Montessori (Phonics sound)
-          9. **Picture Cards (3-part cards: Picture, Label, Control)** - Từ vựng: Hoa, Quả, Động vật, Xe cộ
-          10. **Reading Corner**: 10-15 sách hình đẹp, Ghế nệm, Đèn đọc
+          ### Nhóm 3: Ngôn Ngữ & Làm Quen Mặt Chữ
+          8. **Chữ cái nhám tự làm**: Cắt chữ cái dán cát mịn lên bìa cứng để con vừa đưa ngón tay tô theo nét vừa phát âm.
+          9. **Thẻ hình 3 phần**: Bộ thẻ tranh ảnh thật về hoa quả, con vật, xe cộ kèm thẻ chữ rời để đối chiếu.
+          10. **Góc đọc sách êm ái**: Đặt 10-15 cuốn sách tranh quay bìa ra ngoài trên kệ thấp cùng một chiếc gối tựa.
 
-          ### Math (Toán) - Đếm 1-10
-          11. **Number Rods (DIY: Que gỗ/văn sơn 10cm-1m)** - Số lượng, Trật tự
-          12. **Spindle Box (DIY: Hộp giấy 10 ngăn, Que tre)** - Số 0-9, Khái niệm "Không"
-          13. **Cards & Counters (DIY: Thẻ số 1-10, Đá/Đậu đếm)** - Chẵn/Lẻ, Ghép số lượng
+          ### Nhóm 4: Toán Tư Duy Trực Quan
+          11. **Thanh số đếm**: 10 thanh gỗ sơn vạch đỏ xanh xen kẽ từ 10 cm đến 1 m để con cảm nhận độ dài gắn với số lượng.
+          12. **Hộp que tính số 0-9**: Hộp chia 10 ngăn đánh số từ 0 đến 9 để con đếm đúng số que bỏ vào từng ngăn (ngăn số 0 để trống giúp con hiểu khái niệm "không có gì").
+          13. **Thẻ số và hạt đếm**: Thẻ số 1-10 đi kèm hạt đậu hoặc sỏi nhẵn để con xếp cặp, nhận biết số chẵn và số lẻ.
 
-          ### Cultural (Khoa Học/Văn Hóa)
-          14. **Puzzle Map Việt Nam (DIY: In bản đồ, Dán foam, Cắt tỉnh)** - Địa lý
-          15. **Botany Cards**: Lá cây, Hoa, Quả (Chụp ảnh thật, In ảnh)
-          16. **Simple Experiments**: Nồi nâu baking soda+giấm, Màu nước di chuyển, Mầm đậu
+          ### Nhóm 5: Khám Phá Thế Giới & Khoa Học
+          14. **Bản đồ ghép Việt Nam**: In bản đồ dán lên tấm xốp mỏng rồi cắt theo vùng để con ghép hình và nhớ tên tỉnh thành.
+          15. **Thẻ thực vật và động vật**: Chụp ảnh lá cây, bông hoa thật quanh nhà để con đi tìm mẫu vật ngoài sân ghép với thẻ.
+          16. **Thí nghiệm vui tại bếp**: Núi lửa phun trào bằng baking soda và giấm ăn, quan sát nước màu thấm qua khăn giấy hoặc gieo hạt đậu xanh theo dõi nảy mầm.
 
-          ## 3. DIY Materials (Tự Làm - Tiết Kiệm 80%)
-          - **Pink Tower**: 10 hộp giấy cứng size 1cm³ đến 10cm³, Sơn hồng
-          - **Sandpaper Letters**: Ván MDF 3mm, Cát mịn (Vân tay), Keo dán
-          - **Number Rods**: Que gỗ 1x1cm, Dài 10cm-1m, Sơn đỏ/xanh xen kẽ
-          - **3-Part Cards**: Chụp ảnh thật (Điện thoại), In A6, Laminate (Máy laminate 500k hoặc dán keo trong)
+          ## 3. Tự Làm Học Cụ Tại Nhà (Tiết Kiệm 80% Chi Phí)
+          - **Tháp khối màu hồng**: Tận dụng 10 hộp giấy vuông kích thước tăng dần từ 1 cm khối đến 10 cm khối, bọc giấy màu hồng đồng nhất.
+          - **Chữ cái nhám**: Cắt bìa cứng hoặc gỗ mỏng, phết keo sữa lên hình chữ cái rồi rắc cát mịn sạch lên bề mặt.
+          - **Thanh số**: Dùng thanh gỗ vuông 1x1 cm dài 10 cm đến 1 m, sơn vạch đỏ xanh xen kẽ từng đoạn 10 cm.
+          - **Thẻ hình 3 phần**: Chụp ảnh thật bằng điện thoại, in khổ nhỏ rồi ép nhựa bảo vệ (hoặc dán băng keo trong 2 mặt) để dùng bền lâu.
 
-          ## 4. Daily Rhythm (Nhịp Độ Ngày)
-          | Thời gian | Hoạt động |
-          |-----------|-----------|
-          | 7:00-8:00 | Morning routine (Practical life: Rửa mặt, Mặc áo, Ăn sáng cùng) |
-          | 8:00-11:00 | **Work Cycle (2.5-3h)** - Con tự chọn activity, Người lớn quan sát/hỗ trợ khi cần |
-          | 11:00-12:00 | Outdoor (Công viên, Sân thượng, Dạo phố - Gross motor, Nature) |
-          | 12:00-13:00 | Lunch + Practical life (Rửa chén, Lau bàn) |
-          | 13:00-15:00 | Nap / Quiet time (Đọc sách, Nghe nhạc) |
-          | 15:00-17:00 | Free play / Outdoor / Screen time (Giới hạn 30p) |
-          | 17:00-19:00 | Dinner + Family time |
-          | 19:00-20:00 | Bedtime routine (Tắm, Đọc sách, 3 điều biết ơn) |
+          ## 4. Nhịp Sinh Hoạt Gợi Ý Trong Ngày
+          | Khung giờ | Hoạt động của bé |
+          |---|---|
+          | 7:00-8:00 | Thức dậy, tự rửa mặt, thay đồ và ăn sáng cùng cả nhà |
+          | 8:00-11:00 | **Giờ tự chơi tập trung**: Con tự chọn khay hoạt động trên kệ, ba mẹ quan sát và chỉ hỗ trợ khi con nhờ |
+          | 11:00-12:00 | Ra công viên hoặc sân chơi vận động ngoài trời, hít thở không khí tự nhiên |
+          | 12:00-13:00 | Ăn trưa và tự cất bát, lau chỗ ngồi |
+          | 13:00-15:00 | Ngủ trưa hoặc nghỉ ngơi yên tĩnh, nghe nhạc nhẹ |
+          | 15:00-17:00 | Chơi tự do, đọc sách hoặc xem màn hình có giới hạn (tối đa 30 phút) |
+          | 17:00-19:00 | Phụ nấu cơm tối, ăn tối cùng gia đình |
+          | 19:00-20:00 | Tắm rửa, đọc truyện trước khi ngủ và kể 3 điều vui trong ngày |
 
-          ## 5. Adult Role (Vai Trò Người Lớn) - QUAN TRỌNG
-          - ✅ **Observe (Quan sát)**: Ghi chép: Con chọn gì? Bao lâu? Kỹ năng gì đang phát triển?
-          - ✅ **Guide (Hướng dẫn)**: Demo chậm, ít nói, Cho con thử, Không can thiệp sớm
-          - ✅ **Prepare (Chuẩn bị)**: Môi trường sạch, Đầy đủ, Truy cập dễ dàng
-          - ✅ **Model (Làm gương)**: Người lớn làm trước, Con học bằng mô phỏng
-          - ❌ **Không**: Khen "Con giỏi quá!", Ngắt quãng khi con tập trung, Làm thay con, So sánh
+          ## 5. Vai Trò Của Ba Mẹ (Rất Quan Trọng)
+          - ✅ **Quan sát tinh tế**: Để ý xem con hay chọn khay nào, chơi được bao lâu và đang tò mò kỹ năng gì.
+          - ✅ **Làm mẫu chậm, ít lời**: Khi hướng dẫn món mới, làm từng động tác thật chậm để con nhìn rõ tay, hạn chế nói nhiều làm phân tâm.
+          - ✅ **Chuẩn bị sẵn sàng**: Giữ góc học gọn gàng, đủ đồ trong từng khay để con tự lấy và tự cất được.
+          - ✅ **Làm gương mỗi ngày**: Con học cách cư xử và sự ngăn nắp chủ yếu qua việc nhìn ba mẹ làm.
+          - ❌ **Tránh**: Ngắt ngang khi con đang mải mê, làm hộ vì thấy con chậm, hoặc so sánh con với bạn khác.
 
-          ## 6. Red Flags (Tránh)
-          - Quà tặng quá nhiều đồ chơi (Overstimulation) → Rotate 6-8 items
-          - Đồ chơi điện tử/có tiếng/đèn (Passive entertainment) → Open-ended toys
-          - Ép con "học" (Worksheet, Flashcard drill) → Follow the child
-        context: "Con 3.5 tuổi, thích practical life, không gian góc phòng chung, budget thấp DIY"
-    difficulty: "intermediate"
+          ## 6. Những Sai Lầm Cần Tránh
+          - **Bày quá nhiều đồ chơi một lúc**: Dễ làm con rối mắt, chán nhanh → Chỉ bày 6-8 khay, cất bớt vào tủ rồi đổi mỗi 1-2 tuần.
+          - **Lạm dụng đồ chơi phát nhạc, nhấp nháy thụ động**: Ưu tiên đồ chơi mở (xếp gỗ, đất nặn, đồ bếp) để con tự nghĩ cách chơi.
+          - **Ép con làm phiếu bài tập hay tráo thẻ máy móc**: Hãy đi theo hứng thú tự nhiên của con để giữ niềm vui học tập lâu dài.
+        context: "Bé 3,5 tuổi, thích hoạt động kỹ năng sống hằng ngày, tận dụng góc phòng chung với chi phí tiết kiệm từ đồ tự làm"
+    difficulty: "medium"
     useCases:
-      - "Cha mẹ muốn áp dụng Montessori tại nhà"
-      - "Homeschool / Afterschool enrichment"
-      - "Phát triển tự chủ, tập trung, trật tự cho con"
+      - "Cha mẹ muốn áp dụng tinh thần Montessori tại nhà cho con"
+      - "Hỗ trợ con tự học và phát triển kỹ năng thực tế tại nhà"
+      - "Rèn tính tự lập, khả năng tập trung và ngăn nắp từ nhỏ"
 agentTemplate:
-  name: "Early Childhood Educator"
-  description: "Montessori, Reggio, Waldorf, Phonics, Early Math, Executive Function, Play-based learning"
+  name: "Chuyên Gia Giáo Dục Sớm"
+  description: "Phương pháp Montessori, Reggio, học qua chơi, phát triển ngôn ngữ, toán tư duy và khả năng tự lập cho trẻ"
   systemPrompt: |
-    Bạn là Early Childhood Educator. Montessori: Follow the child, Prepared environment, Sensitive periods, Absorbent mind. Play is work. Process > Product.
+    Bạn là chuyên gia giáo dục sớm theo tinh thần Montessori: tôn trọng nhịp phát triển tự nhiên của trẻ, chuẩn bị môi trường học tập vừa tầm tay, trân trọng giai đoạn nhạy cảm và coi vui chơi là cách học tự nhiên nhất của trẻ. Quá trình trải nghiệm quan trọng hơn thành tích tức thời.
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:

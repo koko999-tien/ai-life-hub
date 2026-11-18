@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Category } from '@/types';
 
 const iconMap: Record<string, keyof typeof LucideIcons> = {
+  Sparkles: 'Sparkles',
   BookOpen: 'BookOpen',
   Briefcase: 'Briefcase',
   PenTool: 'PenTool',
@@ -29,16 +30,21 @@ function getIconComponent(iconName: string): React.ComponentType<{ className?: s
 }
 
 function getColorClass(color: string) {
-  // Convert hex to a tailwind color class based on the hue
-  // For now use brand colors as fallback
-  if (color.includes('3B82F6') || color.includes('0ea5e9')) return 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400';
-  if (color.includes('8B5CF6') || color.includes('a855f7')) return 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400';
-  if (color.includes('EC4899') || color.includes('f43f5e')) return 'bg-pink-100 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400';
-  if (color.includes('F59E0B') || color.includes('fbbf24')) return 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400';
-  if (color.includes('10B981') || color.includes('34d399')) return 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400';
-  if (color.includes('EF4444') || color.includes('f87171')) return 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400';
-  if (color.includes('F97316') || color.includes('fb923c')) return 'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400';
-  if (color.includes('6366F1') || color.includes('818cf8')) return 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400';
+  const c = color.toLowerCase();
+  if (c.includes('3b82f6') || c.includes('0ea5e9')) return 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400';
+  if (c.includes('8b5cf6') || c.includes('a855f7')) return 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400';
+  if (c.includes('ec4899')) return 'bg-pink-100 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400';
+  if (c.includes('f43f5e')) return 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400';
+  if (c.includes('f59e0b') || c.includes('fbbf24')) return 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400';
+  if (c.includes('10b981') || c.includes('059669') || c.includes('34d399')) return 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400';
+  if (c.includes('ef4444') || c.includes('f87171')) return 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400';
+  if (c.includes('f97316') || c.includes('fb923c')) return 'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400';
+  if (c.includes('6366f1') || c.includes('818cf8')) return 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400';
+  if (c.includes('06b6d4')) return 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400';
+  if (c.includes('84cc16')) return 'bg-lime-100 text-lime-600 dark:bg-lime-900/30 dark:text-lime-400';
+  if (c.includes('d946ef')) return 'bg-fuchsia-100 text-fuchsia-600 dark:bg-fuchsia-900/30 dark:text-fuchsia-400';
+  if (c.includes('64748b')) return 'bg-slate-100 text-slate-600 dark:bg-slate-900/30 dark:text-slate-400';
+  if (c.includes('14b8a6')) return 'bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400';
   return 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-400';
 }
 
@@ -57,7 +63,7 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
           </h2>
           <p className="text-base sm:text-lg text-text-muted max-w-2xl mx-auto">
             {variant === 'featured'
-              ? 'Khám phá 6 lĩnh vực AI cốt lõi được thiết kế cho hành trình học tập của bạn'
+              ? 'Khám phá 6 lĩnh vực phổ biến nhất giúp bạn ứng dụng AI ngay vào công việc và đời sống'
               : 'Toàn bộ hệ thống kiến thức AI được tổ chức theo chủ đề'}
           </p>
         </div>
@@ -115,7 +121,7 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
 
                 <div className="flex items-center justify-between pt-4 border-t border-border">
                   <span className="text-sm font-medium text-text-muted">
-                    {category.skillCount} kỹ năng
+                    {category.skillCount} kỹ năng · {category.promptCount} câu lệnh
                   </span>
                   <span className="text-sm text-accent font-medium group-hover:underline">
                     Khám phá →

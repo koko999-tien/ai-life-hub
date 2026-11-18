@@ -1,29 +1,28 @@
 import Link from 'next/link'
-import { Github, Twitter, MessageSquare, Mail, ArrowRight, Heart, BookOpen, Code, Zap, Brain, Globe, Shield, Terminal, Scale, Calculator, Sliders, GraduationCap, Sparkles } from 'lucide-react'
-import { clsx } from 'clsx'
+import { Github, Mail, Sparkles, BookOpen, Code, Zap, Brain, Globe, Shield, Heart } from 'lucide-react'
 
 const footerNav = {
   explore: [
     { name: 'Tất cả danh mục', href: '/categories' },
-    { name: 'Thư viện Prompts', href: '/prompts' },
-    { name: 'Agent Blueprints', href: '/agents' },
-    { name: 'Multi-Agent Workflows', href: '/workflows' },
-    { name: 'Hệ sinh thái Ổ D', href: '/ecosystem' },
+    { name: 'Thư viện Câu lệnh', href: '/prompts' },
+    { name: 'Mẫu Thiết Kế Trợ Lý AI', href: '/agents' },
+    { name: 'Quy Trình AI Đa Nhiệm', href: '/workflows' },
+    { name: 'Dự Án Nghiên Cứu Mở', href: '/ecosystem' },
   ],
   tools: [
-    { name: 'AI Playground', href: '/playground' },
-    { name: 'Tính Chi phí Token 2026', href: '/tools/token-calculator' },
-    { name: 'Tối ưu Hóa Prompt', href: '/tools/prompt-optimizer' },
-    { name: 'System Prompt Studio', href: '/tools/system-prompt-builder' },
-    { name: 'So sánh Model Arena 2026', href: '/compare' },
+    { name: 'Khu Thử Nghiệm AI', href: '/playground' },
+    { name: 'Tính Chi Phí Sử Dụng AI', href: '/tools/token-calculator' },
+    { name: 'Tối Ưu Hóa Câu Lệnh', href: '/tools/prompt-optimizer' },
+    { name: 'Xưởng Tạo Câu Lệnh Chuẩn', href: '/tools/system-prompt-builder' },
+    { name: 'So Sánh Sức Mạnh AI', href: '/compare' },
   ],
   learn: [
-    { name: 'Cẩm nang 10 Sách (Playbooks)', href: '/playbooks' },
-    { name: 'AI Engineering Cheatsheet', href: '/cheatsheet' },
-    { name: 'Trắc nghiệm AI Quiz', href: '/learn/quiz' },
+    { name: 'Cẩm Nang Thực Chiến', href: '/playbooks' },
+    { name: 'Sổ Tay Tra Cứu Nhanh', href: '/cheatsheet' },
+    { name: 'Trắc Nghiệm Kiến Thức AI', href: '/learn/quiz' },
     { name: 'Danh sách Yêu thích', href: '/favorites' },
     { name: 'Kho tài nguyên tuyển chọn', href: '/resources' },
-    { name: 'Đóng góp Prompt mới', href: '/submit' },
+    { name: 'Đóng góp câu lệnh mới', href: '/submit' },
   ],
   about: [
     { name: 'Về AI Life Hub', href: '/about' },
@@ -35,22 +34,22 @@ const footerNav = {
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/koko999-tien/ai-life-hub', icon: Github, external: true },
-  { name: 'Email', href: 'mailto:contact@ailifehub.dev', icon: Mail, external: true },
+  { name: 'Email liên hệ', href: 'mailto:contact@ailifehub.dev', icon: Mail, external: true },
 ]
 
 const categories = [
-  { name: 'Prompt Engineering', count: 42, icon: Brain, href: '/category/prompt-engineering' },
-  { name: 'Học tập & Tự học', count: 28, icon: BookOpen, href: '/category/learning' },
-  { name: 'Lập trình & Kỹ thuật', count: 35, icon: Code, href: '/category/coding' },
-  { name: 'Viết lách & Content', count: 24, icon: Zap, href: '/category/writing' },
-  { name: 'Thiết kế & Sáng tạo', count: 22, icon: Heart, href: '/category/design' },
-  { name: 'Công việc & Career', count: 31, icon: Zap, href: '/category/work' },
-  { name: 'Tài chính & Đầu tư', count: 18, icon: Brain, href: '/category/finance' },
-  { name: 'Sức khỏe & Thể chất', count: 20, icon: Heart, href: '/category/health' },
-  { name: 'Nghiên cứu & Phân tích', count: 16, icon: Shield, href: '/category/research' },
-  { name: 'Side Project & Startup', count: 14, icon: Globe, href: '/category/sideproject' },
-  { name: 'Gia đình & Đời sống', count: 15, icon: Heart, href: '/category/family' },
-  { name: 'Tất cả danh mục', count: 16, icon: BookOpen, href: '/categories' },
+  { name: 'Kỹ năng đặt câu lệnh AI', icon: Brain, href: '/category/prompt-engineering' },
+  { name: 'Học tập & Tự học', icon: BookOpen, href: '/category/learning' },
+  { name: 'Lập trình & Kỹ thuật', icon: Code, href: '/category/coding' },
+  { name: 'Viết lách & Nội dung', icon: Zap, href: '/category/writing' },
+  { name: 'Thiết kế & Sáng tạo', icon: Heart, href: '/category/design' },
+  { name: 'Công việc & Sự nghiệp', icon: Zap, href: '/category/work' },
+  { name: 'Tài chính & Đầu tư', icon: Brain, href: '/category/finance' },
+  { name: 'Sức khỏe & Thể chất', icon: Heart, href: '/category/health' },
+  { name: 'Nghiên cứu & Phân tích', icon: Shield, href: '/category/research' },
+  { name: 'Khởi nghiệp & Dự án phụ', icon: Globe, href: '/category/sideproject' },
+  { name: 'Gia đình & Đời sống', icon: Heart, href: '/category/family' },
+  { name: 'Tất cả danh mục', icon: BookOpen, href: '/categories' },
 ]
 
 export function Footer() {
@@ -64,7 +63,7 @@ export function Footer() {
             <Link
               href="/"
               className="group flex items-center gap-2.5 text-text font-display font-bold text-2xl transition-transform active:scale-95"
-              aria-label="AI Life Hub Home"
+              aria-label="Trang chủ AI Life Hub"
             >
               <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20">
                 <Sparkles className="w-4 h-4 text-white" />
@@ -75,7 +74,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed max-w-sm">
-              Nền tảng tri thức, thư viện kỹ năng và bộ công cụ thực hành AI hàng đầu Việt Nam cho lập trình viên, nhà sáng tạo và người dùng hiện đại.
+              Nền tảng chia sẻ câu lệnh mẫu thực chiến, thư viện kỹ năng và bộ công cụ ứng dụng AI dành cho người đi làm &amp; cộng đồng sáng tạo Việt Nam.
             </p>
             <div className="flex items-center gap-3 pt-2">
               {socialLinks.map((link) => (
@@ -129,7 +128,7 @@ export function Footer() {
 
           {/* Column 3: Learn */}
           <nav aria-label="Học tập">
-            <h3 className="font-bold text-sm text-text uppercase tracking-wider mb-4">Học tập &amp; Lưu trữ</h3>
+            <h3 className="font-bold text-sm text-text uppercase tracking-wider mb-4">Học tập &amp; Hướng dẫn</h3>
             <ul className="space-y-2.5 text-sm" role="list">
               {footerNav.learn.map((link) => (
                 <li key={link.name}>
@@ -194,8 +193,8 @@ export function Footer() {
             <Link href="/contact" className="hover:text-accent transition-colors">
               Liên hệ
             </Link>
-            <span className="text-text-subtle">
-              Made with ❤️ for AI Engineers &amp; Builders
+            <span className="text-text-subtle font-medium">
+              Xây dựng bằng ❤️ vì Người đi làm &amp; Cộng đồng Thực hành AI Việt Nam
             </span>
           </div>
         </div>

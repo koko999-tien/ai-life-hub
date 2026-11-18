@@ -8,17 +8,23 @@ import { NewsletterSignup } from '@/components/newsletter-signup';
 import { getFeaturedCategories } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'AI Life Hub — Trạm Tri Thức & Công Cụ Trí Tuệ Nhân Tạo Thực Chiến',
-  description: 'Kho mẫu câu lệnh (Prompts) thực tế, công cụ tính chi phí token, so sánh mô hình AI và kiến trúc Agent giúp tăng hiệu suất làm việc mỗi ngày.',
+  title: 'AI Life Hub — Kho Câu Lệnh & Công Cụ AI Thực Chiến Tiếng Việt',
+  description:
+    'Kho 80+ mẫu câu lệnh AI dùng ngay cho công việc và đời sống, kèm bộ công cụ tính chi phí theo VNĐ, so sánh các dòng AI và mẫu trợ lý tự động cho lập trình viên.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'AI Life Hub — Trạm Tri Thức & Công Cụ Trí Tuệ Nhân Tạo Thực Chiến',
-    description: 'Kho mẫu câu lệnh (Prompts) thực tế, công cụ tính chi phí token, so sánh mô hình AI và kiến trúc Agent giúp tăng hiệu suất làm việc mỗi ngày.',
+    title: 'AI Life Hub — Kho Câu Lệnh & Công Cụ AI Thực Chiến Tiếng Việt',
+    description:
+      'Kho 80+ mẫu câu lệnh AI dùng ngay cho công việc và đời sống, kèm bộ công cụ tính chi phí theo VNĐ, so sánh các dòng AI và mẫu trợ lý tự động.',
+    url: '/',
     type: 'website',
   },
 };
 
-export default function HomePage() {
-  const featuredCategories = getFeaturedCategories();
+export default async function HomePage() {
+  const featuredCategories = await getFeaturedCategories();
 
   return (
     <>

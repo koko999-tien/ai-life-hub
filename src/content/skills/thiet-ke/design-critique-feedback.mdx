@@ -1,94 +1,104 @@
 ---
 id: design-critique-feedback
 categoryId: thiet-ke
-name: "Design Critique & Giving Feedback"
-description: "Kỹ năng review thiết kế, cho nhận xét xây dựng: Framework critique, Actionable feedback, Receiving feedback"
+name: "Đánh giá thiết kế & Góp ý mang tính xây dựng"
+description: "Kỹ năng nhận xét bản thiết kế rõ ràng, khách quan và dễ sửa ngay theo khung 3 bước: Điểm tốt – Điểm muốn cải thiện – Gợi ý thử"
 whenToUse:
-  - "Design review hàng tuần với team"
-  - "Mentor junior designer"
-  - "Stakeholder review cần feedback rõ ràng"
+  - "Buổi họp góp ý bản thiết kế hằng tuần cùng nhóm"
+  - "Hướng dẫn và kèm cặp nhân sự thiết kế mới vào nghề"
+  - "Góp ý cho bản thiết kế trước khi chốt gửi lập trình viên thực hiện"
 difficulty: "beginner"
-estimatedTime: "15-30 phút / session"
+estimatedTime: "15-30 phút cho mỗi buổi góp ý"
 tags: ["design-critique", "feedback", "design-review", "mentoring", "communication"]
 prompts:
   - id: prompt-design-critique-framework
-    name: "Khung nhận xét thiết kế (I like / I wish / What if)"
-    description: "Cấu trúc feedback xây dựng, không cá nhân, tập trung vào user & business goals"
+    name: "Góp ý thiết kế theo khung 3 phần (Điểm tốt / Muốn cải thiện / Gợi ý thử)"
+    description: "Cấu trúc lời nhận xét mang tính xây dựng, không nói cảm tính và bám sát mục tiêu người dùng lẫn kinh doanh"
     template: |
-      Bạn là Design Lead. Hãy cho feedback cho thiết kế: {{designDescription}}.
+      Bạn là trưởng nhóm thiết kế nhiều kinh nghiệm. Hãy đưa ra bản góp ý chi tiết cho thiết kế: {{designDescription}}.
 
-      **Mục tiêu thiết kế:**
+      **Mục tiêu thiết kế cần đạt:**
       {{designGoals}}
 
-      **Người dùng & Context:**
+      **Người dùng mục tiêu và hoàn cảnh sử dụng:**
       {{userContext}}
 
-      **Framework Feedback (I Like / I Wish / What If):**
-      1. **I Like (Điểm mạnh)**: Cái gì đang tốt, giải quyết được vấn đề gì
-      2. **I Wish (Mong muốn cải thiện)**: Cái gì chưa tốt, tại sao (gắn với heuristic/principle)
-      3. **What If (Gợi ý thử nghiệm)**: Ý tưởng thử nghiệm, không bắt buộc phải làm
+      **Hãy góp ý theo khung 3 phần rõ ràng:**
+      1. **Điểm làm tốt (I Like)**: Phần nào đang rõ ràng, hợp lý và giải quyết đúng nhu cầu người dùng.
+      2. **Điểm muốn cải thiện (I Wish)**: Chỗ nào gây khó dùng hoặc dễ nhầm, giải thích lý do dựa trên nguyên tắc dễ dùng và khả năng tiếp cận.
+      3. **Gợi ý thử nghiệm (What If)**: Các ý tưởng mở rộng đáng cân nhắc (không bắt buộc phải làm ngay).
 
-      **Yêu cầu:**
-      - Không dùng "Tôi thích/không thích" (subjective)
-      - Gắn feedback vào: User need, Business goal, Usability principle, Accessibility
-      - Ưu tiên: Critical > High > Medium > Low
-      - Mời designer trả lời/counter-argument
+      **Nguyên tắc góp ý:**
+      - Không nói cảm tính kiểu "tôi thấy không đẹp" hay "tôi không thích màu này".
+      - Mọi nhận xét đều gắn với một căn cứ cụ thể: nhu cầu người dùng, mục tiêu kinh doanh, quy tắc dễ dùng hoặc khả năng đọc rõ của mọi đối tượng.
+      - Xếp mức độ ưu tiên rõ ràng: Nghiêm trọng > Cao > Trung bình > Thấp.
+      - Đặt câu hỏi mở để người thiết kế chia sẻ lại lý do đằng sau lựa chọn của họ.
 
-      Output: Feedback document có cấu trúc.
+      **Hãy trình bày bản góp ý gồm các phần sau:**
+      - Phần 1: Các điểm làm tốt cần giữ nguyên
+      - Phần 2: Bảng các điểm cần cải thiện kèm mức độ ưu tiên và căn cứ nguyên tắc
+      - Phần 3: Các gợi ý thử nghiệm thêm
+      - Phần 4: Danh sách đầu việc cụ thể để người thiết kế chỉnh sửa ngay
     variables:
       - name: designDescription
         type: textarea
-        label: "Mô tả thiết kế (hoặc link Figma)"
+        label: "Mô tả bản thiết kế (hoặc dán đường dẫn Figma kèm mô tả các khối chính)"
         required: true
       - name: designGoals
         type: textarea
-        label: "Mục tiêu thiết kế (business + user)"
+        label: "Mục tiêu thiết kế (mục tiêu kinh doanh và nhu cầu người dùng)"
         required: true
       - name: userContext
         type: textarea
-        label: "Người dùng, context sử dụng"
+        label: "Đối tượng người dùng và hoàn cảnh sử dụng thực tế"
         required: true
     examples:
       - inputs:
-          designDescription: "Màn hình Dashboard tài chính: Header (Balance total), 4 Quick Action cards, Chart chi tiêu 7 ngày, List giao dịch gần đây (5 items), Bottom nav"
-          designGoals: "User nhìn nhanh số dư, thực hiện hành động thường dùng, theo dõi xu hướng chi tiêu"
-          userContext: "Dân văn phòng 25-40 tuổi, check app 2-3 lần/ngày, muốn nhanh, chính xác"
+          designDescription: "Màn hình tổng quan tài chính trên điện thoại: Phần đầu hiện tổng số dư, bên dưới là 4 nút thao tác nhanh, biểu đồ chi tiêu 7 ngày, danh sách 5 giao dịch gần nhất và thanh điều hướng dưới đáy."
+          designGoals: "Người dùng mở ứng dụng là thấy ngay số dư, bấm nhanh các việc hay dùng và theo dõi được xu hướng chi tiêu."
+          userContext: "Nhân viên văn phòng 25-40 tuổi, mở ứng dụng kiểm tra nhanh 2-3 lần mỗi ngày, cần gọn và chính xác."
         output: |
-          # 💬 Design Critique: Financial Dashboard
+          # 💬 Góp Ý Thiết Kế: Màn Hình Tổng Quan Tài Chính
 
-          ## I Like ✅
-          1. **Hierarchy rõ ràng**: Balance total toップ, dễ thấy nhất → Giải quyết "nhìn nhanh số dư"
-          2. **Quick Actions**: 4 card ở vị trí prime (thumb zone) → Hành động nhanh (Nap, Chuyển, Quét mã, Lịch sử)
-          3. **Chart 7 ngày**: Sparkline đơn giản, không quá chi tiết → Đủ để thấy trend
+          ## 1. Điểm làm tốt ✅
+          1. **Thứ tự thị giác rõ ràng**: Tổng số dư đặt to ở trên cùng, dễ thấy nhất ngay khi mở ứng dụng → Giải quyết đúng nhu cầu xem nhanh số dư.
+          2. **Cụm 4 nút thao tác nhanh**: Đặt ở nửa dưới màn hình trong vùng ngón tay cái dễ với tới → Bấm nhanh các việc chính (Nạp tiền, Chuyển khoản, Quét mã, Lịch sử).
+          3. **Biểu đồ 7 ngày**: Dùng đường nét thu gọn vừa đủ nhìn xu hướng tăng giảm mà không gây rối mắt.
 
-          ## I Wish 🔧
-          | # | Feedback | Principle/Heuristic | Priority |
-          |---|----------|---------------------|----------|
-          | 1 | Balance amount font-size quá nhỏ trên mobile (24px), khó đọc ở ánh sáng mạnh | Accessibility (WCAG AA), Visual Hierarchy | **Critical** |
-          | 2 | Chart không có label giá trị, user không biết chính xác số tiền | Recognition over recall (Heuristic #6) | **High** |
-          | 3 | Giao dịch gần đây chỉ 5 items, không có "Xem tất cả" link | User control & freedom (Heuristic #3) | **Medium** |
-          | 4 | Quick Action "Lịch sử" trùng với Bottom Nav "Lịch sử" | Consistency (Heuristic #4) | **Low** |
+          ## 2. Điểm muốn cải thiện 🔧
+          | STT | Nhận xét cụ thể | Nguyên tắc liên quan | Mức độ ưu tiên |
+          |---|---|---|---|
+          | 1 | Cỡ chữ số dư trên điện thoại hơi nhỏ (24px), khó đọc khi đi ngoài trời nắng | Độ tương phản và kích thước chữ dễ đọc cho mọi người | **Nghiêm trọng** |
+          | 2 | Biểu đồ chưa hiện số tiền cụ thể khi chạm vào từng ngày | Giúp người dùng nhận diện trực tiếp thay vì phải tự đoán | **Cao** |
+          | 3 | Danh sách chỉ hiện 5 giao dịch gần nhất nhưng thiếu nút "Xem tất cả" | Trao quyền chủ động tìm lại thông tin cho người dùng | **Trung bình** |
+          | 4 | Nút "Lịch sử" ở cụm thao tác nhanh bị trùng với nút "Lịch sử" ở thanh dưới đáy | Tính nhất quán, tránh lặp chức năng gây thừa | **Thấp** |
 
-          ## What If 💡
-          1. **What if** Balance card có pull-to-refresh animation nhỏ (delightful)?
-          2. **What if** Chart có toggle "Tuần/Tháng/Năm" thay vì fix 7 ngày?
-          3. **What if** Empty state cho "Chưa có giao dịch" có illustration + CTA "Tạo giao dịch đầu tiên"?
+          ## 3. Gợi ý thử nghiệm 💡
+          1. **Thử nghiệm 1**: Khi kéo nhẹ xuống để làm mới số dư, có thể thêm chuyển động nhẹ tạo cảm giác phản hồi mượt mà.
+          2. **Thử nghiệm 2**: Cho phép chuyển nhanh chế độ xem biểu đồ theo Tuần / Tháng thay vì cố định 7 ngày.
+          3. **Thử nghiệm 3**: Thiết kế thêm trạng thái khi chưa có giao dịch nào (hình minh họa nhỏ và nút hành động chính "Ghi khoản chi đầu tiên").
 
-          ## Action Items cho Designer
-          - [ ] Tăng Balance font-size ≥ 32px, font-weight 700
-          - [ ] Thêm tooltip/label cho chart data points
-          - [ ] Thêm link "Xem tất cả" dưới list giao dịch
-          - [ ] Review Quick Actions: gộp/bỏ "Lịch sử" trùng lặp
-        context: "Critique màn hình dashboard tài chính mobile"
+          ## 4. Đầu việc cần chỉnh sửa cho người thiết kế
+          - [ ] Tăng cỡ chữ tổng số dư lên tối thiểu 32px, nét đậm vừa dễ nhìn.
+          - [ ] Bổ sung hộp chú thích hiện số tiền chính xác khi chạm vào từng điểm trên biểu đồ.
+          - [ ] Thêm liên kết "Xem tất cả" ngay dưới danh sách 5 giao dịch gần nhất.
+          - [ ] Thay nút "Lịch sử" bị trùng ở cụm thao tác nhanh bằng tính năng hay dùng khác (như "Ghi chi tiêu").
+
+          *Câu hỏi trao đổi cùng bạn:* Có lý do đặc biệt nào khiến nút "Lịch sử" được đặt ở cả hai vị trí không?
+        context: "Góp ý màn hình tổng quan ứng dụng tài chính trên điện thoại"
     difficulty: "easy"
     useCases:
-      - "Design review session hàng tuần"
-      - "Mentor junior designer"
+      - "Họp rà soát bản thiết kế hằng tuần trong nhóm sản phẩm"
+      - "Hướng dẫn nhân sự thiết kế mới biết cách sửa bài theo căn cứ rõ ràng"
 agentTemplate:
-  name: "Design Critique Facilitator"
-  description: "Hướng dẫn quy trình design critique, framework feedback, actionable outcomes"
+  name: "Người Điều Phối Góp Ý Thiết Kế"
+  description: "Hướng dẫn quy trình đánh giá bản thiết kế khách quan, đưa ra nhận xét dựa trên bằng chứng và đầu việc sửa cụ thể"
   systemPrompt: |
-    Bạn là Design Critique Facilitator. Tạo môi trường an toàn, feedback dựa trên evidence, outcome actionable.
+    Bạn là người điều phối các buổi góp ý thiết kế chuyên nghiệp.
+    Nguyên tắc:
+    - Tạo không khí cởi mở, tập trung vào giải quyết vấn đề của sản phẩm chứ không công kích cá nhân
+    - Mọi góp ý phải dựa trên nhu cầu người dùng, mục tiêu kinh doanh và nguyên tắc thiết kế dễ dùng
+    - Luôn phân loại rõ mức độ ưu tiên và chốt thành danh sách đầu việc chỉnh sửa cụ thể
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { SearchDocument, SearchResult, SearchFilters, SearchIndex, UseSearchReturn } from '@/types/search';
 
 const STORAGE_KEY = 'ai-life-hub-recent-searches';
@@ -16,7 +16,7 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
     limit: 20,
     ...initialFilters,
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -43,79 +43,30 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
 
     try {
       const response = await fetch('/search-index.json');
-      if (!response.ok) throw new Error('Failed to load search index');
-      const index = await response.json() as SearchIndex;
+      if (!response.ok) throw new Error('Không thể tải chỉ mục tìm kiếm');
+      const index = (await response.json()) as SearchIndex;
       indexRef.current = index;
       return index;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load search index');
+      setError(err instanceof Error ? err.message : 'Không thể tải chỉ mục tìm kiếm');
       return null;
     }
   }, []);
-
-  const performSearch = useCallback(async (searchQuery: string, currentFilters: SearchFilters) => {
-    if (searchAbortRef.current) {
-      searchAbortRef.current.abort();
-    }
-    searchAbortRef.current = new AbortController();
-
-    const index = await loadIndex();
-    if (!index) return;
-
-    if (!searchQuery.trim()) {
-      setResults([]);
-      setFilteredResults([]);
-      setTotalResults(0);
-      setTotalPages(0);
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const lunr = await import('lunr');
-      const idx = lunr.Index.load(index);
-
-      const searchResults = idx.search(searchQuery);
-      const docMap = new Map(index.documents.map(d => [d.id, d]));
-
-      const results: SearchResult[] = searchResults
-        .map(r => {
-          const doc = docMap.get(r.ref);
-          if (!doc) return null;
-          const boost = (doc as SearchDocument).boost || 1;
-          return {
-            ...doc,
-            score: r.score * boost,
-            matchedFields: r.matchData.metadata ? Object.keys(r.matchData.metadata) : [],
-          } as SearchResult;
-        })
-        .filter((r): r is SearchResult => r !== null)
-        .sort((a, b) => b.score - a.score);
-
-      setResults(results);
-      applyFilters(results, currentFilters);
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'AbortError') {
-        setError(err.message);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }, [loadIndex]);
 
   const applyFilters = useCallback((sourceResults: SearchResult[], currentFilters: SearchFilters) => {
     let filtered = [...sourceResults];
 
     if (currentFilters.category) {
-      filtered = filtered.filter(r => r.category === currentFilters.category);
+      filtered = filtered.filter((r) => {
+        const docCategory = r.category || (r as SearchDocument & { categoryId?: string }).categoryId;
+        return docCategory === currentFilters.category;
+      });
     }
     if (currentFilters.type) {
-      filtered = filtered.filter(r => r.type === currentFilters.type);
+      filtered = filtered.filter((r) => r.type === currentFilters.type);
     }
     if (currentFilters.difficulty) {
-      filtered = filtered.filter(r => r.difficulty === currentFilters.difficulty);
+      filtered = filtered.filter((r) => r.difficulty === currentFilters.difficulty);
     }
 
     const limit = currentFilters.limit || 20;
@@ -129,12 +80,74 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
     setSelectedIndex(-1);
   }, []);
 
-  const debouncedSearch = useCallback((searchQuery: string, currentFilters: SearchFilters) => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      performSearch(searchQuery, currentFilters);
-    }, DEBOUNCE_MS);
-  }, [performSearch]);
+  const performSearch = useCallback(
+    async (searchQuery: string, currentFilters: SearchFilters) => {
+      if (searchAbortRef.current) {
+        searchAbortRef.current.abort();
+      }
+      searchAbortRef.current = new AbortController();
+
+      if (!searchQuery.trim()) {
+        setResults([]);
+        setFilteredResults([]);
+        setTotalResults(0);
+        setTotalPages(0);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+      setError(null);
+
+      const index = await loadIndex();
+      if (!index) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const lunr = await import('lunr');
+        const idx = lunr.Index.load(index.index ?? index);
+
+        const searchResults = idx.search(searchQuery);
+        const docMap = new Map(index.documents.map((d) => [d.id, d]));
+
+        const mappedResults: SearchResult[] = searchResults
+          .map((r) => {
+            const doc = docMap.get(r.ref);
+            if (!doc) return null;
+            const boost = (doc as SearchDocument).boost || 1;
+            return {
+              ...doc,
+              score: r.score * boost,
+              matchedFields: r.matchData.metadata ? Object.keys(r.matchData.metadata) : [],
+            } as SearchResult;
+          })
+          .filter((r): r is SearchResult => r !== null)
+          .sort((a, b) => b.score - a.score);
+
+        setResults(mappedResults);
+        applyFilters(mappedResults, currentFilters);
+      } catch (err) {
+        if (err instanceof Error && err.name !== 'AbortError') {
+          setError(err.message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [loadIndex, applyFilters]
+  );
+
+  const debouncedSearch = useCallback(
+    (searchQuery: string, currentFilters: SearchFilters) => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        performSearch(searchQuery, currentFilters);
+      }, DEBOUNCE_MS);
+    },
+    [performSearch]
+  );
 
   useEffect(() => {
     debouncedSearch(query, filters);
@@ -149,11 +162,11 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
 
   const setQuery = useCallback((newQuery: string) => {
     setQueryState(newQuery);
-    setFiltersState(prev => ({ ...prev, page: 1 }));
+    setFiltersState((prev) => ({ ...prev, page: 1 }));
   }, []);
 
   const setFilters = useCallback((newFilters: Partial<SearchFilters>) => {
-    setFiltersState(prev => ({ ...prev, ...newFilters, page: 1 }));
+    setFiltersState((prev) => ({ ...prev, ...newFilters, page: 1 }));
   }, []);
 
   const clearFilters = useCallback(() => {
@@ -163,8 +176,8 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
   const addToHistory = useCallback((searchQuery: string) => {
     if (!searchQuery.trim()) return;
     const trimmed = searchQuery.trim();
-    setRecentSearches(prev => {
-      const filtered = prev.filter(s => s !== trimmed);
+    setRecentSearches((prev) => {
+      const filtered = prev.filter((s) => s !== trimmed);
       const updated = [trimmed, ...filtered].slice(0, MAX_HISTORY);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       return updated;
@@ -181,11 +194,11 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
   }, []);
 
   const navigateUp = useCallback(() => {
-    setSelectedIndex(prev => Math.max(-1, prev - 1));
+    setSelectedIndex((prev) => Math.max(-1, prev - 1));
   }, []);
 
   const navigateDown = useCallback(() => {
-    setSelectedIndex(prev => Math.min(filteredResults.length - 1, prev + 1));
+    setSelectedIndex((prev) => Math.min(filteredResults.length - 1, prev + 1));
   }, [filteredResults.length]);
 
   const resetSelection = useCallback(() => {
@@ -221,14 +234,12 @@ export function highlightMatches(text: string, query: string): React.ReactNode {
   const terms = query.trim().split(/\s+/).filter(Boolean);
   if (terms.length === 0) return text;
 
-  const regex = new RegExp(`(${terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  const regex = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
   const parts = text.split(regex);
 
   return (
     <>
-      {parts.map((part, i) => 
-        regex.test(part) ? <mark key={i}>{part}</mark> : <span key={i}>{part}</span>
-      )}
+      {parts.map((part, i) => (regex.test(part) ? <mark key={i}>{part}</mark> : <span key={i}>{part}</span>))}
     </>
   );
 }

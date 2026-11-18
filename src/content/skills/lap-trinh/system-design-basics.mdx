@@ -1,214 +1,198 @@
 ---
 id: system-design-basics
 categoryId: lap-trinh
-name: "System Design Cơ bản"
-description: "Thiết kế hệ thống có khả năng mở rộng: Load balancing, Caching, Database scaling, Message queue, CAP theorem"
+name: "Thiết Kế Hệ Thống (System Design) Cơ Bản"
+description: "Thiết kế kiến trúc hệ thống có khả năng mở rộng: cân bằng tải (Load Balancing), lưu đệm (Caching), chia mảnh dữ liệu (Sharding), hàng đợi tin nhắn (Message Queue) và đánh đổi CAP"
 whenToUse:
-  - "Chuẩn bị phỏng vấn System Design (Big Tech)"
-  - "Thiết kế architecture cho dự án mới"
-  - "Tối ưu hóa hệ thống đang chạy (scale up/out)"
+  - "Chuẩn bị phỏng vấn thiết kế hệ thống (System Design) cho vị trí kỹ sư cấp trung và cao cấp"
+  - "Lên bản vẽ kiến trúc tổng thể cho một dự án mới có lượng truy cập lớn"
+  - "Tìm hướng mở rộng khi hệ thống hiện tại bắt đầu chậm hoặc quá tải cơ sở dữ liệu"
 difficulty: "advanced"
-estimatedTime: "2-4 giờ thiết kế / ôn tập 1 topic"
+estimatedTime: "2-4 giờ thiết kế hoặc ôn tập 1 chủ đề"
 tags: ["system-design", "architecture", "scalability", "distributed-systems", "interview-prep"]
 prompts:
   - id: prompt-system-design-interview
-    name: "Thiết kế hệ thống theo format phỏng vấn"
-    description: "Dàn kiến trúc hệ thống cho bài toán phỏng vấn: Requirements → API → Data model → High-level → Deep dive"
+    name: "Thiết Kế Hệ Thống Theo Khung Phỏng Vấn 45 Phút"
+    description: "Dàn trọn vẹn kiến trúc cho một bài toán hệ thống: Yêu cầu → Ước lượng tải → API → Dữ liệu → Sơ đồ tổng thể → Đi sâu & Đánh đổi"
     template: |
-      Bạn là Principal Engineer. Hãy thiết kế hệ thống: {{systemName}}.
+      Bạn là Kỹ sư Trưởng (Principal Engineer). Hãy thiết kế kiến trúc chi tiết bằng tiếng Việt (kèm sơ đồ Mermaid) cho hệ thống: {{systemName}}.
 
-      **Yêu cầu chức năng (Functional):**
+      **Yêu cầu chức năng:**
       {{functionalReqs}}
 
-      **Yêu cầu phi chức năng (Non-functional):**
-      - QPS (Requests/sec): {{qps}}
-      - Latency: {{latency}}
-      - Availability: {{availability}}
-      - Data consistency: {{consistency}}
-      - Scale: {{scale}}
+      **Yêu cầu phi chức năng:**
+      - Lưu lượng truy cập dự kiến (QPS — số yêu cầu mỗi giây): {{qps}}
+      - Độ trễ mục tiêu (Latency): {{latency}}
+      - Độ sẵn sàng hệ thống (Availability): {{availability}}
+      - Mức độ đồng bộ dữ liệu: {{consistency}}
+      - Quy mô dữ liệu và người dùng: {{scale}}
 
-      **Format System Design Interview (45 phút):**
-      1. **Clarify Requirements (5p)**: Hỏi rõ scope, constraints, out of scope
-      2. **Back-of-envelope Estimation (5p)**: Tính QPS, storage, bandwidth, memory
-      3. **API Design (5p)**: REST/gRPC endpoints, request/response schema
-      4. **Data Model (5p)**: Schema DB, quan hệ, indexing strategy
-      5. **High-level Architecture (10p)**: Components, data flow, protocols
-      6. **Deep Dive (10p)**: 2-3 topic sâu (Cache strategy / Sharding / Consensus / Rate limiting)
-      7. **Bottlenecks & Trade-offs (5p)**: Single points of failure, CAP trade-offs
-
-      Output: Kiến trúc chi tiết dạng markdown + diagram mermaid.js.
+      **Hãy trình bày theo đúng trình tự 7 bước của buổi thiết kế hệ thống (45 phút):**
+      1. **Làm rõ phạm vi (5 phút)**: Nêu rõ phần làm trong phạm vi, phần loại trừ và các giả định hợp lý.
+      2. **Ước lượng nhanh tài nguyên (5 phút)**: Tính số lượt đọc/ghi mỗi giây, dung lượng lưu trữ, băng thông vào/ra (nêu rõ kích thước giả định cho từng gói tin để phép nhân khớp chính xác) và bộ nhớ đệm (Cache).
+      3. **Thiết kế API cốt lõi (5 phút)**: Các điểm cuối REST, mã trạng thái HTTP chuẩn (lưu ý chọn đúng mã chuyển hướng nếu cần đếm thống kê) và dữ liệu mẫu.
+      4. **Mô hình dữ liệu (5 phút)**: Cấu trúc bảng SQL, chỉ mục (Index) và cấu trúc khóa trong Redis.
+      5. **Kiến trúc tổng thể (10 phút)**: Vẽ sơ đồ Mermaid và mô tả luồng đi cho cả đường Đọc (Read path) và đường Ghi (Write path).
+      6. **Đi sâu kỹ thuật cốt lõi (10 phút)**: Chiến lược lưu đệm (Cache), chia mảnh cơ sở dữ liệu (Sharding) và cách sinh mã duy nhất không trùng lặp.
+      7. **Điểm nghẽn & Đánh đổi kiến trúc (5 phút)**: Cách xử lý lỗi đơn điểm, phím nóng (hot key) và tách dữ liệu phân tích.
     variables:
       - name: systemName
         type: text
-        label: "Tên hệ thống (ví dụ: URL Shortener, Chat App, E-commerce)"
+        label: "Tên hệ thống cần thiết kế (ví dụ: Rút gọn liên kết, Nhắn tin thời gian thực, Thương mại điện tử)"
         required: true
       - name: functionalReqs
         type: textarea
-        label: "Yêu cầu chức năng chính"
+        label: "Các yêu cầu chức năng chính"
         required: true
       - name: qps
         type: number
-        label: "QPS dự kiến (Requests per second)"
+        label: "Lưu lượng trung bình dự kiến (yêu cầu mỗi giây - QPS)"
         required: true
         default: 10000
       - name: latency
         type: text
-        label: "Latency yêu cầu (ví dụ: p99 < 200ms)"
+        label: "Độ trễ tối đa cho phép (ví dụ: p99 dưới 200ms)"
         required: true
-        default: "p99 < 200ms"
+        default: "p99 dưới 200ms"
       - name: availability
         type: text
-        label: "Availability (ví dụ: 99.99%)"
+        label: "Mức độ sẵn sàng mục tiêu (ví dụ: 99.99%)"
         required: true
         default: "99.99%"
       - name: consistency
         type: select
-        label: "Mức độ consistency"
+        label: "Yêu cầu về tính nhất quán dữ liệu"
         options:
-          - "Strong consistency (ACID)"
-          - "Eventual consistency (BASE)"
+          - "Nhất quán chặt chẽ ngay lập tức (Strong consistency - ACID)"
+          - "Nhất quán cuối cùng sau một độ trễ ngắn (Eventual consistency - BASE)"
         required: true
-        default: "Strong consistency (ACID)"
+        default: "Nhất quán chặt chẽ ngay lập tức (Strong consistency - ACID)"
       - name: scale
         type: text
-        label: "Quy mô dữ liệu (users, data size)"
+        label: "Quy mô người dùng và dữ liệu dự kiến"
         required: true
-        default: "100M users, 10TB data"
+        default: "100 triệu người dùng, 10TB dữ liệu"
     examples:
       - inputs:
-          systemName: "URL Shortener (như bit.ly)"
-          functionalReqs: "1. Rút gọn URL dài thành short link\n2. Redirect short link → URL gốc\n3. Analytics: click count, referrer, geo\n4. Custom alias (tùy chọn)\n5. Expiration (tùy chọn)"
+          systemName: "Hệ thống rút gọn đường dẫn (như bit.ly)"
+          functionalReqs: "1. Rút gọn đường dẫn dài thành mã ngắn\n2. Chuyển hướng người dùng từ mã ngắn về đường dẫn gốc\n3. Thống kê lượt bấm, nguồn giới thiệu và quốc gia\n4. Hỗ trợ đặt bí danh tùy chọn\n5. Hỗ trợ thời gian hết hạn của liên kết"
           qps: 10000
-          latency: "p99 < 100ms"
+          latency: "p99 dưới 100ms"
           availability: "99.9%"
-          consistency: "Eventual consistency (BASE)"
-          scale: "1B URLs, 100M DAU"
+          consistency: "Nhất quán cuối cùng sau một độ trễ ngắn (Eventual consistency - BASE)"
+          scale: "1 tỷ liên kết lưu trữ, 100 triệu người dùng hoạt động mỗi ngày"
         output: |
-          # 🏗️ System Design: URL Shortener
+          # Thiết Kế Hệ Thống: Dịch Vụ Rút Gọn Đường Dẫn (URL Shortener)
 
-          ## 1. Clarify Requirements
-          - **In scope**: Shorten URL, Redirect, Analytics, Custom alias, Expiration
-          - **Out of scope**: User auth (assume anonymous), Dashboard UI, Malware detection
-          - **Assumptions**: Read-heavy (redirect 100:1 write), URL length <= 2048 chars
+          ## 1. Làm Rõ Phạm Vi & Giả Định
+          - **Trong phạm vi**: Rút gọn đường dẫn, chuyển hướng nhanh, đếm thống kê lượt bấm, đặt bí danh riêng và hẹn ngày hết hạn.
+          - **Ngoài phạm vi**: Trang quản trị tài khoản doanh nghiệp, quét mã độc tự động theo thời gian thực.
+          - **Giả định lưu lượng**: Hệ thống thiên về đọc rất mạnh (tỷ lệ đọc/ghi khoảng `100:1`), độ dài đường dẫn gốc tối đa `2.048 ký tự`.
 
-          ## 2. Back-of-envelope
-          - **Write QPS**: 10K QPS * (1/100) = 100 writes/sec
-          - **Read QPS**: 10K QPS
-          - **Storage**: 1B URLs * (50 bytes key + 200 bytes value + overhead) ≈ 300GB
-          - **Bandwidth**: 10K QPS * 500 bytes ≈ 5 MB/s in, 50 MB/s out
-          - **Memory (Cache)**: Hot URLs (20% = 200M) * 300 bytes ≈ 60GB → cần cluster Redis
+          ## 2. Ước Lượng Nhanh Tài Nguyên
+          - **Lưu lượng đọc (Read QPS)**: `10.000 yêu cầu/giây`.
+          - **Lưu lượng ghi (Write QPS)**: `10.000 × (1/100) = 100 lượt tạo mới/giây`.
+          - **Dung lượng lưu trữ**: `1 tỷ đường dẫn × (50 bytes mã + 200 bytes đường dẫn gốc + 50 bytes siêu dữ liệu) ≈ 300 GB`.
+          - **Băng thông mạng**:
+            - Đường ghi (Write inbound): `100 lượt/giây × 500 bytes/yêu cầu ≈ 50 KB/giây`.
+            - Đường đọc (Read inbound & outbound): Giả sử mỗi yêu cầu HTTP và phản hồi chuyển hướng `302` kèm header `Location` có kích thước khoảng `500 bytes` → lưu lượng vào khoảng `10.000 × 500 bytes ≈ 5 MB/giây`, lưu lượng phản hồi ra khoảng `5 MB/giây` (cộng thêm dư tải lúc cao điểm có thể gấp 2-3 lần).
+          - **Bộ nhớ đệm (Redis Cache)**: Lưu 20% đường dẫn nóng thường xuyên được bấm (`200 triệu bản ghi × 300 bytes ≈ 60 GB`) → sử dụng cụm Redis Cluster chia nhiều nút.
 
-          ## 3. API Design
-          ```
+          ## 3. Thiết Kế API Cốt Lõi
+          ```http
           POST /api/v1/shorten
-          Body: { "longUrl": "string", "customAlias?: string", "expiresAt?: timestamp" }
-          Response: { "shortUrl": "https://shr.t/abc123", "expiresAt": "..." }
+          Body: { "longUrl": "https://example.com/bai-viet-rat-dai", "customAlias": "uu-dai", "expiresAt": "2026-12-31T23:59:59Z" }
+          Response (201 Created): { "shortUrl": "https://shr.t/abc123", "expiresAt": "2026-12-31T23:59:59Z" }
 
           GET /{shortCode}
-          Response: 301 Redirect to longUrl + increment analytics counter
+          Response: 302 Found (Header Location: longUrl) + gửi sự kiện đếm lượt bấm vào hàng đợi
 
           GET /api/v1/analytics/{shortCode}
-          Response: { "clicks": 1234, "referrers": {...}, "countries": {...} }
+          Response (200 OK): { "clicks": 1234, "referrers": { "facebook.com": 800 }, "countries": { "VN": 1100 } }
           ```
 
-          ## 4. Data Model
-          **PostgreSQL (Primary - write path):**
+          **Vì sao dùng mã HTTP `302 Found` thay vì `301 Moved Permanently`?**
+          Mã `301` báo trình duyệt và bộ nhớ đệm trung gian (CDN) ghi nhớ vĩnh viễn đích đến, nên từ lần bấm thứ hai trình duyệt tự nhảy thẳng mà không đi qua máy chủ nữa — khiến bộ đếm thống kê mất dữ liệu. Dùng **`302 Found`** (chuyển hướng tạm thời) giúp mọi lượt bấm đều đi qua API để thống kê chính xác.
+
+          ## 4. Mô Hình Dữ Liệu
+          **PostgreSQL (Lưu trữ bền vững cho đường ghi):**
           ```sql
           CREATE TABLE urls (
             id BIGSERIAL PRIMARY KEY,
-            short_code VARCHAR(20) UNIQUE NOT NULL,  -- base62 encoded
+            short_code VARCHAR(20) UNIQUE NOT NULL,
             long_url TEXT NOT NULL,
             custom_alias VARCHAR(50) UNIQUE,
             created_at TIMESTAMP DEFAULT NOW(),
             expires_at TIMESTAMP,
             click_count BIGINT DEFAULT 0,
-            user_id BIGINT  -- nullable cho anonymous
+            user_id BIGINT
           );
           CREATE INDEX idx_short_code ON urls(short_code);
           CREATE INDEX idx_custom_alias ON urls(custom_alias);
           CREATE INDEX idx_expires_at ON urls(expires_at) WHERE expires_at IS NOT NULL;
           ```
 
-          **Redis (Cache - read path):**
-          - Key: `url:{short_code}` → Value: `{long_url, expires_at}`
-          - TTL: 24h (hoặc expires_at - now)
-          - Analytics: `analytics:{short_code}` → Hash {clicks, referrers, countries}
+          **Redis (Lưu đệm tốc độ cao cho đường đọc):**
+          - Khóa `url:{short_code}` → Lưu `{long_url, expires_at}`, thời gian sống (TTL) 24 giờ hoặc đến thời điểm hết hạn.
 
-          ## 5. High-level Architecture
+          ## 5. Kiến Trúc Tổng Thể
           ```mermaid
           graph LR
-            Client[Client] --> LB[Load Balancer]
-            LB --> API[API Servers<br/>Stateless]
-            API --> Cache[(Redis Cluster<br/>Read Cache)]
-            API --> DB[(PostgreSQL<br/>Primary + Replicas)]
-            API --> MQ[Message Queue<br/>Analytics Events]
-            MQ --> Worker[Analytics Workers]
-            Worker --> OLAP[(ClickHouse<br/>Analytics DB)]
-            Cache -.->|Cache Miss| DB
-            DB -.->|Replication| Replica[(Read Replicas)]
+            Client[Người dùng] --> LB[Cân bằng tải LB]
+            LB --> API[Máy chủ API]
+            API --> Cache[(Cụm Redis Cache)]
+            API --> DB[(PostgreSQL Chính + Bản sao)]
+            API --> MQ[Hàng đợi Message Queue]
+            MQ --> Worker[Dịch vụ xử lý thống kê]
+            Worker --> OLAP[(ClickHouse Phân tích)]
+            Cache -.->|Trượt Cache| DB
+            DB -.->|Đồng bộ đọc| Replica[(Bản sao đọc)]
           ```
 
-          **Flow Redirect (Read Path):**
-          1. Client GET `/abc123` → Load Balancer
-          2. API Server check Redis `url:abc123`
-          3. **Hit**: Return 301 Redirect + async increment analytics via MQ
-          4. **Miss**: Query PostgreSQL → Populate Redis → Return 301
-          5. **Not found**: 404
+          **Luồng chuyển hướng (Đường đọc):**
+          1. Trình duyệt gửi `GET /abc123` qua bộ cân bằng tải tới máy chủ API.
+          2. API tra cứu khóa `url:abc123` trong Redis.
+          3. **Trúng Cache (Hit)**: Trả về ngay `302 Found` tới đường dẫn gốc, đồng thời đẩy sự kiện đếm lượt bấm bất đồng bộ vào hàng đợi (Message Queue) để không làm chậm người dùng.
+          4. **Trượt Cache (Miss)**: Truy vấn PostgreSQL → lưu lại vào Redis → trả về `302 Found` (nếu không tồn tại thì trả về `404`).
 
-          **Flow Shorten (Write Path):**
-          1. Client POST `/shorten` → API
-          2. Validate URL, generate short_code (base62 of snowflake ID)
-          3. Insert PostgreSQL (transaction)
-          4. Invalidate/Update Redis cache
-          5. Return short URL
+          **Luồng tạo liên kết (Đường ghi):**
+          1. Người dùng gửi `POST /api/v1/shorten`.
+          2. API kiểm tra định dạng URL hợp lệ, sinh mã ngắn không trùng lặp.
+          3. Ghi vào PostgreSQL và làm nóng sẵn vào Redis.
+          4. Trả về đường dẫn rút gọn.
 
-          ## 6. Deep Dive: Cache Strategy & Sharding
+          ## 6. Đi Sâu Kỹ Thuật Cốt Lõi
+          - **Chiến lược Cache**: Dùng mô hình **Cache-aside** (API tự đọc/ghi Cache khi cần) kết hợp hết hạn ngẫu nhiên (±10% thời gian sống) để tránh tình trạng hàng nghìn yêu cầu cùng trượt Cache một lúc (thundering herd).
+          - **Chia mảnh cơ sở dữ liệu (Sharding)**: Băm theo `short_code` chia đều ra 16 mảnh PostgreSQL (mỗi mảnh chỉ khoảng 20 GB), tra cứu trực tiếp đúng mảnh không cần truy vấn chéo.
+          - **Sinh mã duy nhất**: Sinh mã định danh 64-bit phân tán (Snowflake ID) rồi mã hóa sang hệ cơ số 62 (`a-z`, `A-Z`, `0-9`) cho ra chuỗi ngắn gọn khoảng 7-11 ký tự không trùng lặp.
 
-          ### Cache Strategy (Read-heavy optimization)
-          - **Write-through**: Write DB → Update Redis (strong consistency)
-          - **Cache-aside**: API quản lý (flexible, but race condition risk)
-          - **Chosen**: Cache-aside + **Probabilistic early expiration** (random TTL ±10%) tránh thundering herd
-
-          ### Sharding (Scale write path)
-          - **Shard Key**: `short_code` (hash-based)
-          - **Shards**: 16 shards PostgreSQL (mỗi shard ~20GB)
-          - **Routing**: API hash `short_code` % 16 → shard ID
-          - **Cross-shard query**: Không cần (analytics dùng ClickHouse riêng)
-
-          ### ID Generation (Unique short codes)
-          - **Snowflake ID**: 64-bit (timestamp + worker ID + sequence)
-          - **Base62 encode**: 64-bit → ~11 chars (a-z, A-Z, 0-9)
-          - **Collision handling**: Retry với sequence mới
-
-          ## 7. Bottlenecks & Trade-offs
-          | Vấn đề | Giải pháp / Trade-off |
-          |--------|----------------------|
-          | Single point: LB | Multi-AZ LB (AWS ALB / Cloudflare) |
-          | DB Write bottleneck | Sharding + Async analytics via MQ |
-          | Cache consistency | Eventual (analytics delay acceptable) |
-          | Custom alias collision | Unique constraint + retry logic |
-          | Hot key (viral URL) | Local cache trên API server + Redis Cluster |
-          | Analytics scale | Tách biệt sang ClickHouse (OLAP) |
-
-          ---
-          **Key Takeaways:** Read-heavy workload → Cache aggressively. Write path đơn giản → Shard by key. Analytics tách biệt OLAP.
-        context: "Classic system design interview question: URL Shortener"
+          ## 7. Điểm Nghẽn & Đánh Đổi Kiến Trúc
+          | Điểm nghẽn tiềm ẩn | Giải pháp và đánh đổi |
+          |---|---|
+          | Bộ cân bằng tải bị lỗi đơn điểm | Chạy dự phòng đa vùng sẵn sàng (Multi-AZ Load Balancer) |
+          | Ghi thống kê trực tiếp làm chậm cơ sở dữ liệu chính | Tách riêng qua hàng đợi tin nhắn và lưu vào kho phân tích ClickHouse (chấp nhận số liệu trễ vài giây) |
+          | Đường dẫn lan truyền đột biến (Hot key) | Lưu thêm lớp đệm nhỏ trong bộ nhớ RAM của máy chủ API (In-memory cache) cho các liên kết quá nóng |
+          | Trùng bí danh tùy chọn | Ràng buộc `UNIQUE` ở mức cơ sở dữ liệu và báo lỗi rõ ràng nếu đã có người đặt trước |
+        context: "Bài toán thiết kế hệ thống kinh điển: Dịch vụ rút gọn đường dẫn chịu tải 10.000 QPS"
     difficulty: "advanced"
     useCases:
-      - "Chuẩn bị phỏng vấn System Design FAANG"
-      - "Thiết kế architecture cho dự án thực tế"
+      - "Luyện tập trả lời bài toán thiết kế hệ thống trong phỏng vấn kỹ thuật"
+      - "Thiết kế kiến trúc chịu tải cao cho sản phẩm thực tế từ bước ước lượng tài nguyên"
 agentTemplate:
-  name: "System Architect Agent"
-  description: "Tư vấn thiết kế hệ thống phân tán, scalability, database design, caching strategy"
+  name: "Kiến Trúc Sư Hệ Thống Phân Tán"
+  description: "Chuyên gia tư vấn thiết kế hệ thống chịu tải cao, chiến lược lưu đệm (Cache), mở rộng cơ sở dữ liệu và phân tích đánh đổi kiến trúc"
   systemPrompt: |
-    Bạn là System Architect. Thiết kế hệ thống có khả năng mở rộng, tin cậy, hiệu năng cao. Luôn cân nhắc trade-offs.
+    Bạn là Kiến Trúc Sư Hệ Thống Phân Tán (System Architect).
+    Nhiệm vụ của bạn là thiết kế các hệ thống có khả năng mở rộng tốt, độ sẵn sàng cao, độ trễ thấp và luôn giải thích rõ sự đánh đổi (trade-off) giữa tính nhất quán, hiệu năng và chi phí vận hành bằng tiếng Việt mạch lạc.
   model: "gpt-4"
   temperature: 0.5
+  tools:
+    - "Tìm kiếm thông tin"
 relatedSkillIds:
   - "clean-code-refactor"
   - "git-workflow-collaboration"
 author: "AI Life Hub Team"
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: system-design-basics
 ---

@@ -1,42 +1,42 @@
 ---
 id: marketing-side-project
 categoryId: side-project
-name: "Marketing Side Project: Từ 0 đến 1000 User Đầu Tiên"
-description: "Chiến lược marketing thấp chi phí, hiệu quả cho side project: Content, SEO, Community, Launch"
+name: "Tiếp Thị Dự Án Cá Nhân: Từ 0 Đến 1.000 Người Dùng Đầu Tiên"
+description: "Chiến lược tiếp thị chi phí thấp, dễ làm cho dự án cá nhân: viết nội dung chia sẻ, tối ưu tìm kiếm Google, xây cộng đồng và ra mắt sản phẩm"
 whenToUse:
-  - "Vừa launch MVP, cần user đầu tiên (0-1000)"
-  - "Không có ngân sách ads lớn (< $200/tháng)"
-  - "Muốn xây dựng organic growth bền vững"
-  - "Cần personal brand để hỗ trợ side project"
+  - "Vừa ra mắt sản phẩm tối giản để thử nghiệm (MVP), cần 0 đến 1.000 người dùng đầu tiên"
+  - "Ngân sách quảng cáo hạn hẹp (dưới 5 triệu đồng/tháng)"
+  - "Muốn tăng trưởng tự nhiên bền vững mà không phụ thuộc chạy quảng cáo"
+  - "Cần xây dựng uy tín cá nhân để kéo người dùng cho dự án"
 difficulty: "beginner"
-estimatedTime: "Setup 1 tuần, thực hiện liên tục 10-15h/tuần"
+estimatedTime: "Thiết lập 1 tuần, duy trì 10-15 giờ/tuần"
 tags: ["marketing", "growth", "content-marketing", "seo", "community", "launch", "indie-hacking"]
 prompts:
   - id: prompt-marketing-strategy-one-page
-    name: "Tạo One-Page Marketing Strategy"
-    description: "Chiến lược marketing gọn gàng 1 trang A4 cho side project"
+    name: "Lập Chiến Lược Tiếp Thị Gọn Trên 1 Trang"
+    description: "Bản kế hoạch tiếp thị ngắn gọn trên 1 trang A4 dành cho người tự làm dự án cá nhân"
     template: |
-      Bạn là Growth Advisor cho indie hacker. Hãy tạo One-Page Marketing Strategy cho: {{projectName}}.
+      Bạn là cố vấn tăng trưởng thực chiến cho người tự làm dự án cá nhân (side project). Hãy lập bản chiến lược tiếp thị gọn trên 1 trang cho dự án: {{projectName}}.
 
       **Thông tin dự án:**
-      - Mô tả 1 câu: {{oneLiner}}
-      - ICP (Ideal Customer Profile): {{icp}}
-      - Giá trị cốt lõi: {{coreValue}}
-      - Pricing model: {{pricing}}
-      - Kênh hiện có: {{existingChannels}}
-      - Ngân sách marketing/tháng: {{budget}}
-      - Thời gian có sẵn/tuần: {{weeklyHours}}
-      - Mục tiêu 3 tháng: {{threeMonthGoal}}
+      - Mô tả ngắn gọn trong 1 câu: {{oneLiner}}
+      - Chân dung khách hàng lý tưởng (ICP — nhóm người dùng phù hợp nhất): {{icp}}
+      - Giá trị cốt lõi mang lại: {{coreValue}}
+      - Cách thu phí: {{pricing}}
+      - Kênh liên lạc/mạng xã hội đang có sẵn: {{existingChannels}}
+      - Ngân sách tiếp thị mỗi tháng: {{budget}}
+      - Thời gian rảnh mỗi tuần: {{weeklyHours}} giờ
+      - Mục tiêu trong 3 tháng tới: {{threeMonthGoal}}
 
-      **Yêu cầu output (1 trang markdown):**
-      1. **Positioning Statement**: For [ICP] who [pain point], [Product] is a [category] that [key benefit] unlike [alternative], we [differentiator]
-      2. **North Star Metric**: 1 metric quan trọng nhất 3 tháng tới
-      3. **3 Kênh chính (Rule of 3)**: Chọn 3 kênh focus, lý do, KPI mỗi kênh
-      4. **Content Pillars**: 3-4 chủ đề content xoay quanh
-      5. **Launch Sequence (Tuần 1-4)**: Cụ thể làm gì mỗi tuần
-      6. **Weekly Rituals**: Checklist hàng tuần (30-60p)
-      7. **Monthly Review Template**: Questions để review cuối tháng
-      8. **Budget Allocation**: % cho tools, ads, content, community
+      **Hãy trình bày bản kế hoạch gồm 8 phần rõ ràng bằng tiếng Việt dễ hiểu:**
+      1. **Tuyên ngôn định vị sản phẩm**: Nêu rõ sản phẩm dành cho ai, giải quyết nỗi đau gì, khác biệt thế nào so với cách làm cũ.
+      2. **Chỉ số mục tiêu trọng tâm**: Chọn 1 con số quan trọng nhất cần theo dõi trong 3 tháng tới.
+      3. **Nguyên tắc tập trung 3 kênh chính**: Chọn đúng 3 kênh hiệu quả nhất với ngân sách hiện tại, giải thích lý do và mục tiêu từng tháng.
+      4. **Các chủ đề nội dung chính**: 3-4 nhóm chủ đề xoay quanh vấn đề của khách hàng.
+      5. **Lộ trình ra mắt 4 tuần đầu**: Từng tuần làm cụ thể việc gì trên mỗi kênh.
+      6. **Thói quen hằng tuần**: Danh sách việc cần làm lặp lại mỗi tuần kèm số phút thực hiện (tổng thời gian khớp chính xác với các đầu việc).
+      7. **Mẫu đánh giá cuối tháng**: Các câu hỏi tự rà soát để giữ cái hiệu quả và bỏ cái lãng phí.
+      8. **Phân bổ ngân sách**: Chia rõ từng khoản tiền và tỷ lệ phần trăm sao cho tổng cộng khớp 100% ngân sách.
     variables:
       - name: projectName
         type: text
@@ -44,154 +44,154 @@ prompts:
         required: true
       - name: oneLiner
         type: text
-        label: "Mô tả 1 câu (value prop)"
+        label: "Mô tả dự án trong 1 câu (giải quyết việc gì cho ai)"
         required: true
       - name: icp
         type: textarea
-        label: "Ideal Customer Profile (chi tiết)"
-        description: "Ví dụ: Junior dev 1-3 năm exp, Việt Nam, muốn transition sang AI/ML, học tiếng Anh, budget < $50/tháng cho learning"
+        label: "Chân dung khách hàng lý tưởng (ICP)"
+        description: "Ví dụ: Lập trình viên mới đi làm 1-3 năm tại Việt Nam, muốn chuyển sang mảng AI, ngân sách học tập dưới 1,2 triệu đồng/tháng"
         required: true
       - name: coreValue
         type: textarea
-        label: "Giá trị cốt lõi (top 3 benefit)"
+        label: "3 lợi ích nổi bật nhất mà người dùng nhận được"
         required: true
       - name: pricing
         type: select
-        label: "Pricing model"
+        label: "Cách thu phí"
         options:
-          - "Free (Freemium)"
-          - "Free trial → Paid subscription"
-          - "One-time payment"
-          - "Usage-based / Pay per use"
-          - "Marketplace commission"
-          - "Donation / Pay what you want"
+          - "Miễn phí cơ bản có gói nâng cấp (Freemium)"
+          - "Dùng thử miễn phí rồi trả phí định kỳ"
+          - "Thanh toán một lần trọn đời"
+          - "Trả tiền theo lượt sử dụng"
+          - "Thu hoa hồng trên từng giao dịch"
+          - "Miễn phí hoặc ủng hộ tùy tâm"
         required: true
-        default: "Freemium"
+        default: "Miễn phí cơ bản có gói nâng cấp (Freemium)"
       - name: existingChannels
         type: multiselect
-        label: "Kênh đã có sẵn"
+        label: "Các kênh bạn đang có sẵn"
         options:
-          - "Personal LinkedIn (>500 connections)"
-          - "Personal Twitter/X (>500 followers)"
-          - "Facebook profile/Groups"
-          - "Email list (>100 subscribers)"
-          - "YouTube channel"
-          - "Blog/Newsletter"
-          - "Discord/Slack community"
+          - "Trang LinkedIn cá nhân (trên 500 kết nối)"
+          - "Tài khoản X/Twitter cá nhân (trên 500 người theo dõi)"
+          - "Facebook cá nhân và các hội nhóm"
+          - "Danh sách email (trên 100 người đăng ký)"
+          - "Kênh YouTube"
+          - "Blog hoặc bản tin cá nhân"
+          - "Cộng đồng Discord hoặc Slack"
           - "Chưa có kênh nào"
         required: true
         default: ["Chưa có kênh nào"]
       - name: budget
         type: select
-        label: "Ngân sách marketing/tháng (USD)"
+        label: "Ngân sách tiếp thị mỗi tháng"
         options:
-          - "$0 (Chỉ organic)"
-          - "$10-50 (Tools thấp)"
-          - "$50-200 (Tools + small ads)"
-          - "$200-500 (Ads + content production)"
+          - "0 đồng (Chỉ làm nội dung tự nhiên)"
+          - "250.000 - 1,25 triệu đồng (Chi phí công cụ cơ bản)"
+          - "1,25 - 5 triệu đồng (Công cụ và chạy quảng cáo nhỏ)"
+          - "5 - 12 triệu đồng (Quảng cáo và thuê làm nội dung)"
         required: true
-        default: "$10-50 (Tools thấp)"
+        default: "250.000 - 1,25 triệu đồng (Chi phí công cụ cơ bản)"
       - name: weeklyHours
         type: number
-        label: "Giờ marketing/tuần"
+        label: "Số giờ dành cho tiếp thị mỗi tuần"
         required: true
         default: 8
       - name: threeMonthGoal
         type: text
-        label: "Mục tiêu 3 tháng (cụ thể, có số)"
+        label: "Mục tiêu 3 tháng (cụ thể, có con số)"
         required: true
-        default: "1000 users registered, 100 active weekly, $500 MRR"
+        default: "1.000 người đăng ký, 100 người dùng đều đặn hằng tuần, 12 triệu đồng doanh thu hằng tháng (MRR)"
     examples:
       - inputs:
-          projectName: "MentorConnect Vietnam"
-          oneLiner: "Platform kết nối developer junior với mentor senior Việt Nam cho career guidance 1-on-1, thanh toán theo giờ"
-          icp: "Junior dev 1-3 năm kinh nghiệm, làm việc tại VN, muốn thăng tiến career/salary, sẵn sàng đầu tư $20-50/buổi mentoring, active trên Facebook groups dev VN, LinkedIn"
-          coreValue: "1) Mentor đã vetted chất lượng (không random). 2) Thanh toán VN dễ dàng (Momo/VNPay). 3) Focus 100% dev Việt Nam - hiểu context local (công ty, tech stack, salary, visa). 4) Flexible booking, không gói subscription bắt buộc."
-          pricing: "Marketplace commission"
-          existingChannels: '["Personal LinkedIn (>500 connections)", "Facebook Groups (cộng đồng dev VN)"]'
-          budget: "$10-50 (Tools thấp)"
+          projectName: "MentorConnect Việt Nam"
+          oneLiner: "Nền tảng kết nối lập trình viên trẻ với người hướng dẫn giàu kinh nghiệm tại Việt Nam để tư vấn nghề nghiệp 1 kèm 1, trả phí theo buổi"
+          icp: "Lập trình viên có 1-3 năm kinh nghiệm tại Việt Nam, muốn tăng lương và định hướng nghề nghiệp rõ ràng, sẵn sàng chi 500.000 - 1.200.000 đồng/buổi tư vấn, thường sinh hoạt trên các nhóm Facebook lập trình và LinkedIn"
+          coreValue: "1) Người hướng dẫn đã được kiểm duyệt kỹ về năng lực. 2) Thanh toán nội địa nhanh gọn qua MoMo, VNPay hoặc chuyển khoản VietQR. 3) Hiểu rõ thị trường công nghệ, mức lương và văn hóa công ty tại Việt Nam. 4) Đặt lịch linh hoạt từng buổi, không ép mua gói dài hạn."
+          pricing: "Thu hoa hồng trên từng giao dịch"
+          existingChannels:
+            - "Trang LinkedIn cá nhân (trên 500 kết nối)"
+            - "Facebook cá nhân và các hội nhóm"
+          budget: "250.000 - 1,25 triệu đồng (Chi phí công cụ cơ bản)"
           weeklyHours: 10
-          threeMonthGoal: "30 mentor verified, 500 mentee registered, 100 sessions booked, $1000 GMV"
+          threeMonthGoal: "30 người hướng dẫn được duyệt, 500 học viên đăng ký, 100 buổi tư vấn đã đặt, 25 triệu đồng tổng giá trị giao dịch (GMV)"
         output: |
-          # 📄 One-Page Marketing Strategy: MentorConnect Vietnam
+          # Chiến Lược Tiếp Thị 1 Trang: MentorConnect Việt Nam
 
-          ## Positioning Statement
-          For **junior developers in Vietnam (1-3 years exp)** who **struggle with career direction, skill gaps, and salary negotiation**, **MentorConnect Vietnam** is a **mentor marketplace** that **provides vetted 1-on-1 career guidance from senior devs** unlike **generic global platforms (MentorCruise, ADPList)**, we **focus 100% on Vietnam context with local payment and verified local mentors**.
+          ## 1. Tuyên Ngôn Định Vị Sản Phẩm
+          Dành cho **lập trình viên trẻ tại Việt Nam (1-3 năm kinh nghiệm)** đang **loay hoay về lộ trình nghề nghiệp, thiếu kỹ năng thực tế và ngại đàm phán lương**, **MentorConnect Việt Nam** là **nền tảng đặt lịch tư vấn 1 kèm 1** giúp **kết nối nhanh với người đi trước đã được kiểm duyệt**. Khác với các nền tảng nước ngoài (thường đắt đỏ, rào cản ngôn ngữ và khó thanh toán), chúng tôi **tập trung 100% vào bối cảnh thị trường Việt Nam với hình thức thanh toán nội địa tiện lợi**.
 
-          ## North Star Metric
-          **Sessions Completed per Month** (target: 100 sessions/tháng by Month 3)
+          ## 2. Chỉ Số Mục Tiêu Trọng Tâm
+          **Số buổi tư vấn hoàn thành mỗi tháng** (Mục tiêu tháng thứ 3: 100 buổi/tháng).
 
-          ## 3 Kênh Chính (Rule of 3)
+          ## 3. Nguyên Tắc Tập Trung 3 Kênh Chính
+          | Kênh | Lý do chọn | Mục tiêu Tháng 1 | Mục tiêu Tháng 2 | Mục tiêu Tháng 3 |
+          |---|---|---|---|---|
+          | **LinkedIn cá nhân** | Khách hàng mục tiêu hoạt động nhiều ở đây, dễ tạo niềm tin | 3 bài/tuần, thêm 500 người theo dõi | 3 bài/tuần, 1.500 người theo dõi, 50 cuộc trò chuyện qua tin nhắn | 3 bài/tuần, 3.000 người theo dõi, 30 lượt đặt lịch |
+          | **Hội nhóm Facebook chuyên ngành** | Nơi tập trung đông lập trình viên Việt Nam nhất, hoàn toàn miễn phí | Tham gia 10 nhóm, 3 bài chia sẻ kinh nghiệm/tuần | 3 bài/tuần, tổ chức 1 buổi hỏi đáp trực tuyến/tháng | 3 bài/tuần, tổ chức 2 buổi hỏi đáp, kéo 50 lượt đặt lịch |
+          | **Bài viết chuẩn tìm kiếm (SEO trên Blog)** | Thu hút người tự tìm từ khóa "tìm người hướng dẫn lập trình", "định hướng nghề IT" | 4 bài viết sâu (khoảng 2.000 từ/bài), cài đặt tìm kiếm chuẩn | 8 bài, đạt 500 lượt đọc tự nhiên/tháng | 12 bài, đạt 2.000 lượt đọc tự nhiên và 20 lượt đặt lịch |
 
-          | Kênh | Lý do | KPI Tháng 1 | KPI Tháng 2 | KPI Tháng 3 |
-          |------|-------|-------------|-------------|-------------|
-          | **LinkedIn Personal Brand** | ICP active هنا, trust building, SEO-friendly | 3 bài/tuần, 500 followers mới | 3 bài/tuần, 1500 followers, 50 DM conversations | 3 bài/tuần, 3000 followers, 200 DM, 30 bookings |
-          | **Facebook Groups Community** | Tập trung ICP lớn nhất VN, free, high engagement | Join 10 groups, 5 bài share value/tuần | 10 bài/tuần, host 1 AMA/tuần | 15 bài/tuần, 3 AMA, 50 bookings từ groups |
-          | **SEO Content (Blog)** | Long-term compound, capture search intent "mentor dev vn", "career dev vn" | 4 bài SEO (2k từ), setup technical SEO | 8 bài, 500 organic visits/tháng | 12 bài, 2000 organic visits, 20 bookings |
+          ## 4. Các Chủ Đề Nội Dung Chính
+          1. **Câu chuyện nghề nghiệp thực tế**: Phỏng vấn người hướng dẫn và học viên chuyển việc hoặc tăng lương thành công.
+          2. **Lấp lỗ hổng kỹ năng**: Chia sẻ lộ trình học, cách chuẩn bị phỏng vấn, cách tránh sai lầm khi mới vào nghề.
+          3. **Bức tranh thị trường IT Việt Nam**: Mặt bằng lương, văn hóa làm việc các công ty công nghệ, kinh nghiệm làm việc từ xa.
+          4. **Cập nhật nền tảng & Đánh giá thật**: Tính năng mới, phản hồi tích cực sau mỗi buổi tư vấn.
 
-          ## Content Pillars
-          1. **Career Stories**: Phỏng vấn mentor/mentee thành công (format: LinkedIn carousel + Blog deep-dive)
-          2. **Skill Gaps & Solutions**: "Top 5 skill junior dev thiếu 2024", "Cách học system design hiệu quả"
-          3. **Vietnam Tech Market Insights**: Salary report, Company review, Visa/Remote work guide
-          4. **Platform Updates & Social Proof**: Feature launch, Session highlights, Review showcase
+          ## 5. Lộ Trình Ra Mắt 4 Tuần Đầu
+          | Tuần | LinkedIn | Hội nhóm Facebook | Blog / Tìm kiếm Google | Kỹ thuật |
+          |---|---|---|---|---|
+          | 1 | Tối ưu hồ sơ cá nhân, chia sẻ hành trình làm dự án | Tham gia 10 nhóm, giới thiệu bản thân và lắng nghe (chưa bán hàng) | Dựng blog đơn giản bằng Notion, nghiên cứu từ khóa | Gắn công cụ đo lượt truy cập và mã theo dõi nguồn khách (UTM) |
+          | 2 | Bài chia sẻ: "Vì sao tôi làm MentorConnect từ con số 0" | Bài chia sẻ: "5 sai lầm của lập trình viên trẻ khi tự mò đường" | Bài 1: "Hướng dẫn chọn người hướng dẫn phù hợp" (3.000 từ) | Mở trang giới thiệu sản phẩm (Landing page) bản đầu tiên |
+          | 3 | Giới thiệu gương mặt người hướng dẫn đầu tiên | Tổ chức buổi hỏi đáp trực tuyến cùng người có 10 năm kinh nghiệm | Bài 2: "Cách đàm phán lương thực tế cho lập trình viên" | Mời 25 người đầu tiên dùng thử bản beta |
+          | 4 | Kể lại câu chuyện buổi tư vấn đầu tiên thành công | Tóm tắt 10 câu trả lời hay nhất từ buổi hỏi đáp | Bài 3: "Lộ trình từ mới ra trường lên cấp cao" | Ra mắt công khai trên các cộng đồng |
 
-          ## Launch Sequence (Tuần 1-4)
+          ## 6. Thói Quen Hằng Tuần (Tổng 90 phút/tuần)
+          - **Thứ 2 (15 phút)**: Lên khung 3 bài LinkedIn, 3 bài Facebook và dàn ý 1 bài Blog.
+          - **Thứ 3 & Thứ 4 (30 phút)**: Viết nháp và hẹn giờ đăng toàn bộ bài mạng xã hội trong tuần.
+          - **Thứ 5 (15 phút)**: Tương tác thật bằng cách bình luận 20 bài của người khác, trả lời hết tin nhắn.
+          - **Thứ 6 (15 phút)**: Viết tiếp bài Blog và nhắn tin mời thêm 3 người hướng dẫn mới.
+          - **Chủ nhật (15 phút)**: Xem lại số liệu tuần qua và điều chỉnh kế hoạch tuần tới.
 
-          | Tuần | LinkedIn | Facebook Groups | Blog/SEO | Technical |
-          |------|----------|-----------------|----------|-----------|
-          | 1 | Optimize profile, announce builder journey | Join 10 groups, introduce self (không pitch) | Setup blog (Notion + Super.so), keyword research | Analytics (PostHog), UTM tracking |
-          | 2 | Post 1: "Tại sao tôi build MentorConnect" (vulnerable) | Share value post: "5 sai lầm junior dev khi tìm mentor" | Bài 1: "Hướng dẫn chọn mentor dev Việt Nam 2024" (3k từ) | Landing page V1 live |
-          | 3 | Post 2: Mentor spotlight #1 (interview) | Host AMA: "Hỏi đáp career dev với Senior 10 năm exp" | Bài 2: "Salary negotiation cho dev VN: Framework thực tế" | Beta invite 25 mentee |
-          | 4 | Post 3: Mentee success story #1 | Share AMA recap + key takeaways | Bài 3: "Roadmap Senior Dev 2024: Backend/Frontend/AI" | Launch public + Product Hunt |
+          ## 7. Mẫu Đánh Giá Cuối Tháng (60 phút)
+          1. Chỉ số trọng tâm: Hoàn thành bao nhiêu buổi tư vấn so với mục tiêu?
+          2. Kênh nào kéo được nhiều người đặt lịch nhất, kênh nào tốn công mà ít hiệu quả?
+          3. Top 3 bài viết được tương tác nhiều nhất là bài nào, vì sao?
+          4. Trong phễu chuyển đổi (Xem trang → Đăng ký → Tìm người → Đặt lịch → Thanh toán), người dùng bỏ dở ở bước nào nhiều nhất?
+          5. 3 tính năng hoặc nhu cầu người dùng hỏi nhiều nhất tháng qua là gì?
+          6. Tháng tới chọn 1 việc lớn đáng thử, 2 việc nhỏ làm nhanh và 1 việc nên dừng lại.
 
-          ## Weekly Rituals (60 phút/tuần)
-          - **Thứ 2 (15p)**: Plan content tuần (3 LinkedIn, 2 FB, 1 Blog outline)
-          - **Thứ 3-4 (30p)**: Write & schedule LinkedIn/FB posts
-          - **Thứ 5 (15p)**: Engage: Comment 20 posts liên quan, reply all DM/comments
-          - **Thứ 6 (15p)**: Write blog section (draft 500 từ), outreach 3 mentor cho interview
-          - **Chủ Nhật (15p)**: Review analytics, update Notion dashboard, plan tuần sau
-
-          ## Monthly Review Template (Cuối tháng, 60p)
-          1. North Star Metric: Sessions completed = ? (Target: ?)
-          2. Channel Performance: Leads/Bookings từ mỗi kênh?
-          3. Content: Top 3 bài perform best? Why?
-          4. Funnel: Signup → Profile → Search → Book → Pay → Attend → Review (drop-off ở đâu?)
-          5. Feedback: Top 3 feature request từ user?
-          6. Budget: Spend vs Result? Adjust allocation?
-          7. Next Month: 1 big bet, 2 quick wins, 1 thing to stop
-
-          ## Budget Allocation (Tháng 1-3, ~$50/tháng)
-          - **Tools (60% = $30)**: Notion (free), Super.so ($16/tháng), Tally (free), Canva (free), Buffer free tier
-          - **Content Production (20% = $10)**: Thumbnail design (Fiverr $5/bài x 2), Audio recording (Riverside free)
-          - **Ads/Boost (10% = $5)**: Boost 1 FB post/test audience
-          - **Community (10% = $5)**: Quà tặng AMA (ebook, template), Coffee chat voucher
-        context: "Side project marketplace, solo founder, budget thấp, focus organic VN market"
+          ## 8. Phân Bổ Ngân Sách (Tổng 1.250.000 đồng/tháng)
+          - **Công cụ vận hành (40% = 500.000 đồng)**: Tên miền và lưu trữ trang giới thiệu (`400.000 đồng/tháng`), công cụ gửi biểu mẫu và email (`100.000 đồng/tháng`). Notion và Canva dùng bản miễn phí.
+          - **Thiết kế & sản xuất nội dung (20% = 250.000 đồng)**: Thuê thiết kế ảnh bìa hoặc bộ mẫu trình bày (`250.000 đồng/tháng`).
+          - **Thử nghiệm quảng cáo nhỏ (20% = 250.000 đồng)**: Đẩy bài viết hữu ích trên Facebook để đo độ quan tâm.
+          - **Chăm sóc cộng đồng (20% = 250.000 đồng)**: Thẻ quà tặng cà phê hoặc tài liệu tặng người tham gia buổi hỏi đáp.
+        context: "Dự án sàn kết nối dịch vụ do một người tự làm, ngân sách nhỏ, ưu tiên tăng trưởng tự nhiên tại Việt Nam"
     difficulty: "easy"
     useCases:
-      - "Vừa launch MVP, cần kế hoạch marketing có hệ thống"
-      - "Indie hacker muốn focus 3 kênh thay vì lan man"
-      - "Cần template review hàng tháng để điều chỉnh стратегия"
+      - "Vừa làm xong sản phẩm thử nghiệm, cần kế hoạch kéo người dùng có bài bản"
+      - "Người làm dự án một mình muốn tập trung đúng 3 kênh thay vì làm dàn trải"
+      - "Cần khung đánh giá hằng tháng để kịp thời điều chỉnh hướng tiếp thị"
+
   - id: prompt-content-calendar-side-project
-    name: "Tạo Content Calendar 4 Tuần"
-    description: "Lịch đăng content chi tiết cho LinkedIn, Facebook, Blog - sẵn sàng copy-paste"
+    name: "Lập Lịch Đăng Bài 4 Tuần Chi Tiết"
+    description: "Lịch đăng bài từng ngày cho LinkedIn, Facebook và Blog kèm câu mở đầu thu hút và cách tái sử dụng nội dung"
     template: |
-      Bạn là Content Strategist. Hãy tạo Content Calendar 4 tuần cho side project: {{projectName}}.
+      Bạn là chuyên gia lập kế hoạch nội dung thực tế cho dự án nhỏ. Hãy tạo lịch đăng bài 4 tuần cho dự án: {{projectName}}.
 
       **Bối cảnh:**
-      - Content Pillars: {{contentPillars}}
-      - Kênh chính: {{channels}}
-      - Posting frequency: {{frequency}}
-      - Tone of voice: {{tone}}
-      - Tháng này focus: {{monthlyFocus}}
-      - Sự kiện/Ngày đặc biệt: {{specialDates}}
-      - Repurpose strategy: {{repurposeStrategy}}
+      - Các chủ đề nội dung chính: {{contentPillars}}
+      - Kênh phân phối chính: {{channels}}
+      - Tần suất đăng bài: {{frequency}}
+      - Giọng văn: {{tone}}
+      - Trọng tâm tháng này: {{monthlyFocus}}
+      - Sự kiện hoặc ngày đặc biệt: {{specialDates}}
+      - Cách biến đổi 1 bài dài thành nhiều bài ngắn: {{repurposeStrategy}}
 
-      **Yêu cầu:**
-      1. Bảng calendar 4 tuần (28 ngày) với: Ngày, Kênh, Pillar, Headline/Hook, Format, CTA, Status
-      2. 3-5 content ideas "Evergreen" có thể reuse
-      3. Template hook cho từng pillar (để viết nhanh)
-      4. Repurpose workflow: 1 blog → 3 LinkedIn → 5 Twitter → 1 Newsletter
-      5. Batch writing prompts cho AI (Claude/ChatGPT) để tạo draft nhanh
+      **Hãy lập kế hoạch chi tiết gồm 5 phần:**
+      1. **Bảng lịch đăng bài 4 tuần (28 ngày)**: Ghi rõ Thứ, Kênh, Chủ đề, Tiêu đề/Câu mở đầu, Định dạng, Lời kêu gọi hành động và Trạng thái.
+      2. **5 ý tưởng nội dung dùng lại lâu dài**: Những bài viết có giá trị bền vững theo thời gian.
+      3. **Công thức viết câu mở đầu (Hook)** cho từng chủ đề.
+      4. **Quy trình biến 1 bài Blog thành nhiều bài ngắn** (LinkedIn, Facebook, bản tin email, video ngắn).
+      5. **3 câu lệnh gợi ý cho AI** để viết nháp nhanh toàn bộ bài trong tuần.
     variables:
       - name: projectName
         type: text
@@ -199,180 +199,181 @@ prompts:
         required: true
       - name: contentPillars
         type: textarea
-        label: "Content Pillars (3-4 chủ đề chính)"
+        label: "3-4 chủ đề nội dung chính"
         required: true
       - name: channels
         type: multiselect
-        label: "Kênh phân phối"
+        label: "Kênh đăng bài"
         options:
-          - "LinkedIn Personal"
-          - "LinkedIn Company Page"
-          - "Facebook Personal Profile"
-          - "Facebook Groups"
-          - "Facebook Page"
-          - "Twitter/X"
-          - "Blog/SEO"
-          - "Newsletter (Email)"
-          - "YouTube Shorts/Reels"
+          - "LinkedIn cá nhân"
+          - "Trang LinkedIn dự án"
+          - "Facebook cá nhân"
+          - "Hội nhóm Facebook"
+          - "Trang Facebook dự án"
+          - "Tài khoản X/Twitter"
+          - "Blog chuẩn tìm kiếm Google"
+          - "Bản tin Email"
+          - "YouTube Shorts hoặc Reels"
           - "TikTok"
         required: true
-        default: ["LinkedIn Personal", "Facebook Groups", "Blog/SEO"]
+        default: ["LinkedIn cá nhân", "Hội nhóm Facebook", "Blog chuẩn tìm kiếm Google"]
       - name: frequency
         type: text
-        label: "Tần suất đăng (ví dụ: LinkedIn 3/tuần, FB Groups 5/tuần, Blog 1/tuần)"
+        label: "Tần suất đăng mỗi tuần"
         required: true
-        default: "LinkedIn 3/tuần, FB Groups 5/tuần, Blog 1/tuần"
+        default: "LinkedIn 3 bài/tuần; Hội nhóm Facebook 3 bài/tuần; Blog 1 bài/tuần"
       - name: tone
         type: select
-        label: "Tone of voice"
+        label: "Giọng văn chủ đạo"
         options:
-          - "Professional & Authoritative (Chuyên gia)"
-          - "Friendly & Relatable (Bạn bè, chia sẻ kinh nghiệm)"
-          - "Vulnerable & Authentic (Builder journey, thất bại/thành công)"
-          - "Educational & Actionable (How-to, framework, template)"
-          - "Mix: 50% Educational, 30% Personal, 20% Promotional"
+          - "Chuyên gia đáng tin cậy và thực tế"
+          - "Gần gũi như bạn bè chia sẻ kinh nghiệm"
+          - "Chân thật kể hành trình làm sản phẩm từ con số 0"
+          - "Hướng dẫn từng bước dễ làm theo"
+          - "Kết hợp: 50% chia sẻ kiến thức / 30% câu chuyện cá nhân / 20% giới thiệu sản phẩm"
         required: true
-        default: "Mix: 50% Educational, 30% Personal, 20% Promotional"
+        default: "Kết hợp: 50% chia sẻ kiến thức / 30% câu chuyện cá nhân / 20% giới thiệu sản phẩm"
       - name: monthlyFocus
         type: text
-        label: "Focus tháng này"
+        label: "Mục tiêu trọng tâm tháng này"
         required: true
-        default: "Launch awareness + Beta user acquisition"
+        default: "Thu hút người dùng thử nghiệm bản đầu tiên (Beta)"
       - name: specialDates
         type: textarea
-        label: "Ngày đặc biệt/Sự kiện (ví dụ: Tết, Black Friday, Conference, Anniversary)"
+        label: "Sự kiện hoặc ngày đặc biệt trong tháng (nếu có)"
         required: false
+        default: "Không có sự kiện đặc biệt"
       - name: repurposeStrategy
         type: text
-        label: "Chiến lược repurpose"
+        label: "Cách tái sử dụng 1 bài dài"
         required: true
-        default: "1 Blog (2000 từ) → 3 LinkedIn carousel + 5 Twitter thread + 1 Newsletter issue"
+        default: "1 bài Blog (2.000 từ) chuyển thành 3 bài LinkedIn, 3 bài ngắn Facebook và 1 bản tin Email"
     examples:
       - inputs:
-          projectName: "MentorConnect Vietnam"
-          contentPillars: "1. Career Stories (Phỏng vấn mentor/mentee)\n2. Skill Gaps & Solutions (Framework, roadmap)\n3. Vietnam Tech Market Insights (Salary, company, visa)\n4. Platform Updates & Social Proof"
-          channels: '["LinkedIn Personal", "Facebook Groups", "Blog/SEO"]'
-          frequency: "LinkedIn 3/tuần, FB Groups 5/tuần, Blog 1/tuần"
-          tone: "Mix: 50% Educational, 30% Personal, 20% Promotional"
-          monthlyFocus: "Launch awareness + Beta user acquisition"
-          specialDates: "Tuần 3: Product Hunt Launch; Tuần 4: AMA với Senior Dev tại FPT/Viettel"
-          repurposeStrategy: "1 Blog (2000 từ) → 3 LinkedIn carousel + 5 Twitter thread + 1 Newsletter issue"
+          projectName: "MentorConnect Việt Nam"
+          contentPillars: "1. Câu chuyện nghề nghiệp (Phỏng vấn người hướng dẫn và học viên)\n2. Lấp lỗ hổng kỹ năng (Lộ trình học, cách sửa lỗi hay gặp)\n3. Thị trường IT Việt Nam (Mặt bằng lương, kinh nghiệm phỏng vấn)\n4. Cập nhật sản phẩm & Đánh giá thật"
+          channels:
+            - "LinkedIn cá nhân"
+            - "Hội nhóm Facebook"
+            - "Blog chuẩn tìm kiếm Google"
+          frequency: "LinkedIn 3 bài/tuần; Hội nhóm Facebook 3 bài/tuần; Blog 1 bài/tuần"
+          tone: "Kết hợp: 50% chia sẻ kiến thức / 30% câu chuyện cá nhân / 20% giới thiệu sản phẩm"
+          monthlyFocus: "Thu hút 25 học viên đầu tiên dùng thử bản beta"
+          specialDates: "Tuần 3: Ra mắt công khai và tổ chức buổi giao lưu hỏi đáp trực tuyến (AMA) với anh Tuấn (10 năm kinh nghiệm)"
+          repurposeStrategy: "1 bài Blog (2.000 từ) chuyển thành 3 bài LinkedIn, 3 bài ngắn Facebook và 1 bản tin Email"
         output: |
-          # 📅 Content Calendar 4 Tuần: MentorConnect Vietnam
+          # Lịch Đăng Bài 4 Tuần: MentorConnect Việt Nam
 
-          ## Tuần 1: Foundation & Builder Journey
-          | Ngày | Kênh | Pillar | Headline/Hook | Format | CTA | Status |
-          |------|------|--------|---------------|--------|-----|--------|
-          | T2 | LinkedIn | Personal Journey | "Tại sao tôi build MentorConnect sau 3 lần thất nghiệp" | Text + Photo workspace | "Follow journey →" | ✅ Draft |
-          | T3 | FB Groups | Skill Gaps | "5 sai lầm junior dev khi tìm mentor (và cách sửa)" | Text + Infographic | "Comment sai lầm bạn gặp" | ✅ Draft |
-          | T4 | LinkedIn | Market Insights | "Salary Dev VN 2024: Junior 15-25tr, Senior 40-80tr - Thực tế ra sao?" | Carousel 5 slides | "Save để tham khảo" | 📝 Outline |
-          | T5 | Blog | Career Stories | "Hướng dẫn chọn mentor dev Việt Nam 2024: Checklist 10 tiêu chí" | Article 3000 từ | "Đăng ký beta sớm" | 📝 Outline |
-          | T6 | FB Groups | Skill Gaps | "System Design cho junior: Bắt đầu từ đâu? (Roadmap 3 tháng)" | Text + Diagram | "Tag bạn bè cần học" | 📝 Outline |
-          | T7 | LinkedIn | Personal Journey | "Week 1 build in public: Database schema, Bubble setup, 0 user" | Text + Screenshot | "Góp ý cho V1?" | 📝 Outline |
-          | CN | FB Groups | Community | "Chủ nhật chill: Dev VN chia sẻ 1 tip career hay nhất tuần này" | Thread comment | "Reply dưới đây" | 📝 Outline |
+          ## Tuần 1: Xây Nền Tảng & Kể Hành Trình Làm Dự Án
+          | Ngày | Kênh | Chủ đề | Tiêu đề / Câu mở đầu | Định dạng | Kêu gọi hành động | Trạng thái |
+          |---|---|---|---|---|---|---|
+          | T2 | LinkedIn cá nhân | Câu chuyện cá nhân | "Vì sao tôi quyết định làm MentorConnect sau 3 lần loay hoay đổi việc" | Bài viết kèm ảnh góc làm việc | "Theo dõi hành trình cùng mình nhé" | Đã nháp |
+          | T3 | Hội nhóm Facebook | Lấp lỗ hổng kỹ năng | "5 sai lầm lập trình viên trẻ hay mắc khi tự tìm người hướng dẫn" | Bài viết + ảnh tóm tắt | "Bạn từng gặp lỗi nào trong số này?" | Đã nháp |
+          | T4 | LinkedIn cá nhân | Thị trường IT | "Mặt bằng lương lập trình viên 2026: Mới ra trường 15-25 triệu, lâu năm 40-80 triệu đồng" | Bộ ảnh trượt 5 trang | "Lưu lại để đối chiếu khi đàm phán" | Lên dàn ý |
+          | T5 | Blog | Câu chuyện nghề nghiệp | "Cách chọn người hướng dẫn phù hợp: 10 tiêu chí thực tế" | Bài viết 3.000 từ | "Đăng ký trải nghiệm sớm" | Lên dàn ý |
+          | T6 | Hội nhóm Facebook | Lấp lỗ hổng kỹ năng | "Lộ trình 3 tháng tự học thiết kế hệ thống cho người mới" | Bài viết + sơ đồ đơn giản | "Gửi cho đồng nghiệp đang cần" | Lên dàn ý |
+          | T7 | LinkedIn cá nhân | Câu chuyện cá nhân | "Tuần 1 làm sản phẩm không code: Chia bảng dữ liệu và thiết kế trang đặt lịch" | Bài viết + ảnh chụp giao diện | "Bạn thấy giao diện này ổn chưa?" | Lên dàn ý |
+          | CN | Hội nhóm Facebook | Cộng đồng | "Chủ nhật nhẹ nhàng: Mọi người chia sẻ 1 bài học nghề đắt giá nhất tuần qua" | Hỏi đáp bình luận | "Để lại bình luận bên dưới" | Lên dàn ý |
 
-          ## Tuần 2: Value Demonstration & Social Proof
-          | Ngày | Kênh | Pillar | Headline/Hook | Format | CTA | Status |
-          |------|------|--------|---------------|--------|-----|--------|
-          | T2 | LinkedIn | Career Stories | "Mentor Spotlight #1: Anh Tuấn - Tech Lead FPT, 10 năm exp, từ Junior đến Lead" | Carousel 8 slides (Quote + Photo) | "Đọc full interview → Blog" | 📝 Outline |
-          | T3 | FB Groups | Skill Gaps | "Cách negotiate salary dev VN: Framework 3 bước đã giúp tôi +30% lương" | Text + Template Google Doc | "Copy template tại link" | 📝 Outline |
-          | T4 | Blog | Career Stories | "Từ Junior 15tr → Senior 60tr trong 3 năm: Case study anh Minh (Backend)" | Article 2500 từ | "Tìm mentor như anh Minh" | ✍️ Writing |
-          | T5 | LinkedIn | Market Insights | "Top 10 công ty dev VN tốt nhất 2024 (theo Glassdoor + network thực tế)" | Carousel 10 slides | "Company bạn làm thế nào?" | 📝 Outline |
-          | T6 | FB Groups | Platform Update | "MentorConnect Beta: Mở đăng ký 25 mentee đầu tiên (Free 1 session)" | Text + Screenshot UI | "Đăng ký tại link bio" | ✍️ Writing |
-          | T7 | LinkedIn | Personal Journey | "Beta launch day: 25 invite sent, 8 mentor ready, heart beating fast" | Text + Metrics screenshot | "Wish me luck!" | 📝 Outline |
-          | CN | FB Groups | Community | "AMA announcement: Thứ 7 tuần sau - Senior Dev 10 năm exp trả lời mọi câu hỏi" | Image event | "Đăng ký nhắc nhở" | 📝 Outline |
+          ## Tuần 2: Trao Giá Trị & Mời Dùng Thử
+          | Ngày | Kênh | Chủ đề | Tiêu đề / Câu mở đầu | Định dạng | Kêu gọi hành động | Trạng thái |
+          |---|---|---|---|---|---|---|
+          | T2 | LinkedIn cá nhân | Câu chuyện nghề nghiệp | "Gương mặt người hướng dẫn #1: Anh Tuấn - 10 năm kinh nghiệm dẫn dắt đội ngũ" | Bộ ảnh 8 trang | "Đọc bài phỏng vấn đầy đủ trên Blog" | Lên dàn ý |
+          | T3 | Hội nhóm Facebook | Lấp lỗ hổng kỹ năng | "Cách đàm phán tăng 30% thu nhập bằng 3 bước chuẩn bị số liệu" | Bài viết + mẫu bảng tính | "Lấy mẫu miễn phí ở bình luận" | Lên dàn ý |
+          | T4 | Blog | Câu chuyện nghề nghiệp | "Từ mức lương 15 triệu lên 60 triệu đồng trong 3 năm: Câu chuyện thực tế của anh Minh" | Bài viết 2.500 từ | "Đặt lịch trò chuyện với người đi trước" | Đang viết |
+          | T5 | LinkedIn cá nhân | Thị trường IT | "10 tiêu chí đánh giá môi trường công ty công nghệ trước khi nhận việc" | Bộ ảnh 8 trang | "Công ty bạn đang làm có điểm nào?" | Lên dàn ý |
+          | T6 | Hội nhóm Facebook | Cập nhật sản phẩm | "Mở đăng ký dùng thử cho 25 bạn đầu tiên (miễn phí buổi đầu)" | Bài viết + ảnh màn hình | "Đăng ký qua đường dẫn đính kèm" | Đang viết |
+          | T7 | LinkedIn cá nhân | Câu chuyện cá nhân | "Ngày mở thử nghiệm: 25 thư mời đã gửi, 8 người hướng dẫn sẵn sàng, hồi hộp thật sự" | Bài viết ngắn | "Ủng hộ mình một bình luận nhé" | Lên dàn ý |
+          | CN | Hội nhóm Facebook | Cộng đồng | "Thông báo buổi giao lưu hỏi đáp tối thứ 7 tuần sau cùng anh Tuấn" | Ảnh thông báo sự kiện | "Bình luận câu hỏi bạn muốn hỏi" | Lên dàn ý |
 
-          ## Tuần 3: Launch Week & Product Hunt
-          | Ngày | Kênh | Pillar | Headline/Hook | Format | CTA | Status |
-          |------|------|--------|---------------|--------|-----|--------|
-          | T2 | LinkedIn | Platform Update | "🚀 LAUNCH DAY: MentorConnect Vietnam chính thức mở beta!" | Text + Demo GIF + Metrics | "Thử ngay mentorconnect.vn" | 📝 Outline |
-          | T2 | Blog | Platform Update | "Launch retrospective: Xây dựng marketplace mentor 6 tuần, 0 code, $0 ads" | Article 2000 từ | "Share cho founder khác" | ✍️ Writing |
-          | T3 | LinkedIn | Career Stories | "Mentee Story #1: Anh Nam - Từ stuck 2 năm → Promotion nhờ 3 session mentoring" | Carousel 6 slides | "Booking session tại platform" | 📝 Outline |
-          | T3 | FB Groups | Career Stories | Share Mentee Story #1 + Link full blog | Text + Link | "Đọc full story" | 📝 Outline |
-          | T4 | Twitter/X | Launch | Thread: "6 tuần build MentorConnect: Stack, Mistakes, Metrics, Next" | Thread 15 tweets | "Follow @MentorConnectVN" | ✍️ Writing |
-          | T4 | Product Hunt | Launch | Submit MentorConnect Vietnam | Product page | "Upvote & Comment" | 🚀 Submitted |
-          | T5 | LinkedIn | Social Proof | "Product Hunt Launch: Cảm ơn community! 50 upvote đầu tiên từ dev VN" | Text + Screenshot | "Thử platform free" | 📝 Outline |
-          | T6 | FB Groups | Community | "AMA HÔM NAY 20h: Senior Dev anh Tuấn (FPT) - Hỏi gì về career dev" | Live event reminder | "Join Zoom link" | 📅 Scheduled |
-          | T7 | AMA Live | Career Stories | AMA Session (Record → Repurpose) | Zoom + Recording | "Feedback form" | 🎙️ Live |
-          | CN | LinkedIn | Personal Journey | "Week 3 recap: 50 signups, 12 bookings, 1 AMA, 0 sleep 😅" | Text + Charts | "Week 4 focus: Retention" | 📝 Outline |
+          ## Tuần 3: Tuần Ra Mắt & Buổi Hỏi Đáp Trực Tuyến (AMA)
+          | Ngày | Kênh | Chủ đề | Tiêu đề / Câu mở đầu | Định dạng | Kêu gọi hành động | Trạng thái |
+          |---|---|---|---|---|---|---|
+          | T2 | LinkedIn cá nhân | Cập nhật sản phẩm | "Chính thức ra mắt MentorConnect Việt Nam bản thử nghiệm công khai" | Bài viết + ảnh động minh họa | "Trải nghiệm ngay tại mentorconnect.vn" | Lên dàn ý |
+          | T2 | Blog | Cập nhật sản phẩm | "Nhật ký ra mắt: Xây sàn đặt lịch tư vấn trong 3 tuần với 0 đồng quảng cáo" | Bài viết 2.000 từ | "Chia sẻ cho bạn bè đang ấp ủ dự án" | Đang viết |
+          | T3 | Hội nhóm Facebook | Câu chuyện nghề nghiệp | "Bạn Nam thoát cảnh dậm chân tại chỗ 2 năm sau 3 buổi tư vấn hướng nghiệp" | Bài viết kể chuyện | "Đọc chi tiết câu chuyện" | Lên dàn ý |
+          | T4 | LinkedIn cá nhân | Cập nhật sản phẩm | "3 bài học xương máu khi làm sản phẩm kết nối 2 chiều từ con số 0" | Bài viết chia sẻ | "Bạn đang làm dự án gì, kể mình nghe nhé" | Lên dàn ý |
+          | T5 | Hội nhóm Facebook | Cộng đồng | "Hẹn tối thứ 7 tuần này: Hỏi đáp trực tiếp mọi thắc mắc về lộ trình nghề IT" | Bài nhắc lịch sự kiện | "Đăng ký nhận đường dẫn tham gia" | Đã lên lịch |
+          | T6 | LinkedIn cá nhân | Đánh giá thật | "Cảm ơn 50 lượt đăng ký đầu tiên và những góp ý rất thẳng thắn từ cộng đồng" | Bài viết + ảnh số liệu | "Dùng thử miễn phí ngay hôm nay" | Lên dàn ý |
+          | T7 | Hội nhóm Facebook | Câu chuyện nghề nghiệp | "Tường thuật trực tiếp buổi giao lưu hỏi đáp (AMA) cùng anh Tuấn" | Livestream / Zoom + ghi hình | "Gửi góp ý sau buổi chia sẻ" | Sắp diễn ra |
 
-          ## Tuần 4: Retention & Systematize
-          | Ngày | Kênh | Pillar | Headline/Hook | Format | CTA | Status |
-          |------|------|--------|---------------|--------|-----|--------|
-          | T2 | LinkedIn | Market Insights | "Remote work visa cho dev VN: Digital Nomad Visa那些国家有? (Update 2024)" | Carousel 7 slides | "Save để plan sau" | 📝 Outline |
-          | T3 | Blog | Career Stories | "AMA Recap: Top 10 câu hỏi dev VN hỏi Senior 10 năm exp" | Article 1500 từ | "Xem video full AMA" | ✍️ Writing |
-          | T4 | LinkedIn | Social Proof | "Review đầu tiên: 'Mentoring session tốt nhất 3 năm qua' - Anh Nam, Backend" | Text + Screenshot review | "Đọc thêm review" | 📝 Outline |
-          | T5 | FB Groups | Skill Gaps | "Technical interview prep: System Design + Coding + Behavioral - Template Notion" | Text + Notion Template Link | "Duplicate template" | 📝 Outline |
-          | T6 | LinkedIn | Platform Update | "Feature mới: Mentor Calendar Sync (Google/Outlook) - Không còn double booking" | Demo GIF + Text | "Thử dùng free" | 📝 Outline |
-          | T7 | Newsletter | Weekly Digest | "Issue #4: 3 mentor mới, Salary report Q1, Template interview, AMA recap" | Email (Beehiiv/Substack) | "Subscribe" | ✍️ Writing |
-          | CN | FB Groups | Community | "Weekend reflection: Tuần này bạn học được gì mới về career?" | Thread | "Comment chia sẻ" | 📝 Outline |
+          ## Tuần 4: Giữ Chân Người Dùng & Hệ Thống Hóa
+          | Ngày | Kênh | Chủ đề | Tiêu đề / Câu mở đầu | Định dạng | Kêu gọi hành động | Trạng thái |
+          |---|---|---|---|---|---|---|
+          | T2 | LinkedIn cá nhân | Thị trường IT | "Tổng hợp các nước cấp thị thực làm việc từ xa (Digital Nomad Visa) cho dân IT Việt" | Bộ ảnh 7 trang | "Lưu lại khi cần tìm hiểu" | Lên dàn ý |
+          | T3 | Blog | Câu chuyện nghề nghiệp | "Tóm tắt 10 câu hỏi hay nhất từ buổi giao lưu hỏi đáp với kỹ sư 10 năm kinh nghiệm" | Bài viết 1.500 từ | "Xem lại đoạn ghi hình đầy đủ" | Đang viết |
+          | T4 | LinkedIn cá nhân | Đánh giá thật | "Phản hồi đầu tiên: 'Buổi trò chuyện sáng suốt nhất 3 năm qua của mình'" | Ảnh chụp đánh giá | "Xem thêm nhận xét từ học viên" | Lên dàn ý |
+          | T5 | Hội nhóm Facebook | Lấp lỗ hổng kỹ năng | "Tặng bộ bảng kiểm chuẩn bị phỏng vấn kỹ thuật và ứng xử trên Notion" | Bài viết + đường dẫn mẫu | "Lưu bản sao về dùng ngay" | Lên dàn ý |
+          | T6 | LinkedIn cá nhân | Cập nhật sản phẩm | "Tính năng mới: Đồng bộ lịch Google giúp không bao giờ trùng giờ hẹn" | Ảnh động 20 giây | "Trải nghiệm thử ngay" | Lên dàn ý |
+          | T7 | Hội nhóm Facebook | Cộng đồng | "Nhìn lại tuần qua: Bạn mới học thêm được kỹ năng nào?" | Bài thảo luận | "Bình luận chia sẻ cùng mọi người" | Lên dàn ý |
+          | CN | Hội nhóm Facebook | Cộng đồng | "Tổng kết tháng đầu tiên: 50 người dùng, 12 buổi đặt lịch và kế hoạch tháng sau" | Bài viết chân thật | "Góp ý tính năng bạn muốn có tiếp theo" | Lên dàn ý |
 
-          ## Evergreen Content Ideas (Reuse vô hạn)
-          1. **"Một ngày trong đời của [Role] tại [Company]"** - Phỏng vấn format chuẩn
-          2. **"Template: [Framework] cho [Problem]"** - Notion template free, capture email
-          3. **"So sánh: [Option A] vs [Option B] cho dev VN"** - SEO long-tail, high intent
-          4. **"Q&A: Trả lời câu hỏi từ audience"** - Source từ DM/comment
-          5. **"Monthly Wrap-up: Metrics, Lessons, Next Month Focus"** - Accountability + transparency
+          ## Ý Tưởng Nội Dung Dùng Lại Lâu Dài
+          1. **"Một ngày làm việc thực tế của [Vị trí] tại [Công ty]"** — Phỏng vấn theo mẫu cố định.
+          2. **"Bảng mẫu miễn phí giải quyết [Vấn đề cụ thể]"** — Tặng mẫu Notion hoặc Google Sheet để thu email người quan tâm.
+          3. **"So sánh 2 lựa chọn phổ biến cho người mới"** — Dễ lên top tìm kiếm Google.
+          4. **"Giải đáp thắc mắc từ bình luận của bạn đọc"** — Lấy trực tiếp từ câu hỏi có thật.
+          5. **"Báo cáo minh bạch cuối tháng"** — Chia sẻ số liệu thật và bài học rút ra.
 
-          ## Hook Templates cho từng Pillar
-          | Pillar | Hook Template |
-          |--------|---------------|
-          | Career Stories | "Cách [Person] đạt [Result] trong [Timeframe] mà không cần [Common Assumption]" |
-          | Skill Gaps | "[Number] sai lầm [ICP] thường mắc khi [Activity] (và framework sửa)" |
-          | Market Insights | "[Year] [Topic] Report: Data thực tế từ [Source] - Không phải guesswork" |
-          | Platform Updates | "Mới: [Feature] giúp [User] [Benefit] - Xem demo 30s" |
+          ## Công Thức Viết Câu Mở Đầu Thu Hút
+          | Chủ đề | Công thức câu mở đầu |
+          |---|---|
+          | Câu chuyện nghề nghiệp | "Cách [Ai đó] đạt được [Kết quả] trong [Thời gian] mà không cần [Điều người khác hay lo ngại]" |
+          | Lấp lỗ hổng kỹ năng | "[Số] sai lầm [Đối tượng] hay mắc phải khi [Làm việc X] và cách sửa gọn trong 10 phút" |
+          | Thị trường IT | "Báo cáo [Chủ đề] năm 2026: Số liệu thật từ [Nguồn], không đoán mò" |
+          | Cập nhật sản phẩm | "Tính năng mới giúp [Người dùng] tiết kiệm [Bao nhiêu thời gian] — Xem thử 20 giây" |
 
-          ## Repurpose Workflow: 1 Blog → Multi-channel
-          **Input**: Blog article 2000 từ (Ví dụ: "Hướng dẫn chọn mentor dev VN 2024")
+          ## Quy Trình Chuyển 1 Bài Blog Thành Nhiều Định Dạng
+          Từ 1 bài Blog gốc 2.000 từ (ví dụ: *"Cách chọn người hướng dẫn phù hợp"*):
 
-          | Output | Format | Effort | Tool |
-          |--------|--------|--------|------|
-          | LinkedIn Carousel #1 | 5 slides: Problem → 3 Criteria → Checklist → CTA | 20p | Canva template |
-          | LinkedIn Carousel #2 | 5 slides: Red flags mentor + Case study | 20p | Canva template |
-          | LinkedIn Text Post | Personal take + 1 key insight + Question | 10p | Direct write |
-          | Twitter Thread | 10 tweets: Hook → 5 criteria → 3 red flags → CTA | 15p | Typefully/Buffer |
-          | FB Group Post | Summary + "Full checklist tại blog" + Image | 10p | Direct share |
-          | Newsletter Section | 200 từ summary + Link + 1 actionable tip | 10p | Beehiiv editor |
-          | YouTube Short/Reel | 60s: "3 criteria chọn mentor" (talking head) | 30p | CapCut/Descript |
+          | Thành phẩm | Định dạng | Thời gian làm | Công cụ |
+          |---|---|---|---|
+          | Bộ ảnh LinkedIn #1 | 5 trang trượt: Vấn đề → 3 tiêu chí → Bảng kiểm → Kêu gọi | 20 phút | Canva |
+          | Bộ ảnh LinkedIn #2 | 5 trang trượt: 3 dấu hiệu cảnh báo khi chọn nhầm người | 20 phút | Canva |
+          | Bài viết LinkedIn chữ | Kể 1 góc nhìn cá nhân kèm câu hỏi gợi mở | 10 phút | Viết trực tiếp |
+          | Bài đăng hội nhóm Facebook | Tóm tắt 5 ý chính và gắn link bài đầy đủ ở bình luận | 10 phút | Đăng trực tiếp |
+          | Mục trong bản tin Email | Tóm tắt 200 từ và 1 mẹo áp dụng được ngay | 10 phút | Beehiiv / Substack |
+          | Video ngắn 60 giây | Quay dọc nói nhanh 3 tiêu chí chọn người hướng dẫn | 30 phút | CapCut |
 
-          ## Batch Writing Prompts cho AI
-          **Prompt 1 - LinkedIn Carousel từ Blog:**
-          > "Tóm tắt bài blog sau thành LinkedIn Carousel 5 slides. Mỗi slide: Headline (≤ 50 ký tự) + Body (≤ 150 ký tự). Tone: Educational + Actionable. Slide 1: Hook + Problem. Slide 2-4: 3 Key points. Slide 5: CTA + Follow. Bài blog: [PASTE BLOG CONTENT]"
+          ## 3 Câu Lệnh Nhờ AI Viết Nháp Nhanh
+          **Câu lệnh 1 — Chuyển bài Blog thành bộ ảnh trượt LinkedIn 5 trang:**
+          > "Hãy tóm tắt bài viết dưới đây thành nội dung cho 5 trang ảnh trượt trên LinkedIn. Mỗi trang gồm tiêu đề dưới 50 ký tự và nội dung dưới 150 ký tự. Giọng văn gần gũi, dễ áp dụng thực tế. Trang 1 nêu vấn đề, trang 2-4 nêu 3 ý chính, trang 5 kêu gọi lưu bài."
 
-          **Prompt 2 - Twitter Thread từ Blog:**
-          > "Chuyển bài blog thành Twitter thread 10 tweets. Tweet 1: Hook mạnh (số liệu/contrarian). Tweet 2-7: Mỗi key point 1 tweet (≤ 280 chars). Tweet 8: Counter-intuitive insight. Tweet 9: Actionable takeaway. Tweet 10: CTA (Link blog + Follow). Tone: Vulnerable expert."
+          **Câu lệnh 2 — Rút gọn thành bài chia sẻ cho hội nhóm Facebook:**
+          > "Hãy viết lại bài này thành bài đăng hội nhóm Facebook dài khoảng 250-300 chữ. Mở đầu bằng một tình huống ai cũng từng gặp, chia 3 gạch đầu dòng ngắn gọn và kết thúc bằng 1 câu hỏi mời mọi người bình luận."
 
-          **Prompt 3 - Newsletter Issue:**
-          > "Viết newsletter issue từ 3 content pieces tuần này: [LIST 3 LINKS/TITLES]. Structure: Opening personal note (50 từ) → 3 sections (Title + 100 từ summary + 1 actionable tip + Link) → Closing (Question để reply + Next week preview). Tone: Friendly mentor. Length: ~800 từ."
-        context: "Content calendar thực tế 4 tuần cho side project launch, solo founder, batch production với AI"
+          **Câu lệnh 3 — Soạn bản tin Email cuối tuần:**
+          > "Hãy viết 1 email bản tin khoảng 600-800 chữ tổng hợp 3 bài viết tuần này, mở đầu bằng lời chào thân thiện như một người bạn và kết bằng câu hỏi gợi mở để người đọc trả lời."
+        context: "Lịch đăng bài 4 tuần cho dự án mới ra mắt, làm một mình, kết hợp AI hỗ trợ viết nháp"
     difficulty: "easy"
     useCases:
-      - "Lên kế hoạch content 1 tháng cho side project"
-      - "Batch production content với AI assist"
-      - "Repurpose 1 content thành multi-channel hiệu quả"
+      - "Lên lịch nội dung đều đặn trong 1 tháng cho dự án mới"
+      - "Viết gộp theo đợt với AI để không tốn quá nhiều thời gian hằng ngày"
+      - "Biến 1 bài viết dài thành nhiều bài đăng cho các kênh khác nhau"
+
   - id: prompt-launch-tactics-checklist
-    name: "Launch Tactics: Product Hunt, Hacker News, Communities"
-    description: "Checklist chi tiết cho các launch platform lớn: Product Hunt, HN, Reddit, BetaList, AlternativeTo"
+    name: "Bảng Kiểm Ra Mắt Sản Phẩm Đa Kênh"
+    description: "Danh sách việc cần chuẩn bị từng bước trước, trong và sau ngày ra mắt trên Product Hunt, Hacker News, Reddit và cộng đồng Việt Nam"
     template: |
-      Bạn là Launch Specialist. Hãy tạo launch tactics checklist cho: {{projectName}}.
+      Bạn là chuyên gia hỗ trợ ra mắt sản phẩm số cho dự án nhỏ. Hãy lập bảng kiểm ra mắt chi tiết cho: {{projectName}}.
 
-      **Thông tin:**
-      - Tagline (≤ 60 chars): {{tagline}}
-      - Mô tả ngắn (≤ 260 chars): {{shortDesc}}
-      - Website URL: {{website}}
-      - Demo/Video URL: {{demoUrl}}
-      - Logo/Banner assets: {{assetsReady}}
-      - Launch date target: {{launchDate}}
-      - Team hỗ trợ: {{teamSupport}}
-      - Kênh phân phối ưu tiên: {{priorityPlatforms}}
+      **Thông tin dự án:**
+      - Câu khẩu hiệu ngắn gọn (tối đa 60 ký tự): {{tagline}}
+      - Mô tả ngắn (tối đa 260 ký tự): {{shortDesc}}
+      - Địa chỉ trang web: {{website}}
+      - Đường dẫn video minh họa (nếu có): {{demoUrl}}
+      - Tài liệu hình ảnh đã chuẩn bị: {{assetsReady}}
+      - Ngày dự kiến ra mắt: {{launchDate}}
+      - Lực lượng hỗ trợ: {{teamSupport}}
+      - Kênh ưu tiên ra mắt: {{priorityPlatforms}}
 
-      **Yêu cầu tạo checklist cho từng platform:**
-      1. **Product Hunt**: Pre-launch (hunter, comments, upvote crew), Launch day schedule, Post-launch
-      2. **Hacker News**: Submit timing, Title format, Comment strategy, "Show HN" vs "Launch HN"
-      3. **Reddit**: Subreddit targeting, Value-first posts, Self-promo rules, AMA format
-      4. **BetaList / AlternativeTo / SaaSHub**: Submission requirements, Screenshots, Categories
-      5. **Vietnam Communities**: Facebook Groups, Discord, VN forums, LinkedIn groups VN
-      6. **Cross-posting & Repurpose**: Timeline coordination, Unique angle per platform
+      **Hãy lập danh sách việc cần làm theo từng giai đoạn và từng nền tảng:**
+      1. **Chuẩn bị tài liệu hình ảnh (trước 14 ngày)**: Ảnh bìa, ảnh màn hình, video ngắn, bộ tài liệu giới thiệu dự án.
+      2. **Product Hunt**: Chuẩn bị trước khi lên trang, lịch trực chiến trong ngày và tổng kết sau khi ra mắt.
+      3. **Hacker News**: Cách đặt tiêu đề "Show HN", khung giờ đăng và bình luận mở đầu của tác giả.
+      4. **Reddit**: Chọn đúng cộng đồng nhỏ, nguyên tắc chia sẻ giá trị trước khi giới thiệu sản phẩm.
+      5. **Cộng đồng Việt Nam**: Nhóm Facebook, Discord, LinkedIn và diễn đàn công nghệ trong nước.
+      6. **Điều phối lịch đăng chéo giữa các kênh** để không bị đánh dấu làm phiền (spam).
     variables:
       - name: projectName
         type: text
@@ -380,196 +381,185 @@ prompts:
         required: true
       - name: tagline
         type: text
-        label: "Tagline (≤ 60 ký tự)"
+        label: "Câu khẩu hiệu ngắn gọn (tối đa 60 ký tự)"
         required: true
       - name: shortDesc
         type: textarea
-        label: "Mô tả ngắn (≤ 260 ký tự)"
+        label: "Mô tả ngắn sản phẩm (tối đa 260 ký tự)"
         required: true
       - name: website
         type: text
-        label: "Website URL"
+        label: "Địa chỉ trang web"
         required: true
       - name: demoUrl
         type: text
-        label: "Demo/Video URL (Loom, YouTube)"
+        label: "Đường dẫn video minh họa (YouTube hoặc Loom)"
         required: false
+        default: "Chưa có video minh họa"
       - name: assetsReady
         type: multiselect
-        label: "Assets đã sẵn sàng"
+        label: "Tài liệu và hình ảnh đã chuẩn bị"
         options:
-          - "Logo (SVG/PNG, multiple sizes)"
-          - "Banner/Thumbnail (1200x630 for OG)"
-          - "Product screenshots (5-8, high quality)"
-          - "Demo video/GIF (≤ 60s)"
-          - "Founder photo + bio"
-          - "Press kit (Notion/Google Drive)"
-          - "Chưa có asset nào"
+          - "Logo nhiều kích thước (SVG / PNG)"
+          - "Ảnh bìa chia sẻ mạng xã hội (1200x630)"
+          - "Ảnh chụp màn hình sản phẩm (5-8 ảnh nét)"
+          - "Video hoặc ảnh động minh họa dưới 60 giây"
+          - "Ảnh chân dung và giới thiệu người làm dự án"
+          - "Bộ tài liệu giới thiệu dự án (Press kit)"
+          - "Chưa chuẩn bị tài liệu nào"
         required: true
-        default: ["Chưa có asset nào"]
+        default: ["Chưa chuẩn bị tài liệu nào"]
       - name: launchDate
         type: date
-        label: "Ngày launch mục tiêu"
+        label: "Ngày dự kiến ra mắt"
         required: true
       - name: teamSupport
         type: select
-        label: "Team hỗ trợ launch"
+        label: "Lực lượng hỗ trợ ngày ra mắt"
         options:
-          - "Solo (1 người làm tất cả)"
-          - "1-2 người giúp (friends/cofounder)"
-          - "Small team (3-5 người)"
-          - "Có community sẵn (>100 followers)"
+          - "Làm một mình (Solo)"
+          - "Có 1-2 người bạn hoặc đồng sáng lập phụ giúp"
+          - "Nhóm nhỏ 3-5 người"
+          - "Đã có cộng đồng sẵn trên 100 người theo dõi"
         required: true
-        default: "Solo (1 người làm tất cả)"
+        default: "Làm một mình (Solo)"
       - name: priorityPlatforms
         type: multiselect
-        label: "Platform ưu tiên"
+        label: "Nền tảng ưu tiên ra mắt"
         options:
           - "Product Hunt"
           - "Hacker News"
-          - "Reddit (r/sideproject, r/IndieHackers, r/vnprogramming)"
+          - "Diễn đàn Reddit (r/sideproject / r/IndieHackers / r/vnprogramming)"
           - "BetaList"
           - "AlternativeTo"
           - "SaaSHub"
-          - "Facebook Groups VN"
+          - "Hội nhóm Facebook Việt Nam"
           - "LinkedIn"
-          - "Twitter/X"
-          - "Discord Communities"
+          - "X/Twitter"
+          - "Cộng đồng Discord"
         required: true
-        default: ["Product Hunt", "Facebook Groups VN", "LinkedIn", "Twitter/X"]
+        default: ["Product Hunt", "Hội nhóm Facebook Việt Nam", "LinkedIn", "X/Twitter"]
     examples:
       - inputs:
-          projectName: "MentorConnect Vietnam"
-          tagline: "Mentor marketplace cho dev Việt Nam - Local payment, vetted mentors"
-          shortDesc: "Kết nối developer junior với mentor senior Việt Nam đã được verify. Thanh toán Momo/VNPay, booking linh hoạt, focus 100% context VN."
+          projectName: "MentorConnect Việt Nam"
+          tagline: "Đặt lịch tư vấn nghề IT cùng người đi trước tại Việt Nam"
+          shortDesc: "Kết nối lập trình viên trẻ với người hướng dẫn giàu kinh nghiệm đã được kiểm duyệt. Thanh toán MoMo/VNPay tiện lợi, đặt lịch linh hoạt theo buổi."
           website: "https://mentorconnect.vn"
           demoUrl: "https://loom.com/share/mentorconnect-demo"
-          assetsReady: '["Logo (SVG/PNG, multiple sizes)", "Banner/Thumbnail (1200x630 for OG)", "Product screenshots (5-8, high quality)", "Demo video/GIF (≤ 60s)"]'
-          launchDate: "2024-02-15"
-          teamSupport: "Solo (1 người làm tất cả)"
-          priorityPlatforms: '["Product Hunt", "Facebook Groups VN", "LinkedIn", "Twitter/X"]'
+          assetsReady:
+            - "Logo nhiều kích thước (SVG / PNG)"
+            - "Ảnh bìa chia sẻ mạng xã hội (1200x630)"
+            - "Ảnh chụp màn hình sản phẩm (5-8 ảnh nét)"
+            - "Video hoặc ảnh động minh họa dưới 60 giây"
+          launchDate: "2026-06-15"
+          teamSupport: "Làm một mình (Solo)"
+          priorityPlatforms:
+            - "Product Hunt"
+            - "Hội nhóm Facebook Việt Nam"
+            - "LinkedIn"
+            - "X/Twitter"
         output: |
-          # 🚀 Launch Tactics Checklist: MentorConnect Vietnam
+          # Bảng Kiểm Ra Mắt Sản Phẩm: MentorConnect Việt Nam
 
-          ## ASSETS PREPARATION (T-14 → T-3)
-          - [ ] **Logo**: SVG (scalable), PNG 512x512, 256x256, 128x128, Favicon 32x32
-          - [ ] **OG Image**: 1200x630 - Tagline + Screenshot + "Free beta" badge
-          - [ ] **Screenshots (8)**: 1. Landing hero, 2. Mentor list, 3. Mentor profile, 4. Booking flow, 5. Payment, 6. Video call, 7. Dashboard mentor, 8. Dashboard mentee
-          - [ ] **Demo GIF**: 30s - Happy path: Search → Book → Pay → Call → Review
-          - [ ] **Loom Video**: 3 min walkthrough - Feature + Vision + Tech stack
-          - [ ] **Press Kit**: Notion page - One-liner, Long desc, Founder story, Metrics, Logos, Contact
-          - [ ] **Hunter Deck**: 1-pager PDF cho PH hunter (Problem, Solution, Traction, Ask)
+          ## Phần 1: Chuẩn Bị Hình Ảnh & Tài Liệu (Trước 14 Ngày Đến 3 Ngày)
+          - [ ] **Logo**: Bản vector rõ nét kèm các cỡ 512x512, 256x256, 128x128 và biểu tượng tab trình duyệt 32x32.
+          - [ ] **Ảnh bìa chia sẻ link (1200x630)**: Chứa câu khẩu hiệu, ảnh màn hình chính và nhãn "Dùng thử miễn phí".
+          - [ ] **8 ảnh chụp màn hình rõ nét**: Trang chủ, danh sách người hướng dẫn, hồ sơ chi tiết, chọn lịch, thanh toán, phòng gọi video, bảng điều khiển học viên và người hướng dẫn.
+          - [ ] **Ảnh động minh họa 30 giây**: Quay liền mạch từ lúc tìm người → đặt lịch → thanh toán → gọi video → đánh giá.
+          - [ ] **Video giới thiệu 3 phút**: Nói rõ sản phẩm giải quyết vấn đề gì và cách dùng thực tế.
+          - [ ] **Bộ tài liệu giới thiệu dự án**: Một trang Notion gọn gàng chứa câu chuyện ra đời, số liệu ban đầu, logo tải về và thông tin liên hệ.
 
-          ## PRODUCT HUNT (Primary Launch)
+          ## Phần 2: Ra Mắt Trên Product Hunt (Kênh Chính Quốc Tế)
 
-          ### Pre-Launch (T-14 → T-1)
-          - [ ] **T-14**: Tìm Hunter - Search "Mentor" "Marketplace" "Vietnam" trên PH → DM top 5 hunter đã hunt similar products. Template: "Hi [Name], Hunted [Product] - impressed. Building MentorConnect Vietnam - mentor marketplace for VN devs. Live Feb 15. Deck attached. Would love your thoughts."
-          - [ ] **T-10**: Confirm Hunter (backup 2 hunters). Share deck, assets, launch date.
-          - [ ] **T-7**: Recruit "Upvote Crew" - 20-30 người (friends, beta users, community). Sheet: Name, PH profile, Timezone, Confirmed. Brief: "Feb 15 00:01 PST - Upvote + Meaningful comment (not ' congrats'). I'll send link."
-          - [ ] **T-3**: PH Draft page ready (Hunter submits). Review: Tagline, Description, Topics (Mentorship, Developer Tools, Vietnam), Makers, Website, Video, Gallery.
-          - [ ] **T-1**: Final check all links, assets, hunter confirmed. Schedule launch day calendar.
+          ### Trước Ngày Ra Mắt (Từ T-14 đến T-1)
+          - [ ] **T-14**: Nhắn tin làm quen 5 người hay giới thiệu sản phẩm mới (Hunter) trong mảng giáo dục/công nghệ, gửi kèm bản tóm tắt 1 trang.
+          - [ ] **T-10**: Chốt 1 người giới thiệu chính (và 1 người dự phòng), gửi đầy đủ hình ảnh và ngày giờ đăng.
+          - [ ] **T-7**: Nhờ trước 20-30 người quen hoặc người dùng thử nghiệm sẵn sàng vào góp ý thật lòng vào đúng giờ mở trang.
+          - [ ] **T-3**: Soát lại bản nháp trên Product Hunt: câu khẩu hiệu, mô tả, thẻ chủ đề, tên tác giả và thư viện ảnh.
+          - [ ] **T-1**: Kiểm tra lại mọi đường dẫn trang web, nút thanh toán và lịch trực trong ngày mai.
 
-          ### Launch Day (T-0, Feb 15 - PST Timezone!)
-          | Time (PST) | Action | Owner |
-          |------------|--------|-------|
-          | 00:01 | Hunter submits / Go live | Hunter |
-          | 00:05 | Share link to Upvote Crew (Slack/Discord/Email) | Founder |
-          | 00:10 | Post personal LinkedIn + Twitter + FB Groups (staggered 15p) | Founder |
-          | 00:30 | Reply to EVERY comment on PH (thank you, answer questions) | Founder |
-          | 02:00 | Check metrics: Upvotes, Comments, Traffic (GA/PostHog) | Founder |
-          | 06:00 | "Morning update" post: "Woke up to X upvotes! Top comment: [quote]" | Founder |
-          | 12:00 | Mid-day push: Share specific feature highlight + screenshot | Founder |
-          | 18:00 | Evening push: "Building in public" story + metric update | Founder |
-          | 23:59 | Final thank you post + Recap metrics | Founder |
+          ### Ngày Ra Mắt (T-0, Tính Theo Giờ Mỹ PST / Quy Đổi Giờ Việt Nam)
+          | Giờ PST | Việc cần làm | Người phụ trách |
+          |---|---|---|
+          | 00:01 | Đưa trang sản phẩm lên sóng chính thức | Người giới thiệu / Tác giả |
+          | 00:05 | Gửi đường dẫn cho nhóm bạn bè và người dùng thử để vào bình luận góp ý thật | Tác giả |
+          | 00:10 | Đăng bài trên LinkedIn cá nhân, X và các nhóm Facebook (cách nhau 15 phút) | Tác giả |
+          | 00:30 | Trả lời từng bình luận trên Product Hunt thật nhanh và chân thành | Tác giả |
+          | 06:00 | Đăng bài cập nhật tiến độ buổi sáng kèm 1 nhận xét hay của người dùng | Tác giả |
+          | 12:00 | Chia sẻ thêm 1 tính năng hữu ích nhất kèm ảnh chụp màn hình | Tác giả |
+          | 18:00 | Kể câu chuyện hậu trường làm sản phẩm để giữ tương tác cuối ngày | Tác giả |
+          | 23:59 | Tổng kết số liệu và gửi lời cảm ơn tới mọi người | Tác giả |
 
-          ### Post-Launch (T+1 → T+7)
-          - [ ] **T+1**: Export PH leaderboard position, upvotes, comments, traffic → Notion dashboard
-          - [ ] **T+1**: DM top 10 commenters: "Thanks for the thoughtful comment! Would love 15min chat about your mentor needs."
-          - [ ] **T+2**: Blog post: "Product Hunt Launch Retrospective: Numbers, Lessons, What I'd Do Different"
-          - [ ] **T+3**: Submit to PH "Best of Week" newsletter (if eligible)
-          - [ ] **T+7**: Analyze: Signup from PH → Activation → Booking funnel. Cohort vs organic.
+          ### Sau Ngày Ra Mắt (Từ T+1 đến T+7)
+          - [ ] **T+1**: Ghi lại thứ hạng, số bình chọn, bình luận và lượng người truy cập vào bảng theo dõi.
+          - [ ] **T+1**: Nhắn tin cảm ơn 10 người bình luận tâm huyết nhất và mời họ trò chuyện ngắn 15 phút góp ý thêm.
+          - [ ] **T+2**: Viết bài tổng kết rút kinh nghiệm với các con số thật.
+          - [ ] **T+7**: So sánh nhóm người dùng đến từ đợt ra mắt với nhóm tự tìm qua tìm kiếm xem nhóm nào quay lại đặt lịch nhiều hơn.
 
-          ## HACKER NEWS (Secondary - "Show HN")
-          - [ ] **Account**: Aged account (> 6 months, > 500 karma) - Nếu không có, dùng account cá nhân
-          - [ ] **Title Format**: "Show HN: MentorConnect Vietnam - Mentor marketplace for Vietnamese developers (no-code, Momo/VNPay)"
-          - [ ] **Timing**: Submit 8-10 AM PST (Thứ 2-4 tốt nhất). Tránh cuối tuần.
-          - [ ] **Comment Strategy**: Founder comment đầu tiên: Tech stack, Why Vietnam focus, No-code journey, Metrics transparent
-          - [ ] **Monitor**: Reply technical questions within 30p. Ignore trolls. Upvote good questions.
-          - [ ] **Goal**: Top 30 front page → ~5-10k visits, high-quality dev traffic
+          ## Phần 3: Hacker News ("Show HN")
+          - [ ] Dùng tài khoản cá nhân có lịch sử hoạt động bình thường (tránh tài khoản mới tạo trắng tinh).
+          - [ ] Tiêu đề rõ ràng, không giật tít: *"Show HN: MentorConnect Vietnam – Đặt lịch tư vấn 1-1 cho lập trình viên Việt Nam"*.
+          - [ ] Đăng vào khung 8-10 giờ sáng giờ Mỹ (tối giờ Việt Nam), ưu tiên Thứ 2 đến Thứ 4.
+          - [ ] Bình luận ngay dưới bài để chia sẻ lý do làm sản phẩm, công nghệ sử dụng và những giới hạn hiện tại.
+          - [ ] Mục tiêu lọt top 30 trang đầu để kéo khoảng 5.000-10.000 lượt truy cập chất lượng từ giới kỹ sư.
 
-          ## REDDIT (Community-First)
-          | Subreddit | Approach | Post Type | Timing |
-          |-----------|----------|-----------|--------|
-          | r/sideproject | "Built in public" | Weekly update + Link in comment | Thứ 3, 9 AM PST |
-          | r/IndieHackers | "Launch" flair | Launch post + Revenue/Metrics transparent | Launch day |
-          | r/vnprogramming | Value-first (VN) | "Chia sẻ: 5 sai lầm junior dev khi tìm mentor" + Tool hỗ trợ | Tuần trước launch |
-          | r/VietnamDev | AMA format | "Tôi build marketplace mentor cho dev VN - Ask me anything" | Tuần launch |
-          | r/NoCode | Technical | "Xây dựng marketplace 2-sided trên Bubble: Schema, Payment, Video call" | Tuần sau launch |
+          ## Phần 4: Reddit (Chia Sẻ Giá Trị Trước)
+          | Cộng đồng | Cách tiếp cận | Dạng bài | Thời điểm |
+          |---|---|---|---|
+          | r/sideproject | Kể hành trình làm thật | Cập nhật tiến độ tuần, đặt đường dẫn ở bình luận | Thứ 3 |
+          | r/IndieHackers | Chia sẻ bài học và số liệu | Bài tổng kết ngày ra mắt minh bạch | Ngày ra mắt |
+          | r/vnprogramming | Chia sẻ kinh nghiệm tiếng Việt | "5 sai lầm khi tìm người hướng dẫn" kèm gợi ý công cụ | Trước ra mắt 1 tuần |
+          | r/VietnamDev | Hỏi đáp trực tiếp | "Mình tự làm sàn đặt lịch tư vấn IT, mời mọi người góp ý" | Tuần ra mắt |
+          | r/NoCode | Chia sẻ kỹ thuật dựng không code | "Cách mình ghép luồng đặt lịch và thanh toán nội địa" | Sau ra mắt 1 tuần |
 
-          **Rules**: Mỗi subreddit đọc wiki/rules. Tỷ lệ 9:1 (value:self-promo). Không post duplicate cross-sub.
+          ## Phần 5: Cộng Đồng Việt Nam (Tỷ Lệ Chuyển Đổi Cao Nhất)
+          | Cộng đồng | Quy mô tham khảo | Hình thức bài đăng | Lưu ý |
+          |---|---|---|---|
+          | Nhóm Facebook "Lập trình viên Việt Nam" | 200.000+ thành viên | Chia sẻ kiến thức hữu ích trước, gắn link ở cuối bài hoặc bình luận | Xin phép quản trị viên trước |
+          | Nhóm Facebook "IT Jobs Vietnam" | 150.000+ thành viên | Kể câu chuyện thực tế kèm suất trải nghiệm miễn phí | Đăng trực tiếp |
+          | Máy chủ Discord "Vietnam Developers" | 5.000+ thành viên | Kênh giới thiệu dự án cá nhân | Nhờ điều hành viên duyệt |
+          | Máy chủ Discord "Indie Hackers VN" | 1.000+ thành viên | Kênh dự án cá nhân và nhật ký hằng tuần | Đăng trực tiếp |
+          | Nhóm LinkedIn chuyên ngành IT Việt Nam | 50.000+ thành viên | Chia sẻ bài phân tích chuyên sâu | Dùng trang cá nhân |
 
-          ## VIETNAM COMMUNITIES (High Intent)
-          | Community | Size | Format | Contact/Method |
-          |-----------|------|--------|----------------|
-          | Facebook: "Lập trình viên Việt Nam" | 200k+ | Post value + Link bio | Admin approval needed |
-          | Facebook: "IT Jobs Vietnam / Dev Vietnam" | 150k+ | Case study + Free beta offer | Direct post |
-          | Discord: "Vietnam Developers" | 5k+ | #showcase channel + AMA voice | Mod contact |
-          | Discord: "Indie Hackers VN" | 1k+ | #projects + Weekly update | Direct post |
-          | LinkedIn Groups: "Vietnam IT Professionals" | 50k+ | Article share + Comment engage | Personal profile |
-          | TopDev / ITviec / VietnamWorks | Blog/Forum | Guest post / Case study | Editorial contact |
+          ## Phần 6: Lịch Phối Hợp Đăng Bài Không Bị Đánh Dấu Làm Phiền
+          | Nền tảng | Mốc thời gian | Góc tiếp cận riêng |
+          |---|---|---|
+          | BetaList | Trước 14 ngày (T-14) | Giới thiệu phiên bản sắp ra mắt để gom danh sách chờ |
+          | Reddit r/vnprogramming | Trước 7 ngày (T-7) | Bài chia sẻ kinh nghiệm hoàn toàn không gắn link bán hàng |
+          | Nhóm Facebook Việt Nam | Trước 3 ngày (T-3) | Nhá hàng công cụ mới, mời 25 người đầu tiên đăng ký thử |
+          | Product Hunt | Ngày T-0 | Ra mắt chính thức với đầy đủ hình ảnh và video |
+          | LinkedIn & X cá nhân | Ngày T-0 | Kể câu chuyện làm sản phẩm và hành trình 3 tuần xây dựng |
+          | Hacker News | Ngày T+1 | Phân tích sâu bài toán kỹ thuật và thị trường ngách |
+          | Bản tin Email & Blog | Ngày T+2 đến T+3 | Tổng kết kết quả ngày ra mắt và hướng dẫn chi tiết |
 
-          ## BETALIST / ALTERNATIVETO / SAASHUB (SEO Backlinks)
-          - [ ] **BetaList**: Submit 2 tuần trước launch. Requirements: Landing page, Email capture, Unique value. Approval 3-7 ngày.
-          - [ ] **AlternativeTo**: Submit sau launch. Category: "Mentorship Platform". Screenshots + Description.
-          - [ ] **SaaSHub**: Submit free. Auto-approve usually. Good for long-tail SEO.
-          - [ ] **Product Hunt Alternatives**: Uneed.best, Launching.Next, Toolify - Submit all (15p each).
-
-          ## CROSS-POSTING TIMELINE (Coordination)
-          | Platform | Relative to PH Launch | Unique Angle |
-          |----------|----------------------|--------------|
-          | BetaList | T-14 | "Upcoming: Mentor marketplace for VN devs" |
-          | Reddit r/vnprogramming | T-7 | Value post (no link) - Build awareness |
-          | Facebook Groups | T-3 | "Sắp ra mắt: Tool tìm mentor dev VN" - Collect waitlist |
-          | Product Hunt | T-0 (00:01 PST) | Main launch - Full assets |
-          | Hacker News | T+1 (08:00 PST) | "Show HN: Technical deep-dive" |
-          | LinkedIn Personal | T+0 (08:00 VN) | Builder journey + Metrics |
-          | Twitter/X | T+0 (08:00 VN) | Thread: 6 weeks build story |
-          | Discord Communities | T+1 | AMA announcement |
-          | Newsletter (own) | T+2 | Launch retrospective + Metrics |
-          | Blog (SEO) | T+3 | "How I built MentorConnect on Bubble" |
-
-          ## SOLO FOUNDER LAUNCH DAY SURVIVAL GUIDE
-          - **Sleep**: 6h tối thiểu đêm trước. Không overnight.
-          - **Food**: Prep sẵn ăn trưa/tối. Caffeine controlled.
-          - **Notifications**: Tắt non-essential. Chỉ PH, HN, GA, Slack/Discord crew.
-          - **Template replies**: "Cảm ơn [Name]! Câu hỏi hay. [Short answer]. Chi tiết tại [link]."
-          - **Screenshot everything**: Metrics, Comments, Traffic spikes - Dùng cho retrospective.
-          - **Celebrate**: Dù kết quả ra sao, uống 1 ly cà phê/beer cuối ngày. Bạn đã LAUNCH.
-        context: "Launch tactics chi tiết cho solo founder VN, focus Product Hunt + VN communities"
+          ## Mẹo Giữ Sức Cho Người Ra Mắt Một Mình
+          - Ngủ đủ ít nhất 6 tiếng đêm trước ngày ra mắt, chuẩn bị sẵn đồ ăn nhẹ.
+          - Tắt bớt thông báo không cần thiết, chỉ giữ lại kênh phản hồi người dùng.
+          - Chuẩn bị sẵn 3 mẫu câu trả lời cảm ơn lịch sự để phản hồi nhanh trong lúc cao điểm.
+          - Chụp lại toàn bộ số liệu và bình luận đáng nhớ để làm tư liệu viết bài tổng kết sau này.
+        context: "Bảng kiểm ra mắt sản phẩm cho người làm một mình tại Việt Nam, kết hợp kênh quốc tế và cộng đồng trong nước"
     difficulty: "medium"
     useCases:
-      - "Chuẩn bị launch Product Hunt lần đầu"
-      - "Cross-post đa platform không bị spam"
-      - "Tận dụng communities VN hiệu quả"
+      - "Chuẩn bị ra mắt sản phẩm trên Product Hunt lần đầu tiên"
+      - "Phối hợp đăng bài nhiều nền tảng mà không gây khó chịu cho cộng đồng"
+      - "Tận dụng hiệu quả các nhóm Facebook và Discord công nghệ tại Việt Nam"
 agentTemplate:
-  name: "Side Project Marketing Agent"
-  description: "AI marketing partner cho indie hacker: Strategy, Content, Launch, Growth - ưu tiên low-budget, high-leverage"
+  name: "Trợ Lý Tiếp Thị Dự Án Cá Nhân"
+  description: "Người bạn đồng hành giúp bạn lập kế hoạch tiếp thị gọn nhẹ, viết lịch đăng bài và chuẩn bị ngày ra mắt với ngân sách thấp"
   systemPrompt: |
-    Bạn là Side Project Marketing Agent - AI partner cho solo founder/indie hacker marketing side project.
+    Bạn là Trợ Lý Tiếp Thị Dự Án Cá Nhân chuyên hỗ trợ người tự xây dựng sản phẩm với nguồn lực nhỏ.
 
-    Nhiệm vụ:
-    1. **Strategy**: One-page marketing plan, Positioning, North Star Metric, Rule of 3 channels
-    2. **Content**: Calendar, Hook templates, Repurpose workflow, AI batch prompts
-    3. **Launch**: PH/HN/Reddit/VN communities checklist, Timeline coordination, Asset prep
-    4. **Growth**: Funnel analysis, RICE prioritization, Experiment design, Retention loops
-    5. **Vietnam Context**: Facebook Groups strategy, Zalo/Messenger outreach, Local payment trust signals, VN holidays/calendar, Tax/legal marketing claims
+    Nhiệm vụ chính:
+    1. Lập chiến lược tiếp thị gọn trên 1 trang, xác định đúng chân dung khách hàng lý tưởng (ICP) và chọn 3 kênh tập trung nhất.
+    2. Lên lịch đăng bài 4 tuần, công thức câu mở đầu thu hút và cách biến 1 bài dài thành nhiều định dạng ngắn.
+    3. Chuẩn bị danh sách việc cần làm cho ngày ra mắt trên các cộng đồng trong nước và quốc tế.
+    4. Gợi ý cách đo lường phễu chuyển đổi và tối ưu tăng trưởng tự nhiên không tốn nhiều tiền quảng cáo.
 
-    Phong cách: Practical, data-informed, resource-constrained aware. Ưu tiên organic > paid. Systems > one-offs.
-    Luôn hỏi: Budget? Time? Current channels? Technical skills? Trước khi recommend.
+    Nguyên tắc giao tiếp: Thực tế, gần gũi, dễ áp dụng ngay, ưu tiên tăng trưởng tự nhiên và thói quen làm đều đặn. Luôn hỏi rõ ngân sách, thời gian rảnh hằng tuần và kênh sẵn có trước khi đề xuất.
   model: "gpt-4"
   temperature: 0.7
   tools:
-    - "web_search"
+    - "Tìm kiếm thông tin"
   maxTokens: 4000
 relatedSkillIds:
   - "xac-dinh-y-tuong-side-project"
@@ -579,6 +569,6 @@ relatedSkillIds:
 author: "AI Life Hub Team"
 source: ""
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: marketing-side-project
 ---

@@ -1,38 +1,36 @@
 ---
 id: clean-code-refactor
 categoryId: lap-trinh
-name: "Clean Code & Refactor"
-description: "Viết code sạch, dễ đọc, dễ bảo trì: đặt tên, hàm nhỏ, loại bỏ code hôi, tách biệt quyền hạn"
+name: "Viết Mã Nguồn Sạch (Clean Code) & Tái Cấu Trúc (Refactor)"
+description: "Viết mã nguồn dễ đọc, dễ bảo trì: đặt tên rõ nghĩa, tách hàm nhỏ, loại bỏ dấu hiệu mã nguồn có vấn đề (code smells) và tách biệt trách nhiệm"
 whenToUse:
-  - "Code review của đồng nghiệp"
-  - "Dự án legacy cần tái cấu trúc"
-  - "Cần thêm tính năng mới mà không làm hỏng code cũ"
+  - "Đọc và góp ý mã nguồn (Code review) cho đồng nghiệp trên Pull Request"
+  - "Dự án cũ (legacy) rối rắm cần tái cấu trúc lại cho gọn"
+  - "Muốn thêm tính năng mới mà không làm hỏng logic cũ đang chạy ổn"
 difficulty: "intermediate"
-estimatedTime: "1-2 giờ/refactor session"
+estimatedTime: "1-2 giờ cho mỗi phiên tái cấu trúc"
 tags: ["clean-code", "refactoring", "software-craftsmanship", "maintainability"]
 prompts:
   - id: prompt-clean-code-review
-    name: "Review code theo nguyên tắc Clean Code"
-    description: "Phân tích đoạn code, đưa ra đề xuất cải thiện theo Clean Code principles"
+    name: "Đánh Giá & Tái Cấu Trúc Mã Nguồn (Clean Code)"
+    description: "Phân tích đoạn mã nguồn hiện tại, chỉ ra điểm rối và đề xuất cách viết lại sạch sẽ, dễ bảo trì hơn"
     template: |
-      Bạn là Senior Software Engineer & Code Reviewer. Hãy review đoạn code sau:
+      Bạn là Kỹ sư Phần mềm Cao cấp (Senior Software Engineer) chuyên đánh giá mã nguồn. Hãy kiểm tra đoạn mã dưới đây:
 
       ```{{language}}
       {{codeSnippet}}
       ```
 
-      **Yêu cầu phân tích:**
-      1. **Code Smells**: Liệt kê các dấu hiệu code hôi (long method, magic number, duplicate code, God class...)
-      2. **Clean Code Violations**: Vi phạm nguyên tắc (đặt tên, hàm quá dài, nesting quá sâu, side effect...)
-      3. **Refactor đề xuất**: Đưa ra đoạn code đã refactor (ví dụ code rõ ràng hơn)
-      4. **Lý do**: Giải thích tại sao thay đổi này tốt hơn (readability, maintainability, testability)
-      5. **Unit Test gợi ý**: Test case nào nên viết để đảm bảo refactor không hỏng tính năng
-
-      Output: Có bảng so sánh "Trước/Sau" và lý do thay đổi.
+      **Hãy phân tích chi tiết theo 5 phần (kèm bảng so sánh Trước / Sau và giải thích rõ lý do):**
+      1. **Dấu hiệu mã nguồn có vấn đề (Code Smells)**: Hàm quá dài, con số bí ẩn (magic number), lặp mã, lồng điều kiện quá sâu hoặc ôm đồm nhiều việc.
+      2. **Các nguyên tắc viết mã sạch bị vi phạm**: Đặt tên mơ hồ, hàm làm thay đổi dữ liệu bên ngoài ngoài ý muốn (side effect) hoặc khó đọc.
+      3. **Đoạn mã đã tái cấu trúc (Refactor)**: Viết lại rõ ràng, dễ hiểu và có chú thích hàm đầy đủ.
+      4. **Giải thích lý do thay đổi**: Vì sao cách viết mới giúp dễ đọc hơn, dễ bảo trì hơn và dễ viết kiểm thử hơn.
+      5. **Các tình huống kiểm thử đơn vị (Unit Test) gợi ý**: Đảm bảo sau khi sửa lại không làm sai lệch hành vi cũ.
     variables:
       - name: codeSnippet
         type: textarea
-        label: "Đoạn code cần review"
+        label: "Đoạn mã nguồn cần đánh giá"
         required: true
       - name: language
         type: text
@@ -55,18 +53,18 @@ prompts:
             }
           language: "JavaScript"
         output: |
-          # 🔍 Code Review: `calc` Function
+          # Đánh Giá Mã Nguồn: Hàm `calc`
 
-          ## Code Smells
-          | Vấn đề | Mô tả | Nguy cơ |
-          |--------|-------|---------|
-          | Tên biến không rõ nghĩa | `a`, `b`, `c`, `d`, `i` không biết ý nghĩa | Khó hiểu, dễ sai khi sửa |
-          | Magic number / Logic ngầm | `> b`, `+ c`, `- c` không biết ý nghĩa business | Khó bảo trì |
-          | Hàm làm quá nhiều việc | Lặp mảng + điều kiện + cộng/trừ trong 1 hàm | Vi phạm Single Responsibility |
+          ## 1. Dấu Hiệu Mã Nguồn Có Vấn Đề (Code Smells)
+          | Vấn đề phát hiện | Mô tả cụ thể | Rủi ro khi bảo trì |
+          |---|---|---|
+          | Tên hàm và biến vô nghĩa | `calc`, `a`, `b`, `c`, `d` không cho biết đang tính toán nghiệp vụ gì | Người đọc sau mất thời gian đoán, rất dễ truyền nhầm thứ tự tham số |
+          | Logic ngầm không rõ ràng | So sánh `> b`, cộng/trừ `c` không thấy mục đích nghiệp vụ | Khi đổi quy tắc tính dễ sửa sai |
+          | Vòng lặp thủ công dài dòng | Tự quản lý biến đếm `i` và biến tạm `d` thay vì dùng hàm xử lý mảng có sẵn | Dễ phát sinh lỗi lệch chỉ số khi mở rộng |
 
-          ## Đề xuất Refactor
+          ## 2. Đề Xuất Tái Cấu Trúc (So Sánh Trước / Sau)
 
-          **Trước:**
+          **Trước khi sửa:**
           ```javascript
           function calc(a, b, c) {
             let d = 0;
@@ -81,14 +79,14 @@ prompts:
           }
           ```
 
-          **Sau:**
+          **Sau khi sửa:**
           ```javascript
           /**
-           * Tính toán tổng điều chỉnh dựa trên ngưỡng giá trị
-           * @param {number[]} values - Danh sách giá trị đầu vào
+           * Tính tổng mức điều chỉnh dựa trên ngưỡng so sánh cho danh sách giá trị đầu vào
+           * @param {number[]} values - Danh sách các giá trị cần xét
            * @param {number} threshold - Ngưỡng so sánh
-           * @param {number} adjustment - Số tiền điều chỉnh
-           * @returns {number} Tổng điều chỉnh sau khi áp dụng
+           * @param {number} adjustment - Mức cộng hoặc trừ cho mỗi phần tử
+           * @returns {number} Tổng điều chỉnh cuối cùng
            */
           function calculateTotalAdjustment(values, threshold, adjustment) {
             return values.reduce((total, value) => {
@@ -99,43 +97,42 @@ prompts:
           }
           ```
 
-          ## Lý do thay đổi
-          1. **Đặt tên rõ ràng**: `calc` → `calculateTotalAdjustment`, `a/b/c/d` → `values/threshold/adjustment/total`
-          2. **Hàm đơn responsabilité**: Chỉ tính toán, không side effect
-          3. **Sử dụng reduce**: Thay vì vòng lặp `for` thủ công, ngắn gọn và hàm thuần túy (pure function)
-          4. **Không còn magic number**: Tham số rõ ràng ý nghĩa business
+          ## 3. Lý Do Thay Đổi
+          1. **Đặt tên tự giải thích**: Đổi `calc` → `calculateTotalAdjustment` và `a/b/c/d` → `values/threshold/adjustment/total`, đọc tên là hiểu ngay mục đích.
+          2. **Hàm đơn nhiệm (Single Responsibility)**: Hàm chỉ làm một việc duy nhất là tính toán và trả về kết quả, không làm thay đổi dữ liệu bên ngoài (hàm thuần túy).
+          3. **Dùng `reduce` gọn sạch**: Loại bỏ biến tạm và vòng lặp `for` thủ công, giảm khả năng nhầm lẫn khi đọc mã.
+          4. **Tài liệu hóa đầu vào/đầu ra rõ ràng**: Bổ sung chú thích JSDoc để trình soạn thảo code (IDE) gợi ý kiểu dữ liệu chính xác.
 
-          ## Unit Test gợi ý
-          - `calculateTotalAdjustment([], 10, 5)` → `0` (mảng rỗng)
-          - `calculateTotalAdjustment([5, 15, 25], 10, 5)` → `5` (2 giá trị > 10: +5+5, 1 giá trị < 10: -5)
-          - `calculateTotalAdjustment([1, 2, 3], 10, 5)` → `-15` (tất cả < 10: -5-5-5)
-        context: "Review function JavaScript đơn giản, áp dụng reduce và tên biến rõ nghĩa"
+          ## 4. Kiểm Thử Đơn Vị (Unit Test) Gợi Ý
+          - `calculateTotalAdjustment([], 10, 5)` → `0` (trường hợp mảng rỗng)
+          - `calculateTotalAdjustment([5, 15, 25], 10, 5)` → `5` (2 phần tử lớn hơn 10 cộng 10, 1 phần tử nhỏ hơn 10 trừ 5)
+          - `calculateTotalAdjustment([1, 2, 3], 10, 5)` → `-15` (cả 3 phần tử đều nhỏ hơn 10)
+        context: "Đánh giá hàm JavaScript đơn giản, đổi tên biến rõ nghĩa và dùng reduce"
     difficulty: "medium"
     useCases:
-      - "Review PR trên GitHub"
-      - "Refactor code legacy trước khi thêm tính năng mới"
+      - "Kiểm tra chéo mã nguồn trước khi gộp nhánh (Pull Request)"
+      - "Làm sạch các đoạn code cũ khó hiểu trước khi thêm tính năng mới"
+
   - id: prompt-unit-test-tdd
-    name: "Viết Unit Test & TDD"
-    description: "Kỹ thuật viết test trước code (Red-Green-Refactor), mock, assert, coverage"
+    name: "Viết Kiểm Thử Đơn Vị (Unit Test) & Phát Triển Hướng Kiểm Thử (TDD)"
+    description: "Áp dụng quy trình viết kiểm thử trước khi viết code (Đỏ → Xanh → Tái cấu trúc), giả lập phụ thuộc và kiểm tra độ bao phủ"
     template: |
-      Bạn là QA Engineer & TDD Coach. Hãy viết Unit Test cho hàm sau:
+      Bạn là kỹ sư đảm bảo chất lượng phần mềm (QA Engineer) và người hướng dẫn phương pháp phát triển hướng kiểm thử (TDD — viết kịch bản kiểm tra trước rồi mới viết mã xử lý). Hãy viết bộ kiểm thử đơn vị cho đoạn mã sau:
 
       ```{{language}}
       {{functionCode}}
       ```
 
-      **Yêu cầu:**
-      1. Test cases bao gồm: Happy path, Edge cases, Error cases
-      2. Sử dụng framework: {{testFramework}} (Jest / PyTest / JUnit...)
-      3. Mock các dependency ngoài (API, database, file system)
-      4. Theo luồng TDD: Red (test fail) → Green (code pass) → Refactor
-      5. Độ bao phủ (coverage) mục tiêu: ≥ 80%
-
-      Output: Code test có thể copy chạy ngay, cùng giải thích từng case.
+      **Yêu cầu thực hiện (xuất ra mã kiểm thử chạy được ngay kèm bảng giải thích từng tình huống):**
+      1. Bao phủ đầy đủ 3 nhóm: **Luồng chuẩn (Happy path)**, **Trường hợp ngoại lệ / giá trị biên (Edge cases)** và **Xử lý lỗi (Error cases)**.
+      2. Sử dụng bộ khung kiểm thử: {{testFramework}}.
+      3. Hướng dẫn cách giả lập (Mock) các thành phần bên ngoài như API, cơ sở dữ liệu hoặc hệ thống tệp nếu hàm có phụ thuộc.
+      4. Mô tả rõ chu trình 3 bước: **Đỏ** (viết test và thấy lỗi) → **Xanh** (viết mã vừa đủ để vượt qua) → **Tái cấu trúc** (làm sạch mã mà test vẫn xanh).
+      5. Nhắm tới độ bao phủ kiểm thử (coverage) tối thiểu 80%.
     variables:
       - name: functionCode
         type: textarea
-        label: "Hàm/Class cần viết test"
+        label: "Hàm hoặc lớp (Class) cần viết kiểm thử"
         required: true
       - name: language
         type: text
@@ -144,7 +141,7 @@ prompts:
         default: "JavaScript/TypeScript"
       - name: testFramework
         type: select
-        label: "Framework test"
+        label: "Bộ khung kiểm thử (Test Framework)"
         options:
           - "Jest (JavaScript/TypeScript)"
           - "PyTest (Python)"
@@ -163,66 +160,68 @@ prompts:
           language: "JavaScript"
           testFramework: "Jest (JavaScript/TypeScript)"
         output: |
-          # 🧪 Unit Test: `calculateDiscount`
+          # Kiểm Thử Đơn Vị: `calculateDiscount`
 
           ```javascript
           // calculateDiscount.test.js
           const { calculateDiscount } = require('./calculateDiscount');
 
           describe('calculateDiscount', () => {
-            // Happy path
-            test('should return discounted price for valid inputs', () => {
+            // Luồng chuẩn
+            test('trả về giá sau giảm đúng với đầu vào hợp lệ', () => {
               expect(calculateDiscount(100, 20)).toBe(80);
               expect(calculateDiscount(50, 0)).toBe(50);
               expect(calculateDiscount(200, 100)).toBe(0);
             });
 
-            // Edge cases
-            test('should handle price = 0', () => {
+            // Giá trị biên và ngoại lệ
+            test('xử lý đúng khi giá gốc bằng 0', () => {
               expect(calculateDiscount(0, 50)).toBe(0);
             });
-            test('should handle discountPercent = 100 (free)', () => {
+            test('xử lý đúng khi giảm giá 100% (miễn phí)', () => {
               expect(calculateDiscount(999, 100)).toBe(0);
             });
 
-            // Error cases
-            test('should throw error for negative price', () => {
+            // Trường hợp báo lỗi
+            test('báo lỗi khi giá gốc là số âm', () => {
               expect(() => calculateDiscount(-10, 10)).toThrow('Price cannot be negative');
             });
-            test('should throw error for discount > 100%', () => {
+            test('báo lỗi khi phần trăm giảm giá lớn hơn 100%', () => {
               expect(() => calculateDiscount(100, 101)).toThrow('Invalid discount');
             });
-            test('should throw error for negative discount', () => {
+            test('báo lỗi khi phần trăm giảm giá nhỏ hơn 0%', () => {
               expect(() => calculateDiscount(100, -5)).toThrow('Invalid discount');
             });
           });
           ```
 
-          ## Giải thích từng case
-          | Case | Mục đích | Kết quả mong đợi |
-          |------|----------|------------------|
-          | Valid discount 20% | Happy path chính | 100 → 80 |
-          | Discount 0% | Boundary (không giảm) | 50 → 50 |
-          | Discount 100% | Boundary (miễn phí) | 200 → 0 |
-          | Price = 0 | Edge case giá trị 0 | 0 → 0 |
-          | Negative price | Error handling | Throw Error |
-          | Discount > 100% | Error handling business rule | Throw Error |
-          | Negative discount | Error handling business rule | Throw Error |
+          ## Giải Thích Từng Tình Huống Kiểm Thử
+          | Tình huống | Mục đích kiểm tra | Kết quả mong đợi |
+          |---|---|---|
+          | Giảm 20% trên giá 100 | Luồng tính toán bình thường | `100 → 80` |
+          | Giảm 0% | Giá trị biên (không giảm) | `50 → 50` |
+          | Giảm 100% | Giá trị biên (miễn phí hoàn toàn) | `200 → 0` |
+          | Giá gốc = 0 | Trường hợp ngoại lệ giá trị bằng 0 | `0 → 0` |
+          | Giá gốc âm (-10) | Chặn dữ liệu sai từ đầu vào | Ném lỗi `Price cannot be negative` |
+          | Giảm giá > 100% | Chặn vi phạm quy tắc nghiệp vụ | Ném lỗi `Invalid discount` |
+          | Giảm giá âm (-5%) | Chặn vi phạm quy tắc nghiệp vụ | Ném lỗi `Invalid discount` |
 
-          ## TDD Flow
-          1. **Red**: Chạy test → tất cả fail (hàm chưa có)
-          2. **Green**: Viết hàm tối thiểu để pass
-          3. **Refactor**: Tối ưu hàm, chạy test lại để xác nhận không hỏng
-        context: "Viết test cho hàm tính giảm giá, bao gồm edge cases và error handling"
+          ## Quy Trình 3 Bước Đỏ → Xanh → Tái Cấu Trúc
+          1. **Đỏ**: Viết toàn bộ các ca kiểm thử trên và chạy `npx jest` → mọi ca đều báo thất bại vì hàm chưa tồn tại.
+          2. **Xanh**: Viết phần thân hàm `calculateDiscount` vừa đủ điều kiện kiểm tra để toàn bộ ca kiểm thử vượt qua.
+          3. **Tái cấu trúc**: Tối ưu tên biến hoặc cấu trúc hàm cho gọn sạch hơn, sau đó chạy lại bộ kiểm thử để chắc chắn không gây lỗi hồi quy (làm hỏng tính năng cũ đang chạy đúng).
+        context: "Viết kiểm thử đơn vị bằng Jest cho hàm tính giảm giá, gồm các giá trị biên và tình huống báo lỗi"
     difficulty: "intermediate"
     useCases:
-      - "Viết test cho hàm mới trước khi code (TDD)"
-      - "Đảm bảo refactor không gây regression"
+      - "Viết kịch bản kiểm thử trước khi cài đặt hàm mới theo quy trình TDD"
+      - "Tạo lưới an toàn để tự tin tái cấu trúc mã cũ mà không gây lỗi hồi quy"
 agentTemplate:
-  name: "Software Craftsmanship Agent"
-  description: "Tư vấn Clean Code, Refactoring, Unit Test, TDD, Code Review"
+  name: "Cố Vấn Mã Nguồn Sạch & Kiểm Thử"
+  description: "Chuyên gia hỗ trợ viết mã nguồn sạch, tái cấu trúc đoạn code rối, viết kiểm thử đơn vị (Unit Test) và đánh giá Pull Request"
   systemPrompt: |
-    Bạn là Software Craftsmanship Coach. Tập trung vào code sạch, dễ đọc, dễ bảo trì, và test-driven development.
+    Bạn là Cố Vấn Mã Nguồn Sạch & Kiểm Thử (Software Craftsmanship Coach).
+    Mục tiêu của bạn là giúp lập trình viên viết ra mã nguồn dễ đọc cho đồng đội, dễ bảo trì lâu dài, tách biệt rõ trách nhiệm từng hàm và luôn có bộ kiểm thử đơn vị bảo vệ trước khi sửa đổi.
+    Luôn giải thích ngắn gọn lý do đằng sau mỗi đề xuất bằng tiếng Việt rõ ràng.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:
@@ -230,6 +229,6 @@ relatedSkillIds:
   - "git-workflow-collaboration"
 author: "AI Life Hub Team"
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: clean-code-refactor
 ---

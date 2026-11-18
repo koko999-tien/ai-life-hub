@@ -1,118 +1,120 @@
 ---
 id: systematic-debugging
 categoryId: lap-trinh
-name: "Debug Hệ thống & Tìm lỗi gốc rễ"
-description: "Quy trình 4 bước debug khoa học: Tái hiện → Khoanh vùng → Sửa triệt để → Test chống tái phát"
+name: "Gỡ Lỗi Hệ Thống (Debug) & Tìm Nguyên Nhân Gốc Rễ"
+description: "Quy trình 4 bước gỡ lỗi khoa học: Tái hiện lỗi → Khoanh vùng cô lập → Sửa triệt để tận gốc → Viết kiểm thử chống tái phát"
 whenToUse:
-  - "Bug lạ không báo lỗi rõ ràng"
-  - "Production incident cần fix gấp"
-  - "Memory leak, race condition, performance degradation"
+  - "Gặp lỗi chập chờn khó hiểu, không báo thông điệp rõ ràng"
+  - "Sự cố trên môi trường thật (Production) cần khoanh vùng xử lý khẩn cấp"
+  - "Xử lý rò rỉ bộ nhớ (memory leak), tranh chấp dữ liệu (race condition) hoặc hệ thống chậm dần theo thời gian"
 difficulty: "advanced"
-estimatedTime: "30 phút - vài giờ tùy độ phức tạp"
+estimatedTime: "30 phút đến vài giờ tùy mức độ phức tạp"
 tags: ["debugging", "troubleshooting", "root-cause-analysis", "production-support"]
 prompts:
   - id: prompt-debug-process
-    name: "Hướng dẫn quy trình Debug 4 bước"
-    description: "Áp dụng quy trình debug hệ thống cho bug/incident cụ thể"
+    name: "Lập Kế Hoạch Gỡ Lỗi Theo Quy Trình 4 Bước"
+    description: "Áp dụng phương pháp điều tra khoa học để tìm nguyên nhân gốc rễ cho một lỗi hoặc sự cố cụ thể"
     template: |
-      Bạn là Senior Debugger. Hãy hướng dẫn tôi debug vấn đề sau theo quy trình 4 bước:
+      Bạn là Kỹ sư Gỡ lỗi Hệ thống Cao cấp (Senior Debugger). Hãy hướng dẫn tôi điều tra và xử lý triệt để sự cố sau theo quy trình 4 bước khoa học:
 
-      **Mô tả vấn đề:**
+      **Mô tả lỗi hoặc sự cố:**
       {{problemDescription}}
 
-      **Môi trường:**
+      **Môi trường vận hành:**
       {{environment}}
 
-      **Đã thử gì:**
+      **Những cách đã thử và kết quả:**
       {{triedAlready}}
 
-      **Log/Error message:**
+      **Nhật ký lỗi (Log) / Thông báo lỗi:**
       {{errorLogs}}
 
-      **Quy trình 4 bước:**
-      1. **Tái hiện (Reproduce)**: Tạo min reproduction case, xác định điều kiện trigger
-      2. **Khoanh vùng (Isolate)**: Binary search (bisection), logging, breakpoint, divide & conquer
-      3. **Sửa triệt để (Fix Root Cause)**: Không workaround, sửa nguyên nhân gốc, defensive coding
-      4. **Test chống tái phát (Regression Test)**: Unit test + Integration test + Monitoring alert
-
-      Output: Kế hoạch debug từng bước, câu hỏi thăm dò, tools gợi ý (debugger, profiler, log aggregator).
+      **Hãy lập kế hoạch hành động chi tiết bằng tiếng Việt gồm 4 bước (kèm các câu hỏi thăm dò và công cụ đo đạc gợi ý):**
+      1. **Bước 1 — Tái hiện lỗi (Reproduce)**: Giả thuyết ban đầu và cách tạo kịch bản tái hiện tối giản nhất (Minimal reproduction) để kích hoạt lại lỗi ổn định.
+      2. **Bước 2 — Khoanh vùng cô lập (Isolate)**: Áp dụng chia đôi tìm kiếm (Binary search / Bisection) để loại trừ từng tầng (mạng, bộ nhớ đệm, cơ sở dữ liệu, mã nguồn), kèm lệnh kiểm tra cụ thể.
+      3. **Bước 3 — Sửa triệt để nguyên nhân gốc (Fix Root Cause)**: Liệt kê các nguyên nhân gốc rễ khả dĩ và cách sửa dứt điểm (tránh vá tạm thời đối phó).
+      4. **Bước 4 — Kiểm thử & Cảnh báo chống tái phát**: Đề xuất kiểm thử đơn vị, kiểm thử tích hợp và ngưỡng cảnh báo tự động (Alert) để không lặp lại sự cố.
     variables:
       - name: problemDescription
         type: textarea
-        label: "Mô tả bug/incident"
+        label: "Mô tả lỗi hoặc sự cố đang gặp"
         required: true
       - name: environment
         type: textarea
-        label: "Môi trường (OS, runtime, version, infra)"
+        label: "Môi trường chạy (Hệ điều hành, phiên bản ngôn ngữ, cơ sở dữ liệu, hạ tầng)"
         required: true
       - name: triedAlready
         type: textarea
-        label: "Đã thử gì, kết quả ra sao"
+        label: "Những cách bạn đã thử và kết quả ra sao"
         required: false
+        default: "Chưa thử biện pháp xử lý nào"
       - name: errorLogs
         type: textarea
-        label: "Log, stack trace, error message"
+        label: "Nhật ký hệ thống (Log), dấu vết gọi hàm (Stack trace) hoặc mã lỗi"
         required: false
+        default: "Chưa có log lỗi cụ thể"
     examples:
       - inputs:
-          problemDescription: "API /api/users đôi khi trả về 500 Internal Server Error, không đều đặn, chỉ xảy ra lúc traffic cao"
-          environment: "Node.js 20, Express, PostgreSQL (Prisma ORM), Kubernetes (3 replicas), Redis cache"
-          triedAlready: "Restart pod thì tạm hết, sau 1h lại bị. Log không có stack trace rõ ràng."
-          errorLogs: "Error: connect ECONNREFUSED 127.0.0.1:5432\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16)"
+          problemDescription: "API /api/users thỉnh thoảng trả về lỗi 500 Internal Server Error, không đều đặn, chỉ xảy ra vào khung giờ lượng truy cập tăng cao"
+          environment: "Node.js 20, Express, PostgreSQL (Prisma ORM), Kubernetes (3 bản sao pod), Redis cache"
+          triedAlready: "Khởi động lại pod thì tạm hết lỗi, nhưng sau khoảng 1 giờ tải cao lại bị tiếp."
+          errorLogs: "PrismaClientKnownRequestError: Invalid `prisma.user.findMany()` invocation:\nTimed out fetching a new connection from the connection pool. (Current connection pool timeout: 10, connection limit: 10)\n[code: P2024]"
         output: |
-          # 🔍 Debug Plan: API 500 Intermittent Under Load
+          # Kế Hoạch Gỡ Lỗi: API Trả Về 500 Chập Chờn Lúc Tải Cao
 
-          ## Bước 1: Tái hiện (Reproduce)
-          **Hypothesis:** Connection pool exhaustion / DB connection leak / Resource limit
-          **Min Repro:**
-          - Load test: `k6` hoặc `artillery` simulate 100 VUs, ramp up 5 phút
-          - Theo dõi: DB connections count, Redis connections, Node.js event loop lag
-          - Correlation: Map 500 errors với pool metrics
+          ## Bước 1: Tái Hiện Lỗi (Reproduce)
+          **Giả thuyết ban đầu:** Cạn kiệt nhóm kết nối cơ sở dữ liệu (Connection pool exhaustion — lỗi Prisma `P2024`), truy vấn bị treo giữ kết nối quá lâu hoặc khởi tạo thừa nhiều thực thể `PrismaClient`.
 
-          ## Bước 2: Khoanh vùng (Isolate)
-          **Binary Search Strategy:**
-          1. Bypass Redis cache → test → nếu vẫn lỗi → không phải Redis
-          2. Tăng DB connection pool limit → test → nếu hết lỗi → pool exhaustion
-          3. Check Prisma connection lifecycle: `prisma.$connect()` / `$disconnect()` trong request handler?
-          4. **Tools:**
-             - `kubectl top pods` - CPU/Memory
-             - `pg_stat_activity` - active connections
-             - Node.js `--inspect` + Chrome DevTools heap snapshot
-             - Datadog/New Relic APM trace
+          **Kịch bản tái hiện tối giản:**
+          - Dùng công cụ `k6` hoặc `artillery` giả lập 100 người dùng ảo truy cập đồng thời vào `/api/users` tăng dần trong 5 phút trên môi trường thử nghiệm (Staging).
+          - Theo dõi song song số kết nối đang mở tới PostgreSQL, mức sử dụng Redis và độ trễ vòng lặp sự kiện của Node.js (Event loop lag).
+          - Đối chiếu thời điểm xuất hiện lỗi `P2024` với biểu đồ số kết nối đang bận trong nhóm kết nối (Connection pool).
 
-          ## Bước 3: Sửa triệt để (Root Cause Fix)
-          **Likely Root Causes & Fixes:**
-          | Nguyên nhân | Fix |
-          |------------|-----|
-          | Prisma không disconnect đúng (middleware) | Thêm `await prisma.$disconnect()` trong graceful shutdown |
-          | Connection pool limit quá thấp (default 10) | Tăng `connection_limit=20` trong DATABASE_URL |
-          | Không có retry logic cho transient DB errors | Thêm exponential backoff retry (p-retry) |
-          | Kubernetes pod memory limit quá thấp → OOM kill | Tăng memory limit, thêm liveness probe |
+          ## Bước 2: Khoanh Vùng Cô Lập (Isolate)
+          **Chiến lược loại trừ từng tầng (Chia đôi kiểm tra):**
+          1. **Kiểm tra cách khởi tạo PrismaClient**: Tìm xem trong code có đoạn nào gọi `new PrismaClient()` bên trong hàm xử lý từng yêu cầu (request handler) thay vì dùng chung một thực thể (Singleton) cho mỗi tiến trình không.
+          2. **Kiểm tra truy vấn chậm giữ kết nối**: Tạm thời bỏ qua Redis hoặc tăng thử `connection_limit` lên 20 ở môi trường thử để xem lỗi hết hẳn hay chỉ dời thời điểm.
+          3. **Công cụ đo đạc trực tiếp:**
+             - `kubectl top pods`: Kiểm tra CPU/RAM của 3 pod xem có pod nào bị nghẽn hoặc khởi động lại âm thầm không.
+             - Truy vấn PostgreSQL `SELECT state, wait_event, count(*) FROM pg_stat_activity GROUP BY 1, 2;` để xem kết nối đang bị kẹt ở trạng thái `active` (truy vấn chậm) hay `idle in transaction` (giao dịch mở xong quên đóng).
+             - Bật trình theo dõi hiệu năng (APM như Datadog / Sentry / OpenTelemetry) để xem câu SQL nào chiếm thời gian lâu nhất.
 
-          ## Bước 4: Test chống tái phát
-          - **Unit test:** Mock Prisma, simulate connection error → expect retry
-          - **Integration test:** Testcontainers PostgreSQL, load test 50 VUs
-          - **Monitoring alert:**
-            - Alert nếu `db_connections_active > 80% pool`
-            - Alert nếu `api_5xx_rate > 1%` trong 5p
-          - **Chaos engineering:** Kill DB pod, verify graceful degradation
-        context: "Debug production incident Node.js + PostgreSQL + K8s"
+          ## Bước 3: Sửa Triệt Để Nguyên Nhân Gốc (Root Cause Fix)
+          | Nguyên nhân gốc rễ | Cách sửa dứt điểm |
+          |---|---|
+          | Khởi tạo nhiều `PrismaClient` hoặc quên ngắt kết nối khi tắt pod | Dùng mẫu Singleton (một thực thể duy nhất toàn ứng dụng) và gọi `await prisma.$disconnect()` khi nhận tín hiệu tắt pod nhẹ nhàng (Graceful shutdown) |
+          | Giới hạn kết nối mặc định quá nhỏ hoặc tổng kết nối vượt ngưỡng PostgreSQL | Cân đối lại tham số `connection_limit` trên mỗi pod (ví dụ 3 pod × 15 kết nối = 45 < giới hạn `max_connections` của PostgreSQL) hoặc đặt thêm PgBouncer ở giữa |
+          | Câu truy vấn thiếu chỉ mục (Index) làm giữ kết nối lâu lúc tải cao | Thêm chỉ mục cho cột lọc/sắp xếp trong `users`, giới hạn số dòng trả về mỗi trang |
+          | Thiếu cơ chế thử lại khi nghẽn kết nối nhất thời | Bổ sung thử lại có độ trễ tăng dần (Exponential backoff) cho các thao tác đọc an toàn |
+
+          ## Bước 4: Kiểm Thử & Cảnh Báo Chống Tái Phát
+          - **Kiểm thử đơn vị (Unit test)**: Giả lập lỗi `P2024` từ Prisma để xác minh cơ chế thử lại và trả mã lỗi `503 Service Unavailable` rõ ràng thay vì sập luồng.
+          - **Kiểm thử tích hợp chịu tải**: Chạy thử tải 50 người dùng đồng thời trong quy trình kiểm tra trước khi phát hành.
+          - **Cảnh báo giám sát tự động (Alerts)**:
+            - Gửi cảnh báo ngay khi số kết nối PostgreSQL đang hoạt động vượt quá **80%** ngưỡng tối đa.
+            - Gửi cảnh báo khi tỷ lệ lỗi HTTP `5xx` của API vượt quá **1%** trong 5 phút liên tiếp.
+          - **Thử nghiệm độ bền (Chaos testing)**: Chủ động tắt thử 1 pod hoặc ngắt tạm kết nối cơ sở dữ liệu ở môi trường thử để chắc chắn hệ thống tự phục hồi nhẹ nhàng (Graceful degradation).
+        context: "Điều tra sự cố lỗi 500 chập chờn trên hệ thống Node.js, Prisma, PostgreSQL và Kubernetes"
     difficulty: "advanced"
     useCases:
-      - "Debug production incident"
-      - "Tìm memory leak, race condition"
+      - "Xử lý sự cố trên môi trường thật theo từng bước logic thay vì đoán mò"
+      - "Truy tìm nguyên nhân rò rỉ bộ nhớ, nghẽn kết nối cơ sở dữ liệu hoặc tranh chấp dữ liệu"
 agentTemplate:
-  name: "Debug Expert Agent"
-  description: "Hỗ trợ debug systematic, root cause analysis, profiling, production incident response"
+  name: "Chuyên Gia Gỡ Lỗi & Phân Tích Nguyên Nhân Gốc"
+  description: "Hỗ trợ gỡ lỗi hệ thống bài bản, khoanh vùng sự cố trên môi trường thật, đọc log lỗi và đề xuất giải pháp chống tái phát"
   systemPrompt: |
-    Bạn là Debug Expert. Áp dụng quy trình khoa học, không đoán mò. Luôn hỏi: "Làm sao để tái hiện?", "Đã loại trừ gì?".
+    Bạn là Chuyên Gia Gỡ Lỗi Hệ Thống (Debug Expert).
+    Nguyên tắc làm việc: Luôn áp dụng quy trình khoa học 4 bước (Tái hiện → Khoanh vùng → Sửa tận gốc → Chống tái phát), tuyệt đối không đoán mò hay vá tạm đối phó.
+    Luôn hỏi rõ điều kiện tái hiện, thông báo lỗi thực tế và những bước người dùng đã loại trừ trước khi kết luận.
   model: "gpt-4"
   temperature: 0.3
+  tools:
+    - "Tìm kiếm thông tin"
 relatedSkillIds:
   - "clean-code-refactor"
-  - "performance-optimization"
+  - "system-design-basics"
 author: "AI Life Hub Team"
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: systematic-debugging
 ---

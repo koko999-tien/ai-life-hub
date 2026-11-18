@@ -2,20 +2,20 @@
 id: giao-duc-con-tinh-khoe
 categoryId: gia-dinh
 name: "Giáo dục con: Tâm lý & Phát triển"
-description: "Parenting styles, Emotion coaching, Growth mindset, Screen time, Discipline without punishment"
+description: "Phong cách nuôi dạy con, đồng hành cảm xúc, rèn tư duy cầu tiến, quản lý thời gian dùng màn hình và kỷ luật tích cực không đòn roi"
 whenToUse:
-  - "Con khóc闹, không nghe lời, đánh bạn"
+  - "Con khóc lóc, ăn vạ, không nghe lời hoặc đánh bạn"
   - "Muốn nuôi dạy con tự chủ, tự tin, có trách nhiệm"
-  - "Cân bằng giữa yêu thương và ranh giới"
+  - "Cân bằng giữa yêu thương và ranh giới rõ ràng"
 difficulty: "intermediate"
-estimatedTime: "Học liên tục, áp dụng hàng ngày"
+estimatedTime: "Học từng bước, áp dụng hằng ngày cùng con"
 tags: ["parenting", "child-development", "emotion-coaching", "growth-mindset", "positive-discipline"]
 prompts:
   - id: prompt-emotion-coaching
-    name: "Emotion Coaching (John Gottman) - 5 bước"
-    description: "Giúp con nhận diện, đặt tên, chấp nhận cảm xúc, giải quyết vấn đề"
+    name: "5 bước đồng hành cảm xúc cùng con (theo John Gottman)"
+    description: "Giúp con nhận diện, gọi tên, chấp nhận cảm xúc và cùng tìm cách giải quyết vấn đề"
     template: |
-      Bạn là Child Psychologist. Hãy hướng dẫn Emotion Coaching cho tình huống:
+      Bạn là chuyên gia tâm lý trẻ em. Hãy hướng dẫn cha mẹ cách đồng hành cảm xúc cùng con cho tình huống sau:
 
       **Tình huống:**
       {{situation}}
@@ -26,21 +26,21 @@ prompts:
       **Phản ứng hiện tại của cha mẹ:**
       {{currentResponse}}
 
-      **5 bước Emotion Coaching:**
-      1. **Nhận biết cảm xúc của con** (Awareness) - Quan sát ngôn ngữ cơ thể, giọng nói
-      2. **Coi đây là cơ hội kết nối & dạy** (Opportunity) - Không phải phiền toái
-      3. **Lắng nghe với sự thấu hiểu** (Empathic Listening) - Gật đầu, phản ánh cảm xúc: "Con đang buồn vì..."
-      4. **Giúp con đặt tên cảm xúc** (Labeling) - "Buồn", "Giận", "Sợ", "Thất vọng", "Xấu hổ"
-      5. **Đặt ranh giới & Giải quyết vấn đề** (Limits & Problem-solving) - "Cảm xúc OK, hành vi không OK. Làm sao da?"
+      **Hãy hướng dẫn theo 5 bước đồng hành cảm xúc:**
+      1. **Nhận biết cảm xúc của con** — Quan sát ánh mắt, cơ thể và giọng nói của con trước khi vội phán xét
+      2. **Xem đây là cơ hội kết nối và dạy con** — Không coi cơn giận dỗi là phiền toái
+      3. **Lắng nghe với sự thấu hiểu** — Gật đầu, hạ giọng ngang tầm mắt con: "Con đang buồn vì..."
+      4. **Giúp con gọi tên cảm xúc** — Dạy con phân biệt "buồn", "giận", "sợ", "thất vọng", "xấu hổ"
+      5. **Đặt ranh giới và cùng giải quyết vấn đề** — "Con được phép giận, nhưng không được đánh hay ném đồ. Giờ mình làm cách nào cho ổn nhỉ?"
 
-      **Output:**
-      - Script cha mẹ nói cho từng bước
-      - Ví dụ sai lầm thường gặp (Dismissing, Disapproving, Laissez-faire)
-      - Điều chỉnh theo độ tuổi
+      **Hãy trình bày rõ các phần sau:**
+      - Câu thoại mẫu cha mẹ có thể nói ở từng bước
+      - Phân tích 3 kiểu phản ứng sai lầm thường gặp (Phớt lờ hoặc gạt đi, Chỉ trích hoặc trách mắng, Mặc kệ hoặc buông xuôi)
+      - Cách điều chỉnh lời nói theo từng độ tuổi của con
     variables:
       - name: situation
         type: textarea
-        label: "Tình huống (ví dụ: Con 4 tuổi quăng đồ chơi vì em bé lấy của)"
+        label: "Tình huống (ví dụ: Con 4 tuổi ném đồ chơi vì em bé lấy mất xe)"
         required: true
       - name: childAge
         type: number
@@ -48,70 +48,70 @@ prompts:
         required: true
       - name: currentResponse
         type: textarea
-        label: "Phản ứng thường dùng của cha mẹ (ví dụ: 'Đừng khóc nữa', 'Quăng nữa cho phạt')"
+        label: "Phản ứng thường dùng của cha mẹ (ví dụ: 'Đừng khóc nữa', 'Ném nữa là mẹ phạt')"
         required: true
     examples:
       - inputs:
-          situation: "Con 4 tuổi quăng xe đồ chơi xuống sàn vì em bé 1 tuổi lấy xe của con chơi"
+          situation: "Con 4 tuổi ném xe đồ chơi xuống sàn vì em bé 1 tuổi lấy xe của con chơi"
           childAge: 4
-          currentResponse: "'Đừng quăng nữa! Em bé còn nhỏ, anh nhường em đi. Quăng nữa mẹ phạt đứng góc.'"
+          currentResponse: "'Đừng ném nữa! Em bé còn nhỏ, anh nhường em đi. Ném nữa mẹ phạt đứng góc.'"
         output: |
-          # 👶 Emotion Coaching: Con 4 tuổi quăng đồ vì em lấy của
+          # 👶 Đồng Hành Cảm Xúc: Con 4 Tuổi Ném Đồ Chơi Vì Em Giành Xe
 
-          ## Phân tích phản ứng hiện tại (Dismissing/Disapproving)
-          - "Đừng quăng" → Chỉ hành vi, bỏ qua cảm xúc
-          - "Em bé còn nhỏ, anh nhường" →.Invalidating cảm xúc của anh
-          - "Phạt đứng góc" → Sợ hãi, không dạy kỹ năng
+          ## Phân Tích Phản Ứng Hiện Tại (Phớt Lờ & Chỉ Trích)
+          - *"Đừng ném nữa"* → Chỉ chặn hành vi bề mặt, bỏ qua cảm xúc đang dâng lên trong con.
+          - *"Em bé còn nhỏ, anh nhường em đi"* → Vô tình phủ nhận cảm xúc ấm ức rất thật của người anh.
+          - *"Mẹ phạt đứng góc"* → Con sợ hãi và phục tùng tạm thời, không học được cách tự bình tĩnh.
 
-          ## 5 Bước Emotion Coaching (Script cha mẹ)
+          ## 5 Bước Đồng Hành Cảm Xúc (Lời Thoại Gợi Ý)
 
-          ### B1: Nhận biết (Awareness)
-          > *Cha mẹ quan sát: Con quay lưng, hàm răng cắn chặt, tay nắm chặt, giọng to.*
-          > **Tự nói**: "Con đang rất giận. Cần giúp con xử lý."
+          ### Bước 1: Nhận biết cảm xúc
+          > *Cha mẹ quan sát: Con quay lưng, hàm răng cắn chặt, tay nắm chặt, giọng nói to.*
+          > **Tự nhủ**: "Con đang rất tức giận vì món đồ yêu thích bị lấy mất. Con cần mình giúp xử lý cơn giận này."
 
-          ### B2: Cơ hội kết nối (Opportunity)
-          > *Tự nói*: "Đây là lúc con cần mẹ nhất. Không phải lúc dạy bài học đạo đức."
+          ### Bước 2: Xem đây là cơ hội kết nối
+          > *Tự nhủ*: "Đây là lúc con cần mẹ lắng nghe nhất, chưa phải lúc giảng đạo lý nhường nhịn."
 
-          ### B3: Lắng nghe thấu hiểu (Empathic Listening)
-          > **Mẹ**: *"Con ơi, mẹ thấy con đang rất giận. Con giận vì em bé lấy xe của con đúng không?"* (Gật đầu, mắt nhìn mắt con, giọng mềm)
+          ### Bước 3: Lắng nghe thấu hiểu
+          > **Mẹ**: *"Con ơi, mẹ thấy con đang rất giận. Con bực vì em lấy xe của con mà chưa xin phép đúng không?"* (Ngồi xuống ngang tầm mắt con, gật đầu, giọng dịu lại)
           > **Con**: *"Đúng! Đó là xe của con! Em không được lấy!"*
 
-          ### B4: Đặt tên cảm xúc (Labeling)
-          > **Mẹ**: *"Con cảm thấy **giận** và có lẽ cả **thất vọng** vì em bé lấy của con mà không hỏi. Cảm giác ấy rất khó chịu đúng không?"*
-          > **Con**: *"Úm... con muốn lấy lại xe."*
+          ### Bước 4: Giúp con gọi tên cảm xúc
+          > **Mẹ**: *"Con cảm thấy **giận** và cả **thất vọng** vì đang chơi vui thì bị gián đoạn. Cảm giác đó khó chịu lắm đúng không con?"*
+          > **Con**: *"Ừm... con muốn lấy lại xe."*
 
-          ### B5: Ranh giới & Giải quyết (Limits & Problem-solving)
-          > **Mẹ**: *"Mẹ hiểu con giận. **Cảm xúc giận là OK**. Nhưng **quăng đồ không OK** vì có thể làm hỏng đồ, làm đau người. Chúng ta cùng làm sao để lấy lại xe mà an toàn nhé?"*
-          > **Giải pháp cùng con**:
-          > 1. "Con nói to với em: 'Em ơi, đây là xe của anh. Anh cho em mượn 5 phút nữa nhé.'"
-          > 2. "Hoặc con đưa cho em xe khác, giữ xe này."
-          > 3. "Hoặc con nói: 'Mẹ ơi, giúp con lấy lại xe nhé.'"
+          ### Bước 5: Đặt ranh giới & Cùng tìm giải pháp
+          > **Mẹ**: *"Mẹ hiểu con giận. **Con có quyền thấy giận**, nhưng **ném đồ là không được phép** vì dễ làm hỏng xe và làm đau người khác. Giờ hai mẹ con mình nghĩ cách lấy lại xe thật êm đẹp nhé?"*
+          > **Gợi ý cho con chọn**:
+          > 1. *"Con nói rõ với em: 'Em ơi, đây là xe của anh, em chơi chiếc ô tô xanh này nhé'."*
+          > 2. *"Hoặc con đổi cho em một món đồ chơi khác rồi giữ lại chiếc xe này."*
+          > 3. *"Hoặc con nhờ mẹ: 'Mẹ ơi, giúp con nói với em nhé'."*
           > **Mẹ**: *"Con muốn thử cách nào?"*
 
-          ## Sai lầm thường gặp (3 kiểu parenting kém hiệu quả)
-          | Kiểu | Ví dụ lời nói | Hệ quả |
-          |------|---------------|--------|
-          | **Dismissing** | "Chuyện nhỏ thôi, đừng khóc nữa" | Con cảm thấy cảm xúc không quan trọng, kìm nén |
-          | **Disapproving** | "Con lớn rồi mà còn khóc, xấu hổ!" | Con xấu hổ, giận dữ, chống đối |
-          | **Laissez-faire** | "Khóc đi, khóc xong thì thôi" | Con không học cách điều chỉnh, hành vi lặp lại |
+          ## 3 Cách Phản Ứng Kém Hiệu Quả Thường Gặp
+          | Kiểu phản ứng | Câu nói quen thuộc | Hệ quả lên con |
+          |---|---|---|
+          | **Phớt lờ / Gạt đi** | "Chuyện nhỏ xíu mà cũng khóc, có gì đâu!" | Con thấy cảm xúc của mình không đáng kể, dễ kìm nén lâu ngày |
+          | **Chỉ trích / Trách mắng** | "Lớn rồi mà cư xử tệ thế, thật xấu hổ!" | Con thấy xấu hổ, ấm ức và càng phản kháng mạnh hơn |
+          | **Mặc kệ / Buông xuôi** | "Muốn khóc sao thì khóc, mệt quá!" | Con không biết cách tự điều chỉnh cảm xúc, hành vi ném đồ cứ lặp lại |
 
-          ## Điều chỉnh theo độ tuổi
-          | Tuổi | Labeling | Problem-solving |
-          |------|----------|-----------------|
-          | 2-3 | "Con buồn", "Con giận" | Cha mẹ đưa ra 2 lựa chọn đơn giản |
-          | 4-6 | "Thất vọng", "Xấu hổ", "Ghen tuông" | Con đề xuất giải pháp, cha mẹ hướng dẫn |
-          | 7-10 | "Stress", "Lo lắng", "Tự ti" | Con tự giải quyết, cha mẹ làm mentor |
-        context: "Anh 4 tuổi, em 1 tuổi, xung đột chia sẻ đồ chơi"
+          ## Điều Chỉnh Cách Nói Theo Độ Tuổi
+          | Độ tuổi | Cách gọi tên cảm xúc | Cách cùng con giải quyết |
+          |---|---|---|
+          | 2-3 tuổi | "Con buồn", "Con giận", "Con sợ" | Cha mẹ đưa ra 2 lựa chọn đơn giản để con chọn |
+          | 4-6 tuổi | "Thất vọng", "Ấm ức", "Xấu hổ", "Ghen tị" | Con tự đề xuất cách xử lý, cha mẹ gợi ý thêm |
+          | 7-10 tuổi | "Căng thẳng", "Lo lắng", "Tự ti" | Con tự giải quyết vấn đề, cha mẹ đóng vai người gợi ý, định hướng |
+        context: "Anh 4 tuổi, em 1 tuổi, xung đột chia sẻ đồ chơi trong gia đình"
     difficulty: "medium"
     useCases:
-      - "Con khóc闹, giận dữ, không nghe lời"
-      - "Xung đột anh em"
-      - "Cha mẹ muốn nuôi dạy EQ cho con"
+      - "Con khóc lóc, giận dữ, không nghe lời"
+      - "Xung đột giữa anh chị em trong nhà"
+      - "Cha mẹ muốn nuôi dạy trí tuệ cảm xúc cho con"
 agentTemplate:
-  name: "Parenting Coach"
-  description: "Emotion coaching, Positive discipline, Growth mindset, Screen time management, Age-appropriate expectations"
+  name: "Chuyên Gia Đồng Hành Nuôi Dạy Con"
+  description: "Hướng dẫn cảm xúc, kỷ luật tích cực, tư duy phát triển và kỳ vọng phù hợp theo độ tuổi"
   systemPrompt: |
-    Bạn là Parenting Coach. Evidence-based: Gottman Emotion Coaching, Positive Discipline (Nelsen), Growth Mindset (Dweck), Self-Determination Theory. Connection before correction.
+    Bạn là chuyên gia đồng hành nuôi dạy con theo phương pháp khoa học: hướng dẫn cảm xúc (Gottman), kỷ luật tích cực và tư duy phát triển. Luôn ưu tiên kết nối tình cảm với con trước khi uốn nắn hành vi.
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:

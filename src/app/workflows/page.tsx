@@ -2,11 +2,15 @@ import { Metadata } from 'next';
 import { WorkflowExplorer } from '@/components/workflows/WorkflowExplorer';
 
 export const metadata: Metadata = {
-  title: 'AI Workflows & Pipeline Builder | AI Life Hub',
-  description: 'Chuỗi quy trình AI tự động hóa đa bước: Tái chế nội dung, Kiến trúc phần mềm, Nghiên cứu sâu và Launch sản phẩm.',
+  title: 'Quy Trình AI Đa Nhiệm',
+  description: 'Mô phỏng chuỗi quy trình AI đa bước giúp tự động hóa công việc: sản xuất nội dung, thiết kế phần mềm, nghiên cứu đối chứng và ra mắt sản phẩm.',
+  alternates: {
+    canonical: '/workflows',
+  },
   openGraph: {
-    title: 'AI Workflows & Pipeline Builder | AI Life Hub',
-    description: 'Nâng tầm ứng dụng AI từ prompt đơn lẻ thành các chuỗi Pipeline liên hoàn tự động hóa công việc chuyên nghiệp.',
+    title: 'Quy Trình AI Đa Nhiệm | AI Life Hub',
+    description: 'Khám phá cách phối hợp nhiều trợ lý AI nối tiếp nhau để giải quyết trọn vẹn công việc từ ý tưởng đến kết quả hoàn chỉnh.',
+    url: '/workflows',
     type: 'website',
   },
 };

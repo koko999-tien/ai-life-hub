@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import type { SearchIndex as SearchIndexType, SearchDocument, SearchResult } from '@/types/search';
+import type { SearchIndex as SearchIndexType, SearchResult } from '@/types/search';
 
 interface SearchIndexProps {
   onIndexLoaded?: (index: SearchIndexType) => void;
@@ -21,13 +21,13 @@ let loadPromise: Promise<SearchIndexType> | null = null;
 
 async function loadSearchIndex(): Promise<SearchIndexType> {
   if (searchIndexData) return searchIndexData;
-  
+
   if (loadPromise) return loadPromise;
 
   loadPromise = (async () => {
     const response = await fetch('/search-index.json');
-    if (!response.ok) throw new Error('Failed to load search index');
-    const data = await response.json() as SearchIndexType;
+    if (!response.ok) throw new Error('Không thể tải chỉ mục tìm kiếm');
+    const data = (await response.json()) as SearchIndexType;
     searchIndexData = data;
     return data;
   })();
@@ -40,7 +40,7 @@ async function initializeLunr(indexData: SearchIndexType) {
 
   const lunrModule = await import('lunr');
   const lunr = (lunrModule as any).default || lunrModule;
-  
+
   lunrIndex = lunr(function (this: any) {
     this.ref('id');
     this.field('title', { boost: 10 });
@@ -49,8 +49,8 @@ async function initializeLunr(indexData: SearchIndexType) {
     this.field('category', { boost: 2 });
     this.field('tags', { boost: 4 });
     this.field('type', { boost: 1 });
-    
-    indexData.documents.forEach(doc => {
+
+    indexData.documents.forEach((doc) => {
       this.add({
         id: doc.id,
         title: doc.title,
@@ -84,7 +84,7 @@ export function useSearchIndex(): UseSearchIndexReturn {
         setIndex(data);
         setError(null);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to initialize search');
+        setError(err instanceof Error ? err.message : 'Không thể khởi tạo công cụ tìm kiếm');
       } finally {
         setIsLoading(false);
       }
@@ -98,7 +98,7 @@ export function useSearchIndex(): UseSearchIndexReturn {
 
     try {
       const results = lunrIndex.search(query);
-      const docMap = new Map(searchIndexData.documents.map(d => [d.id, d]));
+      const docMap = new Map(searchIndexData.documents.map((d) => [d.id, d]));
 
       return results
         .map((r: any) => {
@@ -147,12 +147,12 @@ export async function getSearchIndex(): Promise<SearchIndexType | null> {
 
 export async function searchDocuments(query: string): Promise<SearchResult[]> {
   if (!query.trim()) return [];
-  
+
   const data = await loadSearchIndex();
   await initializeLunr(data);
-  
+
   const results = lunrIndex.search(query);
-  const docMap = new Map(data.documents.map(d => [d.id, d]));
+  const docMap = new Map(data.documents.map((d) => [d.id, d]));
 
   return results
     .map((r: any) => {

@@ -1,131 +1,132 @@
 ---
 id: git-workflow-collaboration
 categoryId: lap-trinh
-name: "Git Workflow & Collaboration"
-description: "Quy trình Git team: Branching strategy (GitFlow/GitHub Flow), Code Review, Conflict giải quyết, CI/CD"
+name: "Quy Trình Làm Việc Nhóm Với Git"
+description: "Thiết lập quy trình quản lý mã nguồn bằng Git cho cả đội: chiến lược phân nhánh (GitFlow / GitHub Flow), đánh giá mã nguồn (Code Review), giải quyết xung đột (conflict) và tích hợp tự động (CI/CD)"
 whenToUse:
-  - "Làm việc nhóm 2+ người trên cùng codebase"
-  - "Cần quản lý feature, release, hotfix branches"
-  - "Giải quyết merge conflict, rebase vs merge"
+  - "Làm việc nhóm từ 2 lập trình viên trở lên trên cùng một kho mã nguồn"
+  - "Cần quy ước rõ ràng cách tạo nhánh tính năng, phát hành bản mới và sửa lỗi khẩn cấp"
+  - "Muốn xử lý xung đột mã nguồn (merge conflict) gọn gàng và chọn đúng lúc nên rebase hay merge"
 difficulty: "intermediate"
-estimatedTime: "Setup 1 lần, duy trì hàng ngày"
+estimatedTime: "Thiết lập 1 lần, áp dụng hằng ngày"
 tags: ["git", "version-control", "collaboration", "ci-cd"]
 prompts:
   - id: prompt-git-branching-strategy
-    name: "Thiết kế Branching Strategy cho team"
-    description: "Lựa chọn và triển khai GitFlow, GitHub Flow, hoặc Trunk Based Development phù hợp team size"
+    name: "Thiết Kế Chiến Lược Phân Nhánh Git Cho Đội Ngũ"
+    description: "Chọn và triển khai mô hình GitFlow, GitHub Flow hoặc Trunk Based phù hợp với quy mô nhóm và nhịp phát hành"
     template: |
-      Bạn là DevOps & Team Lead. Hãy thiết kế Git workflow cho team:
+      Bạn là Trưởng nhóm Kỹ thuật kiêm Chuyên gia Tự động hóa phát hành (DevOps). Hãy thiết kế quy trình Git rõ ràng, dễ dán vào tài liệu nội bộ (wiki) cho đội phát triển:
 
-      **Thông tin team:**
-      - Số thành viên: {{teamSize}}
-      - Tần suất release: {{releaseFreq}} (daily / weekly / monthly)
-      - Mức độ ổn định yêu cầu: {{stability}} (experimental / production-critical)
-      - CI/CD đã có chưa: {{hasCI}}
+      **Thông tin đội ngũ:**
+      - Số thành viên lập trình: {{teamSize}} người
+      - Tần suất phát hành bản mới (Release): {{releaseFreq}}
+      - Mức độ ổn định yêu cầu: {{stability}}
+      - Tình trạng kiểm thử và triển khai tự động (CI/CD): {{hasCI}}
 
-      **Đề xuất workflow phù hợp:**
-      1. So sánh 3 model: GitFlow vs GitHub Flow vs Trunk Based
-      2. Đề xuất model tối ưu + lý do
-      3. Chi tiết naming convention cho branches
-      4. Quy trình tạo PR, Review, Merge
-      5. Chiến lược giải quyết conflict
-      6. Tags & Releases management
-
-      Output: Markdown guide có thể dán vào team wiki.
+      **Hãy trình bày bản hướng dẫn quy trình Git gồm 6 phần bằng tiếng Việt rõ ràng:**
+      1. **So sánh 3 mô hình phổ biến**: GitFlow, GitHub Flow và Trunk-Based Development (phát triển trên nhánh chính).
+      2. **Đề xuất mô hình tối ưu nhất** kèm lý do phù hợp với số thành viên và tần suất phát hành.
+      3. **Quy ước đặt tên nhánh (Branch naming convention)** và quy ước viết thông điệp commit.
+      4. **Quy trình tạo yêu cầu gộp mã (Pull Request - PR)**, kiểm duyệt chéo và gộp nhánh an toàn.
+      5. **Chiến lược giải quyết xung đột mã nguồn (conflict)** gọn sạch, tránh tạo lịch sử rối.
+      6. **Quản lý nhãn phiên bản (Tags) và ghi chú phát hành (Release notes)**.
     variables:
       - name: teamSize
         type: number
-        label: "Số thành viên trong team dev"
+        label: "Số thành viên trong đội lập trình"
         required: true
         default: 5
       - name: releaseFreq
         type: select
-        label: "Tần suất release"
+        label: "Tần suất phát hành sản phẩm"
         options:
-          - "daily"
-          - "weekly"
-          - "monthly"
-          - "quarterly"
+          - "Hằng ngày (Daily)"
+          - "Hằng tuần (Weekly)"
+          - "Hằng tháng (Monthly)"
+          - "Theo quý (Quarterly)"
         required: true
-        default: "weekly"
+        default: "Hằng tuần (Weekly)"
       - name: stability
         type: select
-        label: "Mức độ ổn định yêu cầu"
+        label: "Mức độ ổn định yêu cầu của hệ thống"
         options:
-          - "experimental (startup, MVP)"
-          - "production-critical (fintech, healthcare)"
+          - "Thử nghiệm nhanh (Startup / MVP)"
+          - "Ổn định nghiêm ngặt (Tài chính / Y tế / Hệ thống lõi)"
         required: true
-        default: "experimental (startup, MVP)"
+        default: "Thử nghiệm nhanh (Startup / MVP)"
       - name: hasCI
         type: select
-        label: "Đã có CI/CD chưa?"
+        label: "Đã có hệ thống kiểm tra và triển khai tự động (CI/CD) chưa?"
         options:
-          - "Có (GitHub Actions, GitLab CI, Jenkins)"
-          - "Chưa"
+          - "Đã có (GitHub Actions / GitLab CI / Jenkins)"
+          - "Chưa có"
         required: true
-        default: "Có (GitHub Actions, GitLab CI, Jenkins)"
+        default: "Đã có (GitHub Actions / GitLab CI / Jenkins)"
     examples:
       - inputs:
           teamSize: 8
-          releaseFreq: "weekly"
-          stability: "experimental (startup, MVP)"
-          hasCI: "Có (GitHub Actions, GitLab CI, Jenkins)"
+          releaseFreq: "Hằng tuần (Weekly)"
+          stability: "Thử nghiệm nhanh (Startup / MVP)"
+          hasCI: "Đã có (GitHub Actions / GitLab CI / Jenkins)"
         output: |
-          # 🌿 Git Workflow Đề Xuất: GitHub Flow (vì team 8 người, release weekly)
+          # Quy Trình Git Đề Xuất: GitHub Flow (Nhóm 8 Người, Phát Hành Hằng Tuần)
 
-          ## 1. So sánh 3 model
-          | Model | Ưu điểm | Nhược điểm | Phù hợp |
-          |-------|---------|-----------|---------|
-          | GitFlow | Nhiều release song song, rõ ràng | Phức tạp, merge nhiều | Enterprise, release chậm |
-          | GitHub Flow | Đơn giản, CI/CD dễ | Không phù hợp nhiều release | Startup, release nhanh ✅ |
-          | Trunk Based | Đơn giản nhất, merge conflict ít | Cần discipline cao | Team rất lớn, CI mạnh |
+          ## 1. So Sánh 3 Mô Hình Phân Nhánh
+          | Mô hình | Ưu điểm | Nhược điểm | Phù hợp với |
+          |---|---|---|---|
+          | **GitFlow** | Tách bạch nhiều phiên bản phát hành song song | Nhiều nhánh trung gian, dễ rối khi gộp | Hệ thống lớn, phát hành chậm theo tháng/quý |
+          | **GitHub Flow** | Gọn nhẹ, gắn chặt với CI/CD, dễ làm quen | Không tối ưu nếu phải bảo trì nhiều bản cũ song song | Nhóm 3-15 người, phát hành nhanh hằng tuần |
+          | **Trunk-Based** | Ít xung đột nhất vì gộp liên tục về nhánh chính | Đòi hỏi kỷ luật cao và bộ kiểm thử tự động rất mạnh | Đội ngũ kỹ thuật trưởng thành, phát hành mỗi ngày |
 
-          ## 2. GitHub Flow chi tiết
+          ## 2. Cấu Trúc Nhánh GitHub Flow Chi Tiết
+          ```text
+          main (luôn sẵn sàng đưa lên sản phẩm thật, khóa không cho đẩy trực tiếp)
+            ├── feature/ABC-123-them-gio-hang   (nhánh tính năng mới)
+            ├── fix/ABC-456-sua-loi-tinh-thue   (nhánh sửa lỗi)
+            └── hotfix/ABC-789-khan-cap         (nhánh sửa lỗi khẩn cấp trên bản chạy thật)
           ```
-          main (production-ready, protected)
-            └── feature/abc-123 (mỗi ticket)
-            └── feature/xyz-456
-          ```
 
-          **Naming convention:**
-          - `feature/ABC-123-mo-ta-ngan` (feature mới)
-          - `fix/ABC-456-sua-loi` (bug fix)
-          - `hotfix/ABC-789-khan-cap` (production bug)
-          - `chore/...` (cập nhật tool, config)
+          **Quy ước đặt tên nhánh:**
+          - `feature/<mã-việc>-<mô-tả-ngắn>`: phát triển tính năng mới.
+          - `fix/<mã-việc>-<mô-tả-ngắn>`: sửa lỗi phát hiện khi kiểm thử.
+          - `hotfix/<mã-việc>-<mô-tả-ngắn>`: vá lỗi gấp trên môi trường thật.
+          - `chore/<mô-tả-ngắn>`: cập nhật thư viện, cấu hình, tài liệu.
 
-          ## 3. Quy trình PR
-          1. Tạo branch từ `main`
-          2. Code + commit nhỏ, có ý nghĩa
-          3. Push branch, tạo Pull Request
-          4. CI chạy tự động (test, lint, build)
-          5. ≥ 1 reviewer approve
-          6. Squash merge vào `main`
-          7. Xóa branch
+          ## 3. Quy Trình Pull Request (PR) Chuẩn 7 Bước
+          1. Tách nhánh mới từ `main` mới nhất (`git checkout -b feature/...`).
+          2. Viết mã và chia thành các commit nhỏ, nội dung rõ ràng (ví dụ: `feat: thêm nút thanh toán VietQR`).
+          3. Đẩy nhánh lên kho chung và mở Pull Request (kèm mô tả ngắn gọn và ảnh chụp nếu sửa giao diện).
+          4. Hệ thống CI/CD tự động chạy kiểm tra cú pháp (lint), kiểu dữ liệu và kiểm thử đơn vị.
+          5. Ít nhất 1 thành viên khác đọc mã và bấm phê duyệt (Approve).
+          6. Gộp vào `main` bằng chế độ **Squash and Merge** (gom các commit lẻ thành 1 commit sạch sẽ).
+          7. Xóa nhánh tính năng sau khi đã gộp xong để giữ kho gọn gàng.
 
-          ## 4. Giải quyết Conflict
-          - **Ưu tiên:** Rebase feature branch lên `main` mới nhất trước khi merge
-          - **Tránh:** Merge `main` vào feature nhiều lần (tạo commit rác)
-          - **Tool:** Dùng VS Code merge editor hoặc `git mergetool`
+          ## 4. Chiến Lược Giải Quyết Xung Đột (Conflict)
+          - **Ưu tiên cập nhật bằng `rebase`**: Khi nhánh `main` có thay đổi mới, kéo về và dựng lại nhánh tính năng lên trên `main` (`git fetch origin && git rebase origin/main`) thay vì gộp ngược `main` vào nhánh nhiều lần gây lịch sử chằng chịt.
+          - **Lưu ý an toàn**: Chỉ chạy `rebase` trên nhánh cá nhân của bạn; tuyệt đối không `rebase` nhánh `main` dùng chung.
+          - **Công cụ hỗ trợ**: Dùng trình xử lý xung đột trực quan của VS Code để chọn chính xác phần mã giữ lại, rồi chạy kiểm thử lại ngay.
 
-          ## 5. Tags & Releases
-          - Tag theo SemVer: `v1.2.3`
-          - GitHub Release kèm changelog tự động (github-changelog-generator)
-        context: "Team 8 devs, release weekly, startup"
+          ## 5. Đánh Nhãn Phiên Bản (Tags) & Phát Hành
+          - Đặt mã phiên bản theo chuẩn **SemVer** (`v1.2.3`: `1` = thay đổi lớn không tương thích ngược, `2` = thêm tính năng mới, `3` = sửa lỗi nhỏ).
+          - Tạo bản phát hành (Release) trên GitHub hằng tuần kèm danh sách thay đổi tự động sinh từ tiêu đề các Pull Request đã gộp.
+        context: "Đội 8 lập trình viên, phát hành hằng tuần, môi trường startup cần tốc độ và gọn nhẹ"
     difficulty: "intermediate"
     useCases:
-      - "Team lead setup Git quy trình cho team mới"
-      - "Developer muốn hiểu cách collaboration đúng chuẩn"
+      - "Trưởng nhóm thiết lập quy trình Git chuẩn cho đội ngũ mới thành lập"
+      - "Lập trình viên muốn nắm quy tắc phối hợp tạo PR và xử lý xung đột đúng cách"
 agentTemplate:
-  name: "Git & DevOps Mentor"
-  description: "Tư vấn Git workflow, CI/CD pipeline, code review best practices"
+  name: "Cố Vấn Quy Trình Git & Phát Hành"
+  description: "Hỗ trợ chọn mô hình phân nhánh Git, chuẩn hóa đánh giá mã nguồn (Code Review), giải quyết xung đột và thiết lập đường ống CI/CD"
   systemPrompt: |
-    Bạn là Git & DevOps Mentor. Giúp team thiết lập workflow hiệu quả, giải quyết conflict, tối ưu CI/CD.
+    Bạn là Cố Vấn Quy Trình Git & Phát Hành (Git & DevOps Mentor).
+    Nhiệm vụ của bạn là giúp đội lập trình thiết lập quy trình làm việc với Git gọn nhẹ, an toàn, giải quyết xung đột (conflict) sạch sẽ và tự động hóa kiểm thử trước khi gộp mã (CI/CD).
+    Luôn trình bày bằng tiếng Việt rõ ràng kèm ví dụ lệnh Git thực tế dễ sao chép.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:
   - "clean-code-refactor"
 author: "AI Life Hub Team"
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: git-workflow-collaboration
 ---

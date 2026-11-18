@@ -2,11 +2,15 @@ import { Metadata } from 'next';
 import { PromptOptimizer } from '@/components/tools/PromptOptimizer';
 
 export const metadata: Metadata = {
-  title: 'AI Prompt Optimizer & Enhancer | AI Life Hub',
-  description: 'Biến prompt đơn sơ thành prompt chuyên nghiệp chuẩn production theo các framework CoT, CREATE và Guardrails.',
+  title: 'Tối Ưu Hóa Câu Lệnh',
+  description: 'Biến yêu cầu ngắn gọn thành câu lệnh rõ ràng, có vai trò, quy tắc và ví dụ mẫu để AI trả lời chính xác hơn cho cả công việc hằng ngày lẫn lập trình.',
+  alternates: {
+    canonical: '/tools/prompt-optimizer',
+  },
   openGraph: {
-    title: 'AI Prompt Optimizer & Enhancer | AI Life Hub',
-    description: 'Tối ưu hóa câu lệnh LLM tự động: tăng 10x độ chính xác, loại bỏ hallucination và định hình đầu ra chuẩn mực.',
+    title: 'Tối Ưu Hóa Câu Lệnh | AI Life Hub',
+    description: 'Nâng cấp câu lệnh AI tự động theo cấu trúc rõ ràng: tăng độ chính xác, hạn chế AI bịa đặt thông tin và định hình đầu ra dễ dùng ngay.',
+    url: '/tools/prompt-optimizer',
     type: 'website',
   },
 };

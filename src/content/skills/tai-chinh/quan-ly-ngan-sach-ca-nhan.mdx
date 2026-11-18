@@ -2,60 +2,61 @@
 id: quan-ly-ngan-sach-ca-nhan
 categoryId: tai-chinh
 name: "Quản lý ngân sách cá nhân"
-description: "Thiết lập ngân sách 50/30/20, theo dõi chi tiêu, tự động hóa tiết kiệm, fund khẩn cấp"
+description: "Thiết lập ngân sách 50/30/20, theo dõi chi tiêu hằng tháng, tự động trích tiết kiệm và xây dựng quỹ dự phòng khẩn cấp"
 whenToUse:
-  - "Muốn kiểm soát dòng tiền, biết tiền đi đâu"
-  - "Xây dựng fund khẩn cấp 3-6 tháng chi phí"
-  - "Tự động hóa tiết kiệm, đầu tư định kỳ"
+  - "Muốn kiểm soát dòng tiền hằng tháng, biết rõ tiền lương đi đâu hết"
+  - "Muốn xây dựng quỹ dự phòng khẩn cấp đủ 3-6 tháng chi tiêu thiết yếu"
+  - "Muốn tự động hóa việc trích tiền tiết kiệm và đầu tư ngay khi nhận lương"
 difficulty: "beginner"
-estimatedTime: "Setup 1 giờ, review 15p/tuần"
+estimatedTime: "Thiết lập 1 giờ, rà soát 15 phút mỗi tuần"
 tags: ["budgeting", "personal-finance", "expense-tracking", "emergency-fund", "automation"]
 prompts:
   - id: prompt-budget-setup-503020
     name: "Thiết lập ngân sách 50/30/20"
-    description: "Phân bổ thu nhập theo quy tắc 50% Needs / 30% Wants / 20% Savings/Debt"
+    description: "Phân bổ thu nhập theo quy tắc 50% Nhu cầu thiết yếu / 30% Mong muốn cá nhân / 20% Tiết kiệm và trả nợ"
     template: |
-      Bạn là Financial Planner. Hãy thiết lập ngân sách 50/30/20 cho tôi:
+      Bạn là chuyên gia tư vấn tài chính cá nhân. Hãy lập bảng ngân sách theo quy tắc 50/30/20 giúp tôi:
 
-      **Thu nhập hàng tháng (net):**
-      {{monthlyIncome}}
+      **Thu nhập thực nhận mỗi tháng (sau thuế và bảo hiểm):**
+      {{monthlyIncome}} đồng
 
       **Chi phí cố định hiện tại:**
       {{fixedExpenses}}
 
-      **Chi phí biến động ước lượng:**
+      **Chi phí sinh hoạt linh hoạt ước lượng:**
       {{variableExpenses}}
 
-      **Nợ hiện có:**
+      **Các khoản nợ hiện có:**
       {{debts}}
 
       **Mục tiêu tài chính:**
       {{goals}}
 
-      **Output:**
-      1. Bảng phân bổ 50/30/20 chi tiết
-      2. Đánh giá: Đang overspend category nào?
-      3. Gợi ý điều chỉnh chi tiêu
-      4. Kế hoạch xây dựng Emergency Fund (mục tiêu, timeline)
-      5. Tự động hóa: Auto-transfer ngày nhận lương
-      6. Template Notion/Excel tracking hàng tháng
+      **Hãy lập kế hoạch chi tiết theo các phần sau:**
+      1. Bảng phân bổ 50/30/20 chuẩn theo mức thu nhập thực nhận và so sánh với chi tiêu hiện tại
+      2. Chỉ ra nhóm chi tiêu nào đang bị vung tay quá mức
+      3. Gợi ý cắt giảm hoặc tối ưu cụ thể từng khoản nhưng vẫn giữ chất lượng cuộc sống
+      4. Kế hoạch xây dựng Quỹ dự phòng khẩn cấp và thứ tự trả nợ lãi cao trước (đảm bảo tổng dòng tiền mỗi tháng khớp đúng 100% thu nhập)
+      5. Cách thiết lập chuyển khoản tự động ngay ngày nhận lương
+      6. Mẫu bảng theo dõi chi tiêu hằng tháng đơn giản (dùng được trên sổ tay hoặc bảng tính Excel)
     variables:
       - name: monthlyIncome
         type: number
-        label: "Thu nhập thuần tháng (VND)"
+        label: "Thu nhập thực nhận mỗi tháng (đồng)"
         required: true
       - name: fixedExpenses
         type: textarea
-        label: "Chi phí cố định (nhà, xe, bảo hiểm, subscription...)"
+        label: "Chi phí cố định (tiền nhà, điện nước, bảo hiểm, dịch vụ đăng ký hằng tháng...)"
         required: true
       - name: variableExpenses
         type: textarea
-        label: "Chi phí biến động (ăn uống, mua sắm, giải trí...)"
+        label: "Chi phí sinh hoạt biến động (ăn uống, mua sắm, giải trí, đi lại...)"
         required: true
       - name: debts
         type: textarea
-        label: "Nợ (thẻ tín dụng, vay tiêu dùng, lãi suất...)"
+        label: "Các khoản nợ hiện có (thẻ tín dụng, vay tiêu dùng, lãi suất...)"
         required: false
+        default: "Không có"
       - name: goals
         type: textarea
         label: "Mục tiêu tài chính (ngắn hạn, dài hạn)"
@@ -63,65 +64,67 @@ prompts:
     examples:
       - inputs:
           monthlyIncome: 25000000
-          fixedExpenses: "Thuê nhà: 7M, Điện/nước/net: 1.5M, Bảo hiểm: 1M, Subscription: 0.5M"
-          variableExpenses: "Ăn uống: 4M, Mua sắm: 2M, Giải trí: 1.5M, Di chuyển: 1M, Khác: 1M"
-          debts: "Thẻ tín dụng: 20M (lãi 3%/tháng), Vay xe: 150M (lãi 8%/năm)"
-          goals: "1. Emergency fund 6 tháng (60M). 2. Trả hết thẻ tín dụng 6 tháng. 3. Đầu tư ETF 3M/tháng."
+          fixedExpenses: "Thuê nhà: 7 triệu, Điện nước mạng: 1,5 triệu, Bảo hiểm: 1 triệu, Dịch vụ đăng ký hằng tháng: 500.000đ"
+          variableExpenses: "Ăn uống: 4 triệu, Mua sắm: 2 triệu, Giải trí: 1,5 triệu, Đi lại: 1 triệu, Chi khác: 1 triệu"
+          debts: "Thẻ tín dụng: 20 triệu (lãi 3%/tháng), Trả góp xe: 150 triệu (lãi 8%/năm, trả 3,5 triệu/tháng)"
+          goals: "1. Lập quỹ dự phòng khẩn cấp 6 tháng (60 triệu). 2. Trả hết nợ thẻ tín dụng trong 7-8 tháng. 3. Bắt đầu đầu tư quỹ chỉ số 3 triệu/tháng sau khi hết nợ thẻ."
         output: |
-          # 💰 Ngân Sách 50/30/20: Thu nhập 25M/tháng
+          # 💰 Kế Hoạch Ngân Sách 50/30/20: Thu nhập 25 triệu đồng/tháng
 
-          ## Phân bổ lý thuyết
-          | Category | % | Số tiền | Mục tiêu |
-          |----------|---|---------|----------|
-          | **Needs (50%)** | 50% | 12.5M | Chi phí sinh tồn bắt buộc |
-          | **Wants (30%)** | 30% | 7.5M | Chi phí đời sống, giải trí |
-          | **Savings/Debt (20%)** | 20% | 5M | Tiết kiệm + Trả nợ thêm |
+          ## 1. Khung phân bổ chuẩn 50/30/20
+          | Nhóm chi tiêu | Tỷ lệ chuẩn | Số tiền mục tiêu | Ý nghĩa |
+          |---|---|---|---|
+          | **Nhu cầu thiết yếu (50%)** | 50% | 12,5 triệu đồng | Chi phí bắt buộc để duy trì cuộc sống và đi làm |
+          | **Mong muốn cá nhân (30%)** | 30% | 7,5 triệu đồng | Ăn ngoài, mua sắm thêm, giải trí, sở thích |
+          | **Tiết kiệm & Trả nợ (20%)** | 20% | 5,0 triệu đồng | Trả nợ, lập quỹ dự phòng, đầu tư tương lai |
+          | **Tổng thu nhập** | **100%** | **25,0 triệu đồng** | |
 
-          ## Thực tế hiện tại
-          | Category | Chi tiêu | So với ngân sách |
-          |----------|----------|------------------|
-          | Needs | 11M (Nhà 7M + Điện/nước 1.5M + BH 1M + Sub 0.5M + Di chuyển 1M) | ✅ Dưới 12.5M |
-          | Wants | 8.5M (Ăn 4M + Mua 2M + Giải trí 1.5M + Khác 1M) | ⚠️ **Vượt 1M** |
-          | Savings/Debt | 5.5M (Trả nợ thẻ ~2M + Vay xe ~3.5M) | ⚠️ Chỉ trả nợ tối thiểu |
+          ## 2. Đối chiếu thực tế hiện tại (Tổng đúng 25 triệu)
+          | Nhóm chi tiêu | Mức chi hiện tại | Đánh giá |
+          |---|---|---|
+          | **Nhu cầu thiết yếu** | **11,0 triệu** (Nhà 7 triệu + Điện nước 1,5 triệu + Bảo hiểm 1 triệu + Dịch vụ đăng ký 500.000đ + Đi lại 1 triệu) | ✅ Gọn hơn mức trần 12,5 triệu |
+          | **Mong muốn cá nhân** | **8,5 triệu** (Ăn uống ngoài 4 triệu + Mua sắm 2 triệu + Giải trí 1,5 triệu + Chi khác 1 triệu) | ⚠️ **Vượt khung 1 triệu** |
+          | **Tiết kiệm & Trả nợ** | **5,5 triệu** (Trả tối thiểu thẻ tín dụng 2 triệu + Trả góp xe 3,5 triệu) | ⚠️ Chưa có khoản dư cho quỹ dự phòng, nợ thẻ lãi cao kéo dài |
+          | **Tổng dòng tiền hiện tại** | **25,0 triệu đồng** | Khớp 100% thu nhập |
 
-          ## ⚠️ Vấn đề: Wants vượt 1M, Savings chỉ trả nợ tối thiểu
+          ## 3. Gợi ý điều chỉnh để vừa trả hết nợ lãi cao vừa có quỹ dự phòng
+          1. **Tối ưu nhóm Thiết yếu giảm 1 triệu/tháng (từ 11 triệu xuống 10 triệu):** Rà soát gói cước di động/internet, tiết kiệm điện điều hòa và hủy các dịch vụ đăng ký ít dùng (giảm khoảng 500.000đ), kết hợp gom chuyến đi lại hợp lý (giảm thêm 500.000đ).
+          2. **Thu gọn nhóm Mong muốn giảm 1,5 triệu/tháng (từ 8,5 triệu xuống 7 triệu — gọn trong khung 30%):** Tự nấu cơm mang đi làm 3-4 bữa/tuần (tiết kiệm 1 triệu) và thay các buổi giải trí tốn kém bằng hoạt động miễn phí cuối tuần (tiết kiệm 500.000đ).
+          3. **Dồn 2,5 triệu vừa tiết kiệm được sang nhóm Tiết kiệm & Trả nợ (tăng từ 5,5 triệu lên 8 triệu/tháng):**
+             - **3,5 triệu/tháng:** Trả góp xe đúng hạn.
+             - **3,0 triệu/tháng:** Trả dứt điểm nợ thẻ tín dụng lãi suất cao (36%/năm) — dự kiến sạch nợ 20 triệu sau khoảng **7-8 tháng**.
+             - **1,5 triệu/tháng:** Gửi ngay vào tài khoản **Quỹ dự phòng khẩn cấp** để có lớp đệm an toàn ngay từ tháng đầu tiên.
 
-          ## Gợi ý điều chỉnh
-          1. **Giảm Wants 1M**: Ăn ngoài giảm 0.5M (meal prep), Giải trí giảm 0.5M (free alternatives)
-          2. **Tăng Savings**: Chuyển 1M từ Wants → Trả nợ thẻ ưu tiên (lãi 36%/năm)
-          3. **Snowball debt**: Trả thẻ tín dụng trước (lãi cao), sau đó vay xe
+          ## 4. Lộ trình Quỹ dự phòng khẩn cấp (Mục tiêu 60 triệu đồng)
+          - **Cơ sở tính:** 6 tháng × 10 triệu đồng chi phí thiết yếu sau tối ưu = **60 triệu đồng**.
+          - **Giai đoạn 1 (Tháng 1–8, trong lúc trả thẻ tín dụng):** Đóng đều **1,5 triệu/tháng** → sau 8 tháng tích lũy sẵn **12 triệu đồng** và dứt điểm hoàn toàn nợ thẻ tín dụng.
+          - **Giai đoạn 2 (Từ tháng 9 trở đi):** Dồn luôn khoản 3 triệu trước đây trả thẻ tín dụng sang Quỹ dự phòng thành **4,5 triệu/tháng** → chỉ mất thêm **~11 tháng** là cán mốc đủ 60 triệu đồng (sau đó chuyển sang đầu tư quỹ chỉ số 3-4,5 triệu/tháng!).
 
-          ## Emergency Fund Plan
-          - Mục tiêu: 6 tháng × 12.5M (Needs) = **75M** (bảo thủ hơn 60M)
-          - Hiện có: 0
-          - Đóng góp/tháng sau điều chỉnh: 2M (từ Wants) + 1M (từ Needs optimize) = **3M/tháng**
-          - Timeline: 75M / 3M = **25 tháng** (qua 2 năm)
-          - **Accelerate**: Sau khi trả xong thẻ tín dụng (tháng 6), +2M/tháng → 5M/tháng → 15 tháng nữa
-
-          ## Tự động hóa (Setup 1 lần)
+          ## 5. Thiết lập chuyển khoản tự động ngay ngày nhận lương (Khớp 25 triệu)
           ```
-          Ngày 1 (Nhận lương):
-          ├─ Auto-transfer 3M → Emergency Fund Account
-          ├─ Auto-transfer 2M → Credit Card Payment (extra)
-          ├─ Auto-transfer 3.5M → Car Loan
-          └─ Còn lại 16.5M → Spending Account (Needs + Wants)
+          Ngày nhận lương hằng tháng (Tổng 25,0 triệu đồng):
+          ├─ Tự động chuyển 1,5 triệu → Tài khoản Quỹ dự phòng khẩn cấp
+          ├─ Tự động chuyển 3,0 triệu → Thanh toán thẻ tín dụng (ưu tiên xóa nợ lãi cao)
+          ├─ Tự động chuyển 3,5 triệu → Thanh toán khoản trả góp xe
+          └─ Còn lại đúng 17,0 triệu → Tài khoản chi tiêu tháng (10 triệu Thiết yếu + 7 triệu Mong muốn)
           ```
 
-          ## Tracking Template (Notion/Excel)
-          | Tháng | Income | Needs | Wants | Savings/Debt | EF Balance | Note |
-          |-------|--------|-------|-------|--------------|------------|------|
-          | 01/2024 | 25M | 11M | 7.5M | 6.5M | 3M | Setup auto |
-          | 02/2024 | 25M | 10.5M | 7M | 7.5M | 6M | Optimize nhà |
-        context: "Ngân sách thực tế cho người thu nhập 25M, có nợ thẻ tín dụng"
+          ## 6. Mẫu bảng theo dõi hằng tháng (Tổng các cột luôn khớp 25 triệu)
+          | Tháng | Thu nhập | Thiết yếu | Mong muốn | Tiết kiệm & Trả nợ | Số dư Quỹ dự phòng | Ghi chú |
+          |---|---|---|---|---|---|---|
+          | 01 | 25 triệu | 10 triệu | 7 triệu | 8 triệu | 1,5 triệu | Bắt đầu tự động trích ngay đầu tháng |
+          | 02 | 25 triệu | 10 triệu | 7 triệu | 8 triệu | 3,0 triệu | Duy trì đúng kế hoạch, nợ thẻ giảm đều |
+        context: "Kế hoạch ngân sách thực tế cho người thu nhập 25 triệu đồng/tháng đang có nợ thẻ tín dụng"
     difficulty: "medium"
     useCases:
-      - "Người mới làm việc thiết lập ngân sách đầu tiên"
-      - "Muốn thoát vòng luân hồi sống tháng đến tháng"
+      - "Người mới đi làm muốn thiết lập bảng ngân sách bài bản ngay từ đầu"
+      - "Người muốn thoát cảnh hết tiền cuối tháng và sớm xóa nợ tiêu dùng"
 agentTemplate:
-  name: "Personal Finance Coach"
-  description: "Tư vấn ngân sách, emergency fund, debt payoff, investment automation"
+  name: "Chuyên Gia Quản Lý Tài Chính Cá Nhân"
+  description: "Hướng dẫn chia ngân sách theo quy tắc 50/30/20, kiểm soát chi tiêu, xóa nợ lãi cao và xây dựng quỹ dự phòng khẩn cấp"
   systemPrompt: |
-    Bạn là Personal Finance Coach. Nguyên tắc: Pay yourself first, Emergency fund trước, High-interest debt ưu tiên, Automate everything.
+    Bạn là chuyên gia tư vấn quản lý tài chính cá nhân tại Việt Nam.
+    Nguyên tắc cốt lõi: Trích tiết kiệm cho bản thân ngay khi vừa nhận lương, ưu tiên xây dựng quỹ dự phòng khẩn cấp 3-6 tháng chi tiêu thiết yếu, xử lý dứt điểm các khoản nợ lãi suất cao trước rồi mới đầu tư dài hạn, và luôn đảm bảo tổng phân bổ chi tiêu khớp đúng 100% thu nhập thực tế.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

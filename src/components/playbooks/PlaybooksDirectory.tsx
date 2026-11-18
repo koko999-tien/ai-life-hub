@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react';
 import {
   BookOpen,
   Search,
-  Filter,
   CheckCircle,
   Code2,
   Brain,
@@ -12,15 +11,13 @@ import {
   Layers,
   Sparkles,
   Gamepad2,
-  Terminal,
   Database,
   Lock,
   Cpu,
   ArrowRight,
-  ExternalLink,
-  FolderGit2,
   Copy,
-  Check
+  Check,
+  type LucideIcon,
 } from 'lucide-react';
 import { Modal } from '@/components/ui/Modal';
 import { toast } from 'sonner';
@@ -32,55 +29,55 @@ export interface Playbook {
   subtitle: string;
   originalWork: string;
   author: string;
-  icon: any;
+  icon: LucideIcon;
   category: 'ai' | 'data' | 'security' | 'systems' | 'testing' | 'game';
   roles: string[];
   keyTopics: string[];
   corePrinciples: string[];
   sampleCodeOrFormula: string;
-  drivePath: string;
+  docPath: string;
 }
 
 export const PLAYBOOKS_DATA: Playbook[] = [
   {
     id: 'agentic-ai',
-    bookNumber: 'Book 01',
-    title: 'Trí tuệ Nhân tạo Tác tử (Agentic AI)',
-    subtitle: 'Vòng lặp ReAct, Giao thức MCP, Bộ nhớ phân tầng & Đánh giá Evals',
+    bookNumber: 'Cẩm nang 01',
+    title: 'Trí tuệ Nhân tạo Tự hành (Agentic AI)',
+    subtitle: 'Vòng lặp suy luận & hành động, Giao thức kết nối công cụ (MCP), Bộ nhớ phân tầng & Kiểm định tự động',
     originalWork: 'Agentic AI: Complete Guide to Autonomous Systems',
-    author: 'AI Engineering Group',
+    author: 'Nhóm Nghiên cứu Kỹ thuật AI',
     icon: Brain,
     category: 'ai',
     roles: ['ai-engineer'],
-    keyTopics: ['Vòng lặp ReAct (Reason + Act)', 'Model Context Protocol (MCP)', 'Bộ nhớ phân tầng (Working, Episodic, Semantic)', 'Guardrails & Tránh lặp vô hạn', 'Đánh giá Evals tự động'],
+    keyTopics: ['Vòng lặp ReAct (Suy luận + Hành động)', 'Giao thức kết nối công cụ MCP', 'Bộ nhớ phân tầng (Ngắn hạn, Sự kiện, Ngữ nghĩa)', 'Rào chắn an toàn & Tránh lặp vô hạn', 'Đánh giá chất lượng tự động (Evals)'],
     corePrinciples: [
-      'Tách biệt tư duy (Reasoning) khỏi hành động (Action/Tool Execution)',
+      'Tách biệt bước lập luận (Reasoning) khỏi bước gọi công cụ thực thi (Action)',
       'Chuẩn hóa giao thức kết nối công cụ mở rộng qua MCP Client/Server',
-      'Định lượng độ tin cậy bằng Benchmark bộ dữ liệu vàng (Golden Datasets)'
+      'Đo lường độ tin cậy bằng bộ dữ liệu kiểm thử chuẩn (Golden Datasets)',
     ],
-    sampleCodeOrFormula: `# Vòng lặp ReAct chuẩn hóa
+    sampleCodeOrFormula: `# Vòng lặp suy luận & hành động chuẩn hóa
 def react_step(user_query, context):
     thought = llm.think(user_query, context)
     action, action_input = parse_action(thought)
     observation = tool_registry.execute(action, action_input)
     return synthesize_final(thought, observation)`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\01_agentic_ai_playbook.md'
+    docPath: 'docs/playbooks/01_agentic_ai_playbook.md',
   },
   {
     id: 'data-visualizations',
-    bookNumber: 'Book 02',
-    title: 'Trực quan hóa Dữ liệu Thực chiến (Data Visualizations)',
-    subtitle: 'Pandas Series/DataFrame, Đa chỉ mục MultiIndex & 8+ Biểu đồ Matplotlib',
+    bookNumber: 'Cẩm nang 02',
+    title: 'Trực quan hóa Dữ liệu Thực chiến',
+    subtitle: 'Phân tích bảng dữ liệu Pandas, Đa chỉ mục & Hơn 8 dạng biểu đồ Matplotlib chuyên sâu',
     originalWork: 'Data Visualizations with Python',
-    author: 'Data Science Specialists',
+    author: 'Nhóm Chuyên gia Khoa học Dữ liệu',
     icon: Layers,
     category: 'data',
     roles: ['data-scientist'],
-    keyTopics: ['Pandas MultiIndex & Reshaping', 'Chuỗi thời gian & Rolling Windows', 'Heatmaps, Boxplots & Violin plots', 'Tối ưu bảng màu Accessibility', 'Xuất bản vẽ chuẩn ấn phẩm'],
+    keyTopics: ['Bảng đa chỉ mục & Biến đổi dữ liệu Pandas', 'Chuỗi thời gian & Trung bình trượt', 'Biểu đồ nhiệt, Hộp phân vị & Phân phối', 'Tối ưu bảng màu thân thiện người đọc', 'Xuất biểu đồ độ phân giải cao cho báo cáo'],
     corePrinciples: [
-      'Tránh lãng phí bộ nhớ bằng định dạng kiểu dữ liệu danh mục (category)',
-      'Tỷ lệ dữ liệu - mực in (Data-Ink Ratio) tối đa của Edward Tufte',
-      'Xử lý khuyết thiếu (NaN) có chủ đích thay vì dropna() bừa bãi'
+      'Tiết kiệm bộ nhớ bằng kiểu dữ liệu phân nhóm (category)',
+      'Tối ưu tỷ lệ thông tin trên chi tiết hiển thị, loại bỏ thành phần rườm rà',
+      'Xử lý giá trị bị khuyết (NaN) có chủ đích thay vì xóa bỏ hàng loạt',
     ],
     sampleCodeOrFormula: `import pandas as pd
 import matplotlib.pyplot as plt
@@ -88,72 +85,72 @@ import matplotlib.pyplot as plt
 df['rolling_avg'] = df['revenue'].rolling(window=7, min_periods=1).mean()
 fig, ax = plt.subplots(figsize=(10, 5), dpi=300)
 ax.plot(df.index, df['revenue'], alpha=0.3, label='Thực tế')
-ax.plot(df.index, df['rolling_avg'], color='#2563eb', lw=2, label='MA 7-Day')`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\02_data_visualizations_playbook.md'
+ax.plot(df.index, df['rolling_avg'], color='#2563eb', lw=2, label='Trung bình 7 ngày')`,
+    docPath: 'docs/playbooks/02_data_visualizations_playbook.md',
   },
   {
     id: 'math-for-data-science',
-    bookNumber: 'Book 03',
-    title: 'Toán học cho Khoa học Dữ liệu (Math for Data Science)',
-    subtitle: 'Giải tích vi phân, Định lý Bayes, Đại số tuyến tính & Neural Net from Scratch',
+    bookNumber: 'Cẩm nang 03',
+    title: 'Toán học cho Khoa học Dữ liệu',
+    subtitle: 'Giải tích vi phân, Xác suất Bayes, Đại số tuyến tính & Xây dựng mạng nơ-ron từ đầu',
     originalWork: 'Mathematics for Data Science and Machine Learning',
-    author: 'Applied Mathematics Consortium',
+    author: 'Hội đồng Toán Ứng dụng',
     icon: Sparkles,
     category: 'data',
     roles: ['ai-engineer', 'data-scientist'],
-    keyTopics: ['Quy tắc chuỗi (Chain Rule) & Ma trận Jacobi', 'Định lý Bayes & Thống kê suy luận', 'Phân tích suy biến SVD & PCA', 'Hàm mất mát Cross-Entropy', 'Lan truyền ngược (Backpropagation)'],
+    keyTopics: ['Quy tắc chuỗi đạo hàm & Tối ưu hàm mục tiêu', 'Xác suất điều kiện Bayes & Thống kê suy luận', 'Phân rã ma trận giá trị kỳ dị (SVD) & Giảm chiều dữ liệu (PCA)', 'Hàm mất mát Cross-Entropy', 'Lan truyền ngược sai số (Backpropagation)'],
     corePrinciples: [
-      'Hiểu bản chất đạo hàm riêng (Partial Derivatives) trong tối ưu hóa Gradient Descent',
-      'Khoảng tin cậy (Confidence Interval) và ý nghĩa p-value trong kiểm định A/B',
-      'Ý nghĩa hình học của vector riêng (Eigenvectors) trong giảm chiều dữ liệu'
+      'Hiểu bản chất đạo hàm riêng trong việc cập nhật trọng số theo độ dốc',
+      'Hiểu đúng khoảng tin cậy và giá trị p-value khi kiểm định thử nghiệm A/B',
+      'Nắm vững ý nghĩa hình học của phép chiếu không gian khi giảm chiều dữ liệu',
     ],
-    sampleCodeOrFormula: `# Công thức lan truyền ngược gradient
+    sampleCodeOrFormula: `# Công thức cập nhật sai số lan truyền ngược
 dZ2 = A2 - Y
 dW2 = (1 / m) * np.dot(dZ2, A1.T)
 db2 = (1 / m) * np.sum(dZ2, axis=1, keepdims=True)
 dZ1 = np.dot(W2.T, dZ2) * relu_derivative(Z1)`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\03_math_for_data_science_playbook.md'
+    docPath: 'docs/playbooks/03_math_for_data_science_playbook.md',
   },
   {
     id: 'python-graphics',
-    bookNumber: 'Book 04',
-    title: 'Đồ họa Python 2D/3D & Mô phỏng Khoa học (Python Graphics)',
-    subtitle: 'Biến đổi Affine, Ma trận xoay Euler, Phối cảnh 3D & Đổ bóng Lambertian',
+    bookNumber: 'Cẩm nang 04',
+    title: 'Đồ họa Python 2D/3D & Mô phỏng Khoa học',
+    subtitle: 'Biến đổi hình học, Ma trận xoay 3D, Chiếu phối cảnh & Mô phỏng ánh sáng bề mặt',
     originalWork: 'Python Graphics: 2D & 3D Scientific Computing',
-    author: 'Visual Computing Lab',
+    author: 'Phòng Nghiên cứu Đồ họa Tính toán',
     icon: Code2,
     category: 'game',
     roles: ['game-dev'],
-    keyTopics: ['Tọa độ đồng nhất (Homogeneous Coordinates)', 'Ma trận phép chiếu phối cảnh (Perspective)', 'Chiếu sáng Lambertian & Phong Shading', 'Mô phỏng vật lý hạt & Khí hậu', 'Tối ưu hóa NumPy Vectorization'],
+    keyTopics: ['Tọa độ mở rộng cho phép xoay và dịch chuyển 3D', 'Ma trận phép chiếu phối cảnh (Perspective)', 'Mô hình ánh sáng phản xạ bề mặt', 'Mô phỏng hệ hạt vật lý & Khí hậu', 'Tối ưu tính toán hàng loạt bằng NumPy'],
     corePrinciples: [
-      'Tách biệt mô hình không gian thế giới (World Space) và không gian camera',
-      'Định lý quay Euler và giải pháp tránh khóa trục (Gimbal Lock)',
-      'Vector hóa toàn bộ phép biến đổi để đạt 60 FPS trên Python thuần'
+      'Tách biệt hệ tọa độ thế giới (World Space) khỏi hệ tọa độ góc nhìn camera',
+      'Sử dụng phép xoay hợp lý để tránh hiện tượng kẹt trục xoay 3D',
+      'Tính toán đồng loạt trên mảng để đạt 60 khung hình/giây trên Python',
     ],
-    sampleCodeOrFormula: `# Ma trận biến đổi Affine 3D đồng nhất
+    sampleCodeOrFormula: `# Ma trận biến đổi kết hợp tỷ lệ, xoay và dịch chuyển 3D
 T = np.array([
     [scale_x * cos(th), -sin(th), 0, tx],
     [sin(th), scale_y * cos(th), 0, ty],
     [0, 0, scale_z, tz],
     [0, 0, 0, 1]
 ])`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\04_python_graphics_playbook.md'
+    docPath: 'docs/playbooks/04_python_graphics_playbook.md',
   },
   {
     id: 'unity-game-dev',
-    bookNumber: 'Book 05',
-    title: 'Kiến trúc Phát triển Game Unity (Unity Game Dev)',
-    subtitle: 'Vòng đời MonoBehaviour, Vật lý Raycast, FSM AI, URP & DOTS/ECS',
+    bookNumber: 'Cẩm nang 05',
+    title: 'Kiến trúc Phát triển Game Unity',
+    subtitle: 'Vòng đời thành phần, Vật lý va chạm, Trí tuệ nhân tạo trạng thái & Tối ưu bộ nhớ',
     originalWork: 'Unity Game Development (4th Edition)',
     author: 'Borromeo & Gomila',
     icon: Gamepad2,
     category: 'game',
     roles: ['game-dev'],
-    keyTopics: ['MonoBehaviour Lifecycle (Awake, Start, FixedUpdate)', 'Máy trạng thái hữu hạn (FSM) cho Enemy AI', 'Vật lý 3D Raycasting & LayerMask', 'Object Pooling chống Garbage Collection', 'Data-Oriented Technology Stack (DOTS)'],
+    keyTopics: ['Vòng đời hàm Unity (Awake, Start, FixedUpdate)', 'Máy trạng thái hữu hạn cho hành vi nhân vật', 'Chiếu tia vật lý 3D & Phân lớp va chạm', 'Tái sử dụng đối tượng chống giật khung hình', 'Kiến trúc hướng dữ liệu hiệu năng cao'],
     corePrinciples: [
-      'Không bao giờ gọi GetComponent() trong Update() loop',
-      'Sử dụng FixedUpdate cho tương tác Rigidbody để đảm bảo tính tất định',
-      'Quản lý bộ nhớ với Object Pooling triệt tiêu giật lag (GC spikes)'
+      'Không gọi hàm tìm kiếm thành phần nặng bên trong vòng lặp Update() mỗi khung hình',
+      'Xử lý vật lý va chạm bên trong FixedUpdate để đảm bảo tính ổn định',
+      'Tái sử dụng đối tượng (Object Pooling) để tránh giật khung hình khi dọn bộ nhớ',
     ],
     sampleCodeOrFormula: `public class EnemyAI : MonoBehaviour {
     private enum State { Patrol, Chase, Attack }
@@ -166,93 +163,94 @@ T = np.array([
         }
     }
 }`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\05_unity_game_dev_playbook.md'
+    docPath: 'docs/playbooks/05_unity_game_dev_playbook.md',
   },
   {
     id: 'agile-testing',
-    bookNumber: 'Book 06',
-    title: 'Nghệ thuật Agile Testing (The Art of Agile Testing)',
-    subtitle: '4 Góc phần tư Q1-Q4, Toán chất lượng Chernov, BDD Gherkin & SBTM',
+    bookNumber: 'Cẩm nang 06',
+    title: 'Nghệ thuật Kiểm thử Agile',
+    subtitle: '4 nhóm mục tiêu kiểm thử Q1-Q4, Đo lường chất lượng theo rủi ro, Kịch bản BDD & Kiểm thử khám phá',
     originalWork: 'The Art of Agile Testing (2024)',
-    author: 'Yuri Chernov',
+    author: 'Hội đồng Kỹ thuật Kiểm thử Phần mềm',
     icon: CheckCircle,
     category: 'testing',
     roles: ['agile-qa'],
-    keyTopics: ['Agile Testing Quadrants Q1-Q4', 'Toán học chất lượng Chernov ($K_{cov}, W_{tc}$)', 'Kịch bản BDD Given-When-Then', 'Session-Based Test Management (SBTM)', 'Kiểm thử Sàn giao dịch tài chính'],
+    keyTopics: ['4 nhóm kiểm thử Agile Q1-Q4', 'Đo lường độ bao phủ kiểm thử & mật độ lỗi theo trọng số', 'Kịch bản kiểm thử hành vi (Điều kiện - Hành động - Kết quả / Given-When-Then)', 'Quản lý phiên kiểm thử khám phá có giới hạn thời gian', 'Kiểm thử hệ thống giao dịch tài chính'],
     corePrinciples: [
-      'Chất lượng là trách nhiệm của toàn bộ team, không phải chốt chặn cuối',
-      'Định lượng độ rủi ro bằng trọng số mức nghiêm trọng Chernov',
-      'Khám phá có cấu trúc (Exploratory Testing) qua các Charter có timebox'
+      'Chất lượng là trách nhiệm chung của cả nhóm, không chỉ ở bước kiểm tra cuối cùng',
+      'Định lượng mức độ rủi ro bằng trọng số nghiêm trọng của từng lỗi',
+      'Tổ chức kiểm thử khám phá có cấu trúc rõ mục tiêu và khung thời gian cụ thể',
     ],
-    sampleCodeOrFormula: `Scenario: Giao dịch ngoại hối khớp lệnh trong giới hạn trượt giá
-  Given Khách hàng có số dư khả dụng 50,000 USD
-  When Khách hàng gửi lệnh mua 1.5 BTC với giá thị trường 65,000 USD
+    sampleCodeOrFormula: `# Kịch bản kiểm thử hành vi (BDD Gherkin)
+Scenario: Giao dịch khớp lệnh trong giới hạn trượt giá
+  Given Khách hàng có số dư khả dụng 50.000 USD
+  When Khách hàng gửi lệnh mua 1.5 BTC với giá thị trường 65.000 USD
   And Biên độ trượt giá tối đa cho phép là 0.2%
-  Then Hệ thống khớp lệnh thành công với giá không vượt quá 65,130 USD`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\06_agile_testing_playbook.md'
+  Then Hệ thống khớp lệnh thành công với giá không vượt quá 65.130 USD`,
+    docPath: 'docs/playbooks/06_agile_testing_playbook.md',
   },
   {
     id: 'secure-coding',
-    bookNumber: 'Book 07',
-    title: 'Lập trình An toàn Alice và Bob (Secure Coding)',
-    subtitle: 'Tam giác CIA, Quyền tối thiểu, OWASP Top 10, STRIDE & SSDLC',
+    bookNumber: 'Cẩm nang 07',
+    title: 'Lập trình An toàn (Alice và Bob)',
+    subtitle: 'Bảo mật dữ liệu, Nguyên tắc quyền tối thiểu, Phòng chống 10 lỗ hổng phổ biến & Mô hình hóa mối đe dọa',
     originalWork: 'Alice and Bob Learn Secure Coding (2025)',
     author: 'Tanya Janca',
     icon: Lock,
     category: 'security',
     roles: ['ai-engineer', 'backend', 'devops', 'agile-qa'],
-    keyTopics: ['Mô hình mối đe dọa STRIDE', 'Triệt tiêu SQLi, XSS, SSRF và Broken Auth', 'Nguyên tắc Quyền tối thiểu (Least Privilege)', 'Bảo mật chuỗi cung ứng (Supply Chain & SBOM)', 'Bảo vệ API keys & Secrets management'],
+    keyTopics: ['Phân tích mối đe dọa theo 6 nhóm rủi ro (mô hình STRIDE)', 'Phòng chống chèn mã SQL, chèn mã độc trình duyệt (XSS) và giả mạo yêu cầu', 'Nguyên tắc cấp quyền tối thiểu cần thiết', 'Bảo mật thư viện phụ thuộc (Supply Chain)', 'Quản lý khóa API và biến môi trường bí mật'],
     corePrinciples: [
-      'Không bao giờ tin tưởng dữ liệu đầu vào từ người dùng (Never Trust, Always Validate)',
-      'Phòng ngự chiều sâu (Defense in Depth) trên mọi tầng kiến trúc',
-      'Tích hợp kiểm tra an ninh tự động ngay trên pipeline CI/CD (DevSecOps)'
+      'Không bao giờ tin tưởng dữ liệu đầu vào từ người dùng — luôn kiểm tra và làm sạch',
+      'Phòng ngự nhiều lớp trên mọi tầng kiến trúc từ giao diện đến cơ sở dữ liệu',
+      'Tích hợp kiểm tra lỗ hổng bảo mật tự động ngay trong quy trình phát triển',
     ],
-    sampleCodeOrFormula: `// Parameterized Query triệt tiêu SQL Injection 100%
+    sampleCodeOrFormula: `// Truy vấn tham số hóa giúp triệt tiêu lỗ hổng chèn mã SQL
 const query = 'SELECT id, email, role FROM users WHERE id = $1 AND active = $2';
 const result = await db.query(query, [userId, true]);
 
-// Cấu hình HTTP Security Headers
+// Bật các tiêu đề bảo mật HTTP tiêu chuẩn
 app.use(helmet({ contentSecurityPolicy: true, hsts: true }));`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\07_alice_bob_secure_coding_playbook.md'
+    docPath: 'docs/playbooks/07_alice_bob_secure_coding_playbook.md',
   },
   {
     id: 'sql-multidb',
-    bookNumber: 'Book 08',
-    title: 'Cơ sở Dữ liệu SQL Đa Hệ quản trị (SQL & Multi-DB)',
-    subtitle: 'Chuẩn hóa 3NF, Hàm cửa sổ LAG/LEAD, Chỉ mục B-Tree & Giao dịch ACID',
+    bookNumber: 'Cẩm nang 08',
+    title: 'Cơ sở Dữ liệu SQL Đa Hệ quản trị',
+    subtitle: 'Chuẩn hóa dữ liệu 3NF, Hàm cửa sổ phân tích, Chỉ mục B-Tree & Giao dịch an toàn',
     originalWork: 'Databases in SQL, MySQL, MS SQL & PostgreSQL',
-    author: 'Database Engineering Group',
+    author: 'Nhóm Kỹ sư Cơ sở Dữ liệu',
     icon: Database,
     category: 'data',
     roles: ['data-scientist', 'backend', 'agile-qa'],
-    keyTopics: ['Chuẩn hóa cơ sở dữ liệu 1NF đến 3NF', 'Hàm cửa sổ phân tích (ROW_NUMBER, LAG, LEAD)', 'Chỉ mục B-Tree, Partial và Covering Index', 'Cấp độ cô lập giao dịch (Read Committed, Serializable)', 'Giải quyết Deadlock & Tối ưu EXPLAIN'],
+    keyTopics: ['Chuẩn hóa cấu trúc bảng từ 1NF đến 3NF', 'Hàm cửa sổ phân tích (ROW_NUMBER, LAG, LEAD)', 'Thiết kế chỉ mục B-Tree và chỉ mục bao phủ', 'Các mức độ cô lập giao dịch dữ liệu (ACID)', 'Xử lý xung đột khóa & Đọc kế hoạch chạy EXPLAIN'],
     corePrinciples: [
-      'Thiết kế khóa ngoại và ràng buộc toàn vẹn dữ liệu từ tầng cơ sở dữ liệu',
-      'Hiểu rõ sự khác biệt giữa Index Scan và Index-Only Scan để tránh I/O đĩa',
-      'Giữ giao dịch (Transaction) ngắn nhất có thể để giảm thiểu tranh chấp khóa (Lock Contention)'
+      'Thiết lập khóa ngoại và ràng buộc toàn vẹn ngay từ tầng cơ sở dữ liệu',
+      'Tối ưu chỉ mục để truy vấn đọc trực tiếp từ chỉ mục, hạn chế đọc toàn bộ bảng',
+      'Giữ giao dịch cập nhật dữ liệu ngắn gọn để tránh nghẽn và xung đột khóa',
     ],
     sampleCodeOrFormula: `SELECT 
     customer_id, order_date, order_amount,
     LAG(order_amount, 1) OVER (PARTITION BY customer_id ORDER BY order_date) as prev_amount,
     order_amount - LAG(order_amount, 1) OVER (PARTITION BY customer_id ORDER BY order_date) as delta_spending
 FROM orders;`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\08_sql_multidb_database_playbook.md'
+    docPath: 'docs/playbooks/08_sql_multidb_database_playbook.md',
   },
   {
     id: 'c-programming',
-    bookNumber: 'Book 09',
-    title: 'Lập trình C & Kiến trúc Bộ nhớ Hệ thống (C Programming)',
-    subtitle: 'Phân đoạn Stack vs Heap, Số học con trỏ, malloc/free & Định dạng ELF',
+    bookNumber: 'Cẩm nang 09',
+    title: 'Lập trình C & Kiến trúc Bộ nhớ Hệ thống',
+    subtitle: 'Vùng nhớ Stack và Heap, Con trỏ, Cấp phát bộ nhớ động & Cấu trúc tệp thực thi',
     originalWork: 'C Programming for Beginners & Systems Architecture',
     author: 'Mike McGrath',
     icon: Cpu,
     category: 'systems',
     roles: ['backend', 'devops', 'game-dev'],
-    keyTopics: ['Chu kỳ biên dịch (Preprocessor, Compiler, Assembler, Linker)', 'Bản đồ bộ nhớ ảo (Text, Data, BSS, Stack, Heap)', 'Số học con trỏ (Pointer Arithmetic) & Con trỏ hàm', 'Quản lý bộ nhớ động và rò rỉ (Valgrind/AddressSanitizer)', 'Đóng gói cấu trúc bộ nhớ (Struct Padding & Alignment)'],
+    keyTopics: ['Quy trình biên dịch từ mã nguồn ra tệp chạy', 'Bố cục vùng nhớ tiến trình (Stack, Heap, Code, Data)', 'Thao tác con trỏ bộ nhớ và con trỏ hàm', 'Quản lý cấp phát động và phát hiện rò rỉ bộ nhớ', 'Căn chỉnh bộ nhớ trong cấu trúc dữ liệu (Struct)'],
     corePrinciples: [
-      'Mỗi byte bộ nhớ cấp phát qua malloc() bắt buộc phải có lệnh free() tương ứng',
-      'Cảnh giác tuyệt đối với tràn bộ đệm (Buffer Overflow) và Undefined Behavior',
-      'Tận dụng cấu trúc dữ liệu liên tục để tăng tỷ lệ trúng Cache L1/L2 của CPU'
+      'Mọi vùng nhớ cấp phát qua malloc() đều phải được giải phóng bằng free() đúng lúc',
+      'Kiểm tra chặt kích thước bộ đệm để tránh lỗi tràn bộ nhớ nguy hiểm',
+      'Tổ chức dữ liệu liên tiếp trong bộ nhớ để tận dụng tối đa bộ nhớ đệm CPU',
     ],
     sampleCodeOrFormula: `typedef struct {
     int id;
@@ -264,34 +262,34 @@ Student *s = (Student *)malloc(sizeof(Student));
 if (!s) { perror("Malloc failed"); exit(1); }
 s->id = 101;
 free(s);
-s = NULL; // Tránh Dangling Pointer`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\09_c_programming_playbook.md'
+s = NULL; // Tránh con trỏ trỏ tới vùng nhớ đã giải phóng`,
+    docPath: 'docs/playbooks/09_c_programming_playbook.md',
   },
   {
     id: 'selinux-admin',
-    bookNumber: 'Book 10',
-    title: 'Quản trị Bảo mật Hệ thống SELinux (SELinux System Admin)',
-    subtitle: 'Phân quyền Bắt buộc MAC vs DAC, Type Enforcement, sVirt & AVC Denials',
+    bookNumber: 'Cẩm nang 10',
+    title: 'Quản trị Bảo mật Hệ thống Linux (SELinux)',
+    subtitle: 'Kiểm soát truy cập bắt buộc, Cô lập ứng dụng (Container) & Phân tích nhật ký từ chối',
     originalWork: 'SELinux System Administration',
     author: 'Sven Vermeulen',
     icon: Shield,
     category: 'security',
     roles: ['devops'],
-    keyTopics: ['Kiểm soát truy cập bắt buộc (Mandatory Access Control)', 'Cấu trúc nhãn bảo mật (user:role:type:mls)', 'Thực thi kiểu (Type Enforcement) & Chuyển dịch miền', 'Cách ly máy ảo & Docker Container với sVirt/MCS', 'Điều tra vi phạm nhật ký AVC qua audit2allow'],
+    keyTopics: ['Kiểm soát truy cập bắt buộc (bảo vệ chặt hơn quyền thông thường)', 'Cấu trúc nhãn bảo mật (người dùng : vai trò : kiểu : mức độ)', 'Quy tắc phân quyền theo kiểu tệp và chuyển dịch miền an toàn', 'Cách ly máy ảo & vùng chứa (Container) theo nhãn bảo mật', 'Điều tra nhật ký từ chối truy cập để tạo quy tắc cấp quyền tối thiểu'],
     corePrinciples: [
-      'Quyền Root truyền thống (DAC) vẫn bị giam cầm trong chính sách của SELinux (MAC)',
-      'Không bao giờ tắt SELinux (setenforce 0) trên môi trường sản xuất',
-      'Tạo module chính sách tối thiểu cho các dịch vụ tùy biến nội bộ'
+      'Ngay cả quyền quản trị cao nhất (Root) cũng bị giới hạn trong chính sách của SELinux',
+      'Không tắt tính năng bảo vệ SELinux trên máy chủ vận hành thực tế',
+      'Tạo quy tắc cấp quyền tối thiểu riêng cho từng dịch vụ nội bộ',
     ],
-    sampleCodeOrFormula: `# Kiểm tra nhãn bảo mật tiến trình và file
+    sampleCodeOrFormula: `# Kiểm tra nhãn bảo mật tiến trình và tệp
 ls -Z /var/www/html/
 ps -eZ | grep nginx
 
-# Phân tích log từ chối AVC và sinh bản vá policy
-ausearch -m avc -ts recent | audit2allow -M my_custom_service
-semodule -i my_custom_service.pp`,
-    drivePath: 'D:\\AI_Knowledge_Lab\\docs\\playbooks\\10_selinux_admin_playbook.md'
-  }
+# Tra cứu nhật ký từ chối truy cập gần đây và kiểm tra các mô-đun bảo mật đang bật
+ausearch -m avc -ts recent
+semodule -l | head -n 10`,
+    docPath: 'docs/playbooks/10_selinux_admin_playbook.md',
+  },
 ];
 
 export function PlaybooksDirectory() {
@@ -304,31 +302,46 @@ export function PlaybooksDirectory() {
   const handleCopyCode = async (code: string, id: string) => {
     try {
       await navigator.clipboard.writeText(code);
-      setCopiedId(id);
-      toast.success('Đã sao chép mã nguồn/công thức!');
-      setTimeout(() => setCopiedId(null), 2000);
     } catch {
-      toast.error('Không thể sao chép mã nguồn.');
+      const textarea = document.createElement('textarea');
+      textarea.value = code;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch {
+        document.body.removeChild(textarea);
+        toast.error('Không thể sao chép mã nguồn.');
+        return;
+      }
+      document.body.removeChild(textarea);
     }
+    setCopiedId(id);
+    toast.success('Đã sao chép mã nguồn/công thức!');
+    setTimeout(() => setCopiedId(null), 2000);
   };
 
   const rolePathways = [
-    { id: 'all', label: 'Tất cả 10 Sách' },
-    { id: 'ai-engineer', label: '🤖 AI & LLM Engineer' },
-    { id: 'data-scientist', label: '📊 Data Scientist' },
-    { id: 'backend', label: '💻 Fullstack & Backend' },
-    { id: 'devops', label: '🛡️ DevOps & SecOps' },
-    { id: 'agile-qa', label: '✅ Agile QA / SDET' },
-    { id: 'game-dev', label: '🎮 Game & Graphics' },
+    { id: 'all', label: 'Tất cả 10 Cẩm nang' },
+    { id: 'ai-engineer', label: '🤖 Kỹ sư AI & LLM' },
+    { id: 'data-scientist', label: '📊 Khoa học Dữ liệu' },
+    { id: 'backend', label: '💻 Lập trình Backend' },
+    { id: 'devops', label: '🛡️ Vận hành & Bảo mật' },
+    { id: 'agile-qa', label: '✅ Kiểm thử Phần mềm' },
+    { id: 'game-dev', label: '🎮 Đồ họa & Game' },
   ];
 
   const filteredPlaybooks = useMemo(() => {
     return PLAYBOOKS_DATA.filter((p) => {
       const matchRole = selectedRole === 'all' || p.roles.includes(selectedRole);
-      const matchSearch = p.title.toLowerCase().includes(search.toLowerCase()) ||
-                          p.subtitle.toLowerCase().includes(search.toLowerCase()) ||
-                          p.keyTopics.some(t => t.toLowerCase().includes(search.toLowerCase())) ||
-                          p.originalWork.toLowerCase().includes(search.toLowerCase());
+      const q = search.toLowerCase();
+      const matchSearch =
+        p.title.toLowerCase().includes(q) ||
+        p.subtitle.toLowerCase().includes(q) ||
+        p.keyTopics.some((t) => t.toLowerCase().includes(q)) ||
+        p.originalWork.toLowerCase().includes(q);
       return matchRole && matchSearch;
     });
   }, [selectedRole, search]);
@@ -343,7 +356,8 @@ export function PlaybooksDirectory() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Tìm theo chủ đề, từ khóa kỹ thuật (vd: ReAct, Pandas, Bayes, Unity, Chernov, SELinux, SQL, C pointers)..."
+            aria-label="Tìm kiếm cẩm nang kỹ thuật"
+            placeholder="Tìm theo chủ đề hoặc từ khóa kỹ thuật (vd: ReAct, Pandas, Bayes, Unity, Kiểm thử, SELinux, SQL, Con trỏ C)..."
             className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text placeholder-text-muted focus:border-accent focus:outline-none transition-colors"
           />
         </div>
@@ -353,6 +367,8 @@ export function PlaybooksDirectory() {
           {rolePathways.map((r) => (
             <button
               key={r.id}
+              type="button"
+              aria-pressed={selectedRole === r.id}
               onClick={() => setSelectedRole(r.id)}
               className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedRole === r.id
@@ -375,6 +391,7 @@ export function PlaybooksDirectory() {
             Không có cẩm nang nào khớp với từ khóa &ldquo;{search}&rdquo; trong vai trò đã chọn.
           </p>
           <button
+            type="button"
             onClick={() => {
               setSearch('');
               setSelectedRole('all');
@@ -441,8 +458,8 @@ export function PlaybooksDirectory() {
                       type="button"
                       onClick={() => handleCopyCode(p.sampleCodeOrFormula, p.id)}
                       className="absolute top-2 right-2 p-1.5 rounded-lg bg-bg-surface/90 hover:bg-hover border border-border text-text-muted hover:text-text transition-all shadow-xs"
-                      title="Sao chép code mẫu"
-                      aria-label="Sao chép code mẫu"
+                      title="Sao chép mã mẫu"
+                      aria-label="Sao chép mã mẫu"
                     >
                       {copiedId === p.id ? (
                         <Check className="w-3.5 h-3.5 text-emerald-500" />
@@ -454,10 +471,11 @@ export function PlaybooksDirectory() {
                 </div>
 
                 <div className="pt-4 border-t border-border flex items-center justify-between text-xs gap-2">
-                  <span className="text-[11px] text-text-muted font-mono truncate max-w-[180px] sm:max-w-[240px]" title={p.drivePath}>
-                    📂 {p.drivePath.replace('D:\\', '')}
+                  <span className="text-[11px] text-text-muted font-mono truncate max-w-[180px] sm:max-w-[240px]" title={p.docPath}>
+                    📄 {p.docPath}
                   </span>
                   <button
+                    type="button"
                     onClick={() => {
                       setActivePlaybook(p);
                       setModalTab('principles');
@@ -485,8 +503,11 @@ export function PlaybooksDirectory() {
         >
           <div className="space-y-6 pt-2">
             {/* Modal Tabs */}
-            <div className="flex border-b border-border gap-2">
+            <div className="flex border-b border-border gap-2" role="tablist" aria-label="Nội dung chi tiết cẩm nang">
               <button
+                type="button"
+                role="tab"
+                aria-selected={modalTab === 'principles'}
                 onClick={() => setModalTab('principles')}
                 className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all ${
                   modalTab === 'principles'
@@ -497,6 +518,9 @@ export function PlaybooksDirectory() {
                 Nguyên lý cốt lõi
               </button>
               <button
+                type="button"
+                role="tab"
+                aria-selected={modalTab === 'topics'}
                 onClick={() => setModalTab('topics')}
                 className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all ${
                   modalTab === 'topics'
@@ -507,6 +531,9 @@ export function PlaybooksDirectory() {
                 Chủ đề &amp; Nguồn gốc
               </button>
               <button
+                type="button"
+                role="tab"
+                aria-selected={modalTab === 'code'}
                 onClick={() => setModalTab('code')}
                 className={`pb-2.5 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all ${
                   modalTab === 'code'
@@ -557,8 +584,8 @@ export function PlaybooksDirectory() {
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-accent/5 border border-accent/20 text-xs text-text-muted">
-                  <span className="font-bold text-text block mb-1">Vị trí tài liệu đầy đủ trên ổ D:</span>
-                  <code className="text-accent font-mono block break-all text-[11px]">{activePlaybook.drivePath}</code>
+                  <span className="font-bold text-text block mb-1">Mã tài liệu tham chiếu:</span>
+                  <code className="text-accent font-mono block break-all text-[11px]">{activePlaybook.docPath}</code>
                 </div>
               </div>
             )}
@@ -583,7 +610,7 @@ export function PlaybooksDirectory() {
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5" />
-                        <span>Sao chép code</span>
+                        <span>Sao chép mã</span>
                       </>
                     )}
                   </button>
@@ -596,6 +623,7 @@ export function PlaybooksDirectory() {
 
             <div className="pt-4 border-t border-border flex justify-end">
               <button
+                type="button"
                 onClick={() => setActivePlaybook(null)}
                 className="py-2 px-5 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all"
               >

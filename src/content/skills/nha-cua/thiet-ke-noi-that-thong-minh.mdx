@@ -1,160 +1,163 @@
 ---
 id: thiet-ke-noi-that-thong-minh
 categoryId: nha-cua
-name: "Thiết kế nội thất & Smart Home cơ bản"
-description: "Layout phòng, Màu sắc, Éclairage, Công nghệ nhà thông minh (Sensor, Voice, Automation), Budget-friendly"
+name: "Thiết kế nội thất & Nhà thông minh cơ bản"
+description: "Bố trí mặt bằng phòng, phối màu, ánh sáng và lắp đặt thiết bị nhà thông minh (cảm biến, điều khiển giọng nói, tự động hóa) với chi phí hợp lý"
 whenToUse:
-  - "Trang trí căn hộ mới, Re-decor phòng cũ"
-  - "Tối ưu không gian nhỏ, Đa năng"
-  - "Lắp đặt Smart home: Đèn, Khóa, Cảm biến, Voice control"
+  - "Trang trí căn hộ mới hoặc làm mới lại phòng cũ"
+  - "Tối ưu không gian nhỏ gọn và đa năng"
+  - "Lắp đặt thiết bị nhà thông minh: đèn, khóa cửa, cảm biến và điều khiển bằng giọng nói"
 difficulty: "intermediate"
-estimatedTime: "Thiết kế 2-4h, Triển khai 1-2 tuần"
+estimatedTime: "Lên phương án 2-4 giờ, lắp đặt hoàn thiện 1-2 tuần"
 tags: ["interior-design", "smart-home", "home-automation", "layout", "lighting", "space-optimization"]
 prompts:
   - id: prompt-smart-home-setup
-    name: "Thiết kế & Cài đặt Smart Home cơ bản"
-    description: "Chọn hệ sinh thái, Thiết bị, Automation scenarios, Voice control, Privacy & Security"
+    name: "Thiết kế & lắp đặt nhà thông minh cơ bản"
+    description: "Chọn hệ sinh thái phù hợp, lên danh sách thiết bị, kịch bản tự động hóa, điều khiển giọng nói và bảo mật riêng tư"
     template: |
-      Bạn là Smart Home Designer. Hãy thiết kế hệ thống cho:
+      Bạn là chuyên gia thiết kế không gian sống và nhà thông minh. Hãy lập phương án phù hợp cho:
 
-      **Nhà:**
+      **Thông tin ngôi nhà:**
       {{homeDetails}}
 
-      **Mục tiêu:**
-      {{goals}} (Tiện nghi / An ninh / Tiết kiệm năng lượng / Chăm sóc người già/trẻ / Pet)
+      **Mục tiêu ưu tiên:**
+      {{goals}}
 
-      **Ngân sách:**
-      {{budget}} (Low < 5M / Medium 5-20M / High > 20M VND)
+      **Ngân sách dự kiến:**
+      {{budget}}
 
-      **Hệ sinh thái ưu tiên:**
-      {{ecosystem}} (Apple HomeKit / Google Home / Amazon Alexa / Home Assistant / Zigbee/Matter)
+      **Hệ sinh thái mong muốn:**
+      {{ecosystem}}
 
-      **Output:**
-      1. **Hệ sinh thái & Hub**: Lựa chọn (HomeKit - iPhone, Google - Android, HA - Advanced), Hub/Controller
-      2. **Thiết bị Core (Priority 1)**:
-         - Đèn thông minh (Bulb/Strip/Switch)
-         - Khóa thông minh (Fingerprint/Code/Card/Key)
-         - Cảm biến (Chuyển động, Mở cửa, Môi trường - Temp/Humidity/CO2)
-         - Camera/Doorbell
-      3. **Automation Scenarios (Node-RED / HomeKit / Google Routines)**:
-         - "Good Morning": Mở rèm, Bật đèn nhẹ, Bật máy lọc không khí, Đọc tin tức
-         - "Leave Home": Tắt tất cả, Khóa cửa, Bật camera, Chế độ tiết kiệm điện
-         - "Movie Time": Tắt đèn chính, Bật đèn dải LED âm thanh, Bật TV/Projector
-         - "Bedtime": Tắt đèn, Khóa cửa, Bật quạt/điều hòa timer, Đèn ngủ nháy
-         - "Security": Cảm biến cửa/chuyển động + Camera → Alert phone + Siren
-      4. **Voice Control**: Câu lệnh tự nhiên (Vietnamese/English)
-      5. **Privacy & Security**: Local control (No cloud), VLAN隔离, Firmware update, Strong password, 2FA
-      6. **Budget Breakdown & Mua hàng**: Link Shopee/Lazada/Tiki/Aliexpress, Ưu tiên Matter/Thread/Zigbee
+      **Hãy lập kế hoạch chi tiết theo các phần sau:**
+      1. **Hệ sinh thái và bộ điều khiển trung tâm**: Gợi ý nền tảng phù hợp nhất với điện thoại cả nhà đang dùng (Apple HomeKit cho iPhone, Google Home cho Android, hoặc các hệ dễ dùng tại Việt Nam như Aqara, Xiaomi, Tuya) và thiết bị trung tâm cần có
+      2. **Danh sách thiết bị cốt lõi nên ưu tiên trước**:
+         - Đèn và công tắc thông minh (giữ được công tắc bấm tường cho người lớn tuổi dễ dùng)
+         - Khóa cửa điện tử (vân tay, mã số, thẻ từ và chìa cơ dự phòng)
+         - Cảm biến (chuyển động bật đèn ban đêm, cảm biến mở cửa, cảm biến nhiệt độ và độ ẩm)
+         - Camera an ninh trong nhà và chuông cửa
+      3. **Các kịch bản tự động hóa thiết thực hằng ngày**:
+         - "Chào buổi sáng": Tự mở rèm, bật đèn dịu nhẹ, bật máy lọc không khí
+         - "Ra khỏi nhà": Tắt hết đèn và điều hòa, khóa cửa, bật cảnh báo camera
+         - "Xem phim thư giãn": Giảm sáng đèn chính, bật đèn hắt nhẹ sau tivi
+         - "Đi ngủ": Tắt đèn phòng khách, hẹn giờ tắt điều hòa, bật đèn ngủ hành lang cảm biến
+         - "Cảnh báo an ninh": Phát hiện mở cửa bất thường khi vắng nhà thì báo về điện thoại ngay
+      4. **Điều khiển bằng giọng nói**: Gợi ý các câu lệnh ngắn gọn, tự nhiên cho cả nhà dễ gọi
+      5. **Quyền riêng tư và an toàn mạng**: Ưu tiên thiết bị chạy ổn định nội bộ kể cả khi mất mạng; tạo mạng Wi-Fi phụ riêng cho thiết bị trong nhà nếu bộ phát hỗ trợ; cập nhật phần mềm định kỳ; đặt mật khẩu mạnh và bật xác thực 2 bước
+      6. **Dự toán chi phí và nơi mua uy tín**: Bảng giá tham khảo tại Việt Nam và gợi ý mua tại gian hàng chính hãng (Shopee Mall, Lazada Mall, Tiki hoặc đại lý phân phối có bảo hành)
     variables:
       - name: homeDetails
         type: textarea
-        label: "Chi tiết nhà (Loại, Diện tích, Số phòng, Thành viên, Pet)"
+        label: "Chi tiết nhà ở (loại nhà, diện tích, số phòng, thành viên, thú cưng)"
         required: true
       - name: goals
         type: multiselect
         label: "Mục tiêu chính"
         options:
-          - "Tiện nghi (Voice control, Automation)"
-          - "An ninh (Camera, Khóa thông minh, Cảm biến)"
-          - "Tiết kiệm năng lượng (Điều hòa, Đèn, Sensor)"
-          - "Chăm sóc người già/Trẻ/Pet (Theo dõi, Cảnh báo)"
+          - "Tiện nghi (điều khiển giọng nói và kịch bản tự động)"
+          - "An ninh (camera giám sát; khóa cửa điện tử và cảm biến)"
+          - "Tiết kiệm năng lượng (tự tắt điều hòa và đèn khi không có người)"
+          - "Chăm sóc người lớn tuổi; trẻ nhỏ hoặc thú cưng (theo dõi và cảnh báo)"
         required: true
       - name: budget
         type: select
         label: "Ngân sách"
         options:
-          - "Low (< 5 triệu VND)"
-          - "Medium (5 - 20 triệu VND)"
-          - "High (> 20 triệu VND)"
+          - "Tiết kiệm (dưới 5 triệu đồng)"
+          - "Trung bình (từ 5 đến 20 triệu đồng)"
+          - "Cao cấp (trên 20 triệu đồng)"
         required: true
+        default: "Trung bình (từ 5 đến 20 triệu đồng)"
       - name: ecosystem
         type: select
         label: "Hệ sinh thái ưu tiên"
         options:
-          - "Apple HomeKit (iPhone/iPad/Mac, Secure, Local)"
-          - "Google Home (Android, Nest, Voice tốt)"
-          - "Amazon Alexa (Skills nhiều, Rẻ)"
-          - "Home Assistant (Local, Advanced, DIY, Private)"
-          - "Matter/Thread/Zigbee (Multi-platform, Future-proof)"
+          - "Apple HomeKit (phù hợp gia đình dùng iPhone/iPad, bảo mật cao)"
+          - "Google Home (phù hợp Android, nhận giọng nói tiếng Việt tốt)"
+          - "Nền tảng phổ biến tại Việt Nam (Aqara, Xiaomi, Tuya — dễ mua, giá hợp lý)"
+          - "Hệ thống tự tùy biến sâu (Home Assistant — dành cho người thích mày mò kỹ thuật)"
+          - "Chuẩn kết nối mở (Matter / Thread / Zigbee — dùng chung nhiều hãng)"
         required: true
+        default: "Apple HomeKit (phù hợp gia đình dùng iPhone/iPad, bảo mật cao)"
     examples:
       - inputs:
-          homeDetails: "Căn hộ 2PN 70m2, Vợ chồng 30t, 1 con 3t, 1 chó Corgi"
-          goals: '["Tiện nghi (Voice control, Automation)", "An ninh (Camera, Khóa thông minh, Cảm biến)", "Tiết kiệm năng lượng (Điều hòa, Đèn, Sensor)"]'
-          budget: "Medium (5 - 20 triệu VND)"
-          ecosystem: "Apple HomeKit (iPhone/iPad/Mac, Secure, Local)"
+          homeDetails: "Căn hộ 2 phòng ngủ 70 m2, hai vợ chồng 30 tuổi, 1 con 3 tuổi và 1 chú chó Corgi"
+          goals:
+            - "Tiện nghi (điều khiển giọng nói và kịch bản tự động)"
+            - "An ninh (camera giám sát; khóa cửa điện tử và cảm biến)"
+            - "Tiết kiệm năng lượng (tự tắt điều hòa và đèn khi không có người)"
+          budget: "Trung bình (từ 5 đến 20 triệu đồng)"
+          ecosystem: "Apple HomeKit (phù hợp gia đình dùng iPhone/iPad, bảo mật cao)"
         output: |
-          # 🏠 Smart Home Setup: HomeKit, Medium Budget, Family + Pet
+          # 🏠 Phương Án Nhà Thông Minh: Căn Hộ 70 m2 Cho Gia Đình Trẻ
 
-          ## 1. Hệ sinh thái & Hub
-          - **Ecosystem**: Apple HomeKit (iPhone 14/15, iPad, Apple TV 4K làm Home Hub)
-          - **Thread Border Router**: Apple TV 4K (Gen 3) / HomePod mini - cho thiết bị Matter/Thread
-          - **Matter/Thread ưu tiên**: Tương lai, Local, Low latency, Multi-admin
+          ## 1. Hệ Sinh Thái & Bộ Điều Khiển Trung Tâm
+          - **Nền tảng chính**: Apple HomeKit (điều khiển trực tiếp trên iPhone, iPad, dùng Apple TV 4K hoặc HomePod mini làm bộ điều khiển trung tâm tại nhà).
+          - **Ưu điểm**: Xử lý lệnh nhanh trong mạng nội bộ, vẫn bấm và chạy tự động ổn định ngay cả khi mất mạng ngoài, độ bảo mật cao cho gia đình có trẻ nhỏ.
+          - **Chuẩn kết nối nên ưu tiên**: Chọn thiết bị hỗ trợ chuẩn kết nối mới (Matter / Thread / Zigbee) để dễ phối hợp nhiều hãng với nhau sau này.
 
-          ## 2. Thiết bị Core (Ưu tiên & Ước tính giá VN)
-          | Thiết bị | Model khuyến nghị (VN) | Protocol | Ước tính | Mục đích |
-          |----------|------------------------|----------|----------|---------|
-          | **Smart Lock** | Yale Linus L2 / Aqara U100 (Matter) | Thread/Matter | 3.5-5M | Keyless, Auto-lock, Guest code, Log |
-          | **Smart Bulb** | Nanoleaf Essentials (Matter/Thread) / Yeelight Pro | Matter/Thread | 200-400k/cái | Đèn ngủ, Đèn bàn, Dải LED TV |
-          | **Smart Switch** | Aqara H1 / Sonoff Mini R4 (Matter) | Zigbee/Matter | 300-500k/cái | Đèn trần, Quạt (giữ switch vật lý) |
-          | **Motion Sensor** | Aqara P1 / Eve Motion (Thread) | Zigbee/Thread | 300-500k | Bật đèn tự động, Security, HVAC |
-          | **Contact Sensor** | Aqara P1 / Eve Door (Thread) | Zigbee/Thread | 300-400k/cái | Cửa chính, Cửa sổ, Tủ thuốc |
-          | **Env Sensor** | Qingping Air / Eve Room (Thread) | Bluetooth/Thread | 500-800k | CO2, Temp, Humidity → Bật máy lọc/Điều hòa |
-          | **Camera** | Aqara G3 / Eve Cam (HomeKit Secure Video) | WiFi/Thread | 1.5-3M | Doorway, Phòng ngủ, Pet monitoring |
-          | **Smart Plug** | Eve Energy / Meross (Matter) | Thread/Matter | 300-500k | Quạt, Máy lọc, Sạc xe, Schedule |
+          ## 2. Thiết Bị Cốt Lõi Nên Mua Trước
+          | Thiết bị | Mẫu gợi ý dễ mua tại VN | Kết nối | Giá ước tính | Công dụng chính |
+          |---|---|---|---|---|
+          | **Khóa cửa thông minh** | Yale Linus L2 / Aqara U100 | Thread / Matter | 3,5-5 triệu | Mở vân tay, tự khóa khi đóng cửa, cấp mã tạm cho khách |
+          | **Bóng đèn thông minh** | Nanoleaf Essentials / Yeelight Pro | Matter / Thread | 200.000-400.000đ/bóng | Đèn ngủ, đèn bàn, điều chỉnh độ sáng ấm buổi tối |
+          | **Công tắc thông minh** | Aqara H1 / Sonoff Mini R4 | Zigbee / Matter | 300.000-500.000đ/cái | Đèn trần phòng khách, phòng ngủ (vẫn bấm tay bình thường) |
+          | **Cảm biến chuyển động** | Aqara P1 / Eve Motion | Zigbee / Thread | 300.000-500.000đ | Tự bật đèn hành lang ban đêm, cảnh báo người lạ |
+          | **Cảm biến mở cửa** | Aqara P1 / Eve Door | Zigbee / Thread | 300.000-400.000đ/cái | Gắn cửa chính, cửa ban công, tủ thuốc tránh bé tự mở |
+          | **Cảm biến không khí** | Qingping Air / Eve Room | Bluetooth / Thread | 500.000-800.000đ | Đo nhiệt độ, độ ẩm để tự bật máy lọc hoặc điều hòa |
+          | **Camera an ninh** | Aqara G3 (hỗ trợ lưu trữ mã hóa) | Wi-Fi | 1,5-3 triệu | Quan sát cửa ra vào và theo dõi thú cưng khi vắng nhà |
+          | **Ổ cắm thông minh** | Eve Energy / Meross | Thread / Matter | 300.000-500.000đ | Hẹn giờ quạt, máy lọc không khí, tắt nguồn bình đun |
 
-          ## 3. Automation Scenarios (HomeKit App / Controller for HomeKit)
-          | Scene | Trigger | Actions |
-          |-------|---------|---------|
-          | **Good Morning** | 6:00 AM hoặc "Hey Siri, Good morning" | Mở rèm (nếu có motor), Đèn 30% warm, Máy lọc ON, Đọc lịch/Thời tiết |
-          | **Leave Home** | Geo-fencing (Rời nhà 500m) hoặc "Bye" | TẤT CẢ OFF, Khóa cửa, Camera ARM, Điều hòa ECO, Robot hút bụi ON |
-          | **Movie Time** | "Hey Siri, Movie time" | Đèn trần OFF, LED strip 10% red, TV ON, Điều hòa 24°C |
-          | **Bedtime** | 22:30 hoặc "Good night" | Đèn 1% warm → Fade off 15p, Khóa cửa, Quạt ON 1h, Đèn ngủ 5% |
-          | **Pet Mode** | Cảm biến chuyển động phòng khách 22h-6h | Camera record, Alert nếu barking (Sound detection), Tự động cho ăn (Feeder) |
-          | **Security Alert** | Contact sensor mở (Khi Armed) | Siren (HomePod/Apple TV), Camera record, Push notification, Đèn flash |
+          ## 3. Các Kịch Bản Tự Động Hóa Thực Tế
+          | Kịch bản | Điều kiện kích hoạt | Hành động tự động |
+          |---|---|---|
+          | **Chào buổi sáng** | 6:00 sáng hoặc câu lệnh buổi sáng | Bật đèn ánh sáng ấm 30%, bật máy lọc không khí |
+          | **Ra khỏi nhà** | Cả hai vợ chồng rời nhà quá 500 m | Tắt toàn bộ đèn, khóa cửa chính, bật chế độ cảnh báo camera, cho robot hút bụi chạy |
+          | **Xem phim tối** | Nhấn nút hoặc ra lệnh chế độ xem phim | Tắt đèn trần chính, bật đèn hắt nhẹ sau tivi, đặt điều hòa 25°C |
+          | **Đi ngủ** | 22:30 hằng ngày | Giảm sáng đèn ngủ dần rồi tắt sau 15 phút, kiểm tra khóa cửa, bật đèn cảm biến nhẹ ở hành lang |
+          | **Trông thú cưng** | Cảm biến phát hiện chuyển động ban ngày khi vắng nhà | Ghi hình đoạn ngắn và báo về điện thoại nếu có tiếng sủa kéo dài |
+          | **Cảnh báo an toàn** | Cửa ban công hoặc tủ thuốc mở bất ngờ | Đổ chuông nhẹ tại nhà và gửi thông báo khẩn về điện thoại cha mẹ |
 
-          ## 4. Voice Control (Siri - Tiếng Việt)
-          - "Hey Siri, bật đèn phòng khách"
-          - "Hey Siri, khóa cửa chính"
-          - "Hey Siri, điều hòa 25 độ"
-          - "Hey Siri, chế độ xem phim"
-          - "Hey Siri, ai ở cửa?" (Camera doorbell)
+          ## 4. Câu Lệnh Giọng Nói Gợi Ý
+          - "Bật đèn phòng khách" / "Tắt hết đèn tầng dưới"
+          - "Khóa cửa chính"
+          - "Đặt điều hòa 25 độ"
+          - "Chế độ xem phim"
 
-          ## 5. Privacy & Security (Quan trọng)
-          - **HomeKit Secure Video**: Video mã hóa end-to-end, lưu iCloud (200GB+ plan), không lên server hãng camera
-          - **Local Control**: Matter/Thread/Zigbee hoạt động không cần Internet
-          - **VLAN**: IoT network riêng (Router hỗ trợ VLAN: UniFi, Asus, OpenWrt)
-          - **Firmware**: Tự động cập nhật (HomeKit push) hoặc check hàng tháng
-          - **Password**: Unique, 16+ chars, 2FA cho Apple ID / Google / Aqara / Eve account
+          ## 5. Bảo Mật & Quyền Riêng Tư Cho Gia Đình
+          - **Lưu trữ camera an toàn**: Chọn chế độ mã hóa đầu cuối khi lưu video để không bị lộ hình ảnh sinh hoạt gia đình.
+          - **Tách mạng Wi-Fi phụ**: Nếu bộ phát Wi-Fi hỗ trợ, tạo thêm một mạng Wi-Fi riêng cho thiết bị nhà thông minh để tách khỏi điện thoại và máy tính làm việc.
+          - **Cập nhật và mật khẩu**: Bật tự động cập nhật phần mềm vá lỗi; đặt mật khẩu riêng dài trên 12 ký tự và bật xác thực 2 bước cho tài khoản điều khiển nhà.
 
-          ## 6. Budget Breakdown (Medium ~15M VND)
-          | Item | Qty | Unit Cost | Total |
-          |------|-----|-----------|-------|
-          | Smart Lock Yale Linus L2 | 1 | 4.5M | 4.5M |
-          | Nanoleaf Bulb (Matter) | 6 | 350k | 2.1M |
-          | Aqara Switch H1 | 4 | 400k | 1.6M |
-          | Aqara Motion P1 | 3 | 400k | 1.2M |
-          | Aqara Contact P1 | 4 | 350k | 1.4M |
-          | Qingping Air Monitor | 1 | 700k | 0.7M |
-          | Aqara G3 Camera | 2 | 2.5M | 5.0M |
-          | Eve Energy Plug | 3 | 500k | 1.5M |
-          | **Total** | | | **~18M** |
-          *Tối ưu: Giảm camera 1, bulb 2, plug 1 → ~12M*
+          ## 6. Dự Toán Chi Phí Tham Khảo (Khoảng 14-18 Triệu)
+          | Khoản mục | Số lượng | Đơn giá | Thành tiền |
+          |---|---|---|---|
+          | Khóa cửa thông minh | 1 | 4,5 triệu | 4,5 triệu |
+          | Bóng đèn thông minh | 6 | 350.000đ | 2,1 triệu |
+          | Công tắc thông minh | 4 | 400.000đ | 1,6 triệu |
+          | Cảm biến chuyển động | 3 | 400.000đ | 1,2 triệu |
+          | Cảm biến mở cửa | 4 | 350.000đ | 1,4 triệu |
+          | Cảm biến không khí | 1 | 700.000đ | 0,7 triệu |
+          | Camera trong nhà | 2 | 2,5 triệu | 5,0 triệu |
+          | Ổ cắm thông minh | 3 | 500.000đ | 1,5 triệu |
+          | **Tổng ước tính** | | | **18 triệu** |
 
-          ## 7. Mua hàng & Setup
-          - **VN**: Shopee Mall (Aqara, Yeelight, Xiaomi), Tiki, Lazada, GearVN, Anphat (Chính hãng)
-          - **Setup**: HomeKit app → Add Accessory → Scan QR → Assign Room → Create Automation
-          - **Troubleshoot**: Reset thiết bị (Hold 10s), Check Thread network (HomePod/Apple TV), Restart Hub
-        context: "HomeKit ecosystem, Medium budget, Family + Pet, Focus security & convenience"
-    difficulty: "intermediate"
+          *Mẹo tiết kiệm xuống khoảng 12 triệu: Bắt đầu trước với 1 khóa cửa, 1 camera phòng khách, 2 công tắc phòng hay dùng và 2 cảm biến cửa/chuyển động, rồi mua thêm dần theo nhu cầu.*
+
+          ## 7. Nơi Mua & Cách Lắp Đặt Nhanh
+          - **Nơi mua uy tín**: Gian hàng chính hãng trên Shopee Mall, Lazada Mall, Tiki hoặc đại lý ủy quyền của Aqara, Yeelight tại Việt Nam để có bảo hành đổi mới.
+          - **Cách cài đặt**: Tải ứng dụng Home trên điện thoại → Chọn Thêm phụ kiện → Quét mã QR trên thiết bị → Gắn vào từng phòng và tạo kịch bản tự động.
+          - **Xử lý khi mất kết nối**: Nhấn giữ nút đặt lại trên thiết bị 10 giây hoặc khởi động lại bộ điều khiển trung tâm.
+        context: "Gia đình có trẻ nhỏ và thú cưng dùng iPhone, ngân sách trung bình, ưu tiên an toàn và tiện lợi"
+    difficulty: "medium"
     useCases:
-      - "Căn hộ mới muốn smart home"
-      - "Nâng cấp nhà hiện tại"
+      - "Căn hộ mới muốn lắp đặt thiết bị nhà thông minh cơ bản"
+      - "Nâng cấp tiện nghi và an ninh cho nhà đang ở với chi phí hợp lý"
 agentTemplate:
-  name: "Smart Home Designer"
-  description: "HomeKit/Google/Alexa/HA, Matter/Thread/Zigbee, Automation, Security, Privacy, Budget"
+  name: "Chuyên Gia Thiết Kế Nội Thất & Nhà Thông Minh"
+  description: "Tư vấn bố trí nội thất, ánh sáng và lắp đặt nhà thông minh dễ dùng, bảo mật và tiết kiệm chi phí"
   systemPrompt: |
-    Bạn là Smart Home Designer. Local-first, Privacy-first, Matter/Thread future-proof. Automation > Remote control. Security > Convenience.
+    Bạn là chuyên gia thiết kế không gian sống và nhà thông minh. Hãy ưu tiên giải pháp đơn giản, dễ dùng cho cả người lớn tuổi và trẻ nhỏ (giữ công tắc vật lý bên cạnh điều khiển từ xa), chạy ổn định ngay cả khi mạng Internet chập chờn, đặt quyền riêng tư và an toàn điện lên hàng đầu, đồng thời đề xuất thiết bị dễ mua và bảo hành thuận tiện tại Việt Nam.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

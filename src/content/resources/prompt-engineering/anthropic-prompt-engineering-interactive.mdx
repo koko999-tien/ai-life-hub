@@ -1,12 +1,27 @@
 ---
-id: anthropic-prompt-engineering-interactive
-categoryId: prompt-engineering
-type: course
-title: "Anthropic Interactive Prompt Engineering Tutorial"
-description: "Khóa học tương tác thực chiến chính thức từ Anthropic: từ Few-shot, Chain of Thought đến Tool Use và System Prompts"
-url: "https://github.com/anthropics/prompt-eng-interactive-tutorial"
+id: "anthropic-prompt-engineering-interactive"
+categoryId: "prompt-engineering"
+type: "article"
+title: "Cẩm nang Kỹ thuật Viết Câu lệnh Chuẩn từ Anthropic"
+description: "Tài liệu hướng dẫn chính thức từ Anthropic về các kỹ thuật viết câu lệnh hiệu quả: chỉ dẫn trực diện, ví dụ mẫu (Few-shot), suy luận từng bước (Chain-of-Thought), thẻ XML và gọi công cụ ngoài (Tool Use)."
+url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"
 source: "Anthropic"
+difficulty: "intermediate"
+duration: "45 phút đọc & áp dụng"
 free: true
 language: "en"
-tags: ["prompt-engineering", "claude", "anthropic", "tutorial", "tool-use"]
+tags:
+  - "prompt-engineering"
+  - "claude"
+  - "anthropic"
+  - "guide"
+  - "tool-use"
 ---
+
+# Cẩm nang Kỹ thuật Viết Câu lệnh Chuẩn từ Anthropic
+
+Tài liệu tham khảo hệ thống hóa các nguyên tắc thiết kế câu lệnh từ đội ngũ Anthropic, phù hợp cho kỹ sư AI và người thiết kế quy trình tự động:
+- **Xác định tiêu chí đầu ra**: Đặt thước đo kiểm thử rõ ràng trước khi tinh chỉnh câu lệnh để tránh sửa cảm tính.
+- **Chỉ dẫn rõ ràng & dùng thẻ XML**: Đặt vai trò ở System Prompt và bọc dữ liệu trong các thẻ như `<context>`, `<rules>` để giảm nhiễu.
+- **Ví dụ mẫu (Few-shot) & Suy luận từng bước (Chain-of-Thought)**: Định hình định dạng đầu ra ổn định và giảm sai sót ở các bài toán nhiều bước.
+- **Xâu chuỗi câu lệnh & Tool Use**: Chia tác vụ phức tạp thành nhiều bước nhỏ nối tiếp và kết nối AI với hàm hoặc API bên ngoài.

@@ -1,41 +1,41 @@
 ---
 id: dau-tu-chung-khoan-co-ban
 categoryId: tai-chinh
-name: "Đầu tư chứng khoán cơ bản"
-description: "ETF, Index fund, Dollar Cost Averaging, Portfolio allocation, Risk management, Tax optimization"
+name: "Đầu tư chứng khoán cơ bản & Quỹ chỉ số"
+description: "Hướng dẫn đầu tư dài hạn cho người mới: phân bổ danh mục hợp lý, chọn quỹ chỉ số (ETF) và quỹ mở uy tín tại Việt Nam, mua tích lũy đều đặn hằng tháng và quản trị rủi ro"
 whenToUse:
-  - "Bắt đầu đầu tư chứng khoán lần đầu"
-  - "Xây dựng portfolio dài hạn (10+ năm)"
-  - "Tối ưu hóa portfolio hiện tại"
+  - "Mới bắt đầu tìm hiểu đầu tư chứng khoán an toàn, bài bản"
+  - "Muốn xây dựng danh mục đầu tư dài hạn (10 năm trở lên)"
+  - "Muốn rà soát và sắp xếp lại danh mục đầu tư hiện có"
 difficulty: "intermediate"
-estimatedTime: "Setup 2-3 giờ, review 30p/quý"
+estimatedTime: "Thiết lập 2-3 giờ, rà soát 30 phút mỗi quý"
 tags: ["investing", "etf", "index-fund", "dca", "portfolio", "risk-management"]
 prompts:
   - id: prompt-portfolio-design
-    name: "Thiết kế Portfolio ETF/Index Fund"
-    description: "Xây dựng portfolio đa dạng hóa theo risk tolerance, time horizon, goals"
+    name: "Thiết kế danh mục đầu tư quỹ chỉ số (ETF) dài hạn"
+    description: "Xây dựng danh mục đa dạng hóa phù hợp mức chịu rủi ro, thời gian đầu tư và mục tiêu tài chính cá nhân"
     template: |
-      Bạn là Investment Advisor. Hãy thiết kế portfolio cho tôi:
+      Bạn là chuyên gia tư vấn đầu tư tài chính cá nhân theo trường phái an toàn, dài hạn tại Việt Nam. Hãy thiết kế danh mục phù hợp cho tôi:
 
       **Hồ sơ nhà đầu tư:**
       - Tuổi: {{age}}
-      - Thu nhập/năm: {{annualIncome}}
-      - Time horizon: {{horizon}} năm
-      - Risk tolerance: {{riskTolerance}} (Conservative / Moderate / Aggressive)
-      - Số vốn ban đầu: {{initialCapital}}
-      - Đóng góp định kỳ: {{monthlyContribution}}
-      - Mục tiêu: {{goals}}
+      - Thu nhập hằng năm: {{annualIncome}} đồng
+      - Thời gian đầu tư dự kiến: {{horizon}} năm
+      - Mức độ chấp nhận rủi ro: {{riskTolerance}}
+      - Số vốn ban đầu: {{initialCapital}} đồng
+      - Số tiền góp thêm mỗi tháng: {{monthlyContribution}} đồng
+      - Mục tiêu tài chính: {{goals}}
 
-      **Yêu cầu Portfolio:**
-      1. Asset Allocation % (Stocks / Bonds / Cash / Alternatives)
-      2. ETF/Index Fund cụ thể (Ticker, Expense Ratio, AUM)
-      3. Geographic diversification (US, Developed Intl, Emerging, VN)
-      4. Rebalancing strategy (Calendar / Threshold / Cash flow)
-      5. Tax-advantaged accounts usage (nếu áp dụng VN)
-      6. Expected return & Risk metrics (CAGR, Max Drawdown, Sharpe)
-      7. DCA schedule cho monthly contribution
+      **Hãy thiết kế kế hoạch chi tiết theo các phần sau:**
+      1. **Tỷ trọng phân bổ tài sản (%)** giữa cổ phiếu, trái phiếu và tiền dự phòng thanh khoản
+      2. **Gợi ý nhóm quỹ cụ thể tại Việt Nam** (quỹ hoán đổi danh mục ETF theo chỉ số, quỹ mở cổ phiếu/trái phiếu uy tín kèm phí quản lý tham khảo; nếu có tài khoản và thu nhập hợp pháp ở nước ngoài thì gợi ý thêm phần tham khảo)
+      3. **Chiến lược tái cân bằng danh mục** (định kỳ theo quý/năm hoặc khi tỷ trọng lệch quá ngưỡng cho phép)
+      4. **Tối ưu chi phí giao dịch và thuế** khi đầu tư tại Việt Nam
+      5. **Mức lợi nhuận kỳ vọng và rủi ro có thể gặp** (biến động giảm tối đa trong giai đoạn thị trường xấu)
+      6. **Lịch mua tích lũy đều đặn hằng tháng** (chia rõ số tiền vào từng nhóm quỹ)
+      7. **Các bước thực hiện cụ thể** để bắt đầu an toàn
 
-      Output: Portfolio table + Rationale + Action plan.
+      Trình bày bằng bảng tỷ trọng rõ ràng, giải thích dễ hiểu cho người mới và kèm lưu ý quản trị rủi ro.
     variables:
       - name: age
         type: number
@@ -43,29 +43,29 @@ prompts:
         required: true
       - name: annualIncome
         type: number
-        label: "Thu nhập năm (VND)"
+        label: "Thu nhập hằng năm (đồng)"
         required: true
       - name: horizon
         type: number
-        label: "Time horizon (năm)"
+        label: "Thời gian đầu tư dự kiến (năm)"
         required: true
       - name: riskTolerance
         type: select
-        label: "Risk tolerance"
+        label: "Mức độ chấp nhận rủi ro"
         options:
-          - "Conservative (Bảo toàn vốn, chấp nhận lợi nhuận thấp)"
-          - "Moderate (Cân bằng tăng trưởng & rủi ro)"
-          - "Aggressive (Tối đa tăng trưởng, chấp nhận biến động lớn)"
+          - "Thận trọng (Ưu tiên bảo toàn vốn, lợi nhuận ổn định)"
+          - "Cân bằng (Kết hợp tăng trưởng và kiểm soát rủi ro)"
+          - "Tăng trưởng cao (Chấp nhận biến động mạnh để tối đa lợi nhuận dài hạn)"
         required: true
-        default: "Moderate (Cân bằng tăng trưởng & rủi ro)"
+        default: "Cân bằng (Kết hợp tăng trưởng và kiểm soát rủi ro)"
       - name: initialCapital
         type: number
-        label: "Vốn ban đầu (VND)"
+        label: "Số vốn ban đầu (đồng)"
         required: true
         default: 0
       - name: monthlyContribution
         type: number
-        label: "Đóng góp hàng tháng (VND)"
+        label: "Số tiền đóng góp đều mỗi tháng (đồng)"
         required: true
       - name: goals
         type: textarea
@@ -76,69 +76,68 @@ prompts:
           age: 30
           annualIncome: 300000000
           horizon: 20
-          riskTolerance: "Moderate (Cân bằng tăng trưởng & rủi ro)"
+          riskTolerance: "Cân bằng (Kết hợp tăng trưởng và kiểm soát rủi ro)"
           initialCapital: 50000000
           monthlyContribution: 5000000
-          goals: "Tự do tài chính 45 tuổi, hưu trí thoải mái"
+          goals: "Xây dựng quỹ tự do tài chính sau 15-20 năm và chuẩn bị hưu trí thoải mái"
         output: |
-          # 📈 Portfolio Design: Moderate, 20-year horizon
+          # 📈 Thiết Kế Danh Mục Đầu Tư Dài Hạn (30 tuổi — Tầm nhìn 20 năm — Mức Cân bằng)
 
-          ## Asset Allocation (Core-Satellite)
-          | Asset Class | % | Rationale |
-          |-------------|---|-----------|
-          | **Global Stocks** | 70% | Tăng trưởng dài hạn |
-          | ├─ US Total Market | 42% | Core, low cost, đa dạng |
-          | ├─ Developed Intl (ex-US) | 14% | Đa dạng hóa địa lý |
-          | ├─ Emerging Markets | 7% | Tăng trưởng cao, rủi ro cao |
-          | ├─ Vietnam (VN30/VFMVF30) | 7% | Home bias, familiar |
-          | **Bonds** | 25% | Ổn định, giảm volatility |
-          | ├─ US Aggregate Bond | 15% | Quality, USD hedged |
-          | ├─ VN Government Bond | 10% | Local currency, tax advantage |
-          | **Cash/Equivalents** | 5% | Liquidity, opportunity fund |
+          ## 1. Phân bổ tỷ trọng tài sản cốt lõi
+          | Nhóm tài sản | Tỷ trọng | Vai trò trong danh mục |
+          |---|---|---|
+          | **Quỹ cổ phiếu Việt Nam (Tăng trưởng dài hạn)** | **70%** | Động lực sinh lời chính trong 10-20 năm |
+          | ├─ Quỹ chỉ số VN30 (cổ phiếu đầu ngành) | 40% | Theo sát 30 doanh nghiệp lớn, chi phí quản lý thấp |
+          | ├─ Quỹ mở cổ phiếu tăng trưởng chọn lọc hoặc quỹ ngành tài chính - tiêu dùng | 30% | Bổ sung cơ hội tăng trưởng từ nhóm cổ phiếu chất lượng |
+          | **Quỹ trái phiếu & Công cụ thu nhập cố định** | **20%** | Giảm sốc khi thị trường cổ phiếu biến động mạnh |
+          | **Tiền gửi linh hoạt / Dự phòng cơ hội** | **10%** | Giữ thanh khoản sẵn sàng, tránh phải bán tháo quỹ khi cần gấp |
 
-          ## ETF Recommendations (VN Market Access)
-          | Allocation | Ticker (VN/Global) | Name | ER | AUM |
-          |------------|-------------------|------|-----|-----|
-          | US Total Market | VFMVFVN30 / VT (IB) | Vanguard Total Stock Market | 0.03% | $1.3T |
-          | Developed Intl | VEA (IB) / VFMVFVNG | Vanguard FTSE Developed | 0.05% | $100B |
-          | Emerging | VWO (IB) | Vanguard FTSE Emerging | 0.08% | $70B |
-          | Vietnam | VFMVF30 / FUEVFVND | VFM VN30 ETF / SSIAM VN30 | 0.5-0.65% | ~2,000B VND |
-          | US Aggregate Bond | BND (IB) / VFMVFVNB | Vanguard Total Bond | 0.03% | $300B |
-          | VN Gov Bond | VFMVFVNB | VFM Vietnam Gov Bond | 0.35% | ~500B VND |
+          ## 2. Gợi ý các quỹ tham khảo thực tế tại Việt Nam
+          *(Lưu ý: Thông tin chỉ mang tính ví dụ minh họa cấu trúc quỹ, bạn cần tự kiểm tra bản cáo bạch và phí quản lý mới nhất trước khi mua.)*
 
-          ## Rebalancing Strategy
-          - **Method**: Threshold-based (±5% cho stock/bond, ±3% cho sub-asset)
-          - **Frequency**: Check quý, rebalance khi vượt threshold
-          - **Tax-efficient**: Dùng new contributions (DCA) để rebalance trước, bán chỉ khi cần thiết
+          | Nhóm phân bổ | Mã chứng chỉ quỹ / Quỹ tham khảo | Mô tả ngắn | Phí quản lý tham khảo |
+          |---|---|---|---|
+          | Quỹ chỉ số VN30 | **E1VFVN30** (hoặc **FUESSV30**) | Quỹ hoán đổi danh mục (ETF) mô phỏng 30 cổ phiếu vốn hóa lớn | ~0,55% - 0,65%/năm |
+          | Quỹ cổ phiếu chọn lọc / chuyên đề | **FUEVFVND** (ETF cổ phiếu đã hết hạn mức sở hữu cho nhà đầu tư nước ngoài) hoặc **VESAF** / **DCDS** (quỹ mở cổ phiếu) | Tiếp cận nhóm doanh nghiệp tăng trưởng tốt hoặc khó mua trực tiếp | ~0,8% - 1,75%/năm |
+          | Quỹ trái phiếu | **VFF** hoặc **TCBF** (quỹ mở trái phiếu) | Đầu tư vào trái phiếu chính phủ, trái phiếu ngân hàng/doanh nghiệp lớn | ~0,8% - 1,0%/năm |
+          | Dự phòng linh hoạt | Chứng chỉ tiền gửi hoặc tiết kiệm kỳ hạn ngắn | Rút linh hoạt khi cần tiền mặt hoặc mua thêm lúc thị trường giảm sâu | 0% |
 
-          ## DCA Schedule (5M/tháng)
-          | Month | US Total (42%) | Dev Intl (14%) | EM (7%) | VN (7%) | US Bond (15%) | VN Bond (10%) | Cash (5%) |
-          |-------|----------------|----------------|---------|---------|---------------|---------------|-----------|
-          | 1 | 2.1M | 0.7M | 0.35M | 0.35M | 0.75M | 0.5M | 0.25M |
-          | ... | ... | ... | ... | ... | ... | ... | ... |
+          *Ghi chú về thị trường quốc tế: Nếu bạn có thu nhập hoặc tài khoản hợp pháp ở nước ngoài, có thể phân bổ thêm một phần sang quỹ chỉ số toàn cầu (như VT) và trái phiếu tổng hợp (như BND). Với nhà đầu tư cư trú trong nước dùng tiền đồng Việt Nam, hãy ưu tiên các kênh hợp pháp được Ủy ban Chứng khoán Nhà nước cấp phép trong nước.*
 
-          ## Expected Metrics (Historical 20-year)
-          - Expected CAGR: ~8-9% (nominal), ~5-6% (real)
-          - Max Drawdown (2008): ~35-40%
-          - Sharpe Ratio: ~0.6-0.7
-          - **Key Risk**: VN concentration (7% single country), Currency risk (USD/VND)
+          ## 3. Chiến lược tái cân bằng danh mục
+          - **Nguyên tắc ngưỡng lệch (±5%):** Mỗi quý kiểm tra 1 lần; nếu tỷ trọng cổ phiếu tăng vọt lên trên 75% hoặc giảm xuống dưới 65% thì điều chỉnh lại.
+          - **Cách làm ít tốn phí nhất:** Dùng tiền góp mới hằng tháng mua thêm vào nhóm đang bị thiếu tỷ trọng trước, hạn chế bán ra để tránh phí giao dịch và thuế.
 
-          ## Action Plan
-          1. Mở tài khoản chứng khoán (VCBS, MBS, SSI - có ETF VFM)
-          2. Setup auto-invest 월 5M (nếu broker hỗ trợ) hoặc manual hàng tháng
-          2. Mở tài khoản IBKR (Interactive Brokers) cho ETF US (VT, VEA, VWO, BND) - chi phí thấp hơn
-          3. Track portfolio trên Google Sheet / Portfolio Visualizer
-          4. Review quý 1 lần, rebalance nếu cần
-        context: "Portfolio cho người 30 tuổi, horizon 20 năm, risk moderate, tiếp cận từ VN"
+          ## 4. Lịch mua tích lũy đều đặn hằng tháng (5 triệu đồng/tháng)
+          | Hạng mục đầu tư | Tỷ trọng | Số tiền mỗi tháng | Ghi chú thực hiện |
+          |---|---|---|---|
+          | Quỹ chỉ số **E1VFVN30** | 40% | **2.000.000đ** | Đặt mua định kỳ qua tài khoản chứng khoán |
+          | Quỹ **VESAF / DCDS / FUEVFVND** | 30% | **1.500.000đ** | Mua định kỳ cùng ngày nhận lương |
+          | Quỹ trái phiếu **VFF / TCBF** | 20% | **1.000.000đ** | Giữ vai trò đệm an toàn |
+          | Tiết kiệm linh hoạt | 10% | **500.000đ** | Tích lũy chờ cơ hội hoặc dự phòng |
+          | **Tổng cộng** | **100%** | **5.000.000đ** | Tự động hóa ngay đầu tháng |
+
+          ## 5. Kỳ vọng lợi nhuận và rủi ro cần chuẩn bị tâm lý
+          - **Lợi nhuận gộp kỳ vọng dài hạn:** Khoảng 9-11%/năm (trước lạm phát) nếu kiên trì giữ đủ 10-20 năm.
+          - **Rủi ro biến động ngắn hạn:** Trong những năm kinh tế khó khăn, phần cổ phiếu có thể tạm giảm 25-40% giá trị trên sổ sách — tuyệt đối không dùng tiền cần chi tiêu trong 1-3 năm tới để đầu tư cổ phiếu.
+
+          ## 6. Các bước bắt đầu ngay trong tuần này
+          1. Chuẩn bị sẵn **Quỹ dự phòng khẩn cấp** đủ 3-6 tháng chi tiêu trước khi dồn tiền vào chứng khoán.
+          2. Mở tài khoản tại một công ty chứng khoán hoặc nền tảng phân phối quỹ mở uy tín được cấp phép tại Việt Nam.
+          3. Thiết lập lịch mua tự động hoặc đặt lịch nhắc cố định mỗi tháng 5 triệu đồng ngay sau ngày nhận lương.
+          4. Ghi chép theo dõi danh mục trên bảng tính cá nhân và chỉ rà soát lại mỗi quý 1 lần để tránh tâm lý sốt ruột theo dõi bảng giá hằng ngày.
+        context: "Danh mục đầu tư tích lũy dài hạn 5 triệu đồng/tháng cho người 30 tuổi tại Việt Nam"
     difficulty: "advanced"
     useCases:
-      - "Người mới bắt đầu đầu tư ETF/Index fund"
-      - "Tối ưu hóa portfolio hiện tại"
+      - "Người mới muốn bắt đầu đầu tư quỹ chỉ số (ETF) và quỹ mở một cách bài bản"
+      - "Người muốn sắp xếp lại danh mục đầu tư hiện có cho cân bằng và ít rủi ro hơn"
 agentTemplate:
-  name: "Investment Advisor Agent"
-  description: "Tư vấn portfolio ETF, asset allocation, DCA, rebalancing, tax optimization"
+  name: "Chuyên Gia Tư Vấn Đầu Tư Dài Hạn"
+  description: "Hướng dẫn phân bổ danh mục đầu tư dài hạn, chọn quỹ chỉ số (ETF) và quỹ mở tại Việt Nam, tích lũy đều đặn và tái cân bằng rủi ro"
   systemPrompt: |
-    Bạn là Investment Advisor. Nguyên tắc: Diversify, Low cost (ER), Long-term, DCA, Rebalance, Tax-efficient. Không financial advice cá nhân hóa pháp lý.
+    Bạn là chuyên gia tư vấn đầu tư tài chính cá nhân theo trường phái an toàn, dài hạn tại Việt Nam.
+    Nguyên tắc: Đa dạng hóa danh mục, ưu tiên chi phí thấp, đầu tư tích lũy đều đặn hằng tháng, tái cân bằng kỷ luật và luôn tuân thủ pháp luật Việt Nam (không xúi giục chuyển tiền bất hợp pháp ra nước ngoài).
+    Lưu ý bắt buộc: Nội dung chỉ nhằm mục đích giáo dục và tham khảo kế hoạch cá nhân, không phải khuyến nghị mua bán mã chứng khoán cụ thể hay cam kết lợi nhuận.
   model: "gpt-4"
   temperature: 0.4
 relatedSkillIds:

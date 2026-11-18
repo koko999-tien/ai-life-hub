@@ -2,20 +2,31 @@ import type { Metadata } from 'next';
 import { ShieldCheck, Lock, EyeOff, Database } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Chính sách Quyền riêng tư | AI Life Hub',
-  description: 'Chính sách bảo mật và quyền riêng tư minh bạch tại AI Life Hub: Local-First, không thu thập dữ liệu người dùng cá nhân.',
+  title: 'Chính sách Quyền riêng tư',
+  description:
+    'Chính sách bảo mật minh bạch tại AI Life Hub: ưu tiên xử lý trực tiếp trên trình duyệt, không thu thập nội dung câu lệnh cá nhân.',
+  alternates: {
+    canonical: '/privacy',
+  },
+  openGraph: {
+    title: 'Chính sách Quyền riêng tư | AI Life Hub',
+    description:
+      'Chính sách bảo mật minh bạch tại AI Life Hub: ưu tiên xử lý trực tiếp trên trình duyệt, không thu thập nội dung câu lệnh cá nhân.',
+    url: '/privacy',
+    type: 'website',
+  },
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="container mx-auto px-section-x py-16 max-w-4xl">
+    <div className="container mx-auto px-section-x pt-24 pb-16 max-w-4xl">
       <div className="mb-10 space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-semibold">
           <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Bảo mật & Minh bạch</span>
+          <span>Bảo mật &amp; Minh bạch</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-display font-bold text-text tracking-tight">
-          Chính sách Quyền riêng tư (Privacy Policy)
+          Chính sách Quyền riêng tư
         </h1>
         <p className="text-text-muted text-sm sm:text-base">
           Cập nhật lần cuối: Ngày 17 tháng 11 năm 2026
@@ -26,30 +37,30 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-text flex items-center gap-2">
             <Lock className="w-5 h-5 text-accent" />
-            1. Nguyên tắc Local-First & Client-Side Execution
+            1. Xử lý trực tiếp trên trình duyệt của bạn
           </h2>
           <p>
-            AI Life Hub được thiết kế theo tư duy <strong>Local-First</strong>. Các công cụ tính toán chi phí token (Token Calculator), trình tối ưu Prompt (Prompt Optimizer), và mô phỏng Playground chạy hoàn toàn bằng JavaScript ngay trên trình duyệt (client-side) của bạn.
+            AI Life Hub ưu tiên bảo mật dữ liệu ngay tại thiết bị người dùng. Các công cụ như Bảng tính chi phí sử dụng AI, Trình tối ưu câu lệnh và Khu thử nghiệm AI đều chạy trực tiếp trên trình duyệt bạn đang mở.
           </p>
           <p>
-            Chúng tôi <strong>không bao giờ lưu trữ hoặc gửi nội dung câu lệnh cá nhân của bạn</strong> về bất kỳ máy chủ nào của bên thứ ba khi bạn sử dụng các công cụ tính toán hoặc tối ưu hoá offline.
+            Chúng tôi <strong>không bao giờ lưu trữ hoặc gửi nội dung câu lệnh cá nhân của bạn</strong> về bất kỳ máy chủ bên thứ ba nào khi bạn sử dụng các công cụ trên trang web.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-text flex items-center gap-2">
             <Database className="w-5 h-5 text-accent" />
-            2. Dữ liệu lưu trữ qua Supabase & Trình duyệt
+            2. Dữ liệu Mục yêu thích &amp; Đóng góp cộng đồng
           </h2>
           <p>
-            Đối với các tính năng cá nhân hóa như <strong>Lưu danh sách yêu thích (Bookmarks)</strong> hoặc <strong>Gửi Prompt đóng góp</strong>:
+            Đối với các tính năng cá nhân hóa như <strong>Lưu mục yêu thích</strong> hoặc <strong>Gửi câu lệnh đóng góp</strong>:
           </p>
           <ul className="list-disc pl-5 space-y-1.5">
             <li>
-              Nếu bạn không đăng nhập hoặc không có cấu hình tài khoản: dữ liệu được lưu cục bộ trong <code className="text-accent bg-bg px-1.5 py-0.5 rounded">localStorage</code> của chính trình duyệt bạn đang sử dụng.
+              Khi bạn chưa đăng nhập: dữ liệu được lưu cục bộ ngay trong bộ nhớ trình duyệt (<code className="text-accent bg-bg px-1.5 py-0.5 rounded">localStorage</code>) trên chính thiết bị bạn đang sử dụng.
             </li>
             <li>
-              Nếu bạn kết nối Supabase: dữ liệu được bảo vệ nghiêm ngặt qua cơ chế <strong>Row Level Security (RLS)</strong> của cơ sở dữ liệu PostgreSQL, chỉ có bạn mới có quyền xem và sửa đổi danh sách bookmark của mình.
+              Khi bạn đồng bộ qua đám mây (Supabase): dữ liệu được bảo vệ bằng cơ chế phân quyền riêng theo từng tài khoản, chỉ bạn mới có quyền xem và sửa đổi danh sách đã lưu của mình.
             </li>
           </ul>
         </section>

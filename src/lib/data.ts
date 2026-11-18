@@ -33,15 +33,20 @@ const reverseAliasMap: Record<string, string> = Object.fromEntries(
   Object.entries(categoryAliasMap).map(([en, vi]) => [vi, en])
 );
 
-export function getFeaturedCategories(): Category[] {
-  return CATEGORIES.map((c) => ({
-    ...c,
-    skillCount: 5,
-    promptCount: 15,
-    agentCount: 2,
-    resourceCount: 12,
-    slug: c.id,
-  }));
+const FEATURED_CATEGORY_IDS = [
+  'work',
+  'learning',
+  'writing',
+  'finance',
+  'health',
+  'coding',
+] as const;
+
+export async function getFeaturedCategories(): Promise<Category[]> {
+  const allCategories = await getAllCategories();
+  return FEATURED_CATEGORY_IDS.map((id) =>
+    allCategories.find((c) => c.id === id)
+  ).filter((c): c is Category => Boolean(c));
 }
 
 async function readDirectory(dir: string): Promise<string[]> {
@@ -166,7 +171,7 @@ export async function getSkillsByCategory(categoryId: string): Promise<Skill[]> 
       s.categoryId === targetVi ||
       s.categoryId === targetEn ||
       (categoryId === 'prompt-engineering' &&
-        (s.tags?.some((t) => t.includes('prompt') || t.includes('cot') || t.includes('agent')) ||
+        (s.tags?.some((t) => t.includes('prompt') || t.includes('suy-luan-tung-buoc') || t.includes('agent')) ||
           (s.prompts && s.prompts.length > 0)))
   );
 }

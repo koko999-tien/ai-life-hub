@@ -27,20 +27,23 @@ export function RelatedSkills({
           className
         )}
         role="list"
-        aria-label="Related skills"
+        aria-label="Kỹ năng liên quan"
       >
         {displaySkills.map((skill) => (
-          <SkillCard key={skill.id} skill={skill} variant="default" />
+          <div key={skill.id} role="listitem">
+            <SkillCard skill={skill} variant="default" />
+          </div>
         ))}
       </div>
     )
   }
 
   return (
-    <div className={cn('relative', className)} role="list" aria-label="Related skills">
+    <div className={cn('relative', className)}>
       <div
         className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 snap-x snap-mandatory"
         role="list"
+        aria-label="Kỹ năng liên quan"
       >
         {displaySkills.map((skill) => (
           <div
@@ -66,7 +69,7 @@ export function RelatedSkillsList({ skills, maxItems = 5 }: { skills: Skill[]; m
   const displaySkills = skills.slice(0, maxItems)
 
   return (
-    <ul className="space-y-2" role="list" aria-label="Related skills">
+    <ul className="space-y-2" role="list" aria-label="Kỹ năng liên quan">
       {displaySkills.map((skill) => (
         <li key={skill.id}>
           <SkillCard skill={skill} variant="compact" />

@@ -1,40 +1,38 @@
 ---
 id: viet-bai-viet-seo-khoa-hoc
 categoryId: viet-lach
-name: "Viết bài Blog SEO chuẩn"
-description: "Quy trình nghiên cứu từ khóa, viết bài thân thiện SEO, cấu trúc Heading, meta description, internal linking"
+name: "Viết bài blog chuẩn tìm kiếm Google (SEO)"
+description: "Quy trình nghiên cứu từ khóa, xây dựng bố cục thẻ tiêu đề (H1, H2, H3), viết mô tả ngắn trên Google và liên kết nội bộ giúp bài viết lên top tự nhiên"
 whenToUse:
-  - "Viết bài bài cho website cá nhân, doanh nghiệp"
-  - "Tăng lưu lượng tìm kiếm organic từ Google"
-  - "Xây dựng uy tín chuyên môn (Topical authority)"
+  - "Viết bài chia sẻ kiến thức hoặc bán hàng cho website cá nhân và doanh nghiệp"
+  - "Tăng lượng người đọc tìm thấy website một cách tự nhiên từ Google"
+  - "Xây dựng hệ thống bài viết chuyên sâu để khẳng định uy tín về một chủ đề"
 difficulty: "intermediate"
-estimatedTime: "1-2 giờ/bài (bao gồm nghiên cứu từ khóa)"
+estimatedTime: "1-2 giờ cho mỗi bài hoàn chỉnh (bao gồm tìm từ khóa)"
 tags: ["seo", "content-writing", "blogging", "keyword-research"]
 prompts:
   - id: prompt-seo-blog-outline
-    name: "Xây dựng khung bài Blog SEO"
-    description: "Tạo outline bài blog từ từ khóa chính, ý định tìm kiếm (search intent), người đọc mục tiêu"
+    name: "Xây dựng dàn ý bài blog chuẩn Google"
+    description: "Lập khung bài viết chi tiết từ từ khóa chính, đúng nhu cầu người tìm kiếm và có điểm vượt trội so với bài đối thủ"
     template: |
-      Bạn là Content Strategist chuyên SEO. Hãy xây dựng khung bài blog cho:
+      Bạn là chuyên gia lập chiến lược nội dung chuẩn tìm kiếm Google (SEO). Hãy xây dựng dàn ý bài blog hoàn chỉnh cho:
 
-      **Thông tin:**
+      **Thông tin đầu vào:**
       - Từ khóa chính: {{primaryKeyword}}
-      - Từ khóa phụ (LSI): {{secondaryKeywords}}
+      - Từ khóa phụ liên quan: {{secondaryKeywords}}
       - Mục tiêu bài viết: {{goal}}
-      - Đối tượng đọc: {{targetReader}}
+      - Độc giả mục tiêu: {{targetReader}}
       - Độ dài dự kiến: {{wordCount}} từ
 
-      **Yêu cầu Outline:**
-      1. **Tiêu đề làm việc (Working Title)**: Chứa từ khóa chính, thạch lý nó (click-worthy)
-      2. **Search Intent**: Phân tích người dùng tìm từ khóa này muốn gì? (Informational/Navigational/Transactional)
-      3. **H1, H2, H3 cấu trúc**: Có thể dán thẻ H1, H2, H3 đúng thứ tự
-      4. **Meta Title & Meta Description**: Có chứa từ khóa chính, độ dài chuẩn (<=60 ký tự cho title, <=160 ký tự cho desc)
-      5. **Slug**: Tiếng Việt không dấu, gạch ngang, không từ dừng
-      6. **Điểm phân biệt so với đối thủ**: Nội dung nào bạn sẽ thêm để vượt các bài top 10 Google hiện tại
-      7. **Internal linking gợi ý**: Liên kết sang các bài khác trong website (nếu có)
-      8. **CTA cuối bài**: Đăng ký newsletter / bình luận / xem sản phẩm liên quan
-
-      Output: Outline có thể dùng ngay để viết bài.
+      **Hãy trình bày dàn ý chi tiết gồm các phần sau:**
+      1. **Tiêu đề gợi ý**: Chứa từ khóa chính, hấp dẫn khiến người đọc muốn bấm vào xem.
+      2. **Phân tích ý định tìm kiếm**: Người gõ từ khóa này thực sự đang muốn tìm thông tin gì (hướng dẫn cách làm, so sánh hay mua hàng)?
+      3. **Cấu trúc các thẻ tiêu đề H1, H2, H3**: Phân cấp rõ ràng, lồng ghép tự nhiên từ khóa chính và từ khóa phụ.
+      4. **Tiêu đề hiển thị Google (tối đa 60 ký tự) & Mô tả ngắn trên Google (tối đa 160 ký tự)**: Ghi rõ số ký tự thực tế.
+      5. **Đường dẫn tĩnh (Slug)**: Tiếng Việt không dấu, nối bằng dấu gạch ngang, ngắn gọn và bỏ từ thừa.
+      6. **Điểm khác biệt để vượt bài đứng top**: Những bảng biểu, ví dụ thực tế hoặc mẹo hay bạn sẽ bổ sung thêm.
+      7. **Gợi ý liên kết nội bộ**: Đường dẫn sang các bài liên quan trên cùng trang web để giữ chân người đọc.
+      8. **Lời kêu gọi hành động cuối bài**: Mời bình luận, tải tài liệu hoặc đăng ký nhận bài mới.
     variables:
       - name: primaryKeyword
         type: text
@@ -42,19 +40,21 @@ prompts:
         required: true
       - name: secondaryKeywords
         type: textarea
-        label: "Từ khóa phụ (LSI keywords)"
+        label: "Từ khóa phụ liên quan (không bắt buộc)"
         required: false
+        default: "Không có (tự gợi ý thêm các từ khóa liên quan sát nghĩa)"
       - name: goal
         type: select
         label: "Mục tiêu bài viết"
         options:
-          - "Giáo dục người đọc"
-          - "Bán hàng / Lead gen"
-          - "Brand awareness"
+          - "Giáo dục và hướng dẫn người đọc"
+          - "Bán hàng và thu thập khách hàng tiềm năng"
+          - "Tăng nhận diện thương hiệu"
         required: true
+        default: "Giáo dục và hướng dẫn người đọc"
       - name: targetReader
         type: text
-        label: "Đối tượng đọc mục tiêu"
+        label: "Đối tượng người đọc mục tiêu"
         required: true
       - name: wordCount
         type: number
@@ -63,79 +63,76 @@ prompts:
         default: 1500
     examples:
       - inputs:
-          primaryKeyword: "Cách làm bánh mì kẹp thịt ngon tại nhà"
-          secondaryKeywords: "công thức bánh mì, làm bánh mì kẹp, nướng bánh mì, nguyên liệu bánh mì"
-          goal: "Giáo dục người đọc"
-          targetReader: "Người mới bắt đầu nấu ăn ở nhà"
+          primaryKeyword: "cách làm bánh mì kẹp thịt ngon tại nhà"
+          secondaryKeywords: "công thức bánh mì kẹp, ướp thịt bánh mì, nướng bánh mì giòn, nguyên liệu làm bánh mì"
+          goal: "Giáo dục và hướng dẫn người đọc"
+          targetReader: "Người mới bắt đầu nấu ăn ở nhà, muốn làm bữa sáng nhanh gọn"
           wordCount: 1200
         output: |
-          # Outline Bài Blog SEO: "Cách làm bánh mì kẹp thịt ngon tại nhà"
+          # Dàn Ý Bài Blog Chuẩn Google: "Cách Làm Bánh Mì Kẹp Thịt Ngon Tại Nhà"
 
-          ## 1. Tiêu đề làm việc
-          "Cách làm bánh mì kẹp thịt ngon tại nhà: Công thức đơn giản cho người mới (2024)"
+          ## 1. Tiêu đề gợi ý
+          "Cách làm bánh mì kẹp thịt ngon tại nhà: Công thức đơn giản cho người mới"
 
-          ## 2. Search Intent
-          Informational (Tìm hướng dẫn nấu ăn chi tiết). Người đọc muốn làm bánh mì kẹp thịt lần đầu, cần công thức dễ làm, rõ ràng, có hình minh họa.
+          ## 2. Phân tích ý định tìm kiếm
+          Người tìm đang muốn xem **hướng dẫn làm từng bước tại nhà** với nguyên liệu dễ mua ở chợ hoặc siêu thị, thời gian thực hiện nhanh cho bữa sáng.
 
-          ## 3. Cấu trúc Heading
-          H1: Cách làm bánh mì kẹp thịt ngon tại nhà: Công thức đơn giản cho người mới
-          H2: 1. Nguyên liệu cần chuẩn bị
-          H3: 1.1 Bánh mì kẹp (bread)
-          H3: 1.2 Thịt nạm / xúc xích / chả lụa
-          H3: 1.3 Tác nhân gia vị
-          H2: 2. Chuẩn bị nguyên liệu trước khi nấu
-          H2: 3. Cách nướng bánh mì kẹp hành Chi tiết
-          H3: 3.1 Nướng trên chảo (phương pháp nhanh nhất)
-          H3: 3.2 Nướng trong lò nướng / air fryer
-          H2: 4. Mẹo làm bánh mì kẹp thơm, giòn, không bị cháy
-          H2: 5. Các biến thể (bánh mì kẹp trứng, kẹp phô mai...)
-          H2: 6. Câu hỏi thường gặp (FAQ)
-          H2: 7. Kết luận
+          ## 3. Cấu trúc thẻ tiêu đề (H1, H2, H3)
+          - **H1:** Cách làm bánh mì kẹp thịt ngon tại nhà: Công thức đơn giản cho người mới
+          - **H2:** 1. Nguyên liệu cần chuẩn bị
+            - **H3:** 1.1 Chọn bánh mì vỏ giòn ruột mềm
+            - **H3:** 1.2 Thịt xá xíu, chả lụa hoặc thịt ba chỉ áp chảo
+            - **H3:** 1.3 Gia vị, nước sốt và đồ chua ăn kèm
+          - **H2:** 2. Sơ chế nguyên liệu nhanh gọn trong 10 phút
+          - **H2:** 3. Các bước làm bánh mì kẹp thịt chi tiết
+            - **H3:** 3.1 Làm nóng bánh mì trên chảo (cách nhanh nhất)
+            - **H3:** 3.2 Làm nóng bánh mì bằng nồi chiên không dầu
+          - **H2:** 4. Mẹo giữ vỏ bánh giòn rụm, nhân đậm đà không bị ngấy
+          - **H2:** 5. Gợi ý biến tấu (kẹp trứng ốp la, kẹp phô mai)
+          - **H2:** 6. Câu hỏi thường gặp (FAQ)
+          - **H2:** 7. Kết luận
 
-          ## 4. Meta Title & Description
-          Meta Title: Cách làm bánh mì kẹp thịt ngon tại nhà (Công thức 2024) | Và Meta
-          Meta Description: Tìm hiểu cách làm bánh mì kẹp thịt ngon tại nhà với công thức đơn giản, ingrediable ít, giúp bạn tự nấu mà vẫn ngon như quán. (156 ký tự)
+          ## 4. Tiêu đề & Mô tả ngắn hiển thị trên Google
+          - **Tiêu đề Google:** `Cách làm bánh mì kẹp thịt ngon tại nhà cực dễ | Bếp Nhà` (55 ký tự)
+          - **Mô tả ngắn:** `Hướng dẫn cách làm bánh mì kẹp thịt ngon tại nhà với nguyên liệu dễ tìm, vỏ giòn rụm và nước sốt đậm đà cho bữa sáng chuẩn vị.` (126 ký tự)
 
-          ## 5. Slug
-          cach-lam-banh-mi-kep-thit-ngon-tai-nha
+          ## 5. Đường dẫn tĩnh (Slug)
+          `cach-lam-banh-mi-kep-thit-ngon-tai-nha`
 
-          ## 6. Điểm phân biệt
-          - Thêm video 1 phút minh họa quá trình nướng
-          - Bảng so sánh 3 loại bánh mì (Baguette vs Bánh mì kẹp sẵn vs Bánh mỳ mềm)
-          - Mẹo "bánh mì kẹp không cháy mặt, thịt chín đều trong" (insight thực tế)
+          ## 6. Điểm khác biệt để vượt bài đối thủ
+          - Bổ sung bảng so sánh nhiệt độ và thời gian nướng giữa chảo thường, lò nướng và nồi chiên không dầu.
+          - Chia sẻ mẹo quét lớp bơ mỏng để vỏ bánh giòn lâu mà không bị cứng.
 
-          ## 7. Internal linking
-          - Liên kết bài "Cách chọn bánh mì kẹp tại siêu thị"
-          - Liên kết bài "5 món ăn vặt nhanh cho buổi sáng"
+          ## 7. Gợi ý liên kết nội bộ
+          - Nối sang bài *"Cách làm đồ chua cà rốt củ cải giòn ngon để được cả tuần"*
+          - Nối sang bài *"5 món ăn sáng nhanh trong 15 phút cho người bận rộn"*
 
-          ## 8. CTA
-          "Thử làm hôm nay và chia sẻ hình thành phẩm dưới bình luận nhé! Đăng ký nhận công thức nấu ăn mới mỗi tuần."
-        context: "Outline cho blog nấu ăn, mục tiêu giáo dục, từ khóa long-tail"
+          ## 8. Lời kêu gọi hành động cuối bài
+          "Hãy thử làm ngay cuối tuần này và khoe ảnh thành phẩm ở phần bình luận bên dưới nhé! Đăng ký nhận công thức món ngon dễ làm mỗi tuần."
+        context: "Dàn ý bài blog ẩm thực hướng dẫn chi tiết cho người mới nấu ăn"
     difficulty: "medium"
     useCases:
-      - "Viết bài blog cho website cá nhân, doanh nghiệp"
-      - "Content marketing tăng traffic organic"
+      - "Lên dàn ý bài viết cho blog cá nhân hoặc trang tin doanh nghiệp"
+      - "Lập kế hoạch nội dung thu hút lượt truy cập tự nhiên từ Google"
   - id: prompt-seo-blog-writing
-    name: "Viet bài chi tiết từ Outline"
-    description: "Soạn nội dung bài blog hoàn chỉnh từ khung đã có, đúng tono, đầy đủ từ khóa"
+    name: "Viết bài chi tiết từ dàn ý đã có"
+    description: "Triển khai bài blog hoàn chỉnh từ khung dàn ý, giữ đúng giọng văn tự nhiên và phân bổ từ khóa hợp lý"
     template: |
-      Hãy viết bài blog hoàn chỉnh dựa trên outline sau:
+      Hãy viết bài blog hoàn chỉnh dựa trên dàn ý dưới đây:
 
       {{outline}}
 
-      **Yêu cầu viết:**
-      1. Giọng văn: {{tone}} (trong làn, dễ hiểu, không dùng từ vựng khó)
-      2. Chèn từ khóa chính {{primaryKeyword}} ở: H1, ít nhất 1 H2, Meta, và 2-3 lần trong bài (không Stuffing)
-      3. Mỗi đoạn không quá 3-4 câu, có khoảng trắng
-      4. Dùng bullet points cho danh sách
-      5. Có FAQ section (3-5 câu hỏi) để chiếm Position 0 / Featured Snippet
-      6. Kết thúc bài với CTA rõ ràng
-
-      Output: Bài viết đã sẵn sàng đăng trên WordPress/Website.
+      **Yêu cầu trình bày bài viết:**
+      1. **Giọng văn:** {{tone}} — viết tự nhiên, gần gũi, dễ hiểu cho số đông.
+      2. **Phân bổ từ khóa chính `{{primaryKeyword}}` hợp lý:** xuất hiện ở tiêu đề H1, ít nhất 1 mục H2, đoạn mở đầu và lặp lại tự nhiên 2-3 lần trong bài (tuyệt đối không nhồi nhét từ khóa gượng gạo).
+      3. **Trình bày thoáng mắt:** Mỗi đoạn văn dài tối đa 3-4 câu, tách đoạn rõ ràng.
+      4. **Dùng gạch đầu dòng hoặc bảng ngắn** cho các danh sách nguyên liệu, bước làm để người đọc lướt nhanh.
+      5. **Có mục Câu hỏi thường gặp (3-5 câu hỏi đáp ngắn)** để tăng cơ hội hiển thị ở khung giải đáp nổi bật đầu trang Google.
+      6. **Kết thúc bằng lời kêu gọi hành động rõ ràng**, sẵn sàng đăng lên website hoặc WordPress.
     variables:
       - name: outline
         type: textarea
-        label: "Khung bài đã xây dựng"
+        label: "Dàn ý chi tiết đã xây dựng"
         required: true
       - name: primaryKeyword
         type: text
@@ -143,57 +140,64 @@ prompts:
         required: true
       - name: tone
         type: select
-        label: "Giọng văn"
+        label: "Giọng văn bài viết"
         options:
-          - "Trong làn, dễ hiểu (Casual & Friendly)"
-          - "Chuyên nghiệp, uy tín (Professional)"
-          - "Hài hước, gần gũi (Humorous)"
+          - "Gần gũi, dễ hiểu"
+          - "Chuyên nghiệp, đáng tin cậy"
+          - "Hài hước, thân thiện"
         required: true
-        default: "Trong làn, dễ hiểu (Casual & Friendly)"
+        default: "Gần gũi, dễ hiểu"
     examples:
       - inputs:
-          outline: "See above outline"
-          primaryKeyword: "Cách làm bánh mì kẹp thịt ngon tại nhà"
-          tone: "Trong làn, dễ hiểu (Casual & Friendly)"
+          outline: "1. Mở bài; 2. Nguyên liệu (bánh mì, thịt xá xíu/chả lụa, gia vị nước sốt, rau dưa); 3. Các bước làm nóng giòn bằng chảo hoặc nồi chiên không dầu; 4. Câu hỏi thường gặp và lời kết"
+          primaryKeyword: "cách làm bánh mì kẹp thịt ngon tại nhà"
+          tone: "Gần gũi, dễ hiểu"
         output: |
-          # Cách làm bánh mì kẹp thịt ngon tại nhà: Công thức đơn giản cho người mới (2024)
+          # Cách Làm Bánh Mì Kẹp Thịt Ngon Tại Nhà: Công Thức Đơn Giản Cho Người Mới
 
-          Bạn có bao giờ mong muốn một bữa sáng ngon miệng, nhưng lại lười đi mua ngoài quán? Hãy thử tự làm bánh mì kẹp thịt tại nhà — nhanh, rẻ, và ngon không kém gì quán nổi tiếng.
+          Sáng bận rộn muốn ăn một ổ bánh mì nóng giòn đầy đặn mà ngại ra ngoài xếp hàng? Bạn hoàn toàn có thể tự áp dụng **cách làm bánh mì kẹp thịt ngon tại nhà** chỉ trong 15 phút — vừa sạch sẽ, vừa ngon chẳng kém ngoài tiệm.
 
           ## 1. Nguyên liệu cần chuẩn bị
+          Để làm 2 ổ bánh mì kẹp thịt thơm ngon, bạn chỉ cần chuẩn bị:
+          - **Bánh mì:** 2 ổ bánh mì đặc ruột hoặc bánh mì lạt vỏ mỏng.
+          - **Phần nhân thịt:** 150g thịt xá xíu, chả lụa hoặc thịt ba chỉ áp chảo thái lát mỏng.
+          - **Gia vị & nước sốt:** Pa-tê gan, sốt mayonnaise, nước tương và chút tương ớt.
+          - **Rau ăn kèm:** Dưa leo thái lát dài, đồ chua cà rốt củ cải, ngò rí và hành lá.
 
-          Để làm một chiếc bánh mì kẹp thịt chuẩn, bạn chỉ cần:
+          ## 2. Các bước làm bánh mì kẹp thịt chi tiết
+          1. **Làm nóng giòn vỏ bánh:** Xịt nhẹ một lớp nước mỏng lên vỏ rồi cho vào nồi chiên không dầu ở 180°C trong 3-4 phút, hoặc áp chảo lửa nhỏ mỗi mặt 1 phút cho vỏ giòn tan.
+          2. **Phết sốt và xếp nhân:** Rạch dọc thân bánh, phết đều lớp pa-tê và sốt mayonnaise bên trong ruột để bánh mềm ẩm. Lần lượt xếp thịt, chả, dưa leo, đồ chua và ngò rí lên trên.
+          3. **Rưới nước sốt hoàn thiện:** Chan thêm 1 thìa nhỏ nước tương pha chút tiêu xay để nhân đậm đà vừa miệng rồi thưởng thức ngay khi còn nóng.
 
-          - **Bánh mì kẹp**: Loại baguette hoặc bánh mì mềm tùy thích
-          - **Thịt**: Thịt nạm, xúc xích, hoặc chả lụa cắt lát mỏng
-          - **Tác nhân gia vị**: Mai schütt, dầu ăn, phô mai (tùy chọn)
-          - **Trang trí (tùy chọn)**: Rau răm, cà chua, dông dông
+          ## 3. Câu hỏi thường gặp (FAQ)
+          **Có thể làm nóng bánh mì bằng nồi chiên không dầu không?**
+          Có. Bạn chỉnh nhiệt độ 180°C trong 3-5 phút là vỏ bánh giòn đều mà ruột bên trong vẫn giữ được độ mềm, không bị khô cứng.
 
-          ...
+          **Làm sao giữ bánh mì giòn lâu nếu mang đi làm?**
+          Hãy để riêng phần rau dưa và nước sốt vào hộp nhỏ, đến gần giờ ăn mới kẹp vào bánh để vỏ không bị thấm ướt.
 
-          ## 7. Câu hỏi thường gặp (FAQ)
-
-          **Q: Có thể dùng nồi chiên không dầu (air fryer) không?**
-          **A:** Có! Đặt nhiệt độ 180°C trong 5-7 phút, vừa nướng vừa được.
-
-          ...
-
-          **[CTA]** Thử làm hôm nay và chia sẻ hình thành phẩm dưới bình luận nhé! Đăng ký nhận công thức mới mỗi tuần.
-        context: "Ví dụ viết bài blog nấu ăn, tono thân thiện"
+          ## Lời kết
+          Chúc bạn thành công với bữa sáng tự làm thơm lừng gian bếp! Hãy chia sẻ thành phẩm của bạn dưới phần bình luận và đăng ký nhận thêm công thức nấu ăn nhanh mỗi tuần nhé.
+        context: "Triển khai bài blog ẩm thực hoàn chỉnh với giọng văn gần gũi, dễ làm theo"
     difficulty: "medium"
     useCases:
-      - "Hoàn thiện bài blog từ outline"
+      - "Biến dàn ý thành bài blog hoàn chỉnh sẵn sàng đăng lên website"
 agentTemplate:
-  name: "SEO Content Writer Agent"
-  description: "Viết bài blog thân thiện SEO, nghiên cứu từ khóa, cấu trúc heading"
+  name: "Chuyên Gia Viết Bài Chuẩn Google (SEO)"
+  description: "Hướng dẫn nghiên cứu từ khóa, lập dàn ý thẻ tiêu đề chuẩn và viết bài blog tự nhiên, giàu trải nghiệm thực tế (E-E-A-T)"
   systemPrompt: |
-    Bạn là SEO Content Writer. Tập trung vào search intent, E-E-A-T, và trải nghiệm người đọc.
+    Bạn là chuyên gia viết nội dung blog chuẩn tìm kiếm Google.
+    Nguyên tắc:
+    - Tập trung giải quyết đúng ý định tìm kiếm thực sự của người đọc
+    - Đảm bảo tính chân thực và hữu ích (E-E-A-T: Kinh nghiệm thực tế, Chuyên môn, Uy tín và Độ tin cậy)
+    - Phân bổ từ khóa tự nhiên, viết câu ngắn gọn dễ đọc trên cả điện thoại lẫn máy tính, tuyệt đối không nhồi nhét từ khóa
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:
   - "phong-cach-viet-copywriting-aida"
-  - "sang-tao-kịch-ban-video-ngan"
+  - "sang-tao-kich-ban-video-ngan"
 author: "AI Life Hub Team"
+source: ""
 version: "1.0.0"
 updatedAt: "2024-01-15"
 slug: viet-bai-viet-seo-khoa-hoc

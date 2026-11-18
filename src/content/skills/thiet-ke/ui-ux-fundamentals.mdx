@@ -1,187 +1,189 @@
 ---
 id: ui-ux-fundamentals
 categoryId: thiet-ke
-name: "Nguyên lý UI/UX cốt lõi"
-description: "Thiết kế giao diện người dùng: Heuristics, Accessibility, Visual hierarchy, Design system basics"
+name: "Nguyên lý thiết kế giao diện & Trải nghiệm người dùng (UI/UX)"
+description: "Đánh giá và cải thiện giao diện dễ dùng: 10 nguyên tắc kiểm tra trải nghiệm của Nielsen, tiêu chuẩn tiếp cận dễ đọc WCAG và thứ tự thị giác"
 whenToUse:
-  - "Thiết kế màn hình mới cho app/web"
-  - "Cải thiện UX sản phẩm hiện tại"
-  - "Review thiết kế của đồng nghiệp"
+  - "Thiết kế màn hình mới cho ứng dụng điện thoại hoặc website"
+  - "Tìm nguyên nhân khiến người dùng hay bấm nhầm hoặc bỏ dở giữa chừng"
+  - "Kiểm tra lại độ dễ đọc, độ tương phản màu sắc và khả năng dùng bàn phím trước khi phát hành"
 difficulty: "beginner"
-estimatedTime: "30 phút - 2 giờ / màn hình"
+estimatedTime: "30 phút - 2 giờ cho mỗi màn hình"
 tags: ["ui-design", "ux-design", "accessibility", "design-system", "heuristics"]
 prompts:
   - id: prompt-ui-heuristic-review
-    name: "Review UI theo 10 Heuristics của Nielsen"
-    description: "Đánh giá giao diện theo 10 quy tắc heuristic, đưa ra điểm số và khuyến nghị cải thiện"
+    name: "Đánh giá giao diện theo 10 nguyên tắc của Nielsen"
+    description: "Chấm điểm và phát hiện lỗi khó dùng trên giao diện dựa theo 10 quy tắc trải nghiệm kinh điển"
     template: |
-      Bạn là UX Expert. Hãy review màn hình/giao diện sau theo 10 Heuristics của Nielsen:
+      Bạn là chuyên gia trải nghiệm người dùng (UX). Hãy đánh giá màn hình hoặc giao diện dưới đây theo 10 nguyên tắc kinh điển của Jakob Nielsen:
 
       **Mô tả màn hình:**
       {{screenDescription}}
 
-      **Ảnh chụp màn hình / Wireframe:** (User sẽ cung cấp link hoặc mô tả chi tiết)
+      **Mô tả hình ảnh bố cục, màu sắc và cỡ chữ:**
       {{visualDescription}}
 
-      **Người dùng mục tiêu:**
+      **Đối tượng người dùng mục tiêu:**
       {{targetUsers}}
 
-      **Nhiệm vụ chính:**
+      **Các việc chính người dùng cần làm trên màn hình này:**
       {{primaryTasks}}
 
-      **Đánh giá 10 Heuristics (1-5 điểm + nhận xét):**
-      1. Visibility of system status
-      2. Match between system and real world
-      3. User control and freedom
-      4. Consistency and standards
-      5. Error prevention
-      6. Recognition rather than recall
-      7. Flexibility and efficiency of use
-      8. Aesthetic and minimalist design
-      9. Help users recognize, diagnose, recover from errors
-      10. Help and documentation
+      **Chấm điểm thang 1-5 và nhận xét từng nguyên tắc trong 10 nguyên tắc sau:**
+      1. Hiển thị rõ trạng thái hệ thống (người dùng luôn biết chuyện gì đang diễn ra)
+      2. Ngôn ngữ gần gũi với đời thực (dùng từ quen thuộc, tránh thuật ngữ khó hiểu)
+      3. Trao quyền chủ động cho người dùng (dễ quay lại, hủy hoặc sửa khi bấm nhầm)
+      4. Nhất quán và theo thói quen chung (nút bấm, biểu tượng thống nhất khắp nơi)
+      5. Phòng ngừa lỗi trước khi xảy ra (cảnh báo sớm, xác nhận trước thao tác quan trọng)
+      6. Dễ nhận diện thay vì bắt ghi nhớ (thông tin cần thiết hiển thị ngay lúc cần)
+      7. Linh hoạt cho cả người mới lẫn người dùng quen (có lối tắt hoặc lưu lựa chọn cũ)
+      8. Giao diện gọn gàng, tối giản (loại bỏ chi tiết thừa gây phân tâm)
+      9. Thông báo lỗi rõ ràng và chỉ cách sửa (không báo chung chung kiểu "Có lỗi xảy ra")
+      10. Trợ giúp và hướng dẫn kịp thời (có chú thích nhỏ hoặc câu hỏi thường gặp khi cần)
 
-      **Output:**
-      - Bảng điểm chi tiết
-      - Top 3 vấn đề nghiêm trọng nhất (Critical/High)
-      - Khuyến nghị cải thiện cụ thể (Actionable)
-      - Quick wins (có thể fix ngay)
+      **Hãy trình bày bản đánh giá gồm các phần sau:**
+      - Bảng điểm chi tiết cho cả 10 nguyên tắc
+      - 3 vấn đề nghiêm trọng nhất cần sửa ngay
+      - Đề xuất chỉnh sửa cụ thể (chia rõ việc sửa nhanh trong 1-2 ngày và việc cải thiện dài hạn)
     variables:
       - name: screenDescription
         type: textarea
-        label: "Mô tả màn hình (mục đích, thành phần chính)"
+        label: "Mô tả màn hình (mục đích và các phần chính trên màn hình)"
         required: true
       - name: visualDescription
         type: textarea
-        label: "Mô tả chi tiết giao diện (layout, màu, typography, spacing...)"
+        label: "Mô tả chi tiết giao diện (bố cục, màu sắc, cỡ chữ, khoảng cách...)"
         required: true
       - name: targetUsers
         type: text
-        label: "Đối tượng người dùng"
+        label: "Đối tượng người dùng chính"
         required: true
       - name: primaryTasks
         type: textarea
-        label: "Các nhiệm vụ chính user làm trên màn hình này"
+        label: "Những thao tác chính người dùng thực hiện trên màn hình này"
         required: true
     examples:
       - inputs:
-          screenDescription: "Màn hình checkout thanh toán đơn hàng trên app mua sắm"
-          visualDescription: "Header: Logo + Back button. Form: Shipping address (điền sẵn), Payment method (radio: COD, Card, Wallet), Promo code input. Footer: Order summary (Subtotal, Shipping, Discount, Total), Button 'Đặt hàng' (Primary, full width). Màu chủ đạo xanh dương, font system."
-          targetUsers: "Người mua sắm online 18-45 tuổi, cả người mới và quen"
-          primaryTasks: "Xác nhận địa chỉ, chọn thanh toán, áp mã giảm giá, đặt hàng"
+          screenDescription: "Màn hình thanh toán đơn hàng trên ứng dụng mua sắm trực tuyến"
+          visualDescription: "Phần đầu có logo và nút quay lại. Phần giữa là địa chỉ nhận hàng đã điền sẵn, lựa chọn cách trả tiền (tiền mặt khi nhận, thẻ, ví điện tử) và ô nhập mã giảm giá. Phần cuối tóm tắt tiền hàng, phí giao hàng, tổng tiền và nút 'Đặt hàng' rộng hết chiều ngang màu xanh dương."
+          targetUsers: "Người mua sắm trực tuyến từ 18-45 tuổi, gồm cả người mới mua lần đầu và khách quen"
+          primaryTasks: "Kiểm tra lại địa chỉ, chọn cách thanh toán, áp mã giảm giá và bấm đặt hàng"
         output: |
-          # 🎯 Heuristic Review: Màn hình Checkout
+          # 🎯 Đánh Giá Trải Nghiệm: Màn Hình Thanh Toán Đơn Hàng
 
-          ## Bảng điểm
-          | Heuristic | Điểm | Nhận xét |
-          |-----------|------|----------|
-          | 1. System Status | 3/5 | Chỉ có loading spinner khi submit, không có progress indicator cho multi-step |
-          | 2. Real World Match | 4/5 | Từ ngữ quen thuộc (COD, Shipping), thứ tự logic |
-          | 3. User Control | 2/5 | Không có nút "Sửa" địa chỉ/payment sau khi chọn, không back dễ dàng |
-          | 4. Consistency | 4/5 | Tuân theo design system, button style nhất quán |
-          | 5. Error Prevention | 2/5 | Không validate real-time promo code, không cảnh báo trùng địa chỉ |
-          | 6. Recognition | 3/5 | Address điền sẵn tốt, nhưng payment method không có icon nhận diện |
-          | 7. Flexibility | 2/5 | Không lưu payment method cho lần sau, không guest checkout |
-          | 8. Aesthetic | 4/5 | Clean, hierarchy rõ ràng, primary CTA nổi bật |
-          | 9. Error Recovery | 2/5 | Error message chung chung ("Có lỗi xảy ra"), không hướng dẫn fix |
-          | 10. Help | 1/5 | Không có tooltip, FAQ, hỗ trợ chat |
+          ## Bảng điểm 10 nguyên tắc
+          | Nguyên tắc | Điểm | Nhận xét thực tế |
+          |---|---|---|
+          | 1. Hiển thị trạng thái hệ thống | 3/5 | Chỉ hiện vòng xoay lúc bấm đặt hàng, chưa hiện thanh tiến trình các bước |
+          | 2. Ngôn ngữ gần gũi đời thực | 4/5 | Từ ngữ rõ ràng dễ hiểu, thứ tự từ trên xuống hợp thói quen |
+          | 3. Quyền chủ động & dễ sửa | 2/5 | Thiếu nút "Sửa" ngay cạnh địa chỉ và cách thanh toán nếu người dùng muốn đổi lại |
+          | 4. Tính nhất quán | 4/5 | Kiểu nút và màu sắc đồng bộ với các màn hình trước |
+          | 5. Phòng ngừa lỗi | 2/5 | Chưa kiểm tra mã giảm giá ngay khi gõ xong; bấm đặt hàng mới báo mã hết hạn |
+          | 6. Nhận diện thay vì ghi nhớ | 3/5 | Địa chỉ có sẵn rất tiện, nhưng danh sách cách trả tiền thiếu biểu tượng dễ phân biệt |
+          | 7. Linh hoạt cho mọi đối tượng | 2/5 | Chưa gợi ý phương thức thanh toán đã dùng ở lần mua trước để bấm nhanh |
+          | 8. Gọn gàng, tối giản | 4/5 | Bố cục thoáng, nút hành động chính "Đặt hàng" nổi bật rõ ràng |
+          | 9. Báo lỗi và chỉ cách sửa | 2/5 | Khi lỗi hay báo chung chung "Có lỗi xảy ra", không chỉ rõ sai ở ô nào |
+          | 10. Trợ giúp kịp thời | 1/5 | Thiếu chú thích ngắn về phí giao hàng hoặc nút hỏi đáp nhanh |
 
-          ## Top 3 Vấn đề Critical/High
-          1. **H3 - User Control**: User không thể sửa địa chỉ/payment sau khi đã chọn → Frustration cao
-          2. **H5 - Error Prevention**: Không validate promo code real-time → User bấm đặt hàng mới biết mã sai
-          3. **H9 - Error Recovery**: Error message không actionable → User mắc kẹt
+          ## 3 vấn đề ưu tiên cao cần xử lý ngay
+          1. **Thiếu nút sửa nhanh (Nguyên tắc 3)**: Khách phát hiện sai số điện thoại hay địa chỉ mà không biết bấm đâu để sửa dễ gây bỏ giỏ hàng.
+          2. **Không kiểm tra mã giảm giá ngay (Nguyên tắc 5)**: Khách tưởng được giảm tiền đến lúc bấm đặt mới báo lỗi làm tụt cảm xúc mua.
+          3. **Thông báo lỗi quá chung chung (Nguyên tắc 9)**: Không nói rõ lý do khiến người dùng lúng túng không biết tự sửa.
 
-          ## Khuyến nghị cải thiện
-          - **Quick wins (1-2 ngày):**
-            - Thêm nút "Sửa" cho mỗi section (Address, Payment)
-            - Validate promo code on blur + hiển thị discount preview
-            - Error message cụ thể: "Mã giảm giá đã hết hạn" thay vì "Có lỗi"
-          - **Medium term:**
-            - Thêm saved payment methods + guest checkout
-            - Progress indicator nếu checkout multi-step
-            - Help icon + tooltip cho các field phức tạp
-        context: "Review màn hình checkout e-commerce, tìm UX issues"
+          ## Đề xuất cải thiện cụ thể
+          - **Việc sửa nhanh (1-2 ngày):**
+            - Thêm nút chữ "Thay đổi" rõ ràng ở góc phải khung Địa chỉ và Phương thức thanh toán.
+            - Kiểm tra mã giảm giá ngay khi người dùng bấm nút "Áp dụng" và hiện ngay số tiền được trừ vào tổng hóa đơn.
+            - Sửa thông báo lỗi cụ thể từng trường hợp (ví dụ: *"Mã giảm giá này đã hết hạn vào hôm qua"*).
+          - **Cải thiện dài hạn:**
+            - Ghi nhớ phương thức thanh toán hay dùng nhất của khách quen và hỗ trợ mua nhanh không cần tạo tài khoản rườm rà.
+        context: "Đánh giá màn hình thanh toán thương mại điện tử để giảm tỷ lệ bỏ dở đơn hàng"
     difficulty: "medium"
     useCases:
-      - "UX Designer review thiết kế trước khi handoff dev"
-      - "Product Manager audit UX sản phẩm"
+      - "Người thiết kế tự rà soát lại giao diện trước khi bàn giao cho nhóm lập trình"
+      - "Quản lý sản phẩm kiểm tra điểm nghẽn khiến khách hàng hay thoát giữa chừng"
   - id: prompt-accessibility-audit
-    name: "Kiểm tra Accessibility (WCAG 2.1 AA)"
-    description: "Audit giao diện theo tiêu chuẩn WCAG: Contrast, Keyboard navigation, Screen reader, ARIA"
+    name: "Kiểm tra khả năng tiếp cận (Chuẩn WCAG 2.1 AA)"
+    description: "Kiểm tra độ tương phản màu sắc để dễ đọc, khả năng điều khiển bằng bàn phím và hỗ trợ trình đọc màn hình cho mọi người dùng"
     template: |
-      Hãy audit accessibility cho màn hình: {{screenName}}.
+      Hãy kiểm tra khả năng tiếp cận (theo tiêu chuẩn quốc tế WCAG 2.1 mức AA) cho màn hình hoặc thành phần: {{screenName}}.
 
-      **Thông tin:**
-      - Màu sắc chính: {{primaryColors}}
-      - Typography: {{typography}}
-      - Interactive elements: {{interactiveElements}}
+      **Thông tin thiết kế hiện tại:**
+      - Các mã màu sử dụng: {{primaryColors}}
+      - Bộ cỡ chữ và phông chữ: {{typography}}
+      - Các thành phần có thể bấm hoặc nhập liệu: {{interactiveElements}}
 
-      **Kiểm tra checklist WCAG 2.1 AA:**
-      1. **Perceivable**: Contrast ratio ≥ 4.5:1 (text), ≥ 3:1 (UI), Non-text contrast, Resize text 200%
-      2. **Operable**: Keyboard accessible, Focus visible, No keyboard trap, Skip links
-      3. **Understandable**: Language declared, Labels/instructions, Error identification
-      4. **Robust**: Valid HTML, ARIA landmarks, Status messages
+      **Hãy kiểm tra kỹ theo 4 nhóm tiêu chí chuẩn WCAG 2.1 AA:**
+      1. **Dễ nhận biết (Perceivable)**: Tỉ lệ tương phản giữa chữ thường và nền đạt từ `4.5:1` trở lên (chữ to hoặc biểu tượng khung viền đạt từ `3:1`), chữ phóng to 200% không bị mất chữ.
+      2. **Dễ thao tác (Operable)**: Dùng được hoàn toàn bằng bàn phím (Tab / Enter / Esc), luôn thấy viền sáng khi chọn vào phần tử, không bị kẹt con trỏ.
+      3. **Dễ hiểu (Understandable)**: Khai báo đúng ngôn ngữ trang, mọi ô nhập liệu đều có nhãn rõ ràng và thông báo lỗi chỉ rõ ô bị sai.
+      4. **Tương thích tốt với thiết bị hỗ trợ (Robust)**: Thẻ HTML chuẩn ngữ nghĩa, khai báo đầy đủ thuộc tính ARIA cho trình đọc màn hình (dành cho người khiếm thị).
 
-      Output: Bảng checklist Pass/Fail, các vi phạm, khuyến nghị fix.
+      **Hãy trình bày kết quả kiểm tra gồm các phần sau:**
+      - Bảng kiểm tra tỉ lệ tương phản màu sắc kèm số đo chính xác (Đạt / Chưa đạt)
+      - Bảng kiểm tra thao tác bàn phím và trình đọc màn hình
+      - Danh sách cách sửa cụ thể kèm mã màu thay thế đạt chuẩn (nếu có màu chưa đạt)
     variables:
       - name: screenName
         type: text
-        label: "Tên màn hình/component"
+        label: "Tên màn hình hoặc thành phần giao diện"
         required: true
       - name: primaryColors
         type: textarea
-        label: "Màu sắc (hex code cho background, text, primary, error, success)"
+        label: "Bảng mã màu (màu nền, màu chữ, màu chính, màu báo lỗi, màu thành công)"
         required: true
       - name: typography
         type: textarea
-        label: "Typography (font, size, line-height cho heading, body, caption)"
+        label: "Thông số chữ (phông chữ, cỡ chữ, chiều cao dòng cho tiêu đề và nút bấm)"
         required: true
       - name: interactiveElements
         type: textarea
-        label: "Các element tương tác (button, link, input, dropdown, modal...)"
+        label: "Các thành phần tương tác (nút bấm, đường dẫn, ô nhập, hộp thoại...)"
         required: true
     examples:
       - inputs:
-          screenName: "Button Primary & Secondary"
-          primaryColors: "Primary: #2563EB on White (#FFFFFF). Secondary: #64748B on White. Error: #EF4444 on White. Success: #22C55E on White."
-          typography: "Button text: Inter 14px, Medium, line-height 20px"
-          interactiveElements: "Primary button, Secondary button, Disabled button, Loading state"
+          screenName: "Nút bấm chính, nút phụ và các trạng thái thông báo"
+          primaryColors: "Màu chính #2563EB trên nền trắng #FFFFFF; Màu phụ #64748B trên nền trắng; Màu báo lỗi #EF4444 trên nền trắng; Màu thành công #22C55E trên nền trắng."
+          typography: "Chữ trên nút bấm: Inter 14px, độ đậm vừa (500), chiều cao dòng 20px"
+          interactiveElements: "Nút chính, Nút phụ, Nút bị khóa (vô hiệu hóa), Nút đang tải"
         output: |
-          # ♿ Accessibility Audit: Button Component
+          # ♿ Báo Cáo Kiểm Tra Khả Năng Tiếp Cận: Thành Phần Nút Bấm
 
-          ## Contrast Check (WCAG AA - 4.5:1 normal text)
-          | Color Combo | Ratio | Pass/Fail |
-          |-------------|-------|-----------|
-          | Primary #2563EB on White | 5.1:1 | ✅ PASS |
-          | Secondary #64748B on White | 4.6:1 | ✅ PASS |
-          | Error #EF4444 on White | 4.5:1 | ✅ PASS (borderline) |
-          | Success #22C55E on White | 3.1:1 | ❌ FAIL (cần tối thiểu 4.5:1) |
+          ## 1. Kiểm tra độ tương phản màu (Chuẩn WCAG AA cho chữ 14px cần đạt >= 4.5:1)
+          | Cặp màu trên nền trắng (`#FFFFFF`) | Tỉ lệ đo được | Kết quả |
+          |---|---|---|
+          | Màu chính `#2563EB` | **5.17:1** | ✅ Đạt chuẩn (>= 4.5:1) |
+          | Màu phụ `#64748B` | **4.76:1** | ✅ Đạt chuẩn (>= 4.5:1) |
+          | Màu báo lỗi `#EF4444` | **3.76:1** | ❌ Chưa đạt (thiếu độ đậm cho chữ thường 14px) |
+          | Màu thành công `#22C55E` | **2.28:1** | ❌ Chưa đạt (rất mờ trên nền trắng, khó đọc) |
 
-          ## Keyboard & Focus
-          | Criteria | Status | Note |
-          |----------|--------|------|
-          | Focus visible outline | ✅ PASS | Tailwind `focus-visible:ring-2` |
-          | Keyboard operable | ✅ PASS | `<button>` native |
-          | Disabled state announced | ⚠️ PARTIAL | Cần `aria-disabled="true"` |
+          ## 2. Kiểm tra thao tác bàn phím & viền chọn
+          | Tiêu chí | Trạng thái | Ghi chú kiểm tra |
+          |---|---|---|
+          | Hiện viền sáng khi bấm Tab | ✅ Đạt | Dùng lớp viền nổi rõ `focus-visible:ring-2` |
+          | Bấm được bằng phím Enter / Space | ✅ Đạt | Dùng thẻ `<button>` chuẩn của HTML |
+          | Trạng thái bị khóa | ⚠️ Cần bổ sung | Nên thêm `aria-disabled="true"` để trình đọc báo rõ nút đang tạm khóa |
 
-          ## Screen Reader
-          - Primary button: Role="button", Name="Đặt hàng" ✅
-          - Loading state: `aria-busy="true"`, `aria-live="polite"` cần thêm
+          ## 3. Hỗ trợ trình đọc màn hình
+          - Nút chính: Đã đọc đúng vai trò nút và tên nhãn `"Đặt hàng"`.
+          - Trạng thái đang tải: Cần bổ sung `aria-busy="true"` và `aria-live="polite"` để đọc thành tiếng *"Đang xử lý..."* cho người dùng không nhìn thấy màn hình.
 
-          ## Khuyến nghị Fix
-          1. **Success color**: Đổi #22C55E → #16A34A (ratio 4.5:1) hoặc dùng dark background
-          2. **Loading state**: Thêm `aria-busy="true"` + `aria-live="polite"` announce "Đang xử lý..."
-          3. **Disabled**: Đảm bảo `aria-disabled="true"` + `tabIndex={-1}`
-        context: "Audit button component cho design system"
+          ## 4. Đề xuất chỉnh sửa cụ thể
+          1. **Đổi màu báo lỗi:** Thay `#EF4444` (3.76:1) sang **`#DC2626`** (đạt **4.83:1** trên nền trắng).
+          2. **Đổi màu thành công:** Thay `#22C55E` (2.28:1) sang **`#15803D`** (đạt **5.02:1** trên nền trắng; lưu ý màu `#16A34A` chỉ đạt `3.30:1` nên vẫn chưa đủ chuẩn cho chữ cỡ 14px).
+          3. **Bổ sung thuộc tính hỗ trợ:** Thêm `aria-busy="true"` khi đang tải và `aria-disabled="true"` cho nút tạm khóa.
+        context: "Kiểm tra độ tương phản màu và hỗ trợ bàn phím cho bộ nút bấm của hệ thống thiết kế"
     difficulty: "medium"
     useCases:
-      - "Design System team đảm bảo component accessible"
-      - "Dev implement UI cần tuân thủ WCAG"
+      - "Nhóm thiết kế kiểm tra độ tương phản màu chữ trước khi chốt bảng màu sản phẩm"
+      - "Lập trình viên kiểm tra khả năng thao tác bàn phím và trình đọc màn hình theo chuẩn WCAG"
 agentTemplate:
-  name: "UX Designer Agent"
-  description: "Tư vấn UI/UX, heuristic evaluation, accessibility audit, design system"
+  name: "Chuyên Gia Trải Nghiệm Người Dùng (UI/UX)"
+  description: "Tư vấn đánh giá độ dễ dùng theo 10 nguyên tắc của Nielsen, kiểm tra khả năng tiếp cận WCAG và tối ưu bố cục giao diện"
   systemPrompt: |
-    Bạn là UX Designer. Áp dụng Nielsen heuristics, WCAG, design principles. Focus vào user needs, accessibility, business goals.
+    Bạn là chuyên gia thiết kế giao diện và trải nghiệm người dùng (UI/UX).
+    Chuyên môn: Đánh giá theo 10 nguyên tắc trải nghiệm của Nielsen, kiểm tra độ tương phản màu sắc và khả năng tiếp cận theo chuẩn WCAG 2.1 AA, tối ưu thứ tự thị giác trên màn hình.
+    Luôn đặt nhu cầu của người dùng thật lên hàng đầu, giải thích mọi nhận xét bằng ngôn ngữ bình dân dễ hiểu kèm giải pháp sửa ngay được.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

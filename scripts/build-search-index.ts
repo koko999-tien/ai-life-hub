@@ -178,13 +178,15 @@ function buildSearchDocuments(
       title: cat.name,
       content: cat.description,
       tags: [cat.id],
-      url: `/categories/${cat.id}`,
+      url: `/category/${cat.id}`,
       boost: 10,
     });
   });
 
   // Add skills
   skills.forEach(({ skill, slug }) => {
+    const skillSlug = path.basename(slug);
+
     // Main skill document
     documents.push({
       id: `skill:${skill.id}`,
@@ -194,7 +196,7 @@ function buildSearchDocuments(
       categoryId: skill.categoryId,
       skillId: skill.id,
       tags: skill.tags || [],
-      url: `/skills/${slug}`,
+      url: `/skill/${skillSlug}`,
       boost: 8,
     });
 
@@ -212,7 +214,7 @@ function buildSearchDocuments(
         categoryId: skill.categoryId,
         skillId: skill.id,
         tags: [...(skill.tags || []), ...(((prompt as any).tags as string[]) || [])],
-        url: `/skills/${slug}#prompt-${prompt.id}`,
+        url: `/skill/${skillSlug}#prompt-${prompt.id}`,
         boost: 6,
       });
     });
@@ -230,7 +232,7 @@ function buildSearchDocuments(
         categoryId: skill.categoryId,
         skillId: skill.id,
         tags: skill.tags || [],
-        url: `/skills/${slug}#agent`,
+        url: `/skill/${skillSlug}#agent`,
         boost: 5,
       });
     }

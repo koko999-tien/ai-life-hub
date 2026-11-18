@@ -1,41 +1,40 @@
 ---
 id: tai-chinh-side-project
 categoryId: side-project
-name: "Tài Chín Side Project: Từ $0 Đến Profitable & Tax Compliance Việt Nam"
-description: "Quản lý tài chính side project: Accounting cơ bản, định giá, thuế VN, tách tài khoản, reinvest strategy"
+name: "Tài Chính Dự Án Cá Nhân: Từ 0 Đồng Đến Có Lãi & Tuân Thủ Thuế Việt Nam"
+description: "Cách quản lý tiền bạc cho dự án cá nhân: tách tài khoản, ghi chép thu chi, định giá bán, tính lãi lỗ từng đơn hàng và lưu ý thuế tại Việt Nam"
 whenToUse:
-  - "Side project bắt đầu có doanh thu, cần quản lý tài chính chuyên nghiệp"
-  - "Bingung về thuế Thu nhập cá nhân (TNCN) cho side income VN"
-  - "Muốn tách tài chính cá nhân vs side project rõ ràng"
-  - "Cần định giá sản phẩm/dịch vụ hợp lý, tính unit economics"
-  - "Plan reinvest lợi nhuận để scale"
+  - "Dự án bắt đầu có doanh thu và cần ghi chép tiền bạc rõ ràng, không lẫn với tiền chi tiêu cá nhân"
+  - "Đang băn khoăn cách kê khai thuế cho nguồn thu nhập phụ từ dự án cá nhân tại Việt Nam"
+  - "Muốn định giá sản phẩm hợp lý và biết cần bán bao nhiêu đơn mỗi tháng mới hòa vốn"
+  - "Muốn biết cách chia phần lợi nhuận để tái đầu tư mở rộng an toàn"
 difficulty: "intermediate"
-estimatedTime: "Setup 2h, duy trì 30p/tháng"
+estimatedTime: "Thiết lập 2 giờ, cập nhật 30 phút/tháng"
 tags: ["finance", "accounting", "tax-vietnam", "pricing", "unit-economics", "side-hustle", "legal-compliance"]
 prompts:
   - id: prompt-side-project-finance-setup
-    name: "Thiết Lập Hệ Thống Tài Chín Side Project"
-    description: "Từ 0: Tách tài khoản, Chart of Accounts, Bookkeeping workflow, Tool stack"
+    name: "Thiết Lập Hệ Thống Thu Chi Cho Dự Án Cá Nhân"
+    description: "Tạo cấu trúc tách tài khoản, danh mục ghi chép thu chi, công cụ theo dõi miễn phí và lịch nhắc nghĩa vụ thuế"
     template: |
-      Bạn là Fractional CFO cho solopreneur. Hãy thiết lập hệ thống tài chính cho side project: {{projectName}}.
+      Bạn là chuyên gia tài chính đồng hành cho người tự làm dự án cá nhân. Hãy thiết lập hệ thống quản lý tiền bạc gọn gàng, đúng luật cho dự án: {{projectName}}.
 
       **Thông tin dự án:**
-      - Business model: {{businessModel}} (Marketplace commission / SaaS subscription / Service / Product sales / Affiliate / Ad revenue)
-      - Entity type: {{entityType}} (Cá nhân / Hộ gia đình / Công ty TNHH 1 thành viên / Chưa đăng ký)
-      - Ngân hàng chính: {{mainBank}}
-      - Payment gateways: {{paymentGateways}} (Stripe, Momo, VNPay, PayPal, Bank transfer)
-      - Dự kiến revenue tháng 1-3: {{revenueProjection}}
-      - Chi phí cố định/tháng: {{fixedCosts}}
-      - Có nhân viên/hợp tác viên không: {{hasContractors}}
+      - Mô hình thu tiền: {{businessModel}}
+      - Hình thức hoạt động hiện tại: {{entityType}}
+      - Ngân hàng sử dụng chính: {{mainBank}}
+      - Cổng nhận thanh toán: {{paymentGateways}}
+      - Doanh thu dự kiến 3 tháng đầu: {{revenueProjection}}
+      - Chi phí cố định hằng tháng: {{fixedCosts}}
+      - Tình trạng thuê cộng tác viên: {{hasContractors}}
 
-      **Yêu cầu output:**
-      1. **Bank Account Structure**: Tài khoản nào cho mục đích gì (Operating, Tax savings, Emergency, Personal draw)
-      2. **Chart of Accounts (Vietnamese)**: Mã tài khoản theo chế độ kế toán VN (TK 111, 112, 131, 152, 153, 331, 3331, 511, 515, 621, 627, 635, 641, 642, 811...)
-      3. **Bookkeeping Workflow**: Hàng ngày/tuần/tháng/năm làm gì, tool gì, ai làm
-      4. **Tool Stack Recommendation**: Free/Low-cost (Excel/Notion/Google Sheets → MISA/QuickBooks/Xero khi scale)
-      5. **Monthly Close Checklist**: 10 bước đóng sổ cuối tháng
-      6. **Tax Calendar VN**: Deadline TNCN, VAT (nếu có), Báo cáo tài chính
-      7. **Personal vs Business Separation Rules**: Quy tắc tách bạch chi tiêu
+      **Hãy lập hướng dẫn chi tiết gồm 7 phần bằng tiếng Việt dễ hiểu:**
+      1. **Cấu trúc tách 4 tài khoản riêng biệt**: Tiền vận hành, Tiền dự phòng thuế, Quỹ dự phòng rủi ro và Tiền lương tự trả cho bản thân.
+      2. **Danh mục phân loại thu chi đơn giản**: Dễ ghi vào Google Sheets mà không cần rành kế toán doanh nghiệp phức tạp.
+      3. **Thói quen ghi chép hằng ngày, hằng tuần và chốt sổ cuối tháng**.
+      4. **Gợi ý công cụ quản lý theo từng mức doanh thu** (từ miễn phí đến phần mềm kế toán chuyên nghiệp).
+      5. **Quy tắc tách bạch tiền cá nhân và tiền dự án** (khoản nào được tính vào chi phí dự án, khoản nào không).
+      6. **Nguyên tắc tuân thủ thuế tại Việt Nam**: Phân biệt rõ giai đoạn cá nhân, hộ kinh doanh và khi nào nên mở công ty; nhắc nhở kiểm tra quy định mới nhất từ cơ quan thuế hoặc tham khảo kế toán viên.
+      7. **Bảng các chỉ số tài chính cốt lõi cần theo dõi hằng tháng** (giải thích rõ từng khái niệm như tỷ lệ hoa hồng, chi phí tìm khách, giá trị trọn đời khách hàng, số tháng duy trì quỹ tiền mặt).
     variables:
       - name: projectName
         type: text
@@ -43,251 +42,173 @@ prompts:
         required: true
       - name: businessModel
         type: select
-        label: "Business Model"
+        label: "Mô hình thu tiền"
         options:
-          - "Marketplace commission (Phí giao dịch)"
-          - "SaaS Subscription (Định kỳ tháng/năm)"
-          - "Service/Consulting (Theo giờ/project)"
-          - "Digital Product Sales (Course, Template, Ebook)"
-          - "Physical Product Sales (E-commerce)"
-          - "Affiliate/Referral Commission"
-          - "Ad Revenue (YouTube, Blog, Newsletter)"
-          - "Mixed (Nhiều nguồn)"
+          - "Thu hoa hồng trên giao dịch (Sàn kết nối)"
+          - "Thu phí định kỳ hằng tháng hoặc hằng năm"
+          - "Bán dịch vụ hoặc tư vấn theo giờ"
+          - "Bán sản phẩm số (Khóa học / Mẫu tài liệu / Sách điện tử)"
+          - "Bán hàng hóa vật lý (Thương mại điện tử)"
+          - "Nhận hoa hồng giới thiệu (Affiliate)"
+          - "Thu nhập từ quảng cáo hoặc tài trợ"
+          - "Kết hợp nhiều nguồn thu"
         required: true
+        default: "Thu hoa hồng trên giao dịch (Sàn kết nối)"
       - name: entityType
         type: select
-        label: "Loại hình pháp lý hiện tại"
+        label: "Hình thức pháp lý hiện tại"
         options:
           - "Cá nhân (Chưa đăng ký kinh doanh)"
-          - "Hộ gia đình (Đăng ký hộ gia đình)"
-          - "Công ty TNHH 1 thành viên (Đã cấp GPĐKKD)"
-          - "Công ty TNHH 2+ thành viên"
+          - "Hộ kinh doanh cá thể"
+          - "Công ty TNHH 1 thành viên"
+          - "Công ty TNHH từ 2 thành viên trở lên"
           - "Hợp tác xã"
         required: true
         default: "Cá nhân (Chưa đăng ký kinh doanh)"
       - name: mainBank
         type: text
-        label: "Ngân hàng chính (Ví dụ: Vietcombank, Techcombank, VPBank, Timo, Cake)"
+        label: "Ngân hàng chính đang dùng (ví dụ: Vietcombank, Techcombank, Timo)"
         required: true
-        default: "Vietcombank + Timo (Digital bank)"
+        default: "Vietcombank và ngân hàng số Timo"
       - name: paymentGateways
         type: multiselect
-        label: "Payment Gateways đang dùng/dự kiến"
+        label: "Cổng thanh toán dự kiến dùng"
         options:
-          - "Stripe (International)"
-          - "Momo (Ví điện tử)"
-          - "VNPay (Cổng thanh toán VN)"
-          - "OnePay / VTC Pay"
+          - "Chuyển khoản ngân hàng (VietQR)"
+          - "Ví điện tử MoMo"
+          - "Cổng thanh toán VNPay"
+          - "OnePay hoặc VTC Pay"
+          - "Stripe (Quốc tế)"
           - "PayPal"
-          - "Bank Transfer (QR code VietQR)"
-          - "Cash/COD"
+          - "Tiền mặt khi giao hàng (COD)"
         required: true
-        default: ["Stripe (International)", "Momo (Ví điện tử)", "VNPay (Cổng thanh toán VN)", "Bank Transfer (QR code VietQR)"]
+        default: ["Chuyển khoản ngân hàng (VietQR)", "Ví điện tử MoMo", "Cổng thanh toán VNPay"]
       - name: revenueProjection
         type: text
-        label: "Dự kiến revenue 3 tháng đầu (VND/USD)"
+        label: "Doanh thu dự kiến 3 tháng đầu (ghi bằng đồng)"
         required: true
-        default: "Tháng 1: 0đ, Tháng 2: 5-10 triệu, Tháng 3: 15-20 triệu"
+        default: "Tháng 1: 0 đồng; Tháng 2: 5-10 triệu đồng; Tháng 3: 15-20 triệu đồng"
       - name: fixedCosts
         type: textarea
-        label: "Chi phí cố định/tháng (Tool, Hosting, Domain, Marketing, Contractor)"
+        label: "Chi phí cố định hằng tháng (tên miền, máy chủ, công cụ, quảng cáo)"
         required: false
-        default: "Domain: 200k/năm, Hosting/Platform: $29/tháng (Bubble), Email: $0, Analytics: $0, Marketing: 500k, Contractor: 0"
+        default: "Tên miền: 20.000 đồng/tháng (chia từ gói năm); Nền tảng làm web: 750.000 đồng/tháng; Quảng cáo nhỏ: 500.000 đồng/tháng"
       - name: hasContractors
         type: select
-        label: "Có thuê freelancer/contractor không"
+        label: "Có thuê người làm cùng hoặc cộng tác viên không?"
         options:
-          - "Không (Solo 100%)"
-          - "Có, trả fee/project (Freelancer)"
-          - "Có, trả lương/tháng (Part-time)"
-          - "Có, profit sharing"
+          - "Không (Tự làm 100%)"
+          - "Có thuê cộng tác viên theo từng đầu việc"
+          - "Có trả lương bán thời gian hằng tháng"
+          - "Có thỏa thuận chia sẻ lợi nhuận"
         required: true
-        default: "Không (Solo 100%)"
+        default: "Không (Tự làm 100%)"
     examples:
       - inputs:
-          projectName: "MentorConnect Vietnam"
-          businessModel: "Marketplace commission (Phí giao dịch)"
+          projectName: "MentorConnect Việt Nam"
+          businessModel: "Thu hoa hồng trên giao dịch (Sàn kết nối)"
           entityType: "Cá nhân (Chưa đăng ký kinh doanh)"
-          mainBank: "Vietcombank (Main) + Timo (Digital - cho auto-save)"
-          paymentGateways: '["Stripe (International)", "Momo (Ví điện tử)", "VNPay (Cổng thanh toán VN)", "Bank Transfer (QR code VietQR)"]'
-          revenueProjection: "Tháng 1: 0đ (Beta free), Tháng 2: 10-15 triệu (15% commission x 50 sessions x 500k), Tháng 3: 20-30 triệu"
-          fixedCosts: "Domain: 200k/năm, Bubble Personal: $29/tháng (~700k), Daily.co: $0 (free tier), Momo/VNPay: 0 setup, Marketing: 1 triệu, Accounting tool: 0 (Excel), Contractor: 0"
-          hasContractors: "Không (Solo 100%)"
+          mainBank: "Vietcombank (Tài khoản chính) + Timo (Tài khoản dự phòng thuế)"
+          paymentGateways:
+            - "Chuyển khoản ngân hàng (VietQR)"
+            - "Ví điện tử MoMo"
+            - "Cổng thanh toán VNPay"
+            - "Stripe (Quốc tế)"
+          revenueProjection: "Tháng 1: 0 đồng (thử nghiệm miễn phí); Tháng 2: 10-15 triệu đồng; Tháng 3: 20-30 triệu đồng"
+          fixedCosts: "Tên miền và email: 250.000 đồng/tháng; Nền tảng Bubble: 750.000 đồng/tháng; Quảng cáo nhỏ: 1.500.000 đồng/tháng; Công cụ gọi video miễn phí: 0 đồng"
+          hasContractors: "Không (Tự làm 100%)"
         output: |
-          # 💰 Finance Setup: MentorConnect Vietnam (Solo, Individual, Marketplace)
+          # Hệ Thống Tài Chính Gọn Gàng: MentorConnect Việt Nam
 
-          ## 1. Bank Account Structure (4 Tài Khoản)
-          | Tài khoản | Ngân hàng | Mục đích | % Revenue In | Rule |
-          |-----------|-----------|---------|--------------|------|
-          | **Operating Account** | Vietcombank (TK chính) | Nhận revenue, Chi operating, Payout mentor | 100% In | Daily ops |
-          | **Tax Savings Account** | Timo / Cake (Auto-save) | Dự trữ thuế TNCN 20% | 20% của Net Profit | Auto-transfer sau payout |
-          | **Business Emergency Fund** | Vietcombank (TK phụ) | 3 tháng operating expenses | 10% Net Profit (đến 30tr) | Không động trừ khi crisis |
-          | **Personal Draw Account** | Vietcombank (TK cá nhân) | Lương mình, Chi tiêu cá nhân | Còn lại (70%) | Monthly drawfixed date |
+          ## 1. Cấu Trúc 4 Tài Khoản Tách Bạch
+          Dù mới làm một mình, bạn tuyệt đối không nên gom tiền dự án chung với thẻ ăn sáng, đi chợ hằng ngày:
 
-          **Setup Steps:**
-          1. Mở Timo/Cake (5p online) → Đặt tên "MentorConnect Tax"
-          2. Vietcombank: Yêu cầu mở TK phụ "MentorConnect Emergency" (miễn phí)
-          3. Setup **Auto-transfer rule**: Mỗi khi nhận payout từ Stripe/Momo → 20% chuyển sang Tax Savings
-          4. **Monthly Draw**: Ngày 1 hàng tháng, chuyển-fixed amount sang Personal (dựa trên budget cá nhân)
+          | Tài khoản | Ngân hàng gợi ý | Mục đích | Quy tắc phân bổ |
+          |---|---|---|---|
+          | **1. Vận hành (Operating)** | Vietcombank (TK riêng cho dự án) | Nhận tiền khách trả, thanh toán phí công cụ và trả phần thu nhập của người hướng dẫn | Nhận 100% tiền vào |
+          | **2. Dự phòng thuế** | Ngân hàng số Timo (Hũ riêng) | Để dành tiền nộp thuế khi đến hạn, không bao giờ tiêu nhầm | Trích **20% lợi nhuận ròng** sau mỗi lần đối soát |
+          | **3. Quỹ dự phòng rủi ro** | Vietcombank (TK phụ) | Đủ tiền duy trì hệ thống ít nhất 3 tháng nếu chưa có khách | Trích **10% lợi nhuận ròng** đến khi đạt 30 triệu đồng |
+          | **4. Lương cho bản thân** | Tài khoản cá nhân hằng ngày | Trả công sức cho chính bạn | Phần **70% lợi nhuận ròng** còn lại (hoặc giữ lại tái đầu tư) |
 
-          ## 2. Chart of Accounts (Simplified cho Individual Business VN)
-          | Mã TK | Tên tài khoản | Mô tả | Ví dụ MentorConnect |
-          |-------|---------------|-------|---------------------|
-          | **111** | Tiền mặt | Cash on hand | Hiếm khi dùng |
-          | **112** | Tiền gửi ngân hàng | Operating + Tax + Emergency | 3 TK Vietcombank/Timo |
-          | **131** | Phải thu khách hàng | Stripe/Momo pending payout | Stripe 7-day rolling, Momo T+1 |
-          | **152** | Chi phí trả trước | Domain, Hosting prepaid | Domain 200k/năm, Bubble $29/tháng |
-          | **153** | Công cụ, dụng cụ | Laptop, Phone (nếu mua cho biz) | Khấu hao 3 năm |
-          | **331** | Phải trả người bán | Tool subscriptions unpaid | Bubble invoice net 30 |
-          | **3331** | Thuế TNCN phải nộp | Accrual thuế 20% net profit | Tính hàng tháng |
-          | **511** | Doanh thu bán hàng | Commission revenue | 15% x GMV |
-          | **515** | Doanh thu hoạt động tài chính | FX gain (USD→VND Stripe) | Stripe payout USD→VND |
-          | **621** | Chi phí vật liệu | Domain, SSL, Asset digital | Domain, Template purchase |
-          | **627** | Chi phí dịch vụ mua ngoài | Platform fees, Payment fees | Bubble $29, Stripe 2.9%+30¢, Momo 1.5% |
-          | **635** | Chi phí tài chính | Bank fee, FX loss | Vietcombank fee, FX spread |
-          | **641** | Chi phí bán hàng | Marketing, Ads, Content | FB boost, Fiverr design |
-          | **642** | Chi phí quản lý doanh nghiệp | Accounting tool, Legal, Admin | Notion, Legal review |
-          | **811** | Thu nhập kinh doanh | Net Profit sebelum thuế | Revenue - Expenses |
-          | **821** | Chi phí thuế TNCN | 20% x (Revenue - Expenses - Deductible) | Tính cuối năm |
+          **Cách làm nhanh:** Mỗi ngày 1 đầu tháng, sau khi trừ hết tiền phải trả cho người hướng dẫn và tiền thuê công cụ, bạn chia phần lãi còn lại đúng tỷ lệ 20% – 10% – 70% để đầu óc luôn nhẹ nhàng.
 
-          ## 3. Bookkeeping Workflow
+          ## 2. Danh Mục Phân Loại Thu Chi Đơn Giản (Dùng Trên Google Sheets)
+          Bạn không cần nhớ hệ thống mã kế toán doanh nghiệp phức tạp khi mới bắt đầu, chỉ cần chia 5 nhóm rõ ràng:
+          - **Tiền vào (Doanh thu)**: Tổng giá trị giao dịch (GMV) và phần hoa hồng nền tảng giữ lại (`15%`). Lưu ý: Tiền thu hộ để trả lại cho người hướng dẫn (`85%`) không phải doanh thu của bạn.
+          - **Phí giao dịch**: Phí cổng thanh toán MoMo/VNPay (khoảng `1,5%`), phí thẻ quốc tế (khoảng `2,9% + 7.500 đồng`), phí chuyển khoản ngân hàng.
+          - **Chi phí vận hành cố định**: Tên miền, máy chủ, phần mềm kéo-thả Bubble, công cụ gửi email.
+          - **Chi phí tìm khách hàng**: Tiền chạy quảng cáo thử nghiệm, thuê thiết kế ảnh bìa, quà tặng buổi giao lưu.
+          - **Chi phí thiết bị & học tập**: Phần trăm tiền mạng internet dùng cho dự án, sách/khóa học phục vụ trực tiếp dự án.
 
-          ### Hàng Ngày (5 phút)
-          - [ ] Check Stripe/Momo/VNPay dashboard: Payout arrived? Failed payment?
-          - [ ] Log vào **Revenue Tracker** (Google Sheets): Date, Source, Gross, Fee, Net, Currency
-          - [ ] Check Operating Account: Balance đủ payout mentor không?
+          ## 3. Thói Quen Ghi Chép Thu Chi
+          - **Hằng ngày (5 phút)**: Kiểm tra đối soát giao dịch thành công trên MoMo/VNPay/VietQR xem có đơn nào lỗi không.
+          - **Hằng tuần vào chiều Thứ 6 (15 phút)**: Đối chiếu sao kê ngân hàng với bảng theo dõi, chuyển khoản thanh toán đúng hạn cho người hướng dẫn.
+          - **Cuối tháng ngày 1-3 (45 phút)**: Chốt sổ tháng (tính tổng doanh thu, tổng chi phí, lãi/lỗ thực tế), trích tiền vào hũ Dự phòng thuế và tự trả lương cố định cho bản thân.
 
-          ### Hàng Tuần (15 phút - Thứ 6 chiều)
-          - [ ] Reconcile: Bank statement vs Revenue Tracker vs Platform payout report
-          - [ ] Process Mentor Payouts: Export pending → Verify session completed → Transfer VietQR
-          - [ ] Update **Expense Tracker**: Credit card/Bill payments tuần này
-          - [ ] Auto-transfer 20% Net Profit → Tax Savings Account
+          ## 4. Chọn Công Cụ Theo Từng Mức Doanh Thu
+          | Giai đoạn | Doanh thu/tháng | Công cụ nên dùng | Chi phí/tháng |
+          |---|---|---|---|
+          | **Khởi đầu** | 0 - 50 triệu đồng | Google Sheets (5 trang tính: Thu, Chi, Trả đối tác, Lãi lỗ tháng, Dự tính thuế) + Notion | **0 đồng** |
+          | **Tăng trưởng** | 50 - 200 triệu đồng | Phần mềm kế toán Việt Nam (MISA / FastAccount) đồng bộ sao kê ngân hàng | **500.000 - 1 triệu đồng** |
+          | **Mở công ty** | Trên 200 triệu đồng | Thuê dịch vụ kế toán trọn gói và xuất hóa đơn điện tử chuẩn | **2 - 5 triệu đồng** |
 
-          ### Hàng Tháng (45 phút - Ngày 1-3)
-          - [ ] **Monthly Close** (xem checklist dưới)
-          - [ ] Generate **P&L Statement** (Google Sheets template)
-          - [ ] **Personal Draw**: Chuyển fixed amount sang Personal Account
-          - [ ] Review **Unit Economics**: CAC, LTV, Payback period, Gross Margin
-          - [ ] Tax Estimate: Cập nhật TNCN accrual (TK 3331)
+          ## 5. Quy Tắc Tách Bạch Tiền Cá Nhân & Dự Án
+          | Khoản chi | Tính vào chi phí dự án? | Ghi chú thực tế |
+          |---|---|---|
+          | Tên miền, máy chủ, phần mềm làm sản phẩm | Có (100%) | Lưu lại hóa đơn hoặc email xác nhận thanh toán |
+          | Tiền mạng internet tại nhà (`500.000 đồng/tháng`) | Tính một phần hợp lý (ví dụ 50% = `250.000 đồng`) | Ghi rõ phần chia giữa sinh hoạt và công việc |
+          | Cà phê ngồi làm việc ngoài quán | Không | Tự chi bằng tiền tiêu vặt cá nhân để sổ sách sạch đẹp |
+          | Mua laptop mới | Chỉ tính nếu dùng riêng cho công việc | Nếu dùng chung việc công ty và việc nhà thì tự trích quỹ cá nhân |
 
-          ### Hàng Quý (2 giờ - Ngày 15 tháng sau quý)
-          - [ ] Quarterly Tax Declaration (TNCN tạm tính - nếu đủ điều kiện)
-          - [ ] Deep dive: Cohort analysis, Channel ROI, Feature profitability
-          - [ ] Budget next quarter
+          ## 6. Nguyên Tắc Tuân Thủ Thuế Tại Việt Nam
+          - **Không tự đoán mức thuế cố định**: Thuế đối với cá nhân tự kinh doanh, hộ kinh doanh (nộp theo tỷ lệ phần trăm trên doanh thu tùy ngành nghề) và công ty (thuế thu nhập doanh nghiệp trên lợi nhuận) có cách tính và tờ khai hoàn toàn khác nhau.
+          - **Lưu đủ chứng từ từ ngày đầu**: Giữ lại toàn bộ sao kê cổng thanh toán, lịch sử chuyển khoản trả đối tác và hóa đơn công cụ. Với mô hình sàn kết nối, cần hợp đồng/thỏa thuận rõ ràng chứng minh phần tiền nào là thu hộ người hướng dẫn, phần nào là phí dịch vụ của bạn.
+          - **Chủ động kiểm tra ngưỡng doanh thu miễn thuế / phải kê khai**: Khi tổng doanh thu vượt ngưỡng quy định hoặc có doanh thu đều đặn hằng tháng, hãy tra cứu trực tiếp trên Cổng thông tin điện tử Tổng cục Thuế (`thuedientu.gdt.gov.vn`) hoặc hỏi kế toán viên có chuyên môn để đăng ký hộ kinh doanh hay công ty và dùng đúng mẫu biểu tờ khai hiện hành.
 
-          ### Hàng Năm (Tháng 1-3 năm sau)
-          - [ ] **Annual Tax Finalization** (Quyết toán TNCN - Tháng 3)
-          - [ ] Financial Review: Year P&L, Balance Sheet, Cash Flow
-          - [ ] Entity Structure Review: Convert sang Company khi nào? (Revenue > 100tr/năm, cần hiring, liability protection)
+          ## 7. Khi Nào Nên Chuyển Từ Cá Nhân Sang Mở Công Ty?
+          Bạn nên cân nhắc thành lập hộ kinh doanh hoặc Công ty TNHH 1 thành viên khi gặp một trong các dấu hiệu sau:
+          - Doanh thu ổn định cao hoặc khách hàng doanh nghiệp yêu cầu xuất hóa đơn giá trị gia tăng (VAT).
+          - Cần thuê nhân sự toàn thời gian và đóng bảo hiểm xã hội.
+          - Cần tách bạch trách nhiệm pháp lý tài sản cá nhân khi ký hợp đồng giá trị lớn hoặc gọi vốn từ nhà đầu tư.
 
-          ## 4. Tool Stack (Free → Low Cost → Scale)
-
-          | Stage | Revenue | Tools | Cost/Tháng |
-          |-------|---------|-------|------------|
-          | **Stage 0: Pre-revenue** | 0 | Google Sheets (Revenue/Expense tracker), Notion (Dashboard), Bank CSV export | **Free** |
-          | **Stage 1: < 50tr/tháng** | 10-50tr | + Wise/Revolut (FX), Tally/Typeform (Invoice mentor), Gmail filters (Auto-label receipts) | **Free** |
-          | **Stage 2: 50-200tr/tháng** | 50-200tr | **MISA SME / FastAccount / Kế toán Việt** (Cloud accounting VN), Auto bank feed, VAT invoice (nếu cần) | **~500k-1tr** |
-          | **Stage 3: > 200tr/tháng hoặc Company** | 200tr+ | **QuickBooks Online / Xero** (International), CPA firm VN, Payroll software | **2-5tr** |
-
-          **Recommended Starter Template (Google Sheets):**
-          - Sheet 1: `Revenue Log` (Date, Platform, Customer, Gross, Fee, Net, Currency, Rate, VND, Status)
-          - Sheet 2: `Expense Log` (Date, Category, Vendor, Amount, Currency, VND, Receipt link, Deductible Y/N)
-          - Sheet 3: `Mentor Payouts` (Date, Mentor, Sessions, Gross, Platform Fee, Net, Transfer ID, Status)
-          - Sheet 4: `P&L Monthly` (Auto-sum từ 3 sheets trên)
-          - Sheet 5: `Tax Calculator` (Revenue - Deductible Expenses = Taxable Income x 20%)
-
-          ## 5. Monthly Close Checklist (10 Bước - 45p)
-          1. **Bank Reconciliation**: Mọi transaction trên bank statement có trong tracker
-          2. **Revenue Recognition**: Accrual basis - Revenue khi session completed (không phải khi nhận tiền)
-          3. **Expense Capture**: Tất cả receipts/invoices đã log, categorize đúng TK
-          4. **Mentor Payout Verification**: Mọi payout đã transfer, mentor confirm received
-          5. **Platform Fee Recording**: Stripe/Momo/VNPay fees tách riêng (TK 627)
-          6. **FX Gain/Loss**: Stripe USD payout → VND rate ngày nhận (TK 515/635)
-          7. **Prepaid Amortization**: Domain/Hosting chia 12 tháng (TK 152 → 642)
-          8. **Tax Accrual**: Net Profit x 20% → TK 3331 (TNCN payable)
-          9. **P&L Generation**: Revenue - COGS - Opex = Net Profit
-          10. **Dashboard Update**: Notion KPIs (MRR, GMV, Take rate, Gross Margin, Net Margin, Runway)
-
-          ## 6. Tax Calendar Việt Nam (Cá nhân / Hộ gia đình)
-
-          | Deadline | Loại báo cáo | Đối tượng | Note |
-          |----------|--------------|-----------|------|
-          | **20/Tháng sau quý** | TNCN tạm tính (Quý) | Cá nhân có thu nhập KHÔNG thường xuyên (Freelance, Side hustle) | Nếu thu nhập > 100tr/năm. Form 01/DN. Nộp qua Thuế điện tử/Ngân hàng. |
-          | **30/Tháng 3 năm sau** | **Quyết toán TNCN niên độ** | **TẤT CẢ cá nhân có thu nhập** | **Bắt buộc**. Form 02/QTT. Khấu trừ: Giảm trừ bản thân 11tr, Người phụ thuộc 4.4tr/người, Bảo hiểm, Từ thiện. |
-          | **30/Tháng 1 năm sau** | Báo cáo tài chính (nếu Company) | Công ty TNHH | Canonical: Bảng CDKT, KQKD, LCTT, Thuyết minh. |
-          | **Hàng tháng (20)** | VAT (nếu đăng ký KT) | Doanh nghiệp có VAT | Side project thường KHÔNG VAT (Revenue < 100tr/năm hoặc dịch vụ miễn VAT). |
-
-          **⚠️ Lưu ý quan trọng cho Side Project VN:**
-          - **Thu nhập không thường xuyên** (Freelance, Commission, Affiliate): Tự kê khai, tự nộp TNCN 20% (sau khi trừ chi phí hợp lý)
-          - **Khấu trừ chi phí**: Chỉ trừ được chi phí **liên quan trực tiếp** tạo ra thu nhập (Platform fee, Marketing, Tool subscription, Internet %, Điện %, Khấu hao laptop). **KHÔNG** trừ: Ăn uống cá nhân, Du lịch, Quà tặng, Phạt.
-          - **Giảm trừ gia cảnh**: 11tr/tháng (132tr/năm) + 4.4tr/tháng/người phụ thuộc (Vợ/chồng không thu nhập, Con < 18t/đang học).
-          - **Stripe/Momo/VNPay payout**: Doanh thu = Gross amount (trước phí). Chi phí = Platform fee.
-          - **FX Gain/Loss**: Stripe payout USD → VND tại ngày nhận. Chênh lệch rate ghi nhận TK 515/635.
-
-          ## 7. Personal vs Business Separation Rules (Quy Tắc Vàng)
-          | Scenario | Business Account | Personal Account | Rule |
-          |----------|------------------|------------------|------|
-          | Laptop mua cho dev side project | ✅ 100% (Khấu hao 3 năm) | ❌ | Chỉ dùng cho biz |
-          | Internet casa 500k/tháng | ✅ 50% (250k) | ✅ 50% | % usage log |
-          | Điện thoại mới | ❌ (Trừ nếu 100% biz) | ✅ | Không mixed use |
-          | Cà phê làm việc side project | ❌ (Không trừ được VN) | ✅ | VN tax law không trừ ăn uống |
-          | Khóa học học skill cho side project | ✅ 100% (Nếu chứng minh liên quan) | ❌ | Keep receipt + syllabus |
-          | Đi conference dev (VN/Ngoài) | ✅ 100% (Vé, Khách sạn, Ăn conference) | ❌ | Business purpose clear |
-          | Quà tặng mentor/partner | ❌ (Giới hạn 10% chi phí bán hàng) | ✅ | Có hóa đơn, hợp lý |
-          | Transfer sang Personal Draw | ✅ Owner's Draw (TK 112 → 112 Personal) | ✅ | Fixed date, Fixed amount |
-
-          ## 8. Unit Economics Dashboard (Monthly)
-          | Metric | Formula | Target | Current |
-          |--------|---------|--------|---------|
-          | **GMV** | Sum(session value) | 100tr/tháng (T3) | |
-          | **Take Rate** | Revenue / GMV | 15% | 15% |
-          | **Revenue (Net)** | GMV x Take Rate - Platform Fees | 15tr/tháng (T3) | |
-          | **Gross Margin** | (Revenue - Platform Fees - Payment Fees) / Revenue | > 85% | |
-          | **CAC (Blended)** | Marketing Spend / New Mentee | < 200k | |
-          | **LTV (Mentee)** | Avg Sessions x Avg Value x Take Rate x Retention Months | > 2tr | |
-          | **Payback Period** | CAC / (Monthly Gross Profit per User) | < 3 tháng | |
-          | **Net Margin** | Net Profit / Revenue | > 40% (Solo) | |
-          | **Runway** | (Cash + Tax Savings) / Monthly Burn | > 12 tháng | |
-
-          ## 9. When to Incorporate (Chuyển sang Công Ty)
-          **Triggers (Chỉ cần 1 trong số sau):**
-          - [ ] Revenue > **1 tỷ VNĐ/năm** (VAT registration threshold)
-          - [ ] Cần **hiring full-time** (Labor law, Social insurance)
-          - [ ] Cần **liability protection** (Contract lớn, Enterprise client)
-          - [ ] Cần **raise investment** (Investor chỉ invest vào Company)
-          - [ ] **Brand credibility** (Enterprise sales, Government contract)
-          - [ ] **Tax optimization** (Company tax 20% vs Personal 20% but more deductibles, Dividend 5% vs Salary progressive)
-
-          **Solo → Company Path:**
-          1. Hộ gia đình (Simple, tax similar individual) → 2. TNHH 1 TV (Liability protection, separate legal entity) → 3. TNHH 2+ TV / Cổ phần (Investment ready)
-        context: "Solo founder VN, marketplace commission model, individual tax, pre-revenue to early revenue, practical setup"
+          ## 8. Bảng Chỉ Số Tài Chính Theo Dõi Hằng Tháng
+          | Chỉ số | Ý nghĩa đơn giản | Mục tiêu tham khảo |
+          |---|---|---|
+          | **Tổng giá trị giao dịch (GMV)** | Tổng số tiền học viên đã chi trên sàn | 100 triệu đồng/tháng (Tháng 3-6) |
+          | **Tỷ lệ hoa hồng** | Phần trăm nền tảng thu trên mỗi giao dịch | 15% |
+          | **Chi phí tìm 1 khách mới (CAC)** | Tổng tiền tiếp thị chia cho số khách mới mua lần đầu | Dưới 200.000 đồng |
+          | **Giá trị khách hàng mang lại (LTV)** | Tổng lãi gộp 1 khách mang lại trong thời gian gắn bó | Trên 800.000 đồng |
+          | **Thời gian hoàn vốn tìm khách** | Cần bao nhiêu buổi để bù lại tiền tiếp thị đã bỏ ra | Dưới 3 buổi |
+          | **Số tháng duy trì quỹ tiền (Runway)** | Tiền mặt dự phòng chia cho mức chi ròng mỗi tháng (Burn rate) | Tối thiểu 12 tháng |
+        context: "Người làm dự án một mình tại Việt Nam, mô hình sàn thu hoa hồng, cần tách tài khoản và hiểu nguyên tắc thuế đúng đắn"
     difficulty: "medium"
     useCases:
-      - "Setup tài chính side project từ ngày 1 đúng chuẩn"
-      - "Hiểu thuế TNCN cho side income VN"
-      - "Chuẩn bị scale từ solo sang company"
+      - "Thiết lập sổ sách thu chi rõ ràng ngay từ những đồng doanh thu đầu tiên"
+      - "Tránh nhầm lẫn giữa tiền thu hộ đối tác với doanh thu thật của mình"
+      - "Chuẩn bị nền tảng tài chính sạch trước khi đăng ký hộ kinh doanh hoặc công ty"
+
   - id: prompt-pricing-unit-economics
-    name: "Định Giá & Unit Economics Cho Side Project"
-    description: "Framework định giá dựa trên value, competitor, cost-plus; Tính unit economics để quyết định viable/scale/kill"
+    name: "Định Giá Bán & Tính Lãi Lỗ Từng Đơn Hàng (Unit Economics)"
+    description: "Chọn mức giá bán dựa trên giá trị mang lại, tính chính xác điểm hòa vốn và chạy thử 3 kịch bản Tốt / Bình thường / Xấu nhất"
     template: |
-      Bạn là Pricing Strategist. Hãy giúp định giá và tính unit economics cho: {{projectName}}.
+      Bạn là chuyên gia định giá thực tế cho sản phẩm mới. Hãy giúp định giá và tính bài toán lời lỗ trên từng đơn hàng (Unit Economics) cho dự án: {{projectName}}.
 
-      **Thông tin:**
-      - Product/Service: {{productDesc}}
-      - Target Customer: {{targetCustomer}}
-      - Competitor Pricing: {{competitorPricing}}
-      - Cost Structure: {{costStructure}}
-      - Value Delivered: {{valueDelivered}} (Tiết kiệm thời gian, Tăng thu nhập, Giảm rủi ro, Cải thiện kỹ năng)
-      - Business Model: {{businessModel}}
-      - Current Traction: {{traction}}
+      **Thông tin đầu vào:**
+      - Mô tả sản phẩm hoặc dịch vụ: {{productDesc}}
+      - Khách hàng mục tiêu: {{targetCustomer}}
+      - Giá của đối thủ hiện tại: {{competitorPricing}}
+      - Cấu trúc chi phí (cố định hằng tháng và biến đổi theo từng đơn): {{costStructure}}
+      - Giá trị mang lại cho khách hàng: {{valueDelivered}}
+      - Mô hình kinh doanh: {{businessModel}}
+      - Kết quả hiện tại (nếu đã có): {{traction}}
 
-      **Yêu cầu:**
-      1. **3 Pricing Models** với phân tích ưu/nhược điểm: Cost-plus, Competitor-based, Value-based
-      2. **Recommended Pricing** với Price Point cụ thể, Packaging (Tiers), Discount strategy
-      3. **Unit Economics Model**: CAC, LTV, Payback, Gross Margin, Contribution Margin
-      4. **Sensitivity Analysis**: Best/Base/Worst case scenarios
-      5. **Pricing Experiments** để test (A/B, Grandfathering, Price increase timeline)
-      6. **Vietnam Context**: Payment willingness, Price sensitivity, Local competitor benchmark
+      **Hãy phân tích chi tiết gồm 6 phần bằng tiếng Việt rõ ràng và kiểm tra lại toàn bộ phép tính cộng trừ nhân chia cho chính xác tuyệt đối:**
+      1. **So sánh 3 cách định giá**: Cộng thêm vào chi phí / Theo giá thị trường / Dựa trên giá trị khách nhận được.
+      2. **Chiến lược giá đề xuất**: Mức giá cụ thể, các gói lựa chọn và ưu đãi cho người dùng đầu tiên.
+      3. **Tính lời lỗ trên từng đơn hàng (Unit Economics)**: Doanh thu mỗi đơn, biến phí mỗi đơn, lãi gộp mỗi đơn, điểm hòa vốn, chi phí tìm khách (CAC) và giá trị trọn đời khách hàng (LTV).
+      4. **Phân tích 3 kịch bản (Tốt nhất / Bình thường / Xấu nhất)** kèm các đòn bẩy giúp hạ nhanh điểm hòa vốn.
+      5. **3 thử nghiệm tăng doanh thu nhỏ trong 2-4 tuần**.
+      6. **Thực tế mức sẵn sàng chi trả tại Việt Nam** và tiêu chí dừng sớm nếu bài toán tài chính không khả thi.
     variables:
       - name: projectName
         type: text
@@ -295,233 +216,147 @@ prompts:
         required: true
       - name: productDesc
         type: textarea
-        label: "Mô tả sản phẩm/dịch vụ"
+        label: "Mô tả ngắn sản phẩm hoặc dịch vụ"
         required: true
       - name: targetCustomer
         type: textarea
-        label: "Khách hàng mục tiêu (ICP chi tiết)"
+        label: "Khách hàng mục tiêu và khả năng chi trả của họ"
         required: true
       - name: competitorPricing
         type: textarea
-        label: "Giá competitor (Cụ thể: Tên - Giá - Model)"
+        label: "Mức giá của các lựa chọn thay thế hiện có"
         required: true
       - name: costStructure
         type: textarea
-        label: "Cấu trúc chi phí (Fixed + Variable per unit)"
+        label: "Chi phí cố định hằng tháng và chi phí biến đổi trên mỗi đơn hàng"
         required: true
       - name: valueDelivered
         type: textarea
-        label: "Giá trị mang lại (Định lượng được nếu có: tiết kiệm $, tăng thu nhập $, giảm rủi ro %)"
+        label: "Giá trị cụ thể khách hàng nhận được (tiết kiệm tiền, thời gian hoặc tăng thu nhập)"
         required: true
       - name: businessModel
         type: select
-        label: "Business Model"
+        label: "Mô hình kinh doanh"
         options:
-          - "Marketplace Commission (% GMV)"
-          - "SaaS Subscription (Monthly/Annual)"
-          - "Service Fee (Per hour / Per project)"
-          - "Digital Product (One-time)"
-          - "Freemium (Free + Paid tiers)"
-          - "Usage-based (Per transaction / Per API call)"
+          - "Thu hoa hồng trên giao dịch (% tổng giá trị)"
+          - "Thu phí gói định kỳ (Tháng / Năm)"
+          - "Thu phí dịch vụ theo giờ hoặc theo gói"
+          - "Bán sản phẩm số trả tiền một lần"
+          - "Miễn phí cơ bản và bán gói nâng cao"
+          - "Trả tiền theo lượt sử dụng thực tế"
         required: true
+        default: "Thu hoa hồng trên giao dịch (% tổng giá trị)"
       - name: traction
         type: textarea
-        label: "Traction hiện tại (Users, Revenue, Conversion, Churn)"
+        label: "Kết quả thực tế hiện tại (số người dùng, số đơn, doanh thu)"
         required: false
-        default: "Pre-revenue / Early beta"
+        default: "Đang thử nghiệm bản đầu tiên, chưa có doanh thu lớn"
     examples:
       - inputs:
-          projectName: "MentorConnect Vietnam"
-          productDesc: "Marketplace kết nối Junior Dev (Mentee) với Senior Dev (Mentor) cho career mentoring 1-on-1. Platform cung cấp: Search/filter mentor, Booking calendar, Video call, Payment, Review system. Platform lấy 15% commission mỗi session."
-          targetCustomer: "Mentee: Junior Dev 1-3 năm exp, VN, lương 15-30tr, sẵn sàng chi 200-500k/buổi để career guidance. Mentor: Senior Dev 5+ năm, lương 50-100tr+, muốn side income 5-10tr/tháng, có sẵn 4-8h/tháng."
-          competitorPricing: "Global: MentorCruise ($50-300/hr, 20% fee), ADPList (Free, mentor volunteer), MentorMesh ($30-150/hr). VN: TopDev Mentor (chưa ra mắt), 1-on-1 coaching cá nhân (500k-2tr/hr, offline), Facebook group free advice."
-          costStructure: "Fixed/Tháng: Bubble $29, Daily.co $0, Domain $17, Marketing $1M, Accounting $0 = ~$200 (~5tr VNĐ). Variable/Session: Stripe 2.9%+30¢, Momo 1.5%, Daily.co $0.004/min, Payout transfer fee 1k = ~5% GMV."
-          valueDelivered: "Mentee: Tăng lương 20-50% trong 6-12 tháng (ROI 10-50x session cost), Tránh 6-12 tháng trial-error, Network接入 senior circle. Mentor: Side income 5-10tr/tháng (low effort), Personal brand, Network hiring."
-          businessModel: "Marketplace Commission (% GMV)"
-          traction: "Beta: 8 mentor, 25 mentee, 12 sessions booked, GMV 6tr, Revenue 900k, Take rate 15%. Conversion: Signup→Booking 15%, Booking→Completed 90%."
+          projectName: "MentorConnect Việt Nam"
+          productDesc: "Sàn kết nối lập trình viên trẻ với người hướng dẫn giàu kinh nghiệm để tư vấn 1 kèm 1 qua video, đặt lịch và thanh toán trực tiếp. Nền tảng thu 15% hoa hồng mỗi buổi."
+          targetCustomer: "Học viên là lập trình viên 1-3 năm kinh nghiệm tại Việt Nam, thu nhập 15-30 triệu đồng/tháng, sẵn sàng chi 200.000 - 500.000 đồng/buổi. Người hướng dẫn có thu nhập trên 50 triệu đồng/tháng, muốn kiếm thêm 5-10 triệu đồng/tháng trong 4-8 giờ rảnh."
+          competitorPricing: "Nền tảng quốc tế thu phí 15-20% (giá 1,2 - 7 triệu đồng/buổi); Tư vấn tự do tại Việt Nam 500.000 - 2 triệu đồng/buổi nhưng khó kiểm chứng chất lượng; Hỏi trên nhóm Facebook miễn phí nhưng thiếu hệ thống."
+          costStructure: "Chi phí cố định khởi đầu: Nền tảng Bubble 750.000 đồng/tháng + Tên miền & email 250.000 đồng/tháng + Tiếp thị 1.500.000 đồng/tháng = 2.500.000 đồng/tháng. Chi phí biến đổi mỗi buổi: Phí cổng thanh toán và chuyển khoản khoảng 5% tổng giá trị giao dịch."
+          valueDelivered: "Học viên rút ngắn 6-12 tháng tự mò mẫm và có cơ hội tăng thu nhập 20-50%. Người hướng dẫn có thêm thu nhập phụ 5-10 triệu đồng/tháng và xây dựng uy tín cá nhân."
+          businessModel: "Thu hoa hồng trên giao dịch (% tổng giá trị)"
+          traction: "Thử nghiệm: 8 người hướng dẫn, 25 học viên, 12 buổi đã đặt, tổng giá trị giao dịch 6 triệu đồng, doanh thu nền tảng 900.000 đồng (hoa hồng 15%)."
         output: |
-          # 💲 Pricing & Unit Economics: MentorConnect Vietnam
+          # Bài Toán Định Giá & Lời Lỗ Từng Đơn Hàng: MentorConnect Việt Nam
 
-          ## 1. Three Pricing Models Analysis
+          ## 1. So Sánh 3 Cách Định Giá
+          - **Cách 1 — Cộng thêm vào chi phí**: Nếu chi phí cố định dự kiến ở tháng thứ 6 là 5 triệu đồng và chỉ có 50 buổi/tháng (tổng giá trị giao dịch 25 triệu đồng), tổng chi phí là `5 triệu + 1,25 triệu biến phí = 6,25 triệu đồng`. Để có lãi ròng 50%, nền tảng sẽ phải thu hoa hồng tới 50% — mức này quá cao, người dùng sẽ bỏ đi ngay.
+          - **Cách 2 — Theo mặt bằng thị trường**: Các sàn quốc tế thu 15-20%. Với lợi thế am hiểu thị trường Việt Nam và thanh toán nội địa, mức **15-20%** là hợp lý và dễ chấp nhận.
+          - **Cách 3 — Dựa trên giá trị mang lại**: Một buổi tư vấn 500.000 đồng giúp người học chuẩn bị phỏng vấn tăng lương thêm 5-10 triệu đồng/tháng. Giá trị nhận lại gấp hàng chục lần chi phí bỏ ra, nên mức phí nền tảng 15% hoàn toàn xứng đáng.
 
-          ### Model A: Cost-Plus (Cost + Markup)
-          - **Variable Cost/Session**: 5% GMV (Payment + Platform + Transfer)
-          - **Fixed Cost/Tháng**: 5tr VNĐ
-          - **Target Margin**: 50% Net Margin
-          - **Calculation**: At 50 sessions/tháng (GMV 25tr @ 500k/session) → Variable cost 1.25tr → Total cost 6.25tr → Revenue needed 12.5tr → Take rate = 12.5/25 = **50%**
-          - **Verdict**: ❌ **Quá cao** (MentorCruise 20%, ADPList 0%). Chỉ áp dụng khi monopoly.
+          ## 2. Chiến Lược Giá Đề Xuất
+          ### Giai Đoạn Đầu (Tháng 1-3): Đơn Giản Hóa Với Mức Hoa Hồng 15%
+          - Người hướng dẫn tự đặt giá mỗi buổi (khuyến nghị 300.000 - 800.000 đồng/buổi).
+          - Nền tảng thu 15% hoa hồng, người hướng dẫn nhận 85% còn lại — rõ ràng, dễ hiểu và dễ thuyết phục người tham gia.
 
-          ### Model B: Competitor-Based (Market Rate)
-          - **Global Benchmark**: MentorCruise 20%, ADPList 0%, MentorMesh 15-20%
-          - **VN Benchmark**: Offline coaching 500k-2tr/hr (no platform), Free FB groups
-          - **Positioning**: "VN-focused, Vetted, Local payment, Affordable"
-          - **Sweet Spot**: **15-20% Take Rate** (Đúng MentorCruise low-end, hơn ADPList value)
-          - **Verdict**: ✅ **Viable** - Align với market expectation
+          ### Giai Đoạn Mở Rộng (Tháng 4-12): Thêm Gói Thành Viên Tùy Chọn
+          | Gói | Phí nền tảng phía học viên | Phí phía người hướng dẫn | Quyền lợi đi kèm | Mức giá gói/tháng |
+          |---|---|---|---|---|
+          | **Cơ bản (Miễn phí)** | 15% | 0% | Tìm kiếm, đặt lịch linh hoạt | 0 đồng |
+          | **Học viên Chủ động** | 10% (giảm 25.000 đồng cho buổi 500.000 đồng) | 0% | Lưu lại video buổi học, bộ tài liệu lộ trình nghề nghiệp | **199.000 đồng** |
+          | **Người hướng dẫn Nổi bật** | 15% | 0% | Gắn huy hiệu uy tín, ưu tiên hiển thị đầu trang và xem thống kê lượt xem hồ sơ | **299.000 đồng** |
 
-          ### Model C: Value-Based (Willingness to Pay)
-          - **Mentee Value**: Salary increase 5-10tr/tháng x 12 tháng = 60-120tr/năm. Session cost 500k. **ROI 100-200x**.
-          - **WTP (Willingness to Pay)**: Survey beta: "Mức tối đa bạn chi/buổi?" → Median 500k, Max 1tr.
-          - **Mentor Value**: Side income 5-10tr/tháng. Time cost 4h/tháng. **Effective rate 1.25-2.5tr/hr**.
-          - **Platform Value**: Trust (vetting), Payment guarantee, Scheduling, Video, Review system.
-          - **Optimal Take Rate**: **15% Mentee side + 5% Mentor side = 20% Total** (Split fee model)
-          - **Verdict**: ✅ **Best long-term** - Capture value created
+          **Lưu ý thực tế về gói 199.000 đồng/tháng:** Nếu chỉ tính tiền giảm 5% phí trên buổi 500.000 đồng (`25.000 đồng/buổi`), học viên phải đặt **8 buổi/tháng** mới bù đủ tiền gói (`8 × 25.000 = 200.000 đồng`). Do đó, sức hút thật của gói nằm ở bộ tài liệu lộ trình và tính năng xem lại video buổi học.
 
-          ## 2. Recommended Pricing Strategy
+          ### Chính Sách Ưu Đãi Ban Đầu
+          - **100 người dùng đầu tiên**: Giữ nguyên mức phí ưu đãi 10% trong năm đầu để tri ân.
+          - **Mua gói 10 buổi trước**: Tặng thêm 1 buổi miễn phí (tương đương giảm khoảng 9-10%).
 
-          ### Current (Launch - Month 1-3): **Simple 15% Take Rate (Mentee pays all)**
-          - Mentee pays: Session fee (Mentor sets: 300k-800k/hr) + 15% platform fee
-          - Mentor receives: 85% of session fee
-          - Platform revenue: 15% x GMV
-          - **Why**: Simple, Mentor-friendly (no deduction confusion), Easy to communicate
+          ## 3. Tính Lời Lỗ Từng Buổi Học (Mục Tiêu Tháng 6: 200 Buổi/Tháng)
+          **Giả định ở quy mô mở rộng Tháng 6:**
+          - Giá trung bình 1 buổi: `500.000 đồng`
+          - Tỷ lệ hoa hồng: `15%` → Doanh thu mỗi buổi: **`75.000 đồng`**
+          - Biến phí thanh toán và vận hành theo đơn (`5%` giá trị buổi): **`25.000 đồng/buổi`**
+          - **Lãi gộp trên mỗi buổi (Contribution margin)**: `75.000 - 25.000 = 50.000 đồng/buổi`
+          - Chi phí cố định hằng tháng ở giai đoạn đẩy tăng trưởng: Tiếp thị `10 triệu đồng` + Vận hành công cụ `5 triệu đồng` = **`15 triệu đồng/tháng`**
 
-          ### Growth (Month 4-12): **Tiered Take Rate + Subscription**
-          | Tier | Mentee Fee | Mentor Fee | Features | Target |
-          |------|------------|------------|----------|--------|
-          | **Free** | 15% | 0% | Search, Book 2 sessions/tháng, Community | New users |
-          | **Pro Mentee** | **10%** | 0% | Unlimited booking, Priority matching, Session recording, Notes template | Active learners |
-          | **Pro Mentor** | 15% | **5%** | Lower fee, Featured listing, Analytics, Payout weekly, Custom branding | Top mentors |
-          | **Enterprise** | Custom | Custom | Team accounts, SSO, Dedicated support, API | Companies |
+          | Chỉ số Tháng 6 (Tại mức 200 buổi) | Cách tính | Kết quả |
+          |---|---|---|
+          | **Tổng giá trị giao dịch (GMV)** | 200 buổi × 500.000 đồng | **100 triệu đồng** |
+          | **Doanh thu nền tảng** | 100 triệu × 15% | **15 triệu đồng** |
+          | **Tổng biến phí** | 100 triệu × 5% | **5 triệu đồng** |
+          | **Lãi gộp** | 15 triệu - 5 triệu | **10 triệu đồng (66,7% doanh thu)** |
+          | **Chi phí cố định** | Tiếp thị 10 triệu + Vận hành 5 triệu | **15 triệu đồng** |
+          | **Lợi nhuận ròng** | 10 triệu - 15 triệu | **-5 triệu đồng (cần thêm đơn để hòa vốn)** |
+          | **Điểm hòa vốn (Break-even)** | 15 triệu ÷ 50.000 đồng lãi gộp/buổi | **300 buổi/tháng** |
 
-          **Subscription Pricing (Monthly):**
-          - Pro Mentee: **199k/tháng** (≈ $8) - Break-even at 2 sessions (save 5% x 2 x 500k = 50k < 199k? No. Value: Priority + Recording + Template)
-          - Pro Mentor: **299k/tháng** - Break-even at 4 sessions (save 5% x 4 x 500k x 0.85 = 85k < 299k? Brand value)
+          ### Chi Phí Tìm Khách (CAC) & Giá Trị Trọn Đời 6 Tháng (LTV)
+          | Kênh thu hút học viên | Chi phí tìm 1 khách (CAC) | Giá trị lãi gộp mang lại trong 6 tháng (LTV) | Tỷ lệ LTV / CAC | Thời gian hoàn vốn |
+          |---|---|---|---|---|
+          | Bài viết tự nhiên & tìm kiếm Google | 50.000 đồng | 900.000 đồng (12 buổi × 50.000 + giới thiệu bạn) | 18 lần | 1 buổi |
+          | Bạn bè giới thiệu | 100.000 đồng | 1.000.000 đồng | 10 lần | 2 buổi |
+          | Quảng cáo Facebook | 300.000 đồng | 600.000 đồng (12 buổi × 50.000) | 2 lần | 6 buổi |
+          | **Trung bình gộp** | **120.000 đồng** | **840.000 đồng** | **7 lần** | **2,4 buổi** |
 
-          ### Discount Strategy
-          - **Early Bird (First 100 users)**: Lifetime 10% take rate (Grandfathered)
-          - **Student Verification**: 50% off Pro Mentee (99k/tháng) - .edu email
-          - **Bundle**: 10 sessions prepaid → 1 free session (10% effective discount)
-          - **Referral**: Refer mentee → Both get 1 free session credit
+          ## 4. Phân Tích 3 Kịch Bản Tháng 6 (Vận Hành Cố Định 5 Triệu Đồng)
+          | Kịch bản | Số buổi | Hoa hồng | Chi tiếp thị | Tổng chi cố định | Doanh thu | Biến phí (5% GMV) | **Lợi nhuận ròng** | Hành động |
+          |---|---|---|---|---|---|---|---|---|
+          | **Tốt nhất** | 400 | 18% | 10 triệu | 15 triệu | 36 triệu | 10 triệu | **+11 triệu đồng** | Có lãi đẹp, mở rộng thêm |
+          | **Bình thường** | 200 | 15% | 10 triệu | 15 triệu | 15 triệu | 5 triệu | **-5 triệu đồng** | Tối ưu tỷ lệ giữ chân khách |
+          | **Xấu nhất** | 100 | 12% | 15 triệu | 20 triệu | 6 triệu | 2,5 triệu | **-16,5 triệu đồng** | Cắt quảng cáo, xem lại giá trị cốt lõi |
 
-          ## 3. Unit Economics Model (Month 6 Target: 200 sessions/tháng)
+          **4 đòn bẩy hạ nhanh điểm hòa vốn từ 300 buổi/tháng:**
+          1. **Tăng hoa hồng lên 20%**: Lãi gộp tăng từ `50.000` lên `75.000 đồng/buổi` → Điểm hòa vốn giảm còn **`200 buổi/tháng` (giảm 33%)**.
+          2. **Giảm tiền quảng cáo còn 5 triệu đồng/tháng** (nhờ tăng bài viết tự nhiên): Tổng cố định còn `10 triệu đồng` → Điểm hòa vốn giảm còn **`200 buổi/tháng` (giảm 33%)**.
+          3. **Đẩy giá trung bình lên 700.000 đồng/buổi** (tập trung người hướng dẫn cấp cao): Lãi gộp tăng lên `70.000 đồng/buổi` → Điểm hòa vốn giảm còn **`215 buổi/tháng` (giảm 28%)**.
+          4. **Bán thêm gói thành viên** (50 người × `200.000 đồng`, sau phí cổng 5% còn `9,5 triệu đồng` lãi gộp): Chỉ còn cần **`110 buổi/tháng`** để hòa vốn phần chi phí cố định còn lại.
 
-          ### Assumptions
-          - Avg Session Value: 500k VNĐ
-          - Take Rate: 15% (Blended)
-          - Platform Variable Cost: 5% GMV
-          - Marketing: 10tr/tháng (Content + Ads + Referral)
-          - Fixed Ops: 5tr/tháng
+          ## 5. Ba Thử Nghiệm Nhỏ Trong 2-4 Tuần
+          1. **Thử nghiệm mức hoa hồng (4 tuần)**: Nhóm người dùng mới A áp mức phí 15%, nhóm B áp 20% → xem tỷ lệ đặt lịch có bị giảm đáng kể không.
+          2. **Mời thử gói Học viên Chủ động (2 tuần)**: Gửi lời mời gói `199.000 đồng/tháng` cho 50 học viên từng đặt lịch nhiều nhất; nếu đạt 10% đồng ý (5 người), doanh thu tăng thêm khoảng **1 triệu đồng/tháng** để kiểm chứng nhu cầu.
+          3. **Gợi ý mức giá neo trên giao diện (2 tuần)**: Hiển thị mức giá tham khảo phổ biến (`500.000 - 1.000.000 đồng/buổi`) khi người hướng dẫn tạo hồ sơ để tăng giá trị trung bình mỗi đơn hàng.
 
-          ### Calculations
-          | Metric | Formula | Value |
-          |--------|---------|-------|
-          | **GMV/Tháng** | 200 sessions x 500k | **100tr VNĐ** |
-          | **Revenue/Tháng** | GMV x 15% | **15tr VNĐ** |
-          | **Variable Cost** | GMV x 5% | **5tr VNĐ** |
-          | **Gross Profit** | Revenue - Variable Cost | **10tr VNĐ** |
-          | **Gross Margin** | Gross Profit / Revenue | **66.7%** |
-          | **Fixed Cost** | Platform + Marketing + Admin | **15tr VNĐ** |
-          | **Net Profit** | Gross Profit - Fixed Cost | **-5tr VNĐ (Loss)** |
-          | **Net Margin** | Net Profit / Revenue | **-33%** |
-
-          ### Per Unit (Per Session)
-          | Metric | Value |
-          |--------|-------|
-          | Revenue/Session | 75k VNĐ |
-          | Variable Cost/Session | 25k VNĐ |
-          | **Contribution Margin/Session** | **50k VNĐ** |
-          | Fixed Cost/Session (at 200) | 75k VNĐ |
-          | **Break-even Sessions** | Fixed Cost / Contribution Margin = 15tr / 50k = **300 sessions/tháng** |
-
-          ### CAC & LTV
-          | Channel | CAC | LTV (12 tháng) | LTV/CAC | Payback |
-          |---------|-----|----------------|---------|---------|
-          | Organic/SEO | 50k | 1.2tr (24 sessions x 50k) | 24x | 1 session |
-          | Referral | 100k (Credit cost) | 1.5tr (Higher retention) | 15x | 2 sessions |
-          | FB Ads | 300k | 800k | 2.7x | 6 sessions |
-          | **Blended** | **120k** | **1.1tr** | **9.2x** | **2.4 sessions** |
-
-          **LTV Calculation**: Avg 2 sessions/tháng x 6 tháng retention x 50k contribution = 600k. + Referral value = ~1.1tr.
-
-          ## 4. Sensitivity Analysis (Month 6)
-
-          | Scenario | Sessions | Take Rate | Marketing | Fixed Cost | Net Profit | Verdict |
-          |----------|----------|-----------|-----------|------------|------------|---------|
-          | **Best Case** | 400 | 18% | 10tr | 15tr | **+7.6tr** | 🚀 Scale, Hire |
-          | **Base Case** | 200 | 15% | 10tr | 15tr | **-5tr** | 📈 Optimize |
-          | **Worst Case** | 100 | 12% | 15tr | 15tr | **-14.5tr** | 🛑 Pivot/Kill |
-
-          **Key Levers (Impact on Break-even):**
-          1. **Increase Take Rate to 20%**: BE → 225 sessions (↓ 25%)
-          2. **Reduce Marketing to 5tr**: BE → 200 sessions (↓ 33%)
-          3. **Increase Avg Session Value to 700k**: BE → 214 sessions (↓ 29%)
-          4. **Add Pro Subscription (50 users x 200k)**: +10tr Revenue → BE → 100 sessions
-
-          ## 5. Pricing Experiments (Month 3-6)
-
-          | Experiment | Hypothesis | Design | Success Metric | Timeline |
-          |------------|------------|--------|----------------|----------|
-          | **A/B Take Rate** | 20% take rate không giảm conversion | 50% new mentee: 15%, 50%: 20% | Booking conversion rate ±5% | 4 tuần |
-          | **Pro Mentee Launch** | 199k/tháng convert 10% active users | Offer to top 50 active mentee | 10% uptake, Revenue +2tr | 2 tuần test |
-          | **Mentor Featured** | Mentor trả 500k/tháng cho featured → +50% bookings | 10 mentor volunteer test | Booking rate featured vs non | 4 tuần |
-          | **Price Anchor** | Show "Market rate 1tr/hr" → Mentor set price cao hơn | UI: "Typical rate: 500k-1tr/hr" | Avg session value +20% | 2 tuần |
-          | **Annual Discount** | 20% off annual Pro → Improve cash flow & retention | Pro Annual: 199k x 12 x 0.8 = 1.9tr | 20% Pro users switch annual | Ongoing |
-
-          ## 6. Vietnam Context: Pricing Reality Check
-
-          ### Payment Willingness (Dev VN Survey 2024)
-          - **Learning/Education**: Sẵn sàng chi **5-15% lương/tháng** (1-3tr) cho course/mentoring
-          - **Tool/SaaS**: Sẵn sàng chi **$5-20/tháng** (120k-500k) cho tool productivity
-          - **Community/Network**: Sẵn sàng chi **200-500k/tháng** cho access quality network
-          - **Payment Method**: Ưu tiên **Momo/ZaloPay/VietQR** (Instant, no card). Stripe/Card chỉ khi bắt buộc.
-
-          ### Price Sensitivity Triggers
-          - **> 500k/session**: Cần justification rõ ràng (ROI, Brand, Outcome)
-          - **> 1tr/session**: Chỉ Top 1% Mentor (CTO, VP Eng, Famous expert)
-          - **Subscription > 300k/tháng**: Cần "No-brainer" value (Save 5h+/tháng hoặc Earn 5tr+/tháng)
-
-          ### Local Competitor Benchmark
-          | Platform | Model | Price | Note |
-          |----------|-------|-------|------|
-          | **MentorConnect (Proposed)** | Marketplace 15% | 300k-800k/session + 15% | VN focus, Vetted, Local payment |
-          | **TopDev Career Coaching** | Service | 1-2tr/session (Package 5-10 sessions) | Offline/Online, Career coach không phải dev |
-          | **Facebook Groups** | Free | 0 | Quality hit/miss, No guarantee |
-          | **LinkedIn Cold DM** | Free | 0 | Low response rate, No structure |
-          | **Coursera/Udemy** | Course | 200k-500k/course | Self-paced, No 1-on-1 |
-          | **Bootcamp (CodeGym, Techmaster)** | Course | 20-40tr/course | Full program, Job guarantee |
-
-          **Positioning Sweet Spot**: **"Hơn course (có 1-on-1), Rẻ hơn bootcamp (flexible), Chuyên hơn coach chung (Dev hiểu Dev)"**
-
-          ## 7. Decision Framework: Viable / Scale / Kill
-
-          | Month | GMV | Revenue | Net Profit | Action |
-          |-------|-----|---------|------------|--------|
-          | 1-3 | 0-10tr | 0-1.5tr | Negative | **Validate**: Product-market fit, Mentor quality, User love |
-          | 4-6 | 50-100tr | 7.5-15tr | Break-even → Small Profit | **Optimize**: CAC, Retention, Take rate, Subscription |
-          | 7-12 | 100-300tr | 15-45tr | Profitable | **Scale**: Hire contractor, Marketing spend, Features |
-          | 12+ | 300tr+ | 45tr+ | Strong Profit | **Incorporate**: Company, Team, New verticals |
-
-          **Kill Criteria (Month 6):**
-          - [ ] GMV < 20tr/tháng despite 10tr marketing spend
-          - [ ] Mentor retention < 30% (Mentor churn > 70%)
-          - [ ] Mentee NPS < 20
-          - [ ] No path to 300 sessions/tháng (Break-even) without 5x marketing spend
-          - [ ] Founder burnout > 3 tháng liên tục
-        context: "Marketplace mentor VN, commission model, pre-revenue to series A path, VN pricing sensitivity"
+          ## 6. Tiêu Chí Dừng Hoặc Đổi Hướng Tại Tháng Thứ 6
+          - Tổng giá trị giao dịch dưới 20 triệu đồng/tháng dù đã chi 10 triệu đồng tiếp thị mỗi tháng.
+          - Tỷ lệ người hướng dẫn rời bỏ nền tảng trên 70% hoặc điểm hài lòng học viên dưới 20.
+          - Không thấy đường tiến tới mốc hòa vốn mà không phải đốt thêm tiền quảng cáo gấp nhiều lần.
+        context: "Định giá và tính bài toán lời lỗ cho sàn kết nối tư vấn tại thị trường Việt Nam"
     difficulty: "advanced"
     useCases:
-      - "Định giá sản phẩm side project dựa trên value không phải cost"
-      - "Tính unit economics để quyết định scale/kill"
-      - "Pricing experiments có hệ thống"
+      - "Định giá bán dựa trên giá trị thật thay vì đoán mò"
+      - "Tính rõ điểm hòa vốn trước khi chi tiền chạy quảng cáo"
+      - "Lập 3 kịch bản phòng ngừa rủi ro tài chính cho dự án cá nhân"
 agentTemplate:
-  name: "Side Project Finance Agent"
-  description: "AI CFO cho side project: Setup accounting, Tax compliance VN, Pricing strategy, Unit economics, Fundraising prep, Entity structure"
+  name: "Cố Vấn Tài Chính Dự Án Cá Nhân"
+  description: "Hỗ trợ tách tài khoản thu chi, tính lời lỗ từng đơn hàng, định giá bán và nắm nguyên tắc tuân thủ thuế tại Việt Nam"
   systemPrompt: |
-    Bạn là Side Project Finance Agent - AI CFO cho solopreneur/indie hacker Việt Nam.
+    Bạn là Cố Vấn Tài Chính Dự Án Cá Nhân cho người tự xây dựng sản phẩm tại Việt Nam.
 
-    Nhiệm vụ:
-    1. **Finance Setup**: Bank structure, Chart of Accounts (VN), Bookkeeping workflow, Tool stack
-    2. **Tax Compliance VN**: TNCN cá nhân/hộ gia đình/Company, Deadline, Khấu trừ, Giảm trừ, Quyết toán
-    3. **Pricing & Unit Economics**: Value-based pricing, CAC/LTV/Payback, Sensitivity analysis, Experiments
-    4. **Cash Flow Management**: Runway, Reinvest vs Draw, Emergency fund, FX management (Stripe USD→VND)
-    5. **Entity Evolution**: Individual → Household Business → Company → Investment ready
-    6. **Vietnam Specific**: VietQR, Momo/VNPay/Stripe, Circular 78/2014/TT-BTC (E-invoice), Decree 123/2020 (Tax admin), Local CPA network
+    Nhiệm vụ chính:
+    1. Hướng dẫn tách riêng tài khoản ngân hàng, thiết lập sổ theo dõi thu chi đơn giản trên Google Sheets và quy tắc phân biệt tiền cá nhân với tiền dự án.
+    2. Tính toán minh bạch bài toán lời lỗ trên từng đơn hàng (Unit Economics), điểm hòa vốn, chi phí tìm khách (CAC), giá trị khách hàng mang lại (LTV) và 3 kịch bản tài chính.
+    3. Nhắc nhở nguyên tắc lưu giữ chứng từ, phân biệt doanh thu thật với tiền thu hộ và khuyên người dùng tra cứu cổng thông tin thuế chính thức hoặc hỏi kế toán viên khi vượt ngưỡng doanh thu.
 
-    Phong cách: Prudent, Compliant, Growth-oriented. "Revenue is vanity, Profit is sanity, Cash is king."
-    Luôn nhắc: Tách tài khoản cá nhân/biz, Ghi nhận chi phí có hóa đơn, Nộp thuế đúng hạn, Consult CPA khi scale.
+    Nguyên tắc giao tiếp: Thận trọng, rõ ràng về từng phép tính bằng đơn vị đồng Việt Nam, không tự ý bịa số liệu hay tư vấn lách luật. Doanh thu là bề nổi, lợi nhuận và dòng tiền mới giúp dự án sống sót lâu dài.
   model: "gpt-4"
   temperature: 0.6
   tools:
-    - "web_search"
+    - "Tìm kiếm thông tin"
   maxTokens: 4000
 relatedSkillIds:
   - "xac-dinh-y-tuong-side-project"
@@ -531,6 +366,6 @@ relatedSkillIds:
 author: "AI Life Hub Team"
 source: ""
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: tai-chinh-side-project
 ---

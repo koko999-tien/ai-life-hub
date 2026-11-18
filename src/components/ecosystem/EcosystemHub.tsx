@@ -4,30 +4,28 @@ import { useState } from 'react';
 import {
   FolderGit2,
   ExternalLink,
-  Terminal,
   CheckCircle2,
-  Cpu,
-  Layers,
-  Database,
-  FileText,
-  Sparkles,
-  Bot,
   Activity,
-  Code2,
-  HardDrive,
   Copy,
-  Check
+  Check,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export interface EcosystemProject {
   id: string;
   name: string;
-  category: 'Epistemic Science' | 'Document Automation' | 'Knowledge Base' | 'OSINT & Scraping' | 'Productivity' | 'VR & Spatial Computing' | 'Fullstack E-Commerce';
+  category:
+    | 'Kiểm chứng Khoa học'
+    | 'Văn thư & Báo cáo'
+    | 'Kho Tri thức'
+    | 'Thu thập Tài nguyên'
+    | 'Hiệu suất & Media'
+    | 'Thực tế Ảo & 3D'
+    | 'Thương mại Điện tử';
   tagline: string;
-  drivePath: string;
+  repoPath: string;
   githubUrl?: string;
-  status: 'Production Ready' | 'Fully Verified' | 'Active Knowledge';
+  status: 'Sẵn sàng sử dụng' | 'Đã kiểm thử toàn diện' | 'Kho tri thức hoạt động';
   techStack: string[];
   keyFeatures: string[];
   quickStartCommand: string;
@@ -37,161 +35,161 @@ export interface EcosystemProject {
 export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
   {
     id: 'reality-science',
-    name: 'Reality Science (Epistemic Platform)',
-    category: 'Epistemic Science',
-    tagline: 'Hệ thống Khoa học Nhận thức, Kiểm định Giả thuyết & Động cơ Ràng buộc Thực tại',
-    drivePath: 'D:\\Reality_Science',
+    name: 'Reality Science (Nền Tảng Kiểm Chứng Khoa Học)',
+    category: 'Kiểm chứng Khoa học',
+    tagline: 'Hệ thống Kiểm định Giả thuyết Khoa học & Đối chiếu Định luật Bảo toàn Vật lý',
+    repoPath: 'reality-science/',
     githubUrl: 'https://github.com/koko999-tien/reality-science',
-    status: 'Fully Verified',
+    status: 'Đã kiểm thử toàn diện',
     techStack: ['Next.js 14', 'FastAPI', 'Celery', 'Redis', 'React Flow', 'PostgreSQL', 'Pytest'],
     keyFeatures: [
-      'Reality Constraint Engine: Bắt buộc tuân thủ định luật bảo toàn vật lý (năng lượng, xung lượng, điện tích)',
-      'Dimensional Analysis: Tự động phân tích và kiểm tra tính đồng nhất thứ nguyên (M, L, T, Q, Theta)',
-      'Boundary Engine: Đánh giá giới hạn toán học khi biến số tiến tới 0 và vô cùng',
-      'Soft-Deadline Compute Queue: Hàng đợi xử lý tác vụ điện toán mềm chống treo worker'
+      'Kiểm tra Định luật Bảo toàn: Tự động đối chiếu bảo toàn năng lượng, xung lượng và điện tích',
+      'Kiểm tra Đơn vị Đo lường: Đảm bảo tính đồng nhất của đơn vị vật lý trong mọi công thức',
+      'Kiểm tra Trường hợp Biên: Đánh giá giới hạn toán học khi biến số tiến tới 0 và vô cùng',
+      'Hàng đợi Xử lý Bất đồng bộ: Tách luồng tính toán nặng giúp hệ thống luôn phản hồi ổn định',
     ],
-    quickStartCommand: 'cd D:\\Reality_Science; python -m pytest backend/tests/ -v',
-    stats: '100% Tests Pass • 4 Stages Complete'
+    quickStartCommand: 'cd reality-science && python -m pytest backend/tests/ -v',
+    stats: 'Đạt 100% bài kiểm thử • Hoàn thành 4 giai đoạn',
   },
   {
     id: 'unidoc-studio',
     name: 'UniDoc Studio Vietnam',
-    category: 'Document Automation',
+    category: 'Văn thư & Báo cáo',
     tagline: 'Studio Tự động hóa Soạn thảo Báo cáo Word & Slide chuẩn Thể thức Hành chính Việt Nam',
-    drivePath: 'D:\\tao-bao-cao-word-slide',
+    repoPath: 'unidoc-studio-vietnam/',
     githubUrl: 'https://github.com/koko999-tien/unidoc-studio-vietnam',
-    status: 'Production Ready',
+    status: 'Sẵn sàng sử dụng',
     techStack: ['Python', 'FastAPI', 'python-docx', 'python-pptx', 'React', 'TypeScript', 'Tailwind'],
     keyFeatures: [
       'Soạn thảo văn bản chuẩn thể thức kỹ thuật theo Nghị định 30/2020/NĐ-CP',
       'Tự động sinh dàn ý tờ trình, đề án, báo cáo tổng kết và dự toán kinh phí',
       'Xuất bản tệp tin Word (.docx) và Slide (.pptx) định dạng chuyên nghiệp',
-      'Bộ kiểm thử tự động hóa 87 test case toàn diện'
+      'Bộ kiểm thử tự động hóa 87 kịch bản toàn diện',
     ],
-    quickStartCommand: 'cd D:\\tao-bao-cao-word-slide; pytest tests/ -v',
-    stats: '87 Test Cases Passed • DOCX & PPTX'
+    quickStartCommand: 'cd unidoc-studio-vietnam && pytest tests/ -v',
+    stats: '87 bài kiểm thử đạt • Xuất DOCX & PPTX',
   },
   {
     id: 'ai-knowledge-lab',
     name: 'AI Knowledge Lab & Database',
-    category: 'Knowledge Base',
+    category: 'Kho Tri thức',
     tagline: 'Kho Tri thức 10 Cẩm nang Kỹ thuật Thực chiến & Cơ sở Dữ liệu Nghiên cứu',
-    drivePath: 'D:\\AI_Knowledge_Lab',
-    status: 'Active Knowledge',
+    repoPath: 'ai-knowledge-lab/',
+    status: 'Kho tri thức hoạt động',
     techStack: ['SQLite', 'Python', 'Pandas', 'Markdown Playbooks', 'Vector Index'],
     keyFeatures: [
-      '10 Cẩm nang Master Playbooks biên soạn từ 10 công trình kinh điển thế giới',
-      'Cơ sở dữ liệu SQLite knowledge_base.db (13MB) lưu trữ hàng nghìn tri thức có cấu trúc',
-      'Kho tài nguyên web_repos.db phân loại repository GitHub tinh hoa',
-      'Lộ trình đào tạo 6 vai trò: AI Engineer, Data Scientist, Backend, DevOps, SDET, Game Dev'
+      '10 Cẩm nang Thực chiến biên soạn từ 10 công trình kỹ thuật kinh điển',
+      'Cơ sở dữ liệu SQLite (13MB) lưu trữ hàng nghìn mục tri thức có cấu trúc',
+      'Kho tài nguyên phân loại các dự án GitHub tinh hoa theo chuyên ngành',
+      'Lộ trình đào tạo 6 vai trò: Kỹ sư AI, Khoa học Dữ liệu, Backend, DevOps, Kiểm thử, Game',
     ],
-    quickStartCommand: 'cd D:\\AI_Knowledge_Lab\\docs\\playbooks; ls -la',
-    stats: '10 Master Books • 13MB Knowledge DB'
+    quickStartCommand: 'cd ai-knowledge-lab/docs/playbooks && ls -la',
+    stats: '10 cẩm nang • CSDL tri thức 13MB',
   },
   {
     id: 'telegram-ai-tool',
     name: 'Telegram AI Knowledge Harvester',
-    category: 'OSINT & Scraping',
-    tagline: 'Hệ thống Bóc tách Tri thức & Tải Tài nguyên Tự động từ Telegram về Ổ D',
-    drivePath: 'D:\\Telegram_AI_Tool',
+    category: 'Thu thập Tài nguyên',
+    tagline: 'Hệ thống Tổng hợp Tri thức & Lưu trữ Tài nguyên Có Kiểm Duyệt từ Kênh Telegram',
+    repoPath: 'telegram-ai-tool/',
     githubUrl: 'https://github.com/koko999-tien/Telegram_AI_Tool',
-    status: 'Production Ready',
-    techStack: ['Python', 'Telethon', 'Pyrogram', 'SQLite', 'Human-in-the-loop'],
+    status: 'Sẵn sàng sử dụng',
+    techStack: ['Python', 'Telethon', 'Pyrogram', 'SQLite', 'Duyệt thủ công'],
     keyFeatures: [
       'Quét sâu toàn bộ lịch sử tin nhắn các kênh công nghệ, kỹ thuật, AI và lập trình',
       'Bóc tách liên kết GitHub, sách kỹ thuật PDF và công cụ nguồn mở',
-      'Cơ chế kiểm duyệt an toàn Human-in-the-loop trước khi lưu trữ vào D:\\AI_Telegram_Downloads',
-      'Đồng bộ siêu dữ liệu trực tiếp vào kho tri thức D:\\AI_Knowledge_Lab'
+      'Cơ chế kiểm duyệt an toàn (Human-in-the-loop) trước khi lưu trữ vào thư mục tài nguyên',
+      'Đồng bộ siêu dữ liệu trực tiếp vào cơ sở dữ liệu tri thức chung',
     ],
-    quickStartCommand: 'cd D:\\Telegram_AI_Tool; python -m pytest tests/ -v',
-    stats: '800+ Files • 100% Tests Pass'
+    quickStartCommand: 'cd telegram-ai-tool && python -m pytest tests/ -v',
+    stats: '800+ tài liệu • Đạt 100% kiểm thử',
   },
   {
     id: 'lofi-pomodoro',
     name: 'Lofi Pomodoro Focus Studio',
-    category: 'Productivity',
+    category: 'Hiệu suất & Media',
     tagline: 'Không gian Tập trung Làm việc & Học tập Sâu kết hợp Âm nhạc Lofi',
-    drivePath: 'D:\\lofi-pomodoro',
+    repoPath: 'lofi-pomodoro/',
     githubUrl: 'https://github.com/koko999-tien/lofi-pomodoro',
-    status: 'Production Ready',
+    status: 'Sẵn sàng sử dụng',
     techStack: ['HTML5', 'Vanilla JavaScript', 'Web Audio API', 'CSS3 Modern'],
     keyFeatures: [
       'Bộ đếm thời gian Pomodoro tiêu chuẩn (25 phút tập trung / 5 phút nghỉ ngắn / 15 phút nghỉ dài)',
-      'Kho âm thanh Lofi thư giãn, tiếng mưa và white noise kích thích trạng thái Flow State',
-      'Giao diện tối giản tối ưu cho các phiên làm việc Deep Work không gây phân tâm'
+      'Kho âm thanh Lofi thư giãn, tiếng mưa và tiếng ồn trắng giúp duy trì tập trung sâu',
+      'Giao diện tối giản tối ưu cho các phiên làm việc không bị phân tâm',
     ],
-    quickStartCommand: 'cd D:\\lofi-pomodoro; start index.html',
-    stats: 'Deep Work • Web Audio'
+    quickStartCommand: 'cd lofi-pomodoro && npx serve .',
+    stats: 'Tập trung sâu • Âm thanh Web',
   },
   {
     id: 'tubeflux',
     name: 'Tubeflux Streaming Engine',
-    category: 'Productivity',
-    tagline: 'Nền tảng Lưu trữ & Phát Video Tự lưu trữ Hiệu năng cao (Node 24 + SQLite)',
-    drivePath: 'D:\\tubeflux',
+    category: 'Hiệu suất & Media',
+    tagline: 'Nền tảng Lưu trữ & Phát Video Tự chủ Hiệu năng cao (Node.js 24 + SQLite)',
+    repoPath: 'tubeflux/',
     githubUrl: 'https://github.com/koko999-tien/tubeflux',
-    status: 'Production Ready',
+    status: 'Sẵn sàng sử dụng',
     techStack: ['Node.js 24', 'Express', 'node:sqlite', 'FFmpeg', 'Vanilla JS'],
     keyFeatures: [
-      'Hỗ trợ streaming video chunked range HTTP cho tốc độ xem mượt mà',
-      'Tự động trích xuất thumbnail và metadata thời lượng qua FFmpeg',
-      'Bảng điều khiển quản trị Admin phân loại danh mục, từ khóa và bình luận'
+      'Hỗ trợ phát video phân đoạn (chunked range HTTP) cho tốc độ xem mượt mà',
+      'Tự động trích xuất ảnh thu nhỏ và thông tin thời lượng qua FFmpeg',
+      'Bảng điều khiển quản trị phân loại danh mục, từ khóa và bình luận',
     ],
-    quickStartCommand: 'cd D:\\tubeflux; npm install; npm start',
-    stats: 'Node 24 • Native SQLite'
+    quickStartCommand: 'cd tubeflux && npm install && npm start',
+    stats: 'Node.js 24 • CSDL SQLite tích hợp',
   },
   {
     id: 'luma-fashion',
     name: 'Luma Fashion Storefront & Admin',
-    category: 'Fullstack E-Commerce',
-    tagline: 'Nền tảng Thương mại Điện tử Thời trang Fullstack Next.js + Prisma + Cổng Thanh toán Việt Nam',
-    drivePath: 'D:\\luma-fashion',
+    category: 'Thương mại Điện tử',
+    tagline: 'Nền tảng Thương mại Điện tử Thời trang Trọn gói (Giao diện & Máy chủ) với Next.js + Prisma + Cổng Thanh toán Việt Nam',
+    repoPath: 'luma-fashion/',
     githubUrl: 'https://github.com/koko999-tien/luma-fashion',
-    status: 'Production Ready',
+    status: 'Sẵn sàng sử dụng',
     techStack: ['Next.js 14', 'Prisma ORM', 'Tailwind CSS', 'MoMo', 'VNPay', 'ZaloPay', 'TypeScript'],
     keyFeatures: [
-      'Giao diện Storefront mua hàng hiện đại, giỏ hàng Drawer, lọc đa tiêu chí và trang thanh toán',
-      'Tích hợp đầy đủ các cổng thanh toán nội địa: MoMo IPN, VNPay Return, ZaloPay Callback',
-      'Bảng điều khiển quản trị Admin: quản lý danh mục, bộ sưu tập, đơn hàng, mã giảm giá và báo cáo doanh thu',
-      'Hệ thống đánh giá sản phẩm, wishlist, thông báo email và phân quyền người dùng'
+      'Giao diện cửa hàng hiện đại, giỏ hàng trượt ngang, lọc đa tiêu chí và trang thanh toán',
+      'Tích hợp đầy đủ các cổng thanh toán nội địa: MoMo, VNPay, ZaloPay',
+      'Bảng điều khiển quản trị: quản lý danh mục, bộ sưu tập, đơn hàng, mã giảm giá và báo cáo doanh thu',
+      'Hệ thống đánh giá sản phẩm, danh sách yêu thích, thông báo email và phân quyền người dùng',
     ],
-    quickStartCommand: 'cd D:\\luma-fashion; npm run dev',
-    stats: 'Fullstack E-Com • MoMo / VNPay'
+    quickStartCommand: 'cd luma-fashion && npm run dev',
+    stats: 'Bán hàng Trọn gói • MoMo / VNPay',
   },
   {
     id: 'vr-game-dev',
     name: 'VR & Spatial Game Dev Studio',
-    category: 'VR & Spatial Computing',
-    tagline: 'Môi trường Phát triển Game Thực tế Ảo Đa luồng (Godot 4 OpenXR & WebXR Three.js)',
-    drivePath: 'D:\\vr_game_dev',
+    category: 'Thực tế Ảo & 3D',
+    tagline: 'Môi trường Phát triển Game Thực tế Ảo Đa luồng (Chuẩn kính thực tế ảo OpenXR trên Godot 4 & trên trình duyệt WebXR Three.js)',
+    repoPath: 'vr-game-dev/',
     githubUrl: 'https://github.com/koko999-tien/vr-game-dev',
-    status: 'Fully Verified',
+    status: 'Đã kiểm thử toàn diện',
     techStack: ['Godot Engine 4.3', 'OpenXR', 'WebXR', 'Three.js r170', 'Vite', 'DirectX 12 / Vulkan'],
     keyFeatures: [
-      'Hỗ trợ kính thực tế ảo độc lập OpenXR kèm chế độ Desktop Free-Look giả lập không cần headset',
-      'Mô-đun WebXR chạy trực tiếp trên trình duyệt máy tính và kính Meta Quest qua Three.js + Vite',
-      'Hệ thống script tự động hóa kiểm thử headless trong môi trường CI/CD',
-      'Bộ tài liệu kiến trúc kỹ thuật và kịch bản tương tác vật lý 3D hoàn chỉnh'
+      'Hỗ trợ chuẩn kính thực tế ảo độc lập (OpenXR) kèm chế độ giả lập trên máy tính không cần kính',
+      'Mô-đun thực tế ảo trên trình duyệt (WebXR) chạy trực tiếp trên máy tính và kính Meta Quest qua Three.js + Vite',
+      'Hệ thống kịch bản tự động hóa kiểm thử trong quy trình tích hợp & triển khai tự động (CI/CD)',
+      'Bộ tài liệu kiến trúc kỹ thuật và kịch bản tương tác vật lý 3D hoàn chỉnh',
     ],
-    quickStartCommand: 'cd D:\\vr_game_dev; .\\1_MO_GODOT_LAM_GAME.bat',
-    stats: 'Godot 4.3 • OpenXR & WebXR'
+    quickStartCommand: 'cd vr-game-dev && godot --path . --headless --quit',
+    stats: 'Godot 4.3 • Thực tế ảo OpenXR & trên trình duyệt (WebXR)',
   },
   {
     id: 'openbot-qoder',
-    name: 'OpenBot & Qoder Autonomous Agent',
-    category: 'Epistemic Science',
-    tagline: 'Hệ thống Tác tử Tự động hóa & Khung Thực thi Lập trình Độc lập',
-    drivePath: 'D:\\openbot',
-    status: 'Active Knowledge',
+    name: 'OpenBot & Qoder Trợ Lý Tự Hành',
+    category: 'Kiểm chứng Khoa học',
+    tagline: 'Hệ thống Trợ lý Tự động hóa & Khung Thực thi Lập trình Độc lập',
+    repoPath: 'openbot/',
+    status: 'Kho tri thức hoạt động',
     techStack: ['Python', 'LLM Agent Framework', 'AsyncIO', 'CLI Tools'],
     keyFeatures: [
-      'Thực thi các tác vụ lập trình độc lập qua lời nhắc (autonomous coding execution)',
-      'Tích hợp công cụ shell an toàn và phân tích ngữ cảnh file',
-      'Cộng tác đồng bộ với dự án Qoder (D:\\Qoder)'
+      'Thực thi các tác vụ lập trình độc lập qua yêu cầu ngôn ngữ tự nhiên',
+      'Tích hợp công cụ dòng lệnh an toàn và phân tích ngữ cảnh tệp mã nguồn',
+      'Cộng tác đồng bộ với mô-đun mở rộng Qoder',
     ],
-    quickStartCommand: 'cd D:\\openbot; python run.py',
-    stats: 'Autonomous Agents • Task Runner'
-  }
+    quickStartCommand: 'cd openbot && python run.py',
+    stats: 'Trợ lý tự hành • Thực thi tác vụ',
+  },
 ];
 
 export function EcosystemHub() {
@@ -201,41 +199,54 @@ export function EcosystemHub() {
   const copyCommand = async (cmd: string, id: string) => {
     try {
       await navigator.clipboard.writeText(cmd);
-      setCopiedCommandId(id);
-      toast.success('Đã sao chép lệnh chạy vào bộ nhớ tạm!');
-      setTimeout(() => setCopiedCommandId(null), 2000);
     } catch {
-      toast.error('Không thể sao chép lệnh.');
+      const textarea = document.createElement('textarea');
+      textarea.value = cmd;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch {
+        document.body.removeChild(textarea);
+        toast.error('Không thể sao chép lệnh.');
+        return;
+      }
+      document.body.removeChild(textarea);
     }
+    setCopiedCommandId(id);
+    toast.success('Đã sao chép lệnh chạy vào bộ nhớ tạm!');
+    setTimeout(() => setCopiedCommandId(null), 2000);
   };
 
   const getStatusBadge = (status: EcosystemProject['status']) => {
     switch (status) {
-      case 'Production Ready':
-        return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400';
-      case 'Fully Verified':
-        return 'border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400';
-      case 'Active Knowledge':
-        return 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400';
+      case 'Sẵn sàng sử dụng':
+        return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400';
+      case 'Đã kiểm thử toàn diện':
+        return 'border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-400';
+      case 'Kho tri thức hoạt động':
+        return 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400';
       default:
         return 'border-border bg-bg text-text-muted';
     }
   };
 
   const categories = [
-    { id: 'all', label: 'Tất cả Dự án Ổ D' },
-    { id: 'Epistemic Science', label: '🔬 Khoa học & Nhận thức' },
-    { id: 'Document Automation', label: '📄 Văn thư & Báo cáo' },
-    { id: 'Knowledge Base', label: '📚 Kho Tri thức 10 Sách' },
-    { id: 'OSINT & Scraping', label: '🌐 Telegram & Bóc tách' },
-    { id: 'Productivity', label: '⏱️ Hiệu suất & Streaming' },
-    { id: 'Fullstack E-Commerce', label: '🛍️ Thương mại Điện tử' },
-    { id: 'VR & Spatial Computing', label: '🥽 Thực tế Ảo VR & 3D' },
+    { id: 'all', label: 'Tất cả Dự án' },
+    { id: 'Kiểm chứng Khoa học', label: '🔬 Kiểm chứng Khoa học' },
+    { id: 'Văn thư & Báo cáo', label: '📄 Văn thư & Báo cáo' },
+    { id: 'Kho Tri thức', label: '📚 Kho Tri thức 10 Sách' },
+    { id: 'Thu thập Tài nguyên', label: '🌐 Telegram & Tài nguyên' },
+    { id: 'Hiệu suất & Media', label: '⏱️ Hiệu suất & Streaming' },
+    { id: 'Thương mại Điện tử', label: '🛍️ Thương mại Điện tử' },
+    { id: 'Thực tế Ảo & 3D', label: '🥽 Thực tế Ảo & 3D' },
   ];
 
   const filteredProjects = selectedCategory === 'all'
     ? ECOSYSTEM_PROJECTS
-    : ECOSYSTEM_PROJECTS.filter(p => p.category === selectedCategory);
+    : ECOSYSTEM_PROJECTS.filter((p) => p.category === selectedCategory);
 
   return (
     <div className="space-y-8">
@@ -246,9 +257,9 @@ export function EcosystemHub() {
             <span className="text-xs font-semibold uppercase tracking-wider text-text-muted block">
               Danh mục dự án thực chiến
             </span>
-            <h3 className="font-bold text-text text-base sm:text-lg">
-              Hệ sinh thái mã nguồn &amp; công cụ tại máy trạm
-            </h3>
+            <h2 className="font-bold text-text text-base sm:text-lg">
+              Mã nguồn &amp; công cụ thực tế
+            </h2>
           </div>
           <span className="text-xs font-mono text-text-muted">
             {filteredProjects.length} dự án khả dụng
@@ -259,6 +270,8 @@ export function EcosystemHub() {
           {categories.map((c) => (
             <button
               key={c.id}
+              type="button"
+              aria-pressed={selectedCategory === c.id}
               onClick={() => setSelectedCategory(c.id)}
               className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedCategory === c.id
@@ -298,21 +311,21 @@ export function EcosystemHub() {
                 {project.tagline}
               </p>
 
-              {/* Local Path & Stats Badge */}
+              {/* Repo Path & Stats Badge */}
               <div className="p-3.5 rounded-xl bg-bg border border-border space-y-1.5 mb-4 text-xs font-mono">
                 <div className="flex justify-between items-center text-text-muted gap-2">
                   <span className="flex items-center gap-1.5 shrink-0">
-                    <HardDrive className="w-3.5 h-3.5 text-accent" />
-                    Đường dẫn ổ D:
+                    <FolderGit2 className="w-3.5 h-3.5 text-accent" />
+                    Thư mục mã nguồn:
                   </span>
-                  <strong className="text-text truncate">{project.drivePath}</strong>
+                  <strong className="text-text truncate">{project.repoPath}</strong>
                 </div>
                 <div className="flex justify-between items-center text-text-muted gap-2">
                   <span className="flex items-center gap-1.5 shrink-0">
-                    <Activity className="w-3.5 h-3.5 text-emerald-500" />
+                    <Activity className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                     Chỉ số thực tế:
                   </span>
-                  <span className="text-emerald-500 font-semibold truncate">{project.stats}</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold truncate">{project.stats}</span>
                 </div>
               </div>
 
@@ -383,11 +396,11 @@ export function EcosystemHub() {
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               ) : (
-                <span className="text-text-muted font-mono">Dự án Nội bộ máy trạm</span>
+                <span className="text-text-muted font-mono">Dự án nghiên cứu nội bộ</span>
               )}
 
               <span className="text-[11px] text-text-muted font-mono">
-                Windows 11 Local-First
+                Chạy độc lập đa nền tảng
               </span>
             </div>
           </div>

@@ -2,21 +2,21 @@
 id: quan-ly-thoi-gian-pomodoro
 categoryId: cong-viec
 name: "Quản lý thời gian & Tập trung Pomodoro"
-description: "Kỹ thuật Pomodoro cải tiến: 25/5, 50/10, Deep Work, quản lý xao nhãng, chống kiệt sức"
+description: "Kỹ thuật Pomodoro cải tiến: chia phiên 25/5 hoặc 50/10, làm việc tập trung sâu, quản lý xao nhãng và chống kiệt sức"
 whenToUse:
   - "Bị xao nhãng liên tục bởi tin nhắn, email, mạng xã hội"
-  - "Cảm thấy quá tải (overwhelmed) với checklist công việc"
-  - "Cần hoàn thiện công việc đòi hỏi tập trung cao (code, viết, thiết kế)"
-  - "Dễ bị lười biếng (procrastination) khi bắt đầu công việc lớn"
+  - "Cảm thấy quá tải với danh sách việc cần làm quá dài"
+  - "Cần hoàn thành công việc đòi hỏi tập trung cao (lập trình, viết lách, thiết kế)"
+  - "Dễ bị trì hoãn khi bắt đầu một đầu việc lớn"
 difficulty: "beginner"
-estimatedTime: "5 phút setup, thực hiện hàng ngày"
+estimatedTime: "5 phút thiết lập, áp dụng hằng ngày"
 tags: ["time-management", "productivity", "pomodoro", "deep-work", "focus"]
 prompts:
   - id: prompt-pomodoro-planner
     name: "Lập kế hoạch Pomodoro theo ngày"
-    description: "Tạo khung thời gian chia nhỏ công việc thành các block Pomodoro tối ưu năng lượng"
+    description: "Tạo khung thời gian chia nhỏ công việc thành các phiên tập trung tối ưu năng lượng"
     template: |
-      Bạn là Productivity Coach. Hãy giúp tôi lập kế hoạch Pomodoro cho ngày hôm nay:
+      Bạn là chuyên gia huấn luyện năng suất làm việc. Hãy giúp tôi lập kế hoạch tập trung theo phương pháp Pomodoro cho ngày hôm nay:
 
       **Danh sách việc cần làm:**
       {{taskList}}
@@ -26,13 +26,13 @@ prompts:
       **Các cuộc họp cố định:** {{meetings}}
 
       **Yêu cầu:**
-      1. Phân bổ công việc vào các block Pomodoro (chọn 25/5 hoặc 50/10 tùy tính chất việc)
-      2. Đặt công việc khó/quan trọng nhất (Frog) vào lúc năng lượng cao nhất
-      3. Dự phòng 1-2 block cho việc phát sinh (Buffer Pomodoro)
-      4. Gợi ý hoạt động nghỉ ngơi 5p/10p ngắn để nạp lại năng lượng
-      5. Gợi ý cách xử lý xao nhãng (Distraction Log)
+      1. Phân bổ công việc vào các phiên tập trung (chọn 25/5 hoặc 50/10 tùy tính chất việc)
+      2. Đặt công việc khó hoặc quan trọng nhất vào lúc năng lượng cao nhất
+      3. Dự phòng 1-2 phiên trống cho việc phát sinh bất ngờ
+      4. Gợi ý hoạt động nghỉ ngơi 5-10 phút để nạp lại năng lượng
+      5. Gợi ý cách ghi chú nhanh khi bị xao nhãng để xử lý sau
 
-      Output: Khung thời gian markdown chi tiết từng block.
+      Đầu ra: Khung thời gian chi tiết từng phiên theo định dạng dễ theo dõi.
     variables:
       - name: taskList
         type: textarea
@@ -50,67 +50,68 @@ prompts:
         default: 7
       - name: meetings
         type: textarea
-        label: "Lịch họp/Hạn định cố định"
+        label: "Lịch họp hoặc mốc giờ cố định"
         required: false
+        default: "Không có cuộc họp cố định"
     examples:
       - inputs:
-          taskList: "1. Viết báo cáo tuần (quan trọng)\n2. Trả lời 15 email/Slack\n3. Code tính năng Login (khó)\n4. Review PR của đồng nghiệp"
+          taskList: "1. Viết báo cáo tuần (quan trọng)\n2. Trả lời 15 email và tin nhắn nhóm\n3. Hoàn thiện phần lập kế hoạch dự án mới (khó)\n4. Đọc góp ý bản đề xuất của đồng nghiệp"
           availableHours: 7
           energyLevel: 8
-          meetings: "10:00 - 11:00 Họp Team Sync"
+          meetings: "10:00 - 11:00 Họp giao ban đầu tuần"
         output: |
           # 🍅 Lịch Trình Pomodoro Ngày Hôm Nay
 
-          ## 🎯 Mức Năng Lượng: 8/10 | Tổng: 10 Blocks (25m/block)
+          ## 🎯 Mức năng lượng: 8/10 | Tổng: 10 phiên tập trung (25 phút/phiên)
 
-          ### 🌅 Buổi Sáng: Deep Work (Năng lượng cao nhất)
-          - **08:30 - 08:55 [Block 1 - Frog 🐸]**: Code tính năng Login (Phân tích & Setup structure)
-          - *Nghỉ 5p*: Vươn vai, uống nước
-          - **09:00 - 09:25 [Block 2 - Frog 🐸]**: Code tính năng Login (Implement Auth API)
-          - *Nghỉ 5p*: Đi lại nhẹ nhàng
-          - **09:30 - 09:55 [Block 3 - Frog 🐸]**: Code tính năng Login (Catch error & Unit test)
-          - *Nghỉ 5p*: Xóa tan căng thẳng mắt
+          ### 🌅 Buổi sáng: Làm việc tập trung sâu (Khi đầu óc tỉnh táo nhất)
+          - **08:30 - 08:55 [Phiên 1 - Việc khó nhất trong ngày]**: Lập kế hoạch dự án mới (Phân tích yêu cầu & Lên khung sườn)
+          - *Nghỉ 5 phút*: Vươn vai, uống nước
+          - **09:00 - 09:25 [Phiên 2 - Việc khó nhất trong ngày]**: Lập kế hoạch dự án mới (Phân chia đầu việc & Ngân sách dự kiến)
+          - *Nghỉ 5 phút*: Đi lại nhẹ nhàng quanh phòng
+          - **09:30 - 09:55 [Phiên 3 - Việc khó nhất trong ngày]**: Lập kế hoạch dự án mới (Kiểm tra lại tiến độ & Rà soát rủi ro)
+          - *Nghỉ 5 phút*: Nhìn ra xa để thư giãn mắt
 
-          - **10:00 - 11:00**: 🤝 **HỌP TEAM SYNC** (Không tính Pomodoro)
+          - **10:00 - 11:00**: 🤝 **HỌP GIAO BAN ĐẦU TUẦN** (Không tính vào phiên tập trung)
 
-          - **11:05 - 11:30 [Block 4]**: Review PR đồng nghiệp (Tập trung soi logic)
-          - *Nghỉ 5p*: Chuẩn bị ăn trưa
-          - **11:35 - 12:00 [Block 5]**: Trả lời email & Slack buổi sáng (Shallow work)
-
-          ---
-          ### 🍱 12:00 - 13:30: ĂN TRƯA & NGHỈ NƠI
+          - **11:05 - 11:30 [Phiên 4]**: Đọc và góp ý bản đề xuất của đồng nghiệp (Tập trung kiểm tra logic và số liệu)
+          - *Nghỉ 5 phút*: Thu dọn bàn làm việc chuẩn bị ăn trưa
+          - **11:35 - 12:00 [Phiên 5]**: Trả lời email và tin nhắn nhóm buổi sáng (Việc nhẹ, xử lý gọn một lượt)
 
           ---
-          ### 🌇 Buổi Chiều: Task Execution
-          - **13:30 - 13:55 [Block 6]**: Viết báo cáo tuần (Dàn ý & Số liệu chính)
-          - *Nghỉ 5p*: Mở cửa sổ hít thở
-          - **14:00 - 14:25 [Block 7]**: Viết báo cáo tuần (Hoàn thiện nội dung & format)
-          - *Nghỉ 5p*: Thể dục nhẹ 2p
-          - **14:30 - 14:55 [Block 8]**: Buffer Block (Xử lý phát sinh / Sửa bug Login nếu có)
-          - *Nghỉ 15p (Long Break)*: Dạo bộ / Cà phê
+          ### 🍱 12:00 - 13:30: ĂN TRƯA & NGHỈ NGƠI
 
-          - **15:15 - 15:40 [Block 9]**: Trả lời email/Slack chiều + Dọn dẹp task Notion
-          - **15:45 - 16:10 [Block 10]**: Lập kế hoạch cho ngày mai & Tóm tắt kết quả
+          ---
+          ### 🌇 Buổi chiều: Xử lý đầu việc còn lại
+          - **13:30 - 13:55 [Phiên 6]**: Viết báo cáo tuần (Lên dàn ý & Tổng hợp số liệu chính)
+          - *Nghỉ 5 phút*: Mở cửa sổ hít thở sâu
+          - **14:00 - 14:25 [Phiên 7]**: Viết báo cáo tuần (Hoàn thiện câu chữ & Trình bày bảng biểu)
+          - *Nghỉ 5 phút*: Xoay cổ vai gáy nhẹ 2 phút
+          - **14:30 - 14:55 [Phiên 8]**: Phiên dự phòng (Xử lý việc phát sinh bất ngờ hoặc chỉnh sửa lại kế hoạch dự án nếu cần)
+          - *Nghỉ dài 15 phút*: Đi bộ nhẹ / Uống nước hoặc trà
 
-          ## 📝 Distraction Log (Ghi nhanh khi bị ngắt quãng)
-          - [ ] Ý tưởng mới: Ghi vào giấy → Xử lý sau 16:00
-          - [ ] Tin nhắn Slack khẩn: Chỉ trả lời nếu có tag @channel, còn lại đợi Block 5/9
-        context: "Kế hoạch 1 ngày làm việc điển hình của Software Engineer"
+          - **15:15 - 15:40 [Phiên 9]**: Trả lời email, tin nhắn buổi chiều và cập nhật trạng thái công việc trong ngày
+          - **15:45 - 16:10 [Phiên 10]**: Lập danh sách việc cho ngày mai và tổng kết nhanh kết quả hôm nay
+
+          ## 📝 Sổ ghi nhanh việc làm phiền (Dùng khi bị ngắt quãng)
+          - [ ] Ý tưởng mới bất chợt: Ghi nhanh ra giấy nháp → Để sau 16:00 mới xem lại
+          - [ ] Tin nhắn nhóm công việc: Chỉ trả lời ngay nếu có nhắc tên khẩn cấp, còn lại gom xử lý ở Phiên 5 và Phiên 9
+        context: "Kế hoạch 1 ngày làm việc điển hình của nhân viên văn phòng"
     difficulty: "easy"
     useCases:
-      - "Người làm việc tự do (Freelancer) tự quản lý thời gian"
+      - "Người làm việc tự do muốn tự quản lý thời gian hiệu quả"
       - "Nhân viên văn phòng muốn tối ưu năng suất ngày làm việc"
   - id: prompt-anti-procrastination
-    name: "Vượt qua trì hoãn (Rule 2 phút & Micro-stepping)"
-    description: "Kích hoạt hành động ngay lập tức khi đối mặt với công việc ngại làm"
+    name: "Vượt qua trì hoãn (Quy tắc 2 phút & Chia bước siêu nhỏ)"
+    description: "Kích hoạt hành động ngay lập tức khi đối mặt với công việc ngại bắt đầu"
     template: |
       Tôi đang trì hoãn công việc: {{procrastinatedTask}}.
-      Lý do tôi ngại làm: {{reason}} (ví dụ: quá khó, chán, quá lớn, sợ làm sai).
+      Lý do tôi ngại làm: {{reason}}.
 
       Hãy giúp tôi:
-      1. Bẻ nhỏ công việc này thành **Micro-step 2 phút** cực kỳ dễ để bắt đầu ngay
-      2. Viết 1 prompt tự đối thoại (Self-talk script) để vượt qua rào cản tâm lý
-      3. Thiết lập phần thưởng nhỏ ngay sau khi hoàn thành 1 Pomodoro đầu tiên
+      1. Chia nhỏ công việc này thành **bước khởi động 2 phút** cực kỳ dễ để bắt đầu ngay
+      2. Viết 1 đoạn tự nhắc nhở bản thân giúp vượt qua rào cản tâm lý ban đầu
+      3. Gợi ý phần thưởng nhỏ ngay sau khi hoàn thành 1 phiên tập trung 25 phút đầu tiên
     variables:
       - name: procrastinatedTask
         type: textarea
@@ -122,7 +123,7 @@ prompts:
         options:
           - "Công việc quá lớn, không biết bắt đầu từ đâu"
           - "Công việc chán, lặp đi lặp lại"
-          - "Sợ kết quả không hoàn hảo (Hoàn hảo chủ nghĩa)"
+          - "Sợ kết quả không hoàn hảo (Tâm lý cầu toàn)"
           - "Thiếu thông tin / Đang chờ người khác"
         required: true
         default: "Công việc quá lớn, không biết bắt đầu từ đâu"
@@ -133,24 +134,24 @@ prompts:
         output: |
           # 🚀 Kích Hoạt Hành Động 2 Phút
 
-          ## 👣 Bước Micro 2 Phút (Chỉ cần làm bấy nhiêu thôi!):
-          > **Mở file Excel báo cáo và tạo một tab mới đặt tên "Tóm tắt Q4".**
-          *(Không cần tính toán, không cần điền số liệu. Chỉ mở file và đổi tên tab!)*
+          ## 👣 Bước khởi động siêu nhỏ 2 phút (Chỉ cần làm bấy nhiêu thôi!):
+          > **Mở bảng tính Excel báo cáo và tạo một trang tính mới đặt tên "Tóm tắt quý 4".**
+          *(Không cần tính toán, không cần điền số liệu ngay. Chỉ mở bảng tính và đổi tên trang mới!)*
 
-          ## 🧠 Script Tự Đối Thoại:
+          ## 🧠 Câu tự nhủ để bắt đầu:
           "Tôi không cần hoàn thành toàn bộ báo cáo ngay bây giờ. Tôi chỉ cần làm đúng 2 phút. Nếu sau 2 phút tôi vẫn muốn dừng, tôi hoàn toàn có quyền dừng lại."
 
-          ## 🎁 Phần Thưởng Ngắn:
-          Sau khi hoàn thành Block Pomodoro đầu tiên (25p), thưởng cho bản thân 1 tách trà thơm hoặc 5 phút nghe bài hát yêu thích.
+          ## 🎁 Phần thưởng ngắn:
+          Sau khi hoàn thành phiên tập trung Pomodoro đầu tiên (25 phút), thưởng cho bản thân 1 tách trà thơm hoặc 5 phút nghe bài hát yêu thích.
         context: "Giải quyết sự bế tắc khi đối mặt với công việc dài và phức tạp"
     difficulty: "easy"
     useCases:
       - "Xử lý các công việc bị ngâm quá lâu"
 agentTemplate:
-  name: "Focus & Time Coach"
-  description: "AI hỗ trợ quản lý thời gian, thiết lập kỷ luật Pomodoro và loại bỏ xao nhãng"
+  name: "Huấn Luyện Viên Tập Trung & Quản Lý Thời Gian"
+  description: "Trợ lý hỗ trợ sắp xếp lịch làm việc, giữ tập trung sâu theo Pomodoro và giảm xao nhãng"
   systemPrompt: |
-    Bạn là Focus Coach. Nhiệm vụ của bạn là giúp người dùng tối ưu hóa thời gian, xây dựng sự tập trung sâu (Deep Work) và chiến thắng sự trì hoãn bằng phương pháp khoa học.
+    Bạn là huấn luyện viên quản lý thời gian. Nhiệm vụ của bạn là giúp người dùng sắp xếp lịch làm việc hợp lý, rèn thói quen tập trung sâu và vượt qua sự trì hoãn bằng những bước đơn giản, dễ áp dụng hằng ngày.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

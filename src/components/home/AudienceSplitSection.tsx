@@ -1,19 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { 
-  Sparkles, 
-  Briefcase, 
-  GraduationCap, 
-  Terminal, 
-  Scale, 
-  Layers, 
-  Calculator, 
-  BookOpen, 
-  ArrowRight, 
-  CheckCircle2, 
-  FileText,
-  Workflow
+import {
+  Sparkles,
+  GraduationCap,
+  Terminal,
+  Scale,
+  Calculator,
+  ArrowRight,
+  CheckCircle2,
+  Workflow,
 } from 'lucide-react';
 
 export function AudienceSplitSection() {
@@ -29,7 +25,7 @@ export function AudienceSplitSection() {
             Bạn muốn ứng dụng AI vào việc gì hôm nay?
           </h2>
           <p className="text-sm sm:text-base text-text-muted mt-3">
-            Không cần hiểu kỹ thuật sâu — Chọn đúng nhóm bên dưới để vào thẳng công cụ và kết quả bạn cần.
+            Dù bạn là nhân viên văn phòng mới làm quen hay kỹ sư đang xây dựng phần mềm AI — hãy chọn đúng nhóm để đi thẳng tới công cụ phù hợp.
           </p>
         </div>
 
@@ -45,8 +41,8 @@ export function AudienceSplitSection() {
                     <Sparkles className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Dành cho mọi người</span>
-                    <h3 className="text-xl font-bold text-text">Dân Văn Phòng, Freelancer &amp; Người Học</h3>
+                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Dùng ngay cho mọi người</span>
+                    <h3 className="text-xl font-bold text-text">Dân Văn Phòng, Người Làm Tự Do &amp; Người Học</h3>
                   </div>
                 </div>
               </div>
@@ -59,15 +55,15 @@ export function AudienceSplitSection() {
               <ul className="space-y-3 text-sm text-text">
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>80+ Mẫu câu lệnh làm việc (Prompts)</strong>: Copy dùng ngay cho ChatGPT, Claude, Gemini không cần chỉnh sửa nhiều.</span>
+                  <span><strong>80+ Mẫu câu lệnh thực chiến</strong>: Sao chép và dán thẳng vào ChatGPT, Claude, Gemini không cần hiểu kỹ thuật.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>16 Lĩnh vực thực tế</strong>: Soạn văn bản, viết email đối tác, marketing, bán hàng, quản lý thời gian Pomodoro.</span>
+                  <span><strong>16 Lĩnh vực đời sống &amp; công việc</strong>: Viết email đối tác, làm báo cáo, tiếp thị, bán hàng, quản lý tài chính và thời gian.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>Trắc nghiệm AI Quiz vui nhộn</strong>: Kiểm tra mức độ am hiểu AI và nhận mẹo dùng câu lệnh hiệu quả hơn.</span>
+                  <span><strong>Trắc nghiệm kiến thức AI trực quan</strong>: Tự kiểm tra mức độ thành thạo và nhận mẹo ra lệnh hiệu quả hơn.</span>
                 </li>
               </ul>
             </div>
@@ -78,7 +74,7 @@ export function AudienceSplitSection() {
                 href="/prompts"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent text-white text-sm font-semibold shadow-sm hover:bg-accent-hover transition-all"
               >
-                <span>Xem Mẫu Câu Lệnh (Prompts)</span>
+                <span>Xem 80+ Mẫu Câu Lệnh</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
@@ -91,7 +87,7 @@ export function AudienceSplitSection() {
             </div>
           </div>
 
-          {/* Track 2: Lập trình viên, Kỹ sư & Builders */}
+          {/* Track 2: Lập trình viên & Kỹ thuật */}
           <div className="relative flex flex-col justify-between rounded-3xl border border-brand-500/30 bg-bg-surface/90 p-6 sm:p-8 shadow-lg shadow-brand-500/5 hover:border-brand-500/60 transition-all group">
             <div className="space-y-6">
               {/* Badge & Title */}
@@ -101,29 +97,29 @@ export function AudienceSplitSection() {
                     <Terminal className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-brand-500 uppercase tracking-wider">Dành cho kỹ thuật</span>
-                    <h3 className="text-xl font-bold text-text">Lập Trình Viên, Kỹ Sư &amp; Builders</h3>
+                    <span className="text-xs font-semibold text-brand-500 uppercase tracking-wider">Khu vực chuyên sâu</span>
+                    <h3 className="text-xl font-bold text-text">Lập Trình Viên &amp; Kỹ Thuật</h3>
                   </div>
                 </div>
               </div>
 
               <p className="text-sm text-text-muted leading-relaxed">
-                Bộ công cụ thực chiến để xây dựng phần mềm AI: tính chi phí token, so sánh các mô hình LLM, thiết kế System Prompt và kiến trúc Agent.
+                Bộ công cụ chuyên sâu để xây dựng ứng dụng AI: giải thích dễ hiểu về đơn vị chữ (token), so sánh các mô hình ngôn ngữ lớn (LLM), thiết lập chỉ dẫn hệ thống (System Prompt) và quy trình trợ lý tự động.
               </p>
 
               {/* Action features */}
               <ul className="space-y-3 text-sm text-text">
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
-                  <span><strong>So sánh các dòng AI (Model Arena)</strong>: Đối đầu trực tiếp Claude 3.5, GPT-4o, DeepSeek R1, Gemini 2.0.</span>
+                  <span><strong>Bảng so sánh sức mạnh AI</strong>: Đối chiếu trực tiếp tốc độ, giá cước và thế mạnh của Claude 3.5, GPT-4o, DeepSeek R1, Gemini 2.0.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
-                  <span><strong>Tính tiền Token ra VNĐ</strong>: Dự toán chính xác chi phí API hàng tháng trước khi kết nối vào ứng dụng.</span>
+                  <span><strong>Bảng tính chi phí Token ra VNĐ</strong>: Quy đổi độ dài văn bản sang tiền Việt và ước tính ngân sách gọi AI hàng tháng.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
-                  <span><strong>14 Bản thiết kế AI Agent (Blueprints)</strong>: Mẫu kiến trúc tự động hóa nhiều tác nhân sẵn sàng triển khai.</span>
+                  <span><strong>14 Mẫu thiết kế Trợ lý AI tự động</strong>: Kiến trúc điều phối trợ lý xử lý công việc theo từng bước, sẵn sàng áp dụng.</span>
                 </li>
               </ul>
             </div>
@@ -142,14 +138,14 @@ export function AudienceSplitSection() {
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-border bg-bg text-sm font-medium text-text hover:bg-hover transition-all"
               >
                 <Calculator className="w-4 h-4 text-brand-500" />
-                <span>Bảng Tính Tiền Token</span>
+                <span>Bảng Tính Chi Phí AI</span>
               </Link>
               <Link
                 href="/agents"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-border bg-bg text-sm font-medium text-text hover:bg-hover transition-all"
               >
                 <Workflow className="w-4 h-4 text-brand-500" />
-                <span>Mẫu AI Agent</span>
+                <span>Mẫu Trợ Lý AI</span>
               </Link>
             </div>
           </div>

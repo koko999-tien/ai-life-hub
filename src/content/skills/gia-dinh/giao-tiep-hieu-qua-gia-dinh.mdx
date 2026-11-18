@@ -2,41 +2,45 @@
 id: giao-tiep-hieu-qua-gia-dinh
 categoryId: gia-dinh
 name: "Giao tiếp hiệu quả trong gia đình"
-description: "Non-violent Communication (NVC), Active listening, Conflict resolution, Family meetings"
+description: "Giao tiếp bất bạo động, lắng nghe thấu cảm, giải quyết bất đồng êm đẹp và tổ chức họp gia đình định kỳ"
 whenToUse:
-  - "Cãi vã thường xuyên với vợ/chồng/con cái"
-  - "Muốn cải thiện mối quan hệ, hiểu nhau sâu hơn"
-  - "Giải quyết xung đột mà không làm tổn thương"
+  - "Cãi vã thường xuyên với vợ/chồng hoặc con cái"
+  - "Muốn cải thiện mối quan hệ và thấu hiểu nhau sâu hơn"
+  - "Giải quyết xung đột mà không làm tổn thương người thân"
 difficulty: "beginner"
-estimatedTime: "Thực hành hàng ngày, family meeting 30p/tuần"
+estimatedTime: "Thực hành hằng ngày, họp gia đình 30 phút/tuần"
 tags: ["communication", "nvc", "conflict-resolution", "active-listening", "family-meeting"]
 prompts:
   - id: prompt-nvc-framework
-    name: "Áp dụng Non-Violent Communication (NVC)"
-    description: "Chuyển diễn đạt chỉ trích/đòi hỏi thành quan sát - cảm xúc - nhu cầu - yêu cầu cụ thể"
+    name: "Áp dụng Giao tiếp bất bạo động trong gia đình"
+    description: "Chuyển diễn đạt chỉ trích hoặc đòi hỏi thành quan sát, cảm xúc, nhu cầu và đề nghị cụ thể"
     template: |
-      Bạn là NVC Facilitator. Hãy chuyển đổi lời nói sau sang ngôn ngữ NVC:
+      Bạn là chuyên gia hướng dẫn Giao tiếp bất bạo động trong gia đình. Hãy chuyển đổi câu nói dễ gây tổn thương sau sang cách diễn đạt thấu cảm và xây dựng:
 
-      **Lời nói gốc (thường dùng khi nóng giận):**
+      **Mối quan hệ giữa hai người:**
+      {{relationship}}
+
+      **Lời nói gốc (thường buột miệng khi nóng giận):**
       {{originalStatement}}
 
-      **Bối cảnh:**
+      **Bối cảnh cuộc trò chuyện:**
       {{context}}
 
-      **NVC 4 bước:**
-      1. **Observation (Quan sát)**: Mô tả sự việc cụ thể, không đánh giá, không khái quát ("Luôn", "Không bao giờ")
-      2. **Feeling (Cảm xúc)**: Tên cảm xúc thực sự (buồn, lo lắng, thất vọng, giận) - không phải suy nghĩ ("Tôi cảm thấy bị bỏ rơi" = suy nghĩ)
-      3. **Need (Nhu cầu)**: Nhu cầu phổ quát chưa được đáp ứng (An toàn, Tôn trọng, Kết nối, Tự chủ, Hiểu được)
-      4. **Request (Yêu cầu)**: Cụ thể, khả thi, tích cực (làm gì) - không phải yêu cầu không làm gì
+      **Áp dụng mô hình 4 bước Giao tiếp bất bạo động:**
+      1. **Quan sát khách quan**: Mô tả đúng sự việc xảy ra, không phán xét và không chụp mũ ("lúc nào cũng", "chẳng bao giờ")
+      2. **Cảm xúc thật**: Nói tên cảm xúc bên trong (buồn, lo lắng, hụt hẫng, mệt mỏi), tránh câu đổ lỗi ("em cảm thấy bị bỏ rơi")
+      3. **Nhu cầu bên trong**: Nêu rõ nhu cầu chính đáng chưa được đáp ứng (sự kết nối, an tâm, tôn trọng, sẻ chia)
+      4. **Đề nghị cụ thể**: Đưa ra mong muốn rõ ràng, khả thi và mang tính tích cực để người nghe dễ đồng thuận
 
-      **Output:**
-      - Phiên bản NVC đầy đủ
-      - Phiên bản ngắn gọn (dành cho conversation thực tế)
-      - Lưu ý: NVC không phải kỹ thuật thao túng, là tâm thức kết nối
+      **Hãy trình bày theo các phần sau:**
+      - Phân tích vì sao câu nói cũ dễ gây phòng vệ
+      - Câu nói đầy đủ theo 4 bước (xưng hô tự nhiên đúng với mối quan hệ {{relationship}})
+      - Phiên bản ngắn gọn, tự nhiên để dùng khi nói chuyện trực tiếp
+      - Lưu ý: Giao tiếp bất bạo động không phải mẹo ép người khác làm theo ý mình, mà là cách mở lòng để hiểu và kết nối với nhau
     variables:
       - name: originalStatement
         type: textarea
-        label: "Lời nói gốc (ví dụ: 'Mày luân luân về nhà muộn, chẳng quan tâm gia đình gì cả!')"
+        label: "Lời nói gốc (ví dụ: 'Anh luôn luôn về nhà muộn, chẳng quan tâm gia đình gì cả!')"
         required: true
       - name: context
         type: textarea
@@ -54,54 +58,54 @@ prompts:
         default: "Vợ/Chồng"
     examples:
       - inputs:
-          originalStatement: "Mày luân luân về nhà muộn, chẳng quan tâm gia đình gì cả!"
-          context: "Vợ nói với chồng, thứ 6 tối, chồng về 9h tối (hẹn 7h), con 3 tuổi đã ngủ"
+          originalStatement: "Anh luôn luôn về nhà muộn, chẳng quan tâm gia đình gì cả!"
+          context: "Vợ nói với chồng, tối thứ 6, chồng về lúc 21:00 (hẹn 19:00), con 3 tuổi đã ngủ"
           relationship: "Vợ/Chồng"
         output: |
-          # 💬 NVC Transformation: "Luôn về muộn"
+          # 💬 Chuyển Đổi Cách Nói: "Anh Luôn Về Muộn"
 
-          ## Phân tích lời nói gốc
-          - **Judgment/Diagnosis**: "Luôn luân", "Chẳng quan tâm" → Khái quát, chỉ trích nhân cách
-          - **Effect**: Chồng phòng vệ, phản công, hoặc im lặng → Mất kết nối
+          ## Phân Tích Lời Nói Gốc
+          - **Phán xét & Quy chụp**: Dùng từ *"luôn luôn"*, *"chẳng quan tâm"* khiến người nghe thấy công sức hằng ngày bị phủ nhận.
+          - **Hệ quả**: Chồng dễ bật chế độ phòng vệ, cãi lại hoặc im lặng bỏ đi, làm hai vợ chồng càng xa cách.
 
-          ## NVC 4 Bước
+          ## Chuyển Đổi Theo 4 Bước
 
-          ### 1. Observation (Quan sát)
-          > "Hôm nay thứ 6, anh về nhà lúc 9h tối. Chúng ta hẹn nhau 7h. Con đã ngủ từ 8h30."
+          ### 1. Quan sát khách quan
+          > "Hôm nay thứ 6, anh về nhà lúc 9 giờ tối trong khi mình hẹn nhau 7 giờ, nên con đã đi ngủ từ 8 giờ rưỡi rồi."
 
-          ### 2. Feeling (Cảm xúc)
-          > "Tôi cảm thấy **buồn**, **đơn độc**, và **lo lắng**."
+          ### 2. Cảm xúc thật
+          > "Em cảm thấy **buồn**, **hụt hẫng** và hơi **lo lắng**."
 
-          ### 3. Need (Nhu cầu)
-          > "Tôi cần **kết nối** với anh, cần **sự tin cậy** vào lời hẹn, cần **hỗ trợ** chăm con buổi tối."
+          ### 3. Nhu cầu bên trong
+          > "Vì em rất cần **thời gian kết nối** với anh, cần **sự an tâm** vào giờ giấc đã hẹn và cần có anh **cùng san sẻ** việc chăm con buổi tối."
 
-          ### 4. Request (Yêu cầu)
-          > "Anh có sẵn sàng **thông báo cho tôi trước 6h** nếu anh về muộn hơn 30p không? Và **cuối tuần này anh có thể dậy sớm chơi với con 30p** để bù thời gian hôm nay không?"
+          ### 4. Đề nghị cụ thể
+          > "Anh có thể **nhắn cho em trước 6 giờ chiều** nếu thấy hôm đó về muộn hơn 30 phút không? Và **cuối tuần này anh dành riêng 30 phút buổi sáng chơi với con** để bù cho hôm nay nhé?"
 
-          ## Phiên bản ngắn gọn (Real conversation)
-          > *"Anh ơi, hôm nay anh về 9h trong khi hẹn 7h. Con đã ngủ mất rồi. Tôi buồn và lo lắng vì muốn có thời gian cùng anh và con. Anh có thể nhắn cho tôi biết sớm hơn nếu bị kẹt không? Cuối tuần anh dậy sớm bù cho con nhé?"*
+          ## Phiên Bản Ngắn Gọn (Dùng Khi Nói Chuyện Trực Tiếp)
+          > *"Anh ơi, hôm nay anh về lúc 9 giờ trong khi mình hẹn 7 giờ, con đợi mãi rồi ngủ mất. Em thấy buồn và lo vì rất mong cả nhà có bữa tối bên nhau. Lần sau nếu kẹt việc, anh nhắn sớm cho em biết trước 6 giờ để em đỡ sốt ruột nhé? Cuối tuần anh dậy sớm chơi bù với con nha?"*
 
-          ## So sánh
-          | Phong cách | Lời nói | Hiệu quả dự kiến |
-          |------------|---------|------------------|
-          | **Gốc (Violent)** | "Luôn về muộn, chẳng quan tâm!" | Phòng vệ, cãi nhau, cách ly |
-          | **NVC** | Quan sát + Cảm xúc + Nhu cầu + Yêu cầu | Kết nối, hợp tác, giải quyết vấn đề |
+          ## So Sánh Hiệu Quả
+          | Cách nói | Lời nói thực tế | Phản ứng thường gặp |
+          |---|---|---|
+          | **Cách nói cũ (dễ gây tổn thương)** | "Anh luôn về muộn, chẳng quan tâm gia đình!" | Phòng vệ, tranh cãi hoặc chiến tranh lạnh |
+          | **Giao tiếp kết nối (4 bước)** | Nêu sự việc + Cảm xúc + Nhu cầu + Đề nghị cụ thể | Lắng nghe, thấu hiểu và dễ cùng tìm giải pháp |
 
-          ## ⚠️ Lưu ý quan trọng
-          - NVC **không phải** công cụ để khiến người khác làm theo ý mình
-          - Yêu cầu (Request) ≠ Đòi hỏi (Demand): Người kia có quyền nói "Không"
-          - Nếu bị từ chối → Quay lại bước 2-3: Tìm hiểu cảm xúc/nhu cầu của người kia
-        context: "Vợ-chồng, xung đột về giờ về nhà, con nhỏ"
+          ## ⚠️ Lưu Ý Quan Trọng
+          - Giao tiếp bất bạo động **không phải** công cụ để ép người kia làm theo ý mình.
+          - **Đề nghị ≠ Đòi hỏi**: Người kia có quyền trao đổi lại hoặc từ chối nếu hoàn cảnh chưa cho phép.
+          - Nếu đối phương chưa đồng ý ngay, hãy quay lại hỏi thêm về cảm xúc và khó khăn của họ lúc đó.
+        context: "Vợ chồng trao đổi về việc về muộn khi có con nhỏ"
     difficulty: "medium"
     useCases:
       - "Cãi vã vợ chồng lặp lại"
       - "Cha mẹ nói con không nghe"
       - "Xung đột gia đình lớn"
 agentTemplate:
-  name: "Family Communication Coach"
-  description: "NVC, Active listening, Conflict resolution, Family meeting facilitation"
+  name: "Chuyên Gia Giao Tiếp Gia Đình"
+  description: "Giao tiếp bất bạo động, lắng nghe thấu cảm, giải quyết xung đột và tổ chức họp gia đình"
   systemPrompt: |
-    Bạn là Family Communication Coach. NVC (Rosenberg): Observation → Feeling → Need → Request. Focus: Connection before correction. Empathy first.
+    Bạn là chuyên gia giao tiếp gia đình theo phương pháp Giao tiếp bất bạo động (Quan sát → Cảm xúc → Nhu cầu → Đề nghị). Luôn ưu tiên sự thấu cảm và kết nối giữa các thành viên trước khi góp ý hay sửa lỗi.
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:

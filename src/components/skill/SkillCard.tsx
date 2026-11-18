@@ -2,11 +2,7 @@
 
 import { Skill, DifficultyLevel } from '@/types'
 import { cn } from '@/lib/utils'
-import {
-  DIFFICULTY_LABELS,
-  DIFFICULTY_COLORS,
-  ICON_COMPONENTS,
-} from '@/lib/constants'
+import { DIFFICULTY_LABELS, DIFFICULTY_COLORS, resolveTagLabel } from '@/lib/constants'
 import {
   Tag,
   Bot,
@@ -14,10 +10,10 @@ import {
   MousePointer2,
   ExternalLink,
   Bookmark,
-  type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useBookmarks } from '@/hooks/useBookmarks'
+import { SkillCategoryIcon } from './SkillCategoryIcon'
 
 interface SkillCardProps {
   skill: Skill
@@ -30,10 +26,10 @@ function DifficultyBadge({ level }: { level: DifficultyLevel }) {
     <span
       className={cn(
         'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium',
-        DIFFICULTY_COLORS[level]
+        DIFFICULTY_COLORS[level] || DIFFICULTY_COLORS.beginner
       )}
     >
-      {DIFFICULTY_LABELS[level]}
+      {DIFFICULTY_LABELS[level] || level}
     </span>
   )
 }
@@ -44,16 +40,9 @@ function TagItem({ tag }: { tag: string }) {
       className="inline-flex items-center px-2 py-0.5 rounded text-xs text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/50"
     >
       <Tag className="w-3 h-3 mr-1" aria-hidden="true" />
-      {tag}
+      {resolveTagLabel(tag)}
     </span>
   )
-}
-
-function IconWrapper({ iconName, className = 'w-5 h-5' }: { iconName: string; className?: string }) {
-  const Icon = (ICON_COMPONENTS as any)[iconName] as
-    | LucideIcon
-    | undefined
-  return Icon ? <Icon className={className} aria-hidden="true" /> : null
 }
 
 export function SkillCard({
@@ -93,7 +82,7 @@ export function SkillCard({
               'flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-brand-50 dark:bg-brand-900/20 text-brand-600'
             )}
           >
-            <IconWrapper iconName={skill.categoryId} />
+            <SkillCategoryIcon categoryId={skill.categoryId} className="w-5 h-5" />
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors truncate">
@@ -107,12 +96,13 @@ export function SkillCard({
               {hasAgent && (
                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
                   <Bot className="w-3 h-3 mr-1" aria-hidden="true" />
-                  Agent
+                  Trợ lý AI
                 </span>
               )}
             </div>
           </div>
           <button
+            type="button"
             onClick={handleBookmarkClick}
             className={`p-1.5 rounded-lg border transition-colors ${
               bookmarked
@@ -120,8 +110,9 @@ export function SkillCard({
                 : 'border-transparent text-slate-400 hover:text-amber-500'
             }`}
             title={bookmarked ? 'Bỏ lưu' : 'Lưu kỹ năng'}
+            aria-label={bookmarked ? `Bỏ lưu ${skill.name}` : `Lưu kỹ năng ${skill.name}`}
           >
-            <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} />
+            <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} aria-hidden="true" />
           </button>
         </div>
       </Link>
@@ -144,7 +135,7 @@ export function SkillCard({
                 'w-9 h-9 rounded-lg flex items-center justify-center bg-brand-50 dark:bg-brand-900/20 text-brand-600'
               )}
             >
-              <IconWrapper iconName={skill.categoryId} className="w-5 h-5" />
+              <SkillCategoryIcon categoryId={skill.categoryId} className="w-5 h-5" />
             </div>
             <DifficultyBadge level={skill.difficulty} />
           </div>
@@ -162,32 +153,33 @@ export function SkillCard({
               <TagItem key={tag} tag={tag} />
             ))}
             {skill.tags.length > 4 && (
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs text-slate-500 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/50">
-                +{skill.tags.length - 4} more
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs text-slate-500 bg-slate-100 dark:bg-slate-800/50">
+                +{skill.tags.length - 4} khác
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-500">
+          <div className="flex items-center gap-4 text-sm text-slate-500 flex-wrap">
             <span className="flex items-center gap-1">
               <MousePointer2 className="w-4 h-4" aria-hidden="true" />
-              {promptCount} prompts
+              {promptCount} câu lệnh
             </span>
             {hasAgent && (
               <span className="flex items-center gap-1">
                 <Bot className="w-4 h-4" aria-hidden="true" />
-                Agent ready
+                Có Trợ lý AI
               </span>
             )}
             <span className="flex items-center gap-1">
               <Copy className="w-4 h-4" aria-hidden="true" />
-              {(skill as any).copiedCount ?? 0} copies
+              {(skill as { copiedCount?: number }).copiedCount ?? 0} lượt sao chép
             </span>
           </div>
         </div>
 
         <div className="flex-shrink-0 flex items-center gap-1">
           <button
+            type="button"
             onClick={handleBookmarkClick}
             className={`p-2 rounded-lg border transition-colors ${
               bookmarked
@@ -195,14 +187,15 @@ export function SkillCard({
                 : 'border-slate-200 dark:border-slate-700 text-slate-400 hover:text-amber-500 hover:border-amber-300'
             }`}
             title={bookmarked ? 'Bỏ lưu' : 'Lưu kỹ năng'}
+            aria-label={bookmarked ? `Bỏ lưu ${skill.name}` : `Lưu kỹ năng ${skill.name}`}
           >
-            <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} />
+            <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} aria-hidden="true" />
           </button>
           <div
             className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors opacity-0 group-hover:opacity-100"
-            aria-label={`View ${skill.name} details`}
+            aria-label={`Xem chi tiết ${skill.name}`}
           >
-            <ExternalLink className="w-4 h-4" />
+            <ExternalLink className="w-4 h-4" aria-hidden="true" />
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ interface SkipLinkProps {
  * Skip to main content link for accessibility.
  * Allows keyboard users to bypass navigation and jump directly to main content.
  */
-export function SkipLink({ targetId = 'main-content', children = 'Skip to main content' }: SkipLinkProps) {
+export function SkipLink({ targetId = 'main-content', children = 'Chuyển đến nội dung chính' }: SkipLinkProps) {
   return (
     <a
       href={`#${targetId}`}

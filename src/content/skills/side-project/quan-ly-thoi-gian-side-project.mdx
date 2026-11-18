@@ -1,416 +1,343 @@
 ---
 id: quan-ly-thoi-gian-side-project
 categoryId: side-project
-name: "Quản Lý Thời Gian Side Project: Cân Bằng Full-time Job & Xây Dựng Sản Phẩm"
-description: "Hệ thống time-blocking, energy management, deep work cho người làm full-time muốn build side project bền vững"
+name: "Quản Lý Thời Gian Cho Dự Án Cá Nhân: Cân Bằng Công Việc Chính & Làm Sản Phẩm"
+description: "Cách chia khung giờ cố định, giữ sức lực và tập trung sâu cho người đi làm toàn thời gian muốn xây dự án cá nhân bền vững"
 whenToUse:
-  - "Làm full-time 8-10h/ngày, muốn dành 10-20h/tuần cho side project"
-  - "Hay bị burnout, procrastination, context switching cost cao"
-  - "Không có routine cố định, làm theo cảm xúc"
-  - "Muốn progress đo lường được mỗi tuần"
+  - "Đi làm toàn thời gian 8-10 giờ/ngày, muốn dành 10-18 giờ/tuần làm dự án cá nhân"
+  - "Hay bị kiệt sức, trì hoãn hoặc mệt mỏi vì nhảy qua lại giữa nhiều đầu việc"
+  - "Chưa có lịch trình cố định, thường làm theo cảm hứng lúc rảnh"
+  - "Muốn thấy rõ tiến độ đo được sau mỗi tuần"
 difficulty: "beginner"
-estimatedTime: "Setup 30p, duy trì 15p/tuần review"
+estimatedTime: "Thiết lập 30 phút, rà soát 15-60 phút mỗi tuần"
 tags: ["time-management", "productivity", "deep-work", "energy-management", "side-hustle", "work-life-balance"]
 prompts:
   - id: prompt-side-project-weekly-design
-    name: "Thiết Kế Tuần Lý Tưởng Cho Side Project"
-    description: "Tạo weekly template cân bằng năng lượng, deep work blocks, và recovery"
+    name: "Thiết Kế Lịch Tuần Cân Bằng Cho Dự Án Cá Nhân"
+    description: "Xếp lịch 7 ngày dựa trên nhịp sinh học, quỹ sức lực và các cam kết gia đình để duy trì lâu dài không kiệt sức"
     template: |
-      Bạn là Time Coach cho knowledge worker. Hãy thiết kế tuần lý tưởng cho side project dựa trên:
+      Bạn là chuyên gia sắp xếp thời gian thực tế cho người đi làm văn phòng muốn xây dự án cá nhân. Hãy thiết kế lịch tuần cân bằng dựa trên thông tin sau:
 
-      **Hồ sơ năng lượng:**
-      - Giờ làm chính: {{workHours}} (ví dụ: 8:00-17:00, shift 14:00-22:00)
-      - Chronotype: {{chronotype}} (Sáng sớm / Đêm muộn / Giữa ngày)
-      - Năng lượng cao nhất: {{peakEnergyHours}} (ví dụ: 6-9h sáng, 20-23h tối)
-      - Năng lượng thấp nhất: {{lowEnergyHours}}
-      - Ngủ: {{sleepSchedule}} (ví dụ: 23h-6h)
-      - Tập thể dục: {{exerciseSchedule}}
-      - Cam kết gia đình/xã hội: {{socialCommitments}}
+      **Hồ sơ sức lực & sinh hoạt:**
+      - Giờ làm công việc chính: {{workHours}}
+      - Nhịp sinh học tự nhiên: {{chronotype}}
+      - Khung giờ tỉnh táo nhất: {{peakEnergyHours}}
+      - Khung giờ mệt mỏi nhất: {{lowEnergyHours}}
+      - Giờ ngủ thực tế: {{sleepSchedule}}
+      - Lịch tập thể dục: {{exerciseSchedule}}
+      - Cam kết gia đình và bạn bè cố định: {{socialCommitments}}
 
-      **Mục tiêu side project:**
+      **Mục tiêu dự án cá nhân:**
       - Mục tiêu tuần này: {{weeklyGoal}}
-      - Loại task cần deep work: {{deepWorkTasks}} (coding, writing, design, strategy)
-      - Loại task shallow work: {{shallowTasks}} (email, admin, reply comment, research)
-      - Thời gian muốn dành: {{targetHours}}/tuần
+      - Nhóm việc cần tập trung sâu (60-120 phút liên tục): {{deepWorkTasks}}
+      - Nhóm việc nhẹ xử lý nhanh (15-45 phút): {{shallowTasks}}
+      - Tổng thời gian muốn dành cho dự án: {{targetHours}} giờ/tuần
 
-      **Yêu cầu output:**
-      1. **Weekly Time-Block Calendar** (Bảng 7 ngày x 24h, color-coded: Deep/Shallow/Work/Sleep/Recovery/Buffer)
-      2. **Daily Routines**: Morning (Khởi động), Transition (Sau work chính), Evening (Deep work), Wind-down
-      3. **Energy Budget**: Phân bổ % năng lượng cho Work chính / Side project / Health / Relationships / Self
-      4. **Context Switching Protocol**: Quy trình chuyển đổi Work chính ↔ Side project (5-10p ritual)
-      5. **Weekly Review Template** (Chủ Nhật 30p): Metrics, Wins, Blockers, Adjustments
-      6. **Emergency Protocols**: Khi overtime, ốm, crisis, motivation = 0
+      **Hãy lập kế hoạch chi tiết gồm 6 phần rõ ràng (đảm bảo tổng số giờ trên lịch khớp chính xác với bảng phân bổ và không đè lên giờ gia đình/tập thể dục):**
+      1. **Bảng phân bổ quỹ thời gian trong tuần** (112 giờ thức hay tổng giờ thức thực tế): Chia rõ cho Công việc chính, Dự án cá nhân (Tập trung sâu và Việc nhẹ), Sức khỏe, Gia đình và Thư giãn.
+      2. **Lịch trình chi tiết 7 ngày** từ sáng đến tối.
+      3. **Thói quen hằng ngày**: Buổi sáng, Khoảng chuyển nhịp sau giờ làm công ty, Buổi tối và Giờ thư giãn trước khi ngủ.
+      4. **Quy trình chuyển trạng thái** (5-15 phút) để dứt hẳn đầu óc khỏi việc công ty khi bước vào việc dự án.
+      5. **Mẫu tổng kết cuối tuần (Chủ nhật)**: Đánh giá tiến độ, điểm nghẽn và chỉnh lịch tuần sau.
+      6. **Phương án dự phòng khi có biến cố**: Tăng ca đột xuất, ốm mệt, bận việc gia đình hoặc mất động lực.
     variables:
       - name: workHours
         type: text
         label: "Giờ làm việc chính (cụ thể)"
         required: true
-        default: "8:00-17:00 (Thứ 2-6), Có overtime 1-2h/tuần"
+        default: "8:00-17:00 (Thứ 2 đến Thứ 6), thỉnh thoảng tăng ca 1-2 giờ/tuần"
       - name: chronotype
         type: select
-        label: "Chronotype (Nhịp sinh học)"
+        label: "Nhịp sinh học tự nhiên của bạn"
         options:
-          - "Sáng sớm (Dậy 5-6h, ngủ 21-22h) - Lion"
-          - "Đêm muộn (Dậy 8-9h, ngủ 1-2h) - Wolf"
-          - "Giữa ngày (Dậy 7-8h, ngủ 23-24h) - Bear"
-          - "Khó phân loại / Thay đổi - Dolphin"
+          - "Dậy sớm (5:30-6:00 dậy / 21:30-22:00 ngủ)"
+          - "Thức khuya (8:00-9:00 dậy / 1:00-2:00 ngủ)"
+          - "Nhịp giữa ngày (7:00-8:00 dậy / 23:00-24:00 ngủ)"
+          - "Linh hoạt hoặc hay thay đổi theo ca"
         required: true
-        default: "Giữa ngày (Dậy 7-8h, ngủ 23-24h) - Bear"
+        default: "Nhịp giữa ngày (7:00-8:00 dậy / 23:00-24:00 ngủ)"
       - name: peakEnergyHours
         type: text
-        label: "Khung giờ năng lượng CAO nhất (có thể nhiều khung)"
+        label: "Khung giờ bạn tỉnh táo và làm việc hiệu quả nhất"
         required: true
-        default: "6:00-8:00 sáng, 20:00-22:00 tối"
+        default: "6:00-8:00 sáng, 19:30-21:00 tối"
       - name: lowEnergyHours
         type: text
-        label: "Khung giờ năng lượng THẤP nhất"
+        label: "Khung giờ bạn hay buồn ngủ hoặc xuống sức nhất"
         required: true
-        default: "13:00-15:00 (sau trưa), 22:00-23:00"
+        default: "13:00-15:00 (sau bữa trưa), sau 21:30 tối"
       - name: sleepSchedule
         type: text
-        label: "Lịch ngủ thực tế"
+        label: "Giờ đi ngủ và thức dậy thực tế"
         required: true
-        default: "23:00-6:30 (7.5h)"
+        default: "23:00 - 6:30 (7,5 giờ/đêm)"
       - name: exerciseSchedule
         type: text
-        label: "Lịch tập thể dục"
+        label: "Lịch tập thể dục cố định"
         required: false
-        default: "T3, T5, T7: 18:30-19:30 (Gym/Chạy)"
+        default: "Thứ 3, Thứ 5, Thứ 7: 18:30-19:30 (Chạy bộ hoặc tập thể lực)"
       - name: socialCommitments
         type: textarea
-        label: "Cam kết gia đình/xã hội (cố định)"
+        label: "Lịch cố định cho gia đình và bạn bè"
         required: false
-        default: "Tối T2/T4: Ăn tối gia đình 19:00-20:30. Cuối tuần: 1 ngày family time."
+        default: "Tối Thứ 2 và Thứ 4: Ăn tối cùng gia đình 19:00-20:30. Cuối tuần: 1 buổi dành trọn cho người thân."
       - name: weeklyGoal
         type: textarea
-        label: "Mục tiêu side project tuần này (cụ thể, có số)"
+        label: "Mục tiêu dự án cá nhân tuần này (cụ thể, đo được)"
         required: true
-        default: "Hoàn thành MVP booking flow (Bubble), Deploy staging, Test payment Momo sandbox"
+        default: "Hoàn thành luồng đặt lịch thử nghiệm, kiểm tra thanh toán MoMo ở môi trường thử và đăng 3 bài chia sẻ"
       - name: deepWorkTasks
         type: textarea
-        label: "Task cần Deep Work (90-120p/block)"
+        label: "Việc cần tập trung sâu không bị làm phiền (60-120 phút/lần)"
         required: true
-        default: "Bubble workflow logic, Database design, API connector setup, Code custom plugin"
+        default: "Thiết kế luồng đặt lịch, chỉnh bảng dữ liệu, kết nối cổng thanh toán và sửa lỗi chính"
       - name: shallowTasks
         type: textarea
-        label: "Task Shallow Work (15-30p/block)"
+        label: "Việc nhẹ có thể làm theo từng cụm 15-45 phút"
         required: true
-        default: "Reply user feedback, Research competitor, Write LinkedIn post, Admin/Invoice, Email"
+        default: "Trả lời tin nhắn người dùng, xem đối thủ, viết nháp bài LinkedIn và ghi chép thu chi"
       - name: targetHours
         type: number
-        label: "Mục tiêu giờ side project/tuần"
+        label: "Số giờ muốn dành cho dự án mỗi tuần"
         required: true
         default: 15
     examples:
       - inputs:
-          workHours: "8:00-17:00 (Thứ 2-6), Remote, Flexible 1h lunch"
-          chronotype: "Sáng sớm (Dậy 5-6h, ngủ 21-22h) - Lion"
-          peakEnergyHours: "5:30-8:00 sáng (Deep work best), 19:00-21:00 (Shallow/Creative)"
-          lowEnergyHours: "13:00-15:00, 21:30-22:00"
-          sleepSchedule: "21:30-5:30 (8h)"
-          exerciseSchedule: "T2, T4, T6: 6:00-6:45 (Chạy nhẹ/Bodyweight). T7: 7:00-8:30 (Tennis/Hike)"
-          socialCommitments: "Tối T3/T5: Ăn tối bạn bè/Date 19:00-21:00. CN: Family lunch 11:00-14:00."
-          weeklyGoal: "Xong Booking flow + Payment Momo sandbox + Deploy staging + 3 LinkedIn post draft"
-          deepWorkTasks: "Bubble: Booking workflow (date picker, availability, confirmation), Momo API connector, Database schema refinement, Custom CSS for mobile responsive"
-          shallowTasks: "Reply 10 beta user emails, Research 3 competitor pricing, Draft 3 LinkedIn posts, Update Notion dashboard, Invoice Momo merchant"
+          workHours: "8:00-17:00 (Thứ 2 đến Thứ 6), làm việc từ xa, nghỉ trưa 12:00-13:00"
+          chronotype: "Dậy sớm (5:30-6:00 dậy / 21:30-22:00 ngủ)"
+          peakEnergyHours: "5:30-8:00 sáng (tập trung sâu tốt nhất), 19:30-21:00 tối (việc nhẹ và sáng tạo)"
+          lowEnergyHours: "13:00-15:00 (sau trưa), sau 21:00"
+          sleepSchedule: "21:30 - 5:30 (8 giờ/đêm)"
+          exerciseSchedule: "Thứ 3, Thứ 5, Thứ 7: 5:30-6:30 (Chạy bộ hoặc tập thể lực)"
+          socialCommitments: "Tối Thứ 3 và Thứ 5: Ăn tối và gặp gỡ bạn bè hoặc người thân (18:30-21:00). Chủ nhật: Ăn trưa gia đình (11:00-14:00)."
+          weeklyGoal: "Hoàn thành luồng đặt lịch, thử nghiệm thanh toán MoMo và viết nháp 3 bài LinkedIn"
+          deepWorkTasks: "Thiết kế luồng đặt lịch, kết nối cổng MoMo, chỉnh bảng dữ liệu và tối ưu giao diện trên điện thoại"
+          shallowTasks: "Trả lời 10 email người dùng thử, tham khảo giá 3 đối thủ, viết nháp 3 bài chia sẻ và cập nhật bảng công việc"
           targetHours: 18
         output: |
-          # 📅 Weekly Design: Side Project (Chronotype: Lion - Early Bird)
+          # Lịch Tuần Cân Bằng Cho Dự Án Cá Nhân (Nhóm Dậy Sớm)
 
-          ## Energy Budget Allocation
-          | Category | % Energy | Giờ/Tuần | Priority |
-          |----------|----------|----------|----------|
-          | Full-time Work | 45% | 45h | 🔴 Non-negotiable |
-          | Side Project (Deep) | 20% | **14h** | 🟢 Core Progress |
-          | Side Project (Shallow) | 5% | **4h** | 🟡 Maintenance |
-          | Health (Sleep/Exercise/Nutrition) | 15% | 10h | 🔴 Foundation |
-          | Relationships/Family | 10% | 7h | 🟢 Non-negotiable |
-          | Self/Recovery/Hobby | 5% | 3h | 🟡 Recharge |
-          | **Tổng** | **100%** | **~83h waking** | |
+          ## 1. Phân Bổ Quỹ Thời Gian Thức Trong Tuần (Tổng 112 Giờ — Ngủ 56 Giờ)
+          | Nhóm việc | Tỷ lệ | Số giờ/tuần | Mức độ ưu tiên |
+          |---|---|---|---|
+          | Công việc chính tại công ty | 36% | 40 giờ | Cố định |
+          | Dự án cá nhân — Tập trung sâu | 12% | **14 giờ** | Cốt lõi tạo tiến độ |
+          | Dự án cá nhân — Việc nhẹ & tổng kết | 4% | **4 giờ** | Duy trì đều đặn |
+          | Sức khỏe & Sinh hoạt cá nhân (ăn uống, tập luyện) | 21% | 24 giờ | Nền tảng bắt buộc |
+          | Gia đình & Bạn bè | 16% | 18 giờ | Giữ nguyên, không cắt xén |
+          | Thư giãn & Đọc sách mở rộng | 11% | 12 giờ | Hồi phục đầu óc |
+          | **Tổng cộng** | **100%** | **112 giờ thức** | **Khớp 18 giờ dự án/tuần** |
 
-          ## Weekly Time-Block Calendar (Color Code)
-          | Time | T2 | T3 | T4 | T5 | T6 | T7 | CN |
-          |------|----|----|----|----|----|----|----|
-          | 5:30-6:30 | 🟢 **Deep Work** | 🏃 **Exercise** | 🟢 **Deep Work** | 🏃 **Exercise** | 🟢 **Deep Work** | 🏃 **Exercise** | ☕ **Slow Morning** |
-          | 6:30-7:30 | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 🟢 **Deep Work** | 📖 **Learn/Read** |
-          | 7:30-8:00 | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Breakfast/Prep | 🍳 Brunch |
-          | 8:00-12:00 | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🟢 **Deep Work** | 👨‍👩‍👧 **Family** |
-          | 12:00-13:00 | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch/Walk | 🥗 Lunch | 👨‍👩‍👧 **Family** |
-          | 13:00-15:00 | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Low Energy: Shallow/Meeting | 🟡 Shallow/Errands | 🟡 Shallow/Hobby |
-          | 15:00-17:00 | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🔴 **Full-time Work** | 🟡 Shallow/Prep | 🟢 **Deep Work** |
-          | 17:00-18:30 | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🔄 **Transition Ritual** | 🏃 Exercise/Social | 🟢 **Deep Work** |
-          | 18:30-19:30 | 🏃 **Exercise** | 👨‍👩‍👧 **Family Dinner** | 🏃 **Exercise** | 👨‍👩‍👧 **Family Dinner** | 🏃 **Exercise** | 👥 **Social** | 🍽️ **Prep Week** |
-          | 19:30-21:00 | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 🟡 **Shallow/Creative** | 👥 **Social** | 📝 **Weekly Review** |
-          | 21:00-21:30 | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** | 🛁 **Wind-down** |
-          | 21:30 | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** | 😴 **Sleep** |
+          ## 2. Lịch Trình Chi Tiết 7 Ngày
+          | Khung giờ | Thứ 2 | Thứ 3 | Thứ 4 | Thứ 5 | Thứ 6 | Thứ 7 | Chủ nhật |
+          |---|---|---|---|---|---|---|---|
+          | 5:30 - 6:30 | **Tập trung sâu (1h)** | **Tập thể dục** | **Tập trung sâu (1h)** | **Tập thể dục** | **Tập trung sâu (1h)** | **Tập thể dục** | Thức dậy thong thả |
+          | 6:30 - 7:30 | **Tập trung sâu (1h)** | **Tập trung sâu (1h)** | **Tập trung sâu (1h)** | **Tập trung sâu (1h)** | **Tập trung sâu (1h)** | **Tập trung sâu (1h)** | Đọc sách / Học mới |
+          | 7:30 - 8:00 | Ăn sáng, chuẩn bị | Ăn sáng, chuẩn bị | Ăn sáng, chuẩn bị | Ăn sáng, chuẩn bị | Ăn sáng, chuẩn bị | Ăn sáng, nghỉ ngơi | Ăn sáng muộn |
+          | 8:00 - 11:00 | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Tập trung sâu (3h)** | Việc nhà / Thể thao nhẹ |
+          | 11:00 - 12:00 | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | Dọn dẹp, việc vặt | **Chuẩn bị trưa gia đình** |
+          | 12:00 - 13:00 | Ăn trưa, nghỉ trưa | Ăn trưa, nghỉ trưa | Ăn trưa, nghỉ trưa | Ăn trưa, nghỉ trưa | Ăn trưa, nghỉ trưa | Ăn trưa, nghỉ trưa | **Ăn trưa gia đình** |
+          | 13:00 - 14:00 | **Việc công ty** (họp/nhẹ) | **Việc công ty** (họp/nhẹ) | **Việc công ty** (họp/nhẹ) | **Việc công ty** (họp/nhẹ) | **Việc công ty** (họp/nhẹ) | **Việc nhẹ dự án (1h)** | **Ăn trưa gia đình** |
+          | 14:00 - 15:00 | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | Nghỉ ngơi buổi chiều | Nghỉ ngơi buổi chiều |
+          | 15:00 - 17:00 | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Việc công ty** | **Tập trung sâu (2h)** | Sở thích cá nhân |
+          | 17:00 - 18:30 | Chuyển nhịp, đi bộ | Chuyển nhịp, đi bộ | Chuyển nhịp, đi bộ | Chuyển nhịp, đi bộ | Chuyển nhịp, đi bộ | Giải trí / Bạn bè | Thư giãn |
+          | 18:30 - 19:30 | Ăn tối, gia đình | **Ăn tối bạn bè/người thân** | Ăn tối, gia đình | **Ăn tối bạn bè/người thân** | Ăn tối, gia đình | Giải trí / Bạn bè | Ăn tối, chuẩn bị tuần |
+          | 19:30 - 20:30 | **Việc nhẹ dự án (1h)** | **Ăn tối bạn bè/người thân** | **Việc nhẹ dự án (1h)** | **Ăn tối bạn bè/người thân** | Giải trí cuối tuần | Gia đình / Phim ảnh | **Tổng kết tuần (1h)** |
+          | 20:30 - 21:00 | Thư giãn | **Hẹn hò/Bạn bè (đến 21:00)** | Thư giãn | **Hẹn hò/Bạn bè (đến 21:00)** | Thư giãn | Thư giãn | Thư giãn |
+          | 21:00 - 21:30 | Tắt màn hình, đọc sách | Tắt màn hình, đọc sách | Tắt màn hình, đọc sách | Tắt màn hình, đọc sách | Tắt màn hình, đọc sách | Tắt màn hình, đọc sách | Tắt màn hình, đọc sách |
+          | 21:30 | Đi ngủ | Đi ngủ | Đi ngủ | Đi ngủ | Đi ngủ | Đi ngủ | Đi ngủ |
 
-          **Legend**: 🟢 Deep Work (90-120p) | 🟡 Shallow Work (15-45p) | 🔴 Full-time Work | 🏃 Exercise | 🔄 Transition | 👨‍👩‍👧 Family | 👥 Social | 🛁 Recovery | ☕ Slow/Prep
+          **Kiểm tra tổng giờ dự án:**
+          - **Tập trung sâu**: Thứ 2, 4, 6 (`2h × 3 = 6h`) + Thứ 3, 5, 7 sáng (`1h × 3 = 3h`) + Thứ 7 sáng và chiều (`3h + 2h = 5h`) = **14 giờ**.
+          - **Việc nhẹ & Tổng kết**: Thứ 2 tối (`1h`) + Thứ 4 tối (`1h`) + Thứ 7 chiều (`1h`) + Chủ nhật tối (`1h`) = **4 giờ**.
+          - **Tổng cộng**: **18 giờ/tuần**, hoàn toàn không đụng lịch ăn tối Thứ 3/Thứ 5 và lịch ăn trưa Chủ nhật.
 
-          ## Daily Routines
+          ## 3. Thói Quen Hằng Ngày Dễ Duy Trì
+          ### Buổi Sáng (5:30 - 7:30)
+          - **Thứ 2, Thứ 4, Thứ 6**: 5:30 uống 1 ly nước, vận động nhẹ 5 phút rồi vào ngay **2 giờ tập trung sâu** (5:35-7:30) cho việc kỹ thuật khó nhất, không mở mạng xã hội.
+          - **Thứ 3, Thứ 5, Thứ 7**: 5:30-6:30 tập thể dục trước, sau đó 6:30-7:30 dành **1 giờ tập trung sâu** cho việc viết lách hoặc thiết kế giao diện.
 
-          ### Morning Routine (5:30-7:30) - "Win the Morning"
-          1. **5:30** Wake up → 500ml nước + 5p stretching (Không điện thoại)
-          2. **5:35** Quick journal: "Hôm nay 1 việc quan trọng nhất side project là gì?" (2p)
-          3. **5:40-7:00** **DEEP WORK BLOCK 1** (80p) - Task khó nhất, cần focus cao
-             - T2/T4/T6: Bubble logic/Database/API
-             - T3/T5/T7: Writing/Strategy/Design
-          4. **7:00-7:30** Breakfast + Prep work chính (No email/Slack)
+          ### Chuyển Nhịp Sau Giờ Làm Công Ty (17:00 - 18:30)
+          1. Đóng toàn bộ tab trình duyệt, Slack và email công ty, ghi lại 3 việc cần làm sáng mai để đầu óc yên tâm.
+          2. Ra khỏi bàn làm việc, đi bộ hoặc tắm rửa để não nhận tín hiệu đã hết ca làm chính.
 
-          ### Transition Ritual (17:00-17:30) - "Switch Context"
-          1. **Shutdown Work chính**: Close all tabs, Clear desktop, Note "Tomorrow top 3" (5p)
-          2. **Physical reset**: Đứng lên, stretch 3p, Đi ra cửa sổ hít thở 10 lần (3p)
-          3. **Mental switch**: Mở Notion Side Project → Review "Today's Focus" → Chọn 1 task (5p)
-          4. **Environment cue**: Bật playlist "Deep Work" (Instrumental), Đèn bàn, Đặt ly nước
+          ### Buổi Tối Thứ 2 & Thứ 4 (19:30 - 20:30)
+          - Chỉ làm việc nhẹ tốn ít sức: trả lời tin nhắn người dùng, viết nháp bài chia sẻ, cập nhật bảng thu chi.
 
-          ### Evening Block (19:30-21:00) - "Second Wind"
-          - **T2/T4/T6 (Post-exercise)**: Shallow/Creative - LinkedIn draft, Research, Admin, Reply email (Low cognitive load)
-          - **T3/T5 (Post-dinner)**: Creative/Strategic - Content writing, UI design, Planning (Relaxed focus)
-          - **T6/T7/CN**: Deep Work nếu không social - Feature build, Complex debugging
+          ### Thư Giãn Trước Khi Ngủ (21:00 - 21:30)
+          1. Ghi nhanh 1 dòng nhật ký tiến độ hôm nay và chọn sẵn 1 việc đầu tiên cho sáng mai (5 phút).
+          2. Tắt màn hình điện thoại và máy tính trước giờ ngủ 25 phút, đọc sách giấy hoặc hít thở thư giãn nhẹ.
 
-          ### Wind-down (21:00-21:30) - "Close the Loop"
-          1. Log progress: Notion "Daily Log" - Done/Not done + 1 line note (2p)
-          2. Prep tomorrow: Top 1 Deep Work task + Top 2 Shallow tasks (3p)
-          3. Digital sunset: Không screen, Đọc sách/Fl� meditation (10p)
+          ## 4. Mẫu Tổng Kết Tuần (Chủ Nhật 19:30 - 20:30 — 60 Phút)
+          - **15 phút đầu — Soát con số**: Đã làm được bao nhiêu giờ tập trung sâu và việc nhẹ? Đã ra mắt được tính năng hoặc bài viết nào? Ngủ trung bình mấy tiếng?
+          - **15 phút tiếp — Ghi nhận thành quả**: 3 việc làm tốt nhất tuần qua và 1 bài học đáng giá nhất từ phản hồi người dùng.
+          - **15 phút kế — Tìm điểm nghẽn**: Khung giờ nào hay bị vỡ kế hoạch? Cần đổi 1 thói quen nào vào tuần tới?
+          - **15 phút cuối — Chốt tuần mới**: Chọn đúng 1 mục tiêu kết quả quan trọng nhất và khóa lịch trước trên Google Calendar.
 
-          ## Context Switching Protocol (Work Chính ↔ Side Project)
-          **Từ Work Chính → Side Project (17:00-17:30)**
-          1. **Capture** (2p): Ghi ngay idea/task dang dở của work chính vào "Work Parking Lot" (Notion)
-          2. **Close** (3p): Tắt Slack/Email/Work tabs. Logout nếu cần.
-          3. **Physical** (3p): Thay đồ, Rửa mặt, Uống nước, Di chuyển không gian (khác bàn work)
-          4. **Prime** (5p): Đọc "Side Project Vision" (1 câu) + "This Week Focus" (3 bullet) → Chọn task
-          5. **Start** (2p): Pomodoro 1: "Chỉ làm 25p, không hoàn thành cũng ok" → Lower barrier
-
-          **Từ Side Project → Wind-down (21:00)**
-          1. **Save state** (3p): Commit code / Save Bubble / Note "Next step" trong task
-          2. **Log** (2p): Daily Log - Progress, Blocker, Energy level (1-10)
-          3. **Transition** (5p): Stretch, Walk nhà, Chăm sóc cây/Thú cưng - Signal não "Done"
-
-          ## Weekly Review (Chủ Nhật 20:00-20:45 - 45 phút)
-          ### Part 1: Metrics & Data (10p)
-          - [ ] Hours logged: Deep work = ?h | Shallow = ?h | Target = 18h
-          - [ ] Output: Features shipped / Content published / Users talked / Revenue $
-          - [ ] Energy avg: Deep work sessions energy (1-10) = ?
-          - [ ] Sleep avg: ?h/night | Exercise: ? sessions
-
-          ### Part 2: Wins & Learnings (10p)
-          - [ ] **Top 3 Wins**: Cụ thể, có evidence (link, screenshot, metric)
-          - [ ] **Top 1 Lesson**: Insight về product/user/process/self
-          - [ ] **Surprise**: Điều không ngờ (tốt/xấu)
-
-          ### Part 3: Blockers & Adjustments (15p)
-          - [ ] **Blocker pattern**: Lặp lại > 2 lần? (Ví dụ: T3/T5 luôn mệt sau dinner → Move deep work to morning)
-          - [ ] **Calendar audit**: Block nào bị encroach? Buffer đủ không?
-          - [ ] **Next Week Adjustments**: 1 cosa đổi (Time, Task type, Routine, Environment)
-
-          ### Part 4: Next Week Setup (10p)
-          - [ ] Top 1 Outcome Goal (Outcome-based, không task-based)
-          - [ ] 3 Deep Work Tasks (Priority order)
-          - [ ] 5 Shallow Tasks (Batching)
-          - [ ] Calendar blocks confirmed → Send calendar invite to self
-
-          ## Emergency Protocols
-
-          | Scenario | Protocol | Side Project Action |
-          |----------|----------|---------------------|
-          | **Overtime work chính** (Về 19-20h) | Skip evening block. Chỉ Morning deep work. | Morning deep work = Non-negotiable. Evening = Optional recovery. |
-          | **Ốm / Energy = 0** | Nghỉ hoàn toàn. Sleep + Hydration. | **Zero guilt**. Side project pause. Log "Sick day". |
-          | **Crisis gia đình** | All-in family. Work chính PTO nếu cần. | Pause 1-2 tuần. Set "Return date" trên calendar. |
-          | **Motivation = 0** (2+ tuần) | Root cause: Burnout? Boring task? Unclear goal? | **Pivot task**: Đổi sang task vui/creative. Hoặc "Maintenance mode" 2h/tuần. |
-          | **Weekend bận rộn** (Event, đi vắng) | Accept. Không补. | Shift deep work to T2-T6 morning. CN = Review only. |
-          | **Feature stuck** (Technical blocker > 2 ngày) | Timebox 2h research. Still stuck → Ask expert/Community. | Parallel: Switch sang shallow task (content, design, research). |
-
-          ## Tools & Templates
-          - **Calendar**: Google Calendar (Color-coded calendars: Work, Side, Health, Family)
-          - **Time Tracking**: Toggl Track (Project: Side Project - Tags: Deep/Shallow/Meeting)
-          - **Task Management**: Notion Database "Side Project Sprint" (Week, Goal, Tasks, Status, Log)
-          - **Focus**: Forest App / Focusmate (Accountability partner cho deep work)
-          - **Automation**: Zapier: Calendar event "Deep Work" → Start Toggl + Play Focus playlist
-        context: "Early bird chronotype, full-time 8-5, 18h/tuần target, family commitments, sustainable long-term"
+          ## 5. Phương Án Dự Phòng Khi Có Biến Cố
+          | Tình huống | Cách xử lý công việc chính | Cách điều chỉnh dự án cá nhân |
+          |---|---|---|
+          | **Tăng ca đột xuất (về muộn)** | Bỏ hẳn khung việc nhẹ buổi tối | Chỉ giữ khối tập trung sâu buổi sáng, tối về nghỉ ngơi hoàn toàn |
+          | **Ốm mệt hoặc hết sức** | Nghỉ ngơi, uống đủ nước và ngủ bù | Tạm dừng dự án 1-2 ngày không tự trách, sức khỏe là trên hết |
+          | **Gia đình có việc gấp** | Xin nghỉ phép nếu cần | Tạm ngưng 1 tuần và đặt lịch hẹn ngày quay lại rõ ràng |
+          | **Cuối tuần bận đi chơi hoặc sự kiện** | Tận hưởng trọn vẹn, không cố làm bù ban đêm | Dồn việc quan trọng vào sáng các ngày trong tuần, Chủ nhật chỉ tổng kết 30 phút |
+          | **Bị kẹt lỗi kỹ thuật quá 2 ngày** | Không ngồi đoán mò quá 2 giờ liên tục | Nhờ cộng đồng hỏi đáp, đồng thời chuyển sang làm việc nhẹ (viết bài, thiết kế) |
+        context: "Người thuộc nhóm dậy sớm, làm việc từ xa 8:00-17:00, mục tiêu 18 giờ/tuần, giữ trọn lịch gia đình và bạn bè"
     difficulty: "medium"
     useCases:
-      - "Thiết kế routine bền vững cho side project lâu dài"
-      - "Xử lý context switching giữa 2 công việc"
-      - "Weekly review system để adjust liên tục"
+      - "Thiết kế lịch trình bền vững để làm dự án cá nhân lâu dài mà không kiệt sức"
+      - "Biết cách ngắt mạch công việc chính để tập trung tốt cho dự án riêng"
+      - "Có sẵn phương án xử lý những tuần bận rộn đột xuất"
+
   - id: prompt-energy-audit-optimization
-    name: "Energy Audit & Tối Ưu Hóa Năng Lượng"
-    description: "Theo dõi năng lượng 2 tuần, tìm peak/trough, optimize schedule cho deep work chất lượng"
+    name: "Đo Lường Năng Lượng 14 Ngày & Tìm Giờ Vàng"
+    description: "Theo dõi mức độ tỉnh táo trong 2 tuần để phát hiện giờ vàng làm việc hiệu quả nhất và sửa thói quen gây mất ngủ"
     template: |
-      Bạn là Energy Management Coach. Hãy tạo Energy Audit Protocol 2 tuần cho: {{name}}.
+      Bạn là chuyên gia tối ưu sức lực và thói quen làm việc bền vững. Hãy xây dựng kế hoạch theo dõi và điều chỉnh năng lượng trong 14 ngày cho: {{name}}.
 
-      **Mục đích**: Xác định chính xác khi nào não bộ hoạt động tốt nhất cho deep work, creative work, shallow work.
+      **Hiện trạng của người dùng:**
+      - Lịch sinh hoạt hiện tại: {{currentSchedule}}
+      - Những vấn đề đang gặp phải: {{mainComplaints}}
+      - Mức độ sẵn sàng ghi chép hằng ngày: {{trackingWillingness}}
 
-      **Protocol 14 ngày:**
-      1. **Tracking**: Mỗi 90p ghi nhận (Energy 1-10, Focus 1-10, Mood, Activity, Context)
-      2. **Variables**: Sleep, Food, Caffeine, Exercise, Light, Social, Task type
-      3. **Analysis**: Pattern recognition → Optimal schedule design
-      4. **Experimentation**: A/B test schedule changes tuần 3-4
+      **Mục tiêu:** Tìm ra chính xác khung giờ não bộ tỉnh táo nhất cho việc khó, việc nhẹ và sửa nguyên nhân gây mệt mỏi hay mất ngủ.
 
-      **Output template:**
-      - Energy Heatmap (7 ngày x 24h)
-      - Chronotype confirmation
-      - Deep Work Windows (Top 3)
-      - Recovery Protocols per energy level
-      - Personalized Schedule v2
+      **Hãy trình bày bản kế hoạch chi tiết gồm 5 phần:**
+      1. **Bảng ghi chép 14 ngày** khớp đúng mức độ ghi chép đã chọn (`{{trackingWillingness}}`), kèm các yếu tố ảnh hưởng (giấc ngủ, cà phê, bữa ăn, vận động).
+      2. **Cách phân tích dữ liệu sau 14 ngày** để nhận diện vùng giờ Xanh (tỉnh táo nhất), Vàng (việc nhẹ) và Đỏ (cần nghỉ ngơi).
+      3. **Quy trình hồi phục nhanh 5-15 phút** theo từng mức năng lượng.
+      4. **Thử nghiệm A/B trong Tuần 3 và Tuần 4** để kiểm chứng thay đổi nào giúp cải thiện rõ rệt nhất dựa trên các vấn đề `{{mainComplaints}}`.
+      5. **Lịch trình đề xuất phiên bản mới** khắc phục trực tiếp các điểm nghẽn từ lịch hiện tại `{{currentSchedule}}` (ghi rõ số giờ tập trung sâu thực tế khớp đúng với từng khung giờ).
     variables:
       - name: name
         type: text
-        label: "Tên/Nickname"
+        label: "Tên hoặc biệt danh của bạn"
         required: true
       - name: currentSchedule
         type: textarea
-        label: "Lịch trình hiện tại (giờ ngủ, work, side project, exercise, meal)"
+        label: "Lịch sinh hoạt hiện tại (giờ ngủ, giờ làm, giờ làm dự án, uống cà phê, tập thể dục)"
         required: true
       - name: mainComplaints
         type: multiselect
-        label: "Khiếu nại chính"
+        label: "Những khó khăn bạn đang gặp phải"
         options:
-          - "Mệt mỏi luôn, không có năng lượng"
-          - "Khó tập trung vào deep work"
-          - "Procrastination, không bắt đầu được"
-          - "Context switching mệt não"
-          - "Ban đêm không ngủ được do tư duy side project"
-          - "Cuối tuần crash, không recover"
-          - "Không biết khi nào hiệu quả nhất"
+          - "Luôn cảm thấy mệt mỏi và thiếu năng lượng"
+          - "Khó tập trung sâu để làm việc quan trọng"
+          - "Hay trì hoãn và ngại bắt đầu"
+          - "Mệt mỏi vì phải nhảy qua lại giữa nhiều việc"
+          - "Khó ngủ ban đêm vì đầu óc vẫn nghĩ về dự án"
+          - "Cuối tuần kiệt sức và không hồi phục kịp"
+          - "Chưa biết khung giờ nào mình làm việc hiệu quả nhất"
         required: true
-        default: ["Khó tập trung vào deep work", "Context switching mệt não", "Không biết khi nào hiệu quả nhất"]
+        default: ["Khó tập trung sâu để làm việc quan trọng", "Mệt mỏi vì phải nhảy qua lại giữa nhiều việc", "Chưa biết khung giờ nào mình làm việc hiệu quả nhất"]
       - name: trackingWillingness
         type: select
-        label: "Sẵn sàng tracking chi tiết mức nào"
+        label: "Bạn sẵn sàng ghi chép đều đặn ở mức nào?"
         options:
-          - "Full: Mỗi 90p, 14 ngày, nhiều biến số"
-          - "Medium: 3 lần/ngày (Sáng/Trưa/Tối), 14 ngày"
-          - "Light: Morning + Evening journal, 14 ngày"
-          - "Chỉ muốn template, tự adjust"
+          - "Chi tiết: Ghi mỗi 90 phút trong 14 ngày"
+          - "Vừa phải: Ghi 3 lần/ngày (Sáng / Chiều / Tối) trong 14 ngày"
+          - "Nhẹ nhàng: Chỉ ghi buổi sáng và buổi tối trong 14 ngày"
+          - "Chỉ cần mẫu sẵn để tự điều chỉnh dần"
         required: true
-        default: "Medium: 3 lần/ngày (Sáng/Trưa/Tối), 14 ngày"
+        default: "Vừa phải: Ghi 3 lần/ngày (Sáng / Chiều / Tối) trong 14 ngày"
     examples:
       - inputs:
-          name: "Minh (Dev, 28 tuổi)"
-          currentSchedule: "Ngủ 1h-8h. Work 9h-18h. Side project 20h-23h (thường lướt phone đến 22h mới bắt đầu). Tập T3/T5 18h30. Ăn trưa 12h, tối 19h30. Caffeine: 2 cà phê (8h, 14h). Cuối tuần ngủ nướng 10h, side project ít."
-          mainComplaints: '["Khó tập trung vào deep work", "Context switching mệt não", "Ban đêm không ngủ được do tư duy side project"]'
-          trackingWillingness: "Medium: 3 lần/ngày (Sáng/Trưa/Tối), 14 ngày"
+          name: "Minh (Lập trình viên, 28 tuổi)"
+          currentSchedule: "Ngủ 1:00-8:00. Làm công ty 9:00-18:00. Làm dự án cá nhân 20:00-23:00 (nhưng hay lướt điện thoại tới 22:00 mới làm). Tập thể dục Thứ 3 và Thứ 5 lúc 18:30. Uống 2 ly cà phê lúc 8:00 và 14:00. Cuối tuần ngủ bù tới 10:00."
+          mainComplaints:
+            - "Khó tập trung sâu để làm việc quan trọng"
+            - "Mệt mỏi vì phải nhảy qua lại giữa nhiều việc"
+            - "Khó ngủ ban đêm vì đầu óc vẫn nghĩ về dự án"
+          trackingWillingness: "Vừa phải: Ghi 3 lần/ngày (Sáng / Chiều / Tối) trong 14 ngày"
         output: |
-          # ⚡ Energy Audit Protocol: Minh (Dev, 28t)
+          # Kế Hoạch Đo Lường & Tối Ưu Sức Lực 14 Ngày: Minh (28 Tuổi)
 
-          ## 14-Day Tracking Template (Medium - 3x/day)
+          ## 1. Bảng Ghi Chép 14 Ngày (Mức Vừa Phải — 3 Lần/Ngày)
+          Mỗi ngày chỉ mất tổng cộng 3 phút để điền vào bảng Notion hoặc Google Sheet:
 
-          ### Daily Log Format (Notion/Google Sheet)
-          | Time | Energy (1-10) | Focus (1-10) | Mood (1-10) | Activity | Sleep (h) | Caffeine | Exercise | Light | Notes |
-          |------|---------------|--------------|-------------|----------|-----------|----------|----------|-------|-------|
-          | 08:00 (Morning) | | | | | | | | | |
-          | 14:00 (Afternoon) | | | | | | | | | |
-          | 21:00 (Evening) | | | | | | | | | |
+          | Mốc thời gian | Độ tỉnh táo (1-10) | Độ tập trung (1-10) | Tâm trạng (1-10) | Việc đang làm | Giờ ngủ hôm trước | Cà phê cuối ngày | Vận động | Ghi chú |
+          |---|---|---|---|---|---|---|---|---|
+          | 08:30 (Sáng) | | | | | | | | |
+          | 14:30 (Chiều) | | | | | | | | |
+          | 21:00 (Tối) | | | | | | | | |
 
-          ### Variables to Track Daily
-          - **Sleep**: Giờ ngủ/dậy, Chất lượng (1-10), Đánh thức giữa đêm?
-          - **Food**: Ăn gì, Khi nào, Cảm giác sau ăn (Buồn ngủ/Tăng năng lượng/Bình thường)
-          - **Caffeine**: Loại, Lượng, Giờ uống cuối cùng
-          - **Exercise**: Loại, Thời lượng, Cường độ, Giờ
-          - **Light**: Natural light exposure (Giờ ra ngoài / Cửa sổ)
-          - **Social**: Interaction quality (Drain / Neutral / Charge)
-          - **Task Type**: Deep / Shallow / Meeting / Learning / Creative
+          **Các yếu tố cần ghi chú ngắn gọn:**
+          - Giờ đi ngủ, giờ thức dậy và có bị tỉnh giấc giữa đêm không.
+          - Bữa ăn có làm bạn buồn ngủ ngay sau đó không.
+          - Giờ uống ly cà phê cuối cùng trong ngày.
+          - Ngày có tập thể dục hay ra ngoài đón nắng buổi sáng không.
 
-          ## Analysis Framework (Sau 14 ngày)
+          ## 2. Cách Phân Tích Sau 14 Ngày
+          Tô màu bảng điểm theo 3 vùng để nhìn ra giờ vàng của riêng bạn:
+          - **Vùng Xanh (Điểm 8-10)**: Khung giờ vàng tự nhiên — dành cho việc khó nhất của dự án.
+          - **Vùng Vàng (Điểm 5-7)**: Dành cho việc nhẹ như trả lời email, dọn dẹp tài liệu, viết nháp.
+          - **Vùng Đỏ (Điểm 1-4)**: Tuyệt đối không ép bản thân làm việc nặng, chỉ dùng để nghỉ ngơi.
 
-          ### Step 1: Energy Heatmap
-          Tạo pivot table: Ngày (hàng) x Giờ (cột) = Energy score → Heatmap
-          - **Green zones (8-10)**: Prime Deep Work Windows
-          - **Yellow zones (5-7)**: Shallow Work / Learning / Creative
-          - **Red zones (1-4)**: Recovery / Admin / Avoid deep work
+          **5 câu hỏi tự rà soát:**
+          1. Khung giờ nào điểm tỉnh táo từ 8 trở lên ổn định nhất?
+          2. Sau bữa trưa từ 13:00-15:00 mức tỉnh táo tụt bao nhiêu điểm?
+          3. Uống cà phê lúc 14:00 có làm bạn trằn trọc lúc 23:00-1:00 không?
+          4. Những ngày tập thể dục lúc 18:30 thì buổi tối thấy tỉnh táo hơn hay mệt hơn?
+          5. Khi ngủ dưới 7 tiếng, hôm sau giờ vàng bị giảm mất bao lâu?
 
-          ### Step 2: Pattern Detection Questions
-          1. **Chronotype confirmation**: Peak energy consistent ở khung giờ nào?
-          2. **Post-lunch dip**: 13-15h energy drop bao nhiêu? (Baseline - dip)
-          3. **Caffeine curve**: Energy spike sau caffeine bao lâu? Crash khi nào?
-          4. **Exercise effect**: Ngày tập vs không tập → Energy evening khác ra sao?
-          5. **Sleep pressure**: Ngủ < 7h → Next day peak energy giảm bao nhiêu %?
-          6. **Evening wind-down**: Side project sau 21h → Sleep latency (phút ngủ) tăng bao nhiêu?
+          ## 3. Quy Trình Hồi Phục Nhanh Theo Mức Năng Lượng
+          | Mức năng lượng | Dấu hiệu nhận biết | Cách xử lý (5-15 phút) | Việc nên tránh |
+          |---|---|---|---|
+          | **9-10 (Nhập tâm cao độ)** | Làm việc trôi chảy, quên thời gian | Tắt hết thông báo để bảo vệ khung giờ này | Mở tin nhắn hay nhảy sang việc khác |
+          | **7-8 (Tỉnh táo tốt)** | Đầu óc rõ ràng, tự chủ tốt | Giải quyết ngay 1 đầu việc khó của dự án | Lãng phí vào việc vặt |
+          | **5-6 (Trung bình)** | Hơi uể oải nhưng vẫn làm được | Gom việc nhẹ xử lý 1 lượt (email, tìm hiểu tài liệu) | Bắt đầu bài toán kỹ thuật phức tạp |
+          | **3-4 (Mệt mỏi)** | Đọc đi đọc lại không vào đầu | Nghỉ ngơi sâu không cần ngủ 15 phút hoặc đi bộ nhẹ | Nhìn màn hình, cố ép ra quyết định lớn |
+          | **1-2 (Cạn kiệt)** | Dễ cáu gắt, đau đầu | Dừng hẳn công việc, đi ngủ sớm hoặc trò chuyện thư giãn | Mọi công việc liên quan đến dự án |
 
-          ### Step 3: Deep Work Window Identification
-          Criteria cho **Prime Deep Work Window**:
-          - Energy ≥ 8 naturally (không caffeine)
-          - Focus ≥ 7
-          - Duration ≥ 90 phút liên tục
-          - Consistent ≥ 4/7 ngày trong tuần
-          - Low interruption probability
+          ## 4. Thử Nghiệm So Sánh Trong Tuần 3 & Tuần 4
+          | Giả thuyết kiểm chứng | Tuần 3 (Áp dụng thử) | Tuần 4 (Đối chiếu) | Chỉ số đo |
+          |---|---|---|---|
+          | Uống cà phê lúc 14:00 gây khó ngủ | Chỉ uống cà phê trước 11:30 sáng | Uống như cũ (8:00 và 14:00) | Số phút nằm trằn trọc mới ngủ được |
+          | Làm dự án buổi sáng hiệu quả hơn buổi tối | Tập trung sâu 5:30-7:00 sáng | Làm buổi tối 20:00-22:00 | Số việc hoàn thành và cảm giác mệt |
+          | Nghỉ sâu 15 phút buổi trưa giảm mệt buổi chiều | Nghỉ nhắm mắt thư giãn 13:00-13:15 | Lướt điện thoại giờ nghỉ trưa | Độ tỉnh táo lúc 15:00 chiều |
 
-          **Output**: Top 3 Deep Work Windows (Ranked)
-          1. Window A: Giờ - Giờ (Duration, Consistency, Energy avg)
-          2. Window B: Giờ - Giờ
-          3. Window C: Giờ - Giờ
+          ## 5. Phân Tích Điểm Nghẽn & Lịch Đề Xuất Phiên Bản Mới Cho Minh
+          **4 điểm nghẽn từ lịch hiện tại của Minh:**
+          1. Làm dự án lúc 20:00-23:00 làm đầu óc hưng phấn sát giờ ngủ, gây trằn trọc tới 1:00 sáng.
+          2. Uống cà phê lúc 14:00 khiến lượng caffeine vẫn còn gần một nửa vào lúc 20:00, làm giảm chất lượng giấc ngủ sâu.
+          3. Lướt điện thoại từ 20:00-22:00 làm mất hứng thú trước khi bắt đầu làm việc thật.
+          4. Ngủ bù tới 10:00 cuối tuần làm rối nhịp ngủ vào tối Chủ nhật.
 
-          ### Step 4: Recovery Protocols per Energy Level
-          | Energy Level | Signal | Protocol (5-15p) | Avoid |
-          |--------------|--------|------------------|-------|
-          | 9-10 (Flow) | Mất cảm giác thời gian | Protect! Không meeting, Không notify | Context switch |
-          | 7-8 (High) | Tự chủ, clear thinking | Deep work task tiếp theo | Shallow work |
-          | 5-6 (Medium) | Có thể làm việc nhẹ | Shallow batch: Email, Admin, Research | Deep work mới |
-          | 3-4 (Low) | Mệt, hay phân tâm | NSDR 10p / Walk / Power nap 20p / Stretch | Screen, Decision |
-          | 1-2 (Depleted) | Burnout signal | Full stop. Sleep / Nature / Social charge | Mọi work |
+          **Lịch trình đề xuất phiên bản mới:**
+          - **5:30 - 7:00**: **Tập trung sâu cho dự án** (1,5 giờ mỗi sáng từ Thứ 2 đến Thứ 7 — đầu óc hoàn toàn mới mẻ, không ai nhắn tin làm phiền).
+          - **7:00 - 8:30**: Ăn sáng, vệ sinh cá nhân và chuẩn bị đi làm (không cầm điện thoại 30 phút đầu ngày).
+          - **9:00 - 18:00**: Công việc chính tại công ty (chỉ uống cà phê lúc 8:00 và trước 11:30; nghỉ trưa có **15 phút nghỉ ngơi sâu không cần ngủ lúc 13:00-13:15**).
+          - **18:00 - 19:00**: Tập thể dục (Thứ 3, Thứ 5, Thứ 7) hoặc đi bộ thư giãn (các ngày còn lại).
+          - **19:00 - 20:00**: Ăn tối và dành thời gian cho gia đình/bạn bè.
+          - **20:00 - 20:45**: Nếu còn hứng thú, chỉ làm việc nhẹ 30-45 phút (viết nháp bài, kiểm tra phản hồi); không đụng việc kỹ thuật căng thẳng.
+          - **20:45 - 21:30**: Tắt màn hình, đọc sách giấy, chuẩn bị cho giấc ngủ.
+          - **21:30 - 5:30**: Ngủ đủ 8 giờ.
+          - **Thứ 7 (8:00 - 11:00)**: Thêm **3 giờ tập trung sâu** cho phần việc lớn của dự án.
 
-          ### Step 5: Personalized Schedule v2 (Template)
-          Dựa trên data, thiết kế lại Weekly Calendar (giống prompt trước nhưng data-driven).
-
-          ## Experimentation Weeks 3-4 (A/B Tests)
-
-          | Hypothesis | Test (Tuần 3) | Control (Tuần 4) | Metric |
-          |------------|---------------|------------------|--------|
-          | Caffeine sau 14h làm gián đoạn deep work tối | Cut caffeine sau 12h | Normal caffeine | Sleep latency, Evening energy |
-          | Morning deep work > Evening deep work | 5:30-7:30 Deep work | 20:00-22:00 Deep work | Output quality, Energy next day |
-          | Exercise sáng boost energy cả ngày | Exercise 6:00-6:45 | Exercise 18:30-19:30 | Daily energy avg, Focus score |
-          | NSDR 10p sau trưa thay power nap | NSDR 13:00 | Power nap 13:00 | Afternoon energy dip depth |
-          | Digital sunset 21h cải thiện sleep | No screen 21:00-22:00 | Normal screen | Sleep latency, Morning energy |
-
-          ## Minh's Predicted Results (Dựa trên profile)
-          **Current Issues Identified:**
-          1. **Evening deep work (20-23h) conflict với wind-down** → Sleep latency cao, quality giảm
-          2. **Caffeine 14h** → Half-life 5-6h → Còn 50% caffeine lúc 20h → Giảm deep sleep
-          3. **No morning deep work** → Waste peak cortisol/alertness window
-          4. **Phone scroll 20-22h** → Dopamine drain → Khó vào flow
-
-          **Recommended Schedule v2:**
-          - **5:30-7:00**: Deep Work (Prime window - High cortisol, Low distraction)
-          - **7:00-8:00**: Breakfast + Prep (No phone)
-          - **9:00-17:00**: Full-time Work (Caffeine 8h + 11h only)
-          - **13:00-13:15**: NSDR 10p (Non-Sleep Deep Rest - Yoga Nidra)
-          - **17:00-17:30**: Transition Ritual
-          - **17:30-18:30**: Exercise (T2/T4/T6) / Shallow Work (T3/T5)
-          - **18:30-19:30**: Dinner + Family
-          - **19:30-20:30**: Creative/Shallow Side Project (Low cognitive load)
-          - **20:30-21:00**: Wind-down (No screen, Read, Journal)
-          - **21:00**: Lights out / Sleep
-
-          **Expected Gains:**
-          - Deep work quality: +40% (Morning fresh brain vs Evening tired brain)
-          - Sleep quality: +30% (No caffeine late, No screen, NSDR)
-          - Consistency: +50% (Morning habit easier than evening willpower)
-          - Weekly deep work hours: 10h → 14h (Same effort, better output)
-        context: "Dev 28t, evening side project gây mất ngủ, caffeine sensitivity, muốn data-driven optimize"
+          **Kết quả dự kiến:**
+          - Tổng thời gian tập trung sâu thực chất: `1,5 giờ × 6 ngày (9 giờ) + 3 giờ sáng Thứ 7 = 12 giờ tập trung sâu/tuần` (tăng gấp đôi so với khoảng 6 giờ làm việc chắp vá buổi tối trước đây, trong khi ngủ sớm và sâu giấc hơn hẳn).
+        context: "Lập trình viên 28 tuổi hay làm dự án khuya gây mất ngủ, uống cà phê chiều, muốn tối ưu lịch sinh hoạt theo số liệu thật"
     difficulty: "medium"
     useCases:
-      - "Tìm ra golden hours cá nhân cho deep work"
-      - "Fix mất ngủ do side project đêm muộn"
-      - "Data-driven schedule design thay vì copy template"
+      - "Tìm ra khung giờ vàng cá nhân để làm việc khó nhanh gấp đôi"
+      - "Sửa tình trạng mất ngủ vì làm dự án cá nhân quá khuya"
+      - "Điều chỉnh lịch làm việc dựa trên số liệu tự theo dõi trong 2 tuần"
 agentTemplate:
-  name: "Side Project Time Coach"
-  description: "AI coach quản lý thời gian & năng lượng cho side project builder: Schedule design, Energy audit, Weekly review, Burnout prevention"
+  name: "Người Bạn Đồng Hành Quản Lý Thời Gian Dự Án"
+  description: "Hỗ trợ sắp xếp lịch tuần cân bằng, theo dõi sức lực 14 ngày và giữ nhịp làm dự án lâu dài không kiệt sức"
   systemPrompt: |
-    Bạn là Side Project Time Coach - AI coach giúp knowledge worker cân bằng full-time job + side project bền vững.
+    Bạn là Người Bạn Đồng Hành Quản Lý Thời Gian Dự Án cho người đi làm văn phòng muốn xây dựng sản phẩm riêng ngoài giờ.
 
-    Nhiệm vụ:
-    1. **Schedule Design**: Weekly time-blocking based on chronotype, energy patterns, commitments
-    2. **Energy Audit**: 14-day tracking protocol, Pattern analysis, Personalized optimization
-    3. **Deep Work Systems**: Context switching rituals, Transition protocols, Focus maintenance
-    4. **Weekly Review**: Structured reflection, Metrics tracking, Continuous adjustment
-    5. **Burnout Prevention**: Early warning signals, Emergency protocols, Sustainable pace setting
-    6. **Vietnam Context**: 9-5-6 culture, Family obligations (Tết, giỗ, lễ), Commute time, Coffee culture, Power nap acceptance
+    Nhiệm vụ chính:
+    1. Thiết kế lịch tuần chia khung giờ cố định dựa trên nhịp sinh học tự nhiên, công việc chính và lịch gia đình.
+    2. Xây dựng kế hoạch theo dõi năng lượng 14 ngày để tìm ra giờ vàng tập trung sâu và sửa thói quen gây mất ngủ.
+    3. Đưa ra quy trình chuyển trạng thái gọn nhẹ sau giờ làm công ty và phương án dự phòng khi ốm hoặc tăng ca.
 
-    Phong cách: Empathetic but data-driven. Không hustle culture. Sustainability > Intensity. "Consistency beats intensity."
-    Luôn hỏi: Chronotype? Current schedule? Family commitments? Health status? Trước khi design.
+    Nguyên tắc giao tiếp: Thấu hiểu, không cổ vũ văn hóa cày cuốc quá sức. Bền bỉ quan trọng hơn làm dồn dập vài ngày rồi bỏ cuộc. Luôn hỏi kỹ giờ làm chính, lịch ngủ và cam kết gia đình trước khi xếp lịch.
   model: "gpt-4"
   temperature: 0.7
   tools:
-    - "web_search"
+    - "Tìm kiếm thông tin"
   maxTokens: 4000
 relatedSkillIds:
   - "xac-dinh-y-tuong-side-project"
@@ -420,6 +347,6 @@ relatedSkillIds:
 author: "AI Life Hub Team"
 source: ""
 version: "1.0.0"
-updatedAt: "2024-01-15"
+updatedAt: "2026-11-18"
 slug: quan-ly-thoi-gian-side-project
 ---

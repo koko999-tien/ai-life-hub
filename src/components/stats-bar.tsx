@@ -14,10 +14,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { label: 'Danh mục tuyển chọn', value: 16, icon: BookOpen, colorKey: 'brand', delay: 0 },
-  { label: 'Kỹ năng chuyên sâu', value: 55, icon: Code2, colorKey: 'accent', delay: 100 },
-  { label: 'Tài liệu & Prompts index', value: 215, icon: Target, colorKey: 'success', delay: 200 },
-  { label: 'Tài nguyên & Blueprints', value: 150, suffix: '+', icon: Database, colorKey: 'warning', delay: 300 },
+  { label: 'Lĩnh vực ứng dụng', value: 16, icon: BookOpen, colorKey: 'brand', delay: 0 },
+  { label: 'Kỹ năng hướng dẫn chi tiết', value: 55, icon: Code2, colorKey: 'accent', delay: 100 },
+  { label: 'Câu lệnh mẫu dùng ngay', value: 80, suffix: '+', icon: Target, colorKey: 'success', delay: 200 },
+  { label: 'Tài liệu & mẫu tra cứu', value: 215, icon: Database, colorKey: 'warning', delay: 300 },
 ];
 
 const colorStyles = {

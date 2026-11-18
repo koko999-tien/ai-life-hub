@@ -2,68 +2,70 @@
 id: chon-truong-hoc-cho-con
 categoryId: giao-duc-con
 name: "Chọn trường & Chuyển tiếp học đường"
-description: "Công lập / Tư thục / Quốc tế / Homeschool, Criteria đánh giá, Admission process, Transition support"
+description: "So sánh trường công lập, tư thục, song ngữ, quốc tế hay học tại nhà; tiêu chí đánh giá khách quan, quy trình tuyển sinh và cách giúp con làm quen trường mới"
 whenToUse:
-  - "Chọn mẫu giáo / Tiểu học / Trung học cho con"
-  - "Chuyển trường, Chuyển hệ (Công -> Quốc tế, Quốc tế -> Công)"
-  - "Đánh giá chất lượng trường học, Goodness of fit"
+  - "Chọn trường mầm non, tiểu học hoặc trung học cho con"
+  - "Chuyển trường hoặc chuyển hệ học (từ công lập sang quốc tế hoặc ngược lại)"
+  - "Đánh giá chất lượng trường học và mức độ phù hợp thực tế với tính cách của con"
 difficulty: "intermediate"
-estimatedTime: "Research 2-4 tuần, Visit 3-5 trường"
+estimatedTime: "Tìm hiểu 2-4 tuần, đi tham quan trực tiếp 3-5 trường"
 tags: ["school-selection", "admissions", "school-transition", "public-vs-private", "international-school", "homeschool", "goodness-of-fit"]
 prompts:
   - id: prompt-school-selection-framework
-    name: "Khung đánh giá & Chọn trường học (Goodness of Fit)"
-    description: "Criteria toàn diện: Curriculum, Culture, Cost, Location, Values alignment, Child's needs"
+    name: "Bảng tiêu chí đánh giá & Chọn trường phù hợp cho con"
+    description: "Đánh giá toàn diện 6 nhóm tiêu chí: chương trình học, văn hóa trường, giáo viên, cơ sở vật chất, chi phí và độ phù hợp với con"
     template: |
-      Bạn là Educational Consultant. Hãy giúp gia đình chọn trường cho:
+      Bạn là chuyên gia tư vấn chọn trường và đồng hành giáo dục cho gia đình. Hãy giúp cha mẹ đánh giá và chọn trường phù hợp cho con:
 
-      **Hồ sơ con:**
-      - Tuổi: {{childAge}}
-      - Kỹ năng/Nhu cầu đặc biệt: {{childNeeds}} (Gifted / Learning differences / Language / Social-emotional / Physical)
-      - Phong cách học: {{learningStyle}} (Structured / Inquiry-based / Play-based / Self-directed)
+      **Hồ sơ của con:**
+      - Tuổi / Cấp học: {{childAge}}
+      - Tính cách và nhu cầu riêng: {{childNeeds}} (năng khiếu, cần hỗ trợ học tập riêng, ngôn ngữ, cảm xúc xã hội hoặc thể chất)
+      - Phong cách học tập: {{learningStyle}}
       - Ngôn ngữ: {{languages}}
 
-      **Ưu tiên gia đình:**
-      - Ngân sách/năm: {{budget}}
-      - Khoảng cách: {{maxCommute}}
-      - Loại trường ưu tiên: {{schoolTypePreference}} (Công lập / Tư thục / Quốc tế / Bilingual / Homeschool / Hybrid)
-      - Giá trị cốt lõi: {{familyValues}} (Academic excellence / Whole child / Creativity / Discipline / Faith / Diversity / Nature)
+      **Ưu tiên của gia đình:**
+      - Ngân sách học phí/năm: {{budget}}
+      - Thời gian di chuyển tối đa: {{maxCommute}}
+      - Loại trường ưu tiên: {{schoolTypePreference}}
+      - Giá trị gia đình coi trọng: {{familyValues}}
 
-      **Output: Framework đánh giá 5 cột (Weighted Scoring)**
-      1. **Academics & Curriculum** (25%): Curriculum type, Academic outcomes, Language program, Assessment, Homework policy
-      2. **Culture & Community** (25%): Values, Discipline approach, Diversity/Inclusion, Parent involvement, Bullying policy, SEL program
-      3. **Teachers & Staff** (20%): Qualifications, Turnover, Student:Teacher ratio, PD, Teacher autonomy
-      4. **Facilities & Resources** (15%): Classroom, Library, Lab, Arts, Sports, Tech, Outdoor space, Safety
-      4. **Logistics & Cost** (15%): Tuition + Fees (Hidden: Uniform, Trip, Tech, Fundraising), Commute, Schedule, Before/After care
-      5. **Fit for THIS Child** (Bonus/Dealbreaker): Special needs support, Language match, Learning style match, Social fit
+      **Hãy xây dựng bảng đánh giá theo các nhóm tiêu chí có trọng số như sau:**
+      1. **Chương trình học và phương pháp giảng dạy (25%)**: Chương trình áp dụng, lộ trình ngoại ngữ, cách đánh giá học sinh, lượng bài tập về nhà
+      2. **Văn hóa trường và môi trường bạn bè (25%)**: Giá trị cốt lõi, cách xử lý kỷ luật tích cực, chính sách chống bắt nạt, hoạt động phát triển kỹ năng cảm xúc và gắn kết phụ huynh
+      3. **Đội ngũ giáo viên (20%)**: Bằng cấp và kinh nghiệm, tỷ lệ giáo viên gắn bó lâu dài, sĩ số lớp và số cô hỗ trợ
+      4. **Cơ sở vật chất và an toàn (15%)**: Không gian lớp học, ánh sáng tự nhiên, sân chơi ngoài trời, bữa ăn bán trú, quy trình đón trả trẻ và an toàn phòng cháy
+      5. **Học phí thực tế và thuận tiện đưa đón (15%)**: Học phí gốc cộng các khoản thu phát sinh (ăn uống, đồng phục, xe đưa đón, dã ngoại, phụ phí), thời gian đi lại mỗi ngày và giờ đón muộn
+      6. **Độ phù hợp riêng với tính cách của con (Điểm cộng / Điểm trừ quyết định)**: Khả năng hỗ trợ nhu cầu riêng của con, nhịp độ lớp học và cảm nhận thoải mái của con
 
-      **Process:**
-      1. Long list (10-15 trường) → Shortlist (5-7) → Visit (3-5) → Apply (2-3) → Decide
-      2. **School Visit Checklist**: Observe class, Talk to parents, Ask principal, Review handbook
-      3. **Transition Support**: Summer bridge, Buddy system, Teacher handover, Parent orientation
+      **Quy trình tìm trường gợi ý:**
+      1. Lập danh sách sơ bộ (10-15 trường) → Chọn lọc (5-7 trường) → Đi tham quan trực tiếp (3-5 trường) → Nộp hồ sơ (2-3 trường) → Quyết định
+      2. **Danh sách kiểm tra khi đi tham quan trường**: Quan sát giờ học thật, trò chuyện với phụ huynh đang cho con học tại trường, hỏi ban giám hiệu và xem kỹ sổ tay phụ huynh
+      3. **Kế hoạch giúp con làm quen trường mới**: Làm quen nhịp sinh hoạt trước khai giảng, gặp cô giáo mới và theo dõi tâm lý con trong tháng đầu
 
-      **Output: Comparison Matrix (Excel/Notion ready)**
+      **Cuối cùng, trình bày bảng so sánh tổng hợp (dễ sao chép vào Excel hoặc bảng tính).**
     variables:
       - name: childAge
         type: text
-        label: "Tuổi con / Cấp học (Mẫu giáo / Tiểu học / Trung học)"
+        label: "Tuổi con / Cấp học (Mầm non / Tiểu học / Trung học)"
         required: true
       - name: childNeeds
         type: textarea
-        label: "Nhu cầu đặc biệt của con (Nếu có)"
+        label: "Tính cách hoặc nhu cầu đặc biệt của con (nếu có)"
         required: false
+        default: "Không có"
       - name: learningStyle
         type: select
         label: "Phong cách học phù hợp"
         options:
-          - "Structured (Cấu trúc rõ, Teacher-led)"
-          - "Inquiry-based (Tự hỏi, Dự án, PBL)"
-          - "Play-based (Chơi, Khám phá, Montessori/Reggio)"
-          - "Self-directed (Tự chủ, Democratic/Sudbury)"
+          - "Nề nếp và cấu trúc rõ ràng (giáo viên dẫn dắt)"
+          - "Học qua đặt câu hỏi và làm dự án (khám phá)"
+          - "Học qua chơi và trải nghiệm (Montessori / Reggio)"
+          - "Tự chủ và học theo hứng thú cá nhân"
         required: true
+        default: "Học qua chơi và trải nghiệm (Montessori / Reggio)"
       - name: languages
         type: textarea
-        label: "Ngôn ngữ con dùng / Gia đình muốn"
+        label: "Ngôn ngữ con đang dùng và ngôn ngữ gia đình mong muốn"
         required: true
       - name: budget
         type: text
@@ -71,18 +73,18 @@ prompts:
         required: true
       - name: maxCommute
         type: text
-        label: "Thời gian di chuyển tối đa (Một chiều)"
+        label: "Thời gian di chuyển tối đa (một chiều)"
         required: true
       - name: schoolTypePreference
         type: multiselect
         label: "Loại trường ưu tiên"
         options:
-          - "Công lập (Public)"
-          - "Tư thục trong nước (Private VN curriculum)"
-          - "Song ngữ (Bilingual - VN + EN/Francais)"
-          - "Quốc tế (International - IB/Cambridge/AP)"
-          - "Homeschool / Unschooling"
-          - "Hybrid / Micro-school"
+          - "Trường công lập"
+          - "Trường tư thục (chương trình Việt Nam)"
+          - "Trường song ngữ (Việt - Anh hoặc ngoại ngữ khác)"
+          - "Trường quốc tế (chương trình IB / Cambridge / Mỹ)"
+          - "Học tại nhà cùng gia đình"
+          - "Mô hình linh hoạt hoặc trường quy mô nhỏ"
         required: true
       - name: familyValues
         type: textarea
@@ -90,85 +92,82 @@ prompts:
         required: true
     examples:
       - inputs:
-          childAge: "5 tuổi (Vào lớp 1 năm sau)"
-          childNeeds: "Năng động, Tò mò, Hơi nhút nhát nơi lạ, Chưa đọc/viết fluently"
-          learningStyle: "Play-based (Chơi, Khám phá, Montessori/Reggio)"
-          languages: "Tiếng Việt (Native), Tiếng Anh (Exposure - Cha nói, App, Sách)"
+          childAge: "5 tuổi (vào lớp 1 năm sau)"
+          childNeeds: "Năng động, tò mò, hơi nhút nhát ở nơi lạ, chưa đọc viết trôi chảy"
+          learningStyle: "Học qua chơi và trải nghiệm (Montessori / Reggio)"
+          languages: "Tiếng Việt (ngôn ngữ chính), Tiếng Anh (làm quen qua ba mẹ, ứng dụng và sách)"
           budget: "150-250 triệu VND/năm"
           maxCommute: "30-40 phút một chiều"
-          schoolTypePreference: '["Tư thục trong nước (Private VN curriculum)", "Song ngữ (Bilingual - VN + EN)", "Quốc tế (International - IB/Cambridge/AP)"]'
-          familyValues: "Tôn trọng con người, Tò mò học hỏi, Cân bằng học tập - Chơi, Không áp lực điểm số sớm, Cộng đồng hỗ trợ"
+          schoolTypePreference:
+            - "Trường tư thục (chương trình Việt Nam)"
+            - "Trường song ngữ (Việt - Anh hoặc ngoại ngữ khác)"
+            - "Trường quốc tế (chương trình IB / Cambridge / Mỹ)"
+          familyValues: "Tôn trọng trẻ em, khơi gợi tò mò học hỏi, cân bằng giữa học và chơi, không áp lực điểm số sớm"
         output: |
-          # 🏫 School Selection Framework: Con 5t, Lớp 1, Budget 150-250M
+          # 🏫 Bảng Đánh Giá & Chọn Trường Lớp 1: Ngân Sách 150-250 Triệu/Năm
 
-          ## Weighted Scoring Matrix (Template Notion/Excel)
+          ## 1. Bảng Tiêu Chí Chấm Điểm Có Trọng Số (Dễ Dán Vào Bảng Tính)
+          | Nhóm tiêu chí (Trọng số) | Tiêu chí con | Câu hỏi cần hỏi khi tìm hiểu | Nguồn kiểm chứng |
+          |---|---|---|---|
+          | **Chương trình học (25%)** | Khung chương trình | Theo chuẩn Bộ GD&ĐT, song ngữ hay quốc tế? | Trang web, tài liệu tuyển sinh |
+          | | Chương trình ngoại ngữ | Bao nhiêu tiết tiếng Anh/tuần, tỷ lệ giáo viên bản ngữ, có hỗ trợ bé mới không? | Giáo trình chi tiết |
+          | | Cách đánh giá & bài tập | Đánh giá qua quá trình hay chỉ điểm thi? Lớp 1 có giao nhiều bài tập về nhà không? | Sổ tay phụ huynh |
+          | **Văn hóa trường (25%)** | Cách kỷ luật | Kỷ luật tích cực và giải thích hay phạt nặng? | Quan sát giờ học, hỏi phụ huynh |
+          | | Kỹ năng cảm xúc - xã hội | Có tiết học về cảm xúc, giải quyết mâu thuẫn và chống bắt nạt không? | Tham vấn nhà trường |
+          | | Kết nối phụ huynh | Hội phụ huynh hoạt động ra sao, giáo viên trao đổi định kỳ thế nào? | Phụ huynh đang có con học |
+          | **Giáo viên (20%)** | Năng lực & Gắn bó | Tỷ lệ giáo viên gắn bó trên 3 năm là bao nhiêu? Lý do nghỉ việc thường gặp? | Hỏi phụ huynh, nhóm cộng đồng |
+          | | Sĩ số lớp | Một lớp bao nhiêu học sinh và có mấy giáo viên/trợ giảng? | Quan sát trực tiếp |
+          | **Cơ sở vật chất (15%)** | Lớp học & Sân chơi | Lớp có đủ ánh sáng tự nhiên không? Có sân chơi ngoài trời và cây xanh không? | Đi tham quan thực tế |
+          | | An toàn & Bán trú | Bếp ăn, bảo vệ, quy trình đón trả con và diễn tập thoát hiểm thế nào? | Quy định an toàn của trường |
+          | **Chi phí & Đi lại (15%)** | Tổng chi phí thực tế | Học phí + tiền ăn + đồng phục + xe buýt + dã ngoại + phí cơ sở vật chất? | Biểu phí trọn năm |
+          | | Thời gian đưa đón | Giờ cao điểm sáng/chiều đi mất bao lâu thực tế? Có dịch vụ trông muộn không? | Thử đi vào giờ cao điểm |
 
-          | Criteria (Weight) | Sub-criteria | Questions to Ask | Data Source |
-          |-------------------|--------------|------------------|-------------|
-          | **Academics (25%)** | Curriculum | VN MOET / Cambridge / IB / Montessori? | Website, Brochure |
-          | | Language Program | Tiếng Anh: Giờ/tuần, Native teacher %, ESL support? | Curriculum doc |
-          | | Assessment | Formative/Summative, Standardized test, Portfolio? | Parent handbook |
-          | | Homework Policy | Lớp 1: Bao nhiêu? Weekend có không? | Parent Q&A |
-          | **Culture (25%)** | Discipline | Positive discipline / Restorative / Punitive? | Observe, Ask parents |
-          | | SEL Program | Second Step / RULER / Custom? Weekly time? | Counselor |
-          | | Diversity | % Quốc tế, % Special needs, LGBTQ+ inclusive? | Demographic data |
-          | | Parent Involvement | PTA, Volunteer, Communication frequency? | Current parents |
-          | **Teachers (20%)** | Qualifications | % B.Ed/M.Ed, Certification (PGCE/QTS), Local/Expat ratio | HR |
-          | | Turnover | % Teacher stay > 3 năm? Reason leaving? | Parents, Glassdoor |
-          | | Ratio | Lớp 1: Số học sinh / Teacher + TA? | Observation |
-          | **Facilities (15%)** | Learning Spaces | Classroom size, Natural light, Flexible seating? | Tour |
-          | | Outdoor | Playground, Garden, Nature access, PE space? | Tour |
-          | | Safety | CCTV, Guard, Pickup procedure, Emergency drill? | Policy doc |
-          | **Logistics (15%)** | Total Cost | Tuition + Meal + Uniform + Tech + Trip + Fundraising? | Fee schedule |
-          | | Commute | Xe buýt trường / Xe cá nhân / Grab thời gian thực? | Google Maps + Parents |
-          | | Schedule | Giờ vào/ra, Before/After care, Holiday calendar? | Calendar |
+          ## 2. Bảng So Sánh Nhanh 5 Trường Gợi Ý
+          | Trường mẫu | Mô hình | Tổng chi phí/năm | Đi lại | Chương trình | Tiếng Anh | Sĩ số lớp | Độ phù hợp văn hóa | Điểm tổng |
+          |---|---|---|---|---|---|---|---|---|
+          | **Trường A** | Song ngữ | 180 triệu | 25 phút | Bộ GD&ĐT + Quốc tế | 15 tiết/tuần, 50% bản ngữ | 20 bạn + trợ giảng | Kỷ luật tích cực, chú trọng cảm xúc | **87/100** |
+          | **Trường B** | Quốc tế hoàn toàn | 450 triệu | 35 phút | Chương trình quốc tế | 100% tiếng Anh | 18 bạn + trợ giảng | Học qua dự án, đa văn hóa | 82 (vượt ngân sách) |
+          | **Trường C** | Tư thục Việt Nam | 120 triệu | 20 phút | Bộ GD&ĐT tăng cường | 10 tiết/tuần | 25 bạn + trợ giảng | Nề nếp rõ, thiên về học thuật | 75/100 |
+          | **Trường D** | Công lập chất lượng tốt | 20 triệu | 15 phút | Bộ GD&ĐT | 4 tiết/tuần | 35 bạn | Truyền thống, lớp đông | 68/100 |
+          | **Trường E** | Trường quy mô nhỏ | 200 triệu | 30 phút | Kết hợp Montessori & dự án | 10 tiết/tuần | 12 bạn | Trẻ tự chủ, cộng đồng ấm áp | 80 (trường còn mới) |
 
-          ## Shortlist Comparison (Ví dụ 5 Trường)
-          | Trường | Loại | Học phí (M) | Commute | Curriculum | EN Program | Ratio | Culture Fit | Total Score |
-          |--------|------|-------------|---------|------------|------------|-------|-------------|-------------|
-          | **A (Private Bilingual)** | Bilingual | 180 | 25p | MOET + Cambridge | 15h/tuần, 50% NET | 20:1 + TA | Positive discipline, SEL weekly | **87** |
-          | **B (International IB)** | International | 450 | 35p | IB PYP | Immersion, 100% NET | 18:1 + TA | Inquiry, Diversity high | 82 (Cost penalty) |
-          | **C (Private VN + EN)** | Private VN | 120 | 20p | MOET + ESL | 10h/tuần, 30% NET | 25:1 + TA | Structured, Academic focus | 75 |
-          | **D (Public Magnet)** | Public | 20 | 15p | MOET | 4h/tuần | 35:1 | Traditional, Large class | 68 |
-          | **E (Micro-school)** | Hybrid | 200 | 30p | Montessori + PBL | 10h/tuần, Mixed | 12:1 | Self-directed, Community | 80 (Risk: New) |
+          ## 3. Danh Sách Kiểm Tra Khi Đi Tham Quan Trường
+          - [ ] **Quan sát lớp học thật (30 phút)**: Học sinh có hào hứng không? Cô giáo nói chuyện với trẻ bằng giọng tôn trọng hay quát nạt?
+          - [ ] **Hỏi chuyện 2-3 phụ huynh đang học**: *"Con thích nhất điều gì ở trường? Điều gì ba mẹ thấy chưa hài lòng? Giáo viên có hay đổi giữa chừng không?"*
+          - [ ] **Hỏi ban giám hiệu**: *"Trường hỗ trợ các bé hơi nhút nhát hòa nhập bằng cách nào? Nếu có sự cố xô xát giữa các bạn thì quy trình xử lý ra sao?"*
+          - [ ] **Đọc kỹ sổ tay phụ huynh**: Quy định về kỷ luật, bài tập về nhà, bữa ăn và liên lạc hằng tuần.
+          - [ ] **Cảm nhận trực giác của ba mẹ**: *"Nhìn ánh mắt trẻ con ở đây, mình có thấy con mình sẽ vui vẻ khi đến lớp mỗi ngày không?"*
 
-          ## School Visit Checklist (Mang theo khi visit)
-          - [ ] **Observe Class (30p)**: Tương tác Thầy-Trò, Mức độ engaged, Classroom management, Materials
-          - [ ] **Talk to Parents (2-3)**: "Điều gì con thích nhất?", "Điều gì muốn cải thiện?", "Teacher turnover?", "Communication?"
-          - [ ] **Ask Principal**: "Teacher retention?", "How support shy child?", "Bullying policy?", "Parent voice?"
-          - [ ] **Review Handbook**: Discipline, Homework, Assessment, Communication, Safety, Inclusion
-          - [ ] **Gut Feeling**: "Con tôi có hạnh phúc ở đây không?"
+          ## 4. Kế Hoạch Giúp Con Chuyển Tiếp Êm Ái Vào Lớp 1
+          | Giai đoạn | Việc ba mẹ nên làm |
+          |---|---|
+          | **Mùa hè trước lớp 1** | Cho con tham gia khóa làm quen 2-4 tuần nếu trường có; rủ 1-2 bạn tương lai đi chơi cùng; tập thói quen dậy đúng giờ, tự sắp balo |
+          | **2 tuần đầu năm học** | Sắp xếp thời gian đón con sớm hơn nếu được trong tuần đầu; hỏi thăm giáo viên cuối ngày nhưng tránh hỏi dồn dập làm con căng thẳng |
+          | **Hết tháng đầu tiên** | Hẹn trao đổi riêng 20-30 phút với cô chủ nhiệm để nắm tình hình hòa nhập cảm xúc và kết bạn của con |
+          | **Trong suốt năm học** | Giữ liên lạc đều qua sổ liên lạc hoặc ứng dụng trường, tham gia ngày hội gia đình để con thấy ba mẹ và thầy cô đồng hành |
 
-          ## Transition Support (Lớp 1 - Critical)
-          | Phase | Action |
-          |-------|--------|
-          | **Hè trước lớp 1** | Summer bridge program (2-4 tuần), Playdate với bạn lớp tương lai, Thực hành routine (Dậy sớm, Mặc đồng phục, Mang balo) |
-          | **Tuần 1-2** | Half-day đầu tiên, Ba mẹ ở gần (Cafe), Teacher check-in hàng ngày, No homework |
-          | **Tháng 1** | Teacher-parent conference (30p), SEL check-in, Social skills group (nếu cần) |
-          | **Liên tục** | Communication sổ tay/Email hàng tuần, Volunteer cơ hội, Parent workshop |
+          ## 5. Bảng So Sánh Chốt Lựa Chọn (Trường A so với Trường B)
+          | Yếu tố quan trọng | Trường A (Song ngữ) | Trường B (Quốc tế) | Mức độ quan trọng | Điểm A | Điểm B |
+          |---|---|---|---|---|---|
+          | Phù hợp ngân sách | ✅ 180 triệu | ❌ 450 triệu | Rất quan trọng | Đạt | Vượt mức |
+          | Hợp cách học qua chơi | ✅ Chú trọng trải nghiệm | ✅ Học qua dự án | Cao | 9/10 | 8/10 |
+          | Cân bằng Việt - Anh | ✅ 50% Việt / 50% Anh | ✅ 100% tiếng Anh | Cao | 9/10 | 6/10 |
+          | Thời gian đưa đón | ✅ 25 phút | ⚠️ 35 phút | Trung bình | 8/10 | 6/10 |
+          | Giá trị giáo dục | ✅ Khớp mong muốn | ✅ Khớp mong muốn | Cao | 9/10 | 9/10 |
+          | **Tổng điểm có trọng số** | | | | **87/100** | **82/100** |
 
-          ## Decision Matrix (Final)
-          | Factor | School A | School B | Weight | A Score | B Score |
-          |--------|----------|----------|--------|---------|---------|
-          | Budget fit | ✅ 180M | ❌ 450M | Critical | Pass | Fail |
-          | Play-based fit | ✅ Reggio-inspired | ✅ IB PYP | High | 9/10 | 8/10 |
-          | Language (VN+EN) | ✅ 50/50 | ✅ 100% EN | High | 9/10 | 6/10 |
-          | Commute | ✅ 25p | ⚠️ 35p | Medium | 8/10 | 6/10 |
-          | Culture (Values) | ✅ Match | ✅ Match | High | 9/10 | 9/10 |
-          | **Weighted Total** | | | | **87** | **82** |
-
-          **→ Recommendation: School A (Private Bilingual) - Best Goodness of Fit**
-        context: "Con 5t, năng động/nhút nhát, Play-based, Budget 150-250M, Ưu tiên VN+EN, Goodness of fit"
+          **→ Gợi ý chốt: Trường A (Trường song ngữ)** là lựa chọn cân bằng và phù hợp nhất với tính cách của bé cùng ngân sách gia đình.
+        context: "Bé 5 tuổi năng động nhưng hơi nhút nhát, thích học qua chơi và trải nghiệm, ngân sách 150-250 triệu/năm, ưu tiên trường song ngữ Việt - Anh"
     difficulty: "advanced"
     useCases:
-      - "Chọn mẫu giáo/Tiểu học/Trung học"
-      - "Chuyển trường, Chuyển hệ giáo dục"
-      - "Đánh giá chất lượng trường học"
+      - "Chọn trường mầm non, tiểu học hoặc trung học cho con"
+      - "Chuyển trường hoặc chuyển đổi hệ giáo dục"
+      - "Đánh giá khách quan chất lượng trường học"
 agentTemplate:
-  name: "School Selection Consultant"
-  description: "School fit framework, Admissions strategy, Transition support, Public/Private/International comparison"
+  name: "Cố Vấn Chọn Trường Cho Con"
+  description: "Đánh giá độ phù hợp giữa trường học và tính cách trẻ, chiến lược tuyển sinh và hỗ trợ chuyển cấp"
   systemPrompt: |
-    Bạn là School Selection Consultant. Goodness of fit > Reputation. Child's needs first. Visit, observe, talk to parents. Transition support critical.
+    Bạn là chuyên gia tư vấn chọn trường cho trẻ. Độ phù hợp thực tế với nhu cầu của trẻ quan trọng hơn danh tiếng bên ngoài. Luôn khuyên phụ huynh đến tham quan lớp học, trò chuyện với cha mẹ học sinh hiện tại và chuẩn bị tâm lý chuyển tiếp cho con.
   model: "gpt-4"
   temperature: 0.5
 relatedSkillIds:

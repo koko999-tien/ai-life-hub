@@ -1,17 +1,11 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { 
-  Zap, 
-  Code2, 
-  Brain, 
-  DollarSign, 
-  CheckCircle, 
-  XCircle, 
-  ArrowRight, 
-  Filter, 
-  Layers, 
-  SlidersHorizontal,
+import {
+  Zap,
+  CheckCircle,
+  ArrowRight,
+  Layers,
   Scale,
   Award,
   Sparkles,
@@ -40,6 +34,18 @@ export interface AIModel {
   latencyRank: 'Ultra-Fast' | 'Fast' | 'Balanced' | 'Deliberate (Reasoning)';
 }
 
+const LICENSE_LABELS: Record<AIModel['license'], string> = {
+  Proprietary: 'Độc quyền (Trả phí API)',
+  'Open Weights': 'Mã nguồn mở (Tải về tự chạy)',
+};
+
+const LATENCY_LABELS: Record<AIModel['latencyRank'], string> = {
+  'Ultra-Fast': 'Siêu nhanh',
+  Fast: 'Nhanh',
+  Balanced: 'Cân bằng',
+  'Deliberate (Reasoning)': 'Suy nghĩ sâu (Chậm hơn)',
+};
+
 export const MODELS_DATA: AIModel[] = [
   {
     id: 'claude-3-5-sonnet',
@@ -55,9 +61,13 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 93.7,
     mmluScore: 88.7,
     mathScore: 78.3,
-    strengths: ['Đỉnh cao lập trình frontend & fullstack', 'Hiểu sắc thái ngôn ngữ và tuân thủ system prompt cực tốt', 'Prompt Caching giảm 90% chi phí'],
-    bestFor: 'Software Engineering & Autonomous Agents',
-    recommendedUseCases: ['Viết code phức tạp', 'Multi-Agent Workflows', 'Đọc và tái cấu trúc repo'],
+    strengths: [
+      'Đỉnh cao lập trình giao diện & hệ thống toàn phần (fullstack)',
+      'Hiểu sắc thái ngôn ngữ và tuân thủ chỉ dẫn nền cực tốt',
+      'Lưu bộ nhớ đệm (Prompt Caching) giúp giảm 90% chi phí đầu vào'
+    ],
+    bestFor: 'Lập trình phần mềm & Trợ lý tự hành',
+    recommendedUseCases: ['Viết mã nguồn phức tạp', 'Quy trình nhiều trợ lý AI phối hợp', 'Đọc và tái cấu trúc dự án lớn'],
     latencyRank: 'Fast'
   },
   {
@@ -74,9 +84,13 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 88.9,
     mmluScore: 81.3,
     mathScore: 69.4,
-    strengths: ['Tốc độ phản hồi cực nhanh', 'Chi phí tiết kiệm cho subagents', 'Cửa sổ ngữ cảnh 200k rộng rãi'],
-    bestFor: 'High-Throughput APIs & Subagents',
-    recommendedUseCases: ['Phân loại văn bản', 'Trích xuất dữ liệu tự động', 'Subagent hỗ trợ tra cứu'],
+    strengths: [
+      'Tốc độ phản hồi cực nhanh',
+      'Chi phí tiết kiệm cho các tác vụ phụ trợ (subagent)',
+      'Độ dài ngữ cảnh 200k token rộng rãi'
+    ],
+    bestFor: 'Xử lý API tốc độ cao & Tác vụ phụ trợ',
+    recommendedUseCases: ['Phân loại văn bản', 'Trích xuất dữ liệu tự động', 'Trợ lý phụ trợ tra cứu nhanh'],
     latencyRank: 'Ultra-Fast'
   },
   {
@@ -93,8 +107,12 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 90.2,
     mmluScore: 88.7,
     mathScore: 76.6,
-    strengths: ['Xử lý đa phương thức (Vision/Audio/Text) đồng nhất', 'Tốc độ ổn định toàn cầu', 'Hệ sinh thái công cụ phong phú'],
-    bestFor: 'Multimodal General Intelligence',
+    strengths: [
+      'Xử lý đa phương thức (Ảnh, Âm thanh, Văn bản) đồng nhất',
+      'Tốc độ ổn định toàn cầu',
+      'Hệ sinh thái công cụ kết nối phong phú'
+    ],
+    bestFor: 'Trí tuệ tổng hợp đa phương thức (Chữ, Ảnh, Giọng nói)',
     recommendedUseCases: ['Phân tích biểu đồ và ảnh chụp', 'Trợ lý đàm thoại giọng nói', 'Tổng hợp thông tin đa kênh'],
     latencyRank: 'Fast'
   },
@@ -112,9 +130,12 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 92.4,
     mmluScore: 91.8,
     mathScore: 96.4,
-    strengths: ['Tư duy chuỗi ẩn (CoT) sâu trước khi phản hồi', 'Toán học cấp Olympic và lập trình thuật toán phức tạp'],
-    bestFor: 'Deep Reasoning & Complex Math/Algorithms',
-    recommendedUseCases: ['Thuật toán phân tích khoa học', 'Audit bảo mật hợp đồng thông minh', 'Bài toán logic đa tầng'],
+    strengths: [
+      'Tư duy từng bước ẩn (Chain-of-Thought) sâu trước khi phản hồi',
+      'Giải toán cấp Olympic và lập trình thuật toán phức tạp'
+    ],
+    bestFor: 'Suy luận chuyên sâu, Toán học & Thuật toán khó',
+    recommendedUseCases: ['Thuật toán phân tích khoa học', 'Kiểm tra bảo mật hợp đồng thông minh', 'Bài toán logic đa tầng'],
     latencyRank: 'Deliberate (Reasoning)'
   },
   {
@@ -131,14 +152,18 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 89.1,
     mmluScore: 88.5,
     mathScore: 89.3,
-    strengths: ['Hiệu năng tiệm cận Claude/GPT với chi phí rẻ hơn 1/20', 'Kiến trúc MoE 671B siêu tối ưu', 'Hỗ trợ mạnh cả tiếng Việt và Trung'],
-    bestFor: 'Best Value / Cost-Efficiency Champion',
-    recommendedUseCases: ['Xử lý dữ liệu quy mô lớn', 'Hệ thống Chatbot tiết kiệm chi phí', 'Tóm tắt hàng triệu văn bản'],
+    strengths: [
+      'Hiệu năng tiệm cận Claude/GPT nhưng chi phí chỉ bằng khoảng 1/20',
+      'Kiến trúc chia nhỏ chuyên gia (MoE 671B — chỉ kích hoạt phần cần thiết) siêu tối ưu',
+      'Hỗ trợ mạnh cả tiếng Việt và tiếng Trung'
+    ],
+    bestFor: 'Tối ưu chi phí vượt trội trên từng đồng bỏ ra',
+    recommendedUseCases: ['Xử lý dữ liệu quy mô lớn', 'Hệ thống trò chuyện tiết kiệm chi phí', 'Tóm tắt hàng triệu văn bản'],
     latencyRank: 'Fast'
   },
   {
     id: 'deepseek-r1',
-    name: 'DeepSeek R1 (Reasoning)',
+    name: 'DeepSeek R1 (Suy luận sâu)',
     provider: 'DeepSeek',
     license: 'Open Weights',
     contextWindow: 128,
@@ -150,8 +175,12 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 92.8,
     mmluScore: 90.8,
     mathScore: 97.3,
-    strengths: ['Mô hình suy luận mã nguồn mở đầu tiên ngang ngửa OpenAI o1', 'Công khai toàn bộ chuỗi suy nghĩ', 'Giá rẻ bằng 1/30 so với o1'],
-    bestFor: 'Open-Weights Deep Reasoning',
+    strengths: [
+      'Mô hình suy luận mã nguồn mở đầu tiên ngang ngửa OpenAI o1',
+      'Hiển thị minh bạch toàn bộ quá trình suy nghĩ từng bước',
+      'Giá rẻ bằng khoảng 1/30 so với OpenAI o1'
+    ],
+    bestFor: 'Suy luận logic sâu với mã nguồn mở',
     recommendedUseCases: ['Nghiên cứu khoa học & toán học', 'Lập trình giải thuật khó', 'Suy luận pháp lý và logic'],
     latencyRank: 'Deliberate (Reasoning)'
   },
@@ -169,9 +198,12 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 84.1,
     mmluScore: 85.9,
     mathScore: 67.7,
-    strengths: ['Cửa sổ ngữ cảnh khổng lồ 2.000.000 tokens', 'Đọc được cả quyển sách dày, toàn bộ codebase hoặc video 1 giờ'],
-    bestFor: 'Mega Context & Long Video/Document Analysis',
-    recommendedUseCases: ['Phân tích toàn bộ kho tài liệu doanh nghiệp', 'Xem video 60 phút trích xuất dữ liệu', 'Tra cứu codebase lớn'],
+    strengths: [
+      'Sức chứa ngữ cảnh khổng lồ tới 2.000.000 token (đơn vị chữ)',
+      'Đọc được cả quyển sách dày, toàn bộ dự án phần mềm hoặc video dài 1 giờ'
+    ],
+    bestFor: 'Đọc tài liệu siêu dài & Phân tích video dài',
+    recommendedUseCases: ['Phân tích toàn bộ kho tài liệu doanh nghiệp', 'Xem video 60 phút trích xuất dữ liệu', 'Tra cứu toàn bộ mã nguồn lớn'],
     latencyRank: 'Balanced'
   },
   {
@@ -188,9 +220,13 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 86.5,
     mmluScore: 83.2,
     mathScore: 71.0,
-    strengths: ['Tốc độ streaming tức thì (Time-to-first-token cực thấp)', 'Chi phí rẻ top đầu thế giới', 'Cửa sổ 1M tokens'],
-    bestFor: 'Real-time Agents & Sub-second Search',
-    recommendedUseCases: ['Chatbot trực tiếp tốc độ cao', 'Công cụ tìm kiếm thời gian thực', 'RAG quy mô lớn'],
+    strengths: [
+      'Tốc độ hiện chữ đầu tiên gần như tức thì (thời gian chờ chữ đầu tiên cực thấp)',
+      'Chi phí thuộc nhóm rẻ nhất thị trường',
+      'Độ dài ngữ cảnh tới 1 triệu token'
+    ],
+    bestFor: 'Trợ lý phản hồi tức thì & Tìm kiếm thời gian thực',
+    recommendedUseCases: ['Chatbot trực tiếp tốc độ cao', 'Công cụ tìm kiếm thời gian thực', 'Tra cứu kho tài liệu nội bộ (RAG) quy mô lớn'],
     latencyRank: 'Ultra-Fast'
   },
   {
@@ -207,9 +243,12 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 88.0,
     mmluScore: 88.6,
     mathScore: 75.0,
-    strengths: ['Chất lượng tương đương GPT-4 tiền nhiệm nhưng chạy được on-premise', 'Cộng đồng tinh chỉnh (fine-tuning) lớn nhất thế giới'],
-    bestFor: 'Self-Hosted Private Deployments',
-    recommendedUseCases: ['Triển khai nội bộ bảo mật ngân hàng/y tế', 'Fine-tuning dữ liệu riêng', 'Chạy offline qua Ollama/vLLM'],
+    strengths: [
+      'Chất lượng tương đương GPT-4 đời trước nhưng tự cài được trên máy chủ nội bộ (on-premise)',
+      'Cộng đồng huấn luyện tinh chỉnh thêm (fine-tuning) lớn nhất thế giới'
+    ],
+    bestFor: 'Triển khai riêng tư trên máy chủ nội bộ',
+    recommendedUseCases: ['Triển khai bảo mật nội bộ ngân hàng/y tế', 'Huấn luyện riêng theo dữ liệu công ty', 'Chạy ngoại tuyến qua Ollama/vLLM'],
     latencyRank: 'Fast'
   },
   {
@@ -226,9 +265,12 @@ export const MODELS_DATA: AIModel[] = [
     humanEvalScore: 92.7,
     mmluScore: 85.0,
     mathScore: 82.5,
-    strengths: ['Model lập trình mở 32B tốt nhất hành tinh', 'Chạy mượt trên GPU máy trạm cá nhân (RTX 3090/4090/Mac M3)'],
-    bestFor: 'Local AI Coding Assistant',
-    recommendedUseCases: ['Tích hợp vào VS Code / Cursor offline', 'Tự động hóa git và unit test', 'Không lo rò rỉ mã nguồn'],
+    strengths: [
+      'Mô hình lập trình mã nguồn mở cỡ 32B mạnh hàng đầu hiện nay',
+      'Chạy mượt trên card đồ họa máy trạm cá nhân (RTX 3090/4090/Mac M3)'
+    ],
+    bestFor: 'Trợ lý lập trình chạy trực tiếp trên máy cá nhân',
+    recommendedUseCases: ['Tích hợp vào VS Code / Cursor ngoại tuyến', 'Tự động hóa git và kiểm thử tự động (unit test)', 'Bảo mật tuyệt đối, không gửi mã nguồn ra ngoài'],
     latencyRank: 'Ultra-Fast'
   }
 ];
@@ -279,8 +321,11 @@ export function ModelComparisonArena() {
   return (
     <div className="space-y-8">
       {/* Navigation Tabs */}
-      <div className="flex border-b border-border gap-2 sm:gap-6 overflow-x-auto pb-1">
+      <div role="tablist" aria-label="Chế độ so sánh mô hình AI" className="flex border-b border-border gap-2 sm:gap-6 overflow-x-auto pb-1">
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'matrix'}
           onClick={() => setActiveTab('matrix')}
           className={`flex items-center gap-2 pb-3 px-1 text-sm font-semibold border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'matrix'
@@ -289,10 +334,13 @@ export function ModelComparisonArena() {
           }`}
         >
           <Layers className="w-4 h-4" />
-          Bảng Ma Trận & Thông Số (Matrix)
+          Bảng Thông Số Tổng Hợp
         </button>
 
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'versus'}
           onClick={() => setActiveTab('versus')}
           className={`flex items-center gap-2 pb-3 px-1 text-sm font-semibold border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'versus'
@@ -301,10 +349,13 @@ export function ModelComparisonArena() {
           }`}
         >
           <Scale className="w-4 h-4" />
-          So Sánh Trực Diện 1-vs-1
+          So Sánh 1-đối-1
         </button>
 
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'advisor'}
           onClick={() => setActiveTab('advisor')}
           className={`flex items-center gap-2 pb-3 px-1 text-sm font-semibold border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'advisor'
@@ -313,7 +364,7 @@ export function ModelComparisonArena() {
           }`}
         >
           <Sparkles className="w-4 h-4" />
-          Tư Vấn Chọn Model Phù Hợp
+          Tư Vấn Chọn Mô Hình
         </button>
       </div>
 
@@ -325,170 +376,191 @@ export function ModelComparisonArena() {
             <div className="flex-1 min-w-[240px]">
               <input
                 type="text"
+                aria-label="Tìm kiếm mô hình AI"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Tìm model, thế mạnh (vd: coding, context, giá rẻ)..."
+                placeholder="Tìm mô hình, thế mạnh (vd: lập trình, tài liệu dài, giá rẻ)..."
                 className="w-full p-2.5 rounded-lg bg-bg border border-border text-sm text-text focus:border-accent focus:outline-none"
               />
             </div>
 
             <div className="flex flex-wrap gap-2">
               <select
+                aria-label="Lọc theo nhà phát triển"
                 value={selectedProvider}
                 onChange={(e) => setSelectedProvider(e.target.value)}
                 className="p-2.5 rounded-lg bg-bg border border-border text-xs sm:text-sm text-text focus:border-accent focus:outline-none"
               >
-                <option value="all">Tất cả nhà cung cấp</option>
+                <option value="all">Tất cả nhà phát triển</option>
                 <option value="Anthropic">Anthropic</option>
                 <option value="OpenAI">OpenAI</option>
                 <option value="DeepSeek">DeepSeek</option>
                 <option value="Google">Google</option>
                 <option value="Meta">Meta</option>
-                <option value="Open Source">Open Source</option>
+                <option value="Open Source">Cộng đồng Mã nguồn mở</option>
               </select>
 
               <select
+                aria-label="Lọc theo loại bản quyền"
                 value={selectedLicense}
                 onChange={(e) => setSelectedLicense(e.target.value)}
                 className="p-2.5 rounded-lg bg-bg border border-border text-xs sm:text-sm text-text focus:border-accent focus:outline-none"
               >
                 <option value="all">Mọi loại bản quyền</option>
-                <option value="Proprietary">Độc quyền (Proprietary API)</option>
-                <option value="Open Weights">Mã nguồn mở (Open Weights)</option>
+                <option value="Proprietary">Độc quyền (Trả phí API)</option>
+                <option value="Open Weights">Mã nguồn mở (Tải về tự chạy)</option>
               </select>
             </div>
           </div>
 
           {/* Model Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredModels.map((m) => (
-              <div 
-                key={m.id} 
-                className="card p-6 bg-bg-surface border-border hover:border-accent/50 transition-all flex flex-col justify-between group"
+          {filteredModels.length === 0 ? (
+            <div className="card p-10 bg-bg-surface border-border text-center space-y-3">
+              <p className="text-sm text-text-muted">Không tìm thấy mô hình AI nào khớp với bộ lọc hiện tại.</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedProvider('all');
+                  setSelectedLicense('all');
+                }}
+                className="px-4 py-2 rounded-lg bg-accent text-white text-xs font-semibold hover:bg-accent-hover transition-colors"
               >
-                <div>
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <div>
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-accent/10 text-accent mb-1 inline-block">
-                        {m.provider}
+                Đặt lại bộ lọc
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredModels.map((m) => (
+                <div
+                  key={m.id}
+                  className="card p-6 bg-bg-surface border-border hover:border-accent/50 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <div>
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-accent/10 text-accent mb-1 inline-block">
+                          {m.provider}
+                        </span>
+                        <h3 className="font-bold text-lg text-text group-hover:text-accent transition-colors">
+                          {m.name}
+                        </h3>
+                      </div>
+                      <span className={`text-[11px] px-2 py-0.5 rounded-full border font-medium text-right ${
+                        m.license === 'Open Weights'
+                          ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                          : 'border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400'
+                      }`}>
+                        {LICENSE_LABELS[m.license]}
                       </span>
-                      <h3 className="font-bold text-lg text-text group-hover:text-accent transition-colors">
-                        {m.name}
-                      </h3>
                     </div>
-                    <span className={`text-[11px] px-2 py-0.5 rounded-full border font-medium ${
-                      m.license === 'Open Weights' 
-                        ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                        : 'border-blue-500/30 bg-blue-500/10 text-blue-400'
-                    }`}>
-                      {m.license}
+
+                    <p className="text-xs text-text-muted mb-4 font-medium">
+                      🎯 <strong className="text-text">Phù hợp nhất cho:</strong> {m.bestFor}
+                    </p>
+
+                    {/* Key Stats Bar */}
+                    <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-bg border border-border/80 mb-4 text-center">
+                      <div>
+                        <span className="text-[10px] text-text-muted block">Ngữ cảnh</span>
+                        <strong className="text-xs sm:text-sm text-text font-mono">
+                          {m.contextWindow >= 1000 ? `${m.contextWindow / 1000}M` : `${m.contextWindow}k`}
+                        </strong>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-text-muted block">Đầu vào / 1M</span>
+                        <strong className="text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 font-mono">
+                          ${m.inputPricePerMillion}
+                        </strong>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-text-muted block">Đầu ra / 1M</span>
+                        <strong className="text-xs sm:text-sm text-text font-mono">
+                          ${m.outputPricePerMillion}
+                        </strong>
+                      </div>
+                    </div>
+
+                    {/* Benchmark badges with visual progress bars */}
+                    <div className="space-y-2.5 mb-4 text-xs font-mono">
+                      {m.sweBenchScore && (
+                        <div className="space-y-1">
+                          <div className="flex justify-between items-center text-text-muted">
+                            <span>SWE-bench (Lập trình thực tế):</span>
+                            <strong className="text-text font-semibold">{m.sweBenchScore}%</strong>
+                          </div>
+                          <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
+                            <div
+                              className="h-full bg-gradient-to-r from-accent to-accent-hover rounded-full transition-all duration-500"
+                              style={{ width: `${Math.min(100, Math.max(0, m.sweBenchScore))}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {m.mathScore && (
+                        <div className="space-y-1">
+                          <div className="flex justify-between items-center text-text-muted">
+                            <span>MATH (Toán học & Logic):</span>
+                            <strong className="text-text font-semibold">{m.mathScore}%</strong>
+                          </div>
+                          <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
+                            <div
+                              className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full transition-all duration-500"
+                              style={{ width: `${Math.min(100, Math.max(0, m.mathScore))}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {m.mmluScore && (
+                        <div className="space-y-1">
+                          <div className="flex justify-between items-center text-text-muted">
+                            <span>MMLU (Kiến thức tổng quát):</span>
+                            <strong className="text-text font-semibold">{m.mmluScore}%</strong>
+                          </div>
+                          <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
+                            <div
+                              className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500"
+                              style={{ width: `${Math.min(100, Math.max(0, m.mmluScore))}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Strengths list */}
+                    <div className="space-y-1 mb-4">
+                      <span className="text-[11px] font-semibold text-text uppercase">Điểm nổi bật:</span>
+                      <ul className="text-xs text-text-muted space-y-1">
+                        {m.strengths.map((s, idx) => (
+                          <li key={idx} className="flex items-start gap-1.5">
+                            <CheckCircle className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
+                            <span>{s}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-border flex items-center justify-between">
+                    <span className="text-xs text-text-muted flex items-center gap-1">
+                      <Zap className="w-3.5 h-3.5 text-accent" />
+                      {LATENCY_LABELS[m.latencyRank]}
                     </span>
-                  </div>
-
-                  <p className="text-xs text-text-muted mb-4 font-medium">
-                    🎯 <strong className="text-text">Tối ưu cho:</strong> {m.bestFor}
-                  </p>
-
-                  {/* Key Stats Bar */}
-                  <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-bg border border-border/80 mb-4 text-center">
-                    <div>
-                      <span className="text-[10px] text-text-muted block">Ngữ cảnh</span>
-                      <strong className="text-xs sm:text-sm text-text font-mono">
-                        {m.contextWindow >= 1000 ? `${m.contextWindow / 1000}M` : `${m.contextWindow}k`}
-                      </strong>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-text-muted block">Giá In/1M</span>
-                      <strong className="text-xs sm:text-sm text-emerald-400 font-mono">
-                        ${m.inputPricePerMillion}
-                      </strong>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-text-muted block">Giá Out/1M</span>
-                      <strong className="text-xs sm:text-sm text-text font-mono">
-                        ${m.outputPricePerMillion}
-                      </strong>
-                    </div>
-                  </div>
-
-                  {/* Benchmark badges with visual progress bars */}
-                  <div className="space-y-2.5 mb-4 text-xs font-mono">
-                    {m.sweBenchScore && (
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-center text-text-muted">
-                          <span>SWE-bench (Code thực tế):</span>
-                          <strong className="text-text font-semibold">{m.sweBenchScore}%</strong>
-                        </div>
-                        <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
-                          <div 
-                            className="h-full bg-gradient-to-r from-accent to-accent-hover rounded-full transition-all duration-500"
-                            style={{ width: `${Math.min(100, Math.max(0, m.sweBenchScore))}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {m.mathScore && (
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-center text-text-muted">
-                          <span>MATH (Toán học/Logic):</span>
-                          <strong className="text-text font-semibold">{m.mathScore}%</strong>
-                        </div>
-                        <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
-                          <div 
-                            className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full transition-all duration-500"
-                            style={{ width: `${Math.min(100, Math.max(0, m.mathScore))}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {m.mmluScore && (
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-center text-text-muted">
-                          <span>MMLU (Kiến thức tổng quát):</span>
-                          <strong className="text-text font-semibold">{m.mmluScore}%</strong>
-                        </div>
-                        <div className="h-1.5 w-full bg-bg rounded-full overflow-hidden border border-border/60">
-                          <div 
-                            className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500"
-                            style={{ width: `${Math.min(100, Math.max(0, m.mmluScore))}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Strengths list */}
-                  <div className="space-y-1 mb-4">
-                    <span className="text-[11px] font-semibold text-text uppercase">Điểm nổi bật:</span>
-                    <ul className="text-xs text-text-muted space-y-1">
-                      {m.strengths.map((s, idx) => (
-                        <li key={idx} className="flex items-start gap-1.5">
-                          <CheckCircle className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
-                          <span>{s}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setModelAId(m.id);
+                        setActiveTab('versus');
+                      }}
+                      className="text-xs font-semibold text-accent hover:underline flex items-center gap-1"
+                    >
+                      So sánh 1-đối-1 <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
-
-                <div className="pt-4 border-t border-border flex items-center justify-between">
-                  <span className="text-xs text-text-muted flex items-center gap-1">
-                    <Zap className="w-3.5 h-3.5 text-accent" />
-                    {m.latencyRank}
-                  </span>
-                  <button
-                    onClick={() => {
-                      setModelAId(m.id);
-                      setActiveTab('versus');
-                    }}
-                    className="text-xs font-semibold text-accent hover:underline flex items-center gap-1"
-                  >
-                    So sánh 1-vs-1 <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -498,8 +570,11 @@ export function ModelComparisonArena() {
           {/* Model Pickers */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card p-5 bg-bg-surface border-border space-y-2">
-              <label className="text-xs font-semibold uppercase text-accent">Chọn Model A:</label>
+              <label htmlFor="compare-model-a" className="text-xs font-semibold uppercase text-accent block">
+                Chọn Mô Hình A:
+              </label>
               <select
+                id="compare-model-a"
                 value={modelAId}
                 onChange={(e) => setModelAId(e.target.value)}
                 className="w-full p-3 rounded-lg bg-bg border border-border text-text font-bold focus:border-accent focus:outline-none"
@@ -511,8 +586,11 @@ export function ModelComparisonArena() {
             </div>
 
             <div className="card p-5 bg-bg-surface border-border space-y-2">
-              <label className="text-xs font-semibold uppercase text-purple-400">Chọn Model B:</label>
+              <label htmlFor="compare-model-b" className="text-xs font-semibold uppercase text-purple-600 dark:text-purple-400 block">
+                Chọn Mô Hình B:
+              </label>
               <select
+                id="compare-model-b"
                 value={modelBId}
                 onChange={(e) => setModelBId(e.target.value)}
                 className="w-full p-3 rounded-lg bg-bg border border-border text-text font-bold focus:border-accent focus:outline-none"
@@ -529,6 +607,8 @@ export function ModelComparisonArena() {
             <span className="text-xs text-text-muted">Chế độ xem trên di động:</span>
             <div className="flex items-center gap-1.5">
               <button
+                type="button"
+                aria-pressed={versusMobileView === 'cards'}
                 onClick={() => setVersusMobileView('cards')}
                 className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-all ${
                   versusMobileView === 'cards'
@@ -541,6 +621,8 @@ export function ModelComparisonArena() {
                 <span>Thẻ dọc</span>
               </button>
               <button
+                type="button"
+                aria-pressed={versusMobileView === 'table'}
                 onClick={() => setVersusMobileView('table')}
                 className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-all ${
                   versusMobileView === 'table'
@@ -567,7 +649,7 @@ export function ModelComparisonArena() {
                     <strong className="text-text">{modelA.provider}</strong>
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
-                    <span className="text-[10px] text-purple-400 block font-bold">{modelB.name}</span>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold">{modelB.name}</span>
                     <strong className="text-text">{modelB.provider}</strong>
                   </div>
                 </div>
@@ -579,86 +661,86 @@ export function ModelComparisonArena() {
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
                     <span className="text-[10px] text-accent block font-bold">{modelA.name}</span>
-                    <span className="text-text">{modelA.license}</span>
+                    <span className="text-text text-xs">{LICENSE_LABELS[modelA.license]}</span>
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
-                    <span className="text-[10px] text-purple-400 block font-bold">{modelB.name}</span>
-                    <span className="text-text">{modelB.license}</span>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold">{modelB.name}</span>
+                    <span className="text-text text-xs">{LICENSE_LABELS[modelB.license]}</span>
                   </div>
                 </div>
               </div>
 
               {/* Context Window */}
               <div className="card p-4 bg-bg-surface border-border space-y-2">
-                <span className="text-xs font-semibold text-text-muted uppercase">Cửa sổ ngữ cảnh (Context)</span>
+                <span className="text-xs font-semibold text-text-muted uppercase">Độ dài văn bản đọc được</span>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
                     <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
                     <strong className="text-text">
-                      {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M` : `${modelA.contextWindow}k`} tokens
+                      {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M` : `${modelA.contextWindow}k`} token
                     </strong>
-                    {modelA.contextWindow > modelB.contextWindow && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">👑 Lớn hơn</span>}
+                    {modelA.contextWindow > modelB.contextWindow && <span className="block text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold mt-0.5">👑 Lớn hơn</span>}
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
-                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold font-sans">{modelB.name}</span>
                     <strong className="text-text">
-                      {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M` : `${modelB.contextWindow}k`} tokens
+                      {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M` : `${modelB.contextWindow}k`} token
                     </strong>
-                    {modelB.contextWindow > modelA.contextWindow && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">👑 Lớn hơn</span>}
+                    {modelB.contextWindow > modelA.contextWindow && <span className="block text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold mt-0.5">👑 Lớn hơn</span>}
                   </div>
                 </div>
               </div>
 
               {/* Input Price */}
               <div className="card p-4 bg-bg-surface border-border space-y-2">
-                <span className="text-xs font-semibold text-text-muted uppercase">Giá Input (trên 1M tokens)</span>
+                <span className="text-xs font-semibold text-text-muted uppercase">Giá đầu vào (trên 1M token)</span>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
                     <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
                     <strong className="text-text">${modelA.inputPricePerMillion}</strong>
-                    {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                    {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="block text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
-                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold font-sans">{modelB.name}</span>
                     <strong className="text-text">${modelB.inputPricePerMillion}</strong>
-                    {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                    {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="block text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
                   </div>
                 </div>
               </div>
 
               {/* Output Price */}
               <div className="card p-4 bg-bg-surface border-border space-y-2">
-                <span className="text-xs font-semibold text-text-muted uppercase">Giá Output (trên 1M tokens)</span>
+                <span className="text-xs font-semibold text-text-muted uppercase">Giá đầu ra (trên 1M token)</span>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
                     <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
                     <strong className="text-text">${modelA.outputPricePerMillion}</strong>
-                    {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                    {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="block text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
-                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold font-sans">{modelB.name}</span>
                     <strong className="text-text">${modelB.outputPricePerMillion}</strong>
-                    {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="block text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
+                    {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="block text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold mt-0.5">⭐ Rẻ hơn</span>}
                   </div>
                 </div>
               </div>
 
               {/* SWE-bench */}
               <div className="card p-4 bg-bg-surface border-border space-y-2">
-                <span className="text-xs font-semibold text-text-muted uppercase">SWE-bench (Code thực tế)</span>
+                <span className="text-xs font-semibold text-text-muted uppercase">SWE-bench (Lập trình thực tế)</span>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
                     <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
-                    <strong className="text-text">{modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'N/A'}</strong>
+                    <strong className="text-text">{modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'Chưa công bố'}</strong>
                     {modelA.sweBenchScore && modelB.sweBenchScore && modelA.sweBenchScore > modelB.sweBenchScore && (
                       <span className="block text-accent text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
                     )}
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
-                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
-                    <strong className="text-text">{modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'N/A'}</strong>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">{modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'Chưa công bố'}</strong>
                     {modelA.sweBenchScore && modelB.sweBenchScore && modelB.sweBenchScore > modelA.sweBenchScore && (
-                      <span className="block text-purple-400 text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
+                      <span className="block text-purple-600 dark:text-purple-400 text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
                     )}
                   </div>
                 </div>
@@ -670,16 +752,16 @@ export function ModelComparisonArena() {
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
                     <span className="text-[10px] text-accent block font-bold font-sans">{modelA.name}</span>
-                    <strong className="text-text">{modelA.mathScore ? `${modelA.mathScore}%` : 'N/A'}</strong>
+                    <strong className="text-text">{modelA.mathScore ? `${modelA.mathScore}%` : 'Chưa công bố'}</strong>
                     {modelA.mathScore && modelB.mathScore && modelA.mathScore > modelB.mathScore && (
                       <span className="block text-accent text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
                     )}
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center font-mono">
-                    <span className="text-[10px] text-purple-400 block font-bold font-sans">{modelB.name}</span>
-                    <strong className="text-text">{modelB.mathScore ? `${modelB.mathScore}%` : 'N/A'}</strong>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold font-sans">{modelB.name}</span>
+                    <strong className="text-text">{modelB.mathScore ? `${modelB.mathScore}%` : 'Chưa công bố'}</strong>
                     {modelA.mathScore && modelB.mathScore && modelB.mathScore > modelA.mathScore && (
-                      <span className="block text-purple-400 text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
+                      <span className="block text-purple-600 dark:text-purple-400 text-[10px] font-semibold mt-0.5">🏆 Thắng</span>
                     )}
                   </div>
                 </div>
@@ -691,11 +773,11 @@ export function ModelComparisonArena() {
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
                     <span className="text-[10px] text-accent block font-bold">{modelA.name}</span>
-                    <strong className="text-text">{modelA.latencyRank}</strong>
+                    <strong className="text-text text-xs">{LATENCY_LABELS[modelA.latencyRank]}</strong>
                   </div>
                   <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
-                    <span className="text-[10px] text-purple-400 block font-bold">{modelB.name}</span>
-                    <strong className="text-text">{modelB.latencyRank}</strong>
+                    <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold">{modelB.name}</span>
+                    <strong className="text-text text-xs">{LATENCY_LABELS[modelB.latencyRank]}</strong>
                   </div>
                 </div>
               </div>
@@ -708,7 +790,7 @@ export function ModelComparisonArena() {
               <div className="grid grid-cols-12 bg-bg p-4 border-b border-border text-xs font-bold uppercase text-text-muted">
                 <div className="col-span-4">Tiêu chí so sánh</div>
                 <div className="col-span-4 text-center text-accent">{modelA.name}</div>
-                <div className="col-span-4 text-center text-purple-400">{modelB.name}</div>
+                <div className="col-span-4 text-center text-purple-600 dark:text-purple-400">{modelB.name}</div>
               </div>
 
               <div className="divide-y divide-border text-sm">
@@ -722,46 +804,46 @@ export function ModelComparisonArena() {
                 {/* License */}
                 <div className="grid grid-cols-12 p-4 items-center">
                   <div className="col-span-4 text-text-muted font-medium">Bản quyền mã nguồn</div>
-                  <div className="col-span-4 text-center text-text">{modelA.license}</div>
-                  <div className="col-span-4 text-center text-text">{modelB.license}</div>
+                  <div className="col-span-4 text-center text-text">{LICENSE_LABELS[modelA.license]}</div>
+                  <div className="col-span-4 text-center text-text">{LICENSE_LABELS[modelB.license]}</div>
                 </div>
 
                 {/* Context Window */}
                 <div className="grid grid-cols-12 p-4 items-center">
-                  <div className="col-span-4 text-text-muted font-medium">Cửa sổ ngữ cảnh (Context)</div>
+                  <div className="col-span-4 text-text-muted font-medium">Độ dài văn bản đọc được</div>
                   <div className="col-span-4 text-center font-mono font-bold">
-                    {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M tokens` : `${modelA.contextWindow}k tokens`}
-                    {modelA.contextWindow > modelB.contextWindow && <span className="ml-1 text-emerald-400 text-xs">👑 Lớn hơn</span>}
+                    {modelA.contextWindow >= 1000 ? `${modelA.contextWindow / 1000}M token` : `${modelA.contextWindow}k token`}
+                    {modelA.contextWindow > modelB.contextWindow && <span className="ml-1 text-emerald-600 dark:text-emerald-400 text-xs">👑 Lớn hơn</span>}
                   </div>
                   <div className="col-span-4 text-center font-mono font-bold">
-                    {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M tokens` : `${modelB.contextWindow}k tokens`}
-                    {modelB.contextWindow > modelA.contextWindow && <span className="ml-1 text-emerald-400 text-xs">👑 Lớn hơn</span>}
+                    {modelB.contextWindow >= 1000 ? `${modelB.contextWindow / 1000}M token` : `${modelB.contextWindow}k token`}
+                    {modelB.contextWindow > modelA.contextWindow && <span className="ml-1 text-emerald-600 dark:text-emerald-400 text-xs">👑 Lớn hơn</span>}
                   </div>
                 </div>
 
                 {/* Input Price */}
                 <div className="grid grid-cols-12 p-4 items-center">
-                  <div className="col-span-4 text-text-muted font-medium">Giá Input (trên 1M tokens)</div>
+                  <div className="col-span-4 text-text-muted font-medium">Giá đầu vào (trên 1M token)</div>
                   <div className="col-span-4 text-center font-mono">
                     ${modelA.inputPricePerMillion}
-                    {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                    {modelA.inputPricePerMillion < modelB.inputPricePerMillion && <span className="ml-1 text-emerald-600 dark:text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
                   </div>
                   <div className="col-span-4 text-center font-mono">
                     ${modelB.inputPricePerMillion}
-                    {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                    {modelB.inputPricePerMillion < modelA.inputPricePerMillion && <span className="ml-1 text-emerald-600 dark:text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
                   </div>
                 </div>
 
                 {/* Output Price */}
                 <div className="grid grid-cols-12 p-4 items-center">
-                  <div className="col-span-4 text-text-muted font-medium">Giá Output (trên 1M tokens)</div>
+                  <div className="col-span-4 text-text-muted font-medium">Giá đầu ra (trên 1M token)</div>
                   <div className="col-span-4 text-center font-mono">
                     ${modelA.outputPricePerMillion}
-                    {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                    {modelA.outputPricePerMillion < modelB.outputPricePerMillion && <span className="ml-1 text-emerald-600 dark:text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
                   </div>
                   <div className="col-span-4 text-center font-mono">
                     ${modelB.outputPricePerMillion}
-                    {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="ml-1 text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
+                    {modelB.outputPricePerMillion < modelA.outputPricePerMillion && <span className="ml-1 text-emerald-600 dark:text-emerald-400 text-xs">⭐ Rẻ hơn</span>}
                   </div>
                 </div>
 
@@ -769,15 +851,15 @@ export function ModelComparisonArena() {
                 <div className="grid grid-cols-12 p-4 items-center">
                   <div className="col-span-4 text-text-muted font-medium">SWE-bench (Khả năng giải bài toán lập trình)</div>
                   <div className="col-span-4 text-center font-mono font-bold text-text">
-                    {modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'N/A'}
+                    {modelA.sweBenchScore ? `${modelA.sweBenchScore}%` : 'Chưa công bố'}
                     {modelA.sweBenchScore && modelB.sweBenchScore && modelA.sweBenchScore > modelB.sweBenchScore && (
                       <span className="ml-1 text-accent text-xs">🏆 Thắng</span>
                     )}
                   </div>
                   <div className="col-span-4 text-center font-mono font-bold text-text">
-                    {modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'N/A'}
+                    {modelB.sweBenchScore ? `${modelB.sweBenchScore}%` : 'Chưa công bố'}
                     {modelA.sweBenchScore && modelB.sweBenchScore && modelB.sweBenchScore > modelA.sweBenchScore && (
-                      <span className="ml-1 text-purple-400 text-xs">🏆 Thắng</span>
+                      <span className="ml-1 text-purple-600 dark:text-purple-400 text-xs">🏆 Thắng</span>
                     )}
                   </div>
                 </div>
@@ -786,15 +868,15 @@ export function ModelComparisonArena() {
                 <div className="grid grid-cols-12 p-4 items-center">
                   <div className="col-span-4 text-text-muted font-medium">Điểm Toán học & Logic (MATH)</div>
                   <div className="col-span-4 text-center font-mono font-bold text-text">
-                    {modelA.mathScore ? `${modelA.mathScore}%` : 'N/A'}
+                    {modelA.mathScore ? `${modelA.mathScore}%` : 'Chưa công bố'}
                     {modelA.mathScore && modelB.mathScore && modelA.mathScore > modelB.mathScore && (
                       <span className="ml-1 text-accent text-xs">🏆 Thắng</span>
                     )}
                   </div>
                   <div className="col-span-4 text-center font-mono font-bold text-text">
-                    {modelB.mathScore ? `${modelB.mathScore}%` : 'N/A'}
+                    {modelB.mathScore ? `${modelB.mathScore}%` : 'Chưa công bố'}
                     {modelA.mathScore && modelB.mathScore && modelB.mathScore > modelA.mathScore && (
-                      <span className="ml-1 text-purple-400 text-xs">🏆 Thắng</span>
+                      <span className="ml-1 text-purple-600 dark:text-purple-400 text-xs">🏆 Thắng</span>
                     )}
                   </div>
                 </div>
@@ -802,8 +884,8 @@ export function ModelComparisonArena() {
                 {/* Tốc độ */}
                 <div className="grid grid-cols-12 p-4 items-center">
                   <div className="col-span-4 text-text-muted font-medium">Độ trễ / Tốc độ phản hồi</div>
-                  <div className="col-span-4 text-center text-text font-medium">{modelA.latencyRank}</div>
-                  <div className="col-span-4 text-center text-text font-medium">{modelB.latencyRank}</div>
+                  <div className="col-span-4 text-center text-text font-medium">{LATENCY_LABELS[modelA.latencyRank]}</div>
+                  <div className="col-span-4 text-center text-text font-medium">{LATENCY_LABELS[modelB.latencyRank]}</div>
                 </div>
               </div>
             </div>
@@ -820,16 +902,20 @@ export function ModelComparisonArena() {
               Nhu cầu ưu tiên số 1 của bạn là gì?
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-              {[
-                { id: 'coding', label: '💻 Lập trình & Code', desc: 'Viết app, debug, refactor' },
-                { id: 'reasoning', label: '🧠 Tư duy & Toán học', desc: 'Logic sâu, toán Olympic' },
-                { id: 'budget', label: '💰 Siêu tiết kiệm chi phí', desc: 'Xử lý triệu request giá rẻ' },
-                { id: 'long-context', label: '📚 Đọc tài liệu siêu dài', desc: 'Ngữ cảnh 200k - 2 triệu tokens' },
-                { id: 'local', label: '🔒 Tự chạy Local / Offline', desc: 'Bảo mật 100%, không gửi ra ngoài' },
-              ].map((goal) => (
+              {(
+                [
+                  { id: 'coding', label: '💻 Lập trình & Mã nguồn', desc: 'Viết ứng dụng, sửa lỗi, tái cấu trúc' },
+                  { id: 'reasoning', label: '🧠 Tư duy & Toán học', desc: 'Logic sâu, toán nâng cao' },
+                  { id: 'budget', label: '💰 Siêu tiết kiệm chi phí', desc: 'Xử lý hàng triệu lượt giá rẻ' },
+                  { id: 'long-context', label: '📚 Đọc tài liệu siêu dài', desc: 'Ngữ cảnh 200k – 2 triệu token' },
+                  { id: 'local', label: '🔒 Tự chạy nội bộ / Ngoại tuyến', desc: 'Bảo mật 100%, không gửi ra ngoài' },
+                ] as const
+              ).map((goal) => (
                 <button
                   key={goal.id}
-                  onClick={() => setAdvisorGoal(goal.id as any)}
+                  type="button"
+                  aria-pressed={advisorGoal === goal.id}
+                  onClick={() => setAdvisorGoal(goal.id)}
                   className={`p-4 rounded-xl border text-left transition-all ${
                     advisorGoal === goal.id
                       ? 'border-accent bg-accent/10 text-accent font-semibold shadow-md'
@@ -866,20 +952,22 @@ export function ModelComparisonArena() {
 
                   <div className="p-3 rounded-lg bg-bg border border-border text-xs space-y-1">
                     <div className="flex justify-between text-text-muted">
-                      <span>Giá Input/1M:</span>
-                      <strong className="text-emerald-400">${m.inputPricePerMillion}</strong>
+                      <span>Giá đầu vào / 1M:</span>
+                      <strong className="text-emerald-600 dark:text-emerald-400">${m.inputPricePerMillion}</strong>
                     </div>
                     <div className="flex justify-between text-text-muted">
-                      <span>Cửa sổ Context:</span>
-                      <strong className="text-text">{m.contextWindow}k</strong>
+                      <span>Độ dài ngữ cảnh:</span>
+                      <strong className="text-text">
+                        {m.contextWindow >= 1000 ? `${m.contextWindow / 1000}M` : `${m.contextWindow}k`} token
+                      </strong>
                     </div>
                   </div>
 
                   <Link
-                    href={`/tools/token-calculator`}
+                    href="/tools/token-calculator"
                     className="block text-center py-2 px-3 rounded-lg border border-accent/30 bg-accent/5 hover:bg-accent/10 text-accent text-xs font-semibold transition-all"
                   >
-                    Tính toán chi phí cho model này
+                    Tính toán chi phí cho mô hình này
                   </Link>
                 </div>
               ))}

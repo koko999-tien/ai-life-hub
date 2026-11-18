@@ -1,76 +1,70 @@
 ---
 id: motion-design-basics
 categoryId: thiet-ke
-name: "Motion Design cơ bản cho UI"
-description: "Animation principles cho UI: Easing, Duration, Choreography, Micro-interactions, Lottie/Rive integration"
+name: "Thiết kế chuyển động cơ bản cho giao diện"
+description: "Nguyên lý làm chuyển động mượt mà cho nút bấm, tải trang, phản hồi thao tác và bàn giao thông số rõ ràng cho lập trình viên"
 whenToUse:
-  - "Thêm animation cho button, loading, transition màn hình"
-  - "Tạo micro-interactions delightful (pull-to-refresh, toggle, success state)"
-  - "Handoff animation specs cho dev (Framer Motion, CSS, Lottie)"
+  - "Thêm hiệu ứng phản hồi khi bấm nút, chờ tải dữ liệu hoặc chuyển màn hình"
+  - "Tạo các chuyển động tinh tế giúp người dùng biết thao tác của mình đã được ghi nhận"
+  - "Viết bảng thông số chuyển động rõ ràng để lập trình viên làm đúng ý thiết kế"
 difficulty: "intermediate"
-estimatedTime: "30 phút - 2 giờ / interaction"
+estimatedTime: "30 phút - 2 giờ cho mỗi tương tác"
 tags: ["motion-design", "animation", "micro-interactions", "framer-motion", "lottie", "css-animation"]
 prompts:
   - id: prompt-ui-animation-spec
-    name: "Tạo Animation Spec cho dev"
-    description: "Định nghĩa chi tiết animation: Easing curve, Duration, Delay, Stagger, Keyframes"
+    name: "Viết bảng thông số chuyển động cho lập trình viên"
+    description: "Quy định chi tiết kiểu gia tốc, thời lượng, độ trễ nối tiếp và mã mẫu để lập trình viên triển khai chính xác"
     template: |
-      Bạn là Motion Designer. Hãy tạo Animation Spec cho: {{interactionName}}.
+      Bạn là chuyên gia thiết kế chuyển động giao diện. Hãy lập bảng thông số chuyển động chi tiết cho tương tác: {{interactionName}}.
 
-      **Mô tả interaction:**
+      **Mô tả chuyển động mong muốn:**
       {{interactionDescription}}
 
-      **Context:** {{context}} (Web / iOS / Android / Cross-platform)
+      **Nền tảng triển khai:** {{context}}
 
-      **Yêu cầu Spec (Markdown table):**
-      1. **Trigger**: User action / System event
-      2. **Easing**: Custom cubic-bezier hoặc named (ease-out, ease-in-out, spring)
-      3. **Duration**: ms (đề xuất: 150-300ms cho micro, 300-500ms cho transition)
-      4. **Properties**: Transform, Opacity, Color, Clip-path, Filter...
-      5. **Keyframes**: 0%, 50%, 100% (hoặc chi tiết hơn)
-      6. **Stagger**: Delay giữa các element (nếu list/grid)
-      7. **Reduced Motion**: Fallback cho `prefers-reduced-motion`
-      8. **Dev Handoff**: Framer Motion code / CSS @keyframes / Lottie JSON
-
-      Output: Spec table + Code snippet cho Framer Motion & CSS.
+      **Hãy trình bày bảng thông số và mã mẫu gồm các phần sau:**
+      1. **Bảng thông số từng giai đoạn**: Kích hoạt (khi nào chạy), Kiểu gia tốc (Easing — nhanh chậm tự nhiên), Thời lượng (Duration tính bằng mili-giây, thường 150-300ms cho nút nhỏ và 300-500ms cho chuyển cảnh lớn), Thuộc tính thay đổi (`transform`, `opacity`...) và Các mốc khung hình.
+      2. **Độ trễ nối tiếp (Stagger)**: Khoảng cách thời gian xuất hiện lần lượt nếu là danh sách nhiều thẻ.
+      3. **Chế độ giảm chuyển động (Reduced Motion)**: Phương án thay thế cho người dễ bị chóng mặt hoặc đã bật tùy chọn giảm chuyển động trên thiết bị.
+      4. **Mã mẫu bàn giao cho lập trình viên**: Viết đoạn mã CSS và Framer Motion (nếu là Web) hoặc gợi ý triển khai sát với nền tảng {{context}}.
     variables:
       - name: interactionName
         type: text
-        label: "Tên interaction (ví dụ: Button Press, Modal Enter, List Item Delete)"
+        label: "Tên tương tác (ví dụ: Bấm nút và chờ tải, Mở hộp thoại, Xóa dòng trong danh sách)"
         required: true
       - name: interactionDescription
         type: textarea
-        label: "Mô tả chi tiết hành vi animation"
+        label: "Mô tả chi tiết trạng thái trước, trong và sau khi chuyển động"
         required: true
       - name: context
         type: select
-        label: "Platform"
+        label: "Nền tảng triển khai"
         options:
           - "Web (React/Vue/Svelte + Framer Motion/CSS)"
           - "iOS (SwiftUI / UIKit)"
           - "Android (Jetpack Compose / MotionLayout)"
-          - "Cross-platform (Lottie / Rive)"
+          - "Đa nền tảng (Lottie / Rive)"
         required: true
         default: "Web (React/Vue/Svelte + Framer Motion/CSS)"
     examples:
       - inputs:
-          interactionName: "Button Press & Loading State"
-          interactionDescription: "Khi user click button: Scale down 0.95 → Scale up 1.0 → Nếu loading: spinner rotate + text change → Success: checkmark scale in → Reset"
+          interactionName: "Nút bấm chuyển sang trạng thái đang tải và thành công"
+          interactionDescription: "Khi người dùng chạm vào nút: thu nhỏ nhẹ xuống 95% → thả tay ra bật lại 100% → nếu đang xử lý: hiện vòng xoay tải và đổi chữ → hoàn tất: hiện dấu tích nảy nhẹ → sau 1,5 giây trở về trạng thái ban đầu."
           context: "Web (React/Vue/Svelte + Framer Motion/CSS)"
         output: |
-          # 🎞️ Animation Spec: Button Press & Loading
+          # 🎞️ Bảng Thông Số Chuyển Động: Nút Bấm & Trạng Thái Đang Tải
 
-          ## Spec Table
-          | Phase | Trigger | Easing | Duration | Properties | Keyframes |
-          |-------|---------|--------|----------|------------|-----------|
-          | Press Down | Pointer Down | `ease-out` | 100ms | `transform: scale(0.95)` | 0%: scale(1) → 100%: scale(0.95) |
-          | Press Up | Pointer Up | `ease-out` | 150ms | `transform: scale(1)` | 0%: scale(0.95) → 100%: scale(1) |
-          | Loading Enter | Async Start | `ease-in-out` | 200ms | `opacity: 0→1`, `transform: rotate(0→360deg)` | Spinner: 0%: rotate(0) → 100%: rotate(360) |
-          | Loading Loop | Continuous | `linear` | 1000ms | `transform: rotate(360deg)` | Infinite |
-          | Success | Async Resolve | `spring` (stiffness: 300, damping: 30) | 400ms | `scale: 0→1.2→1`, `opacity: 0→1` | Checkmark: 0%: scale(0) → 60%: scale(1.2) → 100%: scale(1) |
-          | Reset | Auto (1.5s after success) | `ease-out` | 300ms | `opacity: 1→0` (spinner/check), `text: loading→default` | Fade out |
+          ## 1. Bảng thông số từng giai đoạn
+          | Giai đoạn | Kích hoạt | Kiểu gia tốc | Thời lượng | Thuộc tính thay đổi | Mốc khung hình |
+          |---|---|---|---|---|---|
+          | Nhấn xuống | Khi chạm/nhấn chuột | `ease-out` (nhanh đầu chậm đuôi) | 100ms | `transform: scale(0.95)` | 0%: tỉ lệ 1 → 100%: tỉ lệ 0.95 |
+          | Thả tay | Khi nhả chuột/tay | `ease-out` | 150ms | `transform: scale(1)` | 0%: tỉ lệ 0.95 → 100%: tỉ lệ 1 |
+          | Bắt đầu tải | Khi gửi yêu cầu | `ease-in-out` | 200ms | `opacity: 0→1`, `rotate(0→360deg)` | Hiện vòng xoay mượt mà |
+          | Đang tải lặp | Liên tục | `linear` (đều tốc) | 1000ms | `transform: rotate(360deg)` | Xoay tròn đều liên tục |
+          | Thành công | Khi xử lý xong | Lò xo (`spring`: độ cứng 300, giảm chấn 30) | 400ms | `scale: 0→1.2→1`, `opacity: 0→1` | Dấu tích nảy nhẹ rõ nét |
+          | Trở về ban đầu | Tự động sau 1,5 giây | `ease-out` | 300ms | `opacity: 1→0` | Mờ dần về chữ mặc định |
 
-          ## Reduced Motion Fallback
+          ## 2. Phương án giảm chuyển động cho người nhạy cảm
           ```css
           @media (prefers-reduced-motion: reduce) {
             .btn { transition: none !important; }
@@ -79,7 +73,7 @@ prompts:
           }
           ```
 
-          ## Framer Motion Code (React)
+          ## 3. Mã mẫu bàn giao cho lập trình viên Web (Framer Motion & CSS)
           ```tsx
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -92,7 +86,6 @@ prompts:
           </motion.button>
           ```
 
-          ## CSS @keyframes (Vanilla)
           ```css
           @keyframes spin { to { transform: rotate(360deg); } }
           @keyframes checkmark-pop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
@@ -100,16 +93,20 @@ prompts:
           .spinner { animation: spin 1s linear infinite; }
           .checkmark { animation: checkmark-pop 400ms cubic-bezier(0.34, 1.56, 0.64, 1); }
           ```
-        context: "Button interaction phổ biến: press, loading, success, reset"
+        context: "Tương tác nút bấm phổ biến: nhấn, đang xử lý, báo thành công và trở lại ban đầu"
     difficulty: "intermediate"
     useCases:
-      - "Designer handoff animation spec cho dev"
-      - "Dev implement animation chính xác theo design"
+      - "Người thiết kế lập bảng thông số chuyển động rõ ràng để bàn giao cho lập trình viên"
+      - "Lập trình viên xem thông số thời lượng và kiểu gia tốc để làm đúng cảm giác thiết kế"
 agentTemplate:
-  name: "Motion Designer Agent"
-  description: "Thiết kế animation UI, micro-interactions, spec handoff, Framer Motion/Lottie"
+  name: "Chuyên Gia Thiết Kế Chuyển Động Giao Diện"
+  description: "Tư vấn hiệu ứng chuyển động UI mượt mà, nhẹ máy, thân thiện với người dùng nhạy cảm và dễ bàn giao sang mã nguồn"
   systemPrompt: |
-    Bạn là Motion Designer. Tạo animation meaningful, performant, accessible (prefers-reduced-motion). Focus: easing, timing, choreography.
+    Bạn là chuyên gia thiết kế chuyển động cho giao diện người dùng.
+    Nguyên tắc:
+    - Chuyển động phải có mục đích (báo hiệu phản hồi, dẫn hướng mắt nhìn), không làm rối mắt hoặc chậm thao tác
+    - Luôn ưu tiên hiệu năng mượt (chỉ biến đổi transform và opacity) và có phương án giảm chuyển động (prefers-reduced-motion)
+    - Trình bày rõ thời lượng, kiểu gia tốc và nhịp phối hợp để lập trình viên áp dụng ngay
   model: "gpt-4"
   temperature: 0.6
 relatedSkillIds:

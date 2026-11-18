@@ -4,11 +4,15 @@ import { getAllSkills } from '@/lib/data';
 import { PlaygroundClient } from '@/components/playground/PlaygroundClient';
 
 export const metadata: Metadata = {
-  title: 'AI Prompt Playground | AI Life Hub',
-  description: 'Thử nghiệm, tinh chỉnh và chạy trực tiếp các Prompt & Agent Templates với GPT-4o, Claude 3.5 Sonnet và Gemini 1.5 Pro.',
+  title: 'Khu Thử Nghiệm AI',
+  description: 'Thử nghiệm, tinh chỉnh câu lệnh và điền thông tin biến số theo chế độ mô phỏng an toàn (Demo), hoặc mở nhanh sang ChatGPT, Claude và Gemini để chạy thật.',
+  alternates: {
+    canonical: '/playground',
+  },
   openGraph: {
-    title: 'AI Prompt Playground | AI Life Hub',
-    description: 'Môi trường sandbox thử nghiệm prompt tương tác thời gian thực với giả lập streaming hoặc kết nối API cá nhân.',
+    title: 'Khu Thử Nghiệm AI | AI Life Hub',
+    description: 'Không gian thử nghiệm câu lệnh AI trực quan với chế độ chạy thử mô phỏng (Demo) và nút chuyển nhanh sang ChatGPT, Claude, Gemini.',
+    url: '/playground',
     type: 'website',
   },
 };
@@ -31,8 +35,8 @@ export default async function PlaygroundPage() {
   );
 
   return (
-    <div className="min-h-screen pt-20 pb-16">
-      <Suspense fallback={<div className="container mx-auto px-4 py-12 text-center text-text-muted">Đang nạp AI Playground...</div>}>
+    <div className="min-h-screen pt-24 pb-16">
+      <Suspense fallback={<div className="container mx-auto px-4 py-12 text-center text-text-muted">Đang nạp Khu Thử Nghiệm AI...</div>}>
         <PlaygroundClient presets={presets} />
       </Suspense>
     </div>

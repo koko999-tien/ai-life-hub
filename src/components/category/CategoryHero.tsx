@@ -27,10 +27,10 @@ export function CategoryHero({ category, className = '' }: CategoryHeroProps) {
   const IconComponent = getIconComponent(category.icon);
 
   const stats = [
-    { label: 'Skills', value: category.skillCount, icon: 'Code' },
-    { label: 'Prompts', value: category.promptCount, icon: 'FileText' },
-    { label: 'Agents', value: category.agentCount, icon: 'Bot' },
-    { label: 'Resources', value: category.resourceCount, icon: 'BookOpen' },
+    { label: 'Kỹ năng', value: category.skillCount, icon: 'Code' },
+    { label: 'Câu lệnh', value: category.promptCount, icon: 'FileText' },
+    { label: 'Trợ lý AI', value: category.agentCount, icon: 'Bot' },
+    { label: 'Tài nguyên', value: category.resourceCount, icon: 'BookOpen' },
   ];
 
   const gradientStyle: React.CSSProperties = {
@@ -100,7 +100,7 @@ export function CategoryHero({ category, className = '' }: CategoryHeroProps) {
         <div
           className="flex flex-wrap items-center gap-3 md:gap-4"
           role="list"
-          aria-label="Category statistics"
+          aria-label="Thống kê danh mục"
         >
           {stats.map((stat) => {
             const StatIcon = (LucideIcons[stat.icon as keyof typeof LucideIcons] as LucideIconComponent) || LucideIcons.HelpCircle;

@@ -1,18 +1,17 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { 
-  Sparkles, 
-  Copy, 
-  Check, 
-  Download, 
-  RefreshCw, 
-  ShieldAlert, 
-  Sliders, 
-  Layers, 
-  Code2, 
-  FileText, 
-  Plus, 
+import {
+  Sparkles,
+  Copy,
+  Check,
+  Download,
+  ShieldAlert,
+  Sliders,
+  Layers,
+  Code2,
+  FileText,
+  Plus,
   Trash2,
   ArrowRight,
   Terminal,
@@ -37,80 +36,82 @@ interface PromptPreset {
   examples: FewShotExample[];
 }
 
+const USD_TO_VND = 25450;
+
 const PRESETS: PromptPreset[] = [
   {
     id: 'software-architect',
-    name: 'Kiến trúc sư phần mềm cấp cao (Senior Architect)',
-    role: 'Bạn là Senior Software Architect với hơn 15 năm kinh nghiệm về hệ thống phân tán, TypeScript, Next.js, Cloud Native và Clean Architecture.',
-    objective: 'Cung cấp giải pháp kỹ thuật có độ tin cậy cao, tối ưu hiệu năng, bảo mật và khả năng mở rộng (scalability). Phân tích trade-off trước khi đề xuất giải pháp.',
-    tone: 'Chuyên nghiệp, tư duy kỹ thuật sâu sắc, trung thực về ưu/nhược điểm (trade-offs), tránh buzzword sáo rỗng.',
-    format: 'Markdown có cấu trúc rõ ràng: Tóm tắt giải pháp, Kiến trúc đề xuất (mermaid nếu cần), Code mẫu chuẩn TypeScript, và Bảng đánh giá Trade-offs.',
+    name: 'Kiến trúc sư phần mềm cấp cao',
+    role: 'Bạn là Kiến trúc sư phần mềm cấp cao với hơn 15 năm kinh nghiệm về hệ thống phân tán, TypeScript, Next.js và hạ tầng đám mây.',
+    objective: 'Cung cấp giải pháp kỹ thuật tin cậy cao, tối ưu hiệu năng, bảo mật và khả năng mở rộng. Phân tích rõ sự đánh đổi giữa các phương án trước khi đề xuất.',
+    tone: 'Chuyên nghiệp, tư duy kỹ thuật sâu, trung thực về ưu và nhược điểm, tránh dùng từ ngữ sáo rỗng.',
+    format: 'Markdown có bố cục rõ ràng: Tóm tắt giải pháp, Kiến trúc đề xuất, Mã mẫu chuẩn TypeScript và Bảng so sánh ưu/nhược điểm.',
     constraints: [
-      'Không bao giờ gợi ý code giả tưởng hoặc thiếu kiểm tra lỗi (error handling).',
-      'Nếu thiếu thông tin về tải (traffic/concurrency), hãy hỏi làm rõ trước khi quyết định kiến trúc.',
-      'Ưu tiên giải pháp đơn giản nhất đáp ứng yêu cầu (KISS & YAGNI).'
+      'Không bao giờ gợi ý mã giả tưởng hoặc bỏ qua bước kiểm tra và xử lý lỗi.',
+      'Nếu thiếu thông tin về lượng truy cập thực tế, hãy hỏi làm rõ trước khi chốt kiến trúc.',
+      'Ưu tiên giải pháp đơn giản, vừa đủ dùng nhất nhưng vẫn đáp ứng trọn vẹn yêu cầu.'
     ],
     examples: [
       {
-        user: 'Tôi nên chọn Redis hay Kafka cho message queue?',
-        assistant: 'Để chọn đúng giữa Redis và Kafka, cần phân tích 3 yếu tố cốt lõi: 1) Lưu trữ bền vững (Persistence), 2) Throughput yêu cầu, và 3) Kiểu tiêu thụ (Pub/Sub vs Log streaming). Nếu chỉ cần job queue nhẹ và độ trễ dưới 1ms: Redis BullMQ là tối ưu. Nếu cần replay event stream và hàng triệu tin nhắn/giây: Kafka là lựa chọn bắt buộc.'
+        user: 'Tôi nên chọn Redis hay Kafka cho hàng đợi xử lý tác vụ?',
+        assistant: 'Để chọn đúng giữa Redis và Kafka, cần cân nhắc 3 yếu tố: 1) Nhu cầu lưu trữ lâu dài, 2) Lưu lượng tin nhắn mỗi giây, và 3) Mô hình xử lý (hàng đợi tác vụ hay luồng sự kiện). Nếu chỉ cần hàng đợi tác vụ nhẹ và phản hồi dưới 1ms: Redis BullMQ là lựa chọn gọn nhẹ nhất. Nếu cần phát lại lịch sử sự kiện và hàng triệu tin nhắn/giây: hãy chọn Kafka.'
       }
     ]
   },
   {
     id: 'prompt-engineer',
-    name: 'Chuyên gia Tối ưu Prompt (Prompt Engineer)',
-    role: 'Bạn là Master Prompt Engineer chuyên thiết kế và tối ưu hóa câu lệnh cho các mô hình ngôn ngữ lớn (Claude 3.5, GPT-4o, DeepSeek).',
-    objective: 'Tái cấu trúc các yêu cầu tự nhiên thành Meta-Prompts chất lượng cao theo chuẩn kỹ thuật (CoT, XML Tags, Few-Shot, Guardrails).',
-    tone: 'Sắc sảo, chính xác, có hệ thống và minh bạch về phương pháp.',
-    format: 'Cấu trúc XML Tags hoàn chỉnh (<context>, <role>, <instructions>, <constraints>, <output_format>).',
+    name: 'Chuyên gia tối ưu câu lệnh AI',
+    role: 'Bạn là chuyên gia thiết kế và tối ưu câu lệnh hệ thống cho các mô hình AI lớn (Claude 3.5, GPT-4o, DeepSeek).',
+    objective: 'Chuyển đổi các yêu cầu thông thường thành bộ chỉ dẫn nền chất lượng cao, có thẻ cấu trúc rõ ràng, ví dụ minh họa và quy tắc chống sai lệch.',
+    tone: 'Sắc sảo, chính xác, có hệ thống và minh bạch về lý do thiết kế.',
+    format: 'Cấu trúc thẻ XML hoàn chỉnh (<context>, <role>, <instructions>, <constraints>, <output_format>).',
     constraints: [
-      'Loại bỏ mọi từ ngữ mơ hồ như "làm tốt", "viết hay".',
-      'Luôn bổ sung ví dụ Few-Shot đại diện cho trường hợp biên (edge cases).',
-      'Thêm cơ chế kiểm soát hallucination rõ ràng.'
+      'Loại bỏ mọi cách diễn đạt mơ hồ như "làm tốt lên" hay "viết thật hay".',
+      'Luôn bổ sung ví dụ mẫu minh họa cho các tình huống ngoại lệ dễ nhầm lẫn.',
+      'Thêm quy tắc rõ ràng để ngăn AI tự suy diễn hoặc bịa đặt thông tin.'
     ],
     examples: [
       {
-        user: 'Hãy viết một prompt để tóm tắt bài báo y khoa.',
-        assistant: '<role>Chuyên gia dịch tễ học và y khoa</role>\n<instructions>Trích xuất 3 thông tin: Mục tiêu nghiên cứu, Phương pháp thử nghiệm (cỡ mẫu, đối chứng), và Kết luận lâm sàng có ý nghĩa thống kê (p < 0.05).</instructions>'
+        user: 'Hãy viết một câu lệnh để tóm tắt bài báo y khoa.',
+        assistant: '<role>Chuyên gia dịch tễ học và y khoa</role>\n<instructions>Trích xuất 3 thông tin chính: Mục tiêu nghiên cứu, Phương pháp thử nghiệm (cỡ mẫu, nhóm đối chứng), và Kết luận lâm sàng có ý nghĩa thống kê (p < 0.05).</instructions>'
       }
     ]
   },
   {
     id: 'technical-writer',
-    name: 'Chuyên viên Viết tài liệu Kỹ thuật (Technical Writer)',
-    role: 'Bạn là Lead Technical Writer chuyên viết tài liệu API, hướng dẫn kiến trúc và Developer Documentation chuẩn quốc tế.',
-    objective: 'Biến các khái niệm kỹ thuật phức tạp thành tài liệu dễ hiểu, súc tích, có ví dụ thực tế và giải thích rõ ngữ cảnh sử dụng.',
+    name: 'Chuyên viên viết tài liệu kỹ thuật',
+    role: 'Bạn là chuyên viên viết tài liệu kỹ thuật giàu kinh nghiệm, chuyên soạn hướng dẫn API, kiến trúc hệ thống và tài liệu cho lập trình viên.',
+    objective: 'Biến các khái niệm kỹ thuật phức tạp thành hướng dẫn dễ hiểu, súc tích, có ví dụ chạy được ngay và nêu rõ bối cảnh áp dụng.',
     tone: 'Thân thiện với lập trình viên, rõ ràng, gãy gọn, không lan man.',
-    format: 'Markdown chuẩn: Quickstart, Prerequisites, Step-by-Step Guide, Code Samples, và Common Pitfalls.',
+    format: 'Markdown tiêu chuẩn gồm: Bắt đầu nhanh, Điều kiện cần có, Hướng dẫn từng bước, Ví dụ mã nguồn và Các lỗi thường gặp.',
     constraints: [
-      'Mọi đoạn code phải chạy được thực tế và có chú thích giải thích dòng quan trọng.',
-      'Không dùng thuật ngữ nội bộ mà không có định nghĩa hoặc liên kết giải thích.',
-      'Luôn có phần xử lý lỗi thường gặp (Troubleshooting).'
+      'Mọi đoạn mã mẫu phải chạy được thực tế và có chú thích ở các dòng quan trọng.',
+      'Không dùng thuật ngữ nội bộ mà chưa kèm giải thích ngắn gọn.',
+      'Luôn có mục hướng dẫn xử lý các sự cố phổ biến.'
     ],
     examples: [
       {
         user: 'Viết hướng dẫn cài đặt webhook.',
-        assistant: '### Hướng dẫn tích hợp Webhook trong 3 bước\n\n**Điều kiện tiên quyết:** Endpoint HTTPS sẵn sàng nhận POST request payload JSON.\n\n1. **Xác thực chữ ký:** Kiểm tra header `X-Signature-SHA256`...'
+        assistant: '### Hướng dẫn tích hợp Webhook trong 3 bước\n\n**Điều kiện cần có:** Địa chỉ máy chủ HTTPS sẵn sàng nhận dữ liệu POST dạng JSON.\n\n1. **Xác thực chữ ký bảo mật:** Kiểm tra mã xác nhận trong tiêu đề `X-Signature-SHA256`...'
       }
     ]
   },
   {
     id: 'security-auditor',
-    name: 'Chuyên gia Bảo mật & Đánh giá Mã nguồn (Security Auditor)',
-    role: 'Bạn là chuyên gia an toàn thông tin (AppSec Specialist) với chứng chỉ OSCP và CISSP, chuyên audit smart contract và ứng dụng web.',
-    objective: 'Rà soát lỗ hổng bảo mật (OWASP Top 10, CWE), phân tích rủi ro và đưa ra bản vá remediation cụ thể.',
-    tone: 'Nghiêm cẩn, cảnh giác cao, nhấn mạnh vào mức độ nghiêm trọng (Severity: Critical/High/Medium/Low) và bằng chứng PoC.',
-    format: 'Báo cáo chuẩn: Mô tả lỗ hổng, Mức độ CVSS, Bằng chứng khai thác (PoC), và Đoạn code vá (Remediation).',
+    name: 'Chuyên gia bảo mật & kiểm tra mã nguồn',
+    role: 'Bạn là chuyên gia an toàn thông tin chuyên rà soát lỗ hổng bảo mật cho ứng dụng web và hợp đồng thông minh.',
+    objective: 'Phát hiện sớm các lỗ hổng bảo mật phổ biến (như 10 rủi ro bảo mật web phổ biến nhất — OWASP Top 10), đánh giá mức độ rủi ro và đề xuất đoạn mã vá lỗi cụ thể.',
+    tone: 'Nghiêm cẩn, cảnh giác cao, phân loại rõ mức độ nghiêm trọng (Nghiêm trọng / Cao / Trung bình / Thấp) kèm minh chứng cụ thể.',
+    format: 'Báo cáo chuẩn gồm: Mô tả lỗ hổng, Mức độ rủi ro, Kịch bản khai thác minh họa và Mã nguồn khắc phục.',
     constraints: [
-      'Không bao giờ xác nhận an toàn nếu chưa kiểm tra ranh giới dữ liệu đầu vào (Input Boundary).',
-      'Đề xuất nguyên tắc Zero-Trust và Least Privilege trong mọi trường hợp.',
-      'Cảnh báo rõ các rủi ro liên quan đến injection, SSRF, và broken access control.'
+      'Không bao giờ kết luận an toàn nếu chưa kiểm tra ranh giới dữ liệu đầu vào từ người dùng.',
+      'Luôn ưu tiên nguyên tắc kiểm tra tin cậy ở mọi bước và cấp quyền tối thiểu cần thiết.',
+      'Cảnh báo rõ các rủi ro chèn mã độc (Injection), giả mạo yêu cầu máy chủ (SSRF) và phân quyền lỏng lẻo.'
     ],
     examples: [
       {
-        user: 'Hàm query SQL này có an toàn không: `SELECT * FROM users WHERE id = ` + req.query.id',
-        assistant: '⚠️ **MỨC ĐỘ: CRITICAL (SQL Injection)**\n\nĐoạn code nối chuỗi trực tiếp từ `req.query.id` dẫn đến lỗ hổng SQL Injection kinh điển. Kẻ tấn công có thể bypass xác thực hoặc dump toàn bộ database.\n\n**Cách khắc phục:** Sử dụng Parameterized Query / Prepared Statement ngay lập tức.'
+        user: 'Hàm truy vấn SQL này có an toàn không: `SELECT * FROM users WHERE id = ` + req.query.id',
+        assistant: '⚠️ **MỨC ĐỘ: NGHIÊM TRỌNG (Lỗ hổng SQL Injection)**\n\nĐoạn mã nối chuỗi trực tiếp từ `req.query.id` cho phép kẻ tấn công chèn lệnh SQL để vượt qua bước xác thực hoặc đọc toàn bộ dữ liệu.\n\n**Cách khắc phục:** Sử dụng truy vấn tham số hóa (Parameterized Query) ngay lập tức.'
       }
     ]
   }
@@ -197,7 +198,7 @@ export function SystemPromptBuilder() {
       prompt += `# ĐỊNH DẠNG ĐẦU RA\n${format.trim()}`;
 
       if (examples.length > 0) {
-        prompt += `\n\n# VÍ DỤ MẪU (FEW-SHOT)\n`;
+        prompt += `\n\n# VÍ DỤ MẪU\n`;
         examples.forEach((ex, idx) => {
           prompt += `### Ví dụ ${idx + 1}:\n**Đầu vào:** ${ex.user}\n**Phản hồi mẫu:** ${ex.assistant}\n\n`;
         });
@@ -213,13 +214,17 @@ export function SystemPromptBuilder() {
 
   const liveCostEstimate = useMemo(() => {
     // Standard baseline at ~$2.5 / 1M input tokens (GPT-4o / Claude 3.5 Sonnet class)
-    const costPer1kCalls = ((estimatedTokens / 1_000_000) * 2.5 * 1000).toFixed(3);
-    return costPer1kCalls;
+    const costPer1kCalls = (estimatedTokens / 1_000_000) * 2.5 * 1000;
+    return {
+      usd: costPer1kCalls.toFixed(3),
+      vnd: Math.round(costPer1kCalls * USD_TO_VND),
+    };
   }, [estimatedTokens]);
 
   // Keyboard navigation for presets (keys 1 - 4)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       const activeTag = document.activeElement?.tagName.toLowerCase();
       if (activeTag === 'input' || activeTag === 'textarea' || (document.activeElement as HTMLElement)?.isContentEditable) {
         return;
@@ -228,7 +233,7 @@ export function SystemPromptBuilder() {
         const index = parseInt(e.key, 10) - 1;
         if (PRESETS[index]) {
           handleSelectPreset(PRESETS[index].id);
-          toast.success(`Đã chuyển preset: ${PRESETS[index].name.split('(')[0]}`);
+          toast.success(`Đã chuyển bản mẫu: ${PRESETS[index].name}`);
         }
       }
     };
@@ -239,7 +244,7 @@ export function SystemPromptBuilder() {
   const handleCopy = () => {
     navigator.clipboard.writeText(compiledPrompt);
     setCopied(true);
-    toast.success('Đã sao chép System Prompt vào clipboard!');
+    toast.success('Đã sao chép chỉ dẫn hệ thống vào bộ nhớ tạm!');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -253,7 +258,7 @@ export function SystemPromptBuilder() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success('Đã tải xuống file system-prompt-' + selectedPresetId + '.md');
+    toast.success('Đã tải xuống tệp system-prompt-' + selectedPresetId + '.md');
   };
 
   return (
@@ -261,9 +266,9 @@ export function SystemPromptBuilder() {
       {/* Preset Selector */}
       <div className="card p-6 bg-bg-surface border-border">
         <div className="flex items-center justify-between mb-3">
-          <label className="text-sm font-semibold text-text uppercase tracking-wider block">
-            Chọn bản mẫu (Presets cấu hình sẵn)
-          </label>
+          <h2 className="text-sm font-semibold text-text uppercase tracking-wider">
+            Chọn bản mẫu cấu hình sẵn
+          </h2>
           <span className="text-xs text-text-muted hidden sm:inline-flex items-center gap-1.5">
             Bấm phím tắt <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px] font-mono">1</kbd> - <kbd className="px-1.5 py-0.5 rounded bg-bg border border-border text-[10px] font-mono">4</kbd> để đổi nhanh
           </span>
@@ -272,6 +277,8 @@ export function SystemPromptBuilder() {
           {PRESETS.map((p, idx) => (
             <button
               key={p.id}
+              type="button"
+              aria-pressed={selectedPresetId === p.id}
               onClick={() => handleSelectPreset(p.id)}
               className={`group text-left p-3.5 rounded-xl border text-sm font-medium transition-all relative ${
                 selectedPresetId === p.id
@@ -282,7 +289,7 @@ export function SystemPromptBuilder() {
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2 truncate">
                   <Sparkles className="w-4 h-4 shrink-0 text-accent" />
-                  <span className="truncate">{p.name.split('(')[0]}</span>
+                  <span className="truncate">{p.name}</span>
                 </div>
                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-bg border border-border text-text-muted group-hover:border-accent/40 group-hover:text-accent">
                   {idx + 1}
@@ -300,31 +307,33 @@ export function SystemPromptBuilder() {
           {/* Identity & Role */}
           <div className="card p-6 bg-bg-surface border-border space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-text flex items-center gap-2">
+              <label htmlFor="sp-role" className="text-sm font-semibold text-text flex items-center gap-2">
                 <Sliders className="w-4 h-4 text-accent" />
-                1. Vai trò & Danh tính (Identity / Persona)
+                1. Vai trò & Danh tính
               </label>
               <span className="text-xs text-text-muted">Ai đang trả lời?</span>
             </div>
             <textarea
+              id="sp-role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
               rows={3}
               className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent resize-y"
-              placeholder="Ví dụ: Bạn là Senior Solution Architect..."
+              placeholder="Ví dụ: Bạn là Kiến trúc sư phần mềm cấp cao..."
             />
           </div>
 
           {/* Objective & Purpose */}
           <div className="card p-6 bg-bg-surface border-border space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-text flex items-center gap-2">
+              <label htmlFor="sp-objective" className="text-sm font-semibold text-text flex items-center gap-2">
                 <Layers className="w-4 h-4 text-accent" />
-                2. Mục tiêu & Bối cảnh cốt lõi (Mission & Scope)
+                2. Mục tiêu & Bối cảnh cốt lõi
               </label>
               <span className="text-xs text-text-muted">Mục đích chính</span>
             </div>
             <textarea
+              id="sp-objective"
               value={objective}
               onChange={(e) => setObjective(e.target.value)}
               rows={3}
@@ -336,13 +345,14 @@ export function SystemPromptBuilder() {
           {/* Tone & Style */}
           <div className="card p-6 bg-bg-surface border-border space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-text flex items-center gap-2">
+              <label htmlFor="sp-tone" className="text-sm font-semibold text-text flex items-center gap-2">
                 <FileText className="w-4 h-4 text-accent" />
-                3. Phong cách & Giọng văn (Tone & Style)
+                3. Phong cách & Giọng văn
               </label>
               <span className="text-xs text-text-muted">Thái độ phản hồi</span>
             </div>
             <input
+              id="sp-tone"
               type="text"
               value={tone}
               onChange={(e) => setTone(e.target.value)}
@@ -354,11 +364,11 @@ export function SystemPromptBuilder() {
           {/* Constraints & Guardrails */}
           <div className="card p-6 bg-bg-surface border-border space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-text flex items-center gap-2">
+              <label htmlFor="sp-constraint-input" className="text-sm font-semibold text-text flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-accent" />
-                4. Ràng buộc nghiêm ngặt (Negative Constraints / Guardrails)
+                4. Ràng buộc nghiêm ngặt (Chống bịa đặt)
               </label>
-              <span className="text-xs text-text-muted">Ngăn chặn ảo giác & lỗi</span>
+              <span className="text-xs text-text-muted">Ngăn chặn sai lệch & lỗi</span>
             </div>
             <div className="space-y-2">
               {constraints.map((c, idx) => (
@@ -366,8 +376,10 @@ export function SystemPromptBuilder() {
                   <span className="text-accent font-semibold text-xs">#{idx + 1}</span>
                   <span className="flex-1 text-text">{c}</span>
                   <button
+                    type="button"
+                    aria-label="Xóa ràng buộc"
                     onClick={() => handleRemoveConstraint(idx)}
-                    className="p-1 text-text-muted hover:text-red-400 transition-colors"
+                    className="p-1 text-text-muted hover:text-red-500 transition-colors"
                     title="Xóa ràng buộc"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -377,6 +389,7 @@ export function SystemPromptBuilder() {
             </div>
             <div className="flex gap-2">
               <input
+                id="sp-constraint-input"
                 type="text"
                 value={newConstraint}
                 onChange={(e) => setNewConstraint(e.target.value)}
@@ -385,6 +398,7 @@ export function SystemPromptBuilder() {
                 className="flex-1 p-2.5 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
               />
               <button
+                type="button"
                 onClick={handleAddConstraint}
                 className="px-4 py-2.5 rounded-lg bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white font-medium text-sm flex items-center gap-1.5 transition-all"
               >
@@ -396,13 +410,14 @@ export function SystemPromptBuilder() {
           {/* Response Format */}
           <div className="card p-6 bg-bg-surface border-border space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-text flex items-center gap-2">
+              <label htmlFor="sp-format" className="text-sm font-semibold text-text flex items-center gap-2">
                 <Code2 className="w-4 h-4 text-accent" />
-                5. Định dạng đầu ra mong muốn (Output Format)
+                5. Định dạng đầu ra mong muốn
               </label>
               <span className="text-xs text-text-muted">Cấu trúc kết quả</span>
             </div>
             <textarea
+              id="sp-format"
               value={format}
               onChange={(e) => setFormat(e.target.value)}
               rows={2}
@@ -411,14 +426,14 @@ export function SystemPromptBuilder() {
             />
           </div>
 
-          {/* Few-Shot Examples */}
+          {/* Examples */}
           <div className="card p-6 bg-bg-surface border-border space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-text flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-text flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-accent" />
-                6. Ví dụ mẫu Few-Shot (Examples)
-              </label>
-              <span className="text-xs text-text-muted">Tăng độ chính xác lên 40%</span>
+                6. Ví dụ mẫu minh họa
+              </h3>
+              <span className="text-xs text-text-muted">Tăng độ chính xác đáng kể</span>
             </div>
 
             {examples.map((ex, idx) => (
@@ -426,15 +441,17 @@ export function SystemPromptBuilder() {
                 <div className="flex justify-between items-center text-xs text-text-muted">
                   <span className="font-semibold text-accent">Ví dụ #{idx + 1}</span>
                   <button
+                    type="button"
+                    aria-label="Xóa ví dụ"
                     onClick={() => handleRemoveExample(idx)}
-                    className="text-text-muted hover:text-red-400 p-1"
+                    className="text-text-muted hover:text-red-500 p-1"
                     title="Xóa ví dụ"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
                 <div>
-                  <span className="text-xs font-medium text-text-muted">Input người dùng:</span>
+                  <span className="text-xs font-medium text-text-muted">Đầu vào người dùng:</span>
                   <p className="text-text mt-0.5">{ex.user}</p>
                 </div>
                 <div>
@@ -445,22 +462,35 @@ export function SystemPromptBuilder() {
             ))}
 
             <div className="p-4 rounded-lg bg-bg border border-border/80 space-y-3">
-              <span className="text-xs font-semibold text-text uppercase">Bổ sung ví dụ mới</span>
-              <input
-                type="text"
-                value={newExampleUser}
-                onChange={(e) => setNewExampleUser(e.target.value)}
-                placeholder="Câu hỏi / Lệnh của người dùng mẫu..."
-                className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-none"
-              />
-              <textarea
-                value={newExampleAssistant}
-                onChange={(e) => setNewExampleAssistant(e.target.value)}
-                rows={2}
-                placeholder="Câu trả lời mẫu lý tưởng mà AI cần học theo..."
-                className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-none resize-y"
-              />
+              <span className="text-xs font-semibold text-text uppercase block">Bổ sung ví dụ mới</span>
+              <div>
+                <label htmlFor="sp-example-user" className="block text-xs text-text-muted mb-1">
+                  Câu hỏi mẫu của người dùng
+                </label>
+                <input
+                  id="sp-example-user"
+                  type="text"
+                  value={newExampleUser}
+                  onChange={(e) => setNewExampleUser(e.target.value)}
+                  placeholder="Câu hỏi / Yêu cầu mẫu của người dùng..."
+                  className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-none"
+                />
+              </div>
+              <div>
+                <label htmlFor="sp-example-assistant" className="block text-xs text-text-muted mb-1">
+                  Câu trả lời mẫu lý tưởng
+                </label>
+                <textarea
+                  id="sp-example-assistant"
+                  value={newExampleAssistant}
+                  onChange={(e) => setNewExampleAssistant(e.target.value)}
+                  rows={2}
+                  placeholder="Câu trả lời mẫu lý tưởng mà AI cần học theo..."
+                  className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-none resize-y"
+                />
+              </div>
               <button
+                type="button"
                 onClick={handleAddExample}
                 disabled={!newExampleUser.trim() || !newExampleAssistant.trim()}
                 className="w-full py-2 rounded-lg bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white font-medium text-sm flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"
@@ -475,37 +505,39 @@ export function SystemPromptBuilder() {
         <div className="lg:col-span-5 sticky top-24 space-y-4">
           <div className="card p-6 bg-bg-surface border-border space-y-4 shadow-xl">
             {/* Header with Title and Mode Switcher */}
-            <div className="flex items-center justify-between pb-3 border-b border-border">
+            <div className="flex items-center justify-between pb-3 border-b border-border gap-2">
               <div className="flex items-center gap-2">
                 <div className="p-1.5 rounded-lg bg-accent/10 border border-accent/20 text-accent">
                   <Terminal className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="font-bold text-text text-sm">
-                    Prompt Preview
+                    Xem Trước Câu Lệnh
                   </h3>
-                  <div className="flex items-center gap-1.5 text-[11px] text-text-muted">
+                  <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[11px] text-text-muted">
                     <span className="inline-flex items-center gap-1 font-mono text-accent">
-                      <Cpu className="w-3 h-3" /> ~{estimatedTokens} tokens
+                      <Cpu className="w-3 h-3" /> ~{estimatedTokens} đơn vị chữ (token)
                     </span>
                     <span>•</span>
-                    <span className="font-mono text-emerald-400">
-                      ~${liveCostEstimate}/1k req
+                    <span className="font-mono text-emerald-600 dark:text-emerald-400">
+                      ~${liveCostEstimate.usd} (~{liveCostEstimate.vnd.toLocaleString('vi-VN')} đ) / 1.000 lượt
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
+                  type="button"
+                  aria-pressed={useXmlTags}
                   onClick={() => setUseXmlTags(!useXmlTags)}
                   className={`text-xs px-2.5 py-1 rounded-md border font-medium transition-all ${
-                    useXmlTags 
-                      ? 'bg-accent/15 border-accent text-accent shadow-sm' 
+                    useXmlTags
+                      ? 'bg-accent/15 border-accent text-accent shadow-sm'
                       : 'bg-bg border-border text-text-muted hover:text-text'
                   }`}
-                  title="Chuyển đổi giữa cấu trúc XML Tags và Markdown tiêu chuẩn"
+                  title="Chuyển đổi giữa cấu trúc thẻ XML và Markdown tiêu chuẩn"
                 >
-                  {useXmlTags ? 'XML Tags' : 'Markdown'}
+                  {useXmlTags ? 'Thẻ XML (Khuyên dùng)' : 'Markdown'}
                 </button>
               </div>
             </div>
@@ -518,13 +550,13 @@ export function SystemPromptBuilder() {
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                  <span className="ml-2 font-mono text-[11px] text-text-muted/80">
+                  <span className="ml-2 font-mono text-[11px] text-slate-400">
                     {useXmlTags ? 'system-prompt.xml' : 'system-prompt.md'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-accent/10 border border-accent/20 text-accent">
-                    {useXmlTags ? 'XML / Semantic' : 'Markdown'}
+                    {useXmlTags ? 'Cấu trúc XML' : 'Markdown'}
                   </span>
                 </div>
               </div>
@@ -538,19 +570,21 @@ export function SystemPromptBuilder() {
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-3 pt-1">
               <button
+                type="button"
                 onClick={handleCopy}
                 className="py-2.5 px-4 rounded-xl bg-accent text-white font-medium text-sm flex items-center justify-center gap-2 hover:bg-accent-hover shadow-md transition-all active:scale-[0.98]"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                {copied ? 'Đã sao chép!' : 'Sao chép Prompt'}
+                {copied ? 'Đã sao chép!' : 'Sao chép câu lệnh'}
               </button>
 
               <button
+                type="button"
                 onClick={handleDownload}
                 className="py-2.5 px-4 rounded-xl border border-border bg-bg hover:bg-hover text-text font-medium text-sm flex items-center justify-center gap-2 transition-all"
               >
                 <Download className="w-4 h-4 text-text-muted" />
-                Tải file .md
+                Tải tệp .md
               </button>
             </div>
 
@@ -559,7 +593,7 @@ export function SystemPromptBuilder() {
               href="/playground"
               className="w-full py-3 px-4 rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/10 text-accent font-semibold text-sm flex items-center justify-center gap-2 transition-all"
             >
-              Mở trong AI Playground để thử nghiệm trực tiếp
+              Mở trong Khu Thử Nghiệm AI để thử trực tiếp
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

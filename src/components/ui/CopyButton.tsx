@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { forwardRef, ButtonHTMLAttributes } from 'react';
-import { Copy, Check, Clipboard } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from './Toast';
 
@@ -63,7 +63,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(
         onClick={handleCopy}
         disabled={disabled || copied}
         className={cn(baseStyles, variantStyles[variant], sizeStyles[size], className)}
-        aria-label={copied ? 'Đã sao chép' : 'Sao chép vào clipboard'}
+        aria-label={copied ? 'Đã sao chép' : 'Sao chép vào bộ nhớ tạm'}
         {...props}
       >
         {copied ? (

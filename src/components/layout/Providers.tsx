@@ -95,288 +95,6 @@ export function useTheme() {
 }
 
 // ============================================
-// Search Provider (Lunr index state)
-// ============================================
-
-interface SearchResult {
-  id: string
-  title: string
-  description: string
-  category: string
-  href: string
-  type: 'tool' | 'resource' | 'category'
-  tags: string[]
-}
-
-interface SearchContextType {
-  index: SearchResult[] | null
-  isLoading: boolean
-  error: Error | null
-  search: (query: string) => SearchResult[]
-  refreshIndex: () => Promise<void>
-}
-
-const SearchContext = createContext<SearchContextType | undefined>(undefined)
-
-export function SearchProvider({ children }: { children: ReactNode }) {
-  const [index, setIndex] = useState<SearchResult[] | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const buildIndex = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      setError(null)
-
-      // In production, fetch from API or load pre-built Lunr index
-      // For now, using mock data
-      const mockIndex: SearchResult[] = [
-        {
-          id: '1',
-          title: 'ChatGPT',
-          description: 'Advanced conversational AI assistant',
-          category: 'Chat & Assistant',
-          href: '/tools/chatgpt',
-          type: 'tool',
-          tags: ['chat', 'assistant', 'openai', 'conversation'],
-        },
-        {
-          id: '2',
-          title: 'Midjourney',
-          description: 'AI image generation from text prompts',
-          category: 'Image Generation',
-          href: '/tools/midjourney',
-          type: 'tool',
-          tags: ['image', 'generation', 'art', 'creative'],
-        },
-        {
-          id: '3',
-          title: 'Cursor',
-          description: 'AI-powered code editor',
-          category: 'Code & Development',
-          href: '/tools/cursor',
-          type: 'tool',
-          tags: ['code', 'editor', 'ide', 'development'],
-        },
-        {
-          id: '4',
-          title: 'Notion AI',
-          description: 'AI writing assistant in Notion',
-          category: 'Productivity',
-          href: '/tools/notion-ai',
-          type: 'tool',
-          tags: ['writing', 'productivity', 'notes', 'workspace'],
-        },
-        {
-          id: '5',
-          title: 'Runway Gen-2',
-          description: 'Text-to-video generation model',
-          category: 'Video Generation',
-          href: '/tools/runway',
-          type: 'tool',
-          tags: ['video', 'generation', 'text-to-video', 'creative'],
-        },
-        {
-          id: '6',
-          title: 'ElevenLabs',
-          description: 'AI voice synthesis and cloning',
-          category: 'Audio & Voice',
-          href: '/tools/elevenlabs',
-          type: 'tool',
-          tags: ['voice', 'audio', 'tts', 'speech'],
-        },
-        {
-          id: '7',
-          title: 'Perplexity',
-          description: 'AI-powered search engine',
-          category: 'Search & Research',
-          href: '/tools/perplexity',
-          type: 'tool',
-          tags: ['search', 'research', 'answers', 'citations'],
-        },
-        {
-          id: '8',
-          title: 'LangChain',
-          description: 'Framework for LLM applications',
-          category: 'Code & Development',
-          href: '/resources/langchain',
-          type: 'resource',
-          tags: ['framework', 'llm', 'chain', 'agents'],
-        },
-      ]
-
-      setIndex(mockIndex)
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to build search index'))
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    buildIndex()
-  }, [buildIndex])
-
-  const search = useCallback((query: string): SearchResult[] => {
-    if (!index || !query.trim()) return []
-
-    const terms = query.toLowerCase().split(/\s+/).filter(Boolean)
-    return index
-      .map((item) => {
-        const searchableText = `${item.title} ${item.description} ${item.category} ${item.tags.join(' ')}`.toLowerCase()
-        let score = 0
-
-        for (const term of terms) {
-          if (item.title.toLowerCase().includes(term)) score += 10
-          if (item.category.toLowerCase().includes(term)) score += 5
-          if (item.tags.some((tag) => tag.includes(term))) score += 3
-          if (item.description.toLowerCase().includes(term)) score += 1
-        }
-
-        return { item, score }
-      })
-      .filter(({ score }) => score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map(({ item }) => item)
-  }, [index])
-
-  const refreshIndex = useCallback(async () => {
-    await buildIndex()
-  }, [buildIndex])
-
-  return (
-    <SearchContext.Provider value={{ index, isLoading, error, search, refreshIndex }}>
-      {children}
-    </SearchContext.Provider>
-  )
-}
-
-export function useSearch() {
-  const context = useContext(SearchContext)
-  if (!context) {
-    throw new Error('useSearch must be used within a SearchProvider')
-  }
-  return context
-}
-
-// ============================================
-// Favorites Provider (localStorage)
-// ============================================
-
-interface FavoriteItem {
-  id: string
-  title: string
-  href: string
-  type: 'tool' | 'resource' | 'category'
-  addedAt: number
-}
-
-interface FavoritesContextType {
-  favorites: FavoriteItem[]
-  isFavorite: (id: string) => boolean
-  toggleFavorite: (item: Omit<FavoriteItem, 'addedAt'>) => void
-  addFavorite: (item: Omit<FavoriteItem, 'addedAt'>) => void
-  removeFavorite: (id: string) => void
-  clearFavorites: () => void
-}
-
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined)
-
-export function FavoritesProvider({ children }: { children: ReactNode }) {
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([])
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    try {
-      const stored = localStorage.getItem('favorites')
-      if (stored) {
-        setFavorites(JSON.parse(stored))
-      }
-    } catch {
-      // Ignore parse errors
-    }
-  }, [])
-
-  const persist = useCallback((newFavorites: FavoriteItem[]) => {
-    setFavorites(newFavorites)
-    if (mounted) {
-      localStorage.setItem('favorites', JSON.stringify(newFavorites))
-    }
-  }, [mounted])
-
-  const isFavorite = useCallback((id: string) => {
-    return favorites.some((f) => f.id === id)
-  }, [favorites])
-
-  const toggleFavorite = useCallback((item: Omit<FavoriteItem, 'addedAt'>) => {
-    setFavorites((prev) => {
-      const exists = prev.some((f) => f.id === item.id)
-      if (exists) {
-        return prev.filter((f) => f.id !== item.id)
-      } else {
-        return [...prev, { ...item, addedAt: Date.now() }]
-      }
-    })
-  }, [])
-
-  const addFavorite = useCallback((item: Omit<FavoriteItem, 'addedAt'>) => {
-    setFavorites((prev) => {
-      if (prev.some((f) => f.id === item.id)) return prev
-      return [...prev, { ...item, addedAt: Date.now() }]
-    })
-  }, [])
-
-  const removeFavorite = useCallback((id: string) => {
-    setFavorites((prev) => prev.filter((f) => f.id !== id))
-  }, [])
-
-  const clearFavorites = useCallback(() => {
-    setFavorites([])
-  }, [])
-
-  if (!mounted) {
-    return (
-      <FavoritesContext.Provider
-        value={{
-          favorites: [],
-          isFavorite: () => false,
-          toggleFavorite: () => {},
-          addFavorite: () => {},
-          removeFavorite: () => {},
-          clearFavorites: () => {},
-        }}
-      >
-        {children}
-      </FavoritesContext.Provider>
-    )
-  }
-
-  return (
-    <FavoritesContext.Provider
-      value={{
-        favorites,
-        isFavorite,
-        toggleFavorite,
-        addFavorite,
-        removeFavorite,
-        clearFavorites,
-      }}
-    >
-      {children}
-    </FavoritesContext.Provider>
-  )
-}
-
-export function useFavorites() {
-  const context = useContext(FavoritesContext)
-  if (!context) {
-    throw new Error('useFavorites must be used within a FavoritesProvider')
-  }
-  return context
-}
-
-// ============================================
 // Toast Context (Simple replacement for Sonner)
 // ============================================
 
@@ -429,7 +147,7 @@ function ToastContainer({ toasts, onRemove }: { toasts: Toast[]; onRemove: (id: 
   if (toasts.length === 0) return null
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2" aria-live="polite" aria-label="Thông báo">
       {toasts.map(toast => (
         <div
           key={toast.id}
@@ -443,9 +161,10 @@ function ToastContainer({ toasts, onRemove }: { toasts: Toast[]; onRemove: (id: 
         >
           <span className="flex-1">{toast.message}</span>
           <button
+            type="button"
             onClick={() => onRemove(toast.id)}
             className="p-1 hover:bg-white/20 rounded transition-colors"
-            aria-label="Close"
+            aria-label="Đóng thông báo"
           >
             ✕
           </button>
@@ -466,14 +185,10 @@ interface ProvidersProps {
 export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider defaultTheme="system" enableSystem={true}>
-      <SearchProvider>
-        <FavoritesProvider>
-          <ToastProvider>
-            {children}
-            <Toaster richColors position="top-right" closeButton />
-          </ToastProvider>
-        </FavoritesProvider>
-      </SearchProvider>
+      <ToastProvider>
+        {children}
+        <Toaster richColors position="top-right" closeButton />
+      </ToastProvider>
     </ThemeProvider>
   )
 }
