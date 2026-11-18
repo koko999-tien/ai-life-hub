@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from '@/components/ui';
+import { DEFAULT_USD_TO_VND, formatVndRounded } from '@/lib/models/registry';
 
 interface FewShotExample {
   user: string;
@@ -35,8 +36,6 @@ interface PromptPreset {
   constraints: string[];
   examples: FewShotExample[];
 }
-
-const USD_TO_VND = 25450;
 
 const PRESETS: PromptPreset[] = [
   {
@@ -61,7 +60,7 @@ const PRESETS: PromptPreset[] = [
   {
     id: 'prompt-engineer',
     name: 'Chuyên gia tối ưu câu lệnh AI',
-    role: 'Bạn là chuyên gia thiết kế và tối ưu câu lệnh hệ thống cho các mô hình AI lớn (Claude 3.5, GPT-4o, DeepSeek).',
+    role: 'Bạn là chuyên gia thiết kế và tối ưu câu lệnh hệ thống cho các mô hình AI lớn (Claude Sonnet 4.6, GPT-4.1, Gemini 2.5 Pro, DeepSeek).',
     objective: 'Chuyển đổi các yêu cầu thông thường thành bộ chỉ dẫn nền chất lượng cao, có thẻ cấu trúc rõ ràng, ví dụ minh họa và quy tắc chống sai lệch.',
     tone: 'Sắc sảo, chính xác, có hệ thống và minh bạch về lý do thiết kế.',
     format: 'Cấu trúc thẻ XML hoàn chỉnh (<context>, <role>, <instructions>, <constraints>, <output_format>).',
@@ -213,11 +212,11 @@ export function SystemPromptBuilder() {
   }, [compiledPrompt]);
 
   const liveCostEstimate = useMemo(() => {
-    // Standard baseline at ~$2.5 / 1M input tokens (GPT-4o / Claude 3.5 Sonnet class)
+    // Standard baseline at $2.50 / 1M input tokens (OpenAI GPT-4o reference)
     const costPer1kCalls = (estimatedTokens / 1_000_000) * 2.5 * 1000;
     return {
       usd: costPer1kCalls.toFixed(3),
-      vnd: Math.round(costPer1kCalls * USD_TO_VND),
+      vndDisplay: formatVndRounded(costPer1kCalls, DEFAULT_USD_TO_VND),
     };
   }, [estimatedTokens]);
 
@@ -520,7 +519,7 @@ export function SystemPromptBuilder() {
                     </span>
                     <span>•</span>
                     <span className="font-mono text-emerald-600 dark:text-emerald-400">
-                      ~${liveCostEstimate.usd} (~{liveCostEstimate.vnd.toLocaleString('vi-VN')} đ) / 1.000 lượt
+                      ~${liveCostEstimate.usd} (~{liveCostEstimate.vndDisplay}) / 1.000 lượt
                     </span>
                   </div>
                 </div>
@@ -588,14 +587,23 @@ export function SystemPromptBuilder() {
               </button>
             </div>
 
-            {/* Link to Playground */}
-            <Link
-              href="/playground"
-              className="w-full py-3 px-4 rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/10 text-accent font-semibold text-sm flex items-center justify-center gap-2 transition-all"
-            >
-              Mở trong Khu Thử Nghiệm AI để thử trực tiếp
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {/* Action Links to AI Workspace & Playground */}
+            <div className="space-y-2">
+              <Link
+                href="/workspace"
+                className="w-full py-3 px-4 rounded-xl bg-accent/15 border border-accent/40 hover:bg-accent/20 text-accent font-semibold text-sm flex items-center justify-center gap-2 transition-all"
+              >
+                Thực thi thật trong AI Workspace
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/playground"
+                className="w-full py-2.5 px-4 rounded-xl border border-border bg-bg hover:border-accent/30 text-text-muted hover:text-text font-medium text-xs flex items-center justify-center gap-1.5 transition-all"
+              >
+                Hoặc xem minh họa giao diện tại Khu Thử Nghiệm
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

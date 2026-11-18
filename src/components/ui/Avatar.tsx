@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { forwardRef, HTMLAttributes, useMemo } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
@@ -18,6 +19,13 @@ const sizeStyles = {
   md: 'h-10 w-10 text-sm',
   lg: 'h-12 w-12 text-base',
   xl: 'h-16 w-16 text-lg',
+};
+
+const pixelSizes = {
+  sm: 32,
+  md: 40,
+  lg: 48,
+  xl: 64,
 };
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
@@ -43,13 +51,6 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         .toUpperCase()
         .slice(0, 2);
     }, [name]);
-
-    const sizeStyles = {
-      sm: 'h-8 w-8 text-xs',
-      md: 'h-10 w-10 text-sm',
-      lg: 'h-12 w-12 text-base',
-      xl: 'h-16 w-16 text-lg',
-    };
 
     const statusStyles = {
       online: 'bg-green-500',
@@ -78,9 +79,12 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
           aria-label={name ? `Avatar của ${name}` : undefined}
         >
           {src ? (
-            <img
+            <Image
               src={src}
               alt={alt || name || 'Avatar'}
+              width={pixelSizes[size]}
+              height={pixelSizes[size]}
+              unoptimized
               className="h-full w-full object-cover"
             />
           ) : (

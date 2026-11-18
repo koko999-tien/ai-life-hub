@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Search, Loader2, BookOpen, FileText, Bot, FolderOpen, Link as LinkIcon, ArrowRight } from 'lucide-react';
+import { Search, Loader2, BookOpen, FileText, Bot, FolderOpen, Link as LinkIcon, ArrowRight, Wrench } from 'lucide-react';
 import { Input } from '@/components/ui';
 import { searchDocuments, type SearchResult } from '@/lib/search';
 import { normalizeSearchUrl, resolveCategoryName } from '@/components/skill/categoryHelpers';
@@ -15,6 +15,11 @@ const TYPE_META: Record<
   CoreSearchResult['type'],
   { label: string; badgeClass: string; Icon: typeof BookOpen }
 > = {
+  tool: {
+    label: 'Công cụ AI',
+    badgeClass: 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    Icon: Wrench,
+  },
   skill: {
     label: 'Kỹ năng',
     badgeClass: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
@@ -76,6 +81,7 @@ function SearchContent() {
   const counts = useMemo(() => {
     const map: Record<FilterType, number> = {
       all: results.length,
+      tool: 0,
       skill: 0,
       prompt: 0,
       agent: 0,
@@ -98,6 +104,7 @@ function SearchContent() {
 
   const filterTabs: { id: FilterType; label: string }[] = [
     { id: 'all', label: 'Tất cả' },
+    { id: 'tool', label: 'Công cụ AI' },
     { id: 'skill', label: 'Kỹ năng' },
     { id: 'prompt', label: 'Câu lệnh mẫu' },
     { id: 'agent', label: 'Trợ lý AI' },

@@ -10,8 +10,15 @@ export const supabase = isSupabaseConfigured
   ? createClient<Database>(supabaseUrl, supabaseAnonKey)
   : (null as unknown as ReturnType<typeof createClient<Database>>);
 
-// LocalStorage fallback for Bookmarks
-const LOCAL_BOOKMARKS_KEY = 'ai_life_hub_bookmarks';
+// LocalStorage keys (centralized so 1-click personal data deletion can clean everything reliably)
+export const LOCAL_STORAGE_KEYS = {
+  BOOKMARKS: 'ai_life_hub_bookmarks',
+  COMMUNITY_PROMPTS: 'ai_life_hub_community_prompts',
+  NEWSLETTER: 'ai_life_hub_newsletter_subscriptions',
+  WORKSPACE_SESSIONS: 'ai_life_hub_workspace_sessions',
+  PERSONAL_TEMPLATES: 'ai_life_hub_personal_templates',
+  ANALYTICS_EVENTS: 'ai_life_hub_analytics_events',
+} as const;
 
 export interface BookmarkItem {
   id: string;
@@ -48,10 +55,9 @@ export async function fetchBookmarks(userId?: string): Promise<BookmarkItem[]> {
     }
   }
 
-  // Fallback to localStorage
   if (typeof window !== 'undefined') {
     try {
-      const raw = localStorage.getItem(LOCAL_BOOKMARKS_KEY);
+      const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.BOOKMARKS);
       return raw ? JSON.parse(raw) : [];
     } catch {
       return [];
@@ -64,7 +70,6 @@ export async function toggleBookmarkStorage(
   item: Omit<BookmarkItem, 'id' | 'createdAt'>,
   userId?: string
 ): Promise<{ bookmarked: boolean; item: BookmarkItem }> {
-  // If Supabase is connected and user is logged in
   if (isSupabaseConfigured && supabase && userId) {
     try {
       const client = supabase as any;
@@ -115,15 +120,14 @@ export async function toggleBookmarkStorage(
     }
   }
 
-  // Fallback to localStorage
   if (typeof window !== 'undefined') {
-    const raw = localStorage.getItem(LOCAL_BOOKMARKS_KEY);
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.BOOKMARKS);
     const list: BookmarkItem[] = raw ? JSON.parse(raw) : [];
     const index = list.findIndex((b) => b.itemId === item.itemId);
 
     if (index >= 0) {
       const removed = list.splice(index, 1)[0];
-      localStorage.setItem(LOCAL_BOOKMARKS_KEY, JSON.stringify(list));
+      localStorage.setItem(LOCAL_STORAGE_KEYS.BOOKMARKS, JSON.stringify(list));
       return { bookmarked: false, item: removed };
     } else {
       const newItem: BookmarkItem = {
@@ -132,7 +136,7 @@ export async function toggleBookmarkStorage(
         createdAt: new Date().toISOString(),
       };
       list.unshift(newItem);
-      localStorage.setItem(LOCAL_BOOKMARKS_KEY, JSON.stringify(list));
+      localStorage.setItem(LOCAL_STORAGE_KEYS.BOOKMARKS, JSON.stringify(list));
       return { bookmarked: true, item: newItem };
     }
   }
@@ -143,7 +147,22 @@ export async function toggleBookmarkStorage(
   };
 }
 
-// Community Prompts Submissions
+// Community Prompts Submissions & Listing
+export interface CommunityPromptItem {
+  id: string;
+  title: string;
+  description: string;
+  template: string;
+  categoryId: string;
+  authorName: string;
+  tags: string[];
+  targetService: string;
+  upvotes: number;
+  status: 'approved' | 'pending' | 'rejected';
+  createdAt: string;
+  isLocalOnly?: boolean;
+}
+
 export async function submitCommunityPrompt(data: {
   title: string;
   description: string;
@@ -160,34 +179,119 @@ export async function submitCommunityPrompt(data: {
       description: data.description,
       template: data.template,
       category_id: data.categoryId,
-      author_name: data.authorName || 'Vô danh',
+      author_name: data.authorName || 'Thành viên cộng đồng',
       tags: data.tags,
       target_service: data.targetService || 'chatgpt',
       user_id: data.userId || null,
-      status: 'approved',
+      status: 'pending',
     });
   }
 
-  // LocalStorage mock fallback
   if (typeof window !== 'undefined') {
-    const LOCAL_PROMPTS_KEY = 'ai_life_hub_community_prompts';
-    const raw = localStorage.getItem(LOCAL_PROMPTS_KEY);
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS);
     const list = raw ? JSON.parse(raw) : [];
     list.unshift({
       id: `cp-${Date.now()}`,
-      ...data,
+      title: data.title,
+      description: data.description,
+      template: data.template,
+      categoryId: data.categoryId,
+      authorName: data.authorName || 'Thành viên cộng đồng',
+      tags: data.tags,
+      targetService: data.targetService || 'chatgpt',
       upvotes: 1,
       status: 'approved',
       created_at: new Date().toISOString(),
     });
-    localStorage.setItem(LOCAL_PROMPTS_KEY, JSON.stringify(list));
+    localStorage.setItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS, JSON.stringify(list));
     return { error: null };
   }
 
   return { error: null };
 }
 
-// Skill Reviews System
+export async function fetchCommunityPrompts(): Promise<CommunityPromptItem[]> {
+  const results: CommunityPromptItem[] = [];
+
+  if (isSupabaseConfigured && supabase) {
+    try {
+      const { data, error } = await (supabase as any)
+        .from('community_prompts')
+        .select('*')
+        .eq('status', 'approved')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (!error && Array.isArray(data)) {
+        for (const item of data) {
+          results.push({
+            id: item.id,
+            title: item.title,
+            description: item.description,
+            template: item.template,
+            categoryId: item.category_id,
+            authorName: item.author_name || 'Thành viên cộng đồng',
+            tags: Array.isArray(item.tags) ? item.tags : [],
+            targetService: item.target_service || 'chatgpt',
+            upvotes: item.upvotes || 0,
+            status: item.status || 'approved',
+            createdAt: item.created_at,
+            isLocalOnly: false,
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Supabase fetchCommunityPrompts fallback:', e);
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS);
+      if (raw) {
+        const localItems = JSON.parse(raw);
+        if (Array.isArray(localItems)) {
+          for (const item of localItems) {
+            results.push({
+              id: item.id,
+              title: item.title,
+              description: item.description,
+              template: item.template,
+              categoryId: item.categoryId || item.category_id || 'cong-viec',
+              authorName: item.authorName || item.author_name || 'Của bạn',
+              tags: Array.isArray(item.tags) ? item.tags : [],
+              targetService: item.targetService || item.target_service || 'chatgpt',
+              upvotes: item.upvotes || 1,
+              status: item.status || 'approved',
+              createdAt: item.created_at || item.createdAt || new Date().toISOString(),
+              isLocalOnly: true,
+            });
+          }
+        }
+      }
+    } catch {
+      // Ignore malformed localStorage
+    }
+  }
+
+  return results;
+}
+
+export function deleteLocalCommunityPrompt(promptId: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS);
+    if (!raw) return;
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return;
+    const next = list.filter((p: any) => p.id !== promptId);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS, JSON.stringify(next));
+  } catch {
+    // Ignore
+  }
+}
+
+// Skill Reviews System (strictly real user/Supabase reviews — zero fabricated reviews)
 export interface SkillReviewItem {
   id: string;
   userName: string;
@@ -221,35 +325,16 @@ export async function fetchSkillReviews(skillSlug: string): Promise<SkillReviewI
     }
   }
 
-  // LocalStorage fallback
   if (typeof window !== 'undefined') {
     const raw = localStorage.getItem(`reviews_${skillSlug}`);
     if (raw) {
       try {
-        return JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
       } catch {
         return [];
       }
     }
-    // Default initial sample reviews for realistic feel
-    return [
-      {
-        id: 'rev-default-1',
-        userName: 'Minh Tuấn (AI Engineer)',
-        skillSlug,
-        rating: 5,
-        comment: 'Kỹ thuật này cực kỳ hữu ích! Sau khi áp dụng vào quy trình hàng ngày, độ chính xác của phản hồi tăng rõ rệt.',
-        createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-      },
-      {
-        id: 'rev-default-2',
-        userName: 'Hương Giang',
-        skillSlug,
-        rating: 5,
-        comment: 'Prompt mẫu viết rất chuẩn chỉ, dễ customize theo nhu cầu công việc.',
-        createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-      },
-    ];
   }
   return [];
 }
@@ -271,7 +356,6 @@ export async function submitSkillReview(data: {
     });
   }
 
-  // LocalStorage fallback
   if (typeof window !== 'undefined') {
     const key = `reviews_${data.skillSlug}`;
     const raw = localStorage.getItem(key);
@@ -289,4 +373,61 @@ export async function submitSkillReview(data: {
   }
 
   return { error: null };
+}
+
+// Newsletter Subscription Persistence
+export async function subscribeNewsletter(email: string): Promise<{ mode: 'supabase' | 'local'; alreadySubscribed?: boolean }> {
+  const normalized = email.trim().toLowerCase();
+
+  if (isSupabaseConfigured && supabase) {
+    try {
+      const { error } = await (supabase as any)
+        .from('newsletter_subscribers')
+        .insert({ email: normalized });
+      if (!error) {
+        return { mode: 'supabase' };
+      }
+      if (error.code === '23505') {
+        return { mode: 'supabase', alreadySubscribed: true };
+      }
+    } catch (e) {
+      console.warn('Supabase subscribeNewsletter fallback:', e);
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.NEWSLETTER);
+    const list: Array<{ email: string; createdAt: string }> = raw ? JSON.parse(raw) : [];
+    const exists = list.some((entry) => entry.email === normalized);
+    if (!exists) {
+      list.unshift({ email: normalized, createdAt: new Date().toISOString() });
+      localStorage.setItem(LOCAL_STORAGE_KEYS.NEWSLETTER, JSON.stringify(list));
+    }
+    return { mode: 'local', alreadySubscribed: exists };
+  }
+
+  return { mode: 'local' };
+}
+
+/**
+ * Deletes all local personal data stored by AI Life Hub in this browser
+ * (bookmarks, workspace sessions, personal templates, local prompts, reviews, newsletter, analytics).
+ */
+export function clearAllLocalPersonalData(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    Object.values(LOCAL_STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && (k.startsWith('reviews_') || k.startsWith('ai_life_hub_'))) {
+        keysToRemove.push(k);
+      }
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+    window.dispatchEvent(new Event('bookmarks-updated'));
+    window.dispatchEvent(new Event('workspace-sessions-updated'));
+  } catch (e) {
+    console.error('Failed to clear local personal data:', e);
+  }
 }

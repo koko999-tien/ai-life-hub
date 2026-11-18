@@ -170,6 +170,92 @@ function buildSearchDocuments(
 ): SearchDocument[] {
   const documents: SearchDocument[] = [];
 
+  // Add core interactive tools & hubs (never indexing private user workspace data)
+  const platformTools: Array<{
+    id: string;
+    title: string;
+    content: string;
+    tags: string[];
+    url: string;
+    boost: number;
+  }> = [
+    {
+      id: 'tool:ai-workspace',
+      title: 'AI Workspace — Không Gian Thực Thi Công Việc AI',
+      content:
+        'Thực thi trực tiếp Trợ lý viết email, Tóm tắt biên bản cuộc họp, Phân tích hỏi đáp tài liệu và chạy câu lệnh mẫu ngay trên nền tảng, lưu phiên làm việc.',
+      tags: ['workflow', 'email', 'meeting-notes', 'tom-tat-van-ban'],
+      url: '/workspace',
+      boost: 12,
+    },
+    {
+      id: 'tool:ai-work',
+      title: 'Công Việc AI — Giải Pháp AI Theo Nhiệm Vụ Thực Tế',
+      content:
+        'Khám phá 8 nhóm công việc thực tế cho người đi làm, sinh viên, sáng tạo nội dung và quản lý: đầu vào cần có, kết quả nhận được và chạy ngay trong AI Workspace.',
+      tags: ['work', 'productivity', 'email-cong-so', 'lap-ke-hoach'],
+      url: '/ai-work',
+      boost: 10,
+    },
+    {
+      id: 'tool:builder-lab',
+      title: 'Builder Lab — Trung Tâm Công Cụ Kỹ Sư & Lập Trình AI',
+      content:
+        'Tổng hợp bảng so sánh mô hình xác thực, máy tính chi phí Token VNĐ, xưởng tạo System Prompt, 14 mẫu trợ lý AI, cẩm nang kỹ thuật và dự án mở.',
+      tags: ['coding', 'architecture', 'system-prompt', 'ai-agent'],
+      url: '/builder-lab',
+      boost: 10,
+    },
+    {
+      id: 'tool:token-calculator',
+      title: 'Tính Chi Phí Sử Dụng AI (Token & VNĐ)',
+      content:
+        'Ước tính chi phí API theo lượt, ngày và tháng từ biểu giá chính thức của OpenAI, Anthropic, Google Gemini, DeepSeek kèm tiết kiệm bộ nhớ đệm Prompt Caching.',
+      tags: ['pricing', 'ngan-sach', 'ky-thuat'],
+      url: '/tools/token-calculator',
+      boost: 9,
+    },
+    {
+      id: 'tool:model-compare',
+      title: 'So Sánh Sức Mạnh & Biểu Giá Các Dòng AI',
+      content:
+        'Đối chiếu mã API, ngữ cảnh, chi phí USD/1M token, trạng thái vòng đời và điểm kiểm thử có nguồn dẫn của Claude Sonnet 4.6, GPT-4.1, Gemini 2.5 Pro, DeepSeek R1.',
+      tags: ['architecture', 'ky-thuat', 'claude'],
+      url: '/compare',
+      boost: 9,
+    },
+    {
+      id: 'tool:system-prompt-builder',
+      title: 'Xưởng Tạo Chỉ Dẫn Hệ Thống (System Prompt Studio)',
+      content:
+        'Thiết kế chỉ dẫn nền chuẩn cấu trúc thẻ XML hoặc Markdown kèm vai trò, ràng buộc chống bịa đặt, ví dụ mẫu và tính nhẩm chi phí token.',
+      tags: ['system-prompt', 'prompt-engineering', 'guardrails'],
+      url: '/tools/system-prompt-builder',
+      boost: 8,
+    },
+    {
+      id: 'tool:prompt-optimizer',
+      title: 'Tối Ưu Hóa Câu Lệnh Tự Động',
+      content:
+        'Nâng cấp yêu cầu ngắn gọn hàng ngày thành câu lệnh có bối cảnh, vai trò và định dạng đầu ra rõ ràng.',
+      tags: ['prompt-engineering', 'productivity'],
+      url: '/tools/prompt-optimizer',
+      boost: 8,
+    },
+  ];
+
+  platformTools.forEach((t) => {
+    documents.push({
+      id: t.id,
+      type: 'tool',
+      title: t.title,
+      content: t.content,
+      tags: t.tags,
+      url: t.url,
+      boost: t.boost,
+    });
+  });
+
   // Add categories
   CATEGORIES.forEach((cat) => {
     documents.push({

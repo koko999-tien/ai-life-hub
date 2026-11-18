@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Bookmark, Trash2, ArrowRight, BookmarkX } from 'lucide-react';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { isSupabaseConfigured } from '@/lib/supabase/client';
 import { Button } from '@/components/ui';
 import { resolveCategoryName } from '@/components/skill/categoryHelpers';
 
@@ -26,7 +27,11 @@ export default function FavoritesPage() {
         <div className="max-w-3xl mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 text-xs font-semibold mb-3">
             <Bookmark className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-            <span>Lưu cá nhân trên trình duyệt & đồng bộ tài khoản</span>
+            <span>
+              {isSupabaseConfigured
+                ? 'Đã kết nối lưu trữ đám mây & trình duyệt'
+                : 'Chế độ lưu cục bộ trên trình duyệt này'}
+            </span>
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
             Mục Yêu Thích Của Bạn

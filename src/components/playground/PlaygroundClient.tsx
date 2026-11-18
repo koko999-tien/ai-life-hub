@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
   Play,
@@ -14,6 +15,7 @@ import {
   Sliders,
   Code2,
   Zap,
+  ArrowRight,
 } from 'lucide-react';
 import { Button, toast } from '@/components/ui';
 import { BLUEPRINTS } from '@/components/agents/AgentDirectory';
@@ -35,9 +37,9 @@ interface PlaygroundClientProps {
 
 const MODELS = [
   { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', latency: '420ms', context: '128k' },
-  { id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', latency: '580ms', context: '200k' },
-  { id: 'gemini-1-5-pro', name: 'Gemini 1.5 Pro', provider: 'Google DeepMind', latency: '380ms', context: '1M+' },
-  { id: 'llama-3-70b', name: 'Llama 3 70B', provider: 'Meta (Mã nguồn mở)', latency: '290ms', context: '8k' },
+  { id: 'claude-3-5-sonnet', name: 'Claude Sonnet 4.6', provider: 'Anthropic', latency: '480ms', context: '1M' },
+  { id: 'gemini-1-5-pro', name: 'Gemini 2.5 Pro', provider: 'Google AI', latency: '380ms', context: '1M' },
+  { id: 'llama-3-70b', name: 'Llama 3.3 70B', provider: 'Meta (Trọng số mở)', latency: '290ms', context: '128k' },
 ];
 
 const LEGACY_AGENT_ALIASES: Record<string, string> = {
@@ -218,6 +220,38 @@ export function PlaygroundClient({ presets }: PlaygroundClientProps) {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Real AI Workspace Upgrade Banner */}
+      <div className="mb-6 rounded-2xl border border-emerald-500/35 bg-emerald-500/5 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="text-xs sm:text-sm">
+          <strong className="text-text font-bold block mb-0.5">
+            Bạn muốn chạy AI thật ngay trên AI Life Hub?
+          </strong>
+          <p className="text-text-muted">
+            Trang Khu Thử Nghiệm dưới đây chỉ mô phỏng giao diện lắp ghép biến số (không gọi mô hình thật). Để nhận phản hồi AI trực tiếp và lưu lịch sử phiên làm việc, hãy mở <strong>AI Workspace</strong>.
+          </p>
+        </div>
+        <Link
+          href="/workspace"
+          onClick={() => {
+            if (typeof window !== 'undefined' && resolvedPrompt.trim()) {
+              sessionStorage.setItem(
+                'ai_life_hub_workspace_draft_prompt',
+                JSON.stringify({
+                  id: selectedPresetId || 'playground-draft',
+                  title: 'Câu lệnh từ Khu Thử Nghiệm',
+                  template: resolvedPrompt,
+                  systemPrompt,
+                })
+              );
+            }
+          }}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shrink-0 transition-colors"
+        >
+          <span>Chuyển sang AI Workspace thật</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-border">
         <div>

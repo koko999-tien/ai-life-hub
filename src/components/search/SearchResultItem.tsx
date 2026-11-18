@@ -16,6 +16,7 @@ interface SearchResultItemProps {
 }
 
 const typeIcons: Record<SearchResult['type'], string> = {
+  tool: '🛠️',
   skill: '⚡',
   prompt: '💬',
   agent: '🤖',
@@ -24,6 +25,7 @@ const typeIcons: Record<SearchResult['type'], string> = {
 };
 
 const typeLabels: Record<SearchResult['type'], string> = {
+  tool: 'Công cụ AI',
   skill: 'Kỹ năng',
   prompt: 'Câu lệnh mẫu',
   agent: 'Trợ lý AI',

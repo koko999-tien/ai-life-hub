@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { CategoryHero } from '@/components/category/CategoryHero';
 import { CategoryContentClient } from '@/components/category/CategoryContentClient';
+import { SafetyDisclaimer } from '@/components/ui/SafetyDisclaimer';
 import { getCategory, getSkillsByCategory, getResourcesByCategory, getAllCategories } from '@/lib/data';
 
 interface CategoryPageProps {
@@ -56,6 +57,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <div className="min-h-screen pt-24 pb-12">
       <div className="container pt-2 pb-8 lg:pb-12 space-y-8 lg:space-y-10">
         <CategoryHero category={category} />
+
+        <SafetyDisclaimer categoryId={category.id} />
 
         <CategoryContentClient
           categories={allCategories}

@@ -2,6 +2,7 @@
 
 import { Prompt } from '@/types'
 import { toast } from '@/components/ui'
+import { useRouter } from 'next/navigation'
 import {
   X,
   Copy,
@@ -15,6 +16,7 @@ import {
   Lightbulb,
   AlertCircle,
   Bot,
+  Play,
 } from 'lucide-react'
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { VariableForm } from './VariableForm'
@@ -91,6 +93,7 @@ function generateShareUrl(prompt: Prompt, resolvedSkillSlug: string): string {
 }
 
 export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }: PromptBuilderProps) {
+  const router = useRouter()
   const promptVariables = useMemo(() => prompt.variables ?? [], [prompt.variables])
   const promptExamples = useMemo(() => prompt.examples ?? [], [prompt.examples])
   const resolvedSkillId = prompt.skillId || skillId
@@ -346,9 +349,33 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
                 <div className="space-y-2.5 pt-2 border-t border-border">
                   <button
                     type="button"
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        sessionStorage.setItem(
+                          'ai_life_hub_workspace_draft_prompt',
+                          JSON.stringify({
+                            id: prompt.id,
+                            title: prompt.name,
+                            template: generatedPrompt,
+                            categoryId: resolvedSkillId,
+                          })
+                        )
+                      }
+                      onClose()
+                      router.push(`/workspace?workflow=custom-prompt&promptId=${encodeURIComponent(prompt.id)}`)
+                    }}
+                    disabled={missingRequired.length > 0}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-md active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Play className="w-4 h-4" aria-hidden="true" />
+                    <span>Chạy trực tiếp trong AI Workspace</span>
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={() => handleCopy('prompt')}
                     disabled={missingRequired.length > 0}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent text-white font-medium text-sm hover:bg-accent-hover shadow-md active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-white font-medium text-sm hover:bg-accent-hover shadow-sm active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {copied === 'prompt' ? (
                       <>

@@ -3,25 +3,26 @@ import { Github, Mail, Sparkles, BookOpen, Code, Zap, Brain, Globe, Shield, Hear
 
 const footerNav = {
   explore: [
-    { name: 'Tất cả danh mục', href: '/categories' },
+    { name: 'AI Workspace (Làm việc ngay)', href: '/workspace' },
+    { name: 'Công Việc AI (8 nhóm việc)', href: '/ai-work' },
     { name: 'Thư viện Câu lệnh', href: '/prompts' },
-    { name: 'Mẫu Thiết Kế Trợ Lý AI', href: '/agents' },
-    { name: 'Quy Trình AI Đa Nhiệm', href: '/workflows' },
+    { name: 'Tất cả danh mục', href: '/categories' },
     { name: 'Dự Án Nghiên Cứu Mở', href: '/ecosystem' },
   ],
   tools: [
-    { name: 'Khu Thử Nghiệm AI', href: '/playground' },
-    { name: 'Tính Chi Phí Sử Dụng AI', href: '/tools/token-calculator' },
-    { name: 'Tối Ưu Hóa Câu Lệnh', href: '/tools/prompt-optimizer' },
-    { name: 'Xưởng Tạo Câu Lệnh Chuẩn', href: '/tools/system-prompt-builder' },
+    { name: 'Trung tâm Builder Lab', href: '/builder-lab' },
     { name: 'So Sánh Sức Mạnh AI', href: '/compare' },
+    { name: 'Tính Chi Phí Sử Dụng AI', href: '/tools/token-calculator' },
+    { name: 'Xưởng Tạo Câu Lệnh Chuẩn', href: '/tools/system-prompt-builder' },
+    { name: 'Tối Ưu Hóa Câu Lệnh', href: '/tools/prompt-optimizer' },
+    { name: 'Mẫu Thiết Kế Trợ Lý AI', href: '/agents' },
   ],
   learn: [
+    { name: 'Tài khoản & Dữ liệu cá nhân', href: '/account' },
+    { name: 'Danh sách Yêu thích', href: '/favorites' },
     { name: 'Cẩm Nang Thực Chiến', href: '/playbooks' },
     { name: 'Sổ Tay Tra Cứu Nhanh', href: '/cheatsheet' },
     { name: 'Trắc Nghiệm Kiến Thức AI', href: '/learn/quiz' },
-    { name: 'Danh sách Yêu thích', href: '/favorites' },
-    { name: 'Kho tài nguyên tuyển chọn', href: '/resources' },
     { name: 'Đóng góp câu lệnh mới', href: '/submit' },
   ],
   about: [

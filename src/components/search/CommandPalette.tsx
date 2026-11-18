@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { Search, X, ChevronRight, Clock, BookOpen, FileText, Bot, Link as LinkIcon, Tag } from 'lucide-react';
+import { Search, X, ChevronRight, Clock, BookOpen, FileText, Bot, Link as LinkIcon, Tag, Wrench } from 'lucide-react';
 import { SearchResult, SearchDocument } from '@/types';
-import { cn } from '@/lib/utils';
+import { cn, normalizeVietnamese } from '@/lib/utils';
 import { Highlight } from './Highlight';
 import { normalizeSearchUrl, resolveCategoryName } from '@/components/skill/categoryHelpers';
 import { resolveTagLabel } from '@/lib/constants';
 
 const TYPE_ICONS = {
+  tool: Wrench,
   skill: BookOpen,
   prompt: FileText,
   agent: Bot,
@@ -19,6 +20,7 @@ const TYPE_ICONS = {
 };
 
 const TYPE_LABELS = {
+  tool: 'Công cụ & Không gian làm việc',
   skill: 'Kỹ năng',
   prompt: 'Câu lệnh mẫu',
   agent: 'Trợ lý AI',
@@ -27,6 +29,7 @@ const TYPE_LABELS = {
 };
 
 const TYPE_COLORS = {
+  tool: 'text-orange-600 dark:text-orange-400',
   skill: 'text-blue-600 dark:text-blue-400',
   prompt: 'text-amber-600 dark:text-amber-400',
   agent: 'text-purple-600 dark:text-purple-400',
@@ -41,31 +44,42 @@ function searchIndexDocuments(q: string, docs: SearchDocument[]): SearchResult[]
     return [];
   }
 
-  const lowerQuery = q.toLowerCase();
+  const lowerQuery = q.trim().toLowerCase();
+  const normalizedQuery = normalizeVietnamese(q);
+  const queryTerms = normalizedQuery.split(' ').filter((t) => t.length >= 2);
+
   const scored = docs
     .map((doc) => {
       let score = 0;
-      const title = doc.title.toLowerCase();
-      const content = doc.content.toLowerCase();
-      const tags = doc.tags.map((t) => t.toLowerCase()).join(' ');
+      const titleLower = doc.title.toLowerCase();
+      const contentLower = doc.content.toLowerCase();
+      const tagsLower = doc.tags.map((t) => t.toLowerCase()).join(' ');
 
-      if (title.includes(lowerQuery)) score += 10 * (doc.boost || 1);
-      if (content.includes(lowerQuery)) score += 5;
-      if (tags.includes(lowerQuery)) score += 3;
+      const titleNorm = normalizeVietnamese(doc.title);
+      const contentNorm = normalizeVietnamese(doc.content);
+      const tagsNorm = normalizeVietnamese(tagsLower);
 
-      lowerQuery.split(' ').forEach((term) => {
-        if (term.length > 2) {
-          if (title.includes(term)) score += 3;
-          if (content.includes(term)) score += 2;
-          if (tags.includes(term)) score += 1;
-        }
+      if (titleLower.includes(lowerQuery)) score += 14 * (doc.boost || 1);
+      else if (normalizedQuery && titleNorm.includes(normalizedQuery)) score += 10 * (doc.boost || 1);
+
+      if (contentLower.includes(lowerQuery)) score += 6;
+      else if (normalizedQuery && contentNorm.includes(normalizedQuery)) score += 4;
+
+      if (tagsLower.includes(lowerQuery) || (normalizedQuery && tagsNorm.includes(normalizedQuery))) {
+        score += 4;
+      }
+
+      queryTerms.forEach((term) => {
+        if (titleNorm.includes(term)) score += 3;
+        if (contentNorm.includes(term)) score += 1.5;
+        if (tagsNorm.includes(term)) score += 1;
       });
 
       return { ...doc, score };
     })
     .filter((d) => d.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 20);
+    .slice(0, 24);
 
   const grouped: Record<string, SearchResult[]> = {};
   scored.forEach((doc) => {

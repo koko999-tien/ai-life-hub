@@ -3,16 +3,17 @@
 import { useState } from 'react';
 import { Mail, ArrowRight, Loader2, CheckCircle } from 'lucide-react';
 import { Button, Input, toast } from '@/components/ui';
-import { cn } from '@/lib/utils';
+import { subscribeNewsletter, isSupabaseConfigured } from '@/lib/supabase/client';
 
 export function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [storageMode, setStorageMode] = useState<'supabase' | 'local'>('local');
 
-  const validateEmail = (email: string) => {
+  const validateEmail = (value: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    return re.test(value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,10 +35,15 @@ export function NewsletterSignup() {
     setErrorMessage('');
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const result = await subscribeNewsletter(email);
+      setStorageMode(result.mode);
       setStatus('success');
       setEmail('');
-      toast.success('Đăng ký thành công! Cảm ơn bạn đã tham gia AI Life Hub.');
+      toast.success(
+        result.alreadySubscribed
+          ? 'Email này đã có trong danh sách nhận bản tin.'
+          : 'Đăng ký thành công! Cảm ơn bạn đã tham gia AI Life Hub.'
+      );
     } catch {
       setStatus('error');
       setErrorMessage('Có lỗi xảy ra, vui lòng thử lại');
@@ -59,8 +65,12 @@ export function NewsletterSignup() {
           </h2>
 
           <p className="text-fluid-lg text-gray-600 dark:text-gray-400 mb-8">
-            Nhận câu lệnh mẫu thực chiến, tình huống ứng dụng thực tế, công cụ mới và kinh nghiệm chọn lọc trực tiếp vào hộp thư.
-            Không làm phiền, hủy đăng ký bất kỳ lúc nào.
+            Nhận câu lệnh mẫu thực chiến, quy trình làm việc mới trong AI Workspace và kinh nghiệm chọn lọc.
+            {!isSupabaseConfigured && (
+              <span className="block text-xs text-gray-500 mt-1.5">
+                Trạng thái hiện tại: Ghi nhận đăng ký trực tiếp trên trình duyệt của bạn (chưa kết nối dịch vụ gửi thư đám mây).
+              </span>
+            )}
           </p>
 
           {status === 'success' ? (
@@ -69,7 +79,11 @@ export function NewsletterSignup() {
                 <CheckCircle className="h-8 w-8" aria-hidden="true" />
               </div>
               <h3 className="heading-4 text-gray-900 dark:text-white">Cảm ơn bạn đã đăng ký!</h3>
-              <p className="text-gray-600 dark:text-gray-400">Đã ghi nhận email của bạn! Cảm ơn bạn đã đồng hành cùng cộng đồng AI Life Hub.</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                {storageMode === 'supabase'
+                  ? 'Email của bạn đã được lưu vào danh sách đăng ký của AI Life Hub.'
+                  : 'Email của bạn đã được lưu cục bộ trên trình duyệt này. Bạn có thể xóa bất kỳ lúc nào tại trang Tài khoản.'}
+              </p>
               <Button variant="outline" onClick={() => setStatus('idle')} className="mt-2">
                 Đăng ký email khác
               </Button>

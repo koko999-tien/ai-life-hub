@@ -8,16 +8,16 @@ import { NewsletterSignup } from '@/components/newsletter-signup';
 import { getFeaturedCategories } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'AI Life Hub — Kho Câu Lệnh & Công Cụ AI Thực Chiến Tiếng Việt',
+  title: 'AI Life Hub — Không Gian Thực Thi Công Việc AI & Builder Lab Tiếng Việt',
   description:
-    'Kho 80+ mẫu câu lệnh AI dùng ngay cho công việc và đời sống, kèm bộ công cụ tính chi phí theo VNĐ, so sánh các dòng AI và mẫu trợ lý tự động cho lập trình viên.',
+    'Hoàn thành công việc thực tế trong AI Workspace (Email, Tóm tắt họp, Phân tích tài liệu), tra cứu 80+ câu lệnh tiếng Việt và bộ công cụ kỹ thuật xác thực cho lập trình viên.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'AI Life Hub — Kho Câu Lệnh & Công Cụ AI Thực Chiến Tiếng Việt',
+    title: 'AI Life Hub — Không Gian Thực Thi Công Việc AI & Builder Lab Tiếng Việt',
     description:
-      'Kho 80+ mẫu câu lệnh AI dùng ngay cho công việc và đời sống, kèm bộ công cụ tính chi phí theo VNĐ, so sánh các dòng AI và mẫu trợ lý tự động.',
+      'AI không chỉ để trò chuyện — hãy dùng AI để hoàn thành công việc với AI Workspace, 80+ mẫu câu lệnh và Builder Lab xác thực.',
     url: '/',
     type: 'website',
   },

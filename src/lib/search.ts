@@ -1,10 +1,12 @@
 'use client';
 
 import { SearchDocument } from '@/types';
+import { normalizeVietnamese } from '@/lib/utils';
 
 export const SEARCH_INDEX_VERSION = '1.0.0';
 
 export const SEARCH_BOOSTS = {
+  tool: 2.5,
   category: 0.5,
   skill: 2,
   prompt: 1.5,
@@ -12,7 +14,7 @@ export const SEARCH_BOOSTS = {
   resource: 1,
 } as const;
 
-export const SEARCH_TYPES = ['category', 'skill', 'prompt', 'agent', 'resource'] as const;
+export const SEARCH_TYPES = ['tool', 'category', 'skill', 'prompt', 'agent', 'resource'] as const;
 
 export interface SearchFilters {
   type?: string;
@@ -63,8 +65,8 @@ export async function searchDocuments(
   const documents = await loadSearchIndex();
   const { type, categoryId, difficulty, tags, limit = 20, offset = 0 } = filters;
 
-  const terms = query
-    .toLowerCase()
+  const queryNorm = normalizeVietnamese(query);
+  const terms = queryNorm
     .split(/\s+/)
     .filter((t) => t.length > 1);
 
@@ -77,21 +79,25 @@ export async function searchDocuments(
   for (const doc of documents) {
     const title = doc.title.toLowerCase();
     const content = doc.content.toLowerCase();
+    const titleNorm = normalizeVietnamese(doc.title);
+    const contentNorm = normalizeVietnamese(doc.content);
     const tagsStr = (doc.tags || []).map((t) => t.toLowerCase());
 
     let score = 0;
-    const queryLower = query.toLowerCase();
+    const queryLower = query.toLowerCase().trim();
 
-    // Title match
+    // Title match (exact diacritics boosted, accent-insensitive supported)
     if (title.includes(queryLower)) {
+      score += 14;
+    } else if (titleNorm.includes(queryNorm)) {
       score += 10;
-    } else if (title.includes(terms[0])) {
-      score += 8;
+    } else if (titleNorm.includes(terms[0])) {
+      score += 6;
     }
 
     // Content match
     for (const term of terms) {
-      if (content.includes(term)) {
+      if (contentNorm.includes(term) || content.includes(term)) {
         score += 3;
       }
     }

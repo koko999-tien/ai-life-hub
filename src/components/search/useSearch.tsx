@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { SearchDocument, SearchResult, SearchFilters, SearchIndex, UseSearchReturn } from '@/types/search';
+import { normalizeVietnamese, sanitizeLunrQuery } from '@/lib/utils';
 
 const STORAGE_KEY = 'ai-life-hub-recent-searches';
 const MAX_HISTORY = 10;
@@ -106,21 +107,67 @@ export function useSearch(initialFilters: SearchFilters = {}): UseSearchReturn {
       }
 
       try {
-        const lunr = await import('lunr');
-        const idx = lunr.Index.load(index.index ?? index);
-
-        const searchResults = idx.search(searchQuery);
+        const safeQuery = sanitizeLunrQuery(searchQuery);
+        const normQuery = normalizeVietnamese(searchQuery);
         const docMap = new Map(index.documents.map((d) => [d.id, d]));
+        const scoreMap = new Map<string, { score: number; matchedFields: string[] }>();
 
-        const mappedResults: SearchResult[] = searchResults
-          .map((r) => {
-            const doc = docMap.get(r.ref);
+        if (safeQuery) {
+          try {
+            const lunr = await import('lunr');
+            const idx = lunr.Index.load(index.index ?? index);
+            const searchResults = idx.search(safeQuery);
+            searchResults.forEach((r) => {
+              const doc = docMap.get(r.ref);
+              if (!doc) return;
+              const boost = (doc as SearchDocument).boost || 1;
+              scoreMap.set(r.ref, {
+                score: r.score * boost * 10,
+                matchedFields: r.matchData.metadata ? Object.keys(r.matchData.metadata) : [],
+              });
+            });
+          } catch {
+            // Fallback to substring/accent-insensitive search below
+          }
+        }
+
+        // Augment with Vietnamese diacritic-insensitive substring matching
+        if (normQuery) {
+          const terms = normQuery.split(' ').filter((t) => t.length >= 2);
+          index.documents.forEach((doc) => {
+            const titleNorm = normalizeVietnamese(doc.title || '');
+            const contentNorm = normalizeVietnamese(doc.content || '');
+            const tagsNorm = normalizeVietnamese((doc.tags || []).join(' '));
+            let bonus = 0;
+
+            if (titleNorm.includes(normQuery)) bonus += 15 * (doc.boost || 1);
+            if (contentNorm.includes(normQuery)) bonus += 6;
+            if (tagsNorm.includes(normQuery)) bonus += 5;
+
+            terms.forEach((term) => {
+              if (titleNorm.includes(term)) bonus += 3;
+              if (contentNorm.includes(term)) bonus += 1;
+            });
+
+            if (bonus > 0) {
+              const prev = scoreMap.get(doc.id);
+              scoreMap.set(doc.id, {
+                score: (prev?.score || 0) + bonus,
+                matchedFields: prev?.matchedFields || ['title', 'content'],
+              });
+            }
+          });
+        }
+
+        const mappedResults: SearchResult[] = Array.from(scoreMap.entries())
+          .map(([id, meta]) => {
+            const doc = docMap.get(id);
             if (!doc) return null;
-            const boost = (doc as SearchDocument).boost || 1;
             return {
               ...doc,
-              score: r.score * boost,
-              matchedFields: r.matchData.metadata ? Object.keys(r.matchData.metadata) : [],
+              description: (doc as any).description || (doc.content || '').slice(0, 160),
+              score: meta.score,
+              matchedFields: meta.matchedFields,
             } as SearchResult;
           })
           .filter((r): r is SearchResult => r !== null)

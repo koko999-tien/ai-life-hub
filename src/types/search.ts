@@ -1,4 +1,4 @@
-export type SearchResultType = 'skill' | 'prompt' | 'agent' | 'resource' | 'category';
+export type SearchResultType = 'skill' | 'prompt' | 'agent' | 'resource' | 'category' | 'tool';
 
 export interface SearchDocument {
   id: string;

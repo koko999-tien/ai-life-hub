@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getSkill, getAllSkills, getCategory } from '@/lib/data';
 import { SkillDetail } from '@/components/skill/SkillDetail';
+import { SafetyDisclaimer } from '@/components/ui/SafetyDisclaimer';
 import { resolveCategoryName } from '@/components/skill/categoryHelpers';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
@@ -86,6 +87,10 @@ export default async function SkillPage({ params }: SkillPageProps) {
             </li>
           </ol>
         </nav>
+
+        <div className="mb-6">
+          <SafetyDisclaimer categoryId={skill.categoryId} />
+        </div>
 
         <SkillDetail skill={skill} relatedSkills={relatedSkills} />
 

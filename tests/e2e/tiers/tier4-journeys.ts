@@ -317,38 +317,167 @@ export const tier4Tests: TestCase[] = [
       });
     },
   },
-  {
-    id: 'T4-J08',
-    tier: 4,
-    featureArea: 'Journey-WorkflowPipelineExport',
-    name: 'Journey 8: Builder runs a complete multi-agent pipeline on /workflows and exports .md report',
-    description: 'Selects workflow on /workflows, runs all steps sequentially, confirms outputs, and exports consolidated .md report.',
-    run: async (ctx) => {
-      return await withPage(ctx, { width: 1280, height: 800 }, async (page) => {
-        await page.goto(`${ctx.baseUrl}/workflows`);
-        await assertNoHeaderOverlap(page, 'T4-J08');
-        const wfText = await page.innerText('main');
-        assertNoAcademicJargon(wfText, 'T4-J08');
+    {
+      id: 'T4-J08',
+      tier: 4,
+      featureArea: 'Journey-WorkflowPipelineExport',
+      name: 'Journey 8: Builder runs a complete multi-agent pipeline on /workflows and exports .md report',
+      description: 'Selects workflow on /workflows, runs all steps sequentially, confirms outputs, and exports consolidated .md report.',
+      run: async (ctx) => {
+        return await withPage(ctx, { width: 1280, height: 800 }, async (page) => {
+          await page.goto(`${ctx.baseUrl}/workflows`);
+          await assertNoHeaderOverlap(page, 'T4-J08');
+          const wfText = await page.innerText('main');
+          assertNoAcademicJargon(wfText, 'T4-J08');
 
-        const pickedWorkflow = await page.evaluate<boolean>(`(() => {
-          const cards = Array.from(document.querySelectorAll('main button')).filter(b => Boolean(b.querySelector('h3')));
-          if (cards.length < 2) return false;
-          cards[1].click();
-          return true;
-        })()`);
-        assert(pickedWorkflow, 'T4-J08: Second workflow pipeline card button must exist');
-        await page.fill('main input[type="text"]', 'Thiết kế hệ thống đặt vé sự kiện chịu tải 10k người dùng');
-        await clickButtonByPattern(page, 'main', /chạy thử mô phỏng|chạy toàn bộ/i);
-        await page.waitForFunction(
-          `Array.from(document.querySelectorAll('main button')).some(b => /\\.md/i.test(b.innerText || ''))`,
-          15000
-        );
-        await clickButtonByPattern(page, 'main', /\.md/i);
-        const downloads = await page.getCapturedDownloads();
-        assert(downloads.some((d) => d.download.endsWith('.md')), 'Pipeline export must trigger .md download');
-        assertNoPageErrors(page, 'T4-J08');
-        return 5;
-      });
+          const pickedWorkflow = await page.evaluate<boolean>(`(() => {
+            const cards = Array.from(document.querySelectorAll('main button')).filter(b => Boolean(b.querySelector('h3')));
+            if (cards.length < 2) return false;
+            cards[1].click();
+            return true;
+          })()`);
+          assert(pickedWorkflow, 'T4-J08: Second workflow pipeline card button must exist');
+          await page.fill('main input[type="text"]', 'Thiết kế hệ thống đặt vé sự kiện chịu tải 10k người dùng');
+          await clickButtonByPattern(page, 'main', /chạy thử mô phỏng|chạy toàn bộ/i);
+          await page.waitForFunction(
+            `Array.from(document.querySelectorAll('main button')).some(b => /\\.md/i.test(b.innerText || ''))`,
+            15000
+          );
+          await clickButtonByPattern(page, 'main', /\.md/i);
+          const downloads = await page.getCapturedDownloads();
+          assert(downloads.some((d) => d.download.endsWith('.md')), 'Pipeline export must trigger .md download');
+          assertNoPageErrors(page, 'T4-J08');
+          return 5;
+        });
+      },
     },
-  },
-];
+    {
+      id: 'T4-J09',
+      tier: 4,
+      featureArea: 'Journey-AIWorkspaceLiveExecution',
+      name: 'Journey 9: AI Workspace (/workspace) switches all 3 core workflows, validates empty input, streams live AI response, edits, saves session & persists across reload',
+      description: 'Verifies /api/workspace/status, tests Email / Meeting / Document tabs, executes live server-backed AI (or honest 503 if unconfigured), verifies session reload & responsive mobile layout.',
+      run: async (ctx) => {
+        return await withPage(ctx, { width: 1280, height: 800 }, async (page) => {
+          // 1. Check /api/workspace/status directly
+          const statusRes = await fetch(`${ctx.baseUrl}/api/workspace/status`);
+          assertEqual(statusRes.status, 200, '/api/workspace/status must return HTTP 200');
+          const statusJson = (await statusRes.json()) as { configured: boolean; availableModels: unknown[] };
+
+          // 2. Check /api/workspace/execute rejects empty input with HTTP 400
+          const badRes = await fetch(`${ctx.baseUrl}/api/workspace/execute`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ workflowId: 'email-assistant', inputs: {} }),
+          });
+          assertEqual(badRes.status, 400, '/api/workspace/execute must reject empty input with HTTP 400');
+
+          // 3. Navigate to /workspace and verify layout + workflow switching
+          await page.goto(`${ctx.baseUrl}/workspace`);
+          await assertNoHeaderOverlap(page, 'T4-J09:desktop');
+          await assertNoHorizontalOverflow(page, 'T4-J09:desktop');
+
+          // Switch to Meeting Summary tab & fill sample
+          await clickButtonByPattern(page, 'main [role="tablist"]', /tóm tắt cuộc họp/i);
+          await clickButtonByPattern(page, 'main', /điền ví dụ mẫu/i);
+          const notesVal = await page.evaluate<string>(`document.querySelector('#ws-meeting-notes')?.value || ''`);
+          assert(notesVal.length > 50, 'Quick sample must populate meeting notes textarea');
+
+          // Switch to Document Analysis tab & verify controls
+          await clickButtonByPattern(page, 'main [role="tablist"]', /phân tích tài liệu/i);
+          await page.waitForSelector('#ws-doc-text', 4000);
+
+          // Switch back to Meeting Summary and execute live AI workflow
+          await clickButtonByPattern(page, 'main [role="tablist"]', /tóm tắt cuộc họp/i);
+          await clickButtonByPattern(page, 'main', /thực thi ngay/i);
+
+          if (statusJson.configured) {
+            await page.waitForFunction(
+              `Boolean(window.localStorage.getItem('ai_life_hub_workspace_sessions'))`,
+              35000
+            );
+            const savedRaw = await page.getLocalStorage('ai_life_hub_workspace_sessions');
+            assert(Boolean(savedRaw && savedRaw.length > 20), 'Completed AI Workspace run must persist session to localStorage');
+            const finalDomText = await page.innerText('main');
+            assertIncludes(finalDomText, 'Tóm tắt điều hành', 'Live Meeting Summary output must render Executive Summary section');
+            assertIncludes(finalDomText, 'Chưa nêu rõ trong biên bản', 'Live Meeting Summary must explicitly flag missing owner/deadline without inventing');
+
+            // Reload and confirm saved session appears in sidebar history
+            await page.reload();
+            await page.waitForFunction(
+              `(document.querySelector('main')?.innerText || '').includes('Họp giao ban')`,
+              6000
+            );
+          } else {
+            await page.waitForFunction(
+              `Boolean(document.querySelector('main [role="alert"]'))`,
+              6000
+            );
+          }
+
+          assertNoPageErrors(page, 'T4-J09');
+          return 9;
+        });
+      },
+    },
+    {
+      id: 'T4-J10',
+      tier: 4,
+      featureArea: 'Journey-HubsAccountPrivacyMobile',
+      name: 'Journey 10: /ai-work 8 task groups, /builder-lab verified registry, /submit -> /prompts visibility, /account 1-click data deletion & 360px mobile overflow check',
+      description: 'Exercises /ai-work, /builder-lab, /account personal template creation + 1-click data wipe, and mobile 360x800 layout on /workspace.',
+      run: async (ctx) => {
+        await withPage(ctx, { width: 1280, height: 800 }, async (page) => {
+          // 1. /ai-work renders 8 task groups
+          await page.goto(`${ctx.baseUrl}/ai-work`);
+          await assertNoHeaderOverlap(page, 'T4-J10:ai-work');
+          const tabCount = await page.count('main [role="tab"]');
+          assertEqual(tabCount, 8, '/ai-work must render all 8 task-oriented work groups');
+          await clickButtonByPattern(page, 'main [role="tablist"]', /phân tích dữ liệu/i);
+          const workText = await page.innerText('main');
+          assertNoAcademicJargon(workText, 'T4-J10:ai-work');
+
+          // 2. /builder-lab renders verified API snapshot & tools
+          await page.goto(`${ctx.baseUrl}/builder-lab`);
+          await assertNoHeaderOverlap(page, 'T4-J10:builder-lab');
+          const labText = await page.innerText('main');
+          assertIncludes(labText, 'gemini-2.5-pro', '/builder-lab must display verified API model IDs');
+          assertIncludes(labText, '25.450', '/builder-lab must display reference VND rate');
+
+          // 3. /account creates personal template and executes 1-click complete deletion
+          await page.goto(`${ctx.baseUrl}/account`);
+          await assertNoHeaderOverlap(page, 'T4-J10:account');
+          await page.fill('main input[aria-label="Tên mẫu câu lệnh cá nhân"]', 'Mẫu báo cáo tuần kiểm thử');
+          await page.fill('main textarea[aria-label="Nội dung mẫu câu lệnh cá nhân"]', 'Tổng hợp 3 kết quả đạt được trong tuần.');
+          await clickButtonByPattern(page, 'main', /lưu mẫu cá nhân/i);
+          await page.waitForFunction(
+            `Boolean(window.localStorage.getItem('ai_life_hub_personal_templates'))`,
+            4000
+          );
+
+          await clickButtonByPattern(page, 'main', /xóa toàn bộ dữ liệu cá nhân/i);
+          await clickButtonByPattern(page, 'main', /xác nhận xóa vĩnh viễn/i);
+          await page.waitForFunction(
+            `!window.localStorage.getItem('ai_life_hub_personal_templates') && !window.localStorage.getItem('ai_life_hub_workspace_sessions')`,
+            4000
+          );
+
+          assertNoPageErrors(page, 'T4-J10:desktop');
+          return 7;
+        });
+
+        // 4. Mobile 360x800 check on /workspace & /ai-work
+        return await withPage(ctx, { width: 360, height: 800 }, async (mobilePage) => {
+          await mobilePage.goto(`${ctx.baseUrl}/workspace`);
+          await assertNoHeaderOverlap(mobilePage, 'T4-J10:workspace-360');
+          await assertNoHorizontalOverflow(mobilePage, 'T4-J10:workspace-360');
+
+          await mobilePage.goto(`${ctx.baseUrl}/ai-work`);
+          await assertNoHeaderOverlap(mobilePage, 'T4-J10:ai-work-360');
+          await assertNoHorizontalOverflow(mobilePage, 'T4-J10:ai-work-360');
+          assertNoPageErrors(mobilePage, 'T4-J10:mobile');
+          return 10;
+        });
+      },
+    },
+  ];

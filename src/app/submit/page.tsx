@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Sparkles, Send, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { Button, toast } from '@/components/ui';
-import { submitCommunityPrompt } from '@/lib/supabase/client';
+import { submitCommunityPrompt, isSupabaseConfigured } from '@/lib/supabase/client';
 import { CATEGORIES, CATEGORY_MAP } from '@/lib/constants';
 
 export default function SubmitPromptPage() {
@@ -93,7 +93,9 @@ export default function SubmitPromptPage() {
               Câu lệnh của bạn đã được ghi nhận!
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8 text-sm">
-              Cảm ơn bạn đã đóng góp. Nội dung đã được lưu vào hệ thống và sẵn sàng để cộng đồng tham khảo.
+              {isSupabaseConfigured
+                ? 'Cảm ơn bạn đã đóng góp! Câu lệnh của bạn đã được gửi vào hàng đợi kiểm duyệt cộng đồng trước khi xuất bản công khai.'
+                : 'Câu lệnh đã được lưu vào bộ sưu tập trên trình duyệt của bạn và hiển thị ngay trong Thư viện câu lệnh để bạn sử dụng hoặc chạy trong AI Workspace.'}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button

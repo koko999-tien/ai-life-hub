@@ -3,7 +3,7 @@
 import { useState, useEffect, useId } from 'react';
 import { Star, MessageSquare, Send } from 'lucide-react';
 import { Button, toast } from '@/components/ui';
-import { fetchSkillReviews, submitSkillReview, type SkillReviewItem } from '@/lib/supabase/client';
+import { fetchSkillReviews, submitSkillReview, isSupabaseConfigured, type SkillReviewItem } from '@/lib/supabase/client';
 
 interface SkillReviewsProps {
   skillSlug: string;
@@ -37,7 +37,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
 
   const averageRating = reviews.length
     ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
-    : '5.0';
+    : null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,11 +92,18 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 text-sm font-bold border border-amber-200 dark:border-amber-800">
-            <Star className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
-            <span>{averageRating} / 5</span>
-            <span className="text-xs font-normal text-slate-500 dark:text-slate-400">({reviews.length} đánh giá)</span>
-          </div>
+          {averageRating ? (
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 text-sm font-bold border border-amber-200 dark:border-amber-800">
+              <Star className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
+              <span>{averageRating} / 5</span>
+              <span className="text-xs font-normal text-slate-500 dark:text-slate-400">({reviews.length} đánh giá)</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700">
+              <Star className="w-3.5 h-3.5 text-slate-400" aria-hidden="true" />
+              <span>Chưa có đánh giá</span>
+            </div>
+          )}
 
           <Button
             type="button"
@@ -112,9 +119,14 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
       {/* Review Form */}
       {showForm && (
         <form onSubmit={handleSubmit} className="mb-10 p-6 rounded-2xl border border-brand-200 dark:border-brand-900/50 bg-brand-50/30 dark:bg-brand-950/10">
-          <h3 className="font-semibold text-slate-900 dark:text-white mb-4 text-sm">
-            Chia sẻ trải nghiệm áp dụng: {skillName}
-          </h3>
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <h3 className="font-semibold text-slate-900 dark:text-white text-sm">
+              Chia sẻ trải nghiệm áp dụng: {skillName}
+            </h3>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
+              {isSupabaseConfigured ? 'Lưu vào cơ sở dữ liệu cộng đồng' : 'Lưu cục bộ trên trình duyệt này'}
+            </span>
+          </div>
 
           <div className="mb-4">
             <span className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">
@@ -197,6 +209,20 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
       {/* Reviews List */}
       {isLoading ? (
         <p className="text-sm text-slate-500 py-4">Đang tải đánh giá...</p>
+      ) : reviews.length === 0 ? (
+        <div className="p-6 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 text-center">
+          <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            Chưa có đánh giá nào cho kỹ năng này
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
+            Hãy là người đầu tiên chia sẻ kinh nghiệm áp dụng thực tế của bạn để giúp cộng đồng tham khảo.
+          </p>
+          {!showForm && (
+            <Button type="button" variant="outline" size="sm" onClick={() => setShowForm(true)}>
+              Chia sẻ đánh giá đầu tiên
+            </Button>
+          )}
+        </div>
       ) : (
         <div className="space-y-4">
           {reviews.map((rev) => (

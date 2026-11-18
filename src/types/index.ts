@@ -95,7 +95,7 @@ export interface Resource {
 
 export interface SearchResult {
   id: string;
-  type: 'category' | 'skill' | 'prompt' | 'agent' | 'resource';
+  type: 'category' | 'skill' | 'prompt' | 'agent' | 'resource' | 'tool';
   title: string;
   description: string;
   categoryId?: string;

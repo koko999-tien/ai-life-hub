@@ -21,12 +21,36 @@ export function slugify(text: string): string {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/đ/g, 'd')
-    .replace(/đ/g, 'd')
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
+}
+
+/**
+ * Strips Vietnamese diacritics and normalizes whitespace for accent-insensitive search.
+ */
+export function normalizeVietnamese(text: string): string {
+  if (!text) return '';
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Escapes Lunr.js special query syntax characters so user input never throws a QueryParseError.
+ */
+export function sanitizeLunrQuery(rawQuery: string): string {
+  if (!rawQuery) return '';
+  return rawQuery
+    .replace(/[+\-:*^~()[\]{}"\\!]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 export function truncate(text: string, length: number, ellipsis = '...'): string {
