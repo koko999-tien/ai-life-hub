@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -15,11 +16,34 @@ import {
   Mail,
   FileCheck2,
   FileSearch,
+  ChevronDown,
 } from 'lucide-react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { toast } from 'sonner';
+
+// Cảnh 3D chỉ tải khi vào trang chủ, không làm chậm các trang khác.
+const HeroScene = dynamic(() => import('@/components/hero/HeroScene'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full items-center justify-center text-sm text-white/60">
+      Đang tải hiệu ứng 3D…
+    </div>
+  ),
+});
 
 export function Hero() {
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  // Parallax nhẹ theo cuộn trang kiểu PeachWeb: cảnh 3D trôi xuống,
+  // nội dung mờ dần khi cuộn qua. Tắt hẳn khi prefers-reduced-motion.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const sceneY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.35]);
 
   const handleOpenSearch = () => {
     window.dispatchEvent(new CustomEvent('open-command-palette'));
@@ -48,205 +72,261 @@ Trân trọng,
   };
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20" aria-labelledby="hero-heading">
-      {/* Background Mesh & Grid Overlay */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.06)_1px,transparent_1px)] bg-size-[32px_32px] mask-[radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)]" />
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[340px] bg-linear-to-b from-accent/20 via-brand-500/10 to-transparent blur-3xl opacity-60 rounded-full" />
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-navy-950 pt-28 pb-14 text-white sm:pt-32 lg:pt-36"
+      aria-labelledby="hero-heading"
+    >
+      {/* Nền 3D: gradient pastel tĩnh (fallback) + canvas 3D + lớp tối mờ sau chữ */}
+      <div className="absolute inset-0 -z-0" aria-hidden="true">
+        <div className="peach-hero-bg absolute inset-0" />
+        <motion.div
+          style={reduceMotion ? undefined : { y: sceneY }}
+          className="absolute inset-0"
+        >
+          <HeroScene
+            scrollYProgress={reduceMotion ? undefined : scrollYProgress}
+          />
+        </motion.div>
+        {/* Lớp tối mờ: chữ luôn đọc được dù cảnh 3D sáng hay bận */}
+        <div className="hero-scrim absolute inset-0" />
       </div>
 
-      <div className="container mx-auto px-section-x">
+      <motion.div
+        style={reduceMotion ? undefined : { opacity: contentOpacity }}
+        className="container relative z-10 mx-auto px-section-x"
+      >
         <div className="mx-auto max-w-4xl text-center">
           {/* Top Positioning Pill */}
           <Link
             href="/workspace"
-            className="group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-accent/35 bg-bg-surface/90 backdrop-blur-md shadow-2xs hover:border-accent hover:shadow-sm transition-all mb-7"
+            className="group mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 shadow-2xs backdrop-blur-md transition-all hover:border-white/40 hover:shadow-sm"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-aqua-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-aqua-400" />
             </span>
-            <span className="text-xs font-medium text-text-muted group-hover:text-text transition-colors">
-              Mới: <strong className="text-text font-semibold">AI Workspace — soạn email, tóm tắt họp &amp; phân tích tài liệu ngay trên trình duyệt</strong>
+            <span className="text-xs font-medium text-white/80 transition-colors group-hover:text-white">
+              Mới:{' '}
+              <strong className="font-semibold text-white">
+                AI Workspace — soạn email, tóm tắt họp &amp; phân tích tài liệu ngay
+                trên trình duyệt
+              </strong>
             </span>
-            <ArrowRight className="w-3.5 h-3.5 text-accent group-hover:translate-x-0.5 transition-all" />
+            <ArrowRight className="h-3.5 w-3.5 text-aqua-300 transition-all group-hover:translate-x-0.5" />
           </Link>
 
-          {/* Clear First-Viewport Headline */}
-          <h1 id="hero-heading" className="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-text text-balance mb-5 leading-[1.15]">
+          {/* Tiêu đề lớn, câu ngắn */}
+          <h1
+            id="hero-heading"
+            className="mb-5 font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl"
+          >
             AI không chỉ để trò chuyện. <br className="hidden sm:inline" />
-            <span className="bg-linear-to-r from-accent via-accent-500 to-brand-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-peach-300 via-aqua-300 to-brand-300 bg-clip-text text-transparent">
               Hãy dùng AI để hoàn thành công việc.
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-text-muted max-w-2xl mx-auto mb-8 leading-relaxed text-balance">
-            Không gian làm việc AI tiếng Việt giúp người đi làm soạn email, tổng hợp biên bản họp và phân tích tài liệu ngay trên trình duyệt — đi kèm thư viện 80+ câu lệnh thực chiến và phòng công cụ kỹ thuật cho lập trình viên.
+          <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-balance text-white/75 sm:text-lg">
+            Không gian làm việc AI tiếng Việt giúp người đi làm soạn email, tổng
+            hợp biên bản họp và phân tích tài liệu ngay trên trình duyệt — đi kèm
+            thư viện 80+ câu lệnh thực chiến và phòng công cụ kỹ thuật cho lập
+            trình viên.
           </p>
 
           {/* 1 nút chính duy nhất + link phụ */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/workspace?workflow=email-assistant"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-accent hover:bg-accent-hover shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 transition-all duration-fast"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] transition-all duration-fast hover:-translate-y-0.5 hover:bg-accent-hover"
             >
-              <Play className="w-4 h-4" />
+              <Play className="h-4 w-4" />
               <span>Bắt đầu — Soạn email đầu tiên</span>
             </Link>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-6 text-xs sm:text-sm">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm">
             <Link
               href="/prompts"
-              className="inline-flex items-center gap-1 font-medium text-text-muted hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1 font-medium text-white/70 transition-colors hover:text-white"
             >
               <span>Khám phá thư viện AI</span>
-              <ArrowRight className="w-3.5 h-3.5 text-accent" />
+              <ArrowRight className="h-3.5 w-3.5 text-aqua-300" />
             </Link>
             <Link
               href="/builder-lab"
-              className="inline-flex items-center gap-1 font-medium text-text-muted hover:text-text transition-colors"
+              className="inline-flex items-center gap-1 font-medium text-white/70 transition-colors hover:text-white"
             >
               <span>Builder Lab cho Kỹ thuật</span>
             </Link>
             <a
-              href="#audience-heading"
-              className="inline-flex items-center gap-1 font-medium text-text-muted hover:text-accent transition-colors"
+              href="#cach-dung"
+              className="inline-flex items-center gap-1 font-medium text-white/70 transition-colors hover:text-white"
             >
-              <span>Chọn lộ trình của bạn ↓</span>
+              <span>Chỉ 3 bước là xong ↓</span>
             </a>
           </div>
 
           {/* Quick Search Trigger Bar */}
-          <div className="max-w-md mx-auto mb-10">
+          <div className="mx-auto mb-10 max-w-md">
             <button
               type="button"
               onClick={handleOpenSearch}
-              className="w-full group flex items-center justify-between px-4 py-2.5 rounded-2xl bg-bg-surface/90 hover:bg-hover border border-border/80 hover:border-accent/50 shadow-2xs hover:shadow-sm transition-all text-left text-sm"
+              className="group flex w-full items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 text-left text-sm shadow-2xs backdrop-blur-md transition-all hover:border-white/30 hover:bg-white/15 hover:shadow-sm"
               aria-label="Tìm kiếm nhanh toàn bộ kỹ năng, câu lệnh và công cụ"
             >
-              <div className="flex items-center gap-2.5 text-text-muted group-hover:text-text min-w-0">
-                <Search className="w-4 h-4 text-accent shrink-0" />
-                <span className="text-xs sm:text-sm truncate">Tìm công việc, mẫu câu lệnh, mô hình AI (có dấu hoặc không dấu)...</span>
+              <div className="flex min-w-0 items-center gap-2.5 text-white/70 group-hover:text-white">
+                <Search className="h-4 w-4 shrink-0 text-aqua-300" />
+                <span className="truncate text-xs sm:text-sm">
+                  Tìm công việc, mẫu câu lệnh, mô hình AI (có dấu hoặc không
+                  dấu)...
+                </span>
               </div>
-              <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                <kbd className="inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-mono text-text-muted bg-bg/80 border border-border rounded-md shadow-2xs">
-                  <Command className="w-3 h-3" />
+              <div className="ml-2 flex shrink-0 items-center gap-1.5">
+                <kbd className="inline-flex items-center gap-0.5 rounded-md border border-white/15 bg-navy-950/60 px-2 py-0.5 font-mono text-[10px] text-white/70 shadow-2xs">
+                  <Command className="h-3 w-3" />
                   <span>K</span>
                 </kbd>
               </div>
             </button>
           </div>
 
-          {/* Interactive Product Experience Preview Card */}
-          <div className="relative mx-auto max-w-3xl rounded-3xl border border-border bg-bg-surface shadow-2xl backdrop-blur-xl overflow-hidden text-left mb-0">
+          {/* Interactive Product Experience Preview Card — thẻ kính mờ */}
+          <div className="glass-dark relative mx-auto max-w-3xl overflow-hidden rounded-3xl text-left shadow-2xl">
             {/* Preview Header */}
-            <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-b border-border bg-bg/80">
-              <span className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-text">
-                <Briefcase className="w-3.5 h-3.5 text-accent" />
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 bg-navy-950/40 px-4 py-3">
+              <span className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white">
+                <Briefcase className="h-3.5 w-3.5 text-aqua-300" />
                 <span>Người đi làm (Trải nghiệm AI Workspace)</span>
               </span>
 
-              <div className="hidden sm:flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono font-medium">
-                  <CheckCircle2 className="w-3 h-3" />
+              <div className="hidden items-center gap-2 sm:flex">
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 font-mono text-[10px] font-medium text-emerald-300">
+                  <CheckCircle2 className="h-3 w-3" />
                   Làm việc thật trên trang
                 </span>
               </div>
             </div>
 
             {/* AI Workspace Workflow Preview */}
-              <div className="p-5 sm:p-6 space-y-4">
-                {/* 3 Workspace Workflows Quick Launcher */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  <Link
-                    href="/workspace?workflow=email-assistant"
-                    className="flex items-center gap-2.5 p-2.5 rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-colors"
-                  >
-                    <Mail className="w-4 h-4 text-accent shrink-0" />
-                    <div className="min-w-0">
-                      <span className="text-xs font-bold text-text block truncate">Trợ lý Email AI</span>
-                      <span className="text-[11px] text-text-muted block truncate">Soạn, rút gọn, đổi ngôn ngữ</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/workspace?workflow=meeting-summary"
-                    className="flex items-center gap-2.5 p-2.5 rounded-xl border border-border bg-bg hover:border-accent/40 transition-colors"
-                  >
-                    <FileCheck2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <div className="min-w-0">
-                      <span className="text-xs font-bold text-text block truncate">Tóm tắt Cuộc họp</span>
-                      <span className="text-[11px] text-text-muted block truncate">Quyết định &amp; đầu việc rõ ràng</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/workspace?workflow=document-analysis"
-                    className="flex items-center gap-2.5 p-2.5 rounded-xl border border-border bg-bg hover:border-accent/40 transition-colors"
-                  >
-                    <FileSearch className="w-4 h-4 text-brand-500 shrink-0" />
-                    <div className="min-w-0">
-                      <span className="text-xs font-bold text-text block truncate">Phân tích Tài liệu</span>
-                      <span className="text-[11px] text-text-muted block truncate">Trích xuất &amp; hỏi đáp bám sát</span>
-                    </div>
-                  </Link>
-                </div>
-
-                <div className="rounded-xl border border-border bg-bg/60 p-3.5">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-accent block mb-1">
-                    Ví dụ đầu vào công việc thực tế:
-                  </span>
-                  <p className="text-xs sm:text-sm text-text font-medium">
-                    &ldquo;Soạn email xin gia hạn nộp báo cáo kiểm toán thêm 2 ngày vì đối tác vừa gửi điều chỉnh số liệu mới.&rdquo;
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-border bg-bg p-4 text-xs sm:text-[13px] leading-relaxed text-text font-sans space-y-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-border/60">
-                    <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Kết quả mẫu hoàn chỉnh:
+            <div className="space-y-4 p-5 sm:p-6">
+              {/* 3 Workspace Workflows Quick Launcher */}
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+                <Link
+                  href="/workspace?workflow=email-assistant"
+                  className="flex items-center gap-2.5 rounded-xl border border-accent/40 bg-accent/15 p-2.5 transition-colors hover:bg-accent/25"
+                >
+                  <Mail className="h-4 w-4 shrink-0 text-peach-300" />
+                  <div className="min-w-0">
+                    <span className="block truncate text-xs font-bold text-white">
+                      Trợ lý Email AI
                     </span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={handleCopyEmail}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-accent/10 hover:bg-accent text-accent hover:text-white border border-accent/20 transition-all shadow-2xs"
-                        aria-label="Sao chép email mẫu"
-                      >
-                        {copiedEmail ? (
-                          <>
-                            <Check className="w-3.5 h-3.5" />
-                            <span>Đã sao chép!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3.5 h-3.5" />
-                            <span>Sao chép email</span>
-                          </>
-                        )}
-                      </button>
-                      <Link
-                        href="/workspace?workflow=email-assistant"
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
-                      >
-                        <Play className="w-3 h-3" />
-                        <span>Tạo bản của bạn</span>
-                      </Link>
-                    </div>
+                    <span className="block truncate text-[11px] text-white/60">
+                      Soạn, rút gọn, đổi ngôn ngữ
+                    </span>
                   </div>
-                  <pre className="font-sans whitespace-pre-line text-text-muted leading-relaxed text-xs sm:text-sm">
-                    {sampleEmailText}
-                  </pre>
-                </div>
+                </Link>
+                <Link
+                  href="/workspace?workflow=meeting-summary"
+                  className="flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/5 p-2.5 transition-colors hover:border-white/30"
+                >
+                  <FileCheck2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                  <div className="min-w-0">
+                    <span className="block truncate text-xs font-bold text-white">
+                      Tóm tắt Cuộc họp
+                    </span>
+                    <span className="block truncate text-[11px] text-white/60">
+                      Quyết định &amp; đầu việc rõ ràng
+                    </span>
+                  </div>
+                </Link>
+                <Link
+                  href="/workspace?workflow=document-analysis"
+                  className="flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/5 p-2.5 transition-colors hover:border-white/30"
+                >
+                  <FileSearch className="h-4 w-4 shrink-0 text-brand-300" />
+                  <div className="min-w-0">
+                    <span className="block truncate text-xs font-bold text-white">
+                      Phân tích Tài liệu
+                    </span>
+                    <span className="block truncate text-[11px] text-white/60">
+                      Trích xuất &amp; hỏi đáp bám sát
+                    </span>
+                  </div>
+                </Link>
               </div>
+
+              <div className="rounded-xl border border-white/10 bg-navy-950/40 p-3.5">
+                <span className="mb-1 block text-[11px] font-semibold tracking-wider text-aqua-300 uppercase">
+                  Ví dụ đầu vào công việc thực tế:
+                </span>
+                <p className="text-xs font-medium text-white sm:text-sm">
+                  &ldquo;Soạn email xin gia hạn nộp báo cáo kiểm toán thêm 2 ngày
+                  vì đối tác vừa gửi điều chỉnh số liệu mới.&rdquo;
+                </p>
+              </div>
+
+              <div className="space-y-2 rounded-xl border border-white/10 bg-navy-950/40 p-4 font-sans text-xs leading-relaxed text-white sm:text-[13px]">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-2">
+                  <span className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-300">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    Kết quả mẫu hoàn chỉnh:
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-white/20"
+                      aria-label="Sao chép email mẫu"
+                    >
+                      {copiedEmail ? (
+                        <>
+                          <Check className="h-3.5 w-3.5" />
+                          <span>Đã sao chép!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-3.5 w-3.5" />
+                          <span>Sao chép email</span>
+                        </>
+                      )}
+                    </button>
+                    <Link
+                      href="/workspace?workflow=email-assistant"
+                      className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+                    >
+                      <Play className="h-3 w-3" />
+                      <span>Tạo bản của bạn</span>
+                    </Link>
+                  </div>
+                </div>
+                <pre className="font-sans text-xs leading-relaxed whitespace-pre-line text-white/70 sm:text-sm">
+                  {sampleEmailText}
+                </pre>
+              </div>
+            </div>
           </div>
-          <p className="mt-4 text-center text-xs text-text-muted">
+          <p className="mt-4 text-center text-xs text-white/60">
             Bạn là lập trình viên?{' '}
-            <Link href="/builder-lab" className="font-semibold text-brand-500 hover:underline">
+            <Link
+              href="/builder-lab"
+              className="font-semibold text-aqua-300 hover:underline"
+            >
               Xem Builder Lab →
             </Link>
           </p>
+
+          {/* Gợi ý cuộn xuống — kiểu PeachWeb "Scroll down & dive in" */}
+          <div className="mt-10 flex justify-center">
+            <a
+              href="#cach-dung"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-white"
+            >
+              Cuộn xuống để xem
+              <ChevronDown className="h-4 w-4 animate-bounce text-aqua-300" />
+            </a>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

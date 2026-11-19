@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
 import { Hero } from '@/components/hero';
+import { MarqueeStrip } from '@/components/home/MarqueeStrip';
+import { HowItWorks } from '@/components/home/HowItWorks';
 import { AudienceSplitSection } from '@/components/home/AudienceSplitSection';
 import { CategoryGrid } from '@/components/category-grid';
 import { StatsBar } from '@/components/stats-bar';
 import { FeaturedPrompts } from '@/components/featured-prompts';
+import { HomeFinalCta } from '@/components/home/HomeFinalCta';
 import { NewsletterSignup } from '@/components/newsletter-signup';
 import { getFeaturedCategories } from '@/lib/data';
 
@@ -29,10 +32,13 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <MarqueeStrip />
+      <HowItWorks />
       <AudienceSplitSection />
       <CategoryGrid categories={featuredCategories} variant="featured" />
       <StatsBar />
       <FeaturedPrompts />
+      <HomeFinalCta />
       <NewsletterSignup />
     </>
   );
