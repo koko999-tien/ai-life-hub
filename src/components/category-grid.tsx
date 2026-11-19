@@ -81,7 +81,7 @@ export function CategoryGrid({ categories, variant = 'featured' }: CategoryGridP
             <article
               key={category.slug}
               className={cn(
-                'group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border bg-bg-surface p-6 transition-all duration-300 shadow-xs',
+                'group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border bg-bg-surface p-6 transition-all duration-300 shadow-2xs',
                 'hover:shadow-card-hover hover:-translate-y-1 hover:border-accent/40',
                 'animate-slide-up'
               )}

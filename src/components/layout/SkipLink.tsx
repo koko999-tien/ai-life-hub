@@ -21,7 +21,7 @@ export function SkipLink({ targetId = 'main-content', children = 'Chuyển đế
         'px-4 py-2 rounded-lg',
         'bg-accent text-text-inverse font-medium',
         'shadow-lg',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
+        'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
         'transition-all duration-fast'
       )}
     >
@@ -41,7 +41,7 @@ interface MainContentProps {
 
 export function MainContent({ children, id = 'main-content' }: MainContentProps) {
   return (
-    <main id={id} tabIndex={-1} className="focus:outline-none">
+    <main id={id} tabIndex={-1} className="focus:outline-hidden">
       {children}
     </main>
   )

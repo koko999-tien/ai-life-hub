@@ -17,7 +17,7 @@ interface TooltipProps {
 export function Tooltip({ content, children, position = 'top', delay = 200, className }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [tooltipRect, setTooltipRect] = useState<DOMRect | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const childRef = useRef<HTMLElement>(null);
 

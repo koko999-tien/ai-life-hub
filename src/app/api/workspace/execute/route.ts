@@ -11,6 +11,8 @@ import type { AIStreamChunk } from '@/lib/ai/types';
 
 export const dynamic = 'force-dynamic';
 
+export const maxDuration = 60;
+
 const ExecuteRequestSchema = z.object({
   workflowId: z.enum([
     'email-assistant',
@@ -24,9 +26,19 @@ const ExecuteRequestSchema = z.object({
 });
 
 function extractClientKey(req: NextRequest): string {
+  // Không tin hoàn toàn phần tử đầu của x-forwarded-for vì client có thể
+  // tự spoof. Ưu tiên x-vercel-forwarded-for (do Vercel đặt), nếu không thì
+  // lấy phần tử CUỐI của x-forwarded-for — proxy đáng tin gần nhất.
+  const vercelForwarded = req.headers.get('x-vercel-forwarded-for');
+  if (vercelForwarded) {
+    return vercelForwarded.split(',')[0].trim().slice(0, 64);
+  }
   const forwarded = req.headers.get('x-forwarded-for');
   if (forwarded) {
-    return forwarded.split(',')[0].trim().slice(0, 64);
+    const parts = forwarded.split(',').map((p) => p.trim()).filter(Boolean);
+    if (parts.length > 0) {
+      return parts[parts.length - 1].slice(0, 64);
+    }
   }
   const realIp = req.headers.get('x-real-ip');
   if (realIp) {
@@ -133,6 +145,17 @@ export async function POST(req: NextRequest) {
   // 4. Resolve Configured Server-Side Provider (Never fake responses when unconfigured!)
   const resolved = workspaceProviderRegistry.resolveModelAndProvider(modelId);
   if (!resolved) {
+    // Phân biệt: model được yêu cầu nhưng không tồn tại (400) với
+    // chưa cấu hình provider nào (503).
+    if (modelId && workspaceProviderRegistry.getConfiguredProviders().length > 0) {
+      return NextResponse.json(
+        {
+          code: 'MODEL_NOT_FOUND',
+          message: `Không tìm thấy mô hình "${modelId}". Vui lòng chọn một mô hình khác trong danh sách.`,
+        },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
       {
         code: 'AI_PROVIDER_NOT_CONFIGURED',
@@ -190,6 +213,7 @@ export async function POST(req: NextRequest) {
               type: 'done',
               latencyMs,
               usage,
+              modelId: modelOption.id,
               modelLabel: modelOption.label,
               providerLabel: modelOption.providerLabel,
             })
@@ -197,16 +221,37 @@ export async function POST(req: NextRequest) {
         }
       } catch (err) {
         if (!req.signal.aborted) {
-          const safeMessage =
-            err instanceof Error && err.message
-              ? err.message.replace(/AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+/g, '[REDACTED]')
-              : 'Không thể hoàn tất yêu cầu từ nhà cung cấp AI. Vui lòng thử lại hoặc đổi mô hình khác.';
+          // Chỉ log chi tiết ở server, không passthrough message gốc cho client.
+          const rawMessage = err instanceof Error ? err.message : '';
+          const redacted = rawMessage.replace(
+            /AIza[0-9A-Za-z\-_]+|sk-[0-9A-Za-z\-_]+/g,
+            '[REDACTED]'
+          );
+          if (redacted) {
+            console.error('[workspace/execute] Provider error:', redacted);
+          }
+
+          let code = 'PROVIDER_EXECUTION_ERROR';
+          let message =
+            'Nhà cung cấp AI tạm thời không phản hồi. Vui lòng thử lại hoặc đổi mô hình khác.';
+          if (rawMessage.includes('429') || rawMessage.includes('hạn mức')) {
+            code = 'PROVIDER_RATE_LIMITED';
+            message =
+              'Hạn mức gọi mô hình này đang tạm đầy. Vui lòng thử lại sau ít giây hoặc đổi mô hình khác.';
+          } else if (
+            rawMessage.includes('GEMINI_API_KEY') ||
+            rawMessage.includes('cấu hình')
+          ) {
+            code = 'PROVIDER_NOT_CONFIGURED';
+            message =
+              'Máy chủ chưa được cấu hình khóa kết nối AI. Vui lòng liên hệ quản trị viên.';
+          }
 
           controller.enqueue(
             encodeSseChunk({
               type: 'error',
-              code: 'PROVIDER_EXECUTION_ERROR',
-              message: safeMessage,
+              code,
+              message,
             })
           );
         }

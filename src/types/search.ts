@@ -12,6 +12,9 @@ export interface SearchDocument {
   url?: string;
   icon?: string;
   boost?: number;
+  // Trường đã chuẩn hóa (không dấu) do build-search-index.ts tiền tính.
+  titleNorm?: string;
+  contentNorm?: string;
 }
 
 export interface SearchResult extends SearchDocument {

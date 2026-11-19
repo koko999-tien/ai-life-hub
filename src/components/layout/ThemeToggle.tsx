@@ -51,7 +51,7 @@ export function ThemeToggle() {
       className={clsx(
         'relative p-2 rounded-lg transition-all duration-fast',
         'text-text-muted hover:text-text hover:bg-hover border border-transparent hover:border-border',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg'
+        'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg'
       )}
       aria-label={labels[theme]}
       title={labels[theme]}

@@ -88,17 +88,11 @@ export class GeminiProvider implements AIProvider {
       });
 
     try {
-      const candidateModels = Array.from(
-        new Set([
-          req.modelOption.apiModelId,
-          'gemini-flash-latest',
-          'gemini-flash-lite-latest',
-        ])
-      );
-
-      let response: Response | null = null;
-      for (const candidate of candidateModels) {
-        response = await fetch(`${GEMINI_BASE_URL}/${candidate}:streamGenerateContent?alt=sse`, {
+      // Chỉ gọi đúng model đã yêu cầu, một lần duy nhất — không fallback
+      // lặng lẽ sang model khác khi model này lỗi 404/503.
+      const response = await fetch(
+        `${GEMINI_BASE_URL}/${req.modelOption.apiModelId}:streamGenerateContent?alt=sse`,
+        {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -106,13 +100,8 @@ export class GeminiProvider implements AIProvider {
           },
           body: buildBody(),
           signal: controller.signal,
-        });
-
-        // Retry next candidate on transient upstream overload (503) or retired model alias (404)
-        if (response.ok || (response.status !== 404 && response.status !== 503)) {
-          break;
         }
-      }
+      );
 
       if (!response || !response.ok || !response.body) {
         if (response?.status === 429) {
@@ -120,7 +109,14 @@ export class GeminiProvider implements AIProvider {
             'Hạn mức gọi mô hình này đang tạm đầy (HTTP 429). Vui lòng thử lại sau ít giây hoặc chuyển sang mô hình Flash / nhà cung cấp khác ở cột bên phải.'
           );
         }
-        throw new Error(`Dịch vụ Google Gemini phản hồi lỗi HTTP ${response?.status ?? 503}.`);
+        if (response?.status === 404) {
+          throw new Error(
+            `Mô hình ${req.modelOption.apiModelId} không tồn tại (HTTP 404). Vui lòng chọn mô hình khác.`
+          );
+        }
+        throw new Error(
+          `Dịch vụ Google Gemini phản hồi lỗi HTTP ${response?.status ?? 503}. Vui lòng thử lại sau.`
+        );
       }
 
       const reader = response.body.getReader();

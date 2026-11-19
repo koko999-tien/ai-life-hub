@@ -70,7 +70,7 @@ function TextInput({
         aria-invalid={!!error}
         className={cn(
           'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm placeholder:text-text-muted/60 transition-colors',
-          'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
+          'focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent',
           disabled
             ? 'opacity-60 cursor-not-allowed'
             : error
@@ -133,7 +133,7 @@ function TextareaInput({
         aria-invalid={!!error}
         className={cn(
           'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm placeholder:text-text-muted/60 transition-colors resize-y min-h-[90px]',
-          'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent leading-relaxed',
+          'focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent leading-relaxed',
           disabled
             ? 'opacity-60 cursor-not-allowed'
             : error
@@ -195,7 +195,7 @@ function SelectInput({
           aria-invalid={!!error}
           className={cn(
             'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm transition-colors appearance-none pr-10',
-            'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
+            'focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent',
             disabled
               ? 'opacity-60 cursor-not-allowed'
               : error
@@ -307,7 +307,7 @@ function MultiselectInput({
             }}
             aria-describedby={description ? `${id}-desc` : error ? `${id}-error` : undefined}
             aria-invalid={!!error}
-            className="px-2.5 py-1 rounded-lg border border-border bg-bg-surface text-xs text-text cursor-pointer hover:border-accent focus:outline-none"
+            className="px-2.5 py-1 rounded-lg border border-border bg-bg-surface text-xs text-text cursor-pointer hover:border-accent focus:outline-hidden"
             aria-label={`Thêm ${label.toLowerCase()}`}
           >
             <option value="" disabled>
@@ -382,7 +382,7 @@ function NumberInput({
         aria-invalid={!!error}
         className={cn(
           'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm placeholder:text-text-muted/60 transition-colors',
-          'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
+          'focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent',
           disabled
             ? 'opacity-60 cursor-not-allowed'
             : error
@@ -441,7 +441,7 @@ function DateInput({
           aria-invalid={!!error}
           className={cn(
             'w-full px-3.5 py-2.5 rounded-xl border bg-bg text-text text-sm transition-colors pr-10',
-            'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
+            'focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent',
             disabled
               ? 'opacity-60 cursor-not-allowed'
               : error

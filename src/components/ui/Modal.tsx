@@ -86,7 +86,7 @@ export function Modal({
   const content = (
     <Fragment>
       <div
-        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs transition-opacity"
         onClick={closeOnOverlayClick ? onClose : undefined}
         aria-hidden="true"
       />
@@ -120,7 +120,7 @@ export function Modal({
               {showClose && (
                 <button
                   onClick={onClose}
-                  className="flex-shrink-0 rounded-lg p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-colors"
+                  className="shrink-0 rounded-lg p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-colors"
                   aria-label="Đóng"
                 >
                   <X className="h-5 w-5" />

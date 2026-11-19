@@ -15,7 +15,7 @@ import {
 
 export function AudienceSplitSection() {
   return (
-    <section className="py-12 sm:py-16 border-y border-border/60 bg-gradient-to-b from-bg to-bg-surface/50" aria-labelledby="audience-heading">
+    <section className="py-12 sm:py-16 border-y border-border/60 bg-linear-to-b from-bg to-bg-surface/50" aria-labelledby="audience-heading">
       <div className="container mx-auto px-section-x max-w-6xl">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">

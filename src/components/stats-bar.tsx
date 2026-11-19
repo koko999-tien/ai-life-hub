@@ -67,7 +67,7 @@ export function StatsBar() {
   return (
     <section
       ref={sectionRef}
-      className="border-y border-border bg-bg-surface/50 backdrop-blur-sm py-12 lg:py-16"
+      className="border-y border-border bg-bg-surface/50 backdrop-blur-xs py-12 lg:py-16"
       aria-labelledby="stats-heading"
     >
       <div className="container mx-auto px-section-x">
@@ -129,7 +129,7 @@ function AnimatedCounter({
   suffix?: string;
 }) {
   const [count, setCount] = useState(0);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (!isVisible) return;

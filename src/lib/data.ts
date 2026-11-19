@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'front-matter';
@@ -67,7 +68,7 @@ async function readDirectory(dir: string): Promise<string[]> {
   }
 }
 
-export async function getAllCategories(): Promise<Category[]> {
+export const getAllCategories = cache(async (): Promise<Category[]> => {
   try {
     const allSkills = await getAllSkills();
     const allResources = await getAllResources();
@@ -86,23 +87,24 @@ export async function getAllCategories(): Promise<Category[]> {
       return {
         ...cat,
         skillCount: catSkills.length,
-        promptCount: promptCount > 0 ? promptCount : 5,
-        agentCount: agentCount > 0 ? agentCount : 1,
+        promptCount,
+        agentCount,
         resourceCount: catResources.length,
         slug: cat.id,
       };
     });
-  } catch {
+  } catch (error) {
+    console.error('Không thể tải danh mục:', error);
     return CATEGORIES.map((c) => ({
       ...c,
-      skillCount: 5,
-      promptCount: 15,
-      agentCount: 2,
-      resourceCount: 12,
+      skillCount: 0,
+      promptCount: 0,
+      agentCount: 0,
+      resourceCount: 0,
       slug: c.id,
     }));
   }
-}
+});
 
 export async function getCategory(slug: string): Promise<Category | undefined> {
   const categories = await getAllCategories();
@@ -118,7 +120,7 @@ export async function getSkill(slug: string): Promise<Skill | undefined> {
   return allSkills.find((s) => s.slug === slug || s.id === slug);
 }
 
-export async function getAllSkills(): Promise<Skill[]> {
+export const getAllSkills = cache(async (): Promise<Skill[]> => {
   try {
     const contentFiles = await readDirectory(path.join(CONTENT_DIR, 'skills'));
     const skillsList: Skill[] = [];
@@ -159,7 +161,7 @@ export async function getAllSkills(): Promise<Skill[]> {
   } catch {
     return [];
   }
-}
+});
 
 export async function getSkillsByCategory(categoryId: string): Promise<Skill[]> {
   const allSkills = await getAllSkills();
@@ -176,7 +178,7 @@ export async function getSkillsByCategory(categoryId: string): Promise<Skill[]> 
   );
 }
 
-export async function getAllResources(): Promise<Resource[]> {
+export const getAllResources = cache(async (): Promise<Resource[]> => {
   try {
     const contentFiles = await readDirectory(path.join(CONTENT_DIR, 'resources'));
     const resourcesList: Resource[] = [];
@@ -210,7 +212,7 @@ export async function getAllResources(): Promise<Resource[]> {
   } catch {
     return [];
   }
-}
+});
 
 export async function getResourcesByCategory(categoryId: string): Promise<Resource[]> {
   const allResources = await getAllResources();

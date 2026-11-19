@@ -129,7 +129,7 @@ export default function SubmitPromptPage() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ví dụ: Trợ lý tóm tắt biên bản cuộc họp chuyên nghiệp"
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
                 />
               </div>
 
@@ -144,7 +144,7 @@ export default function SubmitPromptPage() {
                     value={authorName}
                     onChange={(e) => setAuthorName(e.target.value)}
                     placeholder="Tên của bạn hoặc ẩn danh"
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ export default function SubmitPromptPage() {
                     id="submit-category"
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
                   >
                     {CATEGORIES.map((cat) => (
                       <option key={cat.id} value={cat.id}>
@@ -206,7 +206,7 @@ export default function SubmitPromptPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Giải thích ngắn gọn câu lệnh này giải quyết việc gì và khi nào nên dùng..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
                 />
               </div>
 
@@ -226,7 +226,7 @@ export default function SubmitPromptPage() {
                   value={template}
                   onChange={(e) => setTemplate(e.target.value)}
                   placeholder="Bạn là một chuyên gia {{vai_trò}}... Hãy giúp tôi thực hiện nhiệm vụ: {{nhiệm_vụ}}..."
-                  className="w-full font-mono text-xs px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"
+                  className="w-full font-mono text-xs px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:outline-hidden focus:ring-2 focus:ring-brand-500 leading-relaxed"
                 />
               </div>
 
@@ -240,7 +240,7 @@ export default function SubmitPromptPage() {
                   value={tagsStr}
                   onChange={(e) => setTagsStr(e.target.value)}
                   placeholder="email, văn phòng, tóm tắt, kế hoạch"
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
                 />
               </div>
 

@@ -186,7 +186,7 @@ export function TokenCalculator() {
                 step={100}
                 value={inputTokens}
                 onChange={(e) => setInputTokens(clampNumber(Number(e.target.value), 0, 1000000, 1500))}
-                className="w-24 text-right font-mono text-xs font-bold text-accent px-2 py-1 rounded-lg bg-accent/10 border border-accent/20 focus:outline-none focus:border-accent"
+                className="w-24 text-right font-mono text-xs font-bold text-accent px-2 py-1 rounded-lg bg-accent/10 border border-accent/20 focus:outline-hidden focus:border-accent"
               />
             </div>
             <input
@@ -216,7 +216,7 @@ export function TokenCalculator() {
                 step={50}
                 value={outputTokens}
                 onChange={(e) => setOutputTokens(clampNumber(Number(e.target.value), 0, 128000, 800))}
-                className="w-24 text-right font-mono text-xs font-bold text-accent px-2 py-1 rounded-lg bg-accent/10 border border-accent/20 focus:outline-none focus:border-accent"
+                className="w-24 text-right font-mono text-xs font-bold text-accent px-2 py-1 rounded-lg bg-accent/10 border border-accent/20 focus:outline-hidden focus:border-accent"
               />
             </div>
             <input
@@ -246,7 +246,7 @@ export function TokenCalculator() {
                 step={5}
                 value={cacheRatio}
                 onChange={(e) => setCacheRatio(clampNumber(Number(e.target.value), 0, 100, 50))}
-                className="w-20 text-right font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 focus:outline-none focus:border-emerald-500"
+                className="w-20 text-right font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 focus:outline-hidden focus:border-emerald-500"
               />
             </div>
             <input
@@ -276,7 +276,7 @@ export function TokenCalculator() {
                 step={100}
                 value={requestsPerDay}
                 onChange={(e) => setRequestsPerDay(clampNumber(Number(e.target.value), 1, 1000000, 1000))}
-                className="w-24 text-right font-mono text-xs font-bold text-accent px-2 py-1 rounded-lg bg-accent/10 border border-accent/20 focus:outline-none focus:border-accent"
+                className="w-24 text-right font-mono text-xs font-bold text-accent px-2 py-1 rounded-lg bg-accent/10 border border-accent/20 focus:outline-hidden focus:border-accent"
               />
             </div>
             <input
@@ -317,7 +317,7 @@ export function TokenCalculator() {
               step={50}
               value={usdToVndRate}
               onChange={(e) => setUsdToVndRate(clampNumber(Number(e.target.value), 10000, 50000, DEFAULT_USD_TO_VND))}
-              className="w-24 px-2.5 py-1.5 rounded-lg bg-bg border border-border font-mono text-xs font-semibold text-text focus:outline-none focus:border-accent"
+              className="w-24 px-2.5 py-1.5 rounded-lg bg-bg border border-border font-mono text-xs font-semibold text-text focus:outline-hidden focus:border-accent"
             />
             {usdToVndRate !== DEFAULT_USD_TO_VND && (
               <button
@@ -336,7 +336,7 @@ export function TokenCalculator() {
 
       {/* Highlights Summary Cards */}
       <div className="grid gap-4 sm:grid-cols-3 mb-10">
-        <div className="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-950/20 backdrop-blur-sm shadow-sm">
+        <div className="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-950/20 backdrop-blur-xs shadow-sm">
           <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2">
             <Zap className="h-4 w-4" />
             Tiết kiệm nhất trong cấu hình này
@@ -348,7 +348,7 @@ export function TokenCalculator() {
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl border border-blue-500/30 bg-blue-500/5 dark:bg-blue-950/20 backdrop-blur-sm shadow-sm">
+        <div className="p-6 rounded-2xl border border-blue-500/30 bg-blue-500/5 dark:bg-blue-950/20 backdrop-blur-xs shadow-sm">
           <div className="flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
             <DollarSign className="h-4 w-4" />
             Mốc đối chiếu (OpenAI GPT-4o)
@@ -362,7 +362,7 @@ export function TokenCalculator() {
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl border border-purple-500/30 bg-purple-500/5 dark:bg-purple-950/20 backdrop-blur-sm shadow-sm">
+        <div className="p-6 rounded-2xl border border-purple-500/30 bg-purple-500/5 dark:bg-purple-950/20 backdrop-blur-xs shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
               <TrendingDown className="h-4 w-4" />

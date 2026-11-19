@@ -251,7 +251,7 @@ export function EcosystemHub() {
   return (
     <div className="space-y-8">
       {/* Category Filter with Mobile Horizontal Scroll */}
-      <div className="rounded-2xl p-6 bg-bg-surface border border-border space-y-4 shadow-xs">
+      <div className="rounded-2xl p-6 bg-bg-surface border border-border space-y-4 shadow-2xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-text-muted block">
@@ -290,7 +290,7 @@ export function EcosystemHub() {
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className="rounded-2xl p-6 bg-bg-surface border border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-xs hover:shadow-card-hover"
+            className="rounded-2xl p-6 bg-bg-surface border border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-2xs hover:shadow-card-hover"
           >
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">

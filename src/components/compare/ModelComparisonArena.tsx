@@ -190,7 +190,7 @@ export function ModelComparisonArena() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Tìm theo tên mô hình, mã API (vd: gpt-4.1, gemini-2.5, deepseek)..."
-                  className="w-full p-2.5 rounded-lg bg-bg border border-border text-sm text-text focus:border-accent focus:outline-none"
+                  className="w-full p-2.5 rounded-lg bg-bg border border-border text-sm text-text focus:border-accent focus:outline-hidden"
                 />
               </div>
 
@@ -199,7 +199,7 @@ export function ModelComparisonArena() {
                   aria-label="Lọc theo nhà phát triển"
                   value={selectedProvider}
                   onChange={(e) => setSelectedProvider(e.target.value)}
-                  className="p-2.5 rounded-lg bg-bg border border-border text-xs sm:text-sm text-text focus:border-accent focus:outline-none"
+                  className="p-2.5 rounded-lg bg-bg border border-border text-xs sm:text-sm text-text focus:border-accent focus:outline-hidden"
                 >
                   <option value="all">Tất cả nhà phát triển</option>
                   <option value="Anthropic">Anthropic</option>
@@ -214,7 +214,7 @@ export function ModelComparisonArena() {
                   aria-label="Lọc theo loại bản quyền"
                   value={selectedLicense}
                   onChange={(e) => setSelectedLicense(e.target.value)}
-                  className="p-2.5 rounded-lg bg-bg border border-border text-xs sm:text-sm text-text focus:border-accent focus:outline-none"
+                  className="p-2.5 rounded-lg bg-bg border border-border text-xs sm:text-sm text-text focus:border-accent focus:outline-hidden"
                 >
                   <option value="all">Mọi loại bản quyền</option>
                   <option value="Proprietary">Thương mại (Qua API)</option>
@@ -450,7 +450,7 @@ export function ModelComparisonArena() {
                 id="compare-model-a"
                 value={modelAId}
                 onChange={(e) => setModelAId(e.target.value)}
-                className="w-full p-3 rounded-lg bg-bg border border-border text-text font-bold focus:border-accent focus:outline-none"
+                className="w-full p-3 rounded-lg bg-bg border border-border text-text font-bold focus:border-accent focus:outline-hidden"
               >
                 {MODEL_REGISTRY.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -471,7 +471,7 @@ export function ModelComparisonArena() {
                 id="compare-model-b"
                 value={modelBId}
                 onChange={(e) => setModelBId(e.target.value)}
-                className="w-full p-3 rounded-lg bg-bg border border-border text-text font-bold focus:border-accent focus:outline-none"
+                className="w-full p-3 rounded-lg bg-bg border border-border text-text font-bold focus:border-accent focus:outline-hidden"
               >
                 {MODEL_REGISTRY.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -588,13 +588,13 @@ export function ModelComparisonArena() {
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
                       <span className="text-[10px] text-accent block font-bold mb-0.5">{modelA.name}</span>
-                      <strong className="text-text break-words">{row.valA}</strong>
+                      <strong className="text-text wrap-break-word">{row.valA}</strong>
                     </div>
                     <div className="p-2.5 rounded-lg bg-bg border border-border text-center">
                       <span className="text-[10px] text-purple-600 dark:text-purple-400 block font-bold mb-0.5">
                         {modelB.name}
                       </span>
-                      <strong className="text-text break-words">{row.valB}</strong>
+                      <strong className="text-text wrap-break-word">{row.valB}</strong>
                     </div>
                   </div>
                 </div>

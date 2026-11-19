@@ -4,7 +4,7 @@ import { useState } from 'react';
 import {
   Mail,
   MessageSquare,
-  Github,
+  CodeXml,
   Send,
   CheckCircle2,
   Sparkles,
@@ -79,7 +79,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-3 rounded-lg bg-bg border border-border text-text hover:border-accent/40 transition-all"
               >
-                <Github className="w-5 h-5 text-accent shrink-0" />
+                <CodeXml className="w-5 h-5 text-accent shrink-0" />
                 <div>
                   <strong className="block text-text">Mã nguồn trên GitHub</strong>
                   <span className="text-xs text-text-muted">Đóng góp mã nguồn &amp; báo lỗi</span>
@@ -130,7 +130,7 @@ export default function ContactPage() {
                     id="contact-topic"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none"
+                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden"
                   >
                     <option value="feedback">Đóng góp ý kiến cải tiến</option>
                     <option value="bug">Báo lỗi hiển thị hoặc chức năng</option>
@@ -150,7 +150,7 @@ export default function ContactPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Nguyễn Văn A"
-                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none"
+                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden"
                   />
                 </div>
 
@@ -165,7 +165,7 @@ export default function ContactPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="tenban@email.com"
-                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none"
+                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden"
                   />
                 </div>
 
@@ -180,7 +180,7 @@ export default function ContactPage() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Hãy mô tả chi tiết vấn đề hoặc đề xuất của bạn..."
-                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none resize-y"
+                    className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden resize-y"
                   />
                 </div>
 

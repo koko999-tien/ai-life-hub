@@ -129,7 +129,7 @@ export default function BuilderLabPage() {
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl space-y-12">
         {/* Hero Header */}
-        <div className="rounded-3xl border border-brand-500/30 bg-gradient-to-br from-brand-500/10 via-bg-surface to-bg p-6 sm:p-10">
+        <div className="rounded-3xl border border-brand-500/30 bg-linear-to-br from-brand-500/10 via-bg-surface to-bg p-6 sm:p-10">
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/15 border border-brand-500/30 text-brand-600 dark:text-brand-400 text-xs font-semibold">
               <Cpu className="w-3.5 h-3.5" aria-hidden="true" />

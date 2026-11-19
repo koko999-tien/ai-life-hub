@@ -121,6 +121,14 @@ export interface SearchDocument {
   tags: string[];
   url: string;
   boost?: number;
+  // Độ khó đã chuẩn hóa về beginner | intermediate | advanced
+  // (prompt gốc dùng easy/medium được map ở scripts/build-search-index.ts).
+  difficulty?: DifficultyLevel;
+  // Trường đã chuẩn hóa (không dấu) do build-search-index.ts tiền tính,
+  // để searchDocuments không phải normalize lại mỗi lần tìm kiếm.
+  // Index cũ chưa có 2 trường này thì searchDocuments tự normalize fallback.
+  titleNorm?: string;
+  contentNorm?: string;
 }
 
 export interface Theme {

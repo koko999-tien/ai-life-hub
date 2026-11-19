@@ -44,7 +44,7 @@ export function CategoryHero({ category, className = '' }: CategoryHeroProps) {
     <header
       className={clsx(
         'relative w-full rounded-2xl p-8 md:p-12',
-        'bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm',
+        'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs',
         'border border-slate-200/50 dark:border-slate-700/50',
         'overflow-hidden',
         className
@@ -74,7 +74,7 @@ export function CategoryHero({ category, className = '' }: CategoryHeroProps) {
       <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div className="flex items-start md:items-center gap-5">
           <div
-            className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-white shadow-xl"
+            className="shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-white shadow-xl"
             style={{
               backgroundColor: category.color,
               boxShadow: `0 10px 40px -10px ${category.color}`,
@@ -111,13 +111,13 @@ export function CategoryHero({ category, className = '' }: CategoryHeroProps) {
                   'inline-flex items-center gap-2 px-4 py-2.5 rounded-xl',
                   'bg-white/90 dark:bg-slate-800/90',
                   'border border-slate-200/50 dark:border-slate-700/50',
-                  'backdrop-blur-sm shadow-sm',
+                  'backdrop-blur-xs shadow-sm',
                   'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5'
                 )}
                 role="listitem"
               >
                 <StatIcon
-                  className="w-5 h-5 flex-shrink-0"
+                  className="w-5 h-5 shrink-0"
                   style={{ color: category.color } as React.CSSProperties}
                   strokeWidth={2}
                   aria-hidden="true"

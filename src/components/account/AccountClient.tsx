@@ -288,7 +288,7 @@ export function AccountClient() {
                 onChange={(e) => setAuthEmail(e.target.value)}
                 placeholder="Email của bạn"
                 aria-label="Email đăng nhập"
-                className="px-3.5 py-2.5 rounded-xl border border-border bg-bg text-sm text-text focus:outline-none focus:border-accent"
+                className="px-3.5 py-2.5 rounded-xl border border-border bg-bg text-sm text-text focus:outline-hidden focus:border-accent"
               />
               <input
                 type="password"
@@ -298,7 +298,7 @@ export function AccountClient() {
                 onChange={(e) => setAuthPassword(e.target.value)}
                 placeholder="Mật khẩu (tối thiểu 6 ký tự)"
                 aria-label="Mật khẩu"
-                className="px-3.5 py-2.5 rounded-xl border border-border bg-bg text-sm text-text focus:outline-none focus:border-accent"
+                className="px-3.5 py-2.5 rounded-xl border border-border bg-bg text-sm text-text focus:outline-hidden focus:border-accent"
               />
             </div>
 
@@ -368,7 +368,7 @@ export function AccountClient() {
               onChange={(e) => setNewTplTitle(e.target.value)}
               placeholder="Tên mẫu cá nhân (VD: Báo cáo tiến độ tuần cho Sếp)"
               aria-label="Tên mẫu câu lệnh cá nhân"
-              className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+              className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
             />
             <textarea
               rows={3}
@@ -376,7 +376,7 @@ export function AccountClient() {
               onChange={(e) => setNewTplBody(e.target.value)}
               placeholder="Nội dung câu lệnh mẫu của bạn..."
               aria-label="Nội dung mẫu câu lệnh cá nhân"
-              className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-xs sm:text-sm text-text focus:outline-none focus:border-accent resize-y"
+              className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent resize-y"
             />
             <Button type="submit" size="sm" className="gap-1.5">
               <Plus className="w-3.5 h-3.5" />

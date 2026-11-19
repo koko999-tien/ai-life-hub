@@ -254,7 +254,7 @@ export function FeaturedPrompts() {
             <button
               type="button"
               onClick={() => scroll('left')}
-              className="p-2.5 rounded-xl border border-border bg-bg-surface hover:bg-hover text-text-muted hover:text-text transition-all shadow-xs active:scale-95"
+              className="p-2.5 rounded-xl border border-border bg-bg-surface hover:bg-hover text-text-muted hover:text-text transition-all shadow-2xs active:scale-95"
               aria-label="Cuộn trái"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -262,7 +262,7 @@ export function FeaturedPrompts() {
             <button
               type="button"
               onClick={() => scroll('right')}
-              className="p-2.5 rounded-xl border border-border bg-bg-surface hover:bg-hover text-text-muted hover:text-text transition-all shadow-xs active:scale-95"
+              className="p-2.5 rounded-xl border border-border bg-bg-surface hover:bg-hover text-text-muted hover:text-text transition-all shadow-2xs active:scale-95"
               aria-label="Cuộn phải"
             >
               <ChevronRight className="h-4 w-4" />
@@ -290,7 +290,7 @@ export function FeaturedPrompts() {
               className={cn(
                 'px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all border',
                 audienceFilter === tab.id
-                  ? 'bg-accent text-white border-accent shadow-xs'
+                  ? 'bg-accent text-white border-accent shadow-2xs'
                   : 'bg-bg-surface text-text-muted border-border hover:text-text hover:bg-hover'
               )}
             >
@@ -312,7 +312,7 @@ export function FeaturedPrompts() {
               return (
                 <article
                   key={prompt.id}
-                  className="flex-shrink-0 w-[300px] sm:w-[350px] md:w-[380px] snap-start flex flex-col rounded-2xl border border-border bg-bg-surface p-6 shadow-xs hover:border-accent/40 hover:shadow-card-hover transition-all group"
+                  className="shrink-0 w-[300px] sm:w-[350px] md:w-[380px] snap-start flex flex-col rounded-2xl border border-border bg-bg-surface p-6 shadow-2xs hover:border-accent/40 hover:shadow-card-hover transition-all group"
                   role="listitem"
                 >
                   <div className="flex items-start justify-between gap-2 mb-3">
@@ -373,7 +373,7 @@ export function FeaturedPrompts() {
                       type="button"
                       onClick={() => copyPrompt(prompt.prompt, prompt.id)}
                       className={cn(
-                        'w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold transition-all shadow-xs',
+                        'w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold transition-all shadow-2xs',
                         copiedId === prompt.id
                           ? 'bg-emerald-500 text-white shadow-emerald-500/20'
                           : 'bg-accent/10 hover:bg-accent text-accent hover:text-white border border-accent/30'

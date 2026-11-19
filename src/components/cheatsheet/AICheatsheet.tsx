@@ -273,7 +273,7 @@ export function AICheatsheet() {
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-label="Tìm kiếm kỹ thuật trong sổ tay"
             placeholder="Tìm theo kỹ thuật (vd: suy luận từng bước, ví dụ mẫu, tra cứu tài liệu, JSON, độ sáng tạo (temperature))..."
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text focus:border-accent focus:outline-none"
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text focus:border-accent focus:outline-hidden"
           />
         </div>
 
@@ -303,7 +303,7 @@ export function AICheatsheet() {
 
       {/* Cheatsheet Grid or Empty State */}
       {filteredItems.length === 0 ? (
-        <div className="rounded-2xl border border-border bg-bg-surface p-12 text-center shadow-xs">
+        <div className="rounded-2xl border border-border bg-bg-surface p-12 text-center shadow-2xs">
           <BookOpen className="w-12 h-12 text-text-muted mx-auto mb-4 opacity-40" />
           <h3 className="text-lg font-bold text-text mb-2">Không tìm thấy mục tra cứu phù hợp</h3>
           <p className="text-sm text-text-muted max-w-md mx-auto mb-6">
@@ -315,7 +315,7 @@ export function AICheatsheet() {
               setSearchQuery('');
               setSelectedCategory('all');
             }}
-            className="px-4 py-2 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all shadow-xs"
+            className="px-4 py-2 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all shadow-2xs"
           >
             Xóa bộ lọc tìm kiếm
           </button>

@@ -287,7 +287,7 @@ Xác thực trực tuyến: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-li
               aria-valuemax={QUESTIONS.length}
             >
               <div
-                className="h-full bg-gradient-to-r from-accent-500 via-accent to-accent-hover transition-all duration-500 rounded-full"
+                className="h-full bg-linear-to-r from-accent-500 via-accent to-accent-hover transition-all duration-500 rounded-full"
                 style={{ width: `${((currentIndex + 1) / QUESTIONS.length) * 100}%` }}
               />
             </div>

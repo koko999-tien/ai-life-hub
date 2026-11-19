@@ -218,7 +218,7 @@ function SearchContent() {
 
             const cardInner = (
               <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-bg border border-border flex items-center justify-center flex-shrink-0 mt-0.5 text-accent">
+                <div className="w-10 h-10 rounded-xl bg-bg border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
                   <ItemIcon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div className="flex-1 min-w-0">

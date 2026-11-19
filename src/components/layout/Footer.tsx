@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Mail, Sparkles, BookOpen, Code, Zap, Brain, Globe, Shield, Heart } from 'lucide-react'
+import { CodeXml, Mail, Sparkles, BookOpen, Code, Zap, Brain, Globe, Shield, Heart } from 'lucide-react'
 
 const footerNav = {
   explore: [
@@ -34,7 +34,7 @@ const footerNav = {
 }
 
 const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com/koko999-tien/ai-life-hub', icon: Github, external: true },
+  { name: 'GitHub', href: 'https://github.com/koko999-tien/ai-life-hub', icon: CodeXml, external: true },
   { name: 'Email liên hệ', href: 'mailto:contact@ailifehub.dev', icon: Mail, external: true },
 ]
 
@@ -66,11 +66,11 @@ export function Footer() {
               className="group flex items-center gap-2.5 text-text font-display font-bold text-2xl transition-transform active:scale-95"
               aria-label="Trang chủ AI Life Hub"
             >
-              <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20">
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-linear-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20">
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
               <div className="flex items-center tracking-tight">
-                <span className="bg-gradient-to-r from-accent to-accent-600 bg-clip-text text-transparent font-extrabold">AI</span>
+                <span className="bg-linear-to-r from-accent to-accent-600 bg-clip-text text-transparent font-extrabold">AI</span>
                 <span className="text-text ml-1 font-bold">Life Hub</span>
               </div>
             </Link>

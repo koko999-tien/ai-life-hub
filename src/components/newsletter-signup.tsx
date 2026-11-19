@@ -52,7 +52,7 @@ export function NewsletterSignup() {
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-br from-brand-500/10 via-transparent to-accent-500/10" aria-labelledby="newsletter-heading">
+    <section className="py-16 lg:py-24 bg-linear-to-br from-brand-500/10 via-transparent to-accent-500/10" aria-labelledby="newsletter-heading">
       <div className="container-main">
         <div className="mx-auto max-w-2xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400 text-sm font-medium mb-6">
@@ -74,7 +74,7 @@ export function NewsletterSignup() {
           </p>
 
           {status === 'success' ? (
-            <div className="flex flex-col items-center gap-4 p-8 bg-bg/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-800 animate-scale-in">
+            <div className="flex flex-col items-center gap-4 p-8 bg-bg/80 backdrop-blur-xs rounded-2xl border border-gray-200 dark:border-gray-800 animate-scale-in">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-success-100 text-success-600 dark:bg-success-900/30 dark:text-success-400">
                 <CheckCircle className="h-8 w-8" aria-hidden="true" />
               </div>

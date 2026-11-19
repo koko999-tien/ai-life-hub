@@ -65,7 +65,7 @@ export const SearchResultItem = forwardRef<HTMLAnchorElement, SearchResultItemPr
 
     const innerContent = (
       <>
-        <span className="text-2xl flex-shrink-0 mt-0.5" aria-hidden="true">
+        <span className="text-2xl shrink-0 mt-0.5" aria-hidden="true">
           {result.icon || typeIcons[result.type]}
         </span>
 
@@ -116,7 +116,7 @@ export const SearchResultItem = forwardRef<HTMLAnchorElement, SearchResultItemPr
         </div>
 
         <svg
-          className="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors mt-0.5"
+          className="shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors mt-0.5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

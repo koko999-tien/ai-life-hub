@@ -48,7 +48,7 @@ export function RelatedSkills({
         {displaySkills.map((skill) => (
           <div
             key={skill.id}
-            className="flex-shrink-0 snap-start w-72 sm:w-80"
+            className="shrink-0 snap-start w-72 sm:w-80"
             role="listitem"
           >
             <SkillCard skill={skill} variant="default" />
@@ -58,7 +58,7 @@ export function RelatedSkills({
 
       {/* Scroll indicator */}
       {displaySkills.length > 2 && (
-        <div className="absolute bottom-0 right-0 left-0 h-8 bg-gradient-to-t from-white dark:from-slate-900 to-transparent pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-0 right-0 left-0 h-8 bg-linear-to-t from-white dark:from-slate-900 to-transparent pointer-events-none" aria-hidden="true" />
       )}
     </div>
   )

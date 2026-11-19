@@ -79,7 +79,7 @@ export function SkillCard({
         <div className="flex items-start gap-3">
           <div
             className={cn(
-              'flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-brand-50 dark:bg-brand-900/20 text-brand-600'
+              'shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-brand-50 dark:bg-brand-900/20 text-brand-600'
             )}
           >
             <SkillCategoryIcon categoryId={skill.categoryId} className="w-5 h-5" />
@@ -177,7 +177,7 @@ export function SkillCard({
           </div>
         </div>
 
-        <div className="flex-shrink-0 flex items-center gap-1">
+        <div className="shrink-0 flex items-center gap-1">
           <button
             type="button"
             onClick={handleBookmarkClick}

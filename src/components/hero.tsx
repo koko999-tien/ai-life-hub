@@ -56,8 +56,8 @@ Trân trọng,
     <section className="relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20" aria-labelledby="hero-heading">
       {/* Background Mesh & Grid Overlay */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.06)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)]" />
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[340px] bg-gradient-to-b from-accent/20 via-brand-500/10 to-transparent blur-3xl opacity-60 rounded-full" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.06)_1px,transparent_1px)] bg-size-[32px_32px] mask-[radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)]" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[340px] bg-linear-to-b from-accent/20 via-brand-500/10 to-transparent blur-3xl opacity-60 rounded-full" />
       </div>
 
       <div className="container mx-auto px-section-x">
@@ -65,7 +65,7 @@ Trân trọng,
           {/* Top Positioning Pill */}
           <Link
             href="/workspace"
-            className="group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-accent/35 bg-bg-surface/90 backdrop-blur-md shadow-xs hover:border-accent hover:shadow-sm transition-all mb-7"
+            className="group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-accent/35 bg-bg-surface/90 backdrop-blur-md shadow-2xs hover:border-accent hover:shadow-sm transition-all mb-7"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
@@ -80,7 +80,7 @@ Trân trọng,
           {/* Clear First-Viewport Headline */}
           <h1 id="hero-heading" className="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-text text-balance mb-5 leading-[1.15]">
             AI không chỉ để trò chuyện. <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-accent via-accent-500 to-brand-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-accent via-accent-500 to-brand-500 bg-clip-text text-transparent">
               Hãy dùng AI để hoàn thành công việc.
             </span>
           </h1>
@@ -100,7 +100,7 @@ Trân trọng,
             </Link>
             <Link
               href="/prompts"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-text bg-bg-surface hover:bg-hover border border-border hover:border-accent/50 shadow-xs hover:-translate-y-0.5 transition-all duration-fast"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-text bg-bg-surface hover:bg-hover border border-border hover:border-accent/50 shadow-2xs hover:-translate-y-0.5 transition-all duration-fast"
             >
               <span>Khám phá thư viện AI</span>
               <ArrowRight className="w-4 h-4 text-accent" />
@@ -125,7 +125,7 @@ Trân trọng,
             <button
               type="button"
               onClick={handleOpenSearch}
-              className="w-full group flex items-center justify-between px-4 py-2.5 rounded-2xl bg-bg-surface/90 hover:bg-hover border border-border/80 hover:border-accent/50 shadow-xs hover:shadow-sm transition-all text-left text-sm"
+              className="w-full group flex items-center justify-between px-4 py-2.5 rounded-2xl bg-bg-surface/90 hover:bg-hover border border-border/80 hover:border-accent/50 shadow-2xs hover:shadow-sm transition-all text-left text-sm"
               aria-label="Tìm kiếm nhanh toàn bộ kỹ năng, câu lệnh và công cụ"
             >
               <div className="flex items-center gap-2.5 text-text-muted group-hover:text-text min-w-0">
@@ -152,7 +152,7 @@ Trân trọng,
                   className={clsx(
                     'flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all',
                     activePreviewTab === 'office'
-                      ? 'bg-accent text-white shadow-xs'
+                      ? 'bg-accent text-white shadow-2xs'
                       : 'text-text-muted hover:text-text hover:bg-hover'
                   )}
                 >
@@ -165,7 +165,7 @@ Trân trọng,
                   className={clsx(
                     'flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all',
                     activePreviewTab === 'builder'
-                      ? 'bg-brand-500 text-white shadow-xs'
+                      ? 'bg-brand-500 text-white shadow-2xs'
                       : 'text-text-muted hover:text-text hover:bg-hover'
                   )}
                 >
@@ -238,7 +238,7 @@ Trân trọng,
                       <button
                         type="button"
                         onClick={handleCopyEmail}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-accent/10 hover:bg-accent text-accent hover:text-white border border-accent/20 transition-all shadow-xs"
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-accent/10 hover:bg-accent text-accent hover:text-white border border-accent/20 transition-all shadow-2xs"
                         aria-label="Sao chép email mẫu"
                       >
                         {copiedEmail ? (
@@ -314,7 +314,7 @@ Trân trọng,
                     </Link>
                     <Link
                       href="/tools/system-prompt-builder"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-500 hover:bg-brand-600 text-white transition-all shadow-xs"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-500 hover:bg-brand-600 text-white transition-all shadow-2xs"
                     >
                       <span>Mở xưởng tạo chỉ dẫn AI</span>
                       <ArrowRight className="w-3.5 h-3.5" />

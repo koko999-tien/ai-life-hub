@@ -59,7 +59,7 @@ function WhenToUseList({ items }: { items: string[] }) {
     <ul className="space-y-3" role="list">
       {items.map((item, index) => (
         <li key={index} className="flex items-start gap-3 p-3.5 bg-bg rounded-xl border border-border/80">
-          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+          <div className="shrink-0 w-6 h-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
             <Sparkles className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
           </div>
           <p className="text-text text-sm leading-relaxed pt-0.5">{item}</p>
@@ -102,9 +102,9 @@ function CollapsibleSection({
           </div>
         </div>
         {isOpen ? (
-          <ChevronUp className="w-5 h-5 text-text-muted flex-shrink-0" aria-hidden="true" />
+          <ChevronUp className="w-5 h-5 text-text-muted shrink-0" aria-hidden="true" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-text-muted flex-shrink-0" aria-hidden="true" />
+          <ChevronDown className="w-5 h-5 text-text-muted shrink-0" aria-hidden="true" />
         )}
       </button>
       {isOpen && (
@@ -165,7 +165,7 @@ export function SkillDetail({ skill, relatedSkills, className }: SkillDetailProp
             className={cn(
               'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-semibold transition-all',
               bookmarked
-                ? 'border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 shadow-xs'
+                ? 'border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 shadow-2xs'
                 : 'border-border bg-bg-elevated text-text-muted hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400'
             )}
           >

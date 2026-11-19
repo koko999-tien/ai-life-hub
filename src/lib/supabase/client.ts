@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -6,9 +6,19 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
-export const supabase = isSupabaseConfigured
-  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
-  : (null as unknown as ReturnType<typeof createClient<Database>>);
+// Lazy singleton: chỉ tạo client một lần, trả null khi chưa cấu hình Supabase
+// để mọi nơi dùng đều có thể early-return / fallback local thay vì crash.
+let cachedSupabaseClient: SupabaseClient<Database> | null | undefined;
+
+export function getSupabaseClient(): SupabaseClient<Database> | null {
+  if (cachedSupabaseClient !== undefined) return cachedSupabaseClient;
+  cachedSupabaseClient = isSupabaseConfigured
+    ? createClient<Database>(supabaseUrl, supabaseAnonKey)
+    : null;
+  return cachedSupabaseClient;
+}
+
+export const supabase: SupabaseClient<Database> | null = getSupabaseClient();
 
 // LocalStorage keys (centralized so 1-click personal data deletion can clean everything reliably)
 export const LOCAL_STORAGE_KEYS = {
@@ -33,14 +43,15 @@ export interface BookmarkItem {
 export async function fetchBookmarks(userId?: string): Promise<BookmarkItem[]> {
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('bookmarks')
         .select('*')
         .eq('user_id', userId)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(50);
 
       if (!error && data) {
-        return (data as any[]).map((b) => ({
+        return data.map((b) => ({
           id: b.id,
           itemType: b.item_type,
           itemId: b.item_id,
@@ -72,7 +83,7 @@ export async function toggleBookmarkStorage(
 ): Promise<{ bookmarked: boolean; item: BookmarkItem }> {
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      const client = supabase as any;
+      const client = supabase;
       const { data: existing } = await client
         .from('bookmarks')
         .select('id')
@@ -81,7 +92,19 @@ export async function toggleBookmarkStorage(
         .maybeSingle();
 
       if (existing) {
-        await client.from('bookmarks').delete().eq('id', existing.id);
+        const { error: deleteError } = await client
+          .from('bookmarks')
+          .delete()
+          .eq('id', existing.id);
+        if (deleteError) {
+          // Xóa trên server thất bại -> bookmark vẫn còn, trả bookmarked: true
+          // để UI không gỡ bookmark khỏi danh sách một cách sai lệch.
+          console.warn('Supabase toggleBookmarkStorage delete failed:', deleteError);
+          return {
+            bookmarked: true,
+            item: { ...item, id: existing.id, createdAt: new Date().toISOString() },
+          };
+        }
         return {
           bookmarked: false,
           item: { ...item, id: existing.id, createdAt: new Date().toISOString() },
@@ -132,7 +155,7 @@ export async function toggleBookmarkStorage(
     } else {
       const newItem: BookmarkItem = {
         ...item,
-        id: `bm-${Date.now()}`,
+        id: `bm-${crypto.randomUUID()}`,
         createdAt: new Date().toISOString(),
       };
       list.unshift(newItem);
@@ -143,7 +166,7 @@ export async function toggleBookmarkStorage(
 
   return {
     bookmarked: false,
-    item: { ...item, id: `bm-${Date.now()}`, createdAt: new Date().toISOString() },
+    item: { ...item, id: `bm-${crypto.randomUUID()}`, createdAt: new Date().toISOString() },
   };
 }
 
@@ -174,7 +197,7 @@ export async function submitCommunityPrompt(data: {
   userId?: string;
 }) {
   if (isSupabaseConfigured && supabase) {
-    return await (supabase as any).from('community_prompts').insert({
+    return await supabase.from('community_prompts').insert({
       title: data.title,
       description: data.description,
       template: data.template,
@@ -191,7 +214,7 @@ export async function submitCommunityPrompt(data: {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS);
     const list = raw ? JSON.parse(raw) : [];
     list.unshift({
-      id: `cp-${Date.now()}`,
+      id: `cp-${crypto.randomUUID()}`,
       title: data.title,
       description: data.description,
       template: data.template,
@@ -199,8 +222,10 @@ export async function submitCommunityPrompt(data: {
       authorName: data.authorName || 'Thành viên cộng đồng',
       tags: data.tags,
       targetService: data.targetService || 'chatgpt',
-      upvotes: 1,
-      status: 'approved',
+      // Thống nhất với bản Supabase: chờ kiểm duyệt, chưa có upvote.
+      // Không tự 'approved' + upvotes 1 như trước nữa.
+      upvotes: 0,
+      status: 'pending',
       created_at: new Date().toISOString(),
     });
     localStorage.setItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS, JSON.stringify(list));
@@ -215,7 +240,7 @@ export async function fetchCommunityPrompts(): Promise<CommunityPromptItem[]> {
 
   if (isSupabaseConfigured && supabase) {
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('community_prompts')
         .select('*')
         .eq('status', 'approved')
@@ -252,6 +277,10 @@ export async function fetchCommunityPrompts(): Promise<CommunityPromptItem[]> {
         const localItems = JSON.parse(raw);
         if (Array.isArray(localItems)) {
           for (const item of localItems) {
+            // Dedup theo id: bản server đã có trong results thì giữ bản server,
+            // chỉ thêm bản local khi chưa có (tránh trùng khi cùng prompt vừa
+            // được duyệt trên server vừa còn lưu local).
+            if (results.some((r) => r.id === item.id)) continue;
             results.push({
               id: item.id,
               title: item.title,
@@ -261,8 +290,8 @@ export async function fetchCommunityPrompts(): Promise<CommunityPromptItem[]> {
               authorName: item.authorName || item.author_name || 'Của bạn',
               tags: Array.isArray(item.tags) ? item.tags : [],
               targetService: item.targetService || item.target_service || 'chatgpt',
-              upvotes: item.upvotes || 1,
-              status: item.status || 'approved',
+              upvotes: item.upvotes ?? 0,
+              status: item.status || 'pending',
               createdAt: item.created_at || item.createdAt || new Date().toISOString(),
               isLocalOnly: true,
             });
@@ -284,7 +313,7 @@ export function deleteLocalCommunityPrompt(promptId: string): void {
     if (!raw) return;
     const list = JSON.parse(raw);
     if (!Array.isArray(list)) return;
-    const next = list.filter((p: any) => p.id !== promptId);
+    const next = list.filter((p: { id: string }) => p.id !== promptId);
     localStorage.setItem(LOCAL_STORAGE_KEYS.COMMUNITY_PROMPTS, JSON.stringify(next));
   } catch {
     // Ignore
@@ -304,14 +333,15 @@ export interface SkillReviewItem {
 export async function fetchSkillReviews(skillSlug: string): Promise<SkillReviewItem[]> {
   if (isSupabaseConfigured && supabase) {
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('skill_reviews')
         .select('*')
         .eq('skill_slug', skillSlug)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(50);
 
       if (!error && data) {
-        return data.map((r: any) => ({
+        return data.map((r) => ({
           id: r.id,
           userName: r.user_name,
           skillSlug: r.skill_slug,
@@ -347,7 +377,7 @@ export async function submitSkillReview(data: {
   userId?: string;
 }) {
   if (isSupabaseConfigured && supabase) {
-    return await (supabase as any).from('skill_reviews').insert({
+    return await supabase.from('skill_reviews').insert({
       user_name: data.userName,
       skill_slug: data.skillSlug,
       rating: data.rating,
@@ -361,7 +391,7 @@ export async function submitSkillReview(data: {
     const raw = localStorage.getItem(key);
     const list: SkillReviewItem[] = raw ? JSON.parse(raw) : [];
     list.unshift({
-      id: `rev-${Date.now()}`,
+      id: `rev-${crypto.randomUUID()}`,
       userName: data.userName,
       skillSlug: data.skillSlug,
       rating: data.rating,
@@ -376,12 +406,20 @@ export async function submitSkillReview(data: {
 }
 
 // Newsletter Subscription Persistence
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function subscribeNewsletter(email: string): Promise<{ mode: 'supabase' | 'local'; alreadySubscribed?: boolean }> {
   const normalized = email.trim().toLowerCase();
 
+  // Validate ở client trước khi insert: email sai thì báo lỗi rõ ràng
+  // thay vì lặng lẽ ghi localStorage / để server trả lỗi CHECK constraint.
+  if (!EMAIL_REGEX.test(normalized)) {
+    throw new Error('Email không hợp lệ');
+  }
+
   if (isSupabaseConfigured && supabase) {
     try {
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from('newsletter_subscribers')
         .insert({ email: normalized });
       if (!error) {

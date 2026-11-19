@@ -16,7 +16,7 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
       aria-orientation={decorative ? undefined : orientation}
       className={cn(
         'bg-gray-200 dark:bg-gray-800',
-        orientation === 'horizontal' ? 'h-[1px] w-full' : 'w-[1px] h-full',
+        orientation === 'horizontal' ? 'h-px w-full' : 'w-px h-full',
         className
       )}
       {...props}

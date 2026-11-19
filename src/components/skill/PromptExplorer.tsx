@@ -396,7 +396,7 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
             id="prompt-sort-select"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-xs font-medium text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-xs font-medium text-gray-700 dark:text-gray-200 focus:outline-hidden focus:ring-2 focus:ring-brand-500"
           >
             <option value="recommended">Đề xuất mặc định</option>
             <option value="easy-first">Dễ áp dụng trước</option>
@@ -408,7 +408,7 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
 
       {/* Filters Bar */}
       <div className="flex flex-col md:flex-row gap-4 mb-4 items-start md:items-center justify-between">
-        <div className="relative w-full md:w-96 flex-shrink-0">
+        <div className="relative w-full md:w-96 shrink-0">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" aria-hidden="true" />
           <input
             type="text"
@@ -416,7 +416,7 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Tìm kiếm câu lệnh (hỗ trợ gõ có dấu hoặc không dấu)..."
             aria-label="Tìm kiếm câu lệnh"
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
           />
         </div>
 
@@ -620,7 +620,7 @@ export function PromptExplorer({ initialPrompts }: PromptExplorerProps) {
                       isExpanded ? 'max-h-72' : 'max-h-24'
                     }`}
                   >
-                    <pre className="whitespace-pre-wrap break-words">{prompt.template}</pre>
+                    <pre className="whitespace-pre-wrap wrap-break-word">{prompt.template}</pre>
                   </div>
                 </div>
               </div>

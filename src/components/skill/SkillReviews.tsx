@@ -171,7 +171,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 placeholder="Ví dụ: Minh Anh (Nhân viên văn phòng)"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
               />
             </div>
           </div>
@@ -190,7 +190,7 @@ export function SkillReviews({ skillSlug, skillName }: SkillReviewsProps) {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Chia sẻ cách bạn đã tinh chỉnh câu lệnh, kết hợp công cụ hoặc kết quả đạt được..."
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500"
             />
           </div>
 

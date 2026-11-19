@@ -62,7 +62,7 @@ const promptVariableSchema = z.object({
 });
 
 const promptExampleSchema = z.object({
-  inputs: z.record(z.any()),
+  inputs: z.record(z.string(), z.any()),
   output: z.string().min(1, 'Example output is required'),
   context: z.string().optional(),
 });
@@ -170,7 +170,7 @@ async function validateSkills(): Promise<void> {
       // Validate with Zod
       const result = skillSchema.safeParse(attributes);
       if (!result.success) {
-        result.error.errors.forEach((err) => {
+        result.error.issues.forEach((err) => {
           logError(`Skill validation failed: ${err.path.join('.')} - ${err.message}`, relativePath);
         });
         continue;
@@ -274,7 +274,7 @@ async function validateResources(): Promise<void> {
 
       const result = resourceSchema.safeParse(attributes);
       if (!result.success) {
-        result.error.errors.forEach((err) => {
+        result.error.issues.forEach((err) => {
           logError(`Resource validation failed: ${err.path.join('.')} - ${err.message}`, relativePath);
         });
         continue;
