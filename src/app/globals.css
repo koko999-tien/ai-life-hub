@@ -66,6 +66,48 @@
   --color-success-900: #14532d;
 
   --color-warning-50: #fffbeb;
+
+  /* PeachWeb-inspired palette: dark navy, pastel peach/violet, teal accent */
+  --color-navy-800: #16204a;
+  --color-navy-900: #0b1130;
+  --color-navy-950: #05081a;
+  --color-peach-200: #ffd9c7;
+  --color-peach-300: #ffb59e;
+  --color-peach-400: #ff8f7a;
+  --color-aqua-300: #5eead4;
+  --color-aqua-400: #2dd4bf;
+  --color-aqua-500: #14b8a6;
+
+  --animate-marquee: marquee 36s linear infinite;
+
+  /* Marquee GIỮ linear (không sine): vòng lặp ambient cần tốc độ đều để
+     hai bản sao khớp nhau ở điểm nối -50%; sine sẽ làm vòng lặp lúc nhanh
+     lúc chậm và lộ mối nối. Linear ở đây là ngoại lệ cho chuyển động liên
+     tục, đúng như skill cho phép với spinner/progress. */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Shimmer cho trạng thái tải hero 3D: quét 1.8s rồi nghỉ 1.2s giữa lượt. */
+  --animate-shimmer: shimmer 3s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    60% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
   --color-warning-100: #fef3c7;
   --color-warning-200: #fde68a;
   --color-warning-300: #fcd34d;
@@ -177,6 +219,11 @@
   --ease-ease-out: ease-out;
   --ease-ease-in-out: ease-in-out;
 
+  /* Brand motion identity (motion-design skill): easing chữ ký dùng cho
+     80% hiệu ứng; exit dùng đường cong tăng tốc. */
+  --ease-signature: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+
   --z-index-dropdown: 100;
   --z-index-sticky: 200;
   --z-index-modal: 300;
@@ -266,7 +313,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   background-color: var(--color-accent-500);
   padding: 0.625rem 1rem;
   font-size: 0.875rem;
@@ -576,6 +623,69 @@
   backdrop-filter: blur(16px);
 }
 
+/* PeachWeb-style hero backdrop: navy base + pastel pink/violet/teal glows. */
+@utility peach-hero-bg {
+  background:
+    radial-gradient(60% 50% at 15% 8%, rgb(255 181 158 / 0.35), transparent 60%),
+    radial-gradient(50% 45% at 85% 18%, rgb(167 139 250 / 0.35), transparent 60%),
+    radial-gradient(70% 60% at 50% 100%, rgb(45 212 191 / 0.22), transparent 65%),
+    linear-gradient(180deg, #0b1130 0%, #05081a 100%);
+}
+
+/* Dark gradient veil over the 3D scene so white text stays readable. */
+@utility hero-scrim {
+  background: linear-gradient(
+    180deg,
+    rgb(5 8 26 / 0.45) 0%,
+    rgb(5 8 26 / 0.15) 45%,
+    rgb(5 8 26 / 0.7) 100%
+  );
+}
+
+/* Vệt sáng cho shimmer quét (đi cùng animate-shimmer). */
+.shimmer-sweep {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.07) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+}
+
+/**
+ * Phản hồi bấm nút theo motion-design skill:
+ * - hover: mọi thuộc tính đổi trong 100ms.
+ * - bấm (active): scale đổi trong 150ms.
+ * - nhả ra (về trạng thái thường): transform settle trong 300ms.
+ * Dùng duration riêng cho từng trạng thái vì CSS lấy duration của trạng
+ * thái đích khi chuyển đổi.
+ */
+@utility btn-motion {
+  transition-property: transform, background-color, border-color, color,
+    box-shadow;
+  transition-duration: 300ms, 100ms, 100ms, 100ms, 200ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0.2, 1), ease-out,
+    ease-out, ease-out, cubic-bezier(0.2, 0, 0.2, 1);
+
+  &:hover {
+    transition-duration: 100ms, 100ms, 100ms, 100ms, 100ms;
+  }
+
+  &:active {
+    transition-duration: 150ms, 100ms, 100ms, 100ms, 200ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+  .animate-shimmer {
+    animation: none;
+  }
+}
+
 @utility glass-strong {
   background-color: color-mix(in srgb, var(--color-bg) 90%, transparent);
   backdrop-filter: blur(24px);
@@ -778,15 +888,6 @@
   }
 }
 
-/* Modern High-End Visual Utilities (Always Compiled) */
-.glass-card {
-  background: color-mix(in srgb, var(--color-bg-surface) 75%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-}
-
 .gradient-border {
   position: relative;
   background-clip: padding-box;
@@ -804,53 +905,6 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-}
-
-/* ============================================================================
-   Custom Theme Studio & Pre-Baked Glassmorphism Engine
-   (Ported from furinamikuvn/antigravity-custom-theme-mod)
-   ============================================================================ */
-html[data-custom-preset] {
-  --color-bg: transparent;
-  --color-bg-surface: var(--theme-frame-bg, rgba(15, 20, 35, 0.72));
-  --color-bg-elevated: var(--theme-card-bg, rgba(18, 24, 42, 0.68));
-  --color-bg-hover: rgba(255, 255, 255, 0.08);
-  --color-border: var(--theme-border-color, rgba(234, 179, 8, 0.35));
-  --color-border-light: rgba(255, 255, 255, 0.16);
-  --color-text: #f8fafc;
-  --color-text-muted: #cbd5e1;
-  --color-text-subtle: #94a3b8;
-  --color-accent-fg: var(--color-accent-500);
-}
-
-html[data-custom-preset] body {
-  background-color: #07090f;
-  color: #f8fafc;
-}
-
-html[data-custom-preset] #main-content,
-html[data-custom-preset] footer {
-  position: relative;
-  z-index: 10;
-}
-
-/* Translucent Pre-Baked Glass Surfaces (No heavy live backdrop-filter on scrollers) */
-html[data-custom-preset] .card,
-html[data-custom-preset] .glass-card {
-  background-color: var(--theme-card-bg, rgba(18, 24, 42, 0.66)) !important;
-  border-color: var(--theme-border-color, rgba(234, 179, 8, 0.35)) !important;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-    0 10px 30px -10px rgba(0, 0, 0, 0.45),
-    0 0 24px -8px var(--theme-glow, rgba(234, 179, 8, 0.22));
-}
-
-/* Ornamental Double Gold Frame Mode */
-html[data-custom-ornament='true'] .card {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 12px 32px -8px rgba(0, 0, 0, 0.55),
-    0 0 22px -6px var(--theme-glow, rgba(234, 179, 8, 0.28));
 }
 
 @media print {

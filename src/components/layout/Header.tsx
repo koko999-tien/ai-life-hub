@@ -23,7 +23,6 @@ import {
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPaletteTrigger } from './CommandPaletteTrigger'
 import { CommandPalette } from '@/components/search/CommandPalette'
-import { CustomThemeStudio } from '@/components/theme/CustomThemeStudio'
 import { clsx } from 'clsx'
 
 type NavItem = {
@@ -166,16 +165,18 @@ export function Header() {
   return (
     <>
       <header
-        className={clsx(
-          'fixed top-0 left-0 right-0 z-sticky transition-all duration-base',
-          isScrolled || mobileMenuOpen
-            ? 'bg-bg/95 backdrop-blur-xl border-b border-border shadow-sm'
-            : 'bg-bg/60 backdrop-blur-md border-b border-border/40'
-        )}
+        className="fixed inset-x-0 top-3 z-sticky px-3 transition-all duration-base sm:px-6"
         role="banner"
       >
         <nav
-          className="container mx-auto px-section-x py-3.5"
+          className={clsx(
+            'mx-auto max-w-6xl rounded-full border px-3 py-2 transition-all duration-base sm:px-4',
+            mobileMenuOpen
+              ? 'rounded-[1.75rem] border-border bg-bg/95 shadow-xl backdrop-blur-xl'
+              : isScrolled
+                ? 'border-border bg-bg/90 shadow-lg backdrop-blur-xl'
+                : 'border-border/40 bg-bg/60 backdrop-blur-md'
+          )}
           aria-label="Điều hướng chính"
         >
           <div className="flex items-center justify-between gap-3">
@@ -406,14 +407,12 @@ export function Header() {
               >
                 <Bookmark className="w-4 h-4" />
               </Link>
-              <CustomThemeStudio />
               <ThemeToggle />
             </div>
 
             {/* Mobile Actions */}
             <div className="flex items-center gap-2 lg:hidden">
               <CommandPaletteTrigger isOpen={commandPaletteOpen} onOpen={() => setCommandPaletteOpen(true)} />
-              <CustomThemeStudio />
               <ThemeToggle />
               <button
                 type="button"

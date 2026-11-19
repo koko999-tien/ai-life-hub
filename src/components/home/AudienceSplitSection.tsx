@@ -46,7 +46,7 @@ export function AudienceSplitSection() {
               </div>
 
               <p className="text-sm text-text-muted leading-relaxed">
-                Đi từ nhiệm vụ cụ thể đến sản phẩm hoàn chỉnh: soạn email đối tác, tóm tắt cuộc họp, phân tích tài liệu dài hoặc chọn từ 80+ câu lệnh tiếng Việt phân loại sẵn.
+                Đi từ nhiệm vụ cụ thể đến sản phẩm hoàn chỉnh: soạn email đối tác, tóm tắt cuộc họp, phân tích tài liệu dài hoặc chọn từ 80 câu lệnh tiếng Việt phân loại sẵn.
               </p>
 
               <ul className="space-y-3 text-sm text-text">
@@ -56,7 +56,7 @@ export function AudienceSplitSection() {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>8 Nhóm công việc &amp; 80+ mẫu câu lệnh</strong>: Biết rõ cần nhập thông tin gì và kết quả trả về ra sao trước khi bấm chạy.</span>
+                  <span><strong>8 Nhóm công việc &amp; 80 mẫu câu lệnh</strong>: Biết rõ cần nhập thông tin gì và kết quả trả về ra sao trước khi bấm chạy.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -84,7 +84,7 @@ export function AudienceSplitSection() {
                 href="/prompts"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-border bg-bg text-sm font-medium text-text hover:bg-hover transition-all"
               >
-                <span>Thư Viện 80+ Câu Lệnh</span>
+                <span>Thư Viện 80 Câu Lệnh</span>
                 <ArrowRight className="w-4 h-4 text-accent" />
               </Link>
             </div>

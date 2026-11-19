@@ -30,10 +30,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
+    // Phản hồi bấm theo motion-design skill (xem btn-motion trong
+    // globals.css): hover <100ms, bấm scale 0.97 trong 150ms,
+    // nhả ra settle 300ms. Không đổi hình dạng pill hay màu.
+    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium btn-motion active:scale-[0.97] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
 
     const variantStyles = {
-      primary: 'bg-accent text-white shadow-sm hover:bg-accent-hover hover:shadow-glow-accent',
+      // Nút chính kiểu PeachWeb: pill bo tròn hoàn toàn.
+      primary: 'bg-accent text-white shadow-sm hover:bg-accent-hover hover:shadow-glow-accent rounded-full',
       secondary: 'bg-bg-elevated text-text border border-border shadow-sm hover:bg-bg-hover hover:border-border-light',
       outline: 'border border-border bg-transparent text-text hover:bg-bg-hover hover:border-border-light',
       ghost: 'bg-transparent text-text-muted hover:text-text hover:bg-bg-hover',
@@ -48,7 +52,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const widthStyles = fullWidth ? 'w-full' : '';
-    const combinedClassName = cn(baseStyles, variantStyles[variant], sizeStyles[size], widthStyles, className);
+    // Variant đặt sau size để rounded-full của primary thắng rounded của size.
+    const combinedClassName = cn(baseStyles, sizeStyles[size], variantStyles[variant], widthStyles, className);
 
     if (asChild && isValidElement(children)) {
       return cloneElement(children as React.ReactElement<any>, {
