@@ -62,15 +62,20 @@ const CTA_HREF = '/workspace?workflow=email-assistant';
  * Tôn trọng prefers-reduced-motion: hiển thị bản tĩnh, không ghim cuộn.
  */
 
-const EASE_SIGNATURE: [number, number, number, number] = [0.2, 0, 0.2, 1];
-// Cùng đường cong chữ ký nhưng dạng hàm easing, để dùng cho useTransform
+// Đường cong easing chữ ký dạng hàm, để dùng cho useTransform
 // (TransformOptions.ease chỉ nhận EasingFunction).
 const EASE_SIGNATURE_FN = cubicBezier(0.2, 0, 0.2, 1);
 
 /**
  * Một nhịp vào màn trong hero: fade + trồi 24px, 300ms, easing chữ ký.
- * Khi reduced-motion thì hiện tĩnh. Các nhịp cách nhau 70ms, tổng
- * stagger 420ms (<500ms theo skill); hero dẫn đầu, phần tử phụ vào sau.
+ * Các nhịp cách nhau 70ms, tổng stagger 420ms (<500ms theo skill); hero
+ * dẫn đầu, phần tử phụ vào sau.
+ *
+ * Dùng animation CSS thuần (không dùng motion initial/animate): motion
+ * render `opacity: 0` ngay trong HTML SSR, nên tiêu đề và đoạn mô tả
+ * chỉ hiện sau khi JS tải xong và hydrate — tải lạnh hero trống ~5s
+ * chỉ còn nền tối. Animation CSS chạy ngay khi stylesheet tải xong,
+ * tiêu đề hiện cả khi JS còn đang tải; 3D vẫn tải sau như cũ.
  */
 function Rise({
   children,
@@ -84,14 +89,12 @@ function Rise({
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay, ease: EASE_SIGNATURE }}
+    <div
+      className={className ? `hero-rise ${className}` : 'hero-rise'}
+      style={{ animationDelay: `${delay}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -378,10 +381,15 @@ export function Hero() {
     [40, 0, 0, -40],
     { ease: EASE_SIGNATURE_FN }
   );
-  const mockOpacity = useTransform(scrollYProgress, [0.66, 0.78], [0, 1], {
-    ease: EASE_SIGNATURE_FN,
-  });
-  const mockY = useTransform(scrollYProgress, [0.66, 0.78], [80, 0], {
+  // Khung mẫu CHỈ dùng transform (trượt lên + thu nhỏ nhẹ), KHÔNG dùng
+  // opacity: opacity trên phần tử cha làm cả cây con trở nên trong suốt
+  // — kể cả các lớp nền đặc bg-navy-950/900/800 mà PR #4 đã làm — nên
+  // bong bóng 3D tím lộ xuyên qua khung mẫu trong suốt lúc cuộn
+  // 0.66–0.78 (lỗi kiểm chứng PR #4). Trượt từ dưới màn hình lên (y
+  // 105% chiều cao khung ghim → 0): khung mẫu đặc hoàn toàn ở mọi vị
+  // trí cuộn, vẫn không chồng lên tiêu đề giai đoạn 2 (đã ra hẳn ở
+  // 0.64, khung mẫu mới bắt đầu vào ở 0.66).
+  const mockY = useTransform(scrollYProgress, [0.66, 0.78], ['105%', '0%'], {
     ease: EASE_SIGNATURE_FN,
   });
   const mockScale = useTransform(scrollYProgress, [0.66, 0.78], [0.94, 1], {
@@ -470,9 +478,11 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Giai đoạn 3: khung trình duyệt mẫu chứa Workspace */}
+        {/* Giai đoạn 3: khung trình duyệt mẫu chứa Workspace — trượt lên
+            từ dưới màn hình, nền đặc ở mọi vị trí cuộn (không fade
+            opacity, xem ghi chú ở mockY). */}
         <motion.div
-          style={{ opacity: mockOpacity, y: mockY, scale: mockScale }}
+          style={{ y: mockY, scale: mockScale }}
           className={`absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 px-section-x py-16 ${
             mockActive ? '' : 'pointer-events-none'
           }`}
