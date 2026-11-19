@@ -190,7 +190,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Tìm kiếm..."
-                    className="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-gray-600 dark:bg-gray-800"
+                    className="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-500/20 dark:border-gray-600 dark:bg-gray-800"
                     autoFocus
                   />
                 </div>
@@ -224,7 +224,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                       >
                         <span className="flex items-center gap-2">
                           {multiple && (
-                            <span className={cn('h-4 w-4 rounded border-2 flex-shrink-0', isSelected ? 'border-brand-500 bg-brand-500' : 'border-gray-300 dark:border-gray-600')}>
+                            <span className={cn('h-4 w-4 rounded border-2 shrink-0', isSelected ? 'border-brand-500 bg-brand-500' : 'border-gray-300 dark:border-gray-600')}>
                               {isSelected && <Check className="h-2.5 w-2.5 text-white" />}
                             </span>
                           )}

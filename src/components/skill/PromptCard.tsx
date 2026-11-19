@@ -50,7 +50,7 @@ function DifficultyBadge({ level }: { level?: string }) {
 function TipItem({ tip }: { tip: string }) {
   return (
     <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-      <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-500" aria-hidden="true" />
+      <Lightbulb className="w-4 h-4 shrink-0 mt-0.5 text-amber-500" aria-hidden="true" />
       <span>{tip}</span>
     </li>
   )
@@ -110,7 +110,7 @@ export function PromptCard({ prompt, skillId, skillName, skillSlug, className }:
             <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">{prompt.name}</h4>
             <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">{prompt.description}</p>
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={handleCopyTemplate}
@@ -177,7 +177,7 @@ export function PromptCard({ prompt, skillId, skillName, skillSlug, className }:
                 )}
               </button>
             </div>
-            <pre className="text-sm text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap break-words max-h-48 overflow-y-auto">
+            <pre className="text-sm text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap wrap-break-word max-h-48 overflow-y-auto">
               {prompt.template}
             </pre>
           </div>
@@ -218,7 +218,7 @@ export function PromptCard({ prompt, skillId, skillName, skillSlug, className }:
                             {inputEntries.map(([key, val]) => {
                               const varLabel = prompt.variables?.find((v) => v.name === key)?.label || key
                               return (
-                                <div key={key} className="break-words">
+                                <div key={key} className="wrap-break-word">
                                   <span className="font-semibold text-slate-900 dark:text-slate-100">
                                     {varLabel}:
                                   </span>{' '}
@@ -230,7 +230,7 @@ export function PromptCard({ prompt, skillId, skillName, skillSlug, className }:
                         </div>
                         <div>
                           <p className="text-xs font-medium text-slate-500 mb-1">Kết quả mẫu</p>
-                          <pre className="text-xs text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap break-words bg-white dark:bg-slate-900 p-2 rounded max-h-32 overflow-y-auto">
+                          <pre className="text-xs text-slate-700 dark:text-slate-300 font-mono whitespace-pre-wrap wrap-break-word bg-white dark:bg-slate-900 p-2 rounded max-h-32 overflow-y-auto">
                             {example.output}
                           </pre>
                         </div>

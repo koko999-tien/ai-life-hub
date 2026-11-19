@@ -281,7 +281,7 @@ export function highlightMatches(text: string, query: string): React.ReactNode {
   const terms = query.trim().split(/\s+/).filter(Boolean);
   if (terms.length === 0) return text;
 
-  const regex = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  const regex = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'i');
   const parts = text.split(regex);
 
   return (

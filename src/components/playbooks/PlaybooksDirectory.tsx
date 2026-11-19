@@ -349,7 +349,7 @@ export function PlaybooksDirectory() {
   return (
     <div className="space-y-8">
       {/* Search and Role Pathways Filter */}
-      <div className="card p-6 bg-bg-surface border-border space-y-4 shadow-xs">
+      <div className="card p-6 bg-bg-surface border-border space-y-4 shadow-2xs">
         <div className="relative">
           <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
@@ -358,7 +358,7 @@ export function PlaybooksDirectory() {
             onChange={(e) => setSearch(e.target.value)}
             aria-label="Tìm kiếm cẩm nang kỹ thuật"
             placeholder="Tìm theo chủ đề hoặc từ khóa kỹ thuật (vd: ReAct, Pandas, Bayes, Unity, Kiểm thử, SELinux, SQL, Con trỏ C)..."
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text placeholder-text-muted focus:border-accent focus:outline-none transition-colors"
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-bg border border-border text-sm text-text placeholder-text-muted focus:border-accent focus:outline-hidden transition-colors"
           />
         </div>
 
@@ -384,7 +384,7 @@ export function PlaybooksDirectory() {
 
       {/* Grid of Playbooks or Empty State */}
       {filteredPlaybooks.length === 0 ? (
-        <div className="rounded-2xl border border-border bg-bg-surface p-12 text-center shadow-xs">
+        <div className="rounded-2xl border border-border bg-bg-surface p-12 text-center shadow-2xs">
           <BookOpen className="w-12 h-12 text-text-muted mx-auto mb-4 opacity-40" />
           <h3 className="text-lg font-bold text-text mb-2">Không tìm thấy cẩm nang phù hợp</h3>
           <p className="text-sm text-text-muted max-w-md mx-auto mb-6">
@@ -396,7 +396,7 @@ export function PlaybooksDirectory() {
               setSearch('');
               setSelectedRole('all');
             }}
-            className="px-4 py-2 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all shadow-xs"
+            className="px-4 py-2 rounded-xl bg-accent text-white font-semibold text-xs hover:bg-accent-hover transition-all shadow-2xs"
           >
             Xóa bộ lọc tìm kiếm
           </button>
@@ -408,7 +408,7 @@ export function PlaybooksDirectory() {
             return (
               <div
                 key={p.id}
-                className="rounded-2xl p-6 bg-bg-surface border border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-xs hover:shadow-card-hover"
+                className="rounded-2xl p-6 bg-bg-surface border border-border hover:border-accent/50 transition-all flex flex-col justify-between group shadow-2xs hover:shadow-card-hover"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-3">
@@ -457,7 +457,7 @@ export function PlaybooksDirectory() {
                     <button
                       type="button"
                       onClick={() => handleCopyCode(p.sampleCodeOrFormula, p.id)}
-                      className="absolute top-2 right-2 p-1.5 rounded-lg bg-bg-surface/90 hover:bg-hover border border-border text-text-muted hover:text-text transition-all shadow-xs"
+                      className="absolute top-2 right-2 p-1.5 rounded-lg bg-bg-surface/90 hover:bg-hover border border-border text-text-muted hover:text-text transition-all shadow-2xs"
                       title="Sao chép mã mẫu"
                       aria-label="Sao chép mã mẫu"
                     >

@@ -43,6 +43,9 @@ export class ProviderRegistry {
           return { provider, modelOption: found };
         }
       }
+      // Model được yêu cầu không tồn tại trong bất kỳ provider đã cấu hình nào:
+      // trả về null thay vì lặng lẽ dùng model đầu tiên.
+      return null;
     }
 
     const firstProvider = active[0];

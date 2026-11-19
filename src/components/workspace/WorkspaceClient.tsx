@@ -18,6 +18,7 @@ import {
   Plus,
   Trash2,
   Clock,
+  History,
   Sliders,
   AlertCircle,
   CheckCircle2,
@@ -46,6 +47,7 @@ import {
   type PersonalTemplateRecord,
 } from '@/lib/workspace/storage';
 import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+import { WORKSPACE_REOPEN_SESSION_KEY } from '@/components/workspace/WorkspaceHistory';
 import { copyToClipboardWithFallback } from '@/components/skill/categoryHelpers';
 import { trackEvent } from '@/lib/analytics';
 
@@ -598,6 +600,9 @@ export function WorkspaceClient() {
     setActiveSessionId(session.id);
     setSessionTitle(session.title);
     setActiveWorkflow(session.workflowId);
+    if (session.modelId && session.modelId !== 'default') {
+      setSelectedModelId(session.modelId);
+    }
     setResultText(session.resultText || '');
     setLastUsage(session.usage || null);
     setErrorBanner(null);
@@ -626,6 +631,21 @@ export function WorkspaceClient() {
     trackEvent('workspace_session_reused', { workflowId: session.workflowId });
     toast.info(`Đã mở lại phiên: ${session.title}`);
   };
+
+  // Mở lại session từ trang /workspace/history: trang đó lưu id cần mở vào
+  // sessionStorage rồi chuyển về /workspace; khi sessions đã tải xong thì
+  // khôi phục session tương ứng vào form rồi xóa key để không mở lại lần sau.
+  useEffect(() => {
+    if (typeof window === 'undefined' || sessions.length === 0) return;
+    const reopenId = sessionStorage.getItem(WORKSPACE_REOPEN_SESSION_KEY);
+    if (!reopenId) return;
+    sessionStorage.removeItem(WORKSPACE_REOPEN_SESSION_KEY);
+    const session = sessions.find((s) => s.id === reopenId);
+    if (session) {
+      handleSelectSession(session);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessions]);
 
   const handleNewSession = () => {
     if (isStreaming) handleStopStreaming();
@@ -750,6 +770,13 @@ export function WorkspaceClient() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/workspace/history"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-border bg-bg-surface hover:border-accent text-xs font-semibold text-text transition-colors"
+          >
+            <History className="w-3.5 h-3.5 text-accent" />
+            <span>Lịch sử</span>
+          </Link>
           <button
             type="button"
             onClick={handleLoadSample}
@@ -818,7 +845,7 @@ export function WorkspaceClient() {
                     }}
                     className={`w-full text-left p-3 rounded-xl border transition-all flex items-start gap-3 ${
                       isActive
-                        ? 'border-accent bg-accent/10 shadow-xs'
+                        ? 'border-accent bg-accent/10 shadow-2xs'
                         : 'border-border/70 bg-bg hover:border-accent/40'
                     }`}
                   >
@@ -895,6 +922,14 @@ export function WorkspaceClient() {
                 })}
               </div>
             )}
+            {sessions.length > 0 && (
+              <Link
+                href="/workspace/history"
+                className="block text-center text-[11px] font-semibold text-accent hover:underline mt-3"
+              >
+                Xem tất cả lịch sử →
+              </Link>
+            )}
           </div>
         </aside>
 
@@ -917,7 +952,7 @@ export function WorkspaceClient() {
                 onChange={(e) => setSessionTitle(e.target.value)}
                 placeholder="Đặt tên phiên làm việc (tùy chọn)..."
                 aria-label="Tên phiên làm việc"
-                className="w-full sm:w-60 px-3 py-1.5 rounded-lg border border-border bg-bg text-xs text-text focus:outline-none focus:border-accent"
+                className="w-full sm:w-60 px-3 py-1.5 rounded-lg border border-border bg-bg text-xs text-text focus:outline-hidden focus:border-accent"
               />
             </div>
 
@@ -964,7 +999,7 @@ export function WorkspaceClient() {
                       value={emailRecipient}
                       onChange={(e) => setEmailRecipient(e.target.value)}
                       placeholder="VD: Chị Lan (Trưởng phòng Nhân sự)"
-                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                     />
                   </div>
                   <div>
@@ -977,7 +1012,7 @@ export function WorkspaceClient() {
                       value={emailPurpose}
                       onChange={(e) => setEmailPurpose(e.target.value)}
                       placeholder="VD: Xin phê duyệt ngân sách sự kiện tháng 12"
-                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                     />
                   </div>
                 </div>
@@ -991,7 +1026,7 @@ export function WorkspaceClient() {
                       id="ws-email-tone"
                       value={emailTone}
                       onChange={(e) => setEmailTone(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                     >
                       <option value="Lịch sự, chuyên nghiệp">Lịch sự, chuyên nghiệp</option>
                       <option value="Ngắn gọn, dứt khoát, đi thẳng vào việc">Ngắn gọn, đi thẳng vào việc</option>
@@ -1007,7 +1042,7 @@ export function WorkspaceClient() {
                       id="ws-email-lang"
                       value={emailLanguage}
                       onChange={(e) => setEmailLanguage(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                     >
                       <option value="Tiếng Việt">Tiếng Việt</option>
                       <option value="Tiếng Anh thương mại (Business English)">Tiếng Anh thương mại</option>
@@ -1027,7 +1062,7 @@ export function WorkspaceClient() {
                     value={emailContext}
                     onChange={(e) => setEmailContext(e.target.value)}
                     placeholder="Gạch đầu dòng các thông tin thực tế, mốc thời gian hoặc dán email cần viết lại vào đây..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent leading-relaxed resize-y"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent leading-relaxed resize-y"
                   />
                 </div>
               </div>
@@ -1051,7 +1086,7 @@ export function WorkspaceClient() {
                       value={meetingTitle}
                       onChange={(e) => setMeetingTitle(e.target.value)}
                       placeholder="VD: Họp rà soát tiến độ dự án Quý 4"
-                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                     />
                   </div>
                   <div>
@@ -1064,7 +1099,7 @@ export function WorkspaceClient() {
                       value={meetingParticipants}
                       onChange={(e) => setMeetingParticipants(e.target.value)}
                       placeholder="VD: Anh Nam, Chị Thảo, Nhóm Kỹ thuật"
-                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                     />
                   </div>
                 </div>
@@ -1079,7 +1114,7 @@ export function WorkspaceClient() {
                     value={meetingNotes}
                     onChange={(e) => setMeetingNotes(e.target.value)}
                     placeholder="Dán toàn bộ ghi chú nhanh, tin nhắn trao đổi hoặc bản chép lời cuộc họp vào đây..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent leading-relaxed resize-y"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent leading-relaxed resize-y"
                   />
                 </div>
               </div>
@@ -1127,7 +1162,7 @@ export function WorkspaceClient() {
                     value={docText}
                     onChange={(e) => setDocText(e.target.value)}
                     placeholder="Dán nội dung báo cáo, quy định, điều khoản hợp đồng hoặc bài viết chuyên môn vào đây (tối đa 40.000 ký tự)..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent leading-relaxed resize-y"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent leading-relaxed resize-y"
                   />
                 </div>
 
@@ -1141,7 +1176,7 @@ export function WorkspaceClient() {
                     value={docQuestion}
                     onChange={(e) => setDocQuestion(e.target.value)}
                     placeholder="VD: Các điều kiện phạt vi phạm hoặc nghĩa vụ thanh toán được nêu như thế nào?"
-                    className="w-full px-3.5 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                    className="w-full px-3.5 py-2 rounded-xl border border-border bg-bg text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                   />
                 </div>
               </div>
@@ -1160,7 +1195,7 @@ export function WorkspaceClient() {
                     value={customSystemPrompt}
                     onChange={(e) => setCustomSystemPrompt(e.target.value)}
                     placeholder="Mặc định: Trợ lý công việc chuyên nghiệp, trình bày rõ ràng, không tự bịa số liệu..."
-                    className="w-full px-3.5 py-2 rounded-xl border border-border bg-bg font-mono text-xs text-text focus:outline-none focus:border-accent resize-y"
+                    className="w-full px-3.5 py-2 rounded-xl border border-border bg-bg font-mono text-xs text-text focus:outline-hidden focus:border-accent resize-y"
                   />
                 </div>
 
@@ -1174,7 +1209,7 @@ export function WorkspaceClient() {
                     value={customPromptText}
                     onChange={(e) => setCustomPromptText(e.target.value)}
                     placeholder="Nhập câu lệnh của bạn hoặc chọn một mẫu từ Thư viện câu lệnh (/prompts) để nạp vào đây..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg font-mono text-xs sm:text-sm text-text focus:outline-none focus:border-accent leading-relaxed resize-y"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-bg font-mono text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent leading-relaxed resize-y"
                   />
                 </div>
               </div>
@@ -1328,7 +1363,7 @@ export function WorkspaceClient() {
                   onChange={(e) => setResultText(e.target.value)}
                   rows={14}
                   aria-label="Chỉnh sửa trực tiếp nội dung kết quả"
-                  className="w-full p-3.5 rounded-xl border border-accent/40 bg-bg font-sans text-sm text-text leading-relaxed focus:outline-none focus:border-accent resize-y"
+                  className="w-full p-3.5 rounded-xl border border-accent/40 bg-bg font-sans text-sm text-text leading-relaxed focus:outline-hidden focus:border-accent resize-y"
                 />
               ) : resultText ? (
                 <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap font-sans text-sm text-text leading-relaxed">
@@ -1363,7 +1398,7 @@ export function WorkspaceClient() {
                     onChange={(e) => setFollowUpText(e.target.value)}
                     placeholder="Tinh chỉnh tiếp kết quả này (VD: Rút gọn còn 5 dòng, dịch sang tiếng Anh, đổi giọng trang trọng hơn)..."
                     aria-label="Yêu cầu tinh chỉnh tiếp kết quả"
-                    className="flex-1 px-3.5 py-2 rounded-xl border border-border bg-bg-surface text-xs sm:text-sm text-text focus:outline-none focus:border-accent"
+                    className="flex-1 px-3.5 py-2 rounded-xl border border-border bg-bg-surface text-xs sm:text-sm text-text focus:outline-hidden focus:border-accent"
                   />
                   <Button
                     type="submit"
@@ -1387,9 +1422,9 @@ export function WorkspaceClient() {
                 </span>
                 {lastUsage && (
                   <span>
-                    {lastUsage.isEstimated ? '~' : ''}
-                    {lastUsage.totalTokens.toLocaleString('vi-VN')} token ({lastUsage.inputTokens} vào / {lastUsage.outputTokens} ra) • ~
-                    {lastUsage.estimatedCostVnd.toLocaleString('vi-VN')} đ
+                    Đã dùng {lastUsage.totalTokens.toLocaleString('vi-VN')} tokens · Ước tính{' '}
+                    {lastUsage.estimatedCostVnd.toLocaleString('vi-VN')} VNĐ
+                    {` (${lastUsage.inputTokens.toLocaleString('vi-VN')} vào / ${lastUsage.outputTokens.toLocaleString('vi-VN')} ra)`}
                   </span>
                 )}
               </div>
@@ -1415,7 +1450,7 @@ export function WorkspaceClient() {
                   id="ws-model-select"
                   value={selectedModelId}
                   onChange={(e) => setSelectedModelId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs font-medium text-text focus:outline-none focus:border-accent"
+                  className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs font-medium text-text focus:outline-hidden focus:border-accent"
                 >
                   {status.availableModels.map((m) => (
                     <option key={m.id} value={m.id}>

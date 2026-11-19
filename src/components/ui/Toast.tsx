@@ -92,7 +92,7 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
       )}
       role="alert"
     >
-      <Icon className="h-5 w-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
+      <Icon className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
       <div className="flex-1 min-w-0">
         <p className="font-medium">{toast.title}</p>
         {toast.message && <p className="mt-1 text-sm opacity-90">{toast.message}</p>}
@@ -107,7 +107,7 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
       </div>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="flex-shrink-0 p-1 rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+        className="shrink-0 p-1 rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
         aria-label="Đóng"
       >
         <X className="h-4 w-4" />

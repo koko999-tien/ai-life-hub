@@ -6,6 +6,7 @@
  */
 
 import { supabase, isSupabaseConfigured, LOCAL_STORAGE_KEYS } from '@/lib/supabase/client';
+import type { Json } from '@/lib/supabase/types';
 import type { AIWorkflowId, UsageMetrics } from '@/lib/ai/types';
 
 export interface WorkspaceMessageRecord {
@@ -65,10 +66,33 @@ function writeLocalSessions(sessions: WorkspaceSessionRecord[]): void {
   }
 }
 
+/** Đọc usage từ cột usage_json (JSONB). Trả undefined nếu cột chưa có / dữ liệu sai shape. */
+function parseUsageJson(value: unknown): UsageMetrics | undefined {
+  if (!value || typeof value !== 'object') return undefined;
+  const v = value as Record<string, unknown>;
+  if (
+    typeof v.inputTokens !== 'number' ||
+    typeof v.outputTokens !== 'number' ||
+    typeof v.totalTokens !== 'number' ||
+    typeof v.estimatedCostUsd !== 'number' ||
+    typeof v.estimatedCostVnd !== 'number'
+  ) {
+    return undefined;
+  }
+  return {
+    inputTokens: v.inputTokens,
+    outputTokens: v.outputTokens,
+    totalTokens: v.totalTokens,
+    estimatedCostUsd: v.estimatedCostUsd,
+    estimatedCostVnd: v.estimatedCostVnd,
+    isEstimated: typeof v.isEstimated === 'boolean' ? v.isEstimated : true,
+  };
+}
+
 export async function listWorkspaceSessions(userId?: string): Promise<WorkspaceSessionRecord[]> {
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('workspace_sessions')
         .select('*')
         .eq('user_id', userId)
@@ -84,6 +108,7 @@ export async function listWorkspaceSessions(userId?: string): Promise<WorkspaceS
           inputs: (row.inputs_json as Record<string, unknown>) || {},
           resultText: row.result_text || '',
           messages: [],
+          usage: parseUsageJson(row.usage_json),
           createdAt: row.created_at,
           updatedAt: row.updated_at,
           storageMode: 'cloud' as const,
@@ -111,24 +136,26 @@ export async function saveWorkspaceSession(
         title: session.title.slice(0, 220),
         workflow_id: session.workflowId,
         model_id: session.modelId,
-        inputs_json: session.inputs,
+        // Inputs của workflow luôn là dữ liệu JSON-serializable.
+        inputs_json: session.inputs as unknown as Json,
         result_text: session.resultText,
+        usage_json: (session.usage ?? null) as unknown as Json,
         updated_at: now,
       };
 
       const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(sessionId);
       const query = isUuid
-        ? (supabase as any).from('workspace_sessions').upsert({ id: sessionId, ...payload }).select().single()
-        : (supabase as any).from('workspace_sessions').insert(payload).select().single();
+        ? supabase.from('workspace_sessions').upsert({ id: sessionId, ...payload }).select().single()
+        : supabase.from('workspace_sessions').insert(payload).select().single();
 
       const { data, error } = await query;
       if (!error && data) {
         return {
           id: data.id,
           title: data.title,
-          workflowId: data.workflow_id,
+          workflowId: data.workflow_id as AIWorkflowId,
           modelId: data.model_id,
-          inputs: data.inputs_json || {},
+          inputs: (data.inputs_json as Record<string, unknown>) || {},
           resultText: data.result_text || '',
           messages: session.messages || [],
           usage: session.usage,
@@ -170,7 +197,7 @@ export async function saveWorkspaceSession(
 export async function deleteWorkspaceSession(sessionId: string, userId?: string): Promise<void> {
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      await (supabase as any)
+      await supabase
         .from('workspace_sessions')
         .delete()
         .eq('id', sessionId)
@@ -208,7 +235,7 @@ function writeLocalTemplates(templates: PersonalTemplateRecord[]): void {
 export async function listPersonalTemplates(userId?: string): Promise<PersonalTemplateRecord[]> {
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('personal_templates')
         .select('*')
         .eq('user_id', userId)
@@ -248,7 +275,7 @@ export async function createPersonalTemplate(
 
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('personal_templates')
         .insert({
           user_id: userId,
@@ -298,7 +325,7 @@ export async function createPersonalTemplate(
 export async function deletePersonalTemplate(templateId: string, userId?: string): Promise<void> {
   if (isSupabaseConfigured && supabase && userId) {
     try {
-      await (supabase as any)
+      await supabase
         .from('personal_templates')
         .delete()
         .eq('id', templateId)

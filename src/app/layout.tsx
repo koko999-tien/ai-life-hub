@@ -11,7 +11,7 @@ const inter = Inter({
   variable: '--font-inter',
   display: 'swap',
   fallback: ['system-ui', 'sans-serif'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
   display: 'swap',
   fallback: ['monospace'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-life-hub-omega.vercel.app';
@@ -120,7 +120,7 @@ export default function RootLayout({
           <SkipLink />
           <Header />
           <main
-            className="flex-1 [&:not(:has(>.pt-24)):not(:has(>.pt-20))]:pt-20 focus:outline-none"
+            className="flex-1 [&:not(:has(>.pt-24)):not(:has(>.pt-20))]:pt-20 focus:outline-hidden"
             id="main-content"
             tabIndex={-1}
           >

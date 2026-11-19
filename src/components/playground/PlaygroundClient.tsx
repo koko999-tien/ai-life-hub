@@ -276,7 +276,7 @@ export function PlaygroundClient({ presets }: PlaygroundClientProps) {
             id="pg-preset"
             value={selectedPresetId}
             onChange={(e) => handleSelectPreset(e.target.value)}
-            className="w-full sm:w-64 px-3 py-2 rounded-xl text-xs font-medium border border-border bg-bg text-text focus:outline-none focus:border-accent"
+            className="w-full sm:w-64 px-3 py-2 rounded-xl text-xs font-medium border border-border bg-bg text-text focus:outline-hidden focus:border-accent"
           >
             {presets.map((p) => (
               <option key={p.id} value={p.id}>
@@ -359,7 +359,7 @@ export function PlaygroundClient({ presets }: PlaygroundClientProps) {
               value={systemPrompt}
               onChange={(e) => setSystemPrompt(e.target.value)}
               placeholder="Nhập vai trò, phong cách và quy tắc giới hạn cho AI..."
-              className="w-full font-mono text-xs px-3 py-2 rounded-xl border border-border bg-bg text-text focus:outline-none focus:border-accent"
+              className="w-full font-mono text-xs px-3 py-2 rounded-xl border border-border bg-bg text-text focus:outline-hidden focus:border-accent"
             />
           </div>
 
@@ -380,7 +380,7 @@ export function PlaygroundClient({ presets }: PlaygroundClientProps) {
               value={userPrompt}
               onChange={(e) => setUserPrompt(e.target.value)}
               placeholder="Nhập câu lệnh mẫu của bạn tại đây..."
-              className="w-full font-mono text-xs px-3 py-2.5 rounded-xl border border-border bg-bg text-text focus:outline-none focus:border-accent leading-relaxed resize-y"
+              className="w-full font-mono text-xs px-3 py-2.5 rounded-xl border border-border bg-bg text-text focus:outline-hidden focus:border-accent leading-relaxed resize-y"
             />
           </div>
 
@@ -407,7 +407,7 @@ export function PlaygroundClient({ presets }: PlaygroundClientProps) {
                         setVariables((prev) => ({ ...prev, [v]: e.target.value }))
                       }
                       placeholder={`Nhập ${v}...`}
-                      className="w-full px-3 py-1.5 rounded-lg border border-border bg-bg text-xs text-text focus:outline-none focus:border-accent"
+                      className="w-full px-3 py-1.5 rounded-lg border border-border bg-bg text-xs text-text focus:outline-hidden focus:border-accent"
                     />
                   </div>
                 ))}

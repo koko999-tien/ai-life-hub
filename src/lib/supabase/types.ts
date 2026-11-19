@@ -34,6 +34,15 @@ export interface Database {
           role?: string
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'profiles_id_fkey'
+            columns: ['id']
+            isOneToOne: true
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       community_prompts: {
         Row: {
@@ -78,6 +87,15 @@ export interface Database {
           status?: 'approved' | 'pending' | 'rejected'
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'community_prompts_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       bookmarks: {
         Row: {
@@ -110,6 +128,15 @@ export interface Database {
           category_id?: string
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'bookmarks_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       skill_reviews: {
         Row: {
@@ -139,6 +166,15 @@ export interface Database {
           comment?: string
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'skill_reviews_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       workspace_sessions: {
         Row: {
@@ -149,6 +185,7 @@ export interface Database {
           model_id: string
           inputs_json: Json
           result_text: string
+          usage_json: Json | null
           created_at: string
           updated_at: string
         }
@@ -160,6 +197,7 @@ export interface Database {
           model_id: string
           inputs_json?: Json
           result_text?: string
+          usage_json?: Json | null
           created_at?: string
           updated_at?: string
         }
@@ -171,9 +209,19 @@ export interface Database {
           model_id?: string
           inputs_json?: Json
           result_text?: string
+          usage_json?: Json | null
           created_at?: string
           updated_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'workspace_sessions_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       workspace_messages: {
         Row: {
@@ -203,6 +251,22 @@ export interface Database {
           model_id?: string | null
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'workspace_messages_session_id_fkey'
+            columns: ['session_id']
+            isOneToOne: false
+            referencedRelation: 'workspace_sessions'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'workspace_messages_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       personal_templates: {
         Row: {
@@ -235,6 +299,15 @@ export interface Database {
           workflow_id?: string
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'personal_templates_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
       newsletter_subscribers: {
         Row: {
@@ -252,7 +325,20 @@ export interface Database {
           email?: string
           created_at?: string
         }
+        Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
     }
   }
 }

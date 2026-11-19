@@ -461,7 +461,7 @@ export function WorkflowExplorer() {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder={selectedWorkflow.inputPlaceholder}
-              className="flex-1 px-4 py-3 rounded-xl border border-border bg-bg text-sm text-text focus:outline-none focus:ring-2 focus:ring-accent"
+              className="flex-1 px-4 py-3 rounded-xl border border-border bg-bg text-sm text-text focus:outline-hidden focus:ring-2 focus:ring-accent"
             />
             <Button
               size="lg"

@@ -133,7 +133,7 @@ export function SearchResultsClient() {
         <div className="flex gap-6">
           <aside
             className={`
-              w-64 flex-shrink-0
+              w-64 shrink-0
               ${isMobileDrawerOpen ? 'fixed inset-y-0 left-0 z-40 block bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 overflow-y-auto' : 'hidden lg:block'}
             `}
             aria-label="Bộ lọc tìm kiếm"
@@ -167,7 +167,7 @@ export function SearchResultsClient() {
                     value={query}
                     onChange={(e) => handleQueryChange(e.target.value)}
                     placeholder="Lọc thêm kết quả..."
-                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
               </div>

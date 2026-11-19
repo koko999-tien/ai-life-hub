@@ -170,7 +170,7 @@ export function AgentTemplateCard({ agent, skillName, className }: AgentTemplate
             </button>
           </div>
           <div className="bg-slate-900/95 rounded-lg p-3 max-h-48 overflow-y-auto border border-slate-700">
-            <pre className="text-sm font-mono whitespace-pre-wrap break-words text-slate-300">
+            <pre className="text-sm font-mono whitespace-pre-wrap wrap-break-word text-slate-300">
               {agent.systemPrompt}
             </pre>
           </div>

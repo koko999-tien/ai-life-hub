@@ -261,7 +261,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
       aria-label="Tìm kiếm nhanh"
     >
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -278,7 +278,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
               value={query}
               onChange={handleInputChange}
               placeholder="Tìm kỹ năng, câu lệnh mẫu, trợ lý AI, tài nguyên... (⌘K để mở)"
-              className="w-full pl-12 pr-28 py-4 text-base sm:text-lg bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 dark:text-white placeholder-gray-500"
+              className="w-full pl-12 pr-28 py-4 text-base sm:text-lg bg-transparent border-0 focus:outline-hidden focus:ring-0 text-gray-900 dark:text-white placeholder-gray-500"
               autoComplete="off"
               spellCheck={false}
               aria-label="Tìm kiếm"
@@ -363,7 +363,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                         aria-selected={false}
                       >
                         <span>{suggestion.label}</span>
-                        <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                        <ChevronRight className="h-4 w-4 text-gray-400 shrink-0" aria-hidden="true" />
                       </button>
                     ))}
                   </div>
@@ -416,7 +416,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                             >
                               {ResultIcon && (
                                 <ResultIcon
-                                  className={cn('h-5 w-5 flex-shrink-0 mt-0.5', TYPE_COLORS[result.type as keyof typeof TYPE_COLORS])}
+                                  className={cn('h-5 w-5 shrink-0 mt-0.5', TYPE_COLORS[result.type as keyof typeof TYPE_COLORS])}
                                   aria-hidden="true"
                                 />
                               )}
@@ -443,7 +443,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                                 )}
                               </div>
                               {isSelected && (
-                                <ChevronRight className="h-4 w-4 text-brand-500 flex-shrink-0" aria-hidden="true" />
+                                <ChevronRight className="h-4 w-4 text-brand-500 shrink-0" aria-hidden="true" />
                               )}
                             </button>
                           );

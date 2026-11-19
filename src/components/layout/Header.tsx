@@ -23,6 +23,7 @@ import {
   Play,
   Briefcase,
   User,
+  LayoutDashboard,
 } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPaletteTrigger } from './CommandPaletteTrigger'
@@ -198,15 +199,15 @@ export function Header() {
             {/* Logo (Trang chủ) */}
             <Link
               href="/"
-              className="group flex items-center gap-2.5 text-text font-display font-bold text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg shrink-0 transition-transform active:scale-95"
+              className="group flex items-center gap-2.5 text-text font-display font-bold text-xl focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent rounded-lg shrink-0 transition-transform active:scale-95"
               aria-label="Trang chủ AI Life Hub"
             >
-              <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20 group-hover:scale-105 transition-all">
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-linear-to-br from-brand-500 via-accent to-accent-600 text-white shadow-sm shadow-accent/25 ring-1 ring-white/20 group-hover:scale-105 transition-all">
                 <Sparkles className="w-4 h-4 text-white" />
                 <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="flex items-center tracking-tight">
-                <span className="bg-gradient-to-r from-accent to-accent-600 bg-clip-text text-transparent font-extrabold">AI</span>
+                <span className="bg-linear-to-r from-accent to-accent-600 bg-clip-text text-transparent font-extrabold">AI</span>
                 <span className="text-text ml-1 font-bold">Life Hub</span>
               </div>
             </Link>
@@ -391,6 +392,20 @@ export function Header() {
                 )
               })}
 
+              {/* Tổng quan (Dashboard) */}
+              <Link
+                href="/dashboard"
+                className={clsx(
+                  'flex items-center gap-1.5 px-2.5 py-2 text-sm font-medium rounded-lg transition-all',
+                  pathname === '/dashboard'
+                    ? 'text-accent bg-accent/10 font-semibold'
+                    : 'text-text-muted hover:text-text hover:bg-hover'
+                )}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span>Tổng quan</span>
+              </Link>
+
               {/* Tài khoản (bao gồm đã lưu & lịch sử Workspace) */}
               <Link
                 href="/account"
@@ -460,6 +475,20 @@ export function Header() {
               >
                 <Play className="w-4 h-4" />
                 <span>Mở AI Workspace</span>
+              </Link>
+
+              <Link
+                href="/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className={clsx(
+                  'flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border text-sm font-semibold transition-all',
+                  pathname === '/dashboard'
+                    ? 'border-accent/40 bg-accent/10 text-accent'
+                    : 'border-border bg-bg text-text'
+                )}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span>Tổng quan</span>
               </Link>
 
               {navGroups.map((group) => (

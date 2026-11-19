@@ -50,7 +50,7 @@ export interface AIResponse {
 export type AIStreamChunk =
   | { type: 'text'; delta: string }
   | { type: 'usage'; usage: Partial<UsageMetrics> }
-  | { type: 'done'; latencyMs: number; usage: UsageMetrics; modelLabel: string; providerLabel: string }
+  | { type: 'done'; latencyMs: number; usage: UsageMetrics; modelId: string; modelLabel: string; providerLabel: string }
   | { type: 'error'; code: string; message: string };
 
 export interface AIProvider {

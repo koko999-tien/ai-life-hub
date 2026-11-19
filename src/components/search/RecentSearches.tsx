@@ -46,7 +46,7 @@ export function RecentSearches({ searches, onSearch, onClear, className = '' }: 
               tabIndex={-1}
             >
               <svg
-                className="w-4 h-4 text-gray-400 flex-shrink-0"
+                className="w-4 h-4 text-gray-400 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

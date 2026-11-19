@@ -30,7 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
+    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
 
     const variantStyles = {
       primary: 'bg-accent text-white shadow-sm hover:bg-accent-hover hover:shadow-glow-accent',
@@ -72,9 +72,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           </svg>
         ) : (
           <>
-            {iconLeft && !loading && <span className="flex-shrink-0" aria-hidden="true">{iconLeft}</span>}
+            {iconLeft && !loading && <span className="shrink-0" aria-hidden="true">{iconLeft}</span>}
             {children}
-            {iconRight && !loading && <span className="flex-shrink-0" aria-hidden="true">{iconRight}</span>}
+            {iconRight && !loading && <span className="shrink-0" aria-hidden="true">{iconRight}</span>}
           </>
         )}
       </button>

@@ -3,7 +3,7 @@
 import { SearchDocument } from '@/types';
 import { normalizeVietnamese } from '@/lib/utils';
 
-export const SEARCH_INDEX_VERSION = '1.0.0';
+export const SEARCH_INDEX_VERSION = '1.1.0';
 
 export const SEARCH_BOOSTS = {
   tool: 2.5,
@@ -32,6 +32,7 @@ export interface SearchResult {
   description: string;
   categoryId?: string;
   skillId?: string;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
   tags: string[];
   url: string;
   score: number;
@@ -47,14 +48,29 @@ export async function loadSearchIndex(): Promise<SearchDocument[]> {
     return indexCache.documents;
   }
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10_000);
+
   try {
-    const response = await fetch('/search-index.json');
+    const response = await fetch('/search-index.json', { signal: controller.signal });
+    if (!response.ok) {
+      throw new Error(`Không thể tải chỉ mục tìm kiếm (HTTP ${response.status})`);
+    }
     const data = await response.json();
+    if (data.version && data.version !== SEARCH_INDEX_VERSION) {
+      // Index cũ vẫn dùng được (shape document tương thích ngược) nhưng
+      // có thể thiếu trường mới (difficulty, titleNorm...): báo để rebuild.
+      console.warn(
+        `Phiên bản chỉ mục tìm kiếm không khớp: ${data.version} (kỳ vọng ${SEARCH_INDEX_VERSION}). Hãy chạy lại "npm run search:index".`
+      );
+    }
     indexCache.documents = data.documents || [];
     indexCache.loaded = true;
     return indexCache.documents;
   } catch {
     return [];
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -79,8 +95,10 @@ export async function searchDocuments(
   for (const doc of documents) {
     const title = doc.title.toLowerCase();
     const content = doc.content.toLowerCase();
-    const titleNorm = normalizeVietnamese(doc.title);
-    const contentNorm = normalizeVietnamese(doc.content);
+    // Dùng trường đã tiền tính lúc build nếu có, fallback tự normalize
+    // cho index cũ chưa có titleNorm/contentNorm.
+    const titleNorm = doc.titleNorm ?? normalizeVietnamese(doc.title);
+    const contentNorm = doc.contentNorm ?? normalizeVietnamese(doc.content);
     const tagsStr = (doc.tags || []).map((t) => t.toLowerCase());
 
     let score = 0;
@@ -125,10 +143,11 @@ export async function searchDocuments(
   const filtered = results.filter((r) => {
     if (type && r.type !== type) return false;
     if (categoryId && r.categoryId !== categoryId) return false;
-    if (difficulty) {
-      // Difficulty filtering is handled via metadata
-      // Simplified here
-    }
+    // Lọc độ khó thật theo trường difficulty của document (đã chuẩn hóa
+    // về beginner | intermediate | advanced lúc build index).
+    // Document không có difficulty (tool/category, hoặc index cũ chưa
+    // rebuild) sẽ bị loại khi người dùng chọn lọc độ khó.
+    if (difficulty && r.difficulty !== difficulty) return false;
     if (tags && tags.length > 0) {
       const hasTag = tags.some((t) => r.tags.includes(t));
       if (!hasTag) return false;
@@ -153,7 +172,10 @@ export function highlightMatches(text: string, query: string): string {
 
   if (terms.length === 0) return text;
 
-  const regex = new RegExp(`(${terms.join('|')})`, 'gi');
+  // Không dùng flag `g`: regex có flag g giữ state `lastIndex` giữa các
+  // lần .test() nên cùng một part có thể lúc match lúc không. Chỉ cần `i`
+  // (không phân biệt hoa/thường); split vẫn giữ lại nhóm bắt được.
+  const regex = new RegExp(`(${terms.join('|')})`, 'i');
   const parts = text.split(regex);
   const highlighted = parts.map((part, i) =>
     regex.test(part) ? `[HIGHLIGHT]${part}[/HIGHLIGHT]` : part

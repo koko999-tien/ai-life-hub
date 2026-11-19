@@ -305,7 +305,7 @@ Yêu cầu: ${rawPrompt}
             value={rawPrompt}
             onChange={(e) => setRawPrompt(e.target.value)}
             placeholder="Nhập yêu cầu ngắn gọn của bạn, ví dụ: 'viết bài đăng giới thiệu sản phẩm mới'..."
-            className="w-full px-4 py-3 rounded-2xl border border-border bg-bg text-sm text-text focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent leading-relaxed resize-y"
+            className="w-full px-4 py-3 rounded-2xl border border-border bg-bg text-sm text-text focus:outline-hidden focus:border-accent focus:ring-1 focus:ring-accent leading-relaxed resize-y"
           />
 
           <div>

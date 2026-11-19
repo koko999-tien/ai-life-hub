@@ -22,6 +22,22 @@ import {
   CATEGORIES,
   CATEGORY_MAP,
 } from '@/lib/constants';
+import { normalizeVietnamese } from '@/lib/utils';
+
+// Chuẩn hóa độ khó về cùng thang beginner | intermediate | advanced mà UI
+// lọc tìm kiếm dùng. Skill/resource dùng sẵn thang này; prompt trong MDX
+// dùng thang easy | medium | advanced nên cần map easy->beginner,
+// medium->intermediate (advanced giữ nguyên).
+function normalizeDifficulty(
+  value: string | undefined
+): 'beginner' | 'intermediate' | 'advanced' | undefined {
+  if (value === 'easy') return 'beginner';
+  if (value === 'medium') return 'intermediate';
+  if (value === 'beginner' || value === 'intermediate' || value === 'advanced') {
+    return value;
+  }
+  return undefined;
+}
 
 interface SkillFrontMatter {
   id: string;
@@ -253,6 +269,8 @@ function buildSearchDocuments(
       tags: t.tags,
       url: t.url,
       boost: t.boost,
+      titleNorm: normalizeVietnamese(t.title),
+      contentNorm: normalizeVietnamese(t.content),
     });
   });
 
@@ -266,24 +284,31 @@ function buildSearchDocuments(
       tags: [cat.id],
       url: `/category/${cat.id}`,
       boost: 10,
+      titleNorm: normalizeVietnamese(cat.name),
+      contentNorm: normalizeVietnamese(cat.description),
     });
   });
 
   // Add skills
   skills.forEach(({ skill, slug }) => {
     const skillSlug = path.basename(slug);
+    const skillDifficulty = normalizeDifficulty(skill.difficulty);
 
     // Main skill document
+    const skillContent = `${skill.description || ''} ${skill.whenToUse?.join(' ') || ''} ${skill.tags?.join(' ') || ''}`;
     documents.push({
       id: `skill:${skill.id}`,
       type: 'skill',
       title: skill.name,
-      content: `${skill.description || ''} ${skill.whenToUse?.join(' ') || ''} ${skill.tags?.join(' ') || ''}`,
+      content: skillContent,
       categoryId: skill.categoryId,
       skillId: skill.id,
       tags: skill.tags || [],
       url: `/skill/${skillSlug}`,
       boost: 8,
+      difficulty: skillDifficulty,
+      titleNorm: normalizeVietnamese(skill.name),
+      contentNorm: normalizeVietnamese(skillContent),
     });
 
     // Prompts as separate documents
@@ -291,17 +316,21 @@ function buildSearchDocuments(
       const variableLabels = prompt.variables?.map((v) => v.label).join(' ') || '';
       const useCases = prompt.useCases?.join(' ') || '';
       const exampleOutputs = prompt.examples?.map((ex) => ex.output).join(' ') || '';
+      const promptContent = `${prompt.description || ''} ${prompt.template || ''} ${variableLabels} ${useCases} ${exampleOutputs}`;
 
       documents.push({
         id: `prompt:${prompt.id}`,
         type: 'prompt',
         title: prompt.name,
-        content: `${prompt.description || ''} ${prompt.template || ''} ${variableLabels} ${useCases} ${exampleOutputs}`,
+        content: promptContent,
         categoryId: skill.categoryId,
         skillId: skill.id,
         tags: [...(skill.tags || []), ...(((prompt as any).tags as string[]) || [])],
         url: `/skill/${skillSlug}#prompt-${prompt.id}`,
         boost: 6,
+        difficulty: normalizeDifficulty(prompt.difficulty) ?? skillDifficulty,
+        titleNorm: normalizeVietnamese(prompt.name),
+        contentNorm: normalizeVietnamese(promptContent),
       });
     });
 
@@ -309,33 +338,41 @@ function buildSearchDocuments(
     if (skill.agentTemplate) {
       const tools = skill.agentTemplate.tools?.join(' ') || '';
       const examples = skill.agentTemplate.exampleConversations?.map((c) => c.content).join(' ') || '';
+      const agentContent = `${skill.agentTemplate.description || ''} ${skill.agentTemplate.systemPrompt || ''} ${tools} ${examples}`;
 
       documents.push({
         id: `agent:${skill.id}`,
         type: 'agent',
         title: skill.agentTemplate.name,
-        content: `${skill.agentTemplate.description || ''} ${skill.agentTemplate.systemPrompt || ''} ${tools} ${examples}`,
+        content: agentContent,
         categoryId: skill.categoryId,
         skillId: skill.id,
         tags: skill.tags || [],
         url: `/skill/${skillSlug}#agent`,
         boost: 5,
+        difficulty: skillDifficulty,
+        titleNorm: normalizeVietnamese(skill.agentTemplate.name),
+        contentNorm: normalizeVietnamese(agentContent),
       });
     }
   });
 
   // Add resources
   resources.forEach(({ resource, slug }) => {
+    const resourceContent = `${resource.description || ''} ${resource.source || ''} ${resource.tags?.join(' ') || ''}`;
     documents.push({
       id: `resource:${resource.id}`,
       type: 'resource',
       title: resource.title,
-      content: `${resource.description || ''} ${resource.source || ''} ${resource.tags?.join(' ') || ''}`,
+      content: resourceContent,
       categoryId: resource.categoryId,
       skillId: resource.skillId,
       tags: resource.tags || [],
       url: resource.url,
       boost: 4,
+      difficulty: normalizeDifficulty(resource.difficulty),
+      titleNorm: normalizeVietnamese(resource.title),
+      contentNorm: normalizeVietnamese(resourceContent),
       resourceType: resource.type,
       description: resource.description,
     } as any);
@@ -397,7 +434,7 @@ async function main(): Promise<void> {
 
   // Create search index object
   const searchIndex: SearchIndex = {
-    version: '1.0.0',
+    version: '1.1.0',
     generatedAt: new Date().toISOString(),
     documents,
     index: index.toJSON() as SearchIndex['index'],

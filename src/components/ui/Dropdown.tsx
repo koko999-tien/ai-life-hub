@@ -108,14 +108,14 @@ export function Dropdown({
             disabled={item.disabled}
             className={cn(
               'w-full px-3 py-2 text-left text-sm transition-colors rounded-lg',
-              'focus:outline-none focus:bg-bg-hover',
+              'focus:outline-hidden focus:bg-bg-hover',
               item.disabled ? 'opacity-50 cursor-not-allowed text-text-subtle' : 'text-text hover:bg-bg-hover',
               item.danger && 'text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20'
             )}
             aria-disabled={item.disabled}
           >
             <div className="flex items-center gap-2">
-              {item.icon && <span className="h-4 w-4 flex-shrink-0" aria-hidden="true">{item.icon}</span>}
+              {item.icon && <span className="h-4 w-4 shrink-0" aria-hidden="true">{item.icon}</span>}
               <span className="flex-1">{item.label}</span>
             </div>
           </button>
@@ -144,7 +144,7 @@ export function Dropdown({
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-controls={`${id}-dropdown`}
-        className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
+        className="flex items-center gap-1 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
       >
         {trigger}
         <ChevronDown className={cn('h-4 w-4 text-text-muted transition-transform duration-200', isOpen && 'rotate-180')} aria-hidden="true" />

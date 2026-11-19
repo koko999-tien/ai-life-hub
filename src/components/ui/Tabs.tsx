@@ -80,7 +80,7 @@ export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         onClick={() => !disabled && onChange(value)}
         className={cn(
           'relative flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-200',
-          'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2',
+          'focus:outline-hidden focus:ring-2 focus:ring-brand-500 focus:ring-offset-2',
           isActive
             ? 'bg-white text-brand-700 shadow-sm dark:bg-gray-800 dark:text-brand-400'
             : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white',

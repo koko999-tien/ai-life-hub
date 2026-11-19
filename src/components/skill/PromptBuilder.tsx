@@ -232,9 +232,9 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-border sticky top-0 bg-bg-elevated/95 backdrop-blur z-10">
+        <div className="flex items-center justify-between p-5 border-b border-border sticky top-0 bg-bg-elevated/95 backdrop-blur-sm z-10">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent shrink-0">
               <FileText className="w-5 h-5" aria-hidden="true" />
             </div>
             <div className="min-w-0">
@@ -245,7 +245,7 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-xl bg-bg border border-border text-text-muted hover:text-text transition-colors flex-shrink-0"
+            className="p-2 rounded-xl bg-bg border border-border text-text-muted hover:text-text transition-colors shrink-0"
             aria-label="Đóng bảng tùy chỉnh câu lệnh"
           >
             <X className="w-5 h-5" aria-hidden="true" />
@@ -271,7 +271,7 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
                     id="prompt-builder-example-select"
                     value={selectedExample !== null ? String(selectedExample) : ''}
                     onChange={(e) => setSelectedExample(e.target.value ? Number(e.target.value) : null)}
-                    className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-text text-sm focus:border-accent focus:outline-none transition-colors"
+                    className="w-full px-3 py-2 rounded-xl border border-border bg-bg-surface text-text text-sm focus:border-accent focus:outline-hidden transition-colors"
                     aria-label="Chọn dữ liệu mẫu"
                   >
                     <option value="">-- Chọn một ví dụ mẫu --</option>
@@ -310,7 +310,7 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
               {/* Validation Warning */}
               {missingRequired.length > 0 && (
                 <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <p className="font-semibold text-amber-300 text-xs">Còn thiếu thông tin bắt buộc</p>
                     <p className="text-xs text-amber-400/90 mt-0.5">
@@ -340,7 +340,7 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
 
                 {/* Preview Content */}
                 <div className="bg-[#05070f] rounded-2xl p-4 font-mono text-xs text-emerald-300/90 max-h-[46vh] overflow-y-auto border border-border shadow-inner leading-relaxed">
-                  <pre className="whitespace-pre-wrap break-words">
+                  <pre className="whitespace-pre-wrap wrap-break-word">
                     {generatedPrompt || 'Điền thông tin bên trái để xem câu lệnh hoàn chỉnh...'}
                   </pre>
                 </div>
@@ -453,9 +453,9 @@ export function PromptBuilder({ prompt, skillId, skillName, skillSlug, onClose }
                     >
                       <span>Tùy chọn cho lập trình viên (Xuất .md / .json)</span>
                       {showDevExport ? (
-                        <ChevronUp className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+                        <ChevronUp className="w-4 h-4 shrink-0" aria-hidden="true" />
                       ) : (
-                        <ChevronDown className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+                        <ChevronDown className="w-4 h-4 shrink-0" aria-hidden="true" />
                       )}
                     </button>
 

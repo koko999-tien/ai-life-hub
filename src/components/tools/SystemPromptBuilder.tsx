@@ -317,7 +317,7 @@ export function SystemPromptBuilder() {
               value={role}
               onChange={(e) => setRole(e.target.value)}
               rows={3}
-              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent resize-y"
+              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent resize-y"
               placeholder="Ví dụ: Bạn là Kiến trúc sư phần mềm cấp cao..."
             />
           </div>
@@ -336,7 +336,7 @@ export function SystemPromptBuilder() {
               value={objective}
               onChange={(e) => setObjective(e.target.value)}
               rows={3}
-              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent resize-y"
+              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent resize-y"
               placeholder="Mô tả nhiệm vụ cụ thể mà AI phải hoàn thành..."
             />
           </div>
@@ -355,7 +355,7 @@ export function SystemPromptBuilder() {
               type="text"
               value={tone}
               onChange={(e) => setTone(e.target.value)}
-              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent"
               placeholder="Chuyên nghiệp, ngắn gọn, phân tích sâu..."
             />
           </div>
@@ -394,7 +394,7 @@ export function SystemPromptBuilder() {
                 onChange={(e) => setNewConstraint(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAddConstraint()}
                 placeholder="Thêm ràng buộc mới (ví dụ: Không bao giờ bịa đặt số liệu)..."
-                className="flex-1 p-2.5 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                className="flex-1 p-2.5 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent"
               />
               <button
                 type="button"
@@ -420,7 +420,7 @@ export function SystemPromptBuilder() {
               value={format}
               onChange={(e) => setFormat(e.target.value)}
               rows={2}
-              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent resize-y"
+              className="w-full p-3 rounded-lg bg-bg border border-border text-text text-sm focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent resize-y"
               placeholder="Định dạng Markdown với tiêu đề rõ ràng, hoặc JSON..."
             />
           </div>
@@ -472,7 +472,7 @@ export function SystemPromptBuilder() {
                   value={newExampleUser}
                   onChange={(e) => setNewExampleUser(e.target.value)}
                   placeholder="Câu hỏi / Yêu cầu mẫu của người dùng..."
-                  className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-none"
+                  className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-hidden"
                 />
               </div>
               <div>
@@ -485,7 +485,7 @@ export function SystemPromptBuilder() {
                   onChange={(e) => setNewExampleAssistant(e.target.value)}
                   rows={2}
                   placeholder="Câu trả lời mẫu lý tưởng mà AI cần học theo..."
-                  className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-none resize-y"
+                  className="w-full p-2.5 rounded-lg bg-bg-surface border border-border text-text text-sm focus:border-accent focus:outline-hidden resize-y"
                 />
               </div>
               <button

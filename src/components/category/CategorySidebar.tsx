@@ -50,7 +50,7 @@ export function CategorySidebar({
   return (
     <aside
       className={clsx(
-        'w-full lg:w-72 flex-shrink-0',
+        'w-full lg:w-72 shrink-0',
         'space-y-6',
         className
       )}
@@ -90,7 +90,7 @@ export function CategorySidebar({
                   'bg-white dark:bg-slate-800',
                   'border border-slate-300 dark:border-slate-600',
                   'rounded-lg text-sm text-slate-900 dark:text-white',
-                  'focus:outline-none focus:ring-2 focus:ring-offset-0',
+                  'focus:outline-hidden focus:ring-2 focus:ring-offset-0',
                   'focus:border-transparent',
                   'transition-colors duration-150'
                 )}
@@ -143,7 +143,7 @@ export function CategorySidebar({
                   onChange={() => onSortChange?.(option.value)}
                   className={clsx(
                     'w-4 h-4 accent-current',
-                    'focus:outline-none focus:ring-2 focus:ring-offset-2'
+                    'focus:outline-hidden focus:ring-2 focus:ring-offset-2'
                   )}
                   style={{
                     accentColor: currentCategory.color,
@@ -193,14 +193,14 @@ export function CategorySidebar({
                     'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg',
                     'text-left transition-all duration-150',
                     'hover:bg-slate-100 dark:hover:bg-slate-800/50',
-                    'focus:outline-none focus:ring-2 focus:ring-offset-0'
+                    'focus:outline-hidden focus:ring-2 focus:ring-offset-0'
                   )}
                   style={{
                     '--focus-ring-color': category.color,
                   } as React.CSSProperties}
                 >
                   <div
-                    className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
+                    className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white"
                     style={{ backgroundColor: category.color }}
                     aria-hidden="true"
                   >
