@@ -32,6 +32,7 @@ import { clsx } from 'clsx'
 export function CustomThemeStudio() {
   const [isOpen, setIsOpen] = useState(false)
   const [bootHudOpen, setBootHudOpen] = useState(false)
+  const [presetFilter, setPresetFilter] = useState<'all' | 'live' | 'static'>('all')
   const [state, setState] = useState<CustomThemeState>(DEFAULT_CUSTOM_THEME_STATE)
   const [uploadNotice, setUploadNotice] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -226,19 +227,50 @@ export function CustomThemeStudio() {
 
               {/* 1. Preset Grid */}
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <h3 className="text-sm font-bold text-text flex items-center gap-2">
                     <Palette className="w-4 h-4 text-accent" />
-                    <span>1. Chọn Chủ Đề Nghệ Thuật (5 Phong Cách)</span>
+                    <span>1. Chọn Chủ Đề Nghệ Thuật ({CUSTOM_THEME_PRESETS.length} Phong Cách)</span>
                   </h3>
-                  <span className="text-xs text-text-muted">
-                    Đang dùng: <strong className="text-accent">{activePreset.name}</strong>
-                  </span>
+                  <div className="flex items-center gap-1.5 text-xs">
+                    {(
+                      [
+                        { id: 'all', label: `Tất cả (${CUSTOM_THEME_PRESETS.length})` },
+                        {
+                          id: 'live',
+                          label: `Ảnh động Live MP4 (${CUSTOM_THEME_PRESETS.filter((p) => Boolean(p.wallpaperVideoUrl)).length})`,
+                        },
+                        {
+                          id: 'static',
+                          label: `Tranh 2K & Tối giản (${CUSTOM_THEME_PRESETS.filter((p) => !p.wallpaperVideoUrl).length})`,
+                        },
+                      ] as const
+                    ).map((tab) => (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => setPresetFilter(tab.id)}
+                        className={clsx(
+                          'px-2.5 py-1 rounded-lg border font-semibold transition-all',
+                          presetFilter === tab.id
+                            ? 'border-accent bg-accent/15 text-accent'
+                            : 'border-border bg-bg/50 text-text-muted hover:text-text'
+                        )}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {CUSTOM_THEME_PRESETS.map((preset) => {
+                  {CUSTOM_THEME_PRESETS.filter((preset) => {
+                    if (presetFilter === 'live') return Boolean(preset.wallpaperVideoUrl)
+                    if (presetFilter === 'static') return !preset.wallpaperVideoUrl
+                    return true
+                  }).map((preset) => {
                     const isSelected = state.presetId === preset.id
+                    const isLiveVideo = Boolean(preset.wallpaperVideoUrl)
                     return (
                       <button
                         key={preset.id}
@@ -246,43 +278,70 @@ export function CustomThemeStudio() {
                         onClick={() => handleSelectPreset(preset.id)}
                         data-preset-option={preset.id}
                         className={clsx(
-                          'group relative flex flex-col justify-between text-left p-4 rounded-xl border transition-all overflow-hidden',
+                          'group relative flex flex-col justify-between text-left rounded-xl border transition-all overflow-hidden',
                           isSelected
                             ? 'border-accent bg-accent/10 shadow-md ring-1 ring-accent'
                             : 'border-border bg-bg/60 hover:border-accent/50 hover:bg-hover'
                         )}
                       >
-                        {/* Thumbnail / Swatch Bar */}
-                        <div className="flex items-center justify-between gap-2 mb-2.5">
-                          <span
-                            className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md border"
-                            style={{
-                              backgroundColor: `${preset.accentHex}18`,
-                              borderColor: `${preset.accentHex}55`,
-                              color: preset.accentHex,
-                            }}
-                          >
-                            {preset.badge}
-                          </span>
-                          <div className="flex items-center gap-1">
-                            {preset.swatches.map((hex, i) => (
-                              <span
-                                key={i}
-                                className="w-3.5 h-3.5 rounded-full border border-white/25"
-                                style={{ backgroundColor: hex }}
-                              />
-                            ))}
+                        {/* Preview Artwork Strip */}
+                        <div className="relative h-20 w-full overflow-hidden bg-zinc-950 border-b border-border/50">
+                          {preset.wallpaperUrl ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={preset.wallpaperUrl}
+                              alt=""
+                              loading="lazy"
+                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-85"
+                            />
+                          ) : (
+                            <div
+                              className="w-full h-full"
+                              style={{
+                                background:
+                                  preset.pureBgGradient ||
+                                  `linear-gradient(135deg, ${preset.swatches[2]} 0%, ${preset.swatches[0]}44 100%)`,
+                              }}
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                          <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2">
+                            <span
+                              className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md border backdrop-blur-sm"
+                              style={{
+                                backgroundColor: 'rgba(10, 12, 22, 0.72)',
+                                borderColor: `${preset.accentHex}88`,
+                                color: preset.accentHex,
+                              }}
+                            >
+                              {isLiveVideo && (
+                                <span
+                                  className="w-1.5 h-1.5 rounded-full animate-pulse"
+                                  style={{ backgroundColor: preset.accentHex }}
+                                />
+                              )}
+                              {preset.badge}
+                            </span>
+                            <div className="flex items-center gap-1">
+                              {preset.swatches.map((hex, i) => (
+                                <span
+                                  key={i}
+                                  className="w-3 h-3 rounded-full border border-white/30"
+                                  style={{ backgroundColor: hex }}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
 
-                        <div>
+                        <div className="p-3.5">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-sm font-bold text-text group-hover:text-accent transition-colors">
+                            <span className="text-xs sm:text-sm font-bold text-text group-hover:text-accent transition-colors line-clamp-1">
                               {preset.name}
                             </span>
                             {isSelected && <Check className="w-4 h-4 text-accent shrink-0" />}
                           </div>
-                          <p className="mt-1 text-xs text-text-muted line-clamp-2">
+                          <p className="mt-1 text-[11px] text-text-muted line-clamp-2">
                             {preset.description}
                           </p>
                         </div>
@@ -351,7 +410,7 @@ export function CustomThemeStudio() {
                       className="w-full accent-amber-500 cursor-pointer"
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                    <div className="grid grid-cols-2 gap-2 pt-1">
                       <label className="flex items-center gap-2 text-xs text-text cursor-pointer">
                         <input
                           type="checkbox"
@@ -360,6 +419,15 @@ export function CustomThemeStudio() {
                           className="rounded accent-amber-500"
                         />
                         <span>Hiện ảnh nền 2K</span>
+                      </label>
+                      <label className="flex items-center gap-2 text-xs text-text cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={state.liveVideoEnabled}
+                          onChange={(e) => updateState({ liveVideoEnabled: e.target.checked })}
+                          className="rounded accent-amber-500"
+                        />
+                        <span>Phát nền động (Video MP4)</span>
                       </label>
                       <label className="flex items-center gap-2 text-xs text-text cursor-pointer">
                         <input

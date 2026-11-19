@@ -62,41 +62,38 @@ export function LiveThemeBackdrop() {
     root.style.setProperty('--theme-border-color', preset.borderColor)
   }, [])
 
-  const triggerSketchReveal = useCallback(
-    (targetState: CustomThemeState) => {
-      const canvas = canvasRef.current
-      if (!canvas) return
-      cancelSketchRef.current?.()
+  const triggerSketchReveal = useCallback((targetState: CustomThemeState) => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    cancelSketchRef.current?.()
 
-      const preset = getPresetById(targetState.presetId)
-      const activeImgSrc =
-        targetState.customWallpaperDataUrl || (targetState.wallpaperEnabled ? preset.wallpaperUrl : null)
+    const preset = getPresetById(targetState.presetId)
+    const activeImgSrc =
+      targetState.customWallpaperDataUrl || (targetState.wallpaperEnabled ? preset.wallpaperUrl : null)
 
-      let strokes: SketchStroke[] = []
-      if (activeImgSrc && strokesCacheRef.current[activeImgSrc]) {
-        strokes = strokesCacheRef.current[activeImgSrc]
-      } else if (
-        activeImgSrc &&
-        imgRef.current &&
-        imgRef.current.complete &&
-        imgRef.current.naturalWidth > 0
-      ) {
-        strokes = extractStrokesFromImage(imgRef.current)
-        strokesCacheRef.current[activeImgSrc] = strokes
-      } else {
-        strokes = buildProceduralStrokes()
-      }
+    let strokes: SketchStroke[] = []
+    if (activeImgSrc && strokesCacheRef.current[activeImgSrc]) {
+      strokes = strokesCacheRef.current[activeImgSrc]
+    } else if (
+      activeImgSrc &&
+      imgRef.current &&
+      imgRef.current.complete &&
+      imgRef.current.naturalWidth > 0
+    ) {
+      strokes = extractStrokesFromImage(imgRef.current)
+      strokesCacheRef.current[activeImgSrc] = strokes
+    } else {
+      strokes = buildProceduralStrokes()
+    }
 
-      cancelSketchRef.current = runSketchBloomReveal({
-        canvas,
-        strokes,
-        accentHex: preset.accentHex,
-        secondaryHex: preset.secondaryHex,
-        overlayRgb: preset.overlayRgb,
-      })
-    },
-    []
-  )
+    cancelSketchRef.current = runSketchBloomReveal({
+      canvas,
+      strokes,
+      accentHex: preset.accentHex,
+      secondaryHex: preset.secondaryHex,
+      overlayRgb: preset.overlayRgb,
+    })
+  }, [])
 
   useEffect(() => {
     const initial = loadCustomThemeState()
@@ -135,19 +132,23 @@ export function LiveThemeBackdrop() {
     state.presetId !== 'default' || Boolean(state.customWallpaperDataUrl)
   const activeWallpaperUrl =
     state.customWallpaperDataUrl || (state.wallpaperEnabled ? preset.wallpaperUrl : null)
+  const activeVideoUrl =
+    !state.customWallpaperDataUrl && state.wallpaperEnabled && state.liveVideoEnabled
+      ? preset.wallpaperVideoUrl
+      : null
   const isOrnament = resolveEffectiveOrnamentMode(state, preset)
   const scrimOpacity = Math.min(0.95, Math.max(0.3, state.dimming / 100))
 
   return (
     <>
-      {/* Fixed Zero-Jank Ambient Wallpaper & Scrim Layer */}
+      {/* Fixed Zero-Jank Ambient Wallpaper / Live MP4 Video & Scrim Layer */}
       {isCustomActive && (
         <div
           id="hub-live-bg-layer"
           aria-hidden="true"
           className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
         >
-          {/* Wallpaper Image or Pure CSS Gradient */}
+          {/* Poster Image Layer (also feeds Sketch Reveal contour extractor) */}
           {activeWallpaperUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -156,8 +157,14 @@ export function LiveThemeBackdrop() {
               alt=""
               crossOrigin="anonymous"
               onLoad={() => {
-                if (imgRef.current && activeWallpaperUrl && !strokesCacheRef.current[activeWallpaperUrl]) {
-                  strokesCacheRef.current[activeWallpaperUrl] = extractStrokesFromImage(imgRef.current)
+                if (
+                  imgRef.current &&
+                  activeWallpaperUrl &&
+                  !strokesCacheRef.current[activeWallpaperUrl]
+                ) {
+                  strokesCacheRef.current[activeWallpaperUrl] = extractStrokesFromImage(
+                    imgRef.current
+                  )
                 }
               }}
               className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500"
@@ -170,6 +177,21 @@ export function LiveThemeBackdrop() {
                   preset.pureBgGradient ||
                   'radial-gradient(ellipse at 20% 0%, rgba(234, 179, 8, 0.2) 0%, transparent 60%), linear-gradient(135deg, #07090e 0%, #0d1220 100%)',
               }}
+            />
+          )}
+
+          {/* Live Animated MP4 Video Wallpaper Layer */}
+          {activeVideoUrl && (
+            <video
+              key={activeVideoUrl}
+              src={activeVideoUrl}
+              poster={activeWallpaperUrl || undefined}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           )}
 
@@ -198,7 +220,6 @@ export function LiveThemeBackdrop() {
           aria-hidden="true"
           className="fixed inset-0 pointer-events-none z-[35] overflow-hidden select-none hidden sm:block"
         >
-          {/* Double Gold Vignette Border */}
           <div
             className="absolute inset-3 rounded-2xl pointer-events-none"
             style={{
@@ -206,38 +227,34 @@ export function LiveThemeBackdrop() {
               boxShadow: `inset 0 0 0 3px rgba(${preset.overlayRgb}, 0.35), inset 0 0 24px ${preset.glowColor}`,
             }}
           />
-          {/* Top-Left Corner SVG */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/themes/wlop_corner.svg"
+            src={preset.cornerSvgUrl}
             alt=""
             className="absolute top-3.5 left-3.5 w-14 h-14 opacity-85"
           />
-          {/* Top-Right Corner SVG */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/themes/wlop_corner.svg"
+            src={preset.cornerSvgUrl}
             alt=""
             className="absolute top-3.5 right-3.5 w-14 h-14 opacity-85 -scale-x-100"
           />
-          {/* Bottom-Left Corner SVG */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/themes/wlop_corner.svg"
+            src={preset.cornerSvgUrl}
             alt=""
             className="absolute bottom-3.5 left-3.5 w-14 h-14 opacity-85 -scale-y-100"
           />
-          {/* Bottom-Right Corner SVG */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/themes/wlop_corner.svg"
+            src={preset.cornerSvgUrl}
             alt=""
             className="absolute bottom-3.5 right-3.5 w-14 h-14 opacity-85 -scale-x-100 -scale-y-100"
           />
         </div>
       )}
 
-      {/* Sketch & Watercolor Bloom Reveal Canvas (pointer-events-none so it never blocks interactions) */}
+      {/* Sketch & Watercolor Bloom Reveal Canvas */}
       <canvas
         ref={canvasRef}
         id="hub-sketch-reveal-canvas"
