@@ -88,6 +88,19 @@
       transform: translateX(-50%);
     }
   }
+
+  /* Trôi nhẹ lên xuống cho các khối màu nền (Use Cases) — kiểu bong bóng PeachWeb. */
+  --animate-drift: drift 9s ease-in-out infinite;
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -24px, 0);
+    }
+  }
   --color-warning-100: #fef3c7;
   --color-warning-200: #fde68a;
   --color-warning-300: #fcd34d;
@@ -627,6 +640,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
+    animation: none;
+  }
+  .animate-drift {
     animation: none;
   }
 }

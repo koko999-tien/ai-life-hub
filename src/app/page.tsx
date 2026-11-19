@@ -1,14 +1,11 @@
 import { Metadata } from 'next';
 import { Hero } from '@/components/hero';
-import { MarqueeStrip } from '@/components/home/MarqueeStrip';
 import { HowItWorks } from '@/components/home/HowItWorks';
-import { AudienceSplitSection } from '@/components/home/AudienceSplitSection';
-import { CategoryGrid } from '@/components/category-grid';
-import { StatsBar } from '@/components/stats-bar';
-import { FeaturedPrompts } from '@/components/featured-prompts';
+import { WhiteCards } from '@/components/home/WhiteCards';
+import { ResultsGrid } from '@/components/home/ResultsGrid';
+import { UseCases } from '@/components/home/UseCases';
+import { MarqueeStrip } from '@/components/home/MarqueeStrip';
 import { HomeFinalCta } from '@/components/home/HomeFinalCta';
-import { NewsletterSignup } from '@/components/newsletter-signup';
-import { getFeaturedCategories } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: 'AI Life Hub — Không Gian Thực Thi Công Việc AI & Builder Lab Tiếng Việt',
@@ -26,20 +23,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function HomePage() {
-  const featuredCategories = await getFeaturedCategories();
-
+/**
+ * Trang chủ kiểu PeachWeb lần 2: vài section lớn, không phải danh sách dài.
+ * Thứ tự: Hero cuộn dài ghim màn hình → 3 bước (1 lần) → 3 thẻ nền trắng
+ * → lưới mẫu kết quả → Use Cases kính mờ so le → dải chip chạy ngang
+ * → CTA cuối trong cảnh 3D + footer (footer nằm trong layout).
+ * Các section cũ rườm rà (danh mục, thống kê đếm số, mẫu câu lệnh,
+ * bản tin) đã bỏ khỏi trang chủ — nội dung của chúng vẫn ở các trang
+ * riêng (/categories, /prompts...).
+ */
+export default function HomePage() {
   return (
     <>
       <Hero />
-      <MarqueeStrip />
       <HowItWorks />
-      <AudienceSplitSection />
-      <CategoryGrid categories={featuredCategories} variant="featured" />
-      <StatsBar />
-      <FeaturedPrompts />
+      <WhiteCards />
+      <ResultsGrid />
+      <UseCases />
+      <MarqueeStrip />
       <HomeFinalCta />
-      <NewsletterSignup />
     </>
   );
 }

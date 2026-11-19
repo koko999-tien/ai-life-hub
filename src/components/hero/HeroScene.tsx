@@ -81,6 +81,9 @@ function Centerpiece({
       const p = scrollYProgress.get();
       group.current.position.y = -p * 1.4;
       group.current.rotation.z = p * 0.25;
+      // Tiến vào cảnh: khối trung tâm phóng to dần theo cuộn trang.
+      const s = 1 + p * 0.4;
+      group.current.scale.setScalar(s);
     }
   });
 
@@ -107,6 +110,28 @@ function Centerpiece({
   );
 }
 
+/**
+ * Camera dolly-in theo cuộn trang kiểu PeachWeb: khi cuộn xuống, camera
+ * tiến từ xa vào giữa cảnh 3D. Đứng yên khi reduced-motion hoặc không có
+ * scrollYProgress.
+ */
+function CameraRig({
+  reduced,
+  scrollYProgress,
+}: {
+  reduced: boolean;
+  scrollYProgress?: MotionValue<number>;
+}) {
+  useFrame((state) => {
+    if (reduced || !scrollYProgress) return;
+    const p = scrollYProgress.get();
+    state.camera.position.z = 6 - p * 2.6;
+    state.camera.position.y = p * 0.5;
+    state.camera.lookAt(0, 0, 0);
+  });
+  return null;
+}
+
 export default function HeroScene({
   scrollYProgress,
 }: {
@@ -129,6 +154,7 @@ export default function HeroScene({
       <directionalLight position={[4, 4, 4]} intensity={1.2} />
       <pointLight position={[-4, -2, 2]} intensity={0.8} color="#ff8f7a" />
       <pointLight position={[4, -3, 1]} intensity={0.8} color="#2dd4bf" />
+      <CameraRig reduced={reduced} scrollYProgress={scrollYProgress} />
       <Centerpiece reduced={reduced} scrollYProgress={scrollYProgress} />
     </Canvas>
   );
