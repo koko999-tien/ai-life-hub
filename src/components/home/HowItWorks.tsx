@@ -37,9 +37,6 @@ export function HowItWorks() {
     >
       <div className="container mx-auto px-section-x">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold tracking-widest text-accent uppercase">
-            Cách dùng
-          </p>
           <h2
             id="cach-dung-heading"
             className="mt-2 font-display text-3xl font-bold tracking-tight text-text text-balance sm:text-4xl"
@@ -59,8 +56,8 @@ export function HowItWorks() {
               <RevealCard
                 key={step.number}
                 delay={i * 0.07}
-                shadow="inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 12px 28px -8px rgba(0, 0, 0, 0.18)"
-                className="glass-card relative rounded-3xl p-6"
+                shadow="0 1px 2px rgba(0, 0, 0, 0.06)"
+                className="relative rounded-3xl border border-border bg-bg-surface p-6"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
                   {step.number}

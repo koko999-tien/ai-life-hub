@@ -105,7 +105,6 @@ function HeroIntro() {
           className="group mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 shadow-2xs backdrop-blur-md transition-all hover:border-white/40 hover:shadow-sm"
         >
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-aqua-400 opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-aqua-400" />
         </span>
         <span className="text-xs font-medium text-white/80 transition-colors group-hover:text-white">
@@ -125,18 +124,14 @@ function HeroIntro() {
         id="hero-heading"
         className="mb-5 font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl"
       >
-        AI không chỉ để trò chuyện. <br className="hidden sm:inline" />
-        <span className="bg-linear-to-r from-peach-300 via-aqua-300 to-brand-300 bg-clip-text text-transparent">
-          Hãy dùng AI để hoàn thành công việc.
-        </span>
+        Soạn email, tóm tắt họp và phân tích tài liệu bằng AI.
       </h1>
       </Rise>
 
       <Rise delay={0.14}>
       <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-balance text-white/75 sm:text-lg">
-        Không gian làm việc AI tiếng Việt giúp người đi làm soạn email, tổng
-        hợp biên bản họp và phân tích tài liệu ngay trên trình duyệt — đi kèm
-        thư viện 80+ câu lệnh thực chiến và phòng công cụ kỹ thuật cho lập
+        AI Life Hub là nơi làm việc bằng AI tiếng Việt: chọn việc, dán nội
+        dung, bấm Tạo ngay. Kèm theo thư viện 80 câu lệnh và công cụ cho lập
         trình viên.
       </p>
       </Rise>
@@ -149,7 +144,7 @@ function HeroIntro() {
           className="btn-motion inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 hover:bg-accent-hover active:scale-[0.97]"
         >
           <Play className="h-4 w-4" />
-          <span>Bắt đầu — Soạn email đầu tiên</span>
+          <span>Soạn email đầu tiên</span>
         </Link>
       </div>
       </Rise>
@@ -159,14 +154,14 @@ function HeroIntro() {
           href="/prompts"
           className="inline-flex items-center gap-1 font-medium text-white/70 transition-colors hover:text-white"
         >
-          <span>Khám phá thư viện AI</span>
+          <span>Xem 80 câu lệnh</span>
           <ArrowRight className="h-3.5 w-3.5 text-aqua-300" />
         </Link>
         <Link
           href="/builder-lab"
           className="inline-flex items-center gap-1 font-medium text-white/70 transition-colors hover:text-white"
         >
-          <span>Builder Lab cho Kỹ thuật</span>
+          <span>Mở Builder Lab</span>
         </Link>
         <a
           href="#cach-dung"
@@ -208,7 +203,7 @@ function HeroIntro() {
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white/80 backdrop-blur-md">
           Cuộn xuống để xem
-          <ChevronDown className="h-4 w-4 animate-bounce text-aqua-300" />
+          <ChevronDown className="h-4 w-4 text-aqua-300" />
         </span>
       </div>
       </Rise>
@@ -234,9 +229,6 @@ function WorkspaceMockup() {
         <span className="mx-auto flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-white/70">
           <Lock className="h-3 w-3 text-aqua-300" />
           ai-life-hub-omega.vercel.app/workspace
-        </span>
-        <span className="hidden items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 font-mono text-[10px] font-medium text-emerald-300 sm:inline-flex">
-          Làm việc thật trên trang
         </span>
       </div>
 
@@ -436,14 +428,11 @@ export function Hero() {
         >
           <div className="max-w-4xl text-center">
             <h2 className="font-display text-5xl leading-[1.05] font-extrabold tracking-tight text-balance text-white sm:text-7xl">
-              Không cần biết{' '}
-              <span className="bg-linear-to-r from-peach-300 via-aqua-300 to-brand-300 bg-clip-text text-transparent">
-                code.
-              </span>
+              Không cần biết code.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
-              Chọn việc, dán nội dung, bấm Tạo ngay — kết quả tiếng Việt trong
-              chưa tới một phút.
+              Chọn việc, dán nội dung, bấm Tạo ngay — kết quả viết bằng tiếng
+              Việt, sao chép dùng luôn.
             </p>
           </div>
         </motion.div>
@@ -456,7 +445,7 @@ export function Hero() {
           }`}
         >
           <p className="text-center text-xs font-semibold tracking-widest text-aqua-300 uppercase">
-            Thử ngay trong trình duyệt của bạn
+            Ví dụ: làm việc trong trình duyệt
           </p>
           <WorkspaceMockup />
           <Link
@@ -464,7 +453,7 @@ export function Hero() {
             className="btn-motion inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 hover:bg-accent-hover active:scale-[0.97]"
           >
             <Play className="h-4 w-4" />
-            <span>Bắt đầu — Soạn email đầu tiên</span>
+            <span>Soạn email đầu tiên</span>
           </Link>
         </motion.div>
       </div>

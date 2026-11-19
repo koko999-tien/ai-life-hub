@@ -4,11 +4,11 @@ const CHIPS = [
   'Soạn email',
   'Tóm tắt họp',
   'Phân tích tài liệu',
-  '80+ câu lệnh tiếng Việt',
+  '80 câu lệnh tiếng Việt',
   'Không cần biết code',
   'Builder Lab cho dev',
   'Chạy ngay trên trình duyệt',
-  'Miễn phí bắt đầu',
+  'Không cần đăng ký',
 ];
 
 /**

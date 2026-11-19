@@ -8,16 +8,16 @@ import { MarqueeStrip } from '@/components/home/MarqueeStrip';
 import { HomeFinalCta } from '@/components/home/HomeFinalCta';
 
 export const metadata: Metadata = {
-  title: 'AI Life Hub — Không Gian Thực Thi Công Việc AI & Builder Lab Tiếng Việt',
+  title: 'AI Life Hub — Soạn email, tóm tắt họp và phân tích tài liệu bằng AI',
   description:
-    'Hoàn thành công việc thực tế trong AI Workspace (Email, Tóm tắt họp, Phân tích tài liệu), tra cứu 80+ câu lệnh tiếng Việt và bộ công cụ kỹ thuật xác thực cho lập trình viên.',
+    'Làm việc bằng AI tiếng Việt trong AI Workspace (Email, Tóm tắt họp, Phân tích tài liệu), tra cứu 80 câu lệnh và dùng công cụ cho lập trình viên trong Builder Lab.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'AI Life Hub — Không Gian Thực Thi Công Việc AI & Builder Lab Tiếng Việt',
+    title: 'AI Life Hub — Soạn email, tóm tắt họp và phân tích tài liệu bằng AI',
     description:
-      'AI không chỉ để trò chuyện — hãy dùng AI để hoàn thành công việc với AI Workspace, 80+ mẫu câu lệnh và Builder Lab xác thực.',
+      'Chọn việc, dán nội dung, bấm Tạo ngay. Thư viện 80 câu lệnh tiếng Việt và Builder Lab cho lập trình viên.',
     url: '/',
     type: 'website',
   },

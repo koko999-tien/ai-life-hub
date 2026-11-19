@@ -18,7 +18,6 @@ const CASES = [
     href: '/workspace',
     linkText: 'Mở AI Workspace',
     offset: 'lg:mt-0',
-    orb: 'bg-peach-400/25',
   },
   {
     icon: Terminal,
@@ -27,7 +26,6 @@ const CASES = [
     href: '/builder-lab',
     linkText: 'Vào Builder Lab',
     offset: 'lg:mt-10',
-    orb: 'bg-aqua-400/25',
   },
   {
     icon: GraduationCap,
@@ -36,22 +34,21 @@ const CASES = [
     href: '/prompts',
     linkText: 'Xem thư viện câu lệnh',
     offset: 'lg:mt-20',
-    orb: 'bg-brand-400/25',
   },
   {
     icon: Palette,
     title: 'Sáng tạo',
     desc: 'Lên ý tưởng nội dung, viết nháp bài đăng, biến một ý tưởng thành nhiều phiên bản khác nhau.',
     href: '/workspace',
-    linkText: 'Thử ngay',
+    linkText: 'Mở AI Workspace',
     offset: 'lg:mt-28',
-    orb: 'bg-peach-300/25',
   },
 ];
 
 /**
- * Use Cases kiểu PeachWeb: 4 thẻ kính mờ xếp so le theo đường chéo,
- * khối màu pastel trôi phía sau (CSS, không thêm canvas 3D để giữ trang nhẹ).
+ * Use Cases: 4 thẻ xếp so le theo đường chéo, trên nền navy phẳng.
+ * Đã bỏ các khối màu pastel trôi (trang trí thừa, không giúp đọc nội dung)
+ * và kính mờ — thẻ dùng nền đặc, viền mờ.
  */
 export function UseCases() {
   return (
@@ -59,19 +56,6 @@ export function UseCases() {
       className="relative overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
       aria-labelledby="use-cases-heading"
     >
-      {/* Khối màu pastel trôi — nền cho thẻ kính mờ */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <div className="animate-drift absolute top-10 left-[8%] h-64 w-64 rounded-full bg-peach-400/20 blur-3xl" />
-        <div
-          className="animate-drift absolute right-[10%] bottom-16 h-72 w-72 rounded-full bg-aqua-400/20 blur-3xl"
-          style={{ animationDelay: '-3s' }}
-        />
-        <div
-          className="animate-drift absolute top-1/2 left-1/2 h-56 w-56 rounded-full bg-brand-400/20 blur-3xl"
-          style={{ animationDelay: '-6s' }}
-        />
-      </div>
-
       <div className="container relative mx-auto px-section-x">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold tracking-widest text-aqua-300 uppercase">
@@ -81,7 +65,7 @@ export function UseCases() {
             id="use-cases-heading"
             className="mt-2 font-display text-3xl leading-tight font-extrabold tracking-tight text-balance text-white sm:text-5xl"
           >
-            Một nơi, nhiều cách dùng
+            Bốn nhóm người dùng
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/75">
             Dù bạn làm văn phòng, viết code, đang học hay làm nội dung — đều
@@ -97,7 +81,7 @@ export function UseCases() {
                 key={useCase.title}
                 delay={i * 0.06}
                 shadow="0 16px 40px -12px rgba(0, 0, 0, 0.35)"
-                className={`glass-dark rounded-3xl p-6 ${useCase.offset}`}
+                className={`rounded-3xl border border-white/10 bg-white/5 p-6 ${useCase.offset}`}
               >
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-aqua-300">
                   <Icon className="h-5 w-5" aria-hidden="true" />

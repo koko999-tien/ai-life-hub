@@ -75,7 +75,8 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed max-w-sm">
-              Nền tảng chia sẻ câu lệnh mẫu thực chiến, thư viện kỹ năng và bộ công cụ ứng dụng AI dành cho người đi làm &amp; cộng đồng sáng tạo Việt Nam.
+              Thư viện câu lệnh mẫu, kỹ năng và công cụ AI cho người đi làm tại
+              Việt Nam.
             </p>
             <div className="flex items-center gap-3 pt-2">
               {socialLinks.map((link) => (
@@ -195,7 +196,7 @@ export function Footer() {
               Liên hệ
             </Link>
             <span className="text-text-subtle font-medium">
-              Xây dựng bằng ❤️ vì Người đi làm &amp; Cộng đồng Thực hành AI Việt Nam
+              Xây dựng cho người đi làm tại Việt Nam
             </span>
           </div>
         </div>

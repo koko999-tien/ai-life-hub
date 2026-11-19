@@ -12,14 +12,14 @@ const CARDS = [
   },
   {
     icon: Languages,
-    title: 'Tiếng Việt thật',
-    desc: 'Câu lệnh và kết quả đều viết bằng tiếng Việt tự nhiên, đúng văn phong công sở Việt Nam — không phải bản dịch máy.',
+    title: 'Viết bằng tiếng Việt',
+    desc: 'Câu lệnh và kết quả viết bằng tiếng Việt, đúng văn phong công sở.',
     accent: 'bg-aqua-500/10 text-aqua-500',
   },
   {
     icon: Zap,
     title: 'Chạy ngay',
-    desc: 'Không cần cài đặt, không cần đăng ký. Chạy trực tiếp trên trình duyệt, kết quả có trong chưa tới một phút.',
+    desc: 'Không cần cài đặt, không cần đăng ký. Chạy trực tiếp trên trình duyệt.',
     accent: 'bg-brand-500/10 text-brand-500',
   },
 ];
@@ -36,14 +36,11 @@ export function WhiteCards() {
     >
       <div className="container mx-auto px-section-x">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold tracking-widest text-accent uppercase">
-            Vì sao chọn AI Life Hub
-          </p>
           <h2
             id="vi-sao-heading"
             className="mt-2 font-display text-3xl font-bold tracking-tight text-balance sm:text-4xl"
           >
-            Làm việc với AI, không cần học AI
+            Ba việc AI làm giúp bạn
           </h2>
         </Reveal>
 
