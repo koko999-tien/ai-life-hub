@@ -47,7 +47,7 @@ const RESULTS = [
 export function ResultsGrid() {
   return (
     <section
-      className="relative overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
+      className="relative scroll-mt-28 overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
       aria-labelledby="ket-qua-heading"
     >
       <div className="container relative mx-auto px-section-x">

@@ -23,7 +23,7 @@ export function ThemeToggle() {
     return (
       <button
         type="button"
-        className="p-2 rounded-lg bg-hover text-text-muted transition-colors duration-fast border border-transparent"
+        className="flex min-h-11 min-w-11 items-center justify-center p-2.5 rounded-lg bg-hover text-text-muted transition-colors duration-fast border border-transparent"
         aria-label="Đang tải giao diện..."
         disabled
       >
@@ -49,7 +49,7 @@ export function ThemeToggle() {
       type="button"
       onClick={cycleTheme}
       className={clsx(
-        'relative p-2 rounded-lg transition-all duration-fast',
+        'relative flex min-h-11 min-w-11 items-center justify-center p-2.5 rounded-lg transition-all duration-fast',
         'text-text-muted hover:text-text hover:bg-hover border border-transparent hover:border-border',
         'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg'
       )}

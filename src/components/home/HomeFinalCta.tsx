@@ -11,7 +11,8 @@ import { Reveal } from '@/components/motion/Reveal';
 export function HomeFinalCta() {
   return (
     <section
-      className="relative overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
+      id="bat-dau"
+      className="relative scroll-mt-28 overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
       aria-labelledby="final-cta-heading"
     >
       <div className="container relative mx-auto px-section-x">

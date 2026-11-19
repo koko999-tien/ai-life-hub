@@ -31,7 +31,7 @@ const CARDS = [
 export function WhiteCards() {
   return (
     <section
-      className="bg-white py-16 text-navy-950 sm:py-20"
+      className="scroll-mt-28 bg-white py-16 text-navy-950 sm:py-20"
       aria-labelledby="vi-sao-heading"
     >
       <div className="container mx-auto px-section-x">
