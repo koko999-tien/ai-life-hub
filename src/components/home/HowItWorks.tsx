@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'motion/react';
 import { MousePointerClick, ClipboardPaste, Sparkles } from 'lucide-react';
+import { Reveal, RevealCard } from '@/components/motion/Reveal';
 
 const STEPS = [
   {
@@ -36,7 +36,7 @@ export function HowItWorks() {
       aria-labelledby="cach-dung-heading"
     >
       <div className="container mx-auto px-section-x">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold tracking-widest text-accent uppercase">
             Cách dùng
           </p>
@@ -50,23 +50,16 @@ export function HowItWorks() {
             Không cần biết code, không cần học câu lệnh dài. Việc của bạn chỉ
             là nói rõ mình cần gì.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-3">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
-              <motion.article
+              <RevealCard
                 key={step.number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  delay: i * 0.1,
-                  type: 'spring',
-                  stiffness: 120,
-                  damping: 16,
-                }}
+                delay={i * 0.07}
+                shadow="inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 12px 28px -8px rgba(0, 0, 0, 0.18)"
                 className="glass-card relative rounded-3xl p-6"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
@@ -77,7 +70,7 @@ export function HowItWorks() {
                 <p className="mt-1.5 text-sm leading-relaxed text-text-muted">
                   {step.desc}
                 </p>
-              </motion.article>
+              </RevealCard>
             );
           })}
         </div>

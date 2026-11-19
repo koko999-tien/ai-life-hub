@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'motion/react';
 import { ArrowRight, Mail, FileCheck2, FileSearch } from 'lucide-react';
+import { Reveal, RevealCard } from '@/components/motion/Reveal';
 
 const RESULTS = [
   {
@@ -52,7 +52,7 @@ export function ResultsGrid() {
       </div>
 
       <div className="container relative mx-auto px-section-x">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold tracking-widest text-aqua-300 uppercase">
             Kết quả thật
           </p>
@@ -66,23 +66,17 @@ export function ResultsGrid() {
             Không phải câu trả lời chung chung. Đây là dạng kết quả bạn nhận
             được khi bấm Tạo ngay.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-3">
           {RESULTS.map((result, i) => {
             const Icon = result.icon;
             return (
-              <motion.article
+              <RevealCard
                 key={result.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  delay: i * 0.1,
-                  type: 'spring',
-                  stiffness: 120,
-                  damping: 16,
-                }}
+                delay={i * 0.07}
+                shadow="0 16px 40px -12px rgba(0, 0, 0, 0.35)"
+                innerClassName="flex flex-1 flex-col"
                 className="glass-dark flex flex-col rounded-3xl p-6"
               >
                 <span
@@ -107,7 +101,7 @@ export function ResultsGrid() {
                   Dùng mẫu này
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-              </motion.article>
+              </RevealCard>
             );
           })}
         </div>

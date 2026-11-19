@@ -19,47 +19,67 @@ type BubbleSpec = {
   position: [number, number, number];
   scale: number;
   color: string;
-  speed: number;
 };
 
-const BUBBLES: BubbleSpec[] = [
-  { position: [-2.7, 1.1, -1.5], scale: 0.55, color: '#ffb59e', speed: 1.6 },
-  { position: [2.8, 0.9, -1], scale: 0.7, color: '#2dd4bf', speed: 1.2 },
-  { position: [-2.2, -1.3, -0.5], scale: 0.4, color: '#a78bfa', speed: 2 },
-  { position: [2.4, -1.2, -0.8], scale: 0.5, color: '#fda4af', speed: 1.8 },
-  { position: [0.4, 1.7, -2], scale: 0.35, color: '#5eead4', speed: 2.2 },
-  { position: [-0.6, -1.8, -1.6], scale: 0.45, color: '#c4b5fd', speed: 1.4 },
+/**
+ * Layered floating (motion-design skill): mỗi bong bóng trôi theo một lớp
+ * riêng — thời lượng 4000/5500/3500ms, lệch pha 0/30%/60%, biên độ
+ * ±0.08/0.12/0.10 (đơn vị thế giới ≈ ±8-12px trên màn hình) — nên không
+ * bao giờ đồng bộ với nhau. Chuyển động hình sin: ease-in-out tự nhiên
+ * (chậm lại ở hai đầu biên độ), chỉ dùng transform.
+ */
+const FLOAT_LAYERS = [
+  { duration: 4, phase: 0, amplitude: 0.08 },
+  { duration: 5.5, phase: 0.3, amplitude: 0.12 },
+  { duration: 3.5, phase: 0.6, amplitude: 0.1 },
 ];
 
-function Bubble({ spec, reduced }: { spec: BubbleSpec; reduced: boolean }) {
-  const ref = useRef<THREE.Mesh>(null!);
+const BUBBLES: BubbleSpec[] = [
+  { position: [-2.7, 1.1, -1.5], scale: 0.55, color: '#ffb59e' },
+  { position: [2.8, 0.9, -1], scale: 0.7, color: '#2dd4bf' },
+  { position: [-2.2, -1.3, -0.5], scale: 0.4, color: '#a78bfa' },
+  { position: [2.4, -1.2, -0.8], scale: 0.5, color: '#fda4af' },
+  { position: [0.4, 1.7, -2], scale: 0.35, color: '#5eead4' },
+  { position: [-0.6, -1.8, -1.6], scale: 0.45, color: '#c4b5fd' },
+];
 
-  useFrame((_state, delta) => {
+function Bubble({
+  spec,
+  layer,
+  reduced,
+}: {
+  spec: BubbleSpec;
+  layer: (typeof FLOAT_LAYERS)[number];
+  reduced: boolean;
+}) {
+  const groupRef = useRef<THREE.Group>(null!);
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const baseY = spec.position[1];
+
+  useFrame(({ clock }, delta) => {
     if (reduced) return;
-    ref.current.rotation.y += delta * 0.25;
+    const t = clock.getElapsedTime();
+    const cycle = (t / layer.duration + layer.phase) % 1;
+    groupRef.current.position.y =
+      baseY + Math.sin(cycle * Math.PI * 2) * layer.amplitude;
+    meshRef.current.rotation.y += delta * 0.25;
   });
 
-  const mesh = (
-    <mesh ref={ref} position={spec.position} scale={spec.scale}>
-      <sphereGeometry args={[1, 48, 48]} />
-      <MeshDistortMaterial
-        color={spec.color}
-        distort={0.25}
-        speed={1.5}
-        roughness={0.12}
-        metalness={0.05}
-        transparent
-        opacity={0.75}
-      />
-    </mesh>
-  );
-
-  if (reduced) return mesh;
-
   return (
-    <Float speed={spec.speed} rotationIntensity={0.25} floatIntensity={1.4}>
-      {mesh}
-    </Float>
+    <group ref={groupRef} position={spec.position}>
+      <mesh ref={meshRef} scale={spec.scale}>
+        <sphereGeometry args={[1, 48, 48]} />
+        <MeshDistortMaterial
+          color={spec.color}
+          distort={0.25}
+          speed={1.5}
+          roughness={0.12}
+          metalness={0.05}
+          transparent
+          opacity={0.75}
+        />
+      </mesh>
+    </group>
   );
 }
 
@@ -104,7 +124,12 @@ function Centerpiece({
         </mesh>
       </Float>
       {BUBBLES.map((bubble, i) => (
-        <Bubble key={i} spec={bubble} reduced={reduced} />
+        <Bubble
+          key={i}
+          spec={bubble}
+          layer={FLOAT_LAYERS[i % FLOAT_LAYERS.length]}
+          reduced={reduced}
+        />
       ))}
     </group>
   );

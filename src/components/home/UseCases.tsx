@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'motion/react';
 import {
   ArrowRight,
   Briefcase,
@@ -9,6 +8,7 @@ import {
   GraduationCap,
   Palette,
 } from 'lucide-react';
+import { Reveal, RevealCard } from '@/components/motion/Reveal';
 
 const CASES = [
   {
@@ -73,7 +73,7 @@ export function UseCases() {
       </div>
 
       <div className="container relative mx-auto px-section-x">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold tracking-widest text-aqua-300 uppercase">
             Dùng cho ai
           </p>
@@ -87,23 +87,16 @@ export function UseCases() {
             Dù bạn làm văn phòng, viết code, đang học hay làm nội dung — đều
             có sẵn một lối vào riêng.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CASES.map((useCase, i) => {
             const Icon = useCase.icon;
             return (
-              <motion.article
+              <RevealCard
                 key={useCase.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  delay: i * 0.08,
-                  type: 'spring',
-                  stiffness: 120,
-                  damping: 16,
-                }}
+                delay={i * 0.06}
+                shadow="0 16px 40px -12px rgba(0, 0, 0, 0.35)"
                 className={`glass-dark rounded-3xl p-6 ${useCase.offset}`}
               >
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-aqua-300">
@@ -122,7 +115,7 @@ export function UseCases() {
                   {useCase.linkText}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-              </motion.article>
+              </RevealCard>
             );
           })}
         </div>

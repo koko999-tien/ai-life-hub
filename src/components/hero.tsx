@@ -17,6 +17,7 @@ import {
   Lock,
 } from 'lucide-react';
 import {
+  cubicBezier,
   motion,
   useMotionValueEvent,
   useReducedMotion,
@@ -25,11 +26,20 @@ import {
 } from 'motion/react';
 
 // Cảnh 3D chỉ tải khi vào trang chủ, không làm chậm các trang khác.
+// Trong lúc chờ, hiện skeleton shimmer trên nền gradient tĩnh đã có sẵn
+// phía sau (không để trống như chữ "Đang tải hiệu ứng 3D…" trước đây).
 const HeroScene = dynamic(() => import('@/components/hero/HeroScene'), {
   ssr: false,
   loading: () => (
-    <div className="flex h-full items-center justify-center text-sm text-white/60">
-      Đang tải hiệu ứng 3D…
+    <div
+      className="relative h-full overflow-hidden"
+      role="status"
+      aria-label="Đang tải hiệu ứng 3D"
+    >
+      <div className="absolute top-[28%] left-[18%] h-40 w-40 rounded-full bg-peach-400/20 blur-3xl" />
+      <div className="absolute right-[16%] bottom-[22%] h-48 w-48 rounded-full bg-aqua-400/20 blur-3xl" />
+      <div className="animate-shimmer shimmer-sweep absolute inset-0" />
+      <span className="sr-only">Đang tải hiệu ứng 3D…</span>
     </div>
   ),
 });
@@ -38,14 +48,48 @@ const CTA_HREF = '/workspace?workflow=email-assistant';
 
 /**
  * Hero kiểu PeachWeb lần 2: một đoạn cuộn dài GHIM màn hình (pinned,
- * scroll-driven), chia 3 giai đoạn theo tiến độ cuộn:
- *  1. Tiêu đề lớn + 1 CTA chính.
- *  2. Tiêu đề đổi ("Không cần biết code."), camera 3D tiến vào cảnh.
- *  3. Khung trình duyệt mẫu chứa Workspace hiện ra trong cảnh.
+ * scroll-driven), chia 3 giai đoạn XẾP NỐI TIẾP theo tiến độ cuộn:
+ *  1. Tiêu đề lớn + 1 CTA chính (ra hẳn ở 0.30).
+ *  2. Tiêu đề đổi ("Không cần biết code."), camera 3D tiến vào cảnh
+ *     (vào ở 0.32, ra hẳn ở 0.64).
+ *  3. Khung trình duyệt mẫu chứa Workspace hiện ra trong cảnh (vào ở 0.66).
  * Chữ trên nền 3D luôn có lớp tối mờ sau chữ; thẻ xem trước dùng nền đặc
  * (không kính mờ) để bong bóng tím không làm mờ chữ mẫu — sửa lỗi lần 1.
  * Tôn trọng prefers-reduced-motion: hiển thị bản tĩnh, không ghim cuộn.
  */
+
+const EASE_SIGNATURE: [number, number, number, number] = [0.2, 0, 0.2, 1];
+// Cùng đường cong chữ ký nhưng dạng hàm easing, để dùng cho useTransform
+// (TransformOptions.ease chỉ nhận EasingFunction).
+const EASE_SIGNATURE_FN = cubicBezier(0.2, 0, 0.2, 1);
+
+/**
+ * Một nhịp vào màn trong hero: fade + trồi 24px, 300ms, easing chữ ký.
+ * Khi reduced-motion thì hiện tĩnh. Các nhịp cách nhau 70ms, tổng
+ * stagger 420ms (<500ms theo skill); hero dẫn đầu, phần tử phụ vào sau.
+ */
+function Rise({
+  children,
+  delay,
+  className,
+}: {
+  children: React.ReactNode;
+  delay: number;
+  className?: string;
+}) {
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay, ease: EASE_SIGNATURE }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function HeroIntro() {
   const handleOpenSearch = () => {
@@ -55,10 +99,11 @@ function HeroIntro() {
   return (
     <div className="mx-auto max-w-4xl px-section-x text-center">
       {/* Top Positioning Pill */}
-      <Link
-        href="/workspace"
-        className="group mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 shadow-2xs backdrop-blur-md transition-all hover:border-white/40 hover:shadow-sm"
-      >
+      <Rise delay={0}>
+        <Link
+          href="/workspace"
+          className="group mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 shadow-2xs backdrop-blur-md transition-all hover:border-white/40 hover:shadow-sm"
+        >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-aqua-400 opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-aqua-400" />
@@ -72,8 +117,10 @@ function HeroIntro() {
         </span>
         <ArrowRight className="h-3.5 w-3.5 text-aqua-300 transition-all group-hover:translate-x-0.5" />
       </Link>
+      </Rise>
 
       {/* Tiêu đề lớn, câu ngắn */}
+      <Rise delay={0.07}>
       <h1
         id="hero-heading"
         className="mb-5 font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl"
@@ -83,24 +130,30 @@ function HeroIntro() {
           Hãy dùng AI để hoàn thành công việc.
         </span>
       </h1>
+      </Rise>
 
+      <Rise delay={0.14}>
       <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-balance text-white/75 sm:text-lg">
         Không gian làm việc AI tiếng Việt giúp người đi làm soạn email, tổng
         hợp biên bản họp và phân tích tài liệu ngay trên trình duyệt — đi kèm
         thư viện 80+ câu lệnh thực chiến và phòng công cụ kỹ thuật cho lập
         trình viên.
       </p>
+      </Rise>
 
       {/* 1 nút chính duy nhất + link phụ */}
+      <Rise delay={0.21}>
       <div className="mb-6 flex flex-wrap items-center justify-center gap-3">
         <Link
           href={CTA_HREF}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] transition-all duration-fast hover:-translate-y-0.5 hover:bg-accent-hover"
+          className="btn-motion inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 hover:bg-accent-hover active:scale-[0.97]"
         >
           <Play className="h-4 w-4" />
           <span>Bắt đầu — Soạn email đầu tiên</span>
         </Link>
       </div>
+      </Rise>
+      <Rise delay={0.28}>
       <div className="mb-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm">
         <Link
           href="/prompts"
@@ -122,8 +175,10 @@ function HeroIntro() {
           <span>Chỉ 3 bước là xong ↓</span>
         </a>
       </div>
+      </Rise>
 
       {/* Quick Search Trigger Bar */}
+      <Rise delay={0.35}>
       <div className="mx-auto mb-8 max-w-md">
         <button
           type="button"
@@ -146,14 +201,17 @@ function HeroIntro() {
           </div>
         </button>
       </div>
+      </Rise>
 
       {/* Gợi ý cuộn xuống — kiểu PeachWeb "Scroll down & dive in" */}
+      <Rise delay={0.42}>
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white/80 backdrop-blur-md">
           Cuộn xuống để xem
           <ChevronDown className="h-4 w-4 animate-bounce text-aqua-300" />
         </span>
       </div>
+      </Rise>
     </div>
   );
 }
@@ -269,36 +327,50 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const [mockActive, setMockActive] = useState(false);
 
-  // Hero ghim dài 320vh; sticky 100svh. Giai đoạn 1: 0–0.30,
-  // giai đoạn 2: 0.30–0.66, giai đoạn 3: 0.60–1.
+  // Hero ghim dài 320vh; sticky 100svh. Các giai đoạn XẾP NỐI TIẾP, không
+  // chồng nhau (sửa lỗi lần 2: hai tiêu đề chồng nhau thoáng qua khi đổi
+  // giai đoạn): giai đoạn 1 ra hẳn ở 0.30 rồi giai đoạn 2 mới vào ở 0.32;
+  // giai đoạn 2 ra hẳn ở 0.64 rồi khung mẫu mới vào ở 0.66. Mọi chuyển đổi
+  // dùng easing chữ ký (giảm tốc), cùng họ với reveal của các section.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
   const introOpacity = useTransform(
     scrollYProgress,
-    [0, 0.24, 0.34],
-    [1, 1, 0]
+    [0, 0.22, 0.3],
+    [1, 1, 0],
+    { ease: EASE_SIGNATURE_FN }
   );
-  const introY = useTransform(scrollYProgress, [0, 0.34], [0, -60]);
+  const introY = useTransform(scrollYProgress, [0, 0.3], [0, -60], {
+    ease: EASE_SIGNATURE_FN,
+  });
   const midOpacity = useTransform(
     scrollYProgress,
-    [0.3, 0.4, 0.56, 0.66],
-    [0, 1, 1, 0]
+    [0.32, 0.42, 0.56, 0.64],
+    [0, 1, 1, 0],
+    { ease: EASE_SIGNATURE_FN }
   );
   const midY = useTransform(
     scrollYProgress,
-    [0.3, 0.4, 0.56, 0.66],
-    [40, 0, 0, -40]
+    [0.32, 0.42, 0.56, 0.64],
+    [40, 0, 0, -40],
+    { ease: EASE_SIGNATURE_FN }
   );
-  const mockOpacity = useTransform(scrollYProgress, [0.6, 0.72], [0, 1]);
-  const mockY = useTransform(scrollYProgress, [0.6, 0.74], [80, 0]);
-  const mockScale = useTransform(scrollYProgress, [0.6, 0.74], [0.94, 1]);
+  const mockOpacity = useTransform(scrollYProgress, [0.66, 0.78], [0, 1], {
+    ease: EASE_SIGNATURE_FN,
+  });
+  const mockY = useTransform(scrollYProgress, [0.66, 0.78], [80, 0], {
+    ease: EASE_SIGNATURE_FN,
+  });
+  const mockScale = useTransform(scrollYProgress, [0.66, 0.78], [0.94, 1], {
+    ease: EASE_SIGNATURE_FN,
+  });
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   // Khung mẫu chỉ nhận click khi đã hiện rõ, tránh chặn link ở giai đoạn 1.
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    setMockActive(v > 0.65);
+    setMockActive(v > 0.72);
   });
 
   // Reduced motion: bản tĩnh, không ghim cuộn, không canvas 3D.
@@ -389,7 +461,7 @@ export function Hero() {
           <WorkspaceMockup />
           <Link
             href={CTA_HREF}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] transition-all duration-fast hover:-translate-y-0.5 hover:bg-accent-hover"
+            className="btn-motion inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 hover:bg-accent-hover active:scale-[0.97]"
           >
             <Play className="h-4 w-4" />
             <span>Bắt đầu — Soạn email đầu tiên</span>

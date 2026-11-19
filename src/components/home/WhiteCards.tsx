@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'motion/react';
 import { MousePointerClick, Languages, Zap } from 'lucide-react';
+import { Reveal, RevealCard } from '@/components/motion/Reveal';
 
 const CARDS = [
   {
@@ -35,7 +35,7 @@ export function WhiteCards() {
       aria-labelledby="vi-sao-heading"
     >
       <div className="container mx-auto px-section-x">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold tracking-widest text-accent uppercase">
             Vì sao chọn AI Life Hub
           </p>
@@ -45,24 +45,17 @@ export function WhiteCards() {
           >
             Làm việc với AI, không cần học AI
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-3">
           {CARDS.map((card, i) => {
             const Icon = card.icon;
             return (
-              <motion.article
+              <RevealCard
                 key={card.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  delay: i * 0.1,
-                  type: 'spring',
-                  stiffness: 120,
-                  damping: 16,
-                }}
-                className="rounded-3xl border border-navy-950/10 bg-navy-950/[0.03] p-6 shadow-sm"
+                delay={i * 0.07}
+                shadow="0 1px 2px rgba(0, 0, 0, 0.3)"
+                className="rounded-3xl border border-navy-950/10 bg-navy-950/[0.03] p-6"
               >
                 <span
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${card.accent}`}
@@ -73,7 +66,7 @@ export function WhiteCards() {
                 <p className="mt-1.5 text-sm leading-relaxed text-navy-950/70">
                   {card.desc}
                 </p>
-              </motion.article>
+              </RevealCard>
             );
           })}
         </div>

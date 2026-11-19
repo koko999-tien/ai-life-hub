@@ -30,7 +30,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium transition-all duration-150 active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
+    // Phản hồi bấm theo motion-design skill (xem btn-motion trong
+    // globals.css): hover <100ms, bấm scale 0.97 trong 150ms,
+    // nhả ra settle 300ms. Không đổi hình dạng pill hay màu.
+    const baseStyles = 'inline-flex items-center justify-center gap-2 font-medium btn-motion active:scale-[0.97] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none';
 
     const variantStyles = {
       // Nút chính kiểu PeachWeb: pill bo tròn hoàn toàn.
