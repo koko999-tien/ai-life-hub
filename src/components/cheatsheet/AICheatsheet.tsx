@@ -382,7 +382,7 @@ export function AICheatsheet() {
                   href="/tools/system-prompt-builder"
                   className="text-text-muted hover:text-accent flex items-center gap-1 font-medium transition-colors"
                 >
-                  Mở trong Xưởng Tạo Câu Lệnh Chuẩn
+                  Mở trong Tạo System Prompt cho dev
                 </Link>
                 <Link
                   href="/playground"

@@ -22,7 +22,7 @@ const WORKFLOW_FILTERS: Array<{ id: AIWorkflowId | 'all'; label: string }> = [
   { id: 'email-assistant', label: 'Trợ lý Email AI' },
   { id: 'meeting-summary', label: 'Tóm tắt Cuộc họp' },
   { id: 'document-analysis', label: 'Phân tích Tài liệu' },
-  { id: 'custom-prompt', label: 'Thực thi Câu lệnh Tùy chọn' },
+  { id: 'custom-prompt', label: 'Câu lệnh tùy chọn' },
 ];
 
 export function WorkspaceHistory() {

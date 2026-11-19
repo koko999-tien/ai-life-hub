@@ -10,20 +10,15 @@ import {
   Bookmark,
   PlusCircle,
   Sparkles,
-  Terminal,
-  Calculator,
   Sliders,
-  Scale,
   BookOpen,
   Layers,
-  FileCode,
   GraduationCap,
-  FolderGit2,
-  FileText,
   Play,
   Briefcase,
   User,
   LayoutDashboard,
+  Home,
 } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPaletteTrigger } from './CommandPaletteTrigger'
@@ -50,32 +45,17 @@ type NavGroup = {
 
 const navGroups: NavGroup[] = [
   {
-    name: 'AI Work',
+    name: 'Làm việc',
     sections: [
       {
         label: 'Dùng ngay cho mọi người',
         audience: 'everyday',
         items: [
+          { name: 'AI Workspace', href: '/workspace', desc: 'Chọn việc, dán nội dung, bấm Tạo ngay', icon: Play },
           { name: '8 Nhóm Công Việc Thực Tế', href: '/ai-work', desc: 'Chọn nhiệm vụ, xem đầu vào & kết quả nhận được', icon: Briefcase },
           { name: 'Thư viện Câu lệnh (80+)', href: '/prompts', desc: 'Câu lệnh dùng ngay & mẫu điền thông tin tương tác', icon: Sparkles },
-          { name: 'Tối Ưu Hóa Câu Lệnh', href: '/tools/prompt-optimizer', desc: 'Nâng cấp yêu cầu ngắn thành chỉ dẫn đầy đủ', icon: Sliders },
+          { name: 'Viết lại câu lệnh hay hơn', href: '/tools/prompt-optimizer', desc: 'Nâng cấp yêu cầu ngắn thành chỉ dẫn đầy đủ', icon: Sliders },
           { name: '16 Danh mục Ứng dụng', href: '/categories', desc: 'Hướng dẫn chi tiết cho công sở, tài chính & đời sống', icon: Layers },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'Builder Lab',
-    sections: [
-      {
-        label: 'Dành cho Lập trình viên & Kỹ thuật',
-        audience: 'builder',
-        items: [
-          { name: 'Tổng quan Builder Lab', href: '/builder-lab', desc: 'Trung tâm công cụ kỹ sư & bảng mã API xác thực', icon: Terminal },
-          { name: 'So Sánh Sức Mạnh AI', href: '/compare', desc: 'Đối chiếu 16 mô hình kèm trạng thái & nguồn kiểm thử', icon: Scale },
-          { name: 'Tính Chi Phí Sử Dụng AI', href: '/tools/token-calculator', desc: 'Dự toán Token sang USD & VNĐ, tiết kiệm bộ nhớ đệm', icon: Calculator },
-          { name: 'Xưởng Tạo Câu Lệnh Chuẩn', href: '/tools/system-prompt-builder', desc: 'Thiết kế System Prompt chuẩn thẻ XML & Markdown', icon: Terminal },
-          { name: '14 Mẫu Thiết Kế Trợ Lý AI', href: '/agents', desc: 'Kiến trúc trợ lý AI chuyên trách sẵn sàng tích hợp', icon: FileCode },
         ],
       },
     ],
@@ -93,23 +73,24 @@ const navGroups: NavGroup[] = [
           { name: 'Đóng Góp Câu Lệnh Mới', href: '/submit', desc: 'Chia sẻ mẫu câu lệnh hiệu quả của bạn với cộng đồng', icon: PlusCircle },
         ],
       },
-      {
-        label: 'Tài liệu Kỹ thuật & Hệ sinh thái',
-        audience: 'builder',
-        items: [
-          { name: 'Quy Trình AI Đa Nhiệm', href: '/workflows', desc: 'Sơ đồ phối hợp nhiều bước tự động hóa dự án', icon: FileCode },
-          { name: 'Cẩm Nang Thực Chiến', href: '/playbooks', desc: 'Phương pháp kiểm soát chất lượng & an toàn AI', icon: BookOpen },
-          { name: 'Sổ Tay Tra Cứu Nhanh', href: '/cheatsheet', desc: 'Tham số nhiệt độ, cấu trúc JSON & mẹo kỹ thuật', icon: FileText },
-          { name: 'Dự Án Nghiên Cứu Mở', href: '/ecosystem', desc: '9 công trình mã nguồn mở & kiểm định hệ thống', icon: FolderGit2 },
-        ],
-      },
     ],
   },
+]
+
+// Menu mobile: chỉ 6 link chính, còn lại gom vào "Xem thêm".
+const mobileMainLinks: NavItem[] = [
+  { name: 'Trang chủ', href: '/', desc: '', icon: Home },
+  { name: 'AI Workspace', href: '/workspace', desc: '', icon: Play },
+  { name: 'Làm việc', href: '/ai-work', desc: '', icon: Briefcase },
+  { name: 'Thư viện câu lệnh', href: '/prompts', desc: '', icon: Sparkles },
+  { name: 'Khám phá', href: '/resources', desc: '', icon: BookOpen },
+  { name: 'Tổng quan', href: '/dashboard', desc: '', icon: LayoutDashboard },
 ]
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showAllMobileNav, setShowAllMobileNav] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false)
   const pathname = usePathname()
@@ -157,6 +138,7 @@ export function Header() {
 
   useEffect(() => {
     setMobileMenuOpen(false)
+    setShowAllMobileNav(false)
     setActiveDropdown(null)
   }, [pathname])
 
@@ -212,7 +194,7 @@ export function Header() {
               </div>
             </Link>
 
-            {/* Desktop Navigation: Trang chủ -> AI Work -> AI Workspace -> Builder Lab -> Khám phá -> Tài khoản */}
+            {/* Desktop Navigation: Trang chủ -> Làm việc -> Khám phá -> Tổng quan -> Tài khoản */}
             <div ref={dropdownRef} className="hidden lg:flex items-center gap-1">
               <Link
                 href="/"
@@ -226,7 +208,7 @@ export function Header() {
                 Trang chủ
               </Link>
 
-              {/* AI Work Dropdown */}
+              {/* Làm việc Dropdown */}
               {(() => {
                 const group = navGroups[0]
                 const isOpen = activeDropdown === group.name
@@ -294,21 +276,7 @@ export function Header() {
                 )
               })()}
 
-              {/* Highlighted AI Workspace Pillar Link */}
-              <Link
-                href="/workspace"
-                className={clsx(
-                  'flex items-center gap-1.5 px-3.5 py-1.5 text-sm font-semibold rounded-full transition-all mx-0.5',
-                  pathname === '/workspace'
-                    ? 'bg-accent text-white shadow-sm'
-                    : 'bg-accent/10 border border-accent/35 text-accent hover:bg-accent hover:text-white'
-                )}
-              >
-                <Play className="w-3.5 h-3.5" />
-                <span>AI Workspace</span>
-              </Link>
-
-              {/* Builder Lab & Khám phá Dropdowns */}
+              {/* Khám phá Dropdown */}
               {navGroups.slice(1).map((group) => {
                 const isOpen = activeDropdown === group.name
                 const isGroupActive = group.sections.some((sec) =>
@@ -477,64 +445,83 @@ export function Header() {
                 <span>Mở AI Workspace</span>
               </Link>
 
-              <Link
-                href="/dashboard"
-                onClick={() => setMobileMenuOpen(false)}
-                className={clsx(
-                  'flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border text-sm font-semibold transition-all',
-                  pathname === '/dashboard'
-                    ? 'border-accent/40 bg-accent/10 text-accent'
-                    : 'border-border bg-bg text-text'
-                )}
+              {/* 6 link chính trên mobile */}
+              <div className="space-y-1">
+                {mobileMainLinks.map((item) => {
+                  const Icon = item.icon
+                  const isActive = pathname === item.href
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={clsx(
+                        'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                        isActive
+                          ? 'bg-accent/15 text-accent font-semibold'
+                          : 'text-text hover:bg-hover'
+                      )}
+                    >
+                      <Icon className="w-4 h-4 text-accent shrink-0" />
+                      <span>{item.name}</span>
+                    </Link>
+                  )
+                })}
+              </div>
+
+              {/* Xem thêm: toàn bộ menu */}
+              <button
+                type="button"
+                onClick={() => setShowAllMobileNav((prev) => !prev)}
+                aria-expanded={showAllMobileNav}
+                className="flex items-center justify-center gap-1 w-full py-2 px-4 rounded-xl border border-border bg-bg text-xs font-semibold text-text transition-colors"
               >
-                <LayoutDashboard className="w-4 h-4" />
-                <span>Tổng quan</span>
-              </Link>
+                <span>{showAllMobileNav ? 'Thu gọn menu' : 'Xem thêm'}</span>
+                <ChevronDown className={clsx('w-3.5 h-3.5 transition-transform', showAllMobileNav && 'rotate-180')} />
+              </button>
 
-              {navGroups.map((group) => (
-                <div key={group.name} className="space-y-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted px-2 block">
-                    {group.name}
-                  </span>
-                  <div className="space-y-2">
-                    {group.sections.map((section) => (
-                      <div key={section.label} className="space-y-1">
-                        <span
-                          className={clsx(
-                            'text-[10px] font-semibold uppercase tracking-wider px-3 block',
-                            section.audience === 'everyday' ? 'text-accent' : 'text-brand-500'
-                          )}
-                        >
-                          {section.label}
-                        </span>
-                        <div className="grid grid-cols-1 gap-1">
-                          {section.items.map((item) => {
-                            const Icon = item.icon
-                            const isActive = pathname === item.href
-
-                            return (
-                              <Link
-                                key={item.name}
-                                href={item.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={clsx(
-                                  'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all',
-                                  isActive
-                                    ? 'bg-accent/15 text-accent font-semibold'
-                                    : 'text-text hover:bg-hover'
-                                )}
-                              >
-                                <Icon className="w-4 h-4 text-accent shrink-0" />
-                                <span>{item.name}</span>
-                              </Link>
-                            )
-                          })}
-                        </div>
+              {showAllMobileNav && (
+                <div className="space-y-4">
+                  {navGroups.map((group) => (
+                    <div key={group.name} className="space-y-2">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted px-2 block">
+                        {group.name}
+                      </span>
+                      <div className="space-y-2">
+                        {group.sections.map((section) => (
+                          <div key={section.label} className="space-y-1">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider px-3 block text-accent">
+                              {section.label}
+                            </span>
+                            <div className="grid grid-cols-1 gap-1">
+                              {section.items.map((item) => {
+                                const Icon = item.icon
+                                const isActive = pathname === item.href
+                                return (
+                                  <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className={clsx(
+                                      'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                                      isActive
+                                        ? 'bg-accent/15 text-accent font-semibold'
+                                        : 'text-text hover:bg-hover'
+                                    )}
+                                  >
+                                    <Icon className="w-4 h-4 text-accent shrink-0" />
+                                    <span>{item.name}</span>
+                                  </Link>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
 
               <div className="pt-2 border-t border-border grid grid-cols-3 gap-2">
                 <Link

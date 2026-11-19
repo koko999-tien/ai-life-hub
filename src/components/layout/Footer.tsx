@@ -13,8 +13,8 @@ const footerNav = {
     { name: 'Trung tâm Builder Lab', href: '/builder-lab' },
     { name: 'So Sánh Sức Mạnh AI', href: '/compare' },
     { name: 'Tính Chi Phí Sử Dụng AI', href: '/tools/token-calculator' },
-    { name: 'Xưởng Tạo Câu Lệnh Chuẩn', href: '/tools/system-prompt-builder' },
-    { name: 'Tối Ưu Hóa Câu Lệnh', href: '/tools/prompt-optimizer' },
+    { name: 'Tạo System Prompt cho dev', href: '/tools/system-prompt-builder' },
+    { name: 'Viết lại câu lệnh hay hơn', href: '/tools/prompt-optimizer' },
     { name: 'Mẫu Thiết Kế Trợ Lý AI', href: '/agents' },
   ],
   learn: [

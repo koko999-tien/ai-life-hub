@@ -171,7 +171,7 @@ export function AIWorkHub({ skills }: AIWorkHubProps) {
           {[
             { step: 'Bước 1', title: 'Chọn nhóm công việc', desc: 'Xác định đúng nhu cầu thực tế bạn đang cần giải quyết hôm nay.' },
             { step: 'Bước 2', title: 'Xem đầu vào & kết quả', desc: 'Biết trước cần chuẩn bị thông tin gì và AI sẽ trả về định dạng nào.' },
-            { step: 'Bước 3', title: 'Thực thi trong Workspace', desc: 'Chạy quy trình AI ngay trên trang hoặc mở mẫu câu lệnh chi tiết.' },
+            { step: 'Bước 3', title: 'Tạo kết quả trong Workspace', desc: 'Chạy quy trình AI ngay trên trang hoặc mở mẫu câu lệnh chi tiết.' },
             { step: 'Bước 4', title: 'Chỉnh sửa & Lưu lại', desc: 'Biên tập kết quả trực tiếp, tải file Markdown hoặc lưu vào phiên làm việc.' },
           ].map((item) => (
             <div key={item.step} className="p-3.5 rounded-2xl bg-bg border border-border/80">
@@ -360,7 +360,7 @@ export function AIWorkHub({ skills }: AIWorkHubProps) {
                       className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-accent/10 hover:bg-accent text-accent hover:text-white text-xs font-semibold transition-colors"
                     >
                       <Play className="w-3 h-3" />
-                      <span>Thực thi</span>
+                      <span>Tạo ngay</span>
                     </Link>
                   )}
                 </div>

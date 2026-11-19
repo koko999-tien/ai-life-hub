@@ -103,7 +103,7 @@ const BUILDER_TOOLS = [
     primary: false,
   },
   {
-    title: 'Tối Ưu Hóa Câu Lệnh',
+    title: 'Viết lại câu lệnh hay hơn',
     href: '/tools/prompt-optimizer',
     badge: '4 khung chuẩn',
     description:
