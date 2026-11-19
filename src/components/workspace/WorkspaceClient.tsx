@@ -27,9 +27,11 @@ import {
   Send,
   FolderOpen,
   ShieldCheck,
+  ChevronDown,
 } from 'lucide-react';
 import { Button, toast } from '@/components/ui';
 import { SafetyDisclaimer } from '@/components/ui/SafetyDisclaimer';
+import { WorkspaceOnboarding } from '@/components/workspace/WorkspaceOnboarding';
 import type {
   AIWorkflowId,
   AIStreamChunk,
@@ -77,7 +79,7 @@ const WORKFLOW_META: Array<{
   },
   {
     id: 'custom-prompt',
-    title: 'Thực thi Câu lệnh Tùy chọn',
+    title: 'Câu lệnh tùy chọn',
     shortDesc: 'Chạy mẫu từ Thư viện câu lệnh hoặc mẫu cá nhân của bạn',
     icon: Sparkles,
   },
@@ -133,6 +135,12 @@ export function WorkspaceClient() {
   const [statusLoading, setStatusLoading] = useState(true);
   const [selectedModelId, setSelectedModelId] = useState<string>('');
   const [temperature, setTemperature] = useState<number>(0.4);
+  // Chế độ Đơn giản: cài đặt nâng cao (chọn AI, độ sáng tạo, mẫu cá nhân)
+  // mặc định đóng, AI đã tự chọn giúp người dùng.
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
+  // AI chưa bật (đã tải xong trạng thái mà chưa có khóa AI): chặn chạy ngay
+  // từ đầu, không để người dùng điền xong mới báo lỗi.
+  const aiNotReady = !statusLoading && status !== null && !status.configured;
 
   // Auth User (Optional Supabase)
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -418,8 +426,18 @@ export function WorkspaceClient() {
         : customPromptText;
 
     if (!primaryText.trim()) {
-      setErrorBanner('Vui lòng nhập nội dung đầu vào (hoặc bấm "Điền ví dụ mẫu") trước khi thực thi.');
+      setErrorBanner('Vui lòng nhập nội dung đầu vào (hoặc bấm "Điền ví dụ mẫu") trước khi tạo.');
       toast.error('Chưa có nội dung đầu vào để xử lý.');
+      return;
+    }
+
+    // Chặn chạy ngay khi web chưa bật AI: đừng để người dùng mất công
+    // điền form rồi mới nhận lỗi sau khi bấm nút.
+    if (status && !status.configured) {
+      setErrorBanner(
+        'AI trên web chưa bật nên chưa tạo được kết quả. Bạn nhờ người quản trị web thêm khóa AI giúp nhé. Trong lúc chờ, bạn vẫn có thể bấm "Điền ví dụ mẫu" để xem trước cách điền.'
+      );
+      toast.error('AI chưa bật nên chưa tạo được kết quả.');
       return;
     }
 
@@ -729,7 +747,7 @@ export function WorkspaceClient() {
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 border border-accent/25 text-accent text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Trụ cột 2 • AI Workspace Thực Thi Trực Tiếp</span>
+              <span>AI Workspace • Làm việc thật với AI</span>
             </span>
 
             {!statusLoading && status && (
@@ -743,12 +761,12 @@ export function WorkspaceClient() {
                 {status.configured ? (
                   <>
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>Đã kết nối {status.activeProviders.length} nhà cung cấp AI máy chủ</span>
+                    <span>AI đã bật</span>
                   </>
                 ) : (
                   <>
                     <AlertCircle className="w-3.5 h-3.5" />
-                    <span>Chưa cấu hình khóa API máy chủ</span>
+                    <span>AI chưa bật — cần thêm khóa AI</span>
                   </>
                 )}
               </span>
@@ -795,7 +813,7 @@ export function WorkspaceClient() {
         </div>
       </div>
 
-      {/* Honest Server Configuration Warning (if no API keys exist in deployment env) */}
+      {/* Cảnh báo khi AI chưa bật: nói rõ trước khi người dùng điền form */}
       {!statusLoading && status && !status.configured && (
         <div
           role="alert"
@@ -805,31 +823,33 @@ export function WorkspaceClient() {
             <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
             <div className="space-y-1">
               <strong className="font-bold block">
-                Máy chủ hiện chưa được cấp khóa kết nối AI (Không tạo phản hồi giả lập)
+                AI trên web chưa bật — tạm thời chưa tạo được kết quả
               </strong>
               <p className="text-text-muted leading-relaxed">
-                Để thực thi AI trực tiếp tại đây, quản trị viên cần khai báo ít nhất một biến môi trường phía máy chủ (
-                <code className="font-mono text-xs px-1 py-0.5 rounded bg-bg border border-border">GEMINI_API_KEY</code>,{' '}
-                <code className="font-mono text-xs px-1 py-0.5 rounded bg-bg border border-border">OPENAI_API_KEY</code>,{' '}
-                <code className="font-mono text-xs px-1 py-0.5 rounded bg-bg border border-border">ANTHROPIC_API_KEY</code> hoặc{' '}
-                <code className="font-mono text-xs px-1 py-0.5 rounded bg-bg border border-border">OPENROUTER_API_KEY</code>) trong tệp{' '}
-                <code className="font-mono text-xs">.env.local</code> hoặc cấu hình dự án Vercel. Khóa API luôn nằm an toàn trên máy chủ, không bao giờ gửi xuống trình duyệt.
+                Bạn chưa cần điền gì vội. Để chạy được, người quản trị web cần thêm khóa AI cho trang này.
+                Trong lúc chờ, bạn vẫn có thể bấm &ldquo;Điền ví dụ mẫu&rdquo; để xem trước cách điền,
+                hoặc lấy mẫu viết sẵn ở Thư viện câu lệnh.
               </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* 3-Column Desktop / Single-Column Responsive Workspace Grid */}
+      {/* Hướng dẫn 3 bước, chỉ hiện lần đầu vào Workspace */}
+      <WorkspaceOnboarding onFillSample={handleLoadSample} />
+
+      {/* 3-Column Desktop / Single-Column Responsive Workspace Grid.
+          Trên điện thoại: form lên trước, chọn việc thành chip ngang phía trên,
+          cài đặt nâng cao xuống cuối — để người dùng thấy ô nhập và nút Tạo ngay ngay. */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT PANE (3 cols): Workflows & Saved Sessions */}
-        <aside className="lg:col-span-3 space-y-5" aria-label="Quy trình và lịch sử phiên">
+        <aside className="lg:col-span-3 space-y-5 order-2 lg:order-none" aria-label="Quy trình và lịch sử phiên">
           {/* Workflow Switcher */}
           <div className="rounded-2xl border border-border bg-bg-surface p-4 shadow-sm">
             <h2 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3">
-              Chọn Quy Trình Công Việc
+              Chọn việc cần làm
             </h2>
-            <div className="space-y-2" role="tablist" aria-label="Danh sách quy trình AI Workspace">
+            <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0 lg:space-y-2" role="tablist" aria-label="Danh sách quy trình AI Workspace">
               {WORKFLOW_META.map((wf) => {
                 const Icon = wf.icon;
                 const isActive = activeWorkflow === wf.id;
@@ -843,22 +863,22 @@ export function WorkspaceClient() {
                       setActiveWorkflow(wf.id);
                       setErrorBanner(null);
                     }}
-                    className={`w-full text-left p-3 rounded-xl border transition-all flex items-start gap-3 ${
+                    className={`shrink-0 lg:shrink lg:w-full text-left p-3 rounded-xl border transition-all flex items-center lg:items-start gap-3 ${
                       isActive
                         ? 'border-accent bg-accent/10 shadow-2xs'
                         : 'border-border/70 bg-bg hover:border-accent/40'
                     }`}
                   >
                     <div
-                      className={`p-2 rounded-lg shrink-0 mt-0.5 ${
+                      className={`p-2 rounded-lg shrink-0 ${
                         isActive ? 'bg-accent text-white' : 'bg-bg-surface border border-border text-accent'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-xs sm:text-sm font-bold text-text block">{wf.title}</span>
-                      <span className="text-[11px] text-text-muted line-clamp-2 mt-0.5 leading-snug">
+                      <span className="text-xs sm:text-sm font-bold text-text block whitespace-nowrap lg:whitespace-normal">{wf.title}</span>
+                      <span className="hidden lg:block text-[11px] text-text-muted line-clamp-2 mt-0.5 leading-snug">
                         {wf.shortDesc}
                       </span>
                     </div>
@@ -934,7 +954,7 @@ export function WorkspaceClient() {
         </aside>
 
         {/* CENTER PANE (6 cols): Structured Task Input + Streaming / Editable Output */}
-        <div className="lg:col-span-6 space-y-6 min-w-0">
+        <div className="lg:col-span-6 space-y-6 min-w-0 order-1 lg:order-none">
           {/*Contextual Safety Disclaimer when medical/legal/financial content is detected */}
           {detectedSensitiveCategory && (
             <SafetyDisclaimer categoryId={detectedSensitiveCategory} compact />
@@ -946,14 +966,6 @@ export function WorkspaceClient() {
               <h2 className="text-base sm:text-lg font-bold text-text">
                 {WORKFLOW_META.find((w) => w.id === activeWorkflow)?.title}
               </h2>
-              <input
-                type="text"
-                value={sessionTitle}
-                onChange={(e) => setSessionTitle(e.target.value)}
-                placeholder="Đặt tên phiên làm việc (tùy chọn)..."
-                aria-label="Tên phiên làm việc"
-                className="w-full sm:w-60 px-3 py-1.5 rounded-lg border border-border bg-bg text-xs text-text focus:outline-hidden focus:border-accent"
-              />
             </div>
 
             {/* WORKFLOW A: EMAIL ASSISTANT */}
@@ -1228,7 +1240,7 @@ export function WorkspaceClient() {
               </div>
             )}
 
-            {/* Primary Execute / Stop Controls */}
+            {/* Nút tạo kết quả */}
             <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-2">
                 {!isStreaming ? (
@@ -1236,10 +1248,12 @@ export function WorkspaceClient() {
                     type="button"
                     size="lg"
                     onClick={() => handleExecute()}
-                    className="gap-2 bg-accent hover:bg-accent-hover text-white font-semibold shadow-md"
+                    disabled={aiNotReady}
+                    title={aiNotReady ? 'AI chưa bật nên tạm thời chưa tạo được kết quả' : undefined}
+                    className="gap-2 bg-accent hover:bg-accent-hover text-white font-semibold shadow-md disabled:opacity-50"
                   >
                     <Play className="w-4 h-4 fill-current" />
-                    <span>Thực thi ngay</span>
+                    <span>{aiNotReady ? 'AI chưa bật' : 'Tạo ngay'}</span>
                   </Button>
                 ) : (
                   <Button
@@ -1265,7 +1279,7 @@ export function WorkspaceClient() {
               </div>
 
               <span className="text-[11px] text-text-muted">
-                Giới hạn bảo vệ: tối đa {status?.rateLimitPerMinute ?? 15} lượt/phút
+                Mỗi phút chạy tối đa {status?.rateLimitPerMinute ?? 15} lần
               </span>
             </div>
           </div>
@@ -1278,7 +1292,7 @@ export function WorkspaceClient() {
                 {isStreaming && (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent/15 text-accent text-[11px] font-mono font-semibold">
                     <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
-                    Đang truyền phản hồi trực tiếp...
+                    Đang tạo kết quả...
                   </span>
                 )}
               </div>
@@ -1372,9 +1386,9 @@ export function WorkspaceClient() {
               ) : (
                 <div className="py-14 text-center text-xs sm:text-sm text-text-muted space-y-2">
                   <Sparkles className="w-8 h-8 text-accent/50 mx-auto mb-2" />
-                  <p className="font-medium text-text">Sẵn sàng thực thi công việc của bạn</p>
+                  <p className="font-medium text-text">Sẵn sàng tạo kết quả cho bạn</p>
                   <p className="max-w-md mx-auto">
-                    Điền thông tin ở khung phía trên (hoặc bấm <strong>&ldquo;Điền ví dụ mẫu nhanh&rdquo;</strong>) rồi nhấn <strong>&ldquo;Thực thi ngay&rdquo;</strong> để nhận kết quả trực tiếp.
+                    Điền thông tin ở khung phía trên (hoặc bấm <strong>&ldquo;Điền ví dụ mẫu nhanh&rdquo;</strong>) rồi nhấn <strong>&ldquo;Tạo ngay&rdquo;</strong> để nhận kết quả.
                   </p>
                 </div>
               )}
@@ -1432,19 +1446,51 @@ export function WorkspaceClient() {
           </div>
         </div>
 
-        {/* RIGHT PANE (3 cols): Model Configuration & Personal Templates */}
-        <aside className="lg:col-span-3 space-y-5" aria-label="Cấu hình mô hình và mẫu cá nhân">
-          {/* Model & Parameter Settings */}
-          <div className="rounded-2xl border border-border bg-bg-surface p-4 shadow-sm space-y-4">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
-              <Sliders className="w-3.5 h-3.5 text-brand-500" />
-              Cấu Hình Thực Thi
-            </h2>
+        {/* RIGHT PANE (3 cols): Cài đặt nâng cao — mặc định đóng, AI đã tự chọn giúp bạn */}
+        <aside className="lg:col-span-3 space-y-5 order-3 lg:order-none" aria-label="Cài đặt nâng cao">
+          <div className="rounded-2xl border border-border bg-bg-surface shadow-sm overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setShowAdvancedSettings((prev) => !prev)}
+              aria-expanded={showAdvancedSettings}
+              className="w-full flex items-center justify-between gap-2 p-4 text-left hover:bg-hover transition-colors"
+            >
+              <span className="text-xs font-bold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
+                <Sliders className="w-3.5 h-3.5 text-brand-500" />
+                Cài đặt nâng cao
+              </span>
+              <ChevronDown
+                className={`w-4 h-4 text-text-muted transition-transform ${showAdvancedSettings ? 'rotate-180' : ''}`}
+              />
+            </button>
+            {!showAdvancedSettings && (
+              <p className="px-4 pb-4 text-[11px] text-text-muted leading-relaxed">
+                AI đã tự chọn giúp bạn. Chỉ mở mục này khi bạn muốn tự chọn AI, chỉnh độ sáng tạo hay đặt tên cho phiên làm việc.
+              </p>
+            )}
+            {showAdvancedSettings && (
+              <div className="px-4 pb-4 pt-1 space-y-4 border-t border-border">
+                <div>
+                  <label htmlFor="ws-session-title" className="block text-xs font-semibold text-text mb-1.5">
+                    Tên phiên làm việc (tùy chọn)
+                  </label>
+                  <input
+                    id="ws-session-title"
+                    type="text"
+                    value={sessionTitle}
+                    onChange={(e) => setSessionTitle(e.target.value)}
+                    placeholder="VD: Email xin gia hạn nộp báo cáo"
+                    className="w-full px-3 py-2 rounded-xl border border-border bg-bg text-xs text-text focus:outline-hidden focus:border-accent"
+                  />
+                </div>
 
-            <div>
-              <label htmlFor="ws-model-select" className="block text-xs font-semibold text-text mb-1.5">
-                Mô hình AI xử lý
-              </label>
+                <div>
+                  <label htmlFor="ws-model-select" className="block text-xs font-semibold text-text mb-1.5">
+                    AI sẽ dùng
+                  </label>
+                  <p className="text-[11px] text-text-muted mb-1.5">
+                    Đã tự chọn giúp bạn — muốn đổi thì chọn lại ở đây.
+                  </p>
               {status?.availableModels && status.availableModels.length > 0 ? (
                 <select
                   id="ws-model-select"
@@ -1473,7 +1519,7 @@ export function WorkspaceClient() {
             <div>
               <div className="flex items-center justify-between text-xs mb-1">
                 <label htmlFor="ws-temperature" className="font-semibold text-text">
-                  Độ sáng tạo (Temperature)
+                  Độ sáng tạo
                 </label>
                 <span className="font-mono font-bold text-accent">{temperature}</span>
               </div>
@@ -1501,14 +1547,13 @@ export function WorkspaceClient() {
                 So sánh mô hình
               </Link>
             </div>
-          </div>
 
-          {/* Personal Saved Templates Quick Load */}
-          <div className="rounded-2xl border border-border bg-bg-surface p-4 shadow-sm space-y-3">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-text-muted">
-                Mẫu Cá Nhân ({personalTemplates.length})
-              </h2>
+            {/* Mẫu cá nhân */}
+            <div className="pt-3 border-t border-border space-y-3">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-text-muted">
+                  Mẫu cá nhân của bạn ({personalTemplates.length})
+                </h2>
               <Link href="/prompts" className="text-[11px] font-semibold text-accent hover:underline">
                 + Thư viện 80+
               </Link>
@@ -1538,8 +1583,38 @@ export function WorkspaceClient() {
                 ))}
               </div>
             )}
+            </div>
+            </div>
+            )}
           </div>
         </aside>
+      </div>
+
+      {/* Nút Tạo ngay luôn thấy ở cuối màn hình trên điện thoại */}
+      <div className="sticky bottom-3 z-40 mt-6 lg:hidden">
+        {!isStreaming ? (
+          <Button
+            type="button"
+            size="lg"
+            onClick={() => handleExecute()}
+            disabled={aiNotReady}
+            className="w-full gap-2 bg-accent hover:bg-accent-hover text-white font-semibold shadow-lg disabled:opacity-50"
+          >
+            <Play className="w-4 h-4 fill-current" />
+            <span>{aiNotReady ? 'AI chưa bật — chưa tạo được' : 'Tạo ngay'}</span>
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            size="lg"
+            variant="outline"
+            onClick={handleStopStreaming}
+            className="w-full gap-2 border-red-500/50 bg-bg text-red-600 dark:text-red-400 shadow-lg"
+          >
+            <Square className="w-4 h-4 fill-current" />
+            <span>Dừng tạo</span>
+          </Button>
+        )}
       </div>
     </div>
   );

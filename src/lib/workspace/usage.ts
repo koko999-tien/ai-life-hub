@@ -15,7 +15,7 @@ export const WORKFLOW_LABELS: Record<AIWorkflowId, string> = {
   'email-assistant': 'Trợ lý Email AI',
   'meeting-summary': 'Tóm tắt Cuộc họp',
   'document-analysis': 'Phân tích Tài liệu',
-  'custom-prompt': 'Thực thi Câu lệnh Tùy chọn',
+  'custom-prompt': 'Câu lệnh tùy chọn',
 };
 
 export function getWorkflowLabel(workflowId: AIWorkflowId): string {

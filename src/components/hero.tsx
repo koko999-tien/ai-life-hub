@@ -9,21 +9,16 @@ import {
   Command,
   CheckCircle2,
   Briefcase,
-  Laptop,
   Copy,
   Check,
-  Cpu,
-  DollarSign,
   Play,
   Mail,
   FileCheck2,
   FileSearch,
 } from 'lucide-react';
-import { clsx } from 'clsx';
 import { toast } from 'sonner';
 
 export function Hero() {
-  const [activePreviewTab, setActivePreviewTab] = useState<'office' | 'builder'>('office');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleOpenSearch = () => {
@@ -72,7 +67,7 @@ Trân trọng,
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
             </span>
             <span className="text-xs font-medium text-text-muted group-hover:text-text transition-colors">
-              Mới: <strong className="text-text font-semibold">AI Workspace thực thi trực tiếp Email, Tóm tắt họp &amp; Phân tích tài liệu</strong>
+              Mới: <strong className="text-text font-semibold">AI Workspace — soạn email, tóm tắt họp &amp; phân tích tài liệu ngay trên trình duyệt</strong>
             </span>
             <ArrowRight className="w-3.5 h-3.5 text-accent group-hover:translate-x-0.5 transition-all" />
           </Link>
@@ -89,32 +84,33 @@ Trân trọng,
             Không gian làm việc AI tiếng Việt giúp người đi làm soạn email, tổng hợp biên bản họp và phân tích tài liệu ngay trên trình duyệt — đi kèm thư viện 80+ câu lệnh thực chiến và phòng công cụ kỹ thuật cho lập trình viên.
           </p>
 
-          {/* Primary + Secondary + Builder CTAs */}
+          {/* 1 nút chính duy nhất + link phụ */}
           <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
             <Link
-              href="/workspace"
+              href="/workspace?workflow=email-assistant"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-accent hover:bg-accent-hover shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_-4px_rgba(249,115,22,0.4)] hover:-translate-y-0.5 transition-all duration-fast"
             >
               <Play className="w-4 h-4" />
-              <span>Khám phá AI Workspace</span>
+              <span>Bắt đầu — Soạn email đầu tiên</span>
             </Link>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-6 text-xs sm:text-sm">
             <Link
               href="/prompts"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-text bg-bg-surface hover:bg-hover border border-border hover:border-accent/50 shadow-2xs hover:-translate-y-0.5 transition-all duration-fast"
+              className="inline-flex items-center gap-1 font-medium text-text-muted hover:text-accent transition-colors"
             >
               <span>Khám phá thư viện AI</span>
-              <ArrowRight className="w-4 h-4 text-accent" />
+              <ArrowRight className="w-3.5 h-3.5 text-accent" />
             </Link>
             <Link
               href="/builder-lab"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-semibold text-text-muted hover:text-text bg-bg/70 hover:bg-hover border border-border/80 hover:border-brand-500/50 transition-all duration-fast"
+              className="inline-flex items-center gap-1 font-medium text-text-muted hover:text-text transition-colors"
             >
-              <Laptop className="w-4 h-4 text-brand-500" />
               <span>Builder Lab cho Kỹ thuật</span>
             </Link>
             <a
               href="#audience-heading"
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs sm:text-sm font-medium text-text-muted hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1 font-medium text-text-muted hover:text-accent transition-colors"
             >
               <span>Chọn lộ trình của bạn ↓</span>
             </a>
@@ -143,36 +139,12 @@ Trân trọng,
 
           {/* Interactive Product Experience Preview Card */}
           <div className="relative mx-auto max-w-3xl rounded-3xl border border-border bg-bg-surface shadow-2xl backdrop-blur-xl overflow-hidden text-left mb-0">
-            {/* Tab Header Switcher */}
+            {/* Preview Header */}
             <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-b border-border bg-bg/80">
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setActivePreviewTab('office')}
-                  className={clsx(
-                    'flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all',
-                    activePreviewTab === 'office'
-                      ? 'bg-accent text-white shadow-2xs'
-                      : 'text-text-muted hover:text-text hover:bg-hover'
-                  )}
-                >
-                  <Briefcase className="w-3.5 h-3.5" />
-                  <span>Người đi làm (Trải nghiệm AI Workspace)</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActivePreviewTab('builder')}
-                  className={clsx(
-                    'flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all',
-                    activePreviewTab === 'builder'
-                      ? 'bg-brand-500 text-white shadow-2xs'
-                      : 'text-text-muted hover:text-text hover:bg-hover'
-                  )}
-                >
-                  <Laptop className="w-3.5 h-3.5" />
-                  <span>Lập trình viên &amp; Kỹ thuật (Builder Lab)</span>
-                </button>
-              </div>
+              <span className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-text">
+                <Briefcase className="w-3.5 h-3.5 text-accent" />
+                <span>Người đi làm (Trải nghiệm AI Workspace)</span>
+              </span>
 
               <div className="hidden sm:flex items-center gap-2">
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono font-medium">
@@ -182,8 +154,7 @@ Trân trọng,
               </div>
             </div>
 
-            {/* Tab 1 Content: AI Workspace Workflow Preview */}
-            {activePreviewTab === 'office' && (
+            {/* AI Workspace Workflow Preview */}
               <div className="p-5 sm:p-6 space-y-4">
                 {/* 3 Workspace Workflows Quick Launcher */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -267,63 +238,13 @@ Trân trọng,
                   </pre>
                 </div>
               </div>
-            )}
-
-            {/* Tab 2 Content: Builder / Developer Preview */}
-            {activePreviewTab === 'builder' && (
-              <div className="p-5 sm:p-6 space-y-4">
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <div className="rounded-xl border border-border bg-bg p-3.5 space-y-1.5">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-500 flex items-center gap-1.5">
-                      <Cpu className="w-3.5 h-3.5" />
-                      Chỉ dẫn hệ thống (System Prompt)
-                    </span>
-                    <p className="text-xs text-text-muted">
-                      Thiết kế vai trò, ràng buộc chống bịa đặt và định dạng đầu ra chuẩn xác cho Claude Sonnet 4.6, GPT-4.1, Gemini 2.5 Pro.
-                    </p>
-                    <div className="font-mono text-[11px] text-emerald-700 dark:text-emerald-400 bg-bg-surface p-2.5 rounded-lg border border-border mt-1 space-y-1">
-                      <div>&lt;identity&gt;Kiến trúc sư phần mềm cấp cao&lt;/identity&gt;</div>
-                      <div>&lt;strict_constraints&gt;Không bao giờ tự bịa số liệu&lt;/strict_constraints&gt;</div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-xl border border-border bg-bg p-3.5 space-y-1.5">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-accent flex items-center gap-1.5">
-                      <DollarSign className="w-3.5 h-3.5" />
-                      Đơn giá Token xác thực &amp; quy đổi VNĐ
-                    </span>
-                    <p className="text-xs text-text-muted">
-                      Tính cước API theo biểu giá hãng công bố (tỷ giá dự toán cấu hình thủ công 25.450 VNĐ/USD):
-                    </p>
-                    <div className="font-mono text-[11px] text-accent bg-bg-surface p-2.5 rounded-lg border border-border mt-1 font-bold">
-                      Gemini 2.5 Flash: $0.30 đầu vào / $2.50 đầu ra trên 1M token
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-border">
-                  <span className="text-xs text-text-muted">
-                    Gồm bảng đối chiếu 16 mô hình có nguồn dẫn, máy tính Prompt Caching và 14 mẫu Trợ lý AI.
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Link
-                      href="/compare"
-                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border border-border bg-bg hover:border-brand-500/50 text-text transition-all"
-                    >
-                      <span>So sánh mô hình</span>
-                    </Link>
-                    <Link
-                      href="/tools/system-prompt-builder"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-500 hover:bg-brand-600 text-white transition-all shadow-2xs"
-                    >
-                      <span>Mở xưởng tạo chỉ dẫn AI</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
+          <p className="mt-4 text-center text-xs text-text-muted">
+            Bạn là lập trình viên?{' '}
+            <Link href="/builder-lab" className="font-semibold text-brand-500 hover:underline">
+              Xem Builder Lab →
+            </Link>
+          </p>
         </div>
       </div>
     </section>

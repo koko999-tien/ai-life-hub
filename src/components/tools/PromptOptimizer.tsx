@@ -224,7 +224,7 @@ Yêu cầu: ${rawPrompt}
           <span>Trợ lý nâng cấp câu lệnh</span>
         </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight text-text mb-4">
-          Tối Ưu Hóa Câu Lệnh
+          Viết lại câu lệnh hay hơn
         </h1>
         <p className="text-base sm:text-lg text-text-muted leading-relaxed">
           Biến ý tưởng ngắn gọn thành câu lệnh đầy đủ vai trò, ngữ cảnh và quy tắc — giúp cả người mới viết email, lập kế hoạch lẫn lập trình viên nhận kết quả AI sát ý ngay lần đầu.
