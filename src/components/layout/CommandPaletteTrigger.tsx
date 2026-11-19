@@ -27,7 +27,7 @@ export function CommandPaletteTrigger({
       type="button"
       onClick={handleClick}
       className={clsx(
-        'flex items-center gap-2.5 px-3 py-1.5 rounded-lg transition-all duration-fast text-xs font-medium',
+        'flex min-h-11 items-center gap-2.5 px-3 py-1.5 rounded-lg transition-all duration-fast text-xs font-medium',
         'bg-bg-surface/80 hover:bg-hover text-text-muted hover:text-text border border-border shadow-2xs hover:border-accent/40',
         'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-bg',
         className

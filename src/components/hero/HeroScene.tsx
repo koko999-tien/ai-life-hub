@@ -47,10 +47,12 @@ function Bubble({
   spec,
   layer,
   reduced,
+  compact,
 }: {
   spec: BubbleSpec;
   layer: (typeof FLOAT_LAYERS)[number];
   reduced: boolean;
+  compact: boolean;
 }) {
   const groupRef = useRef<THREE.Group>(null!);
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -68,7 +70,8 @@ function Bubble({
   return (
     <group ref={groupRef} position={spec.position}>
       <mesh ref={meshRef} scale={spec.scale}>
-        <sphereGeometry args={[1, 48, 48]} />
+        {/* Màn hình nhỏ: ít đỉnh hơn cho nhẹ GPU (32 thay vì 48). */}
+        <sphereGeometry args={[1, compact ? 32 : 48, compact ? 32 : 48]} />
         <MeshDistortMaterial
           color={spec.color}
           distort={0.25}
@@ -86,9 +89,11 @@ function Bubble({
 function Centerpiece({
   reduced,
   scrollYProgress,
+  compact,
 }: {
   reduced: boolean;
   scrollYProgress?: MotionValue<number>;
+  compact: boolean;
 }) {
   const group = useRef<THREE.Group>(null!);
   const knot = useRef<THREE.Mesh>(null!);
@@ -111,7 +116,10 @@ function Centerpiece({
     <group ref={group}>
       <Float speed={1.6} rotationIntensity={0.3} floatIntensity={1}>
         <mesh ref={knot}>
-          <torusKnotGeometry args={[0.85, 0.3, 160, 20]} />
+          {/* Màn hình nhỏ: ít đoạn hơn cho nhẹ GPU. */}
+          <torusKnotGeometry
+            args={[0.85, 0.3, compact ? 96 : 160, compact ? 12 : 20]}
+          />
           <MeshDistortMaterial
             color="#8b5cf6"
             distort={0.3}
@@ -123,12 +131,13 @@ function Centerpiece({
           />
         </mesh>
       </Float>
-      {BUBBLES.map((bubble, i) => (
+      {(compact ? BUBBLES.slice(0, 4) : BUBBLES).map((bubble, i) => (
         <Bubble
           key={i}
           spec={bubble}
           layer={FLOAT_LAYERS[i % FLOAT_LAYERS.length]}
           reduced={reduced}
+          compact={compact}
         />
       ))}
     </group>
@@ -168,10 +177,18 @@ export default function HeroScene({
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
+  // Màn hình nhỏ (<=640px): dpr tối đa 1, 4 bong bóng thay vì 6, hình học
+  // ít đỉnh hơn — nhẹ GPU và pin hơn. Chỉ giảm tải lúc chạy, không đổi
+  // kích thước chunk tải về (xem hero.tsx về việc tải chunk lúc rảnh).
+  const [compact] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(max-width: 640px)').matches
+  );
 
   return (
     <Canvas
-      dpr={[1, 1.75]}
+      dpr={compact ? [1, 1] : [1, 1.75]}
       camera={{ position: [0, 0, 6], fov: 45 }}
       aria-hidden="true"
     >
@@ -180,7 +197,11 @@ export default function HeroScene({
       <pointLight position={[-4, -2, 2]} intensity={0.8} color="#ff8f7a" />
       <pointLight position={[4, -3, 1]} intensity={0.8} color="#2dd4bf" />
       <CameraRig reduced={reduced} scrollYProgress={scrollYProgress} />
-      <Centerpiece reduced={reduced} scrollYProgress={scrollYProgress} />
+      <Centerpiece
+        reduced={reduced}
+        scrollYProgress={scrollYProgress}
+        compact={compact}
+      />
     </Canvas>
   );
 }

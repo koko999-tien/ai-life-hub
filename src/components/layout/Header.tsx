@@ -416,7 +416,7 @@ export function Header() {
               <ThemeToggle />
               <button
                 type="button"
-                className="p-2 text-text-muted hover:text-text transition-colors rounded-lg border border-border"
+                className="flex min-h-11 min-w-11 items-center justify-center p-2.5 text-text-muted hover:text-text transition-colors rounded-lg border border-border"
                 aria-expanded={mobileMenuOpen}
                 aria-label={mobileMenuOpen ? 'Đóng menu điều hướng' : 'Mở menu điều hướng'}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -441,7 +441,7 @@ export function Header() {
               <Link
                 href="/workspace"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-accent text-white text-sm font-semibold shadow-sm"
+                className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-accent text-white text-sm font-semibold shadow-sm"
               >
                 <Play className="w-4 h-4" />
                 <span>Mở AI Workspace</span>
@@ -458,7 +458,7 @@ export function Header() {
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={clsx(
-                        'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                        'flex items-center gap-2.5 px-3 py-3 rounded-lg text-sm font-medium transition-all',
                         isActive
                           ? 'bg-accent/15 text-accent font-semibold'
                           : 'text-text hover:bg-hover'
@@ -476,7 +476,7 @@ export function Header() {
                 type="button"
                 onClick={() => setShowAllMobileNav((prev) => !prev)}
                 aria-expanded={showAllMobileNav}
-                className="flex items-center justify-center gap-1 w-full py-2 px-4 rounded-xl border border-border bg-bg text-xs font-semibold text-text transition-colors"
+                className="flex items-center justify-center gap-1 w-full py-3 px-4 rounded-xl border border-border bg-bg text-xs font-semibold text-text transition-colors"
               >
                 <span>{showAllMobileNav ? 'Thu gọn menu' : 'Xem thêm'}</span>
                 <ChevronDown className={clsx('w-3.5 h-3.5 transition-transform', showAllMobileNav && 'rotate-180')} />
@@ -505,7 +505,7 @@ export function Header() {
                                     href={item.href}
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={clsx(
-                                      'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                                      'flex items-center gap-2.5 px-3 py-3 rounded-lg text-sm font-medium transition-all',
                                       isActive
                                         ? 'bg-accent/15 text-accent font-semibold'
                                         : 'text-text hover:bg-hover'
@@ -529,7 +529,7 @@ export function Header() {
                 <Link
                   href="/account"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg border border-border bg-bg text-xs font-medium text-text"
+                  className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-lg border border-border bg-bg text-xs font-medium text-text"
                 >
                   <User className="w-3.5 h-3.5 text-accent" />
                   <span>Tài khoản</span>
@@ -537,7 +537,7 @@ export function Header() {
                 <Link
                   href="/favorites"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg border border-border bg-bg text-xs font-medium text-text"
+                  className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-lg border border-border bg-bg text-xs font-medium text-text"
                 >
                   <Bookmark className="w-3.5 h-3.5 text-accent" />
                   <span>Yêu thích</span>
@@ -545,7 +545,7 @@ export function Header() {
                 <Link
                   href="/submit"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg border border-accent/40 bg-accent/10 text-accent text-xs font-semibold"
+                  className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-lg border border-accent/40 bg-accent/10 text-accent text-xs font-semibold"
                 >
                   <PlusCircle className="w-3.5 h-3.5" />
                   <span>Đóng góp</span>

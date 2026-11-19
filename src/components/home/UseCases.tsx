@@ -53,7 +53,7 @@ const CASES = [
 export function UseCases() {
   return (
     <section
-      className="relative overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
+      className="relative scroll-mt-28 overflow-hidden bg-navy-950 py-16 text-white sm:py-20"
       aria-labelledby="use-cases-heading"
     >
       <div className="container relative mx-auto px-section-x">

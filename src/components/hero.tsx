@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import {
@@ -28,9 +28,8 @@ import {
 // Cảnh 3D chỉ tải khi vào trang chủ, không làm chậm các trang khác.
 // Trong lúc chờ, hiện skeleton shimmer trên nền gradient tĩnh đã có sẵn
 // phía sau (không để trống như chữ "Đang tải hiệu ứng 3D…" trước đây).
-const HeroScene = dynamic(() => import('@/components/hero/HeroScene'), {
-  ssr: false,
-  loading: () => (
+function HeroSceneSkeleton() {
+  return (
     <div
       className="relative h-full overflow-hidden"
       role="status"
@@ -41,7 +40,12 @@ const HeroScene = dynamic(() => import('@/components/hero/HeroScene'), {
       <div className="animate-shimmer shimmer-sweep absolute inset-0" />
       <span className="sr-only">Đang tải hiệu ứng 3D…</span>
     </div>
-  ),
+  );
+}
+
+const HeroScene = dynamic(() => import('@/components/hero/HeroScene'), {
+  ssr: false,
+  loading: () => <HeroSceneSkeleton />,
 });
 
 const CTA_HREF = '/workspace?workflow=email-assistant';
@@ -58,15 +62,20 @@ const CTA_HREF = '/workspace?workflow=email-assistant';
  * Tôn trọng prefers-reduced-motion: hiển thị bản tĩnh, không ghim cuộn.
  */
 
-const EASE_SIGNATURE: [number, number, number, number] = [0.2, 0, 0.2, 1];
-// Cùng đường cong chữ ký nhưng dạng hàm easing, để dùng cho useTransform
+// Đường cong easing chữ ký dạng hàm, để dùng cho useTransform
 // (TransformOptions.ease chỉ nhận EasingFunction).
 const EASE_SIGNATURE_FN = cubicBezier(0.2, 0, 0.2, 1);
 
 /**
  * Một nhịp vào màn trong hero: fade + trồi 24px, 300ms, easing chữ ký.
- * Khi reduced-motion thì hiện tĩnh. Các nhịp cách nhau 70ms, tổng
- * stagger 420ms (<500ms theo skill); hero dẫn đầu, phần tử phụ vào sau.
+ * Các nhịp cách nhau 70ms, tổng stagger 420ms (<500ms theo skill); hero
+ * dẫn đầu, phần tử phụ vào sau.
+ *
+ * Dùng animation CSS thuần (không dùng motion initial/animate): motion
+ * render `opacity: 0` ngay trong HTML SSR, nên tiêu đề và đoạn mô tả
+ * chỉ hiện sau khi JS tải xong và hydrate — tải lạnh hero trống ~5s
+ * chỉ còn nền tối. Animation CSS chạy ngay khi stylesheet tải xong,
+ * tiêu đề hiện cả khi JS còn đang tải; 3D vẫn tải sau như cũ.
  */
 function Rise({
   children,
@@ -80,14 +89,12 @@ function Rise({
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay, ease: EASE_SIGNATURE }}
+    <div
+      className={className ? `hero-rise ${className}` : 'hero-rise'}
+      style={{ animationDelay: `${delay}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -172,13 +179,13 @@ function HeroIntro() {
       </div>
       </Rise>
 
-      {/* Quick Search Trigger Bar */}
+      {/* Quick Search Trigger Bar — nút bấm cao 44px để chạm thoải mái. */}
       <Rise delay={0.35}>
       <div className="mx-auto mb-8 max-w-md">
         <button
           type="button"
           onClick={handleOpenSearch}
-          className="group flex w-full items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 text-left text-sm shadow-2xs backdrop-blur-md transition-all hover:border-white/30 hover:bg-white/15 hover:shadow-sm"
+          className="group flex min-h-11 w-full items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-left text-sm shadow-2xs backdrop-blur-md transition-all hover:border-white/30 hover:bg-white/15 hover:shadow-sm"
           aria-label="Tìm kiếm nhanh toàn bộ kỹ năng, câu lệnh và công cụ"
         >
           <div className="flex min-w-0 items-center gap-2.5 text-white/70 group-hover:text-white">
@@ -219,14 +226,15 @@ function HeroIntro() {
 function WorkspaceMockup() {
   return (
     <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-white/15 bg-navy-950 text-left shadow-2xl">
-      {/* Thanh trình duyệt */}
-      <div className="flex items-center gap-3 border-b border-white/10 bg-navy-900/80 px-4 py-3">
+      {/* Thanh trình duyệt — nền ĐẶC, không trong suốt: chữ luôn đọc được,
+          hình 3D phía sau không lộ qua (ghi chú kiểm chứng lần 4). */}
+      <div className="flex items-center gap-3 border-b border-white/10 bg-navy-900 px-4 py-3">
         <span className="flex gap-1.5" aria-hidden="true">
           <span className="h-2.5 w-2.5 rounded-full bg-peach-400" />
           <span className="h-2.5 w-2.5 rounded-full bg-aqua-400" />
           <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
         </span>
-        <span className="mx-auto flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-white/70">
+        <span className="mx-auto flex items-center gap-1.5 rounded-full bg-navy-800 px-3 py-1 text-[11px] font-medium text-white/70">
           <Lock className="h-3 w-3 text-aqua-300" />
           ai-life-hub-omega.vercel.app/workspace
         </span>
@@ -237,7 +245,7 @@ function WorkspaceMockup() {
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
           <Link
             href="/workspace?workflow=email-assistant"
-            className="flex items-center gap-2.5 rounded-xl border border-accent/40 bg-accent/15 p-2.5 transition-colors hover:bg-accent/25"
+            className="flex items-center gap-2.5 rounded-xl border border-accent/40 bg-navy-800 p-2.5 transition-colors hover:bg-navy-800/70"
           >
             <Mail className="h-4 w-4 shrink-0 text-peach-300" />
             <span className="min-w-0">
@@ -251,7 +259,7 @@ function WorkspaceMockup() {
           </Link>
           <Link
             href="/workspace?workflow=meeting-summary"
-            className="flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/5 p-2.5 transition-colors hover:border-white/30"
+            className="flex items-center gap-2.5 rounded-xl border border-white/15 bg-navy-800 p-2.5 transition-colors hover:border-white/30"
           >
             <FileCheck2 className="h-4 w-4 shrink-0 text-emerald-400" />
             <span className="min-w-0">
@@ -265,7 +273,7 @@ function WorkspaceMockup() {
           </Link>
           <Link
             href="/workspace?workflow=document-analysis"
-            className="flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/5 p-2.5 transition-colors hover:border-white/30"
+            className="flex items-center gap-2.5 rounded-xl border border-white/15 bg-navy-800 p-2.5 transition-colors hover:border-white/30"
           >
             <FileSearch className="h-4 w-4 shrink-0 text-brand-300" />
             <span className="min-w-0">
@@ -279,8 +287,8 @@ function WorkspaceMockup() {
           </Link>
         </div>
 
-        {/* Ví dụ đầu vào */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-3.5">
+        {/* Ví dụ đầu vào — nền đặc */}
+        <div className="rounded-xl border border-white/10 bg-navy-800 p-3.5">
           <span className="mb-1 block text-[11px] font-semibold tracking-wider text-aqua-300 uppercase">
             Ví dụ đầu vào công việc thực tế:
           </span>
@@ -290,8 +298,8 @@ function WorkspaceMockup() {
           </p>
         </div>
 
-        {/* Kết quả mẫu rút gọn */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        {/* Kết quả mẫu rút gọn — nền đặc */}
+        <div className="rounded-xl border border-white/10 bg-navy-800 p-4">
           <span className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-300">
             <Sparkles className="h-3.5 w-3.5" />
             Kết quả mẫu:
@@ -303,7 +311,7 @@ function WorkspaceMockup() {
           </p>
           <Link
             href={CTA_HREF}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+            className="mt-3 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-emerald-600 px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
           >
             <Play className="h-3 w-3" />
             Tạo bản của bạn
@@ -318,6 +326,30 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const [mockActive, setMockActive] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
+
+  // Chunk 3D nặng (~900KB, ~238KB gzip) chỉ bắt đầu tải khi trình duyệt
+  // rảnh sau khi trang đã hiện chữ và tương tác được — không tranh băng
+  // thông/CPU với hydration lúc tải đầu. Skeleton shimmer che trong lúc
+  // chờ; requestIdleCallback tối đa 1.5s, trình duyệt cũ dùng setTimeout.
+  useEffect(() => {
+    let cancelled = false;
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const start = () => {
+      if (!cancelled) setSceneReady(true);
+    };
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(start, { timeout: 1500 });
+    } else {
+      timeoutId = setTimeout(start, 300);
+    }
+    return () => {
+      cancelled = true;
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
+  }, []);
 
   // Hero ghim dài 320vh; sticky 100svh. Các giai đoạn XẾP NỐI TIẾP, không
   // chồng nhau (sửa lỗi lần 2: hai tiêu đề chồng nhau thoáng qua khi đổi
@@ -349,10 +381,15 @@ export function Hero() {
     [40, 0, 0, -40],
     { ease: EASE_SIGNATURE_FN }
   );
-  const mockOpacity = useTransform(scrollYProgress, [0.66, 0.78], [0, 1], {
-    ease: EASE_SIGNATURE_FN,
-  });
-  const mockY = useTransform(scrollYProgress, [0.66, 0.78], [80, 0], {
+  // Khung mẫu CHỈ dùng transform (trượt lên + thu nhỏ nhẹ), KHÔNG dùng
+  // opacity: opacity trên phần tử cha làm cả cây con trở nên trong suốt
+  // — kể cả các lớp nền đặc bg-navy-950/900/800 mà PR #4 đã làm — nên
+  // bong bóng 3D tím lộ xuyên qua khung mẫu trong suốt lúc cuộn
+  // 0.66–0.78 (lỗi kiểm chứng PR #4). Trượt từ dưới màn hình lên (y
+  // 105% chiều cao khung ghim → 0): khung mẫu đặc hoàn toàn ở mọi vị
+  // trí cuộn, vẫn không chồng lên tiêu đề giai đoạn 2 (đã ra hẳn ở
+  // 0.64, khung mẫu mới bắt đầu vào ở 0.66).
+  const mockY = useTransform(scrollYProgress, [0.66, 0.78], ['105%', '0%'], {
     ease: EASE_SIGNATURE_FN,
   });
   const mockScale = useTransform(scrollYProgress, [0.66, 0.78], [0.94, 1], {
@@ -401,12 +438,16 @@ export function Hero() {
       className="relative h-[320vh] bg-navy-950 text-white"
       aria-labelledby="hero-heading"
     >
-      <div className="sticky top-0 flex h-svh flex-col overflow-hidden">
+      <div className="sticky top-0 flex h-screen h-svh flex-col overflow-hidden">
         {/* Nền 3D: gradient pastel tĩnh (fallback) + canvas 3D + lớp tối mờ */}
         <div className="absolute inset-0" aria-hidden="true">
           <div className="peach-hero-bg absolute inset-0" />
           <motion.div style={{ scale: sceneScale }} className="absolute inset-0">
-            <HeroScene scrollYProgress={scrollYProgress} />
+            {sceneReady ? (
+              <HeroScene scrollYProgress={scrollYProgress} />
+            ) : (
+              <HeroSceneSkeleton />
+            )}
           </motion.div>
           {/* Lớp tối mờ: chữ luôn đọc được dù cảnh 3D sáng hay bận */}
           <div className="hero-scrim absolute inset-0" />
@@ -437,14 +478,17 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Giai đoạn 3: khung trình duyệt mẫu chứa Workspace */}
+        {/* Giai đoạn 3: khung trình duyệt mẫu chứa Workspace — trượt lên
+            từ dưới màn hình, nền đặc ở mọi vị trí cuộn (không fade
+            opacity, xem ghi chú ở mockY). */}
         <motion.div
-          style={{ opacity: mockOpacity, y: mockY, scale: mockScale }}
+          style={{ y: mockY, scale: mockScale }}
           className={`absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 px-section-x py-16 ${
             mockActive ? '' : 'pointer-events-none'
           }`}
         >
-          <p className="text-center text-xs font-semibold tracking-widest text-aqua-300 uppercase">
+          {/* Nhãn trên nền đặc để chữ luôn đọc rõ dù cảnh 3D bận phía sau. */}
+          <p className="mx-auto w-fit rounded-full bg-navy-950 px-4 py-1.5 text-center text-xs font-semibold tracking-widest text-aqua-300 uppercase">
             Ví dụ: làm việc trong trình duyệt
           </p>
           <WorkspaceMockup />
