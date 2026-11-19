@@ -6,7 +6,7 @@ thi trực tiếp trên máy chủ.
 
 ## Yêu cầu
 
-- Node.js **>= 20.9** (khuyên dùng Node 22, xem `.nvmrc`).
+- Node.js **26.x** (xem `.nvmrc`; Vercel đang dùng 26.x).
 - npm (đi kèm Node).
 
 ## Chạy dự án
