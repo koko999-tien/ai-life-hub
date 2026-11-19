@@ -5,6 +5,7 @@ import { Providers } from '@/components/layout/Providers';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { LiveThemeBackdrop } from '@/components/theme/LiveThemeBackdrop';
 
 const inter = Inter({
   subsets: ['latin', 'vietnamese'],
@@ -117,6 +118,7 @@ export default function RootLayout({
     <html lang="vi" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen flex flex-col">
         <Providers>
+          <LiveThemeBackdrop />
           <SkipLink />
           <Header />
           <main

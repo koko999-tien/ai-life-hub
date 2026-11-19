@@ -806,6 +806,53 @@
   pointer-events: none;
 }
 
+/* ============================================================================
+   Custom Theme Studio & Pre-Baked Glassmorphism Engine
+   (Ported from furinamikuvn/antigravity-custom-theme-mod)
+   ============================================================================ */
+html[data-custom-preset] {
+  --color-bg: transparent;
+  --color-bg-surface: var(--theme-frame-bg, rgba(15, 20, 35, 0.72));
+  --color-bg-elevated: var(--theme-card-bg, rgba(18, 24, 42, 0.68));
+  --color-bg-hover: rgba(255, 255, 255, 0.08);
+  --color-border: var(--theme-border-color, rgba(234, 179, 8, 0.35));
+  --color-border-light: rgba(255, 255, 255, 0.16);
+  --color-text: #f8fafc;
+  --color-text-muted: #cbd5e1;
+  --color-text-subtle: #94a3b8;
+  --color-accent-fg: var(--color-accent-500);
+}
+
+html[data-custom-preset] body {
+  background-color: #07090f;
+  color: #f8fafc;
+}
+
+html[data-custom-preset] #main-content,
+html[data-custom-preset] footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Translucent Pre-Baked Glass Surfaces (No heavy live backdrop-filter on scrollers) */
+html[data-custom-preset] .card,
+html[data-custom-preset] .glass-card {
+  background-color: var(--theme-card-bg, rgba(18, 24, 42, 0.66)) !important;
+  border-color: var(--theme-border-color, rgba(234, 179, 8, 0.35)) !important;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 10px 30px -10px rgba(0, 0, 0, 0.45),
+    0 0 24px -8px var(--theme-glow, rgba(234, 179, 8, 0.22));
+}
+
+/* Ornamental Double Gold Frame Mode */
+html[data-custom-ornament='true'] .card {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 12px 32px -8px rgba(0, 0, 0, 0.55),
+    0 0 22px -6px var(--theme-glow, rgba(234, 179, 8, 0.28));
+}
+
 @media print {
   .no-print {
     display: none !important;

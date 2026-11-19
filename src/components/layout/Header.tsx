@@ -23,6 +23,7 @@ import {
 import { ThemeToggle } from './ThemeToggle'
 import { CommandPaletteTrigger } from './CommandPaletteTrigger'
 import { CommandPalette } from '@/components/search/CommandPalette'
+import { CustomThemeStudio } from '@/components/theme/CustomThemeStudio'
 import { clsx } from 'clsx'
 
 type NavItem = {
@@ -405,12 +406,14 @@ export function Header() {
               >
                 <Bookmark className="w-4 h-4" />
               </Link>
+              <CustomThemeStudio />
               <ThemeToggle />
             </div>
 
             {/* Mobile Actions */}
             <div className="flex items-center gap-2 lg:hidden">
               <CommandPaletteTrigger isOpen={commandPaletteOpen} onOpen={() => setCommandPaletteOpen(true)} />
+              <CustomThemeStudio />
               <ThemeToggle />
               <button
                 type="button"
